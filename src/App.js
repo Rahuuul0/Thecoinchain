@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import { BrowserRouter as Router,Route, Routes } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import Users from './Pages/User/UserPages';
+import Comman from './Pages/Comman/CommanPages';
+import {  fakeBackend } from './_helpers'
+import { alertAtom } from './_state/';
+import { SnackbarProvider } from 'notistack';
+const App = () => { 
+  const open = useRecoilValue(alertAtom);  
+  // setup fake backend
+  fakeBackend();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+     <Router>
+         <SnackbarProvider  
+         autoHideDuration={1000}        
+         anchorOrigin={{ vertical:'top', horizontal:'right' }}
+         open={open}
+         >
+            <Routes>            
+                  <Route path={`/account`}  element={<Users />}  />      
+                  <Route path="*"  exact element={<Comman />}  />            
+            </Routes> 
+         </SnackbarProvider>
+     </Router> 
   );
-}
+};
 
 export default App;

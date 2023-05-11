@@ -2,33 +2,42 @@ import React from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container, Box, TextField, Typography, Link, Button } from '@mui/material'
 import { useForm } from "react-hook-form";
+import { useUserActions } from "../../_actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
-import LoadingButton from '@mui/lab/LoadingButton';
 
 const theme = createTheme();
 
 const Login = () => {
+
+    const userActions = useUserActions();
+
     const validationSchema = Yup.object().shape({
-        email: Yup.string().required("Email Address / email is required"),
+        email: Yup.string()
+            .email()
+            .trim()
+            .required("Email Address is required"),
         password: Yup.string()
-          .required("Password is required")
-      });    
+            .trim()
+            .required("Password is required")
+    });
 
-        //password eye IconButton
-     const [showPassword, setShowPassword] = React.useState(false);
+    //password eye IconButton
+    const [showPassword, setShowPassword] = React.useState(false);
 
-     const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-      //yup validation
-      const formOptions = { resolver: yupResolver(validationSchema) };
-      // get functions to build form with useForm() hook
-      const { register, handleSubmit, formState } = useForm(formOptions);
-      const { errors, isSubmitting } = formState;
+    //yup validation
+    const formOptions = { resolver: yupResolver(validationSchema) };
+    // get functions to build form with useForm() hook
+    const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
+    const { errors, isSubmitting } = formState;
+
+    const formData = watch();
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -48,11 +57,13 @@ const Login = () => {
                             Welcome back!
                         </Typography>
                         <Box
+                            noValidate
                             component="form"
                             sx={{ mt: '24px' }}
-                            onSubmit={handleSubmit(Login)}
+                            onSubmit={handleSubmit(userActions.login)}
                         >
                             <TextField
+                                onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                 margin="normal"
                                 required
                                 fullWidth
@@ -65,9 +76,12 @@ const Login = () => {
                                 size="small"
                                 autoFocus
                                 className="form-control"
-                                {...register("email")} 
+                                {...register("email")}
                             />
+                            <div style={{ color: "red" }}>{errors.email?.message}
+                            </div>
                             <TextField
+                                onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                 margin="normal"
                                 required
                                 fullWidth
@@ -83,23 +97,26 @@ const Login = () => {
                                 {...register("password")}
                                 InputProps={{
                                     endAdornment: (
-                                      <InputAdornment position="end">
-                                        <IconButton onClick={handleClickShowPassword}>
-                                          {showPassword ? <Visibility /> : <VisibilityOff />}
-                                        </IconButton>
-                                      </InputAdornment>
+                                        <InputAdornment position="end">
+                                            <IconButton onClick={handleClickShowPassword}>
+                                                {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                            </IconButton>
+                                        </InputAdornment>
                                     ),
-                                  }}
+                                }}
                             />
-                            <div className="invalid-feedback" >
-              {errors.password?.message}
-            </div>
+                            <div style={{ color: "red" }}> {errors.password?.message}
+                            </div>
                             <Box component="div" sx={{ textAlign: 'center' }}>
                                 <Link href="#" variant="body2" sx={{ color: '#2B2B2B;', textDecoration: 'none' }}>
                                     Forget password?
                                 </Link>
                             </Box>
-                            <Button variant="contained" className='btn btn-primary'>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                className='btn btn-primary'
+                                disabled={isSubmitting}>
                                 Log In
                             </Button>
                         </Box>

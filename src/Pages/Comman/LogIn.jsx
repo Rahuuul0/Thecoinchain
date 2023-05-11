@@ -14,7 +14,31 @@ import InputAdornment from "@mui/material/InputAdornment";
 const theme = createTheme();
 
 const LogIn = () => {
-    const navigate = useNavigate();
+
+    const userActions = useUserActions();
+
+    const validationSchema = Yup.object().shape({
+        email: Yup.string()
+            .email()
+            .trim()
+            .required("Email Address is required"),
+        password: Yup.string()
+            .trim()
+            .required("Password is required")
+    });
+
+    //password eye IconButton
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    //yup validation
+    const formOptions = { resolver: yupResolver(validationSchema) };
+    // get functions to build form with useForm() hook
+    const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
+    const { errors, isSubmitting } = formState;
+
+    const formData = watch();
     return (
         <>
             <ThemeProvider theme={theme}>

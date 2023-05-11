@@ -5,7 +5,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 const theme = createTheme();
 
-const Login = () => {
+const LogIn = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -80,4 +80,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default LogIn

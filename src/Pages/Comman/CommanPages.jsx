@@ -2,7 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import Home from "./HomePage";
-import Login from "./Login";
+import LogIn from "./Login";
+import CreateAccount from "./CreateAccount";
 
 const Customer = () => {
   return (
@@ -10,7 +11,8 @@ const Customer = () => {
       <Header />
       <Routes>
         <Route path={`/home`} element={<Home />} />
-        <Route path={`/login`} element={<Login />} />
+        <Route path={`/login`} element={<LogIn />} />
+        <Route path={`/create-account`} element={<CreateAccount />} />
         <Route path={`/`} exact element={<Home />} />
       </Routes>
       <Footer />

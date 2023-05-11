@@ -103,6 +103,7 @@ html,
 
 .MuiInputBase-root fieldset {
     border-radius: 20px;
+
 }
 
 .MuiInputBase-root.Mui-focused fieldset {
@@ -126,6 +127,7 @@ main.auth-wrapper {
 .auth-wrapper-inner form {
     max-width: 330px;
     margin: auto;
+    margin-top: 30px;
 }
 
 .auth-wrapper h3 {
@@ -148,6 +150,36 @@ main.auth-wrapper {
 .auth-wrapper .link-new_account a {
     font-size: 22px;
 }
+
+.auth-wrapper .MuiFormControl-root {
+    margin-top: 10px;
+}
+
+.auth-wrapper .MuiInputBase-root fieldset {
+    height: 50px;
+}
+
+.auth-wrapper .MuiInputBase-root input {
+    padding: 11.5px 14px;
+}
+
+#root input.MuiInputBase-input::placeholder,
+#root input.MuiInputBase-input:-moz-placeholder,
+#root input.MuiInputBase-input:-ms-input-placeholder,
+#root input.MuiInputBase-input::-webkit-input-placeholder {
+    opacity: 1;
+}
+
+.auth-wrapper .MuiInputBase-root input::placeholder,
+.auth-wrapper .MuiInputBase-root input:-moz-placeholder,
+.auth-wrapper .MuiInputBase-root input::-webkit-input-placeholder,
+.auth-wrapper .MuiInputBase-root input::-webkit-input-placeholder {
+    color: var(--background);
+    opacity: 1;
+}
+
+/* Create Account */
+
 
 
 /* Hero Section (Home) */

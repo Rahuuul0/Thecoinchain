@@ -1,10 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container, Box, TextField, Typography, Link, Button } from '@mui/material'
 
 const theme = createTheme();
 
 const PasswordRecovery = () => {
+
+    const navigate = useNavigate();
+
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -34,14 +38,14 @@ const PasswordRecovery = () => {
                                 autoFocus
                                 className="form-control"
                             />
-                            <Button variant="contained" className='btn btn-primary'>
+                            <Button onClick={() => { navigate("/reset-password") }} variant="contained" className='btn btn-primary'>
                                 Continue
                             </Button>
                         </Box>
                         <Box className='link-new_account' component="div" sx={{ textAlign: 'center', marginTop: '40px' }}>
                             <Typography component="h5" variant="h5" sx={{ display: 'flex', gap: '10px' }}>
                                 Don’t have an account?
-                                <Link href="#" variant="body2" sx={{ color: '#2B2B2B;' }}>
+                                <Link onClick={() => { navigate("/create-account") }} href="#" variant="body2" sx={{ color: '#2B2B2B;' }}>
                                     Register here.
                                 </Link>
                             </Typography>

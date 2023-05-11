@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container, Box, TextField, Typography, Link, Button } from '@mui/material';
 import { useForm } from "react-hook-form";
@@ -9,18 +10,7 @@ const theme = createTheme();
 
 const ResetPassword = () => {
 
-      // form validation rules 
-      const validationSchema = Yup.object().shape({
-        oldpassword: Yup.string().required('Old Password is required'),
-        password: Yup.string().required('Password is required'),
-        confirmpassword: Yup.string()
-           .oneOf([Yup.ref('password'), null], 'Passwords must match')
-        
-    });
-    const formOptions = { resolver: yupResolver(validationSchema) };
-     // get functions to build form with useForm() hook
-     const { register, handleSubmit, formState } = useForm(formOptions);
-     const { errors, isSubmitting } = formState;
+    const navigate = useNavigate();
     return (
         <>
             <ThemeProvider theme={theme}>

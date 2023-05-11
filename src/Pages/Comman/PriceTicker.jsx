@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Container, Typography } from '@mui/material';
-import TickUp from "../../../../../public/assets/images/icons/tick-up.svg";
-import TickDown from "../../../../../public/assets/images/icons/tick-down.svg";
+import TickUp from "../../../public/assets/images/icons/tick-up.svg";
+import TickDown from "../../../public/assets/images/icons/tick-down.svg";
 
 const arr = [
     {

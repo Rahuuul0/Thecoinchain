@@ -102,6 +102,10 @@ html,
     font-size: 12px;
 }
 
+img {
+    max-width: 100%;
+}
+
 .MuiInputBase-root fieldset {
     border-radius: 20px;
 
@@ -271,4 +275,102 @@ main.auth-wrapper {
 
 .price-ticker-itm small.amount-down {
     background-color: rgba(186, 4, 2, 0.1);
+}
+
+/* Crypto List */
+.crypto-list {
+    background-color: rgba(250, 250, 250, 1);
+}
+
+.crypto-list-table table tr th,
+.crypto-list-table table tr td {
+    font-size: 16px;
+    border: none !important;
+    margin-bottom: 5px;
+    color: #3B3B3B;
+    background-color: var(--text_color);
+}
+
+.crypto-list-table table tr td {
+    font-family: var(--primary-font) !important;
+}
+
+.crypto-list-table table {
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+}
+
+.crypto-list-table table tr th:first-child,
+.crypto-list-table table tr td:first-child {
+    border-radius: 20px 0 0 20px;
+    -moz-border-radius: 20px 0 0 20px;
+    -webkit-border-radius: 20px 0 0 20px;
+
+}
+
+.crypto-list-table table tr th:last-child,
+.crypto-list-table table tr td:last-child {
+    border-radius: 0 20px 20px 0;
+    -moz-border-radius: 0 20px 20px 0;
+    -webkit-border-radius: 0 20px 20px 0;
+}
+
+.crypto-list-table table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+}
+
+.crypto-list-table table tr th,
+.crypto-list-table table tr td:first-child {
+    font-family: var(--secondary-font) !important;
+}
+
+.crypto-list-table table tr th:last-child {
+    color: #858584;
+}
+
+.crypto-list-table table tr th {
+    font-weight: 700;
+}
+
+.crypto-name {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 700;
+}
+
+/* free-guide */
+.free-guide {
+    background-color: rgba(250, 250, 250, 1);
+}
+
+.free-guide-head {
+    margin-bottom: 48px;
+}
+
+.free-guide-cards .free-guide-card {
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: none;
+    text-align: center;
+    height: 100%;
+}
+
+.free-guide-cards .free-guide-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: auto;
+}
+
+.free-guide-cards .free-guide-card h5 {
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.free-guide h3 {
+    font-weight: 600;
 }

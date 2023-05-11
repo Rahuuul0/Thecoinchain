@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import Home from "./HomePage";
-import Login from "./Login";
+import LogIn from "./LogIn";
 
 const Customer = () => {
   return (
@@ -10,7 +10,7 @@ const Customer = () => {
       <Header />
       <Routes>
         <Route path={`/home`} element={<Home />} />
-        <Route path={`/login`} element={<Login />} />
+        <Route path={`/login`} element={<LogIn />} />
         <Route path={`/`} exact element={<Home />} />
       </Routes>
       <Footer />

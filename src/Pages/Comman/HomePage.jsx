@@ -5,7 +5,7 @@ import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
 import heroImg from '../../../public/assets/images/hero-image.png'
 import heroImg2x from '../../../public/assets/images/hero-image.png'
 import heroImg3x from '../../../public/assets/images/hero-image.png'
-import AnimkidIc from '../../../public/assets/images/icons/shib.svg'
+import AnimkidIc from '../../../public/assets/images/monkey.svg'
 
 const Copyright = () => {
   return (

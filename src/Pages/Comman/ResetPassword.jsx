@@ -65,7 +65,6 @@ const ResetPassword = () => {
                                 name="password"
                                 autoComplete="current-password"
                                 size="small"
-                                autoFocus
                                 {...register('password')}
                                  className={`form-control ${errors.password ? 'is-invalid' : ''}`}               
                             />
@@ -80,7 +79,6 @@ const ResetPassword = () => {
                                 name="confirm_password"
                                 autoComplete="confirm-password"
                                 size="small"
-                                autoFocus
                                 {...register('confirmpassword')} 
                                 className={`form-control ${errors.confirmpassword ? 'is-invalid' : ''}`} 
                             />

@@ -36,13 +36,36 @@ const useUserActions = () => {
             })
     }
 
+    const resetPassword = ({ oldpassword, password, confirmpassword}) => {
+        return fetchWrapper.post(Apis.Reset_Password, { oldpassword, password, confirmpassword })
+            .then(res => {
+                if (res.status === Labels.Success) {
+                    alertActions.success(Labels.Password_Reset_Success);
+                    navigate(RoutesName.Login)
+                } else {
+                    alertActions.error(res.msg);
+                }
+            });
+    }
 
-
-
+    // const changepassword = ({ oldPassword, newPassword }) => {
+    //     return fetchWrapper.post(Apis.Change_Password, { oldPassword, newPassword })
+    //         .then(res => {
+    //             if (res.status === Labels.Success) {
+    //                 // get return url from location state or default to home page                
+    //                 alertActions.success(Labels.Password_Change_Success);
+    //                 logout()
+    //             } else {
+    //                 alertActions.error(res.msg);
+    //             }
+    //         });
+    // }
 
     return {
         login,
-        passwordRecovery, 
+        passwordRecovery,
+        resetPassword, 
+        // changepassword,
     }
 
 }

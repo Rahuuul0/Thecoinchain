@@ -128,10 +128,11 @@ main.auth-wrapper {
     max-width: 330px;
     margin: auto;
     margin-top: 30px;
+    width: 100%;
 }
 
 .auth-wrapper h3 {
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
     margin-bottom: 20px;
     font-weight: 700;
 }
@@ -141,7 +142,7 @@ main.auth-wrapper {
 }
 
 .auth-wrapper .btn {
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
     width: 100%;
     font-size: 18px;
     margin-top: 30px;

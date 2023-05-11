@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from '../_helpers';
 import { authAtom } from '../_state';
 import { useAlertActions } from '../_actions/alert.actions';
-import { Labels, Apis } from '../_common/app.constants'
+import { Labels, Apis,RoutesName } from '../_common/app.constants'
 
 const useUserActions = () => {
     const navigate = useNavigate()
@@ -23,9 +23,26 @@ const useUserActions = () => {
                 }
             })
     }
+   
+    const passwordRecovery = ({ email }) => {
+        return fetchWrapper.post(Apis.Password_Recovery, { email })
+            .then(res => {
+                if (res.status === Labels.Success) {
+                    alertActions.success(Labels.Password_Reset_Email.replaceAll(Labels.Replce_Text, email));
+                    navigate(RoutesName.Login)
+                } else {
+                    alertActions.error(res.msg);
+                }
+            })
+    }
+
+
+
+
 
     return {
         login,
+        passwordRecovery, 
     }
 
 }

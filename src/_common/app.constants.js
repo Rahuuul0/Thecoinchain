@@ -17,6 +17,7 @@ export const RoutesName = {
 }
 
 export const Apis = {
+    Password_Recovery: "/passwordRecovery",
     Home:'/home', 
     Login:'login' 
 }

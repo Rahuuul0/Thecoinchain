@@ -1,10 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
-import Home from "./HomePage";
 import LogIn from "./LogIn";
 import PasswordRecovery from "./PasswordRecovery";
+import ResetPassword from "./ResetPassword";
 import CreateAccount from "./CreateAccount";
+import Home from "./Components/HomePage/HomePage";
 
 const Customer = () => {
   return (
@@ -14,6 +15,7 @@ const Customer = () => {
         <Route path={`/home`} element={<Home />} />
         <Route path={`/login`} element={<LogIn />} />
         <Route path={`/forgot-password`} element={<PasswordRecovery />} />
+        <Route path={`/reset-password`} element={<ResetPassword />} />
         <Route path={`/create-account`} element={<CreateAccount />} />
         <Route path={`/`} exact element={<Home />} />
       </Routes>

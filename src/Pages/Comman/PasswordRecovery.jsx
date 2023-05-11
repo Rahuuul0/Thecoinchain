@@ -1,13 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import React from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container, Box, TextField, Typography, Link, Button } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { useUserActions } from "../../_actions/user.actions"
 
 const theme = createTheme();
 
 const PasswordRecovery = () => {
+    
+    const userActions = useUserActions();
 
       // form validation rules
     const validationSchema = Yup.object().shape({
@@ -16,7 +20,6 @@ const PasswordRecovery = () => {
           .required("Email is required"),
       });
       const formOptions = { resolver: yupResolver(validationSchema) };
-       // get functions to build form with useForm() hook
       const { register, handleSubmit, formState } = useForm(formOptions);
       const { errors, isSubmitting } = formState;
     return (
@@ -36,7 +39,7 @@ const PasswordRecovery = () => {
                             Password Recovery
                         </Typography>
                         <Box component="form" 
-                            onSubmit={handleSubmit()}
+                             onSubmit={handleSubmit(userActions.passwordRecovery)}
                             noValidate
                          >
                             <TextField
@@ -59,7 +62,6 @@ const PasswordRecovery = () => {
                                 variant="contained"
                                 loading={isSubmitting}
                                 loadingPosition="end" 
-                                disabled={isSubmitting}
                                 className='btn btn-primary'>
                                 Continue
                             </Button>
@@ -67,7 +69,7 @@ const PasswordRecovery = () => {
                         <Box className='link-new_account' component="div" sx={{ textAlign: 'center', marginTop: '40px' }}>
                             <Typography component="h5" variant="h5" sx={{ display: 'flex', gap: '10px' }}>
                                 Don’t have an account?
-                                <Link href="#" variant="body2" sx={{ color: '#2B2B2B;' }}>
+                                <Link to="/login" variant="body2" sx={{ color: '#2B2B2B;' }}>
                                     Register here.
                                 </Link>
                             </Typography>

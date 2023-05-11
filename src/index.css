@@ -131,8 +131,8 @@ main.auth-wrapper {
 }
 
 .auth-wrapper h3 {
-    font-family: var(--secondary-font);
-    margin-bottom: 20px;
+    font-family: var(--secondary-font) !important;
+    margin-bottom: 15px;
     font-weight: 700;
 }
 

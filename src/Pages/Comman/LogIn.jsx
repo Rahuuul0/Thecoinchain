@@ -12,7 +12,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 
 const theme = createTheme();
 
-const Login = () => {
+const LogIn = () => {
 
     const userActions = useUserActions();
 
@@ -135,4 +135,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default LogIn

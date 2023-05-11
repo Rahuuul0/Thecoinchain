@@ -67,7 +67,6 @@ const ResetPassword = () => {
                                 id="old_password"
                                 placeholder='Old Password'
                                 type={showPassword ? "text" : "password"}
-                                // type="text"
                                 name="old_password"
                                 autoComplete="old_password"
                                 size="small"

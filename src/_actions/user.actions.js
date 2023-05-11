@@ -48,24 +48,10 @@ const useUserActions = () => {
             });
     }
 
-    // const changepassword = ({ oldPassword, newPassword }) => {
-    //     return fetchWrapper.post(Apis.Change_Password, { oldPassword, newPassword })
-    //         .then(res => {
-    //             if (res.status === Labels.Success) {
-    //                 // get return url from location state or default to home page                
-    //                 alertActions.success(Labels.Password_Change_Success);
-    //                 logout()
-    //             } else {
-    //                 alertActions.error(res.msg);
-    //             }
-    //         });
-    // }
-
     return {
         login,
         passwordRecovery,
         resetPassword, 
-        // changepassword,
     }
 
 }

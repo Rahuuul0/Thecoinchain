@@ -58,7 +58,7 @@ const LogIn = () => {
                             />
                             <Box component="div" sx={{ textAlign: 'center' }}>
                                 <Link href="#" variant="body2" sx={{ color: '#2B2B2B;', textDecoration: 'none' }}>
-                                    Forget password?
+                                    Forgot password?
                                 </Link>
                             </Box>
                             <Button variant="contained" className='btn btn-primary'>

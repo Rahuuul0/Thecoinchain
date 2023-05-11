@@ -64,7 +64,7 @@ const LogIn = () => {
                             onSubmit={handleSubmit(userActions.login)}
                         >
                             <TextField
-                                onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                                onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })} 
                                 margin="normal"
                                 required
                                 fullWidth
@@ -78,6 +78,7 @@ const LogIn = () => {
                                 autoFocus
                                 className="form-control"
                                 {...register("email")}
+                                
                             />
                             <div style={{ color: "red" }}>{errors.email?.message}
                             </div>

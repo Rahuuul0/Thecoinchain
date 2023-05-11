@@ -1,9 +1,10 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Container, Box, TextField, Typography, Link, Button } from '@mui/material'
+import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 const theme = createTheme();
 
 const LogIn = () => {
@@ -43,6 +44,13 @@ const LogIn = () => {
                                 size="small"
                                 autoFocus
                                 className="form-control"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <EmailOutlinedIcon />
+                                      </InputAdornment>
+                                    ),
+                                  }}
                             />
                             <TextField
                                 margin="normal"
@@ -56,7 +64,14 @@ const LogIn = () => {
                                 autoComplete="off"
                                 size="small"
                                 autoFocus
-                                className="form-control"
+                                className="form-control"                               
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <LockOutlinedIcon />
+                                      </InputAdornment>
+                                    ),
+                                  }}
                             />
                             <Box component="div" sx={{ textAlign: 'center' }}>
                                 <Link onClick={() => { navigate("/forgot-password"); }} variant="body2" sx={{ color: '#2B2B2B;', textDecoration: 'none' }}>

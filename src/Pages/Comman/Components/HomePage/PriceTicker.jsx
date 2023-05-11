@@ -49,7 +49,7 @@ const PriceTicker = () => {
                                 <Box component="span" className='price-ticker-tick'>
                                     <img src={v.StateImage} alt='tick up' />
                                 </Box>
-                                <Typography component="small" variant="small" className='price-ticker-ammount amount-up'>
+                                <Typography component="small" variant="small" className={TickUp === v.StateImage ? "price-ticker-ammount amount-up" : "price-ticker-ammount amount-down"}>
                                     {v.Price}
                                 </Typography>
                             </Box>

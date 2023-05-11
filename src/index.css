@@ -268,3 +268,7 @@ main.auth-wrapper {
 .price-ticker-itm small.amount-up {
     background-color: rgba(26, 137, 23, 0.15);
 }
+
+.price-ticker-itm small.amount-down {
+    background-color: rgba(186, 4, 2, 0.1);
+}

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container, Box, TextField, Typography, Link, Button } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -6,6 +7,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 const theme = createTheme();
 
 const CreateAccount = () => {
+    const navigate = useNavigate();
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -84,22 +86,9 @@ const CreateAccount = () => {
                                 autoFocus
                                 className="form-control"
                             />
-                            <Box component="div" sx={{ textAlign: 'center' }}>
-                                <Link href="#" variant="body2" sx={{ color: '#2B2B2B;', textDecoration: 'none' }}>
-                                    Forget password?
-                                </Link>
-                            </Box>
-                            <Button variant="contained" className='btn btn-primary'>
-                                Log In
+                            <Button onClick={() => { navigate("/login") }} variant="contained" className='btn btn-primary'>
+                                Create account
                             </Button>
-                        </Box>
-                        <Box className='link-new_account' component="div" sx={{ textAlign: 'center', marginTop: '40px' }}>
-                            <Typography component="h5" variant="h5" sx={{ display: 'flex', gap: '10px' }}>
-                                Don’t have an account?
-                                <Link href="#" variant="body2" sx={{ color: '#2B2B2B;' }}>
-                                    Register here.
-                                </Link>
-                            </Typography>
                         </Box>
                     </Box>
                 </Container>

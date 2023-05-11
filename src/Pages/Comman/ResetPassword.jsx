@@ -1,10 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container, Box, TextField, Typography, Link, Button } from '@mui/material'
 
 const theme = createTheme();
 
 const ResetPassword = () => {
+
+    const navigate = useNavigate();
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -61,7 +64,7 @@ const ResetPassword = () => {
                                 autoFocus
                                 className="form-control"
                             />
-                            <Button variant="contained" className='btn btn-primary'>
+                            <Button onClick={() => { navigate("/login") }} variant="contained" className='btn btn-primary'>
                                 Submit
                             </Button>
                         </Box>

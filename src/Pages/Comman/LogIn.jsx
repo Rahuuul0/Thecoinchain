@@ -71,7 +71,6 @@ const LogIn = () => {
                                 fullWidth
                                 type='email'
                                 id="email"
-                                // label="Email Address"
                                 placeholder='Email Address'
                                 name="email"
                                 autoComplete="off"
@@ -89,7 +88,6 @@ const LogIn = () => {
                                 fullWidth
                                 type={showPassword ? "text" : "password"}
                                 id="password"
-                                // label="Password"
                                 placeholder='Password'
                                 name="password"
                                 autoComplete="off"
@@ -132,7 +130,7 @@ const LogIn = () => {
                         </Box>
                     </Box>
                 </Container>
-            </ThemeProvider >
+            </ThemeProvider>
         </>
     )
 }

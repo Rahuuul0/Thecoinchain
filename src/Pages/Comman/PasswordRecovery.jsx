@@ -26,8 +26,7 @@ const PasswordRecovery = () => {
         <>
             <ThemeProvider theme={theme}>
                 <Container component="main" className='auth-wrapper' maxWidth="fluid">
-                    <Box
-                        
+                    <Box 
                         className='auth-wrapper-inner'
                         sx={{
                             display: "flex",

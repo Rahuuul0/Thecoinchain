@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Container, Box, TextField, Typography, Link, Button } from '@mui/material'
 import { useForm } from "react-hook-form";
@@ -13,31 +14,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 const theme = createTheme();
 
 const LogIn = () => {
-
-    const userActions = useUserActions();
-
-    const validationSchema = Yup.object().shape({
-        email: Yup.string()
-            .email()
-            .trim()
-            .required("Email Address is required"),
-        password: Yup.string()
-            .trim()
-            .required("Password is required")
-    });
-
-    //password eye IconButton
-    const [showPassword, setShowPassword] = React.useState(false);
-
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-    //yup validation
-    const formOptions = { resolver: yupResolver(validationSchema) };
-    // get functions to build form with useForm() hook
-    const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
-    const { errors, isSubmitting } = formState;
-
-    const formData = watch();
+    const navigate = useNavigate();
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -108,8 +85,8 @@ const LogIn = () => {
                             <div style={{ color: "red" }}> {errors.password?.message}
                             </div>
                             <Box component="div" sx={{ textAlign: 'center' }}>
-                                <Link href="#" variant="body2" sx={{ color: '#2B2B2B;', textDecoration: 'none' }}>
-                                    Forget password?
+                                <Link onClick={() => { navigate("/forgot-password"); }} variant="body2" sx={{ color: '#2B2B2B;', textDecoration: 'none' }}>
+                                    Forgot password?
                                 </Link>
                             </Box>
                             <Button
@@ -123,7 +100,7 @@ const LogIn = () => {
                         <Box className='link-new_account' component="div" sx={{ textAlign: 'center', marginTop: '40px' }}>
                             <Typography component="h5" variant="h5" sx={{ display: 'flex', gap: '10px' }}>
                                 Don’t have an account?
-                                <Link href="#" variant="body2" sx={{ color: '#2B2B2B;' }}>
+                                <Link onClick={() => { navigate("/create-account"); }} href="#" variant="body2" sx={{ color: '#2B2B2B;' }}>
                                     Register here.
                                 </Link>
                             </Typography>

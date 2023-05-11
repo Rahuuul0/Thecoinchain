@@ -4,6 +4,7 @@ import Header from "./Components/Header";
 import Home from "./HomePage";
 import LogIn from "./Login";
 import PasswordRecovery from "./PasswordRecovery";
+import ResetPassword from "./ResetPassword";
 import CreateAccount from "./CreateAccount";
 
 const Customer = () => {
@@ -14,6 +15,7 @@ const Customer = () => {
         <Route path={`/home`} element={<Home />} />
         <Route path={`/login`} element={<LogIn />} />
         <Route path={`/forgot-password`} element={<PasswordRecovery />} />
+        <Route path={`/reset-password`} element={<ResetPassword />} />
         <Route path={`/create-account`} element={<CreateAccount />} />
         <Route path={`/`} exact element={<Home />} />
       </Routes>

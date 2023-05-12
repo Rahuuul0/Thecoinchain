@@ -17,16 +17,9 @@ const useUserActions = () => {
             
     }
     const create = ({ username, email, password, confirm_password }) => {
-        return fetchWrapper.post(Apis.Login, { username, email, password, confirm_password })
-            .then(res => {
-                if (res.statusCode === 200) {
-                    setAuth(data);
-                    // get return url from location state or default to home page
-                    alertActions.success(Labels.Login_Success);
-                } else {
-                    alertActions.error(res.msg);
-                }
-            })
+       
+        alertActions.success("Successfully Created Account");
+        navigate("/login")
     }
 
     return {

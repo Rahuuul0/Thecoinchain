@@ -59,8 +59,6 @@ const PasswordRecovery = () => {
                             <Button
                                 type="submit"
                                 variant="contained"
-                                loading={isSubmitting}
-                                loadingPosition="end" 
                                 className='btn btn-primary'>
                                 Continue
                             </Button>

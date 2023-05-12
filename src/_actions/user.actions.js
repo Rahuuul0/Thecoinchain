@@ -13,7 +13,7 @@ const useUserActions = () => {
 
     const login = ({ email, password }) => {
         alertActions.success("Logged In Successfully");
-        navigate('/')
+        navigate('/home')
             
     }
    

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -14,14 +15,29 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Logo from "../../../../public/assets/images/cglogo.svg";
-import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
-
+import Prediction from '../../Prediction';
+import PredictionIcon from '../../../../public/assets/images/icons/RocketLaunch.svg'
+import CoinGuru from '../../../../public/assets/images/logo.svg'
 
 const drawerWidth = 240;
-const navItems = ['Crypto', 'Exchanges', 'Prediction', 'Community', 'Learn'];
 
 function Header(props) {
+
+  // const navItems = ['Crypto', 'Exchanges', 'Prediction', 'Community', 'Learn']
+  const navItems = [
+  
+    {
+      Page: 'Exchanges',
+      Icon: '',
+      Link: '/exchanges',
+    }
+
+  
+  ]
+
+
+  const navigate = useNavigate();
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -31,19 +47,18 @@ function Header(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-     
-        CoinGuru
-      </Typography>
+      <img src={CoinGuru} alt='Coin Guru' />
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {navItems.map((item, i) => {
+          return (
+            <ListItem key={i} disablePadding>
+              <ListItemButton sx={{ textAlign: 'center' }}>
+                <ListItemText primary={`${item.Page}`} onClick={() => { navigate(item.Link) }} />
+              </ListItemButton>
+            </ListItem>
+          )
+        })}
       </List>
     </Box>
   );
@@ -67,17 +82,20 @@ function Header(props) {
           <Typography
             variant="h6"
             component="div"
-            fontWeight="700"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}
-            className='logo-heading'
-          > <img className='logo-cg' src={Logo} /> CoinGuru
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '100%' } }}
+          >
+            <img src={CoinGuru} alt='Coin Guru' />
           </Typography>
-          <Box className="menu-items" sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
+                Login
+              </Button>
+            {navItems.map((item, i) => (
+              <Button onClick={() => { navigate(item.Link) }} key={i} sx={{ color: '#fff' }}>
+                {item.Page}
               </Button>
             ))}
+           
           </Box>
         </Toolbar>
       </AppBar>

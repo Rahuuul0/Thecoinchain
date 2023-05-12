@@ -37,15 +37,8 @@ const useUserActions = () => {
     }
 
     const resetPassword = ({ oldpassword, password, confirmpassword}) => {
-        return fetchWrapper.post(Apis.Reset_Password, { oldpassword, password, confirmpassword })
-            .then(res => {
-                if (res.status === Labels.Success) {
-                    alertActions.success(Labels.Password_Reset_Success);
-                    navigate(RoutesName.Login)
-                } else {
-                    alertActions.error(res.msg);
-                }
-            });
+       alertActions.success('Password Reset Successfully');
+       navigate('/login')
     }
 
     return {

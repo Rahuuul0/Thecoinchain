@@ -19,7 +19,13 @@ const CreatePassword = () => {
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        newPassword: Yup.string().required('New password is required'),
+        newPassword: Yup.string()
+        .required("Password is required")
+        .min(8, "Password must be at least 8 characters.")
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+          "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
+        ),
         confirmPassword: Yup.string().required('Confirm password is required')
            .oneOf([Yup.ref('newPassword'), null], 'Confirm passwords must match')
     });
@@ -60,7 +66,6 @@ const CreatePassword = () => {
                                 margin="normal"
                                 required
                                 fullWidth
-                                type='password'
                                 id="new_password"
                                 placeholder='New Password'
                                 type={showPassword ? "text" : "password"}
@@ -85,7 +90,6 @@ const CreatePassword = () => {
                                 margin="normal"
                                 required
                                 fullWidth
-                                type='password'
                                 id="confirm_password"
                                 placeholder='Confirm Password'
                                 type={showPassword1 ? "text" : "password"}

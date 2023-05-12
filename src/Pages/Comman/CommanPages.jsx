@@ -6,6 +6,7 @@ import PasswordRecovery from "./PasswordRecovery";
 import ResetPassword from "./ResetPassword";
 import CreateAccount from "./CreateAccount";
 import Home from "./Components/HomePage/HomePage";
+import Coin from "./Coin";
 
 const Customer = () => {
   return (
@@ -18,6 +19,7 @@ const Customer = () => {
         <Route path={`/reset-password`} element={<ResetPassword />} />
         <Route path={`/create-account`} element={<CreateAccount />} />
         <Route path={`/`} exact element={<Home />} />
+        <Route path={`/coin`} exact element={<Coin />} />
       </Routes>
       <Footer />
     </div>

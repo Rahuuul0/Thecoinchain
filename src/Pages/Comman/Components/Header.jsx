@@ -14,6 +14,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Logo from "../../../../public/assets/images/cglogo.svg";
+import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
+
 
 const drawerWidth = 240;
 const navItems = ['Crypto', 'Exchanges', 'Prediction', 'Community', 'Learn'];
@@ -29,6 +32,7 @@ function Header(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
+     
         CoinGuru
       </Typography>
       <Divider />
@@ -63,11 +67,12 @@ function Header(props) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            CoinGuru
+            fontWeight="700"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}
+            className='logo-heading'
+          > <img className='logo-cg' src={Logo} /> CoinGuru
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Box className="menu-items" sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
               <Button key={item} sx={{ color: '#fff' }}>
                 {item}

@@ -12,19 +12,13 @@ const useUserActions = () => {
     const [auth, setAuth] = useRecoilState(authAtom);
 
     const login = ({ email, password }) => {
-        return fetchWrapper.post(Apis.Login, { email, password })
-            .then(res => {
-                if (res.statusCode === 200) {
-                    setAuth(data);
-                    // get return url from location state or default to home page
-                    alertActions.success(Labels.Login_Success);
-                } else {
-                    alertActions.error(res.msg);
-                }
-            })
+        alertActions.success("Logged In Successfully");
+        navigate('/')
+            
     }
    
     const passwordRecovery = ({ email }) => {
+        console.warn("called ",email)
         navigate('/login')
        alertActions.success('We have sent you the password reset link on your email.')
     }

@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import React from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Container, Box, TextField, Typography, Link, Button } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useUserActions } from "../../_actions/user.actions"
+import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
+
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 
 const theme = createTheme();
 
@@ -15,13 +17,15 @@ const PasswordRecovery = () => {
 
       // form validation rules
     const validationSchema = Yup.object().shape({
-        email: Yup.string()
-          .email("Must be a valid email")
-          .required("Email is required"),
+          email: Yup.string()
+          .email()
+          .trim()
+          .required("Email Address is required"),
       });
       const formOptions = { resolver: yupResolver(validationSchema) };
-      const { register, handleSubmit, formState } = useForm(formOptions);
+      const { register, handleSubmit, formState, reset, watch  } = useForm(formOptions);
       const { errors, isSubmitting } = formState;
+      const formData = watch();
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -34,7 +38,7 @@ const PasswordRecovery = () => {
                             alignItems: "center",
                         }}
                     >
-                        <Typography component="h3" variant="h3" sx={{ marginBottom: '0 !important' }}>
+                        <Typography component="h3" variant="h3">
                             Password Recovery
                         </Typography>
                         <Box component="form" 
@@ -52,10 +56,17 @@ const PasswordRecovery = () => {
                                 autoComplete="email"
                                 size="small"
                                 autoFocus
-                                {...register("email")}
-                                className={`form-control ${errors.email ? "is-invalid" : ""}`}
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <EmailOutlinedIcon />
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                                  {...register("email")}
+                                className="form-control"
                             />
-                              <div className="invalid-feedback" style={{ color: "red", width: '300px' }}>{errors.email?.message}</div>
+                              <div style={{ color: "red" }}>{errors.email?.message}</div>
                             <Button
                                 type="submit"
                                 variant="contained"

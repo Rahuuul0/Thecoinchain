@@ -1,7 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Container, Box, TextField, Typography, Link, Button } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -9,8 +8,9 @@ import { useUserActions } from "../../_actions/user.actions";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
+import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material'
 
+import { LockOutlined} from '@mui/icons-material';
 const theme = createTheme();
 
 const ResetPassword = () => {
@@ -85,8 +85,19 @@ const ResetPassword = () => {
                                                 {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
                                             </IconButton>
                                         </InputAdornment>
-                                    ),
+                                    ),startAdornment: (
+                                        <InputAdornment position="start">
+                                          <LockOutlined />
+                                        </InputAdornment>
+                                      ), 
                                 }}
+                                //  InputProps={{
+                                //     startAdornment: (
+                                //       <InputAdornment position="start">
+                                //         <LockOutlined />
+                                //       </InputAdornment>
+                                //     ), 
+                                //   }}
                             />
                              <div className="invalid-feedback" style={{color:"red"}}>{errors.oldpassword?.message}</div>
                             <TextField
@@ -108,8 +119,20 @@ const ResetPassword = () => {
                                                 {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
                                             </IconButton>
                                         </InputAdornment>
-                                    ),
+                                    ),  startAdornment: (
+                                        <InputAdornment position="start">
+                                          <LockOutlined />
+                                        </InputAdornment>
+                                      ), 
                                 }}              
+                                autoFocus
+                                //  InputProps={{
+                                //     startAdornment: (
+                                //       <InputAdornment position="start">
+                                //         <LockOutlined />
+                                //       </InputAdornment>
+                                //     ), 
+                                //   }}
                             />
                               <div className="invalid-feedback" style={{color:"red"}}>{errors.password?.message}</div>
                             <TextField
@@ -131,8 +154,20 @@ const ResetPassword = () => {
                                                 {showPassword3 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
                                             </IconButton>
                                         </InputAdornment>
-                                    ),
+                                    ),   startAdornment: (
+                                        <InputAdornment position="start">
+                                          <LockOutlined />
+                                        </InputAdornment>
+                                      ), 
                                 }}
+                                autoFocus
+                                //  InputProps={{
+                                //     startAdornment: (
+                                //       <InputAdornment position="start">
+                                //         <LockOutlined />
+                                //       </InputAdornment>
+                                //     ), 
+                                //   }}
                             />
                              <div className="invalid-feedback" style={{color:"red"}}>{errors.confirmpassword?.message}</div>
 

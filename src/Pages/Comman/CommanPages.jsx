@@ -9,6 +9,7 @@ import Home from "./Components/HomePage/HomePage";
 import Exchange from "../Exchange"
 import Prediction from "../Prediction";
 import News from "../News";
+import Courses from "../Courses";
 
 const Customer = () => {
   return (
@@ -24,6 +25,7 @@ const Customer = () => {
         <Route path={`/exchanges`} exact element={<Exchange />} />
         <Route path={`/prediction`} exact element={<Prediction />} />
         <Route path={`/news`} exact element={<News />} />
+        <Route path={`/course`} exact element={<Courses />} />
       </Routes>
       <Footer />
     </div>

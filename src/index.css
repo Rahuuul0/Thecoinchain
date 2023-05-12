@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* font-family: 'Work Sans', sans-serif;    -- primary font */
 /* font-family: 'Space Mono',monospace;  -- secondary font*/
+/* font-family: 'Inter', sans-serif;  -- article font*/
+
 
 /* color pallete */
 :root {
@@ -15,6 +18,7 @@
     --border-radius: 25.8px;
     --primary-font: 'Work Sans', sans-serif;
     --secondary-font: 'Space Mono', monospace;
+    --article-font: 'Inter', sans-serif;
 }
 
 /* button styles */
@@ -27,7 +31,7 @@
     gap: 12px;
     font-size: 16px;
     border-radius: 20px !important;
-    font-family: var(--primary-font);
+    font-family: var(--secondary-font);
     font-weight: 700;
     text-transform: capitalize;
     box-shadow: none;
@@ -60,7 +64,11 @@
     font-size: 16px;
 }
 
-body,
+html body {
+    color: #000;
+}
+
+html body,
 html,
 #root h1,
 #root h2,
@@ -104,6 +112,7 @@ html,
 
 #root a {
     color: var(--gold);
+    text-decoration: none;
 }
 
 img {
@@ -409,6 +418,168 @@ main.auth-wrapper {
 }
 
 .news-head-title h5 {
-    font-size: 24px;
+    font-size: 24px !important;
     font-weight: 700;
+}
+
+.news-head-title p {
+    color: rgba(88, 102, 126, 1);
+}
+
+.news-inner .news-itm {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.news-inner .news-itm .news-img {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.news-inner .news-itm .news-img img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.news-inner .news-itm .news-content h5 {
+    font-size: 24px !important;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.news-inner .news-itm .news-content p {
+    font-size: 14px !important;
+    color: rgba(88, 102, 126, 1);
+}
+
+.news-inner .news-itm .news-content .news-auther {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.news-inner .news-itm .news-content .news-auther p {
+    font-weight: 600;
+    color: #222531;
+}
+
+.news-inner .news-itm .news-content .news-auther .current-badge {
+    background-color: #eee;
+    border-radius: 20px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.news-inner .news-itm .news-content .news-auther .current-badge small {
+    font-weight: 600;
+    color: #222531;
+
+}
+
+.news-inner .news-itm .news-content .news-auther .current-badge img {
+    width: 16px;
+}
+
+.news-inner .news-itm .news-content .news-auther .news-date,
+.news-inner .news-itm .news-content .news-auther .news-date span {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    gap: 10px;
+    color: rgb(88, 102, 126);
+}
+
+.news-inner .news-itm .news-content .news-auther .news-date img {
+    width: 18px;
+}
+
+.load-more {
+    text-align: center;
+}
+
+.load-more a {
+    color: rgba(88, 102, 126, 1) !important;
+}
+
+#root .news-inner *,
+#root .news-page * {
+    font-family: var(--article-font) !important;
+}
+
+
+/* Subscribe Newsletter */
+.subscribe-newsletter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.subscribe-newsletter p {
+    margin-bottom: 25px;
+}
+
+.subscribe-newsletter .btn {
+    margin: auto;
+}
+
+
+/* Course page */
+.course-head {
+    margin-bottom: 22px;
+}
+
+.course-head h5 {
+    font-weight: 600;
+}
+
+
+
+.course-badge {
+    position: relative;
+    border-radius: 8px;
+    color: #474D57;
+    padding: 5px 10px 5px 20px;
+    background: rgba(240, 185, 11, 0.2);
+}
+
+.course-badge.moderate {
+    background: rgba(240, 185, 11, 0.2);
+}
+
+.course-badge.hard {
+    background: rgba(255, 174, 165, 1);
+}
+
+.course-badge.easy {
+    background: rgba(2, 192, 118, 0.2);
+}
+
+.course-badge:after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    top: 15px;
+    left: 10px;
+    border-radius: 100%;
+}
+
+.course-badge.hard:after {
+    background-color: #F00500;
+}
+
+.course-badge.moderate:after {
+    background-color: #3861FB;
+}
+
+.course-badge.easy:after {
+    background-color: #02C076;
 }

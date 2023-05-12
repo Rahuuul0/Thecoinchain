@@ -1,6 +1,8 @@
 import React from 'react'
 import { Box, Container, Link, Typography, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
-import PriceTicker from './Comman/PriceTicker'
+import CurrencyImg from '../../public/assets/images/icons/btc.svg'
+import NewsImg from '../../public/assets/images/coinbase.png'
+import CalendarIc from '../../public/assets/images/icons/calendar-ic.svg'
 
 const News = () => {
 
@@ -10,8 +12,7 @@ const News = () => {
         setCoins(event.target.value);
     };
     return (
-        <Box component="main" sx={{ py: 8 }}>
-            <PriceTicker />
+        <Box component="main" className='news-page' sx={{ py: 8 }}>
             <Box component="div" className='news-head'>
                 <Container maxWidth="lg">
                     <Box component="div" className='news-head-inner'>
@@ -45,7 +46,157 @@ const News = () => {
                 </Container>
             </Box>
             <Box component="div" className='news-inner'>
+                <Container maxWidth="lg">
+                    <Box component="div" className='news-itm'>
+                        <Box component="div" className='news-img'>
+                            <img src={NewsImg} alt='' />
+                        </Box>
+                        <Box component="div" className='news-content'>
+                            <Typography component="h5" variant='h5'>
+                                Has This Ex-Coinbase Exec Just Made the Worst Bet in Crypto History?
+                            </Typography>
+                            <Typography component="p" variant='body1'>
+                                The bet comes as a result of Balaji Srinivasan's belief in "hyperbitcoinization" — as he thinks major fiat currencies are on the brink of being "i...
+                            </Typography>
+                            <Box component="div" className='news-auther'>
+                                <Typography component="p" variant='body1'>
+                                    Leo Jakobson
+                                </Typography>
+                                <Box component="div" className='current-badge'>
+                                    <img src={CurrencyImg} alt='currency img' />
+                                    <Typography component="small" variant='body2'>
+                                        EUL
+                                    </Typography>
+                                </Box>
+                                <Box component="div" className='news-date'>
+                                    <span>
+                                        <img src={CalendarIc} alt='Calendar icon' />
+                                    </span> 13 March 2023
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Box>
+                    <Box component="div" className='news-itm'>
+                        <Box component="div" className='news-img'>
+                            <img src={NewsImg} alt='' />
+                        </Box>
+                        <Box component="div" className='news-content'>
+                            <Typography component="h5" variant='h5'>
+                                Has This Ex-Coinbase Exec Just Made the Worst Bet in Crypto History?
+                            </Typography>
+                            <Typography component="p" variant='body1'>
+                                The bet comes as a result of Balaji Srinivasan's belief in "hyperbitcoinization" — as he thinks major fiat currencies are on the brink of being "i...
+                            </Typography>
+                            <Box component="div" className='news-auther'>
+                                <Typography component="p" variant='body1'>
+                                    Leo Jakobson
+                                </Typography>
+                                <Box component="div" className='current-badge'>
+                                    <img src={CurrencyImg} alt='currency img' />
+                                    <Typography component="small" variant='body2'>
+                                        EUL
+                                    </Typography>
+                                </Box>
+                                <Box component="div" className='news-date'>
+                                    <span>
+                                        <img src={CalendarIc} alt='Calendar icon' />
+                                    </span> 13 March 2023
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Box>
+                    <Box component="div" className='news-itm'>
+                        <Box component="div" className='news-img'>
+                            <img src={NewsImg} alt='' />
+                        </Box>
+                        <Box component="div" className='news-content'>
+                            <Typography component="h5" variant='h5'>
+                                Has This Ex-Coinbase Exec Just Made the Worst Bet in Crypto History?
+                            </Typography>
+                            <Typography component="p" variant='body1'>
+                                The bet comes as a result of Balaji Srinivasan's belief in "hyperbitcoinization" — as he thinks major fiat currencies are on the brink of being "i...
+                            </Typography>
+                            <Box component="div" className='news-auther'>
+                                <Typography component="p" variant='body1'>
+                                    Leo Jakobson
+                                </Typography>
+                                <Box component="div" className='current-badge'>
+                                    <img src={CurrencyImg} alt='currency img' />
+                                    <Typography component="small" variant='body2'>
+                                        EUL
+                                    </Typography>
+                                </Box>
+                                <Box component="div" className='news-date'>
+                                    <span>
+                                        <img src={CalendarIc} alt='Calendar icon' />
+                                    </span> 13 March 2023
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Box>
+                    <Box component="div" className='news-itm'>
+                        <Box component="div" className='news-img'>
+                            <img src={NewsImg} alt='' />
+                        </Box>
+                        <Box component="div" className='news-content'>
+                            <Typography component="h5" variant='h5'>
+                                Has This Ex-Coinbase Exec Just Made the Worst Bet in Crypto History?
+                            </Typography>
+                            <Typography component="p" variant='body1'>
+                                The bet comes as a result of Balaji Srinivasan's belief in "hyperbitcoinization" — as he thinks major fiat currencies are on the brink of being "i...
+                            </Typography>
+                            <Box component="div" className='news-auther'>
+                                <Typography component="p" variant='body1'>
+                                    Leo Jakobson
+                                </Typography>
+                                <Box component="div" className='current-badge'>
+                                    <img src={CurrencyImg} alt='currency img' />
+                                    <Typography component="small" variant='body2'>
+                                        EUL
+                                    </Typography>
+                                </Box>
+                                <Box component="div" className='news-date'>
+                                    <span>
+                                        <img src={CalendarIc} alt='Calendar icon' />
+                                    </span> 13 March 2023
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Box>
+                    <Box component="div" className='news-itm'>
+                        <Box component="div" className='news-img'>
+                            <img src={NewsImg} alt='' />
+                        </Box>
+                        <Box component="div" className='news-content'>
+                            <Typography component="h5" variant='h5'>
+                                Has This Ex-Coinbase Exec Just Made the Worst Bet in Crypto History?
+                            </Typography>
+                            <Typography component="p" variant='body1'>
+                                The bet comes as a result of Balaji Srinivasan's belief in "hyperbitcoinization" — as he thinks major fiat currencies are on the brink of being "i...
+                            </Typography>
+                            <Box component="div" className='news-auther'>
+                                <Typography component="p" variant='body1'>
+                                    Leo Jakobson
+                                </Typography>
+                                <Box component="div" className='current-badge'>
+                                    <img src={CurrencyImg} alt='currency img' />
+                                    <Typography component="small" variant='body2'>
+                                        EUL
+                                    </Typography>
+                                </Box>
+                                <Box component="div" className='news-date'>
+                                    <span>
+                                        <img src={CalendarIc} alt='Calendar icon' />
+                                    </span> 13 March 2023
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Box>
+                    <Box component="div" className='load-more'>
+                        <Link href='#'>load more ...</Link>
+                    </Box>
 
+                </Container>
             </Box>
         </Box>
     )

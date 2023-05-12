@@ -35,11 +35,18 @@ const useUserActions = () => {
        navigate('/login')
     }
 
+    const createPassword = ({ newPassword, confirmPassword }) => {
+                alertActions.success('New Password Created Successfully');
+                navigate('/login');
+               
+    }
+
     return {
         login,
         create,
         passwordRecovery,
         resetPassword, 
+        createPassword,
     }
 
 }

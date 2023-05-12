@@ -67,6 +67,7 @@ const CreatePassword = () => {
                                 name="new_password"
                                 autoComplete="current-password"
                                 size="small"
+                                autoFocus
                                 {...register('newPassword')}
                                  className={`form-control ${errors.newPassword ? 'is-invalid' : ''}`} 
                                  InputProps={{

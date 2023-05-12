@@ -1,9 +1,17 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
+import { Container, Box, TextField, Typography, Link, Button } from '@mui/material'
+import { useForm } from "react-hook-form";
 import LoadingButton from '@mui/lab/LoadingButton';
-import { EmailOutlined , PersonOutlineOutlined, LockOutlined} from '@mui/icons-material';
+import { useUserActions } from "../../_actions";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const theme = createTheme();
 
@@ -19,8 +27,12 @@ const CreateAccount = () => {
             .required("Email Address is required"),
         password: Yup.string()
             .trim()
-            .required("Password is required"),
-        confirm_password: Yup.string()
+            .required("Password is required")
+            .min(8, "Password must be at least 8 characters.")
+            .matches(
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+              "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."),
+           confirm_password: Yup.string()
             .trim()
             .required("Confirm Password is required").oneOf(
                 [Yup.ref("password"), null],
@@ -76,21 +88,15 @@ const CreateAccount = () => {
                                 fullWidth
                                 type='text'
                                 id="username"
-                                // label="Email Address"
                                 placeholder='Username'
                                 name="username"
                                 autoComplete="off"
                                 size="small"
                                 autoFocus
                                 className="form-control"
-                                InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <PersonOutlineOutlined />
-                                      </InputAdornment>
-                                    ),
-                                  }}
-                            />
+                                {...register("username")}
+                            /><div style={{ color: "red" }}>{errors.username?.message}
+                            </div>
                             <TextField
                              onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                 margin="normal"
@@ -98,21 +104,13 @@ const CreateAccount = () => {
                                 fullWidth
                                 type='email'
                                 id="email"
-                                // label="Email Address"
                                 placeholder='Email Address'
                                 name="email"
                                 autoComplete="off"
                                 size="small"
                                 autoFocus
-                                className="form-control" 
-                                InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <EmailOutlined />
-                                      </InputAdornment>
-                                    ), 
-                                  }}
-                                
+                                className="form-control"
+                                {...register("email")}
                             />
                             <div style={{ color: "red" }}>{errors.email?.message}
                             </div>
@@ -131,13 +129,17 @@ const CreateAccount = () => {
                                 autoFocus
                                 className="form-control"
                                 InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <LockOutlined />
-                                      </InputAdornment>
-                                    ), 
-                                  }}
-                            />
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton onClick={handleClickShowPassword}>
+                                                {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                {...register("password")}
+                            /><div style={{ color: "red" }}> {errors.password?.message}
+                            </div>
                             <TextField
                              onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                 margin="normal"
@@ -153,12 +155,15 @@ const CreateAccount = () => {
                                 autoFocus
                                 className="form-control"
                                 InputProps={{
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        <LockOutlined />
-                                      </InputAdornment>
-                                    ), 
-                                  }}
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton onClick={handleClickShowCnfrmPassword}>
+                                                {showCnfrmPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                {...register("confirm_password")}
                             />
                              <div style={{ color: "red" }}> {errors.confirm_password?.message}
                             </div>

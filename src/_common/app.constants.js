@@ -18,5 +18,4 @@ export const RoutesName = {
 
 export const Apis = {
     Home:'/home', 
-    Login:'login' 
 }

@@ -10,12 +10,15 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useAlertActions } from '../../_actions/alert.actions';
 
 const theme = createTheme();
 
 const LogIn = () => {
 
     const userActions = useUserActions();
+    const navigate = useNavigate();
+    const alertActions = useAlertActions();
 
     const validationSchema = Yup.object().shape({
         email: Yup.string()
@@ -25,6 +28,11 @@ const LogIn = () => {
         password: Yup.string()
             .trim()
             .required("Password is required")
+            .min(8, "Password must be at least 8 characters.")
+            .matches(
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+              "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
+            ),
     });
 
     //password eye IconButton
@@ -61,10 +69,9 @@ const LogIn = () => {
                             noValidate
                             component="form"
                             sx={{ mt: '24px' }}
-                            onSubmit={handleSubmit(userActions.login)}
+                             onSubmit={handleSubmit(userActions.login)}
                         >
                             <TextField
-                                onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })} 
                                 margin="normal"
                                 required
                                 fullWidth
@@ -78,12 +85,12 @@ const LogIn = () => {
                                 autoFocus
                                 className="form-control"
                                 {...register("email")}
+                                onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })} 
                                 
                             />
                             <div style={{ color: "red" }}>{errors.email?.message}
                             </div>
                             <TextField
-                                onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                 margin="normal"
                                 required
                                 fullWidth
@@ -97,6 +104,7 @@ const LogIn = () => {
                                 autoFocus
                                 className="form-control"
                                 {...register("password")}
+                                onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">

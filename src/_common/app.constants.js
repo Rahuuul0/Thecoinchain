@@ -14,7 +14,7 @@ export const Labels = {
 export const RoutesName = {
     Home: '/home',
     login: '/login',  
-    Change_Password: '/change-password',  
+    Change_Password: '/create-password',  
 }
 
 export const Apis = {

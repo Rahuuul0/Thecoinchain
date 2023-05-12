@@ -13,7 +13,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 
 const theme = createTheme();
 
-const ChangePassword = () => {
+const CreatePassword = () => {
 
     const userActions = useUserActions();
 
@@ -50,10 +50,10 @@ const ChangePassword = () => {
                         }}
                     >
                         <Typography component="h3" variant="h3" sx={{ marginBottom: '0 !important' }}>
-                            Change password
+                            Create New password
                         </Typography>
                         <Box component="form"
-                            onSubmit={handleSubmit(userActions.changePassword)}
+                            onSubmit={handleSubmit(userActions.createPassword)}
                              noValidate 
                          >
                             <TextField
@@ -122,4 +122,4 @@ const ChangePassword = () => {
   )
 }
 
-export default ChangePassword;
+export default CreatePassword;

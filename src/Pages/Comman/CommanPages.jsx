@@ -14,7 +14,7 @@ const Customer = () => {
       <Routes>
         <Route path={`/home`} element={<Home />} />
         <Route path={`/login`} element={<LogIn />} />
-        <Route path={`/forgot-password`} element={<PasswordRecovery />} />
+        <Route path={`/password-recovery`} element={<PasswordRecovery />} />
         <Route path={`/reset-password`} element={<ResetPassword />} />
         <Route path={`/create-account`} element={<CreateAccount />} />
         <Route path={`/`} exact element={<Home />} />

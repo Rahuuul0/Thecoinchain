@@ -10,7 +10,7 @@ import { useUserActions } from "../../_actions/user.actions"
 const theme = createTheme();
 
 const PasswordRecovery = () => {
-    
+    const navigate = useNavigate();
     const userActions = useUserActions();
 
       // form validation rules
@@ -68,7 +68,7 @@ const PasswordRecovery = () => {
                         <Box className='link-new_account' component="div" sx={{ textAlign: 'center', marginTop: '40px' }}>
                             <Typography component="h5" variant="h5" sx={{ display: 'flex', gap: '10px' }}>
                                 Don’t have an account?
-                                <Link to="/login" variant="body2" sx={{ color: '#2B2B2B;' }}>
+                                <Link onClick={()=>{navigate('/create-account')}} variant="body2" sx={{ color: '#2B2B2B;' }}>
                                     Register here.
                                 </Link>
                             </Typography>

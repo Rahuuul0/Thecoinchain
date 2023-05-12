@@ -84,7 +84,6 @@ const CreateAccount = () => {
                                 fullWidth
                                 type='text'
                                 id="username"
-                                // label="Email Address"
                                 placeholder='Username'
                                 name="username"
                                 autoComplete="off"
@@ -101,7 +100,6 @@ const CreateAccount = () => {
                                 fullWidth
                                 type='email'
                                 id="email"
-                                // label="Email Address"
                                 placeholder='Email Address'
                                 name="email"
                                 autoComplete="off"

@@ -12,9 +12,11 @@ export const Labels = {
 }
 
 export const RoutesName = {
-    home: '/home',      
+    Home: '/home',
+    login: '/login',    
 }
 
 export const Apis = {
-    Home:'/home'
+    Home:'/home', 
+    Login:'login' 
 }

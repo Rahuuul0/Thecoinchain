@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
-import Home from "./HomePage";
-import LogIn from "./Login";
+import LogIn from "./LogIn";
 import PasswordRecovery from "./PasswordRecovery";
 import ResetPassword from "./ResetPassword";
 import CreateAccount from "./CreateAccount";
+import Home from "./Components/HomePage/HomePage";
 
 const Customer = () => {
   return (

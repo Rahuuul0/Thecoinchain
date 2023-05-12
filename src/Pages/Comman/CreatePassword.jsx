@@ -19,9 +19,9 @@ const CreatePassword = () => {
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        newPassword: Yup.string().required('New Password is required'),
-        confirmPassword: Yup.string().required('Confirm Password is required')
-           .oneOf([Yup.ref('newPassword'), null], 'Confirm Passwords must match')
+        newPassword: Yup.string().required('New password is required'),
+        confirmPassword: Yup.string().required('Confirm password is required')
+           .oneOf([Yup.ref('newPassword'), null], 'Confirm passwords must match')
     });
 
     const formOptions = { resolver: yupResolver(validationSchema) };
@@ -50,7 +50,7 @@ const CreatePassword = () => {
                         }}
                     >
                         <Typography component="h3" variant="h3" sx={{ marginBottom: '0 !important' }}>
-                            Create New password
+                            Create New Password
                         </Typography>
                         <Box component="form"
                             onSubmit={handleSubmit(userActions.createPassword)}

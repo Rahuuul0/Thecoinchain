@@ -49,9 +49,8 @@ const useUserActions = () => {
     }
 
     const createPassword = ({ newPassword, confirmPassword }) => {
-                  
-                    alertActions.success('New Password Created Successfully');
-                    navigate('/login');
+                alertActions.success('New Password Created Successfully');
+                navigate('/login');
                
     }
 

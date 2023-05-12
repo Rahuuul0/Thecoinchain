@@ -76,7 +76,9 @@ html,
 #root h1 {
     font-size: 67px;
 }
-
+.font-40{
+    font-size: 40px !important;
+}
 #root h2 {
     font-size: 51px;
 }
@@ -338,4 +340,31 @@ main.auth-wrapper {
 
 .price-ticker-itm small.amount-down {
     background-color: rgba(186, 4, 2, 0.1);
+}
+
+/* Bitcoin Page */
+
+.color-grey{
+    color: rgba(0, 0, 0, 0.5);;
+}
+.d-flex{
+    display: flex;
+}
+.pr-3{
+    padding-right: 20px;
+}
+.list-point hr{
+    border:1px solid rgba(0, 0, 0, 0.125) ;
+}
+.doller-figure{
+    font-size: 15px;
+    font-weight: 700;
+}
+.percent-figure{
+    color: #198754;
+    font-size: 15px;
+    font-weight: 700;
+}
+.img-responsive{
+    max-width: 100%;
 }

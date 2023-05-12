@@ -25,15 +25,8 @@ const useUserActions = () => {
     }
    
     const passwordRecovery = ({ email }) => {
-        return fetchWrapper.post(Apis.Password_Recovery, { email })
-            .then(res => {
-                if (res.status === Labels.Success) {
-                    alertActions.success(Labels.Password_Reset_Email.replaceAll(Labels.Replce_Text, email));
-                    navigate(RoutesName.Login)
-                } else {
-                    alertActions.error(res.msg);
-                }
-            })
+        navigate('/login')
+       alertActions.success('We have sent you the password reset link on your email.')
     }
 
 

@@ -21,7 +21,7 @@ const ResetPassword = () => {
     const validationSchema = Yup.object().shape({
         oldpassword: Yup.string().required('Old Password is required'),
         password: Yup.string().required('Password is required'),
-        confirmpassword: Yup.string()
+        confirmpassword: Yup.string().required('Confirm Password is required')
            .oneOf([Yup.ref('password'), null], 'Passwords must match')
         
     });
@@ -53,7 +53,7 @@ const ResetPassword = () => {
                         }}
                     >
                         <Typography component="h3" variant="h3" sx={{ marginBottom: '0 !important' }}>
-                            Reset password
+                            Reset Password
                         </Typography>
                         <Box component="form"
                             onSubmit={handleSubmit(userActions.resetPassword)}

@@ -67,10 +67,12 @@ function Header(props) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          > <img src={Logo} /> CoinGuru
+            fontWeight="700"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}
+            className='logo-heading'
+          > <img className='logo-cg' src={Logo} /> CoinGuru
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Box className="menu-items" sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
               <Button key={item} sx={{ color: '#fff' }}>
                 {item}

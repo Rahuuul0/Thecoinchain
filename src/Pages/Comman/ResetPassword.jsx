@@ -83,7 +83,7 @@ const ResetPassword = () => {
                                     ),
                                 }}
                             />
-                             <div className="invalid-feedback">{errors.oldpassword?.message}</div>
+                             <div className="invalid-feedback" style={{color:"red"}}>{errors.oldpassword?.message}</div>
                             <TextField
                                 margin="normal"
                                 required
@@ -107,7 +107,7 @@ const ResetPassword = () => {
                                     ),
                                 }}              
                             />
-                              <div className="invalid-feedback">{errors.password?.message}</div>
+                              <div className="invalid-feedback" style={{color:"red"}}>{errors.password?.message}</div>
                             <TextField
                                 margin="normal"
                                 required
@@ -131,7 +131,7 @@ const ResetPassword = () => {
                                     ),
                                 }}
                             />
-                             <div className="invalid-feedback">{errors.confirmpassword?.message}</div>
+                             <div className="invalid-feedback" style={{color:"red"}}>{errors.confirmpassword?.message}</div>
 
                             <Button 
                                 type="submit"

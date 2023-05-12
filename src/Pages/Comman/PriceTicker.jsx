@@ -42,7 +42,7 @@ const PriceTicker = () => {
                 <Box component="div" className='price-ticker-inner'>
                     {arr.map((v, i) => {
                         return (
-                            <Box component="span" className='price-ticker-itm'>
+                            <Box key={i} component="span" className='price-ticker-itm'>
                                 <Typography component="small" variant="small">
                                     {v.CurrencyName}
                                 </Typography>

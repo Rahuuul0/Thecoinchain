@@ -6,6 +6,9 @@ import PasswordRecovery from "./PasswordRecovery";
 import ResetPassword from "./ResetPassword";
 import CreateAccount from "./CreateAccount";
 import Home from "./Components/HomePage/HomePage";
+import Exchange from "../Exchange"
+import Prediction from "../Prediction";
+import News from "../News";
 
 const Customer = () => {
   return (
@@ -17,7 +20,10 @@ const Customer = () => {
         <Route path={`/forgot-password`} element={<PasswordRecovery />} />
         <Route path={`/reset-password`} element={<ResetPassword />} />
         <Route path={`/create-account`} element={<CreateAccount />} />
-        <Route path={`/`} exact element={<Home />} />
+        {/* <Route path={`/`} exact element={<Home />} /> */}
+        <Route path={`/exchanges`} exact element={<Exchange />} />
+        <Route path={`/prediction`} exact element={<Prediction />} />
+        <Route path={`/news`} exact element={<News />} />
       </Routes>
       <Footer />
     </div>

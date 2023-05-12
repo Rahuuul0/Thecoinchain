@@ -102,6 +102,10 @@ html,
     font-size: 12px;
 }
 
+#root a {
+    color: var(--gold);
+}
+
 img {
     max-width: 100%;
 }
@@ -373,4 +377,38 @@ main.auth-wrapper {
 
 .free-guide h3 {
     font-weight: 600;
+}
+
+
+/* Exchange page */
+
+/* PAge Head */
+.page-head {
+    padding: 80px 0;
+    background-color: #FAFAFA;
+}
+
+.page-inner {
+    background-color: #FAFAFA;
+}
+
+.page-head h3 {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* News page */
+.news-head {
+    padding: 40px 0;
+}
+
+.news-head .news-head-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.news-head-title h5 {
+    font-size: 24px;
+    font-weight: 700;
 }

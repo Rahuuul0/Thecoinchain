@@ -1,8 +1,9 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Container, Box, TextField, Typography, Link, Button } from '@mui/material'
+import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material'
 
+import { LockOutlined} from '@mui/icons-material';
 const theme = createTheme();
 
 const ResetPassword = () => {
@@ -36,6 +37,13 @@ const ResetPassword = () => {
                                 size="small"
                                 autoFocus
                                 className="form-control"
+                                 InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <LockOutlined />
+                                      </InputAdornment>
+                                    ), 
+                                  }}
                             />
                             <TextField
                                 margin="normal"
@@ -50,6 +58,13 @@ const ResetPassword = () => {
                                 size="small"
                                 autoFocus
                                 className="form-control"
+                                 InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <LockOutlined />
+                                      </InputAdornment>
+                                    ), 
+                                  }}
                             />
                             <TextField
                                 margin="normal"
@@ -63,6 +78,13 @@ const ResetPassword = () => {
                                 size="small"
                                 autoFocus
                                 className="form-control"
+                                 InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <LockOutlined />
+                                      </InputAdornment>
+                                    ), 
+                                  }}
                             />
                             <Button onClick={() => { navigate("/login") }} variant="contained" className='btn btn-primary'>
                                 Submit

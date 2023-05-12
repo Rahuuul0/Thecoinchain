@@ -163,6 +163,7 @@ main.auth-wrapper {
 
 .auth-wrapper .MuiInputBase-root input {
     padding: 11.5px 14px;
+    border-radius: 0px 20px 20px 0px;
 }
 
 #root input.MuiInputBase-input::placeholder,
@@ -181,7 +182,10 @@ main.auth-wrapper {
 }
 
 
-
+/* Login Page */
+.auth-wrapper-inner svg{
+    color: #BDBDBD;
+}
 /* Hero Section (Home) */
 .hero-section h1 {
     font-weight: 600;

@@ -1,7 +1,9 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Container, Box, TextField, Typography, Link, Button } from '@mui/material'
+import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
+
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 
 const theme = createTheme();
 
@@ -36,6 +38,13 @@ const PasswordRecovery = () => {
                                 autoComplete="off"
                                 size="small"
                                 autoFocus
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <EmailOutlinedIcon />
+                                      </InputAdornment>
+                                    ),
+                                  }}
                                 className="form-control"
                             />
                             <Button onClick={() => { navigate("/reset-password") }} variant="contained" className='btn btn-primary'>

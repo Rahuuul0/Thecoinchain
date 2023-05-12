@@ -1,7 +1,11 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Container, Box, TextField, Typography, Link, Button } from '@mui/material'
+
+import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,7 +13,6 @@ import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
 import { useAlertActions } from '../../_actions/alert.actions';
 
 const theme = createTheme();
@@ -84,6 +87,14 @@ const LogIn = () => {
                                 size="small"
                                 autoFocus
                                 className="form-control"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <EmailOutlinedIcon />
+                                      </InputAdornment>
+                                    ),
+                                  }}
+
                                 {...register("email")}
                                 onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })} 
                                 
@@ -106,6 +117,11 @@ const LogIn = () => {
                                 {...register("password")}
                                 onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                 InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                          <LockOutlinedIcon />
+                                        </InputAdornment>
+                                      ),
                                     endAdornment: (
                                         <InputAdornment position="end">
                                             <IconButton onClick={handleClickShowPassword}>

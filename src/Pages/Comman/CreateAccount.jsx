@@ -1,17 +1,9 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Container, Box, TextField, Typography, Link, Button } from '@mui/material'
-import { useForm } from "react-hook-form";
+import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { useUserActions } from "../../_actions";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
+import { EmailOutlined , PersonOutlineOutlined, LockOutlined} from '@mui/icons-material';
 
 const theme = createTheme();
 
@@ -91,9 +83,14 @@ const CreateAccount = () => {
                                 size="small"
                                 autoFocus
                                 className="form-control"
-                                {...register("username")}
-                            /><div style={{ color: "red" }}>{errors.username?.message}
-                            </div>
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <PersonOutlineOutlined />
+                                      </InputAdornment>
+                                    ),
+                                  }}
+                            />
                             <TextField
                              onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                 margin="normal"
@@ -107,8 +104,15 @@ const CreateAccount = () => {
                                 autoComplete="off"
                                 size="small"
                                 autoFocus
-                                className="form-control"
-                                {...register("email")}
+                                className="form-control" 
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <EmailOutlined />
+                                      </InputAdornment>
+                                    ), 
+                                  }}
+                                
                             />
                             <div style={{ color: "red" }}>{errors.email?.message}
                             </div>
@@ -127,17 +131,13 @@ const CreateAccount = () => {
                                 autoFocus
                                 className="form-control"
                                 InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton onClick={handleClickShowPassword}>
-                                                {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                {...register("password")}
-                            /><div style={{ color: "red" }}> {errors.password?.message}
-                            </div>
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <LockOutlined />
+                                      </InputAdornment>
+                                    ), 
+                                  }}
+                            />
                             <TextField
                              onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                 margin="normal"
@@ -153,15 +153,12 @@ const CreateAccount = () => {
                                 autoFocus
                                 className="form-control"
                                 InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton onClick={handleClickShowCnfrmPassword}>
-                                                {showCnfrmPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                {...register("confirm_password")}
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <LockOutlined />
+                                      </InputAdornment>
+                                    ), 
+                                  }}
                             />
                              <div style={{ color: "red" }}> {errors.confirm_password?.message}
                             </div>

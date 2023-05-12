@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
@@ -79,7 +80,6 @@ const LogIn = () => {
                                 size="small"
                                 autoFocus
                                 className="form-control"
-                                {...register("email")}
                                 InputProps={{
                                     startAdornment: (
                                       <InputAdornment position="start">
@@ -87,6 +87,8 @@ const LogIn = () => {
                                       </InputAdornment>
                                     ),
                                   }}
+
+                                {...register("email")}
                             />
                             <div style={{ color: "red" }}>{errors.email?.message}
                             </div>
@@ -106,6 +108,11 @@ const LogIn = () => {
                                 className="form-control"
                                 {...register("password")}
                                 InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                          <LockOutlinedIcon />
+                                        </InputAdornment>
+                                      ),
                                     endAdornment: (
                                         <InputAdornment position="end">
                                             <IconButton onClick={handleClickShowPassword}>
@@ -114,14 +121,6 @@ const LogIn = () => {
                                         </InputAdornment>
                                     ),
                                 }}
-
-                                // InputProps={{
-                                //     startAdornment: (
-                                //       <InputAdornment position="start">
-                                //         <LockOutlinedIcon />
-                                //       </InputAdornment>
-                                //     ),
-                                //   }}
                             />
                             <div style={{ color: "red" }}> {errors.password?.message}
                             </div>

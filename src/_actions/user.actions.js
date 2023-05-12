@@ -29,10 +29,14 @@ const useUserActions = () => {
        alertActions.success('We have sent you the password reset link on your email.')
     }
 
+    const create = ({ username, email, password, confirm_password }) => {
+       
+        alertActions.success("Successfully Created Account");
+        navigate("/login")
+    }
 
     return {
-        login,
-        passwordRecovery, 
+        login,passwordRecovery,create,
     }
 
 }

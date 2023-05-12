@@ -19,6 +19,7 @@
     --primary-font: 'Work Sans', sans-serif;
     --secondary-font: 'Space Mono', monospace;
     --article-font: 'Inter', sans-serif;
+    --link-color: #3861FB;
 }
 
 /* button styles */
@@ -75,6 +76,7 @@ html,
 #root h3,
 #root h4,
 #root h5,
+#root h6,
 #root p,
 #root small,
 #root .small-caption {
@@ -101,6 +103,10 @@ html,
     font-size: 22px;
 }
 
+#root h6 {
+    font-size: 18px;
+}
+
 #root p {
     font-size: 16px;
 }
@@ -111,7 +117,7 @@ html,
 }
 
 #root a {
-    color: var(--gold);
+    color: var(--link-color);
     text-decoration: none;
 }
 
@@ -540,8 +546,6 @@ main.auth-wrapper {
     font-weight: 600;
 }
 
-
-
 .course-badge {
     position: relative;
     border-radius: 8px;
@@ -577,9 +581,166 @@ main.auth-wrapper {
 }
 
 .course-badge.moderate:after {
-    background-color: #3861FB;
+    background-color: var(--link-color);
 }
 
 .course-badge.easy:after {
     background-color: #02C076;
+}
+
+
+/* Article details */
+.article-details-head h5 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.article-details-head h4 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.posted-by {
+    color: #76808F;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.article-short {
+    background: #F8FAFD;
+    border-left: 4px solid #3CE9A8;
+    padding: 40px 60px;
+    margin: 25px 0;
+}
+
+.table-of-content {
+    background: #F8FAFD;
+    border-radius: 32px;
+    padding: 30px;
+    margin: 25px 0;
+}
+
+.table-of-content h4 {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.table-of-content ul {
+    padding-left: 30px;
+}
+
+.table-of-content ul li {
+    margin-bottom: 10px;
+    padding: 0;
+    background: unset;
+}
+
+.table-of-content ul li:hover {
+    background: unset;
+}
+
+.table-of-content ul li a {
+    padding: 0;
+}
+
+.article-subscribe {
+    background: #FAFAFA;
+    padding: 35px 24px;
+}
+
+.article-content-inner p,
+.article-content-inner h5 {
+    margin-bottom: 30px;
+}
+
+.article-content-inner small {
+    color: #58667E;
+}
+
+.article-subscribe button {
+    margin: auto;
+    margin-bottom: 25px;
+}
+
+/* article-reviews  */
+.article-reviews {
+    margin-top: 70px;
+    margin-bottom: 30px;
+}
+
+.article-reviews-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    color: #14151A;
+    margin-bottom: 30px;
+}
+
+.article-reviews-head svg {
+    color: #808A9D;
+}
+
+.article-reviews-card {
+    padding: 24px;
+    background: #F8FAFD;
+    border-radius: 16px;
+    display: flex;
+    gap: 24px;
+    max-width: 720px;
+    margin: auto;
+}
+
+.article-reviews-card-img {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.article-reviews-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.article-reviews-card-content h5 {
+    font-weight: 600;
+}
+
+/* .related-article */
+.related-article {
+    background: #F8FAFD;
+    padding: 40px 0;
+}
+
+.related-article h4 {
+    text-align: center;
+}
+
+.related-article-cards {
+    margin-top: 70px;
+    display: flex;
+    gap: 30px;
+}
+
+.related-article-cards .related-card {
+    flex: 1;
+}
+
+.related-article-cards .related-card h6 {
+    margin-bottom: 10px;
+}
+
+.related-card-img {
+    margin-bottom: 20px;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.related-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

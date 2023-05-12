@@ -10,6 +10,7 @@ import Exchange from "../Exchange"
 import Prediction from "../Prediction";
 import News from "../News";
 import Courses from "../Courses";
+import ArticleDetails from "../ArticleDetails";
 
 const Customer = () => {
   return (
@@ -26,6 +27,7 @@ const Customer = () => {
         <Route path={`/prediction`} exact element={<Prediction />} />
         <Route path={`/news`} exact element={<News />} />
         <Route path={`/course`} exact element={<Courses />} />
+        <Route path={`/article-details`} exact element={<ArticleDetails />} />
       </Routes>
       <Footer />
     </div>

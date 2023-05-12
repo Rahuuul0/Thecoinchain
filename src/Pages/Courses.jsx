@@ -3,7 +3,7 @@ import { Box, Container, Link, Typography, InputLabel, MenuItem, FormControl, Se
 import PriceTicker from './Comman/PriceTicker'
 import CurrencyImg from '../../public/assets/images/icons/btc.svg'
 import NewsImg from '../../public/assets/images/coinbase.png'
-import CalendarIc from '../../public/assets/images/icons/calendar-ic.svg'
+import TimeIc from '../../public/assets/images/icons/time-ic.svg'
 
 const Courses = () => {
 
@@ -54,7 +54,7 @@ const Courses = () => {
                                     </Box>
                                     <Box component="div" className='news-date'>
                                         <span>
-                                            <img src={CalendarIc} alt='Calendar icon' />
+                                            <img src={TimeIc} alt='Calendar icon' />
                                         </span> 1m
                                     </Box>
                                 </Box>
@@ -79,7 +79,7 @@ const Courses = () => {
                                     </Box>
                                     <Box component="div" className='news-date'>
                                         <span>
-                                            <img src={CalendarIc} alt='Calendar icon' />
+                                            <img src={TimeIc} alt='Calendar icon' />
                                         </span> 3m
                                     </Box>
                                 </Box>
@@ -104,7 +104,7 @@ const Courses = () => {
                                     </Box>
                                     <Box component="div" className='news-date'>
                                         <span>
-                                            <img src={CalendarIc} alt='Calendar icon' />
+                                            <img src={TimeIc} alt='Calendar icon' />
                                         </span> 2m
                                     </Box>
                                 </Box>

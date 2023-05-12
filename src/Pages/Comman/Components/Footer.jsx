@@ -12,13 +12,13 @@ const Footer = () => {
       <Box paddingBottom={5} paddingTop={5}>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}   paddingBottom={3}>
        
-          <Grid item xs={2} sm={4} md={4} >
+          <Grid item xs={12} sm={12} md={4} >
           <Typography
             variant="h5"
             component="div"
             fontWeight="700"
             paddingBottom={4}
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}
+            sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'flex' } }}
           > <img className='logo-cg' src={Logo} /> CoinGuru
           </Typography>   
 
@@ -45,7 +45,7 @@ const Footer = () => {
             </Stack>
           </Box>
           </Grid>
-          <Grid item xs={2} sm={4} md={4} >
+          <Grid item xs={12} sm={12} md={4} >
             <Typography
             variant='h5'
             component="div"   
@@ -63,7 +63,7 @@ const Footer = () => {
               </Stack>
             </Box>
           </Grid>
-          <Grid item xs={2} sm={4} md={4} >
+          <Grid item xs={12} sm={12} md={4} >
           <Typography
             variant='h5'
             component="div"
@@ -79,7 +79,7 @@ const Footer = () => {
           Get cryptocurrencies price prediction with analysis and straight to your inbox.
           </Typography>
             <Grid container marginTop={3} paddingTop={0} paddingBottom={0} className='bg-white border-rounded'>        
-            <Grid item xs={6} sm={6} md={6} className="footer-subs-form">
+            <Grid item xs={12} sm={6} md={6} className="footer-subs-form">
            
               <TextField            
                 margin="0"
@@ -95,7 +95,7 @@ const Footer = () => {
                 autoFocus
                 className="form-control"  />
             </Grid>
-            <Grid item xs={6} sm={6} md={6} className="footer-subs-form">
+            <Grid item xs={12} sm={6} md={6} className="footer-subs-form">
                 <Button fullWidth variant="outlined" startIcon={<EmailOutlined />}>Subscribe</Button>
             </Grid>
             </Grid>

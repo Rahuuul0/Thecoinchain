@@ -247,6 +247,18 @@ main.auth-wrapper {
     border: 0px;
     text-transform: capitalize;
 }
+.footer-subs-form input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #2B2B2B !important;
+    opacity: 1; /* Firefox */
+}
+  
+.footer-subs-form input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #2B2B2B !important;
+}
+  
+.footer-subs-form input::-ms-input-placeholder { /* Microsoft Edge */
+    color: #2B2B2B !important;
+}
 /* Login Page */
 .auth-wrapper-inner svg{
     color: #BDBDBD;
@@ -367,4 +379,19 @@ main.auth-wrapper {
 }
 .img-responsive{
     max-width: 100%;
+}
+
+
+/* Extra small devices (phones, 767px and down) */
+@media only screen and (max-width: 767px) {
+    /* footer  */
+    .footer .bg-white{
+        background-color: initial;
+    }
+    .footer-subs-form input{
+        border-radius: 20px;
+    }
+    .footer .footer-subs-form button{
+        margin-top: 20px
+    }
 }

@@ -35,8 +35,17 @@ const useUserActions = () => {
         navigate("/login")
     }
 
+       
+    const resetPassword = ({ oldpassword, password, confirmpassword}) => {
+       alertActions.success('Password Reset Successfully');
+       navigate('/login')
+    }
+
     return {
-        login,passwordRecovery,create,
+        login,
+        create,
+        passwordRecovery,
+        resetPassword, 
     }
 
 }

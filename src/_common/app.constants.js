@@ -5,7 +5,6 @@ export const Labels = {
     Upload_Success: "Uploaded successfully",
     Password_Reset_Email: 'Password reset link has been sent to your XXXX successfully',
     Password_Reset_Success: "Your password has been reset successfully",
-    Password_Change_Success: "Your password has been change successfully",
     Logout_Success: "Logout successfully",
     Success_Status_Code: 200,
     Error_Status_Code: 500,    
@@ -17,7 +16,8 @@ export const RoutesName = {
 }
 
 export const Apis = {
-    Password_Recovery: "/passwordRecovery",
+    Password_Recovery: "passwordRecovery",
     Home:'/home', 
-    Login:'login' 
+    Login:'login',
+    Reset_Password: 'resetPassword', 
 }

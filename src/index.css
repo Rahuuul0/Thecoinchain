@@ -181,7 +181,70 @@ main.auth-wrapper {
     opacity: 1;
 }
 
+/* Footer Page */
 
+.quick-links a{
+    color: #CCCCCC;
+}
+.quick-links svg{
+    color: #858584;
+}
+.para-gray{
+    color: #CCCCCC;
+}
+.copyright-text{
+    color: #6C757D;
+}
+.footer-subs-form input{
+    background-color: #ffffff;
+    border-radius: 20px 0px 0px 20px;
+    padding: 0px 15px;
+    height: 60px;
+}
+.footer-subs-form .form-control{    
+    height: 60px;
+}
+.footer-subs-form fieldset{
+    border: 0px;
+}
+.bg-white{
+   background-color: #ffffff;
+   padding: 0;
+}
+.border-rounded{
+    border-radius: 20px;
+}
+.footer hr{
+    border-color: #858584;
+}
+.footer .MuiTypography-h5{
+    font-family: var(--secondary-font) !important;
+}
+.logo-heading{
+    font-family: var(--secondary-font) !important;
+}
+.menu-items button{
+    font-family: var(--secondary-font) !important;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 700;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.logo-cg{
+    padding-right: 15px;
+    font-weight: 700;
+}
+
+.footer-subs-form button{
+    background-color: #FFD700;
+    color: #000;
+    padding: 19px 15px;
+    height: 61px;
+    border-radius: 20px;
+    border: 0px;
+    text-transform: capitalize;
+}
 /* Login Page */
 .auth-wrapper-inner svg{
     color: #BDBDBD;

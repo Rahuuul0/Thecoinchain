@@ -20,8 +20,8 @@ const ChangePassword = () => {
     // form validation rules 
     const validationSchema = Yup.object().shape({
         newPassword: Yup.string().required('New Password is required'),
-        confirmPassword: Yup.string()
-           .oneOf([Yup.ref('newPassword'), null], ' Passwords must match')
+        confirmPassword: Yup.string().required('Confirm Password is required')
+           .oneOf([Yup.ref('newPassword'), null], 'Confirm Passwords must match')
     });
 
     const formOptions = { resolver: yupResolver(validationSchema) };

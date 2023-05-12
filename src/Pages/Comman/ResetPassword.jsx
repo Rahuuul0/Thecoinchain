@@ -139,7 +139,7 @@ const ResetPassword = () => {
                                 className='btn btn-primary'
                                 disabled={isSubmitting}
                                 >
-                                Submit 
+                                Create account 
                             </Button>
                         </Box>
                     </Box>

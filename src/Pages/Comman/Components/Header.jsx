@@ -25,31 +25,14 @@ function Header(props) {
 
   // const navItems = ['Crypto', 'Exchanges', 'Prediction', 'Community', 'Learn']
   const navItems = [
-    {
-      Page: 'Crypto',
-      Icon: '',
-      Link: '/crypto',
-    },
+  
     {
       Page: 'Exchanges',
       Icon: '',
       Link: '/exchanges',
-    },
-    {
-      Page: 'Prediction',
-      Icon: [PredictionIcon],
-      Link: '/prediction',
-    },
-    {
-      Page: 'Community',
-      Icon: '',
-      Link: '/community',
-    },
-    {
-      Page: 'Learn',
-      Icon: '',
-      Link: '/learn',
     }
+
+  
   ]
 
 
@@ -104,11 +87,15 @@ function Header(props) {
             <img src={CoinGuru} alt='Coin Guru' />
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
+                Login
+              </Button>
             {navItems.map((item, i) => (
               <Button onClick={() => { navigate(item.Link) }} key={i} sx={{ color: '#fff' }}>
                 {item.Page}
               </Button>
             ))}
+           
           </Box>
         </Toolbar>
       </AppBar>

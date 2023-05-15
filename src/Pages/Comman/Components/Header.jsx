@@ -18,15 +18,16 @@ import Button from '@mui/material/Button';
 import Prediction from '../../Prediction';
 import PredictionIcon from '../../../../public/assets/images/icons/RocketLaunch.svg'
 import CoinGuru from '../../../../public/assets/images/logo.svg'
-import Logo from "../../../../public/assets/images/cglogo.svg";
+// import Logo from "../../../../public/assets/images/cglogo.svg";
 import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const drawerWidth = 240;
 
-function Header(props) { 
+function Header(props) {
 
-  const navItems = [   
+  const navItems = [
     {
       page: 'Crypto',
       icon: '',
@@ -75,14 +76,28 @@ function Header(props) {
           return (
             <ListItem key={i} disablePadding>
               <ListItemButton sx={{ textAlign: 'center' }}>
-                <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
                 {item.icon &&
-                  <img src={item.icon} alt={item.page}/>
+                  <img src={item.icon} alt={item.page} />
                 }
+                <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
               </ListItemButton>
             </ListItem>
           )
         })}
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: 'center' }}>
+            <ListItemText primary="" onClick={() => { navigate(item.link) }}>
+              Search
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: 'center' }}>
+            <ListItemText primary="" onClick={() => { navigate(item.link) }}>
+              Login
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
@@ -106,22 +121,29 @@ function Header(props) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '100%' } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '100%', flex: 1 } }}
           >
             <img src={CoinGuru} alt='Coin Guru' />
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
-                Login
-              </Button>
+
+          <Box sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
+
             {navItems.map((item, i) => (
               <Button onClick={() => { navigate(item.link) }} key={i} sx={{ color: '#fff' }}>
-                {item.page}
                 {item.icon &&
-                  <img src={item.icon} alt={item.page}/>
+                  <img src={item.icon} alt={item.page} />
                 }
-              </Button>              
+                {item.page}
+              </Button>
             ))}
+
+            <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
+              <SearchIcon />
+            </Button>
+
+            <Button variant="contained" className='btn btn-primary' onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
+              Login
+            </Button>
 
           </Box>
         </Toolbar>

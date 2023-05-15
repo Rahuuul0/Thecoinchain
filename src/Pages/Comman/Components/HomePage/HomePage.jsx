@@ -10,7 +10,7 @@ import PartnersLogos from '../../PartnersLogos';
 const Home = () => {
   return (
     <>
-      <Box component="main" sx={{ py: 8 }}>
+      <Box component="main" sx={{ pt: 8 }}>
         <PriceTicker />
         <CryptoList />
         <FreeGuide />

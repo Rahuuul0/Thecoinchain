@@ -18,22 +18,24 @@ import Button from '@mui/material/Button';
 import Prediction from '../../Prediction';
 import PredictionIcon from '../../../../public/assets/images/icons/RocketLaunch.svg'
 import CoinGuru from '../../../../public/assets/images/logo.svg'
+import Logo from "../../../../public/assets/images/cglogo.svg";
+import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
+
 
 const drawerWidth = 240;
 
 function Header(props) {
 
-  // const navItems = ['Crypto', 'Exchanges', 'Prediction', 'Community', 'Learn']
-  const navItems = [
-  
-    {
-      Page: 'Exchanges',
-      Icon: '',
-      Link: '/exchanges',
-    }
+  const navItems = ['Crypto', 'Exchanges', 'Prediction', 'Community', 'Learn']
+  // const navItems = [
 
-  
-  ]
+  //   {
+  //     Page: 'Exchanges',
+  //     Icon: '',
+  //     Link: '/exchanges',
+  //   }
+
+  // ]
 
 
   const navigate = useNavigate();
@@ -48,6 +50,10 @@ function Header(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <img src={CoinGuru} alt='Coin Guru' />
+      <Typography variant="h6" sx={{ my: 2 }}>
+
+        CoinGuru
+      </Typography>
       <Divider />
       <List>
         {navItems.map((item, i) => {
@@ -82,20 +88,18 @@ function Header(props) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '100%' } }}
-          >
-            <img src={CoinGuru} alt='Coin Guru' />
+            fontWeight="700"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}
+            className='logo-heading'
+          > <img className='logo-cg' src={Logo} /> CoinGuru
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
-                Login
-              </Button>
-            {navItems.map((item, i) => (
-              <Button onClick={() => { navigate(item.Link) }} key={i} sx={{ color: '#fff' }}>
-                {item.Page}
+          <Box className="menu-items" sx={{ display: { xs: 'none', sm: 'block' } }}>
+            {navItems.map((item) => (
+              <Button key={item} sx={{ color: '#fff' }}>
+                {item}
               </Button>
             ))}
-           
+
           </Box>
         </Toolbar>
       </AppBar>

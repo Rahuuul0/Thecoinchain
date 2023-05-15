@@ -62,114 +62,107 @@ const LogIn = () => {
                             alignItems: "center",
                         }}
                     >
+
+                    </Box>
+                    <Box
+                        className='auth-wrapper-inner'
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Typography component="h3" variant="h3">
+                            Sign in to CoinGuru
+                        </Typography>
+                        <Typography component="h5" variant="h5">
+                            Welcome back!
+                        </Typography>
                         <Box
-                            className=''
-                            sx={{
-                                display: "flex",
-                                alignItems: "center",
-                            }}
+                            noValidate
+                            component="form"
+                            sx={{ mt: '24px' }}
+                            onSubmit={handleSubmit(userActions.login)}
                         >
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                type='email'
+                                id="email"
+                                placeholder='Email Address'
+                                name="email"
+                                autoComplete="off"
+                                size="small"
+                                autoFocus
+                                className="form-control"
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <EmailOutlinedIcon />
+                                        </InputAdornment>
+                                    ),
+                                }}
 
-                        </Box>
-                        <Box
-                            className='auth-wrapper-inner'
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                            }}
-                        >
-                            <Typography component="h3" variant="h3">
-                                Sign in to CoinGuru
-                            </Typography>
-                            <Typography component="h5" variant="h5">
-                                Welcome back!
-                            </Typography>
-                            <Box
-                                noValidate
-                                component="form"
-                                sx={{ mt: '24px' }}
-                                onSubmit={handleSubmit(userActions.login)}
-                            >
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    type='email'
-                                    id="email"
-                                    placeholder='Email Address'
-                                    name="email"
-                                    autoComplete="off"
-                                    size="small"
-                                    autoFocus
-                                    className="form-control"
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <EmailOutlinedIcon />
-                                            </InputAdornment>
-                                        ),
-                                    }}
+                                {...register("email")}
+                                onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
 
-                                    {...register("email")}
-                                    onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-
-                                />
-                                <div style={{ color: "red" }}>{errors.email?.message}
-                                </div>
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    type={showPassword ? "text" : "password"}
-                                    id="password"
-                                    placeholder='Password'
-                                    name="password"
-                                    autoComplete="off"
-                                    size="small"
-                                    autoFocus
-                                    className="form-control"
-                                    {...register("password")}
-                                    onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <LockOutlinedIcon />
-                                            </InputAdornment>
-                                        ),
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton onClick={handleClickShowPassword}>
-                                                    {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
-                                <div style={{ color: "red" }}> {errors.password?.message}
-                                </div>
-                                <Box component="div" sx={{ textAlign: 'center' }}>
-                                    <Link onClick={() => { navigate("/password-recovery"); }} variant="body2" sx={{ color: '#2B2B2B;', textDecoration: 'none' }}>
-                                        Forgot password?
-                                    </Link>
-                                </Box>
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    className='btn btn-primary'
-                                    disabled={isSubmitting}>
-                                    Log In
-                                </Button>
+                            />
+                            <div style={{ color: "red" }}>{errors.email?.message}
+                            </div>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                type={showPassword ? "text" : "password"}
+                                id="password"
+                                placeholder='Password'
+                                name="password"
+                                autoComplete="off"
+                                size="small"
+                                autoFocus
+                                className="form-control"
+                                {...register("password")}
+                                onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <LockOutlinedIcon />
+                                        </InputAdornment>
+                                    ),
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton onClick={handleClickShowPassword}>
+                                                {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                            <div style={{ color: "red" }}> {errors.password?.message}
+                            </div>
+                            <Box component="div" sx={{ textAlign: 'center' }}>
+                                <Link onClick={() => { navigate("/password-recovery"); }} variant="body2" sx={{ color: '#2B2B2B;', textDecoration: 'none' }}>
+                                    Forgot password?
+                                </Link>
                             </Box>
-                            <Box className='link-new_account' component="div" sx={{ textAlign: 'center', marginTop: '40px' }}>
-                                <Typography component="h5" variant="h5" sx={{ display: 'flex', gap: '10px' }}>
-                                    Don’t have an account?
-                                    <Link onClick={() => { navigate("/create-account"); }} variant="body2" sx={{ color: '#2B2B2B;' }}>
-                                        Register here.
-                                    </Link>
-                                </Typography>
-                            </Box>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                className='btn btn-primary'
+                                disabled={isSubmitting}>
+                                Log In
+                            </Button>
                         </Box>
+                        <Box className='link-new_account' component="div" sx={{ textAlign: 'center', marginTop: '40px' }}>
+                            <Typography component="h5" variant="h5" sx={{ display: 'flex', gap: '10px' }}>
+                                Don’t have an account?
+                                <Link onClick={() => { navigate("/create-account"); }} variant="body2" sx={{ color: '#2B2B2B;' }}>
+                                    Register here.
+                                </Link>
+                            </Typography>
+                        </Box>
+                    </Box>
                 </Container>
             </ThemeProvider>
         </>

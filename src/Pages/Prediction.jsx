@@ -12,7 +12,7 @@ const Prediction = () => {
             <Box component="div" className='page-head'>
                 <Container maxWidth="lg">
                     <Typography component="h3" variant='h3'>
-                        Top Cryptocurrency Exchange
+                        Top Cryptocurrency Prediction
                     </Typography>
                     <Typography component="small" variant='body2'>
                         Please <Link href='#'>Subscribe</Link> to get full access to the Most Accurate Short and Long Term Cryptocurrencies' Price Predictions

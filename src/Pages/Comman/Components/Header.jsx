@@ -66,10 +66,10 @@ function Header(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <img src={CoinGuru} alt='Coin Guru' />
-      <Typography variant="h6" sx={{ my: 2 }}>
-        CoinGuru
-      </Typography>
+      <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+      {/* <Typography variant="h6" sx={{ my: 2 }} onClick={() => { navigate('/') }}>
+        <img src={CoinGuru} alt='Coin Guru' />
+      </Typography> */}
       <Divider />
       <List>
         {navItems.map((item, i) => {
@@ -121,7 +121,8 @@ function Header(props) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '100%', flex: 1 } }}
+            onClick={() => { navigate('/') }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer' } }}
           >
             <img src={CoinGuru} alt='Coin Guru' />
           </Typography>

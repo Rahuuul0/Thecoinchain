@@ -14,6 +14,9 @@ import Courses from "../Courses";
 import ArticleDetails from "../ArticleDetails";
 import Coin from "./Coin";
 import CryptocurrencyReviews from "./CryptocurrencyReviews";
+import Crypto from "../Crypto";
+import Community from "../Community";
+import Learn from "../Learn";
 
 const Customer = () => {
   return (
@@ -35,6 +38,9 @@ const Customer = () => {
         <Route path={`/article-details`} exact element={<ArticleDetails />} />
         <Route path={`/coin`} exact element={<Coin />} />
         <Route path={`/cryptocurrency-reviews`} exact element={<CryptocurrencyReviews />} />
+        <Route path={`/crypto`} exact element={<Crypto />} />
+        <Route path={`/community`} exact element={<Community />} />
+        <Route path={`/learn`} exact element={<Learn />} />
       </Routes>
       <Footer />
     </div>

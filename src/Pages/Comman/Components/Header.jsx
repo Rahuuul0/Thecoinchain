@@ -15,12 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Prediction from '../../Prediction';
-import PredictionIcon from '../../../../public/assets/images/icons/RocketLaunch.svg'
 import CoinGuru from '../../../../public/assets/images/logo.svg'
-// import Logo from "../../../../public/assets/images/cglogo.svg";
-import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
-import SearchIcon from '@mui/icons-material/Search';
 
 
 const drawerWidth = 240;
@@ -40,7 +35,7 @@ function Header(props) {
     },
     {
       page: 'Prediction',
-      icon: PredictionIcon,
+      icon: '',
       link: '/prediction',
     },
     {
@@ -138,9 +133,9 @@ function Header(props) {
               </Button>
             ))}
 
-            <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
+            {/* <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
               <SearchIcon />
-            </Button>
+            </Button> */}
 
             <Button variant="contained" className='btn btn-primary' onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
               Login

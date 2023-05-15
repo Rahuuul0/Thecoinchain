@@ -3,10 +3,11 @@ import { Box, Container, Link, Typography } from '@mui/material';
 import PriceTicker from './Comman/PriceTicker'
 import CryptoList from './Comman/CryptoList';
 import FreeGuide from './Comman/FreeGuide';
+import PartnersLogos from './Comman/PartnersLogos';
 
 const Exchange = () => {
     return (
-        <Box component="main" sx={{ py: 8 }}>
+        <Box component="main" sx={{ pt: 8 }}>
             <PriceTicker />
             <Box component="div" className='page-head'>
                 <Container maxWidth="lg">
@@ -21,6 +22,7 @@ const Exchange = () => {
             <Box component="div" className='page-inner'>
                 <CryptoList />
                 <FreeGuide />
+                <PartnersLogos />
             </Box>
         </Box>
     )

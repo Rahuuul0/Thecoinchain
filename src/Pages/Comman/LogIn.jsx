@@ -89,11 +89,11 @@ const LogIn = () => {
                                 className="form-control"
                                 InputProps={{
                                     startAdornment: (
-                                      <InputAdornment position="start">
-                                        <EmailOutlinedIcon />
-                                      </InputAdornment>
+                                        <InputAdornment position="start">
+                                            <EmailOutlinedIcon />
+                                        </InputAdornment>
                                     ),
-                                  }}
+                                }}
 
                                 {...register("email")}
                                 onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })} 
@@ -118,9 +118,9 @@ const LogIn = () => {
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                          <LockOutlinedIcon />
+                                            <LockOutlinedIcon />
                                         </InputAdornment>
-                                      ),
+                                    ),
                                     endAdornment: (
                                         <InputAdornment position="end">
                                             <IconButton onClick={handleClickShowPassword}>

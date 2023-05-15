@@ -5,16 +5,18 @@ import TopRatedArtists from '../../TopRatedArtists';
 import PriceTicker from '../../PriceTicker';
 import CryptoList from '../../CryptoList';
 import FreeGuide from '../../FreeGuide';
+import PartnersLogos from '../../PartnersLogos';
 
 const Home = () => {
   return (
     <>
-      <Box component="main" sx={{ py: 8 }}>
+      <Box component="main" sx={{ pt: 8 }}>
         <PriceTicker />
         <CryptoList />
         <FreeGuide />
         {/* <HeroSection />
         <TopRatedArtists /> */}
+        <PartnersLogos />
       </Box>
     </>
   );

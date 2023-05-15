@@ -28,7 +28,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 0px 50px;
+    padding: 0px 30px;
     gap: 12px;
     font-size: 16px;
     border-radius: 20px !important;
@@ -40,27 +40,27 @@
 
 #root .btn-primary {
     background-color: var(--gold);
-    min-width: 206px;
+    min-width: 150px;
     height: 46px;
     color: var(--background);
 }
 
 #root .btn-secondary {
     border: 2px solid var(--caption_label_text);
-    min-width: 206px;
+    min-width: 150px;
     background-color: unset;
     height: 46px;
     color: var(--text_color);
 }
 
 #root .btn-md {
-    min-width: 186px;
+    min-width: 140px;
     height: 46px;
     font-size: 16px;
 }
 
 #root .btn-sm {
-    min-width: 186px;
+    min-width: 140px;
     height: 46px;
     font-size: 16px;
 }
@@ -726,7 +726,15 @@ main.auth-wrapper {
 }
 
 .related-article-cards .related-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     flex: 1;
+    min-height: 520px;
+}
+
+.related-card-bottom {
+    margin-top: auto;
 }
 
 .related-article-cards .related-card h6 {
@@ -743,4 +751,12 @@ main.auth-wrapper {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.article-cta {
+    margin-top: 50px;
+}
+
+.article-cta .btn {
+    margin: auto;
 }

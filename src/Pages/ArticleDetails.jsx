@@ -7,6 +7,7 @@ import ReviewerImg from '../../public/assets/images/reviewer.png'
 import RelatedImg01 from '../../public/assets/images/related-article-01.png'
 import RelatedImg02 from '../../public/assets/images/related-article-02.png'
 import RelatedImg03 from '../../public/assets/images/related-article-03.png'
+import EastIcon from '@mui/icons-material/East';
 
 const ArticleDetails = () => {
     return (
@@ -157,12 +158,14 @@ const ArticleDetails = () => {
                                     Mark your calendar for March 23, 2023, as the Arbitrum token airdrop goes live.
                                 </Typography>
 
-                                <Typography component="p" variant='body2' sx={{ color: '#76808F', marginTop: 5, fontSize: '12px' }}>
-                                    By 0xKira
-                                </Typography>
-                                <Typography component="p" variant='body2' sx={{ color: '#76808F', marginTop: 2, fontSize: '12px' }}>
-                                    1d ago <span><img src={TimeIc} alt='time ic' />  5m</span>
-                                </Typography>
+                                <Box component="div" className='related-card-bottom'>
+                                    <Typography component="p" variant='body2' sx={{ color: '#76808F', marginTop: 5, fontSize: '12px' }}>
+                                        By 0xKira
+                                    </Typography>
+                                    <Typography component="p" variant='body2' sx={{ color: '#76808F', marginTop: 2, fontSize: '12px', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                        1d ago <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><img src={TimeIc} alt='time ic' />  2m</span>
+                                    </Typography>
+                                </Box>
                             </Box>
                             <Box component="div" className='related-card'>
                                 <Box component="div" className='related-card-img'>
@@ -177,13 +180,14 @@ const ArticleDetails = () => {
                                 <Typography component="p" variant='body1' sx={{ color: '#76808F' }}>
                                     Recent market volatility has caused stablecoins to deviate from its peg — here's a look at why.
                                 </Typography>
-
-                                <Typography component="p" variant='body2' sx={{ color: '#76808F', marginTop: 5, fontSize: '12px' }}>
-                                    By Andrey Sergeenkov
-                                </Typography>
-                                <Typography component="p" variant='body2' sx={{ color: '#76808F', marginTop: 2, fontSize: '12px' }}>
-                                    1w ago <span><img src={TimeIc} alt='time ic' />  5m</span>
-                                </Typography>
+                                <Box component="div" className='related-card-bottom'>
+                                    <Typography component="p" variant='body2' sx={{ color: '#76808F', marginTop: 5, fontSize: '12px' }}>
+                                        By Andrey Sergeenkov
+                                    </Typography>
+                                    <Typography component="p" variant='body2' sx={{ color: '#76808F', marginTop: 2, fontSize: '12px', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                        1w ago <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><img src={TimeIc} alt='time ic' />  5m</span>
+                                    </Typography>
+                                </Box>
                             </Box>
                             <Box component="div" className='related-card'>
                                 <Box component="div" className='related-card-img'>
@@ -199,14 +203,21 @@ const ArticleDetails = () => {
                                     CoinMarketCap Alexandria takes a deep dive into Core, a layer-one blockchain utilizing a novel mechanism termed Satoshi Plus, developed by the Core DAO.
                                 </Typography>
 
-                                <Typography component="p" variant='body2' sx={{ color: '#76808F', marginTop: 5, fontSize: '12px' }}>
-                                    By Ivan Cryptoslav
-                                </Typography>
-                                <Typography component="p" variant='body2' sx={{ color: '#76808F', marginTop: 2, fontSize: '12px' }}>
-                                    1w ago <span><img src={TimeIc} alt='time ic' />  20m</span>
-                                </Typography>
+                                <Box component="div" className='related-card-bottom'>
+                                    <Typography component="p" variant='body2' sx={{ color: '#76808F', marginTop: 5, fontSize: '12px' }}>
+                                        By Ivan Cryptoslav
+                                    </Typography>
+                                    <Typography component="p" variant='body2' sx={{ color: '#76808F', marginTop: 2, fontSize: '12px', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                        2w ago <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><img src={TimeIc} alt='time ic' />  24m</span>
+                                    </Typography>
+                                </Box>
                             </Box>
 
+                        </Box>
+                        <Box component="div" className='article-cta'>
+                            <Button className='btn btn-primary' variant="contained" endIcon={<EastIcon />}>
+                                All articles
+                            </Button>
                         </Box>
                     </Container>
 

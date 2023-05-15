@@ -5,6 +5,7 @@ import TopRatedArtists from '../../TopRatedArtists';
 import PriceTicker from '../../PriceTicker';
 import CryptoList from '../../CryptoList';
 import FreeGuide from '../../FreeGuide';
+import PartnersLogos from '../../PartnersLogos';
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
         <FreeGuide />
         {/* <HeroSection />
         <TopRatedArtists /> */}
+        <PartnersLogos />
       </Box>
     </>
   );

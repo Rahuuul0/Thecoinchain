@@ -20,7 +20,7 @@ const Customer = () => {
         <Route path={`/forgot-password`} element={<PasswordRecovery />} />
         <Route path={`/reset-password`} element={<ResetPassword />} />
         <Route path={`/create-account`} element={<CreateAccount />} />
-        {/* <Route path={`/`} exact element={<Home />} /> */}
+        <Route path={`/`} exact element={<Home />} />
         <Route path={`/exchanges`} exact element={<Exchange />} />
         <Route path={`/prediction`} exact element={<Prediction />} />
         <Route path={`/news`} exact element={<News />} />

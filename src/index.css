@@ -412,3 +412,18 @@ main.auth-wrapper {
     font-size: 24px;
     font-weight: 700;
 }
+
+
+/* Partners */
+.partner-logos {
+    background: url('../public/assets/images/partners/partners-bg.png');
+    background-size: cover;
+    padding: 45px 0;
+}
+
+.partner-logos-inner {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}

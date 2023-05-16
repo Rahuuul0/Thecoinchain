@@ -57,6 +57,14 @@
     color: var(--color_light);
 }
 
+#root .btn-outlined-secondary {
+    min-width: 150px;
+    height: 46px;
+    border: 2px solid #E6E8EC;
+    border-radius: 90px;
+    color: var(--color_dark);
+}
+
 html body {
     color: var(--text_dark);
     margin: 0;
@@ -514,4 +522,28 @@ main.auth-wrapper {
 .auth-form.auth-otp .MuiFormControl-root .MuiInputBase-root input:focus {
     background-color: #fff;
     border: 1px solid #E6E8EC;
+}
+
+.auth-otp-cta {
+    display: grid;
+    justify-content: space-between;
+    gap: 30px;
+    grid-template-columns: auto 100px;
+}
+
+.auth-otp-cta .btn {
+    min-width: 100px !important;
+    padding: 0 20px !important;
+}
+
+.auth-wrapper-form-inner.forgot-password {
+    max-width: 400px;
+}
+
+.auth-wrapper-inner .auth-wrapper-form-inner.forgot-password form {
+    max-width: 400px;
+}
+
+.invalid-feedback {
+    font-size: 12px !important;
 }

@@ -10,6 +10,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 const theme = createTheme();
 
 const AccountConfirm = () => {
+    const navigate = useNavigate();
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -86,10 +87,10 @@ const AccountConfirm = () => {
                                     sx={{ mt: '24px' }}
                                 >
                                     <Box component="div" className='auth-form auth-otp' >
-                                        <TextField id="otp1" variant="filled" />
-                                        <TextField id="otp2" variant="filled" />
-                                        <TextField id="otp3" variant="filled" />
-                                        <TextField id="otp4" variant="filled" />
+                                        <TextField id="otp1" type='text' variant="filled" />
+                                        <TextField id="otp2" type='text' variant="filled" />
+                                        <TextField id="otp3" type='text' variant="filled" />
+                                        <TextField id="otp4" type='text' variant="filled" />
                                     </Box>
                                 </Box>
                             </Box>

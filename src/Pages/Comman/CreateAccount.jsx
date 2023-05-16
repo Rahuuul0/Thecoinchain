@@ -1,17 +1,20 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Container, Box, TextField, Typography, Link, Button } from '@mui/material'
+import { Checkbox, Container, Box, TextField, Typography, Link, Button, FormControlLabel } from '@mui/material'
 import { useForm } from "react-hook-form";
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useUserActions } from "../../_actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
+import LogoLight from '../../../public/assets/images/logo-light.svg'
+import AuthBg from '../../../public/assets/images/auth-bg.svg'
+import AppleIcon from '@mui/icons-material/Apple';
+import GoogleIcon from '@mui/icons-material/Google';
 
 const theme = createTheme();
 
@@ -30,14 +33,14 @@ const CreateAccount = () => {
             .required("Password is required")
             .min(8, "Password must be at least 8 characters.")
             .matches(
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-              "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."),
-           confirm_password: Yup.string()
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."),
+        confirm_password: Yup.string()
             .trim()
             .required("Confirm Password is required").oneOf(
                 [Yup.ref("password"), null],
                 "Passwords must match."
-              ),
+            ),
     });
 
     //password eye IconButton
@@ -61,115 +64,147 @@ const CreateAccount = () => {
         <>
             <ThemeProvider theme={theme}>
                 <Container component="main" className='auth-wrapper' maxWidth="fluid">
-                    <Box
-                        className='auth-wrapper-inner'
+
+                    <Box className='auth-header'
                         sx={{
                             display: "flex",
-                            flexDirection: "column",
                             alignItems: "center",
+                            justifyContent: 'space-between',
                         }}
                     >
-                        <Typography component="h3" variant="h3">
-                            Create Account
-                        </Typography>
-                        <Typography component="h5" variant="h5">
-                            Welcome! enter your details and start Getting Rich!
-                        </Typography>
-                        <Box
-                            noValidate
-                            component="form"
-                            sx={{ mt: '24px' }}
-                            onSubmit={handleSubmit(userActions.create)}
-                        >
-                            <TextField
-                             onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-                                margin="normal"
-                                required
-                                fullWidth
-                                type='text'
-                                id="username"
-                                placeholder='Username'
-                                name="username"
-                                autoComplete="off"
-                                size="small"
-                                autoFocus
-                                className="form-control"
-                                {...register("username")}
-                            /><div style={{ color: "red" }}>{errors.username?.message}
-                            </div>
-                            <TextField
-                             onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-                                margin="normal"
-                                required
-                                fullWidth
-                                type='email'
-                                id="email"
-                                placeholder='Email Address'
-                                name="email"
-                                autoComplete="off"
-                                size="small"
-                                autoFocus
-                                className="form-control"
-                                {...register("email")}
-                            />
-                            <div style={{ color: "red" }}>{errors.email?.message}
-                            </div>
-                            <TextField
-                             onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-                                margin="normal"
-                                required
-                                type={showPassword ? "text" : "password"}
-                                fullWidth
-                                id="password"
-                                // label="Password"
-                                placeholder='Password'
-                                name="password"
-                                autoComplete="off"
-                                size="small"
-                                autoFocus
-                                className="form-control"
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton onClick={handleClickShowPassword}>
-                                                {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                {...register("password")}
-                            /><div style={{ color: "red" }}> {errors.password?.message}
-                            </div>
-                            <TextField
-                             onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-                                margin="normal"
-                                required
-                                type={showCnfrmPassword ? "text" : "password"}
-                                fullWidth
-                                id="confirm_password"
-                                // label="Password"
-                                placeholder='Confirm Password'
-                                name="confirm_password"
-                                autoComplete="off"
-                                size="small"
-                                autoFocus
-                                className="form-control"
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton onClick={handleClickShowCnfrmPassword}>
-                                                {showCnfrmPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                {...register("confirm_password")}
-                            />
-                             <div style={{ color: "red" }}> {errors.confirm_password?.message}
-                            </div>
-                            <Button type="submit" disabled={isSubmitting} variant="contained" className='btn btn-primary'>
-                                Create account
-                            </Button>
+                        <Box className='auth-header-logo' >
+                            <img src={LogoLight} alt='Coin Guru' />
+                        </Box>
+                        <Box className='dont-have-acc' >
+                            <Typography component="p" variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
+                                Already have an account? <Link onClick={() => { navigate("/login"); }}>Login</Link>
+                            </Typography>
+                        </Box>
+                    </Box>
+                    <Box className='auth-wrapper-inner'>
+                        <Box className='auth-wrapper-bg'>
+                            <img src={AuthBg} alt='Auth bg' />
+                        </Box>
+                        <Box className='auth-wrapper-form' >
+                            <Box className='auth-wrapper-form-inner' >
+                                <Typography component="h3" variant="h3">
+                                    Sign up
+                                </Typography>
+                                <Box component="div" className='open-id' >
+                                    <Typography component="small" variant="body2" sx={{ textAlign: 'center', color: '#777E91', display: 'block', marginBottom: '20px' }}>
+                                        Use Your OpenID to Sign up
+                                    </Typography>
+                                    <Box component="div" className='open-id-btn-wrapper' >
+                                        <Button variant="contained" className='btn btn-primary' startIcon={<GoogleIcon />}>
+                                            Google
+                                        </Button>
+                                        <Button variant="contained" className='btn btn-secondary' startIcon={<AppleIcon />}>
+                                            Apple
+                                        </Button>
+                                    </Box>
+                                </Box>
+                                <Box component="div" className='devider' />
+                                <Typography component="small" variant="body2" sx={{ textAlign: 'center', color: '#777E91', display: 'block', marginBottom: '20px' }}>
+                                    Or continue with email
+                                </Typography>
+                                <Box
+                                    noValidate
+                                    component="form"
+                                    sx={{ mt: '24px' }}
+                                    onSubmit={handleSubmit(userActions.create)}
+                                >
+                                    <Box component="div" className='auth-form' >
+                                        <TextField
+                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                                            label="Email"
+                                            className="form-control"
+                                            type="email"
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            variant="standard"
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            id="email"
+                                            placeholder='Email address'
+                                            name="email"
+                                            autoComplete="off"
+                                            size="small"
+                                            autoFocus
+                                            {...register("email")}
+                                        />
+                                        <div style={{ color: "red" }}>{errors.email?.message}
+                                        </div>
+                                        <TextField
+                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                                            margin="normal"
+                                            required
+                                            type={showPassword ? "text" : "password"}
+                                            fullWidth
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            variant="standard"
+                                            id="password"
+                                            label="Password"
+                                            placeholder='Password'
+                                            name="password"
+                                            autoComplete="off"
+                                            size="small"
+                                            autoFocus
+                                            className="form-control"
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton onClick={handleClickShowPassword}>
+                                                            {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            {...register("password")}
+                                        /><div style={{ color: "red" }}> {errors.password?.message}
+                                        </div>
+                                        <TextField
+                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                                            margin="normal"
+                                            required
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            variant="standard"
+                                            type={showCnfrmPassword ? "text" : "password"}
+                                            fullWidth
+                                            id="confirm_password"
+                                            label="Confirm Password"
+                                            placeholder='Confirm Password'
+                                            name="confirm_password"
+                                            autoComplete="off"
+                                            size="small"
+                                            autoFocus
+                                            className="form-control"
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton onClick={handleClickShowCnfrmPassword}>
+                                                            {showCnfrmPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            {...register("confirm_password")}
+                                        />
+                                        <div style={{ color: "red" }}> {errors.confirm_password?.message}
+                                        </div>
+
+                                        <FormControlLabel className='auth-checkbox' control={<Checkbox defaultChecked />} label="By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." />
+                                        <Button type="submit" disabled={isSubmitting} variant="contained" className='btn btn-primary' onClick={() => { navigate("/confirm-account"); }}>
+                                            Sign up
+                                        </Button>
+                                    </Box>
+                                </Box>
+                            </Box>
                         </Box>
                     </Box>
                 </Container>

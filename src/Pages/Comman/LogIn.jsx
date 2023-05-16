@@ -1,11 +1,7 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
 import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions"
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,12 +9,24 @@ import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from "@mui/material/IconButton";
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 import { useAlertActions } from '../../_actions/alert.actions';
-
+import LogoLight from '../../../public/assets/images/logo-light.svg'
+import AuthBg from '../../../public/assets/images/auth-bg.svg'
+import Lock from '../../../public/assets/images/icons/lock.svg'
 
 const theme = createTheme();
 
 const LogIn = () => {
+
+    const [value, setValue] = React.useState('1');
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
     const userActions = useUserActions();
     const navigate = useNavigate();
@@ -55,112 +63,201 @@ const LogIn = () => {
         <>
             <ThemeProvider theme={theme}>
                 <Container component="main" className='auth-wrapper' maxWidth="fluid">
-                    <Box
-                        className='auth-header'
+                    <Box className='auth-header'
                         sx={{
                             display: "flex",
                             alignItems: "center",
+                            justifyContent: 'space-between',
                         }}
                     >
-
-                    </Box>
-                    <Box
-                        className='auth-wrapper-inner'
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                        }}
-                    >
-                        <Typography component="h3" variant="h3">
-                            Sign in to CoinGuru
-                        </Typography>
-                        <Typography component="h5" variant="h5">
-                            Welcome back!
-                        </Typography>
-                        <Box
-                            noValidate
-                            component="form"
-                            sx={{ mt: '24px' }}
-                            onSubmit={handleSubmit(userActions.login)}
-                        >
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                type='email'
-                                id="email"
-                                placeholder='Email Address'
-                                name="email"
-                                autoComplete="off"
-                                size="small"
-                                autoFocus
-                                className="form-control"
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <EmailOutlinedIcon />
-                                        </InputAdornment>
-                                    ),
-                                }}
-
-                                {...register("email")}
-                                onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-
-                            />
-                            <div style={{ color: "red" }}>{errors.email?.message}
-                            </div>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                type={showPassword ? "text" : "password"}
-                                id="password"
-                                placeholder='Password'
-                                name="password"
-                                autoComplete="off"
-                                size="small"
-                                autoFocus
-                                className="form-control"
-                                {...register("password")}
-                                onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <LockOutlinedIcon />
-                                        </InputAdornment>
-                                    ),
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton onClick={handleClickShowPassword}>
-                                                {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                            <div style={{ color: "red" }}> {errors.password?.message}
-                            </div>
-                            <Box component="div" sx={{ textAlign: 'center' }}>
-                                <Link onClick={() => { navigate("/password-recovery"); }} variant="body2" sx={{ color: '#2B2B2B;', textDecoration: 'none' }}>
-                                    Forgot password?
-                                </Link>
-                            </Box>
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                className='btn btn-primary'
-                                disabled={isSubmitting}>
-                                Log In
-                            </Button>
+                        <Box className='auth-header-logo' >
+                            <img src={LogoLight} alt='Coin Guru' />
                         </Box>
-                        <Box className='link-new_account' component="div" sx={{ textAlign: 'center', marginTop: '40px' }}>
-                            <Typography component="h5" variant="h5" sx={{ display: 'flex', gap: '10px' }}>
-                                Don’t have an account?
-                                <Link onClick={() => { navigate("/create-account"); }} variant="body2" sx={{ color: '#2B2B2B;' }}>
-                                    Register here.
-                                </Link>
+                        <Box className='dont-have-acc' >
+                            <Typography component="p" variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
+                                Don’t have an account? <Link onClick={() => { navigate("/create-account"); }}>Sign up for free</Link>
                             </Typography>
+                        </Box>
+                    </Box>
+                    <Box className='auth-wrapper-inner'>
+                        <Box className='auth-wrapper-bg'>
+                            <img src={AuthBg} alt='Auth bg' />
+                        </Box>
+                        <Box className='auth-wrapper-form' >
+                            <Box className='auth-wrapper-form-inner' >
+                                <Typography component="h3" variant="h3">
+                                    Sign in to CoinGuru
+                                </Typography>
+                                <Box component="div" className='ensure' >
+                                    <Typography component="p" variant="body2" sx={{ color: '#777E91' }}>
+                                        Please ensure you are visiting the correct url.
+                                    </Typography>
+                                    <Box component="div" className='ensure-link' >
+                                        <img src={Lock} alt='lock' />
+                                        <span>https://</span> accounts.coinguru.org/login
+                                    </Box>
+                                </Box>
+                                <Box component="div" className='devider' />
+
+                                <Box
+                                    noValidate
+                                    component="form"
+                                    sx={{ mt: '24px' }}
+                                    onSubmit={handleSubmit(userActions.login)}
+                                >
+                                    <Box component="div" className='auth-form' >
+                                        <Box sx={{ width: '100%', typography: 'body1' }}>
+                                            <TabContext value={value}>
+                                                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                                                    <TabList onChange={handleChange} aria-label="Login Tabs">
+                                                        <Tab label="Email" value="1" />
+                                                        <Tab label="Mobile" value="2" />
+                                                    </TabList>
+                                                </Box>
+                                                <TabPanel value="1" sx={{ p: 0 }}>
+                                                    <TextField
+                                                        label="Email"
+                                                        className="form-control"
+                                                        type="email"
+                                                        InputLabelProps={{
+                                                            shrink: true,
+                                                        }}
+                                                        variant="standard"
+                                                        margin="normal"
+                                                        required
+                                                        fullWidth
+                                                        id="email"
+                                                        placeholder='Email address'
+                                                        name="email"
+                                                        autoComplete="off"
+                                                        size="small"
+                                                        autoFocus
+                                                        {...register("email")}
+                                                        onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                                                    />
+                                                    <div style={{ color: "red" }}>{errors.email?.message}</div>
+
+                                                    <TextField
+                                                        label="Password"
+                                                        className="form-control"
+                                                        InputLabelProps={{
+                                                            shrink: true,
+                                                        }}
+                                                        variant="standard"
+                                                        margin="normal"
+                                                        required
+                                                        fullWidth
+                                                        id="password"
+                                                        placeholder='Password'
+                                                        name="password"
+                                                        autoComplete="off"
+                                                        size="small"
+                                                        type={showPassword ? "text" : "password"}
+                                                        {...register("password")}
+                                                        onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                                                        InputProps={{
+                                                            endAdornment: (
+                                                                <InputAdornment position="end">
+                                                                    <IconButton onClick={handleClickShowPassword}>
+                                                                        {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                                    </IconButton>
+                                                                </InputAdornment>
+                                                            ),
+                                                        }}
+                                                    />
+                                                    <div style={{ color: "red" }}> {errors.password?.message}
+                                                    </div>
+                                                    <Box component="div" className='scan-forgot'>
+                                                        <Link href='#' onClick={() => { navigate("/scan-to-login"); }} variant="body2" sx={{ color: '#777E91!important', textDecoration: 'none' }}>
+                                                            Scan to login
+                                                        </Link>
+                                                        <Link href='#' onClick={() => { navigate("/password-recovery"); }} variant="body2" sx={{ color: '#3772FF', textDecoration: 'none' }}>
+                                                            Forgot password?
+                                                        </Link>
+                                                    </Box>
+                                                    <Button
+                                                        type="submit"
+                                                        variant="contained"
+                                                        className='btn btn-primary'
+                                                        disabled={isSubmitting}>
+                                                        Log In
+                                                    </Button>
+                                                </TabPanel>
+                                                <TabPanel value="2" sx={{ p: 0 }}>
+                                                    <TextField
+                                                        label="Number"
+                                                        className="form-control"
+                                                        InputLabelProps={{
+                                                            shrink: true,
+                                                        }}
+                                                        variant="standard"
+                                                        margin="normal"
+                                                        required
+                                                        fullWidth
+                                                        id="number"
+                                                        placeholder='Number'
+                                                        name="number"
+                                                        autoComplete="off"
+                                                        size="small"
+                                                        type="number"
+                                                        {...register("email")}
+                                                        onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+
+                                                    />
+                                                    <div style={{ color: "red" }}>{errors.email?.message}
+                                                    </div>
+
+                                                    <TextField
+                                                        label="Password"
+                                                        className="form-control"
+                                                        InputLabelProps={{
+                                                            shrink: true,
+                                                        }}
+                                                        variant="standard"
+                                                        margin="normal"
+                                                        required
+                                                        fullWidth
+                                                        id="password"
+                                                        placeholder='Password'
+                                                        name="password"
+                                                        autoComplete="off"
+                                                        size="small"
+                                                        type={showPassword ? "text" : "password"}
+                                                        {...register("password")}
+                                                        onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                                                        InputProps={{
+                                                            endAdornment: (
+                                                                <InputAdornment position="end">
+                                                                    <IconButton onClick={handleClickShowPassword}>
+                                                                        {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                                    </IconButton>
+                                                                </InputAdornment>
+                                                            ),
+                                                        }}
+                                                    />
+                                                    <div style={{ color: "red" }}> {errors.password?.message}</div>
+
+                                                    <Box component="div" className='scan-forgot'>
+                                                        <Link href='#' onClick={() => { navigate("/scan-to-login"); }} variant="body2" sx={{ color: '#777E91!important', textDecoration: 'none' }}>
+                                                            Scan to login
+                                                        </Link>
+                                                        <Link href='#' onClick={() => { navigate("/password-recovery"); }} variant="body2" sx={{ color: '#3772FF', textDecoration: 'none' }}>
+                                                            Forgot password?
+                                                        </Link>
+                                                    </Box>
+
+                                                    <Button
+                                                        type="submit"
+                                                        variant="contained"
+                                                        className='btn btn-primary'
+                                                        disabled={isSubmitting}>
+                                                        Login
+                                                    </Button></TabPanel>
+                                            </TabContext>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                            </Box>
                         </Box>
                     </Box>
                 </Container>

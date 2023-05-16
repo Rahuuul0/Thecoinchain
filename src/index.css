@@ -90,6 +90,10 @@ div * {
     font-size: 64px;
 }
 
+.font-40 {
+    font-size: 40px !important;
+}
+
 #root h2 {
     font-size: 48px;
 }
@@ -171,9 +175,6 @@ img,
 
 /* Footer Page */
 
-#root .quick-links a {
-    color: #CCCCCC;
-}
 
 #root .quick-links a:hover {
     color: var(--primary-color);
@@ -191,12 +192,7 @@ img,
     color: #6C757D;
 }
 
-.footer-subs-form input {
-    background-color: #ffffff;
-    border-radius: 20px 0px 0px 20px;
-    padding: 0px 15px;
-    height: 60px;
-}
+
 
 .footer-subs-form .form-control {
     height: 60px;
@@ -211,9 +207,6 @@ img,
     padding: 0;
 }
 
-.border-rounded {
-    border-radius: 20px;
-}
 
 .footer hr {
     border-color: #858584;
@@ -252,7 +245,6 @@ img,
 }
 
 
-
 /* Extra small devices (phones, 767px and down) */
 @media only screen and (max-width: 767px) {
 
@@ -269,9 +261,6 @@ img,
         margin-top: 20px
     }
 }
-
-
-
 
 /* ******************auth-wrapper********************** */
 main.auth-wrapper {
@@ -557,3 +546,113 @@ main.auth-wrapper {
 .invalid-feedback {
     font-size: 12px !important;
 }
+
+/* 15-05-2023 */
+/* Header Starts */
+
+.customer-panel .app-nav {
+    background: #FCFCFD;
+}
+
+.app-nav button.MuiButtonBase-root {
+    color: #777E90;
+}
+
+#root .app-nav .btn {
+    height: 46px;
+    color: #23262F;
+}
+
+#root .app-nav .btn-primary {
+    background-color: #3772FF;
+    color: #ffffff;
+}
+
+/* Header Ends */
+
+/* Footer Starts */
+.footer-subs-form button {
+    background-color: #FFD700;
+    color: #000;
+    padding: 0px 5px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 20px;
+    border: 0px;
+    text-transform: capitalize;
+}
+
+.footer .border-rounded {
+    border: 1px solid #E6E8EC;
+    border-radius: 90px;
+}
+
+.footer-subs-form input {
+    border-radius: 20px 0px 0px 20px;
+    padding: 0px 15px;
+    height: 60px;
+}
+
+#root .quick-links a {
+    color: #777E90;
+    font-weight: 700;
+}
+
+.footer .border-bottom {
+    border-bottom: 1px solid #E6E8EC;
+}
+
+/* Footer Ends */
+
+/* Homepage Ends */
+.hero-heading {
+    font-size: 64px !important;
+    font-weight: 700 !important;
+    line-height: 1.3;
+}
+
+.orange-btn {
+    background-color: #FF6838 !important;
+    color: #fff !important;
+}
+
+.gridBox {
+    padding: 50px 30px 50px 30px !important;
+    border-radius: 32px;
+}
+
+.gridBox:hover {
+    background-color: #fff;
+    border-radius: 32px;
+    box-shadow: 0px 40px 24px rgba(15 15 15/ 0.1);
+}
+
+.gridBox .top-head {
+    font-size: 12px;
+    font-weight: 600;
+    color: #777E90;
+}
+
+.gridBox button {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 0;
+}
+
+.gridBox .green-btn {
+    background-color: #58BD7D;
+    color: #fff;
+}
+
+.learn-cypto-tab .Mui-selected {
+    color: #fff !important;
+    background-color: #353945;
+    border-radius: 90px;
+    text-transform: capitalize;
+}
+
+.btn {
+    padding: 1px 30px !important;
+}
+
+/* Homepage Ends */

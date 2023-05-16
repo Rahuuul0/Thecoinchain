@@ -24,19 +24,9 @@ function Header(props) {
 
   const navItems = [
     {
-      page: 'Crypto',
+      page: 'Academy',
       icon: '',
-      link: '/crypto',
-    },
-    {
-      page: 'Exchanges',
-      icon: '',
-      link: '/exchanges',
-    },
-    {
-      page: 'Prediction',
-      icon: '',
-      link: '/prediction',
+      link: '/academy',
     },
     {
       page: 'Community',
@@ -44,11 +34,11 @@ function Header(props) {
       link: '/community',
     },
     {
-      page: 'Learn',
+      page: 'Prediction',
       icon: '',
-      link: '/learn',
-    }
-  ]
+      link: '/prediction',
+    },
+  ] 
 
 
   const navigate = useNavigate();
@@ -78,7 +68,7 @@ function Header(props) {
               </ListItemButton>
             </ListItem>
           )
-        })}
+        })}  
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: 'center' }}>
             <ListItemText primary="" onClick={() => { navigate(item.link) }}>
@@ -94,6 +84,7 @@ function Header(props) {
           </ListItemButton>
         </ListItem>
       </List>
+      
     </Box>
   );
 
@@ -117,12 +108,11 @@ function Header(props) {
             variant="h6"
             component="div"
             onClick={() => { navigate('/') }}
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer' } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
           >
             <img src={CoinGuru} alt='Coin Guru' />
           </Typography>
-
-          <Box sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
+          <Box sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'left', } }}>
 
             {navItems.map((item, i) => (
               <Button onClick={() => { navigate(item.link) }} key={i} sx={{ color: '#fff' }}>
@@ -137,7 +127,26 @@ function Header(props) {
               <SearchIcon />
             </Button> */}
 
-            <Button variant="contained" className='btn btn-primary' onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
+           
+
+          </Box>
+
+          <Box sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
+
+            
+
+            {/* <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
+              <SearchIcon />
+            </Button> */}
+
+            <Button  className='btn' sx={{ color: '#23262F' }}>
+              EN/USD
+            </Button> 
+
+            <Button variant="contained" className='btn btn-primary'  sx={{ color: '#fff' }}>
+              Sign up
+            </Button>
+            <Button variant="outline" className='btn btn-outline'  sx={{ color: '#23262F' , backgroundColor: '#ffffff00', border: '1px solid' }}>
               Login
             </Button>
 

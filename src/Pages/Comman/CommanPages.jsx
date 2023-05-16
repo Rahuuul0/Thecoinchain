@@ -13,7 +13,7 @@ import AccountConfirm from "./AccountConfirm";
 const Customer = () => {
   return (
     <div className="customer-panel">
-      {/* <Header /> */}
+      <Header />
       <Routes>
         <Route path={`/login`} element={<LogIn />} />
         <Route path={`/password-recovery`} element={<PasswordRecovery />} />
@@ -25,7 +25,7 @@ const Customer = () => {
         <Route path={`/confirm-account`} element={<AccountConfirm />} />
         <Route path={`/`} exact element={<Home />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

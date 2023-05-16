@@ -39,7 +39,7 @@
     border-radius: 90px !important;
     font-family: var(--secondary-font) !important;
     font-weight: 700;
-    text-transform: capitalize;
+    text-transform: initial;
     box-shadow: none;
 }
 
@@ -83,7 +83,7 @@ html,
 #root small,
 #root .small-caption,
 div * {
-    font-family: var(--primary-font) !important;
+    font-family: var(--primary-font);
 }
 
 #root h1 {
@@ -130,6 +130,7 @@ div * {
 #root a {
     color: var(--primary-color);
     text-decoration: none;
+    cursor: pointer;
 }
 
 img,
@@ -275,7 +276,7 @@ img,
 /* ******************auth-wrapper********************** */
 main.auth-wrapper {
     /* display: flex; */
-    min-height: 100vh;
+    /* min-height: 100vh; */
     background-color: #23262F;
     padding: 0;
     margin: 0;
@@ -289,13 +290,15 @@ main.auth-wrapper {
     padding: 50px;
 }
 
-.auth-header .dont-have-acc {
-    font-size: 14px;
+.auth-header .dont-have-acc p {
+    font-size: 14px !important;
+    font-weight: 700;
     font-family: var(--secondary-font) !important;
 }
 
 .auth-wrapper-inner {
     display: flex;
+    min-height: 100vh;
 }
 
 .auth-wrapper-bg {
@@ -304,7 +307,7 @@ main.auth-wrapper {
 }
 
 .auth-wrapper-bg img {
-    max-height: 95%;
+    max-height: 99vh;
 }
 
 .auth-wrapper-form {
@@ -342,6 +345,7 @@ main.auth-wrapper {
     padding: 10px;
     font-size: 14px;
     margin-top: 12px;
+    font-weight: 500;
 }
 
 .ensure-link span {
@@ -365,7 +369,7 @@ main.auth-wrapper {
 }
 
 .auth-form button {
-    text-transform: capitalize;
+    text-transform: initial;
     font-size: 14px;
     min-height: 28px;
     padding: 6px 12px;
@@ -373,6 +377,10 @@ main.auth-wrapper {
     font-weight: 700;
     color: #777E91;
     min-width: 60px;
+}
+
+.auth-form .MuiTabs-root button {
+    font-family: var(--secondary-font);
 }
 
 .auth-form button.Mui-selected {
@@ -415,6 +423,8 @@ main.auth-wrapper {
 
 .auth-form .MuiFormControl-root .MuiInputBase-root input {
     padding: 0;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .auth-form .MuiFormControl-root .MuiInputBase-root input::placeholder,

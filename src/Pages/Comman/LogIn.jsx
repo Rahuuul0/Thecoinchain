@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../_common/app.constants"
 import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions"
@@ -17,8 +18,6 @@ import { useAlertActions } from '../../_actions/alert.actions';
 import LogoLight from '../../../public/assets/images/logo-light.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import Lock from '../../../public/assets/images/icons/lock.svg'
-
-const theme = createTheme();
 
 const LogIn = () => {
 
@@ -89,7 +88,7 @@ const LogIn = () => {
                                     Sign in to CoinGuru
                                 </Typography>
                                 <Box component="div" className='ensure' >
-                                    <Typography component="p" variant="body2" sx={{ color: '#777E91' }}>
+                                    <Typography component="caption" variant="body2" sx={{ color: '#777E91', display: 'block', fontSize: '12px' }}>
                                         Please ensure you are visiting the correct url.
                                     </Typography>
                                     <Box component="div" className='ensure-link' >
@@ -180,7 +179,7 @@ const LogIn = () => {
                                                         variant="contained"
                                                         className='btn btn-primary'
                                                         disabled={isSubmitting}>
-                                                        Log In
+                                                        Login
                                                     </Button>
                                                 </TabPanel>
                                                 <TabPanel value="2" sx={{ p: 0 }}>

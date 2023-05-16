@@ -1,27 +1,15 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../_common/app.constants"
 import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
-import { useForm } from "react-hook-form";
-import { useUserActions } from "../../_actions/user.actions"
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import IconButton from "@mui/material/IconButton";
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import { useAlertActions } from '../../_actions/alert.actions';
 import LogoLight from '../../../public/assets/images/logo-light.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import Lock from '../../../public/assets/images/icons/lock.svg'
 import ScanImg from '../../../public/assets/images/scan-img.png'
 
-const theme = createTheme();
-
 const ScanToLogin = () => {
+    const navigate = useNavigate();
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -52,7 +40,7 @@ const ScanToLogin = () => {
                                     Sign in to CoinGuru
                                 </Typography>
                                 <Box component="div" className='ensure' >
-                                    <Typography component="p" variant="body2" sx={{ color: '#777E91' }}>
+                                    <Typography component="small" variant="body2" sx={{ color: '#777E91', display: 'block', textAlign: 'center' }}>
                                         Please ensure you are visiting the correct url.
                                     </Typography>
                                     <Box component="div" className='ensure-link' >

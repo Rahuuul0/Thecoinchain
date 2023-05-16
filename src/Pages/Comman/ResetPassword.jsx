@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../_common/app.constants"
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -11,10 +12,6 @@ import IconButton from "@mui/material/IconButton";
 import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material'
 import LogoLight from '../../../public/assets/images/logo-light.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
-import Lock from '../../../public/assets/images/icons/lock.svg'
-
-import { LockOutlined } from '@mui/icons-material';
-const theme = createTheme();
 
 const ResetPassword = () => {
     const navigate = useNavigate();

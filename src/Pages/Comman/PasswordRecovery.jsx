@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../_common/app.constants"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -11,8 +12,6 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LogoLight from '../../../public/assets/images/logo-light.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-
-const theme = createTheme();
 
 const PasswordRecovery = () => {
     const navigate = useNavigate();

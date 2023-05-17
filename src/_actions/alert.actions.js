@@ -6,7 +6,7 @@ const useAlertActions = () => {
     const setAlert = useSetRecoilState(alertAtom); 
     return {
         success: message =>{
-                enqueueSnackbar(message, { variant:"success" });  
+                enqueueSnackbar(message, { variant:"success",autoHideDuration:3000 });  
                 setAlert({ open:true  })
             },
         error: message => {

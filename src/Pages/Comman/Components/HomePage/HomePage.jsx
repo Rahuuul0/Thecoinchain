@@ -24,6 +24,7 @@ import Globe from "../../../../../public/assets/images/globe.svg";
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import Marquee from "react-fast-marquee";
 
 
 const Home = () => {
@@ -421,8 +422,10 @@ const Home = () => {
       {/* how it works section ends */}
       {/* logo slider starts */}
       <Container maxWidth='fluid' >
+      <Marquee>
         <Box paddingTop={8} paddingBottom={8}>
           <Stack direction="row" spacing={8}>
+         
             <img src={BusinessSlider} />
             <img src={Finance} />
             <img src={Investing} />
@@ -432,6 +435,7 @@ const Home = () => {
             <img src={South}/>
           </Stack>
         </Box>
+        </Marquee>
       </Container>
    {/* logo slider ends */}
     </>

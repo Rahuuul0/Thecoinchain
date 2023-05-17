@@ -143,10 +143,10 @@ function Header(props) {
               EN/USD
             </Button> 
 
-            <Button variant="contained" className='btn btn-primary'  sx={{ color: '#fff' }}>
+            <Button  onClick={() => { navigate('/create-account') }}  variant="contained" className='btn btn-primary'  sx={{ color: '#fff' }}>
               Sign up
             </Button>
-            <Button variant="outline" className='btn btn-outline'  sx={{ color: '#23262F' , backgroundColor: '#ffffff00', border: '1px solid' }}>
+            <Button onClick={() => { navigate('/login') }} variant="outline" className='btn btn-outline'  sx={{ color: '#23262F' , backgroundColor: '#ffffff00', border: '1px solid' }}>
               Login
             </Button>
 

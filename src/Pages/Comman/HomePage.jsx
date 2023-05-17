@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link, Grid, Container, Typography, Toolbar, Box, CssBaseline, Button } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../_common/app.constants"
 import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
 import heroImg from '../../../public/assets/images/hero-image.png'
 import heroImg2x from '../../../public/assets/images/hero-image.png'
@@ -21,8 +22,6 @@ const Copyright = () => {
 }
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-const theme = createTheme();
 
 const Home = () => {
   return (

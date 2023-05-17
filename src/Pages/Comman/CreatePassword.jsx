@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../_common/app.constants"
 import { Container, Box, TextField, Typography, Link, Button } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,8 +12,6 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 
-const theme = createTheme();
-
 const CreatePassword = () => {
 
     const userActions = useUserActions();
@@ -20,14 +19,14 @@ const CreatePassword = () => {
     // form validation rules 
     const validationSchema = Yup.object().shape({
         newPassword: Yup.string()
-        .required("Password is required")
-        .min(8, "Password must be at least 8 characters.")
-        .matches(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-          "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
-        ),
+            .required("Password is required")
+            .min(8, "Password must be at least 8 characters.")
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
+            ),
         confirmPassword: Yup.string().required('Confirm password is required')
-           .oneOf([Yup.ref('newPassword'), null], 'Confirm passwords must match')
+            .oneOf([Yup.ref('newPassword'), null], 'Confirm passwords must match')
     });
 
     const formOptions = { resolver: yupResolver(validationSchema) };
@@ -43,9 +42,9 @@ const CreatePassword = () => {
     const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
 
-  return (
-    <>
-          <ThemeProvider theme={theme}>
+    return (
+        <>
+            <ThemeProvider theme={theme}>
                 <Container component="main" className='auth-wrapper' maxWidth="fluid">
                     <Box
                         className='auth-wrapper-inner'
@@ -60,8 +59,8 @@ const CreatePassword = () => {
                         </Typography>
                         <Box component="form"
                             onSubmit={handleSubmit(userActions.createPassword)}
-                             noValidate 
-                         >
+                            noValidate
+                        >
                             <TextField
                                 margin="normal"
                                 required
@@ -74,8 +73,8 @@ const CreatePassword = () => {
                                 size="small"
                                 autoFocus
                                 {...register('newPassword')}
-                                 className={`form-control ${errors.newPassword ? 'is-invalid' : ''}`} 
-                                 InputProps={{
+                                className={`form-control ${errors.newPassword ? 'is-invalid' : ''}`}
+                                InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
                                             <IconButton onClick={handleClickShowPassword}>
@@ -83,9 +82,9 @@ const CreatePassword = () => {
                                             </IconButton>
                                         </InputAdornment>
                                     ),
-                                }}              
+                                }}
                             />
-                              <div className="invalid-feedback" style={{ color: "red" }}> {errors.newPassword?.message}</div>
+                            <div className="invalid-feedback" style={{ color: "red" }}> {errors.newPassword?.message}</div>
                             <TextField
                                 margin="normal"
                                 required
@@ -96,8 +95,8 @@ const CreatePassword = () => {
                                 name="confirm_password"
                                 autoComplete="confirm-password"
                                 size="small"
-                                {...register('confirmPassword')} 
-                                className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`} 
+                                {...register('confirmPassword')}
+                                className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
@@ -108,23 +107,23 @@ const CreatePassword = () => {
                                     ),
                                 }}
                             />
-                             <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirmPassword?.message}</div>
+                            <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirmPassword?.message}</div>
 
-                            <Button 
+                            <Button
                                 type="submit"
-                                variant="contained" 
+                                variant="contained"
                                 className='btn btn-primary'
                                 disabled={isSubmitting}
-                                >
-                                Submit 
+                            >
+                                Submit
                             </Button>
                         </Box>
                     </Box>
                 </Container>
             </ThemeProvider>
 
-    </>
-  )
+        </>
+    )
 }
 
 export default CreatePassword;

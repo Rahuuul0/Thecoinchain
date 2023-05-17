@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Link, Grid, Container, Typography, Toolbar, Box, CssBaseline, Button } from '@mui/material';
 import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
-import heroImg from '../../../../../public/assets/images/hero-image.png';
-import heroImg2x from '../../../../../public/assets/images/hero-image.png';
-import heroImg3x from '../../../../../public/assets/images/hero-image.png';
-import AnimkidIc from '../../../../../public/assets/images/icons/animkid.svg';
+// import heroImg from '../../../../../public/assets/images/hero-image.png';
+// import heroImg2x from '../../../../../public/assets/images/hero-image.png';
+// import heroImg3x from '../../../../../public/assets/images/hero-image.png';
+// import AnimkidIc from '../../../../../public/assets/images/icons/animkid.svg';
 
 const HeroSection = () => {
     return (
@@ -55,23 +55,23 @@ const HeroSection = () => {
                         <Grid item sm={6}>
                             <Box component="div" className='hero-card-wrapper'>
                                 <Box component="div" className='hero-card-img'>
-                                    <img
+                                    {/* <img
                                         src={heroImg}
                                         srcSet={`${heroImg} 1x, ${heroImg2x} 2x, ${heroImg3x} 3x`}
                                         alt="Hero image"
                                         loading="lazy"
-                                    />
+                                    /> */}
                                 </Box>
                                 <Box component="div" className='hero-card-content'>
                                     <Typography component="h5" variant="h5">
                                         Space Walking
                                     </Typography>
                                     <Box component="div" className='hero-card-animkid'>
-                                        <img
+                                        {/* <img
                                             src={AnimkidIc}
                                             alt="Animkid"
                                             loading="lazy"
-                                        />
+                                        /> */}
                                         <Typography component="p" variant="body1">
                                             Aminkid
                                         </Typography>

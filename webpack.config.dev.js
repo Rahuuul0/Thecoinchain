@@ -48,11 +48,11 @@ module.exports = (env) => {
         {
           test: /\.(png|jpg|woff|woff2|eot|ttf|svg|ico)$/, // to import images and fonts
           loader: "url-loader",
-          options: { 
-                      limit: false,
-                      name: '[name].[ext]'
+          options: {
+            limit: false,
+            name: '[name].[ext]'
           },
-        },   
+        },
         {
           test: /\.(ico)$/,
           use: ['file-loader?name=[name].[ext]']

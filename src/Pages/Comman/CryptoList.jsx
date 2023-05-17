@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import BTC from '../../../public/assets/images/icons/btc.svg'
+// import BTC from '../../../public/assets/images/icons/btc.svg'
 
 const CryptoList = () => {
     return (
@@ -34,7 +34,7 @@ const CryptoList = () => {
                                         <TableCell>1</TableCell>
                                         <TableCell>
                                             <div className="crypto-name">
-                                                <img src={BTC} alt='BTC' width="33px" />
+                                                {/* <img src={BTC} alt='BTC' width="33px" /> */}
                                                 <span className="currency_name">BTC</span>
                                             </div>
                                         </TableCell>
@@ -59,7 +59,7 @@ const CryptoList = () => {
                                         <TableCell>2</TableCell>
                                         <TableCell>
                                             <div className="crypto-name">
-                                                <img src={BTC} alt='BTC' width="33px" />
+                                                {/* <img src={BTC} alt='BTC' width="33px" /> */}
                                                 <span className="currency_name">BTC</span>
                                             </div>
                                         </TableCell>
@@ -84,7 +84,7 @@ const CryptoList = () => {
                                         <TableCell>3</TableCell>
                                         <TableCell>
                                             <div className="crypto-name">
-                                                <img src={BTC} alt='BTC' width="33px" />
+                                                {/* <img src={BTC} alt='BTC' width="33px" /> */}
                                                 <span className="currency_name">BTC</span>
                                             </div>
                                         </TableCell>
@@ -109,7 +109,7 @@ const CryptoList = () => {
                                         <TableCell>4</TableCell>
                                         <TableCell>
                                             <div className="crypto-name">
-                                                <img src={BTC} alt='BTC' width="33px" />
+                                                {/* <img src={BTC} alt='BTC' width="33px" /> */}
                                                 <span className="currency_name">BTC</span>
                                             </div>
                                         </TableCell>
@@ -134,7 +134,7 @@ const CryptoList = () => {
                                         <TableCell>5</TableCell>
                                         <TableCell>
                                             <div className="crypto-name">
-                                                <img src={BTC} alt='BTC' width="33px" />
+                                                {/* <img src={BTC} alt='BTC' width="33px" /> */}
                                                 <span className="currency_name">BTC</span>
                                             </div>
                                         </TableCell>
@@ -159,7 +159,7 @@ const CryptoList = () => {
                                         <TableCell>6</TableCell>
                                         <TableCell>
                                             <div className="crypto-name">
-                                                <img src={BTC} alt='BTC' width="33px" />
+                                                {/* <img src={BTC} alt='BTC' width="33px" /> */}
                                                 <span className="currency_name">BTC</span>
                                             </div>
                                         </TableCell>
@@ -184,7 +184,7 @@ const CryptoList = () => {
                                         <TableCell>7</TableCell>
                                         <TableCell>
                                             <div className="crypto-name">
-                                                <img src={BTC} alt='BTC' width="33px" />
+                                                {/* <img src={BTC} alt='BTC' width="33px" /> */}
                                                 <span className="currency_name">BTC</span>
                                             </div>
                                         </TableCell>
@@ -209,7 +209,7 @@ const CryptoList = () => {
                                         <TableCell>8</TableCell>
                                         <TableCell>
                                             <div className="crypto-name">
-                                                <img src={BTC} alt='BTC' width="33px" />
+                                                {/* <img src={BTC} alt='BTC' width="33px" /> */}
                                                 <span className="currency_name">BTC</span>
                                             </div>
                                         </TableCell>
@@ -234,7 +234,7 @@ const CryptoList = () => {
                                         <TableCell>9</TableCell>
                                         <TableCell>
                                             <div className="crypto-name">
-                                                <img src={BTC} alt='BTC' width="33px" />
+                                                {/* <img src={BTC} alt='BTC' width="33px" /> */}
                                                 <span className="currency_name">BTC</span>
                                             </div>
                                         </TableCell>

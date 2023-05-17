@@ -21,11 +21,11 @@ const CreateAccount = () => {
     const userActions = useUserActions();
 
     const validationSchema = Yup.object().shape({
-        username: Yup.string().required("User Name is required"),
         email: Yup.string()
-            .email()
-            .trim()
-            .required("Email Address is required"),
+        .email()
+        .trim()
+        .required("Email Address is required"),
+        mobile: Yup.string().required("Mobile number is required"),
         password: Yup.string()
             .trim()
             .required("Password is required")
@@ -136,6 +136,27 @@ const CreateAccount = () => {
                                         </div>
                                         <TextField
                                             onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                                            label="Mobile"
+                                            className="form-control"
+                                            type="number"
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            variant="standard"
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            id="mobile"
+                                            placeholder='Mobile Number'
+                                            name="mobile"
+                                            autoComplete="off"
+                                            size="small"
+                                            {...register("mobile")}
+                                        />
+                                        <div style={{ color: "red" }}>{errors.mobile?.message}
+                                        </div>
+                                        <TextField
+                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             margin="normal"
                                             required
                                             type={showPassword ? "text" : "password"}
@@ -197,7 +218,7 @@ const CreateAccount = () => {
                                         </div>
 
                                         <FormControlLabel className='auth-checkbox' control={<Checkbox defaultChecked />} label="By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." />
-                                        <Button type="submit" disabled={isSubmitting} variant="contained" className='btn btn-primary' onClick={() => { navigate("/confirm-account"); }}>
+                                        <Button type="submit" disabled={isSubmitting} variant="contained" className='btn btn-primary'>
                                             Sign up
                                         </Button>
                                     </Box>

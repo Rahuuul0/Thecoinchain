@@ -12,10 +12,12 @@ const useUserActions = () => {
     const [auth, setAuth] = useRecoilState(authAtom);
 
     const login = ({ email, password }) => {
-        alertActions.success("Logged In Successfully");
-        navigate('/home')
+        navigate('/')
+        alertActions.success('Successfully Logged In')
+     }
+ 
             
-    }
+    
    
     const passwordRecovery = ({ email }) => {
         console.warn("called ",email)

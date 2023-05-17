@@ -6,6 +6,7 @@ import { Checkbox, Container, Box, TextField, Typography, Link, Button, FormCont
 import IconButton from "@mui/material/IconButton";
 import LogoLight from '../../../public/assets/images/logo-light.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 const AccountConfirm = () => {
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ const AccountConfirm = () => {
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
                         <Box component="div" className='auth-wrapper-form' >
-                            {/* <Box component="div" className='auth-wrapper-form-inner' >
+                            <Box component="div" className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
                                     Let’s confirm it’s really you
                                 </Typography>
@@ -66,11 +67,11 @@ const AccountConfirm = () => {
                                         </Button>
                                     </Box>
                                 </Box>
-                            </Box> */}
+                            </Box>
 
                             {/* OTP */}
 
-                            <Box component="div" className='auth-wrapper-form-inner' >
+                            {/* <Box component="div" className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
                                     Enter your security code
                                 </Typography>
@@ -91,7 +92,7 @@ const AccountConfirm = () => {
                                         <TextField id="otp4" type='text' variant="filled" />
                                     </Box>
                                 </Box>
-                            </Box>
+                            </Box> */}
                         </Box>
                     </Box>
                 </Container>

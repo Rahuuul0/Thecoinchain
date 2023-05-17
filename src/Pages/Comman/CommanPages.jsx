@@ -9,6 +9,7 @@ import CreateAccount from "./CreateAccount";
 import Home from "./Components/HomePage/HomePage";
 import ScanToLogin from "./ScanToLogin";
 import AccountConfirm from "./AccountConfirm";
+import Market from "./Market";
 
 const Customer = () => {
   return (
@@ -24,6 +25,7 @@ const Customer = () => {
         <Route path={`/scan-to-login`} element={<ScanToLogin />} />
         <Route path={`/confirm-account`} element={<AccountConfirm />} />
         <Route path={`/`} exact element={<Home />} />
+        <Route path={`/market`} exact element={<Market />} />
       </Routes>
       <Footer />
     </div>

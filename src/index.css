@@ -58,8 +58,8 @@
 }
 
 #root .btn-outlined-secondary {
-    min-width: 150px;
-    height: 46px;
+    /* min-width: 150px; */
+    height: 40px;
     border: 2px solid #E6E8EC;
     border-radius: 90px;
     color: var(--color_dark);
@@ -73,21 +73,22 @@ html body {
 
 html body,
 html,
-#root h1,
-#root h2,
-#root h3,
-#root h4,
-#root h5,
-#root h6,
-#root p,
-#root small,
-#root .small-caption,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+small,
+.small-caption,
 div * {
     font-family: var(--primary-font);
 }
 
 #root h1 {
     font-size: 64px;
+    font-weight: 700;
 }
 
 .font-40 {
@@ -95,10 +96,12 @@ div * {
 }
 
 #root h2 {
+    font-weight: 700;
     font-size: 48px;
 }
 
 #root h3 {
+    font-weight: 700;
     font-size: 40px;
 }
 
@@ -656,3 +659,314 @@ main.auth-wrapper {
 }
 
 /* Homepage Ends */
+
+
+/* Market page */
+.market-hero {
+    background-color: #DECBE9;
+    padding: 100px 0;
+    /* background-image: url("../public/assets/images/market-hero.svg"); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right center;
+    position: relative;
+    z-index: 1;
+    min-height: 690px;
+}
+
+
+/* .market-hero::after {
+    background-image: url("https://media.istockphoto.com/id/539001564/photo/rajwada-palace-indore.jpg?s=612x612&w=0&k=20&c=ihbWY77GKzZXNmYfvz3dUDpZissBxxcrfSDSMSqa548=");
+    background-repeat: no-repeat;
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    left: auto;
+    width: 100%;
+    height: 500px;
+    z-index: -1;
+} */
+.market-hero h1 {
+    font-weight: 700;
+    font-family: var(--secondary-font);
+    margin-bottom: 32px;
+}
+
+.market-hero-img-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.market-crypto-card-wrapper {
+    background: #FCFCFD;
+    border: 1px solid #F4F5F6;
+    box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
+    box-shadow: 0px 64px 64px -48px #0F0F0F1A;
+    border-radius: 24px;
+    /* padding: 24px; */
+    margin-top: -100px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 70px;
+}
+
+.market-inner {
+    background: #FCFCFD;
+}
+
+.market-crypto-graph {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 24px;
+}
+
+.market-crypto-graph-col {
+    display: flex;
+    gap: 20px;
+}
+
+.market-crypto-graph-ic img {
+    min-width: 40px;
+}
+
+.market-crypto-name .currency-name {
+    font-size: 12px;
+    color: #777E91;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.market-crypto-name .currency-name .status-badge {
+    margin-left: 10px;
+    background: #58BD7D;
+    border-radius: 24px;
+    color: #fff;
+    padding: 2px 8px;
+}
+
+.market-crypto-name .currency-name .status-badge.status-down {
+    background: #FF6838;
+}
+
+.market-crypto-name h5 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.market-crypto-tabs {
+    padding: 24px;
+    border-top: 1px solid #E6E8EC;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Tabs styles */
+.MuiTabs-root {
+    min-height: auto;
+    border: none;
+}
+
+.MuiTabs-root .MuiTabs-indicator {
+    display: none;
+}
+
+.MuiTabs-root button.MuiTab-root {
+    border-radius: 50px;
+    text-transform: initial;
+    font-size: 14px;
+    min-height: 28px;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-weight: 700;
+    min-width: 60px;
+}
+
+.MuiTabs-root button.MuiTab-root.Mui-selected {
+    background-color: #353945;
+    color: var(--color_light);
+    min-height: 28px;
+}
+
+.price-prediction {
+    padding: 130px 0;
+}
+
+.price-prediction h2 {
+    font-family: var(--secondary-font);
+    margin-bottom: 20px;
+}
+
+.learn-n-earn-head {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.learn-n-earn-cards {
+    display: flex;
+    gap: 30px;
+}
+
+.learn-n-earn-card {
+    flex: 1;
+    padding-bottom: 58px;
+    border-bottom: 2px solid #E6E8EC;
+}
+
+.learn-n-earn-video-wrapper {
+    margin-bottom: 48px;
+}
+
+.learn-n-earn-video-wrapper img {
+    width: 100%;
+    height: auto;
+}
+
+.learn-n-earn-card .learn-badge {
+    background: #9757D7;
+    border-radius: 4px;
+    font-weight: 700;
+    padding: 6px 8px;
+    color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.learn-n-earn-card:nth-child(2) .learn-badge {
+    background-color: #58BD7D;
+}
+
+.learn-n-earn-card:nth-child(3) .learn-badge {
+    background-color: var(--primary-color);
+}
+
+.learn-n-earn-cards .body-large {
+    font-weight: 600;
+    margin-top: 22px;
+    margin-bottom: 48px;
+}
+
+.learn-n-earn-by {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.learn-n-earn-by .circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50px;
+    background-color: #58BD7D;
+}
+
+.learn-n-earn-by .body-caption {
+    color: #777E90;
+    font-weight: 500;
+}
+
+/* Crypto Table styles*/
+.crypto-list-table>div {
+    padding: 0 10px;
+}
+
+.crypto-list-table table thead th {
+    color: #777E90;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.crypto-list-table table tbody td {
+    font-weight: 500;
+}
+
+.crypto-list-table table tbody:before {
+    line-height: 3em;
+    content: "_";
+    color: #FCFCFD;
+    display: block;
+}
+
+.crypto-list-table table tr th,
+.crypto-list-table table tr td {
+    border-color: #E6E8EC;
+}
+
+.crypto-list-table table tr {
+    position: relative;
+    z-index: 1;
+}
+
+.crypto-list-table table tr:after,
+.crypto-list-table table tr::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 40px;
+    height: 100%;
+    background-color: #E6E8EC;
+    opacity: 0;
+    z-index: -1;
+}
+
+.crypto-list-table table tr:after {
+    left: -10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.crypto-list-table table tr::before {
+    right: -10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.crypto-list-table table tr:hover:after,
+.crypto-list-table table tr:hover::before {
+    opacity: 1;
+}
+
+.crypto-list-table table {
+    border-collapse: collapse;
+}
+
+.crypto-list-table table th,
+.crypto-list-table table td {
+    padding: 17px 10px;
+}
+
+.crypto-list-table table tr:hover th,
+.crypto-list-table table tr:hover td {
+    background-color: #E6E8EC;
+}
+
+.crypto-list-table table tr:hover td:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.crypto-list-table table tr:hover td:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.crypto-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.crypto-name .currency_name {
+    color: #777E90;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.crypto-list-table .down {
+    color: #FF6838;
+}
+
+.crypto-list-table .up {
+    color: #58BD7D;
+}

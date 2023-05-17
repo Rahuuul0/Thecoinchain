@@ -1,15 +1,14 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../_common/app.constants"
 import { Checkbox, Container, Box, TextField, Typography, Link, Button, FormControlLabel, FormControl, RadioGroup, Radio, FormLabel } from '@mui/material'
 import IconButton from "@mui/material/IconButton";
 import LogoLight from '../../../public/assets/images/logo-light.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-
-const theme = createTheme();
 
 const AccountConfirm = () => {
+    const navigate = useNavigate();
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -86,10 +85,10 @@ const AccountConfirm = () => {
                                     sx={{ mt: '24px' }}
                                 >
                                     <Box component="div" className='auth-form auth-otp' >
-                                        <TextField id="otp1" variant="filled" />
-                                        <TextField id="otp2" variant="filled" />
-                                        <TextField id="otp3" variant="filled" />
-                                        <TextField id="otp4" variant="filled" />
+                                        <TextField id="otp1" type='text' variant="filled" />
+                                        <TextField id="otp2" type='text' variant="filled" />
+                                        <TextField id="otp3" type='text' variant="filled" />
+                                        <TextField id="otp4" type='text' variant="filled" />
                                     </Box>
                                 </Box>
                             </Box>

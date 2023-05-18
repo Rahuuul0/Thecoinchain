@@ -107,13 +107,6 @@ const ResetPassword = () => {
                                                 )
                                             }}
                                             autoFocus
-                                        //  InputProps={{
-                                        //     startAdornment: (
-                                        //       <InputAdornment position="start">
-                                        //         <LockOutlined />
-                                        //       </InputAdornment>
-                                        //     ), 
-                                        //   }}
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.password?.message}</div>
                                         <TextField
@@ -143,13 +136,6 @@ const ResetPassword = () => {
                                                 )
                                             }}
                                             autoFocus
-                                        //  InputProps={{
-                                        //     startAdornment: (
-                                        //       <InputAdornment position="start">
-                                        //         <LockOutlined />
-                                        //       </InputAdornment>
-                                        //     ), 
-                                        //   }}
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirmpassword?.message}</div>
 

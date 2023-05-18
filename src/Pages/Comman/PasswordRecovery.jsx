@@ -138,15 +138,20 @@ const PasswordRecovery = () => {
                                     sx={{ mt: '24px' }}
                                 >
                                     <Box component="div" className='auth-form auth-otp'  >
-                                        <OTPInput  id="otp1" autoFocus  value={OTP} onChange={setOTP}  OTPLength={4} otpType="number" disabled={false} />
+                                        <OTPInput  id="otp1" autoFocus  type='number' variant="filled"  value={OTP} onChange={setOTP}  OTPLength={4} otpType="number" disabled={false} />
+                                     
                                     </Box>
                                     <Box component="div" className='auth-otp-cta' >
+                                        <Button type="submit" variant="outlined" className='btn btn-outlined-secondary'>
+                                            Resend Code
+                                        </Button>
                                         <Button type="submit" variant="contained" className='btn btn-primary' onClick={() => { navigate("/reset-password"); }}>
                                             Continue
                                         </Button>
                                     </Box>
                                 </Box>
                             </Box>}
+
 
 
                         </Box>

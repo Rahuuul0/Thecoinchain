@@ -12,9 +12,9 @@ import AccountConfirm from "./AccountConfirm";
 
 const Customer = () => {
   return (
-    <div className="customer-panel">
-      <Header />
+    <div className="customer-panel">      
       <Routes>
+        <Route path={`/`} exact element={<><Header /> <Home /> <Footer /></>} />      
         <Route path={`/login`} element={<LogIn />} />
         <Route path={`/password-recovery`} element={<PasswordRecovery />} />
         <Route path={`/forgot-password`} element={<PasswordRecovery />} />
@@ -23,9 +23,7 @@ const Customer = () => {
         <Route path={`/create-account`} element={<CreateAccount />} />
         <Route path={`/scan-to-login`} element={<ScanToLogin />} />
         <Route path={`/confirm-account`} element={<AccountConfirm />} />
-        <Route path={`/`} exact element={<Home />} />
-      </Routes>
-      <Footer />
+      </Routes>     
     </div>
   );
 };

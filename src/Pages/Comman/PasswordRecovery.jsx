@@ -13,6 +13,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LogoLight from '../../../public/assets/images/logo-light.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import OTPInput from "otp-input-react";
 
 const PasswordRecovery = () => {
     const navigate = useNavigate();
@@ -31,6 +32,8 @@ const PasswordRecovery = () => {
     const formData = watch();
 
     const [changeOption,setChangeOption] = useState(true);
+
+    const [OTP, setOTP] = useState("");
     
     return (
         <>
@@ -126,7 +129,7 @@ const PasswordRecovery = () => {
                                         To secure your account, please complete the following verification.
                                     </Typography>
                                     <Typography component="p" variant="body-caption" sx={{ textAlign: 'center', color: '#777E90', display: 'block', marginBottom: '20px' }}>
-                                        Enter the 6 digit code received by <span style={{ color: '#23262F' }}>t*m@u*8.net</span>
+                                        Enter the 4 digit code received by <span style={{ color: '#23262F' }}>t*m@u*8.net</span>
                                     </Typography>
                                 </Box>
                                 <Box
@@ -134,23 +137,16 @@ const PasswordRecovery = () => {
                                     component="form"
                                     sx={{ mt: '24px' }}
                                 >
-                                    <Box component="div" className='auth-form auth-otp' >
-                                        <TextField id="otp1" autoFocus type='text' variant="filled" />
-                                        <TextField id="otp2" type='text' variant="filled" />
-                                        <TextField id="otp3" type='text' variant="filled" />
-                                        <TextField id="otp4" type='text' variant="filled" />
+                                    <Box component="div" className='auth-form auth-otp'  >
+                                        <OTPInput  id="otp1" autoFocus  value={OTP} onChange={setOTP}  OTPLength={4} otpType="number" disabled={false} />
                                     </Box>
                                     <Box component="div" className='auth-otp-cta' >
-                                        <Button type="submit" variant="outlined" className='btn btn-outlined-secondary'>
-                                            Resend Code
-                                        </Button>
                                         <Button type="submit" variant="contained" className='btn btn-primary' onClick={() => { navigate("/reset-password"); }}>
                                             Continue
                                         </Button>
                                     </Box>
                                 </Box>
                             </Box>}
-
 
 
                         </Box>

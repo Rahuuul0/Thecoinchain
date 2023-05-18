@@ -713,15 +713,79 @@ main.auth-wrapper {
     margin-top: 100px;
     border-radius: 24px;
     box-shadow: 0px 6px 25px rgb(15 15 15 / 10%);
+}.howworks-box{
+    position: relative;
 }
-.howworks-box img:before{
-    content: url('../public/assets/images/connect-line.svg');
+/* .howworks-box:before{
+    content: '';
+    background: url(../public/assets/images/connect-line.png);
+    /* content: url(); *
     position: absolute;
-    left: 32px;
-    bottom: 0;
-    width: 100px;
-    height: 10px;
+    left: 76%;
+    top: 10%;
+    width: 160px;
+    height: 33px;
     z-index: 11;
     background-color: #000;
-}
+} */
 /* Homepage Ends */
+/* Learn Cypto Page */
+.center-tab .MuiTabs-flexContainer {
+    justify-content: center !important;
+    gap: 20px;
+}
+.filter-btn .btn {
+    min-width: 72px !important;
+    height: 28px !important;
+    font-size: 14px !important;
+    padding: 6px 12px !important;
+}
+.filter-btn .MuiTabs-root button {
+    font-family: var(--secondary-font);
+}
+.filter-btn button.Mui-selected {
+    background-color: #353945;
+    color: var(--color_light);
+    min-height: 28px;
+}
+.filter-btn button {
+    text-transform: initial;
+    font-size: 14px;
+    min-height: 28px;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-weight: 700;
+    color: #777E91;
+    min-width: 60px;
+}
+.margin-0{
+    margin: 0px;
+}
+#root .btn-green-outlined{
+    color: #58BD7D !important;
+    background-color: rgba(0, 0, 0, 0) !important;
+    border: 1px solid #58BD7D !important;
+    padding: 6px 12px !important;
+    height: 26px;
+    border-radius: 5px !important;
+}
+.avatar-rounded img{
+    border-radius: 15px;
+    width: 100%;
+}
+.about-crypto {
+    position: relative;
+}
+.about-crypto .float-img{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+.search-icon {
+    background-color: #3772FF !important;
+    border-radius: 100% !important;
+    color: #ffffff !important;
+    width: 35px !important;
+    min-width: 35px !important;
+    height: 35px;
+}

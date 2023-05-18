@@ -718,7 +718,7 @@ main.auth-wrapper {
     position: relative;
 }
 .contact-line:before{
-    content: url('../public/assets/images/connect-line.svg');
+    content:"O------------O";
     /* content: url('http://localhost:3000/market.svg'); */
     position: absolute;
     left: 76%;
@@ -727,6 +727,7 @@ main.auth-wrapper {
     height: 12px;
     z-index: 11; 
     display: inline-block;
+    /* background-color: #000; */
 }
 /* Homepage Ends */
 /* Learn Cypto Page */
@@ -788,4 +789,7 @@ main.auth-wrapper {
     width: 35px !important;
     min-width: 35px !important;
     height: 35px;
+}
+.margin10{
+    margin-left: 10px;
 }

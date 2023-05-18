@@ -426,7 +426,7 @@ const Home = () => {
         <Box paddingTop={8} paddingBottom={8}>
           <Stack direction="row" spacing={8}>
          
-            <img src={BusinessSlider} />
+            <img className='margin10' src={BusinessSlider} />
             <img src={Finance} />
             <img src={Investing} />
             <img src={kasobu} />

@@ -27,8 +27,13 @@
     --secondary-color: #3772FF;
 }
 
+:focus {
+    outline: none !important;
+}
+
 /* button styles */
-#root .btn {
+#root .btn,
+.modal-dialog .btn {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -43,7 +48,8 @@
     box-shadow: none;
 }
 
-#root .btn-primary {
+#root .btn-primary,
+.modal-dialog .btn-primary {
     background-color: var(--primary-color) !important;
     min-width: 150px;
     height: 46px;
@@ -55,6 +61,22 @@
     min-width: 150px;
     height: 46px;
     color: var(--color_light);
+}
+
+.btn-round {
+    border-radius: 100px !important;
+}
+
+button.btn-close {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border: 2px solid #E6E8EC;
+    color: var(--color_dark);
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    padding: 0 !important;
 }
 
 #root .btn-outlined-secondary {
@@ -654,9 +676,6 @@ main.auth-wrapper {
     text-transform: capitalize;
 }
 
-.btn {
-    padding: 1px 30px !important;
-}
 
 /* Homepage Ends */
 
@@ -793,7 +812,7 @@ main.auth-wrapper {
 }
 
 .price-prediction {
-    padding: 130px 0;
+    padding-top: 112px;
 }
 
 .price-prediction h2 {
@@ -801,9 +820,17 @@ main.auth-wrapper {
     margin-bottom: 20px;
 }
 
+.learn-n-earn {
+    padding: 112px 0;
+}
+
 .learn-n-earn-head {
     text-align: center;
     margin-bottom: 60px;
+}
+
+.learn-n-earn h2 {
+    font-family: var(--secondary-font);
 }
 
 .learn-n-earn-cards {
@@ -969,4 +996,124 @@ main.auth-wrapper {
 
 .crypto-list-table .up {
     color: #58BD7D;
+}
+
+/* Prediction Dashboard */
+.prediction-dashboard-wrapper h4 {
+    font-family: var(--secondary-font);
+    font-weight: 700;
+    margin-bottom: 32px;
+}
+
+.market-prediction-dashboard-inner {
+    padding-top: 36px;
+}
+
+/* FAQ */
+.market-prediction-faq {
+    background: #F4F5F6;
+}
+
+.market-prediction-faq h5.large-caption {
+    font-size: 24px;
+    color: #777E90;
+    font-weight: 600;
+}
+
+.market-prediction-faq-items-wrapper {
+    background: #fcfcfd;
+    padding: 32px 0;
+}
+
+.market-prediction-faq-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.market-prediction-faq-item {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.market-prediction-faq-item-img {
+    width: 128px;
+    min-width: 128px;
+    height: auto;
+}
+
+/* Modal style */
+.modal-dialog {
+    position: absolute;
+    padding: 32px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 448px;
+    border: none;
+    background: #FCFCFD;
+    box-shadow: 0px 64px 64px -48px rgba(31, 47, 70, 0.12);
+    border-radius: 20px;
+}
+
+.modal-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-modal-description .crypto-fullname {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.modal-modal-description .crypto-fullname-small {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-modal-description .crypto-value {
+    font-weight: 600;
+    font-size: 24px;
+    color: #FF6838;
+}
+
+.modal-modal-description .MuiTabs-flexContainer {
+    justify-content: space-between;
+    margin: 24px 0;
+}
+
+.modal-modal-description .value-with-date {
+    display: flex;
+    /* justify-content: space-between; */
+    gap: 10px;
+}
+
+.modal-modal-description .value-with-date-col {
+    flex: 1;
+}
+
+.modal-modal-description {
+    background: #FCFCFD;
+    box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
+    border-radius: 4px;
+    margin-bottom: 32px;
+}
+
+.modal-modal-description .value-details {
+    position: relative;
+}
+
+.modal-modal-description .value-details .btn-round {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    max-width: 30px;
+    min-width: 30px;
+    height: 30px;
 }

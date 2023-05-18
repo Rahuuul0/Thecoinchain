@@ -10,6 +10,9 @@ import Home from "./Components/HomePage/HomePage";
 import ScanToLogin from "./ScanToLogin";
 import AccountConfirm from "./AccountConfirm";
 import Market from "./Market";
+import PredictMarket from "./PredictMarket";
+import SubscribedPredictMarkert from "./SubscribedPredictMarkert";
+import PredictionDashboard from "./PredictionDashboard";
 
 const Customer = () => {
   return (
@@ -26,6 +29,9 @@ const Customer = () => {
         <Route path={`/confirm-account`} element={<AccountConfirm />} />
         <Route path={`/`} exact element={<Home />} />
         <Route path={`/market`} exact element={<Market />} />
+        <Route path={`/predict-market`} exact element={<PredictMarket />} />
+        <Route path={`/subscribed-predict-market`} exact element={<SubscribedPredictMarkert />} />
+        <Route path={`/prediction-dashboard`} exact element={<PredictionDashboard />} />
       </Routes>
       <Footer />
     </div>

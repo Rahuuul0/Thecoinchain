@@ -72,7 +72,7 @@ const LearnNEarn = () => {
                     </Box>
                 </Box>
                 <Button
-                    sx={{ my: 8, mx: 'auto' }}
+                    sx={{ mt: 8, mx: 'auto' }}
                     variant="outlined"
                     className='btn btn-outlined-secondary' startIcon={<RotateLeftIcon />}>
                     Load more

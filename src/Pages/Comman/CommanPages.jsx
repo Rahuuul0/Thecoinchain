@@ -10,6 +10,8 @@ import Home from "./Components/HomePage/HomePage";
 import ScanToLogin from "./ScanToLogin";
 import AccountConfirm from "./AccountConfirm";
 import LearnCypto from  "./LearnCypto"
+import LearnCyptoDetail from  "./LearnCyptoDetail"
+import Contact from  "./Contact"
 
 const Customer = () => {
   return (
@@ -25,6 +27,8 @@ const Customer = () => {
         <Route path={`/scan-to-login`} element={<ScanToLogin />} />
         <Route path={`/confirm-account`} element={<AccountConfirm />} /> 
         <Route path={`/learn-cypto`} element={<LearnCypto />} />
+        <Route path={`/learn-cypto-detail`} element={<LearnCyptoDetail />} />
+        <Route path={`/contact`} element={<Contact />} />
         <Route path={`/`} exact element={<Home />} />
       </Routes>
       <Footer />

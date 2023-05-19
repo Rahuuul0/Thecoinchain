@@ -788,8 +788,96 @@ main.auth-wrapper {
     color: #ffffff !important;
     width: 35px !important;
     min-width: 35px !important;
-    height: 35px;
+    height: 35px !important;
 }
 .margin10{
     margin-left: 10px;
 }
+
+/* learn cypto ends */
+
+/* learn cypto detail starts */
+
+.center-breadcrum ol{
+justify-content: center;
+margin-bottom: 20px;
+}
+
+.center-breadcrum .MuiBreadcrumbs-li a{
+    color: var(--color-grey) !important;
+}
+
+.center-breadcrum .MuiBreadcrumbs-li p.MuiTypography-root{
+    color: var(--color-dark) !important;
+    font-weight: 700;
+}
+.smallwidth{
+    max-width: 728px !important;
+    margin: 0 auto !important;
+}
+
+/* learn cypto detail ends */
+/* Contact page */
+
+.float-right{
+    position: absolute !important;
+    top: 15px;
+    right: 15px;
+    height: 20px;
+}
+
+.faq-accordian .MuiPaper-root{
+    box-shadow: none;
+}
+
+.faq-accordian .MuiButtonBase-root{
+    padding-left: 30px;
+    position: relative;
+    border-bottom: 1px solid #E6E8EC;
+}
+.faq-accordian .MuiButtonBase-root p{
+    font-weight: 500;
+}
+.faq-accordian .faq-count{
+    left: 0px ;
+    position: absolute;
+    color: var(--color-grey);
+}
+.faq-accordian .MuiAccordionDetails-root p{
+    font-size: 14px !important;
+    color: var(--color-grey);
+}
+html body .faq-accordian  .Mui-expanded{
+    min-height: 24px !important;
+    margin: 5px 0px 15px 0px;
+}
+.faq-accordian .css-1elwnq4-MuiPaper-root-MuiAccordion-root:before{
+    content: none;
+}
+.faq-accordian .MuiAccordionDetails-root{
+    padding-left: 30px;
+    padding-bottom: 0px;
+}
+#root .button-img .btn {
+    background-color: #ffffff;
+    border-radius: 8px !important;
+    padding: 19px 36px 12px 36px !important;
+    min-width: 48%;
+}
+
+#root .button-img .btn  img{
+    padding-right: 5px;
+}
+.topic-que .MuiInputBase-root{
+    width: 100%;
+    background-color: #fff;
+}
+.newdesignbox img{
+    width: 100%;
+}
+.newdesignbox .inner-con-box{
+    padding: 20px;
+}
+/* .about-crypto img{
+    width: 100%;
+} */

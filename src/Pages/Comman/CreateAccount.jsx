@@ -218,7 +218,7 @@ const CreateAccount = () => {
                                         </div>
 
                                         <FormControlLabel className='auth-checkbox' control={<Checkbox defaultChecked />} label="By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." />
-                                        <Button type="submit" disabled={isSubmitting} variant="contained" className='btn btn-primary'>
+                                        <Button type="submit" variant="contained" className='btn btn-primary'>
                                             Sign up
                                         </Button>
                                     </Box>

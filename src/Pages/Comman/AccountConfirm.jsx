@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../_common/app.constants";
+import { useUserActions } from "../../_actions/user.actions"
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+
 import {
   Checkbox,
   Container,
@@ -24,9 +29,22 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 const AccountConfirm = () => {
   const navigate = useNavigate();
+  const userActions = useUserActions();
   const [radioOption, setRadioOption] = useState("by_email");
   const [switchOption, setSwitchOption] = useState(true);
+  const onSubmitFun = async () => {
+     userActions.getOtp();
+    // await userActions.create()
+    setSwitchOption(false);
+  } 
+  const handleOtpSubmit = async () => {
+    // await userActions.
+    alert("called")
+  } 
   const [OTP, setOTP] = useState("");
+  const { register, handleSubmit, formState, reset, watch } = useForm();
+  const { errors, isSubmitting } = formState;
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -86,7 +104,7 @@ const AccountConfirm = () => {
                       Please complete the verifications below
                     </Typography>
                   </Box>
-                  <Box noValidate component="form" sx={{ mt: "24px" }}>
+                  <Box noValidate onSubmit={handleSubmit(onSubmitFun)} component="form" sx={{ mt: "24px" }}>
                     <Box component="div" className="auth-form">
                       <FormControl className="confirm-account">
                         <RadioGroup
@@ -116,9 +134,6 @@ const AccountConfirm = () => {
                         type="submit"
                         variant="contained"
                         className="btn btn-primary"
-                        onClick={() => {
-                          setSwitchOption(false);
-                        }}
                         endIcon={<KeyboardArrowRightIcon />}
                       >
                         Continue
@@ -147,73 +162,20 @@ const AccountConfirm = () => {
                         : "We have sent the code by email at tranm••••••••••••@gm•••.com"}
                     </Typography>
                   </Box>
-                  <Box noValidate component="form" sx={{ mt: "24px" }}>
+                  <Box noValidate onSubmit={handleOtpSubmit} component="form" sx={{ mt: "24px" }}>
                     <Box component="div" className="auth-form auth-otp">
-                      <TextField
-                        autoComplete="off"
-                        autoFocus={true}
-                        id="otp1"
-                        type="number"
-                        onKeyDown={(evt) =>{
-                            if(evt.target.value<=1)
-                            {
-                            ["e", "E", "+", "-"].includes(evt.key) &&
-                            evt.preventDefault()
-                            }
-                            else {
-                                evt.preventDefault()
-                            }
-                        }}
-                        variant="filled"
-                      />
-                      <TextField
-                        autoComplete="off"
-                        id="otp2"
-                        type="number"
-                        onKeyDown={(evt) =>{
-                            if(evt.target.value<=1)
-                            {
-                            ["e", "E", "+", "-"].includes(evt.key) &&
-                            evt.preventDefault()
-                            }
-                            else {
-                                evt.preventDefault()
-                            }
-                        }}
-                        variant="filled"
-                      />
-                      <TextField
-                        autoComplete="off"
-                        id="otp3"
-                        type="number"
-                        onKeyDown={(evt) =>{
-                            if(evt.target.value<=1)
-                            {
-                            ["e", "E", "+", "-"].includes(evt.key) &&
-                            evt.preventDefault()
-                            }
-                            else {
-                                evt.preventDefault()
-                            }
-                        }}
-                        variant="filled"
-                      />
-                      <TextField
-                        autoComplete="off"
-                        id="otp4"
-                        type="number"
-                        onKeyDown={(evt) =>{
-                            if(evt.target.value<=1)
-                            {
-                            ["e", "E", "+", "-"].includes(evt.key) &&
-                            evt.preventDefault()
-                            }
-                            else {
-                                evt.preventDefault()
-                            }
-                        }}
-                        variant="filled"
-                      />
+                   
+                                        <OTPInput  id="otp1" autoFocus  type='number' variant="filled"  value={OTP} onChange={setOTP}  OTPLength={4} otpType="number" disabled={false} />
+                                     
+                                    </Box>
+                                    <Box component="div" className='auth-otp-cta' >
+                                        <Button  variant="outlined" className='btn btn-outlined-secondary'>
+                                            Resend Code
+                                        </Button>
+                                        <Button type="button" variant="contained" className='btn btn-primary' onClick={()=>{userActions.verifyRegisterOtp(OTP)}}>
+                                            Continue
+                                        </Button>
+                                
                     </Box>
                   </Box>
                 </Box>

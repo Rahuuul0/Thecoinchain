@@ -24,6 +24,9 @@ export const Apis = {
     Password_Recovery: "passwordRecovery",
     Home: '/home',
     Login: 'login',
+    Create:'createAccount',
+    GetOtp:'get-otp',
+    VerifyRegisterOtp:'verify-user',
     Reset_Password: 'resetPassword',
     Change_Password: 'changePassword',
 }

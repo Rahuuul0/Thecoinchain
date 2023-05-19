@@ -115,17 +115,17 @@ const AccountConfirm = () => {
                           onChange={(e) => {
                             setRadioOption(e.target.value);
                           }}
-                        >
+                        > 
                           <FormControlLabel
                             value="by_mobile"
                             control={<Radio />}
-                            label="Get the code by text message (SM) at +1 234 567 890"
+                            label={`Get the code by text message (SM) at ${localStorage.getItem("phone")}`}
                           />
                           <Box component="div" className="devider" />
                           <FormControlLabel
                             value="by_email"
                             control={<Radio />}
-                            label="Get the code by email at tranm••••••••••••@gm•••.com"
+                            label={`Get the code by email at ${localStorage.getItem("email")}`}
                           />
                         </RadioGroup>
                       </FormControl>
@@ -158,8 +158,8 @@ const AccountConfirm = () => {
                       }}
                     >
                       {radioOption !== "by_email"
-                        ? "We have sent the code by text message (SM) at +1 234 567 890"
-                        : "We have sent the code by email at tranm••••••••••••@gm•••.com"}
+                        ? `We have sent the code by text message (SM) at ${localStorage.getItem("phone")}`
+                        : `We have sent the code by email at ${localStorage.getItem("email")}`}
                     </Typography>
                   </Box>
                   <Box noValidate onSubmit={handleOtpSubmit} component="form" sx={{ mt: "24px" }}>
@@ -169,7 +169,7 @@ const AccountConfirm = () => {
                                      
                                     </Box>
                                     <Box component="div" className='auth-otp-cta' >
-                                        <Button  variant="outlined" className='btn btn-outlined-secondary'>
+                                        <Button onClick={()=>{userActions.getOtp()}} variant="outlined" className='btn btn-outlined-secondary'>
                                             Resend Code
                                         </Button>
                                         <Button type="button" variant="contained" className='btn btn-primary' onClick={()=>{userActions.verifyRegisterOtp(OTP)}}>

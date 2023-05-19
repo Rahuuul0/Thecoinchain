@@ -39,11 +39,12 @@ const useUserActions = () => {
                 if (res.statusCode === 200) {
                     alertActions.success("Please select an option");
                     localStorage.setItem("email",res.data.email)
+                    localStorage.setItem("phone",res.data.phone)
                     navigate("/confirm-account")
                 } else {
                     alertActions.error("error");
                 }
-            })
+            }).catch((err)=>{console.log(err);});
     }
 
     const getOtp = async () => {
@@ -55,7 +56,7 @@ const useUserActions = () => {
                 } else {
                     alertActions.error("Error");
                 }
-            })
+            }).catch((err)=>{console.log(err);});
     }
     const verifyRegisterOtp = async (otp) => {
         return fetchWrapper.post(Apis.VerifyRegisterOtp, { otp })
@@ -66,7 +67,7 @@ const useUserActions = () => {
                 } else {
                     alertActions.error("Error Verifying");
                 }
-            })
+            }).catch((err)=>{console.log(err);});
     }
 
     const resetPassword = ({ oldpassword, password, confirmpassword}) => {

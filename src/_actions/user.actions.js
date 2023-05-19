@@ -10,12 +10,27 @@ const useUserActions = () => {
     const fetchWrapper = useFetchWrapper();
     const alertActions = useAlertActions();
     const [auth, setAuth] = useRecoilState(authAtom);
-
+   
     const login = ({ email, password }) => {
-        navigate('/')
-        alertActions.success('Successfully Logged In')
-     }
- 
+        return fetchWrapper.post(Apis.Login, { email, password })
+            .then(res => {
+                if (res.statusCode === 200) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    let { data } = res;
+                    data['role_name'] = (data.userRoleType === Labels.Role_Type_Admin) ? Labels.Text_Admin : Labels.Text_Sam
+                    data['access_token'] = res.access_token;
+                    localStorage.setItem(Labels.Local_Storage_User, JSON.stringify(data));
+                    localStorage.setItem(Labels.Local_Storage_LeadSourceId, JSON.stringify(data));
+                    setAuth(data);
+                    // get return url from location state or default to home page
+                    alertActions.success(Labels.Login_Success);
+                    (data.userRoleType == Labels.Role_Type_Admin)
+                        ? navigate(RoutesName.Admin) : navigate(RoutesName.Sam)
+                } else {
+                    alertActions.error(res.msg);
+                }
+            })
+    }
             
     
    

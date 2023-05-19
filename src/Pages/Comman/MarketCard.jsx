@@ -21,55 +21,55 @@ const MarketCard = () => {
 
     return (
         <>
-            <Box component="div" className='market-crypto-card-wrapper'>
-                <Box component="div" className='market-crypto-graph'>
-                    <Box component="div" className='market-crypto-graph-col'>
-                        <Box component="div" className='market-crypto-graph-ic'>
+            <Box className='market-crypto-card-wrapper'>
+                <Box className='market-crypto-graph'>
+                    <Box className='market-crypto-graph-col'>
+                        <Box className='market-crypto-graph-ic'>
                             <img src={BtcIc} alt='' />
                         </Box>
-                        <Box component="div" className='market-crypto-graph-details'>
-                            <Box component="div" className='market-crypto-name'>
+                        <Box className='market-crypto-graph-details'>
+                            <Box className='market-crypto-name'>
                                 <Typography component="small" varient="body2" className='currency-name'>BTC/USDT <span className='status-badge'>+0.79%</span></Typography>
                                 <Typography component="h5" varient="h5">36,641.20</Typography>
                                 <Typography component="small" varient="small-caption">36,641.20</Typography>
                             </Box>
                         </Box>
-                        <Box component="div" className='market-crypto-graph-details'>
+                        <Box className='market-crypto-graph-details'>
                             <img src={GraphUp} alt='' />
                         </Box>
                     </Box>
-                    <Box component="div" className='market-crypto-graph-col'>
-                        <Box component="div" className='market-crypto-graph-ic'>
+                    <Box className='market-crypto-graph-col'>
+                        <Box className='market-crypto-graph-ic'>
                             <img src={AtcIc} alt='' />
                         </Box>
-                        <Box component="div" className='market-crypto-graph-details'>
-                            <Box component="div" className='market-crypto-name'>
+                        <Box className='market-crypto-graph-details'>
+                            <Box className='market-crypto-name'>
                                 <Typography component="small" varient="body2" className='currency-name'>ATC/USDT <span className='status-badge status-down'>-0.79%</span></Typography>
                                 <Typography component="h5" varient="h5">41.20</Typography>
                                 <Typography component="small" varient="small-caption">41.20</Typography>
                             </Box>
                         </Box>
-                        <Box component="div" className='market-crypto-graph-details'>
+                        <Box className='market-crypto-graph-details'>
                             <img src={GraphDown} alt='' />
                         </Box>
                     </Box>
-                    <Box component="div" className='market-crypto-graph-col'>
-                        <Box component="div" className='market-crypto-graph-ic'>
+                    <Box className='market-crypto-graph-col'>
+                        <Box className='market-crypto-graph-ic'>
                             <img src={EthIc} alt='' />
                         </Box>
-                        <Box component="div" className='market-crypto-graph-details'>
-                            <Box component="div" className='market-crypto-name'>
+                        <Box className='market-crypto-graph-details'>
+                            <Box className='market-crypto-name'>
                                 <Typography component="small" varient="body2" className='currency-name'>ETH/USDT <span className='status-badge'>+0.54%</span></Typography>
                                 <Typography component="h5" varient="h5">3,641.20</Typography>
                                 <Typography component="small" varient="small-caption">3,641.20</Typography>
                             </Box>
                         </Box>
-                        <Box component="div" className='market-crypto-graph-details'>
+                        <Box className='market-crypto-graph-details'>
                             <img src={GraphUp} alt='' />
                         </Box>
                     </Box>
                 </Box>
-                <Box component="div" className='market-crypto-tabs'>
+                <Box className='market-crypto-tabs'>
                     <TabContext value={value}>
                         <Box>
                             <TabList onChange={handleChange} aria-label="Login Tabs">

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link, Grid, Container, Typography, Toolbar, Box, CssBaseline, Button, IconButton, Stack, Tab } from '@mui/material';
-import { ArrowCircleDownSharp,KeyboardArrowRight } from '@mui/icons-material';
+import { ArrowCircleDownSharp, KeyboardArrowRight } from '@mui/icons-material';
 import HeroImage from "../../../../../public/assets/images/banner.svg";
 import Btc from "../../../../../public/assets/images/btc.svg";
 import Leveragedv3 from "../../../../../public/assets/images/leveragedv3.svg";
@@ -26,13 +26,13 @@ const Home = () => {
         <Box>
           <Grid container sx={{ alignItems: 'center' }}>
             <Grid item xs={12} sm={6} md={6} paddingRight={8}>
-              <Typography variant='h1' component="div" className='hero-heading'>
+              <Typography variant='h1' className='hero-heading'>
                 Predictive analysis at its best
               </Typography>
-              <Typography variant='body2' component="div" className='hero-para' paddingBottom={2}>
+              <Typography variant='body2' className='hero-para' paddingBottom={2}>
                 we bring clarity to the volatile world of crypto!
               </Typography>
-              <Typography component="div" paddingBottom={2} >
+              <Typography paddingBottom={2} >
 
                 <Button variant="contained" color="primary" sx={{ borderRadius: '90px', }}>Contained</Button>
               </Typography>
@@ -138,34 +138,34 @@ const Home = () => {
                 </TabList>
               </Box>
               <TabPanel value="1">
-              <Grid container columnSpacing={{ xs: 1, sm:4 }}>
+                <Grid container columnSpacing={{ xs: 1, sm: 4 }}>
                   <Grid item xs={6}>
-                     <img src={Leveragedv3} />
-                     <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>
-                      <Typography variant='h3' component="div" fontSize={32} fontWeight={700}>
-                      Leveraged tokens now available
+                    <img src={Leveragedv3} />
+                    <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>
+                      <Typography variant='h3' fontSize={32} fontWeight={700}>
+                        Leveraged tokens now available
                       </Typography>
-                      <Button variant="outline" className='btn btn-outline' endIcon={ <KeyboardArrowRight/>} sx={{ border:'1px solid #E6E8EC',    height: '50px',whiteSpace:'nowrap'}}>Learn more</Button>
+                      <Button variant="outline" className='btn btn-outline' endIcon={<KeyboardArrowRight />} sx={{ border: '1px solid #E6E8EC', height: '50px', whiteSpace: 'nowrap' }}>Learn more</Button>
                     </Stack>
-                    <Typography fontSize={16} component="div" paddingTop={2}>Good things come in 3s. Get 3x Leveraged tokens now.</Typography>
+                    <Typography fontSize={16} paddingTop={2}>Good things come in 3s. Get 3x Leveraged tokens now.</Typography>
                   </Grid>
                   <Grid item xs={6}>
-                    <Grid container columnSpacing={{ xs: 1, sm:4 }}>
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }}>
                       <Grid item xs={6} display='flex' flexDirection='coloum' justifyContent='space-between'>
-                      <Stack spacing={2} justifyContent='space-between'>
-                        <Typography fontSize={16}>
-                          Leveraged tokens now available
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16}>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography fontSize={16}>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography fontSize={14} fontWeight={400}>
+                          Jun 1, 2021
                         </Typography>
-                        <Typography fontSize={16}>
-                          Good things come in 3s. Get 3x Leveraged tokens now.
-                        </Typography>
-                      </Stack>
-                      <Typography fontSize={14} fontWeight={400}>
-                         Jun 1, 2021
-                      </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <img src={Leveraged}/>
+                        <img src={Leveraged} />
                       </Grid>
                     </Grid>
                   </Grid>

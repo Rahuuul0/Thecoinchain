@@ -21,7 +21,7 @@ const Footer = () => {
             <Grid item xs={12} sm={12} md={2} paddingTop={4} paddingBottom={4} >
               <Typography
                 variant="h5"
-                component="div"
+
                 fontWeight="700"
                 paddingBottom={4}
                 sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'flex' } }}
@@ -57,7 +57,7 @@ const Footer = () => {
             <Grid item xs={12} sm={12} md={3} paddingLeft={5} paddingTop={4} paddingBottom={4} >
               <Typography
                 variant='h5'
-                component="div"
+
                 paddingBottom={4}
                 fontWeight="700"
                 color="#23262F"
@@ -65,7 +65,7 @@ const Footer = () => {
               </Typography>
               <Typography
                 variant='body1'
-                component="div"
+
                 className='para-gray'
                 color="#23262F"
               >Crypto currency forecast and analysis straight to your inbox! No b.s.! the first to know

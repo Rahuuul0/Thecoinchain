@@ -14,13 +14,13 @@ const PredictMarket = () => {
             <ThemeProvider theme={theme}>
                 <Box component="main" className='market-wrapper' sx={{ mt: 8 }}>
                     <MarketHero />
-                    <Box component="div" className='market-inner'>
+                    <Box className='market-inner'>
                         <Container maxWidth="lg">
 
                             <MarketCard />
                             <CryptoTable />
 
-                            <Box component="div" className='price-prediction'>
+                            <Box className='price-prediction'>
                                 <Typography component="h2" variant='h2'>
                                     Cryptocurrency Price Predictions
                                 </Typography>

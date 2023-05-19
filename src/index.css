@@ -24,7 +24,7 @@
     --secondary-font: 'DM Sans', sans-serif;
     --article-font: 'Inter', sans-serif;
     --primary-color: #3772FF;
-    --secondary-color: #3772FF;
+    --secondary-color: #777E90;
 }
 
 :focus {
@@ -38,7 +38,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 0px 30px;
+    padding: 0px 24px;
     gap: 12px;
     font-size: 16px;
     border-radius: 90px !important;
@@ -51,14 +51,14 @@
 #root .btn-primary,
 .modal-dialog .btn-primary {
     background-color: var(--primary-color) !important;
-    min-width: 150px;
+    /* min-width: 150px; */
     height: 46px;
     color: var(--color_light);
 }
 
 #root .btn-secondary {
     background-color: #23262F !important;
-    min-width: 150px;
+    /* min-width: 150px; */
     height: 46px;
     color: var(--color_light);
 }
@@ -580,7 +580,7 @@ main.auth-wrapper {
 }
 
 .app-nav button.MuiButtonBase-root {
-    color: #777E90;
+    color: var(--secondary-color);
 }
 
 #root .app-nav .btn {
@@ -619,7 +619,7 @@ main.auth-wrapper {
 }
 
 #root .quick-links a {
-    color: #777E90;
+    color: var(--secondary-color);
     font-weight: 700;
 }
 
@@ -655,7 +655,7 @@ main.auth-wrapper {
 .gridBox .top-head {
     font-size: 12px;
     font-weight: 600;
-    color: #777E90;
+    color: var(--secondary-color);
 }
 
 .gridBox button {
@@ -891,7 +891,7 @@ main.auth-wrapper {
 }
 
 .learn-n-earn-by .body-caption {
-    color: #777E90;
+    color: var(--secondary-color);
     font-weight: 500;
 }
 
@@ -901,7 +901,7 @@ main.auth-wrapper {
 }
 
 .crypto-list-table table thead th {
-    color: #777E90;
+    color: var(--secondary-color);
     font-weight: 600;
     font-size: 12px;
 }
@@ -985,7 +985,7 @@ main.auth-wrapper {
 }
 
 .crypto-name .currency_name {
-    color: #777E90;
+    color: var(--secondary-color);
     text-transform: uppercase;
     font-weight: 400;
 }
@@ -1016,7 +1016,7 @@ main.auth-wrapper {
 
 .market-prediction-faq h5.large-caption {
     font-size: 24px;
-    color: #777E90;
+    color: var(--secondary-color);
     font-weight: 600;
 }
 
@@ -1116,4 +1116,206 @@ main.auth-wrapper {
     max-width: 30px;
     min-width: 30px;
     height: 30px;
+}
+
+
+/* Subscription page */
+.subscription-wrapper-head {
+    padding: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FCFCFD;
+}
+
+.subscription-wrapper-head small {
+    display: flex;
+    align-items: center;
+}
+
+.subscription-wrapper-head h2 {
+    font-family: var(--secondary-font);
+}
+
+
+/* become-a-crypto-trader  */
+.become-a-crypto-trader {
+    padding: 136px 0;
+    background-color: #F4F5F6;
+}
+
+.crypto-trader-head {
+    max-width: 453px;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+.crypto-trader-head h2 {
+    font-family: var(--secondary-font);
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+}
+
+.subscription-steps {
+    background-color: #F8F8F9;
+    padding-top: 80px;
+    padding-bottom: 136px;
+}
+
+.subscription-steps-inner {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 200px;
+}
+
+.subscription-step {
+    border-radius: 48px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    position: relative;
+    z-index: 1;
+    color: var(--secondary-color);
+    margin-bottom: 40px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.subscription-step:after {
+    content: "";
+    position: absolute;
+    top: 70px;
+    left: 15px;
+    width: 24px;
+    height: 2px;
+    border: 1px dashed #777E91;
+    transform: rotate(90deg);
+    z-index: -1;
+}
+
+.subscription-step.current-step {
+    background: #FCFCFD;
+    color: var(--color_dark);
+    box-shadow: 0px 4px 16px -8px rgba(15, 15, 15, 0.1);
+}
+
+.subscription-step .number-circle {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #E6E8EC;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: var(--secondary-font);
+}
+
+.subscription-step.completed-step .number-circle {
+    background-color: #58BD7D;
+    border-color: #58BD7D;
+    color: #fff;
+}
+
+.subscription-step.current-step .number-circle {
+    border-color: #58BD7D;
+}
+
+.subscription-steps-col-details {
+    background: #FCFCFD;
+    box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
+    border-radius: 16px;
+    padding: 40px;
+}
+
+.subscription-steps-col-details h5 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.subscription-plan {
+    margin-top: 32px;
+    margin-bottom: 36px;
+    border-top: 1px solid #E6E8EC;
+}
+
+.subscription-plan-card {
+    margin-top: 22px;
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.075);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.subscription-plan-card .plan-title {
+    background: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 3px 3px 0px 0px;
+    font-weight: 700;
+    font-family: var(--secondary-font);
+    padding: 8px;
+}
+
+.subscription-plan-card .subscription-plan-body {
+    padding: 16px;
+}
+
+.subscription-plan-card .subscription-plan-body .plan-price {
+    font-weight: 700;
+    font-family: var(--secondary-font);
+    margin-bottom: 48px;
+}
+
+.subscription-plan-card .subscription-plan-body .plan-days {
+    font-weight: 400;
+    font-size: 24px;
+    font-family: 'Poppins';
+    color: #6C757D;
+}
+
+.subscription-plan-cta {
+    background: rgba(0, 0, 0, 0.03);
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0px 0px 3px 3px;
+    padding: 9px 16px 8px;
+}
+
+.card-inner-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+
+
+
+
+.become-a-crypto-trader-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+.become-a-crypto-trader-card {
+    background: #FCFCFD;
+    border-radius: 20px;
+    padding: 85px 32px;
+}
+
+.crypto-trader-img {
+    margin-bottom: 32px;
+}
+
+.crypto-trader-img img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
 }

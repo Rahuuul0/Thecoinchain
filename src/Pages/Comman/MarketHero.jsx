@@ -5,7 +5,7 @@ import MarketHeroImg from '../../../public/assets/images/market-hero.svg'
 const MarketHero = () => {
     return (
         <>
-            <Box component="div" className='market-hero'>
+            <Box className='market-hero'>
                 <Container maxWidth="lg">
                     <Grid container>
                         <Grid item md={6}>
@@ -17,7 +17,7 @@ const MarketHero = () => {
                             </Typography>
                         </Grid>
                         <Grid item md={6}>
-                            <Box component="div" className='market-hero-img-wrapper'>
+                            <Box className='market-hero-img-wrapper'>
                                 <img src={MarketHeroImg} alt='' />
                             </Box>
                         </Grid>

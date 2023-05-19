@@ -29,7 +29,7 @@ const Home = () => {
       <CssBaseline />
 
       <Box component="main">
-        <Box component="div" className='hero-section' sx={{ py: 6 }}>
+        <Box className='hero-section' sx={{ py: 6 }}>
           <Container maxWidth="lg">
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
               <Grid item sm={6}>
@@ -72,18 +72,18 @@ const Home = () => {
                 </Grid>
               </Grid>
               <Grid item sm={6}>
-                <Box component="div" className='hero-card-img'>
+                <Box className='hero-card-img'>
                   <img
                     src={heroImg}
                     srcSet={`${heroImg} 1x, ${heroImg2x} 2x, ${heroImg3x} 3x`}
                     alt="Hero image"
                     loading="lazy"
                   />
-                  <Box component="div" className='hero-card-content'>
+                  <Box className='hero-card-content'>
                     <Typography component="h4" variant="h4">
                       Space Walking
                     </Typography>
-                    <Box component="div" className='hero-card-animkid'>
+                    <Box className='hero-card-animkid'>
                       <img
                         src={AnimkidIc}
                         alt="Animkid"

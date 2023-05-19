@@ -87,16 +87,16 @@ const LogIn = () => {
                                 <Typography component="h3" variant="h3">
                                     Sign in to CoinGuru
                                 </Typography>
-                                <Box component="div" className='ensure' >
+                                <Box className='ensure' >
                                     <Typography component="caption" variant="body2" sx={{ color: '#777E91', display: 'block', fontSize: '12px' }}>
                                         Please ensure you are visiting the correct url.
                                     </Typography>
-                                    <Box component="div" className='ensure-link' >
+                                    <Box className='ensure-link' >
                                         <img src={Lock} alt='lock' />
                                         <span>https://</span> accounts.coinguru.org/login
                                     </Box>
                                 </Box>
-                                <Box component="div" className='devider' />
+                                <Box className='devider' />
 
                                 <Box
                                     noValidate
@@ -104,7 +104,7 @@ const LogIn = () => {
                                     sx={{ mt: '24px' }}
                                     onSubmit={handleSubmit(userActions.login)}
                                 >
-                                    <Box component="div" className='auth-form' >
+                                    <Box className='auth-form' >
                                         <Box sx={{ width: '100%', typography: 'body1' }}>
                                             <TabContext value={value}>
                                                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -166,7 +166,7 @@ const LogIn = () => {
                                                     />
                                                     <div style={{ color: "red" }}> {errors.password?.message}
                                                     </div>
-                                                    <Box component="div" className='scan-forgot'>
+                                                    <Box className='scan-forgot'>
                                                         <Link href='#' onClick={() => { navigate("/scan-to-login"); }} variant="body2" sx={{ color: '#777E91!important', textDecoration: 'none' }}>
                                                             Scan to login
                                                         </Link>
@@ -236,7 +236,7 @@ const LogIn = () => {
                                                     />
                                                     <div style={{ color: "red" }}> {errors.password?.message}</div>
 
-                                                    <Box component="div" className='scan-forgot'>
+                                                    <Box className='scan-forgot'>
                                                         <Link href='#' onClick={() => { navigate("/scan-to-login"); }} variant="body2" sx={{ color: '#777E91!important', textDecoration: 'none' }}>
                                                             Scan to login
                                                         </Link>

@@ -16,27 +16,27 @@ const PredictionDashboard = () => {
         <>
             <ThemeProvider theme={theme}>
                 <Box component="main" className='prediction-dashboard-wrapper' sx={{ mt: 8 }}>
-                    <Box component="div" className='market-prediction-dashboard-inner'>
+                    <Box className='market-prediction-dashboard-inner'>
                         <Container maxWidth="lg">
                             <Typography component="h4" variant='h4'>
                                 Cryptocurrency Prediction
                             </Typography>
                             <CryptoTable />
                         </Container>
-                        <Box component="div" className='market-prediction-faq'>
+                        <Box className='market-prediction-faq'>
                             <Container maxWidth="lg">
                                 <Typography component="h5" variant='body1' className='large-caption'>
                                     FAQ
                                 </Typography>
                             </Container>
-                            <Box component="div" className='market-prediction-faq-items-wrapper'>
+                            <Box className='market-prediction-faq-items-wrapper'>
                                 <Container maxWidth="lg">
-                                    <Box component="div" className='market-prediction-faq-items'>
-                                        <Box component="div" className='market-prediction-faq-item'>
-                                            <Box component="div" className='market-prediction-faq-item-img'>
+                                    <Box className='market-prediction-faq-items'>
+                                        <Box className='market-prediction-faq-item'>
+                                            <Box className='market-prediction-faq-item-img'>
                                                 <img src={FAQ01} alt='FAQ' />
                                             </Box>
-                                            <Box component="div" className='market-prediction-faq-item-content'>
+                                            <Box className='market-prediction-faq-item-content'>
                                                 <Typography component="small" variant='body2' className='small-caption' sx={{ color: '#777E90' }}>
                                                     Blockchain
                                                 </Typography>
@@ -45,11 +45,11 @@ const PredictionDashboard = () => {
                                                 </Typography>
                                             </Box>
                                         </Box>
-                                        <Box component="div" className='market-prediction-faq-item'>
-                                            <Box component="div" className='market-prediction-faq-item-img'>
+                                        <Box className='market-prediction-faq-item'>
+                                            <Box className='market-prediction-faq-item-img'>
                                                 <img src={FAQ02} alt='FAQ' />
                                             </Box>
-                                            <Box component="div" className='market-prediction-faq-item-content'>
+                                            <Box className='market-prediction-faq-item-content'>
                                                 <Typography component="small" variant='body2' className='small-caption' sx={{ color: '#777E90' }}>
                                                     Blockchain
                                                 </Typography>
@@ -58,11 +58,11 @@ const PredictionDashboard = () => {
                                                 </Typography>
                                             </Box>
                                         </Box>
-                                        <Box component="div" className='market-prediction-faq-item'>
-                                            <Box component="div" className='market-prediction-faq-item-img'>
+                                        <Box className='market-prediction-faq-item'>
+                                            <Box className='market-prediction-faq-item-img'>
                                                 <img src={FAQ03} alt='FAQ' />
                                             </Box>
-                                            <Box component="div" className='market-prediction-faq-item-content'>
+                                            <Box className='market-prediction-faq-item-content'>
                                                 <Typography component="small" variant='body2' className='small-caption' sx={{ color: '#777E90' }}>
                                                     Blockchain
                                                 </Typography>
@@ -71,11 +71,11 @@ const PredictionDashboard = () => {
                                                 </Typography>
                                             </Box>
                                         </Box>
-                                        <Box component="div" className='market-prediction-faq-item'>
-                                            <Box component="div" className='market-prediction-faq-item-img'>
+                                        <Box className='market-prediction-faq-item'>
+                                            <Box className='market-prediction-faq-item-img'>
                                                 <img src={FAQ04} alt='FAQ' />
                                             </Box>
-                                            <Box component="div" className='market-prediction-faq-item-content'>
+                                            <Box className='market-prediction-faq-item-content'>
                                                 <Typography component="small" variant='body2' className='small-caption' sx={{ color: '#777E90' }}>
                                                     Blockchain
                                                 </Typography>
@@ -84,11 +84,11 @@ const PredictionDashboard = () => {
                                                 </Typography>
                                             </Box>
                                         </Box>
-                                        <Box component="div" className='market-prediction-faq-item'>
-                                            <Box component="div" className='market-prediction-faq-item-img'>
+                                        <Box className='market-prediction-faq-item'>
+                                            <Box className='market-prediction-faq-item-img'>
                                                 <img src={FAQ05} alt='FAQ' />
                                             </Box>
-                                            <Box component="div" className='market-prediction-faq-item-content'>
+                                            <Box className='market-prediction-faq-item-content'>
                                                 <Typography component="small" variant='body2' className='small-caption' sx={{ color: '#777E90' }}>
                                                     Blockchain
                                                 </Typography>
@@ -97,11 +97,11 @@ const PredictionDashboard = () => {
                                                 </Typography>
                                             </Box>
                                         </Box>
-                                        <Box component="div" className='market-prediction-faq-item'>
-                                            <Box component="div" className='market-prediction-faq-item-img'>
+                                        <Box className='market-prediction-faq-item'>
+                                            <Box className='market-prediction-faq-item-img'>
                                                 <img src={FAQ06} alt='FAQ' />
                                             </Box>
-                                            <Box component="div" className='market-prediction-faq-item-content'>
+                                            <Box className='market-prediction-faq-item-content'>
                                                 <Typography component="small" variant='body2' className='small-caption' sx={{ color: '#777E90' }}>
                                                     Blockchain
                                                 </Typography>

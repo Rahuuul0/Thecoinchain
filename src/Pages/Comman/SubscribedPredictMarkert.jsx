@@ -14,7 +14,7 @@ const SubscribedPredictMarkert = () => {
             <ThemeProvider theme={theme}>
                 <Box component="main" className='market-wrapper' sx={{ mt: 8 }}>
                     <MarketHero />
-                    <Box component="div" className='market-inner'>
+                    <Box className='market-inner'>
                         <Container maxWidth="lg">
 
                             <MarketCard />

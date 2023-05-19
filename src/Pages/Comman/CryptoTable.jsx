@@ -30,8 +30,8 @@ const CryptoTable = () => {
 
     return (
         <>
-            <Box component="div" className='crypto-list' sx={{ py: 2 }}>
-                <Box component="div" className='crypto-list-table'>
+            <Box className='crypto-list' sx={{ py: 2 }}>
+                <Box className='crypto-list-table'>
                     <TableContainer>
                         <Table sx={{ minWidth: 650 }}>
                             <TableHead>

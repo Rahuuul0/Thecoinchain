@@ -88,11 +88,11 @@ const CreateAccount = () => {
                                 <Typography component="h3" variant="h3">
                                     Sign up
                                 </Typography>
-                                <Box component="div" className='open-id' >
+                                <Box className='open-id' >
                                     <Typography component="small" variant="body2" sx={{ textAlign: 'center', color: '#777E91', display: 'block', marginBottom: '20px' }}>
                                         Use Your OpenID to Sign up
                                     </Typography>
-                                    <Box component="div" className='open-id-btn-wrapper' >
+                                    <Box className='open-id-btn-wrapper' >
                                         <Button variant="contained" className='btn btn-primary' startIcon={<GoogleIcon />}>
                                             Google
                                         </Button>
@@ -101,7 +101,7 @@ const CreateAccount = () => {
                                         </Button>
                                     </Box>
                                 </Box>
-                                <Box component="div" className='devider' />
+                                <Box className='devider' />
                                 <Typography component="small" variant="body2" sx={{ textAlign: 'center', color: '#777E91', display: 'block', marginBottom: '20px' }}>
                                     Or continue with email
                                 </Typography>
@@ -111,7 +111,7 @@ const CreateAccount = () => {
                                     sx={{ mt: '24px' }}
                                     onSubmit={handleSubmit(userActions.create)}
                                 >
-                                    <Box component="div" className='auth-form' >
+                                    <Box className='auth-form' >
                                         <TextField
                                             onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             label="Email"

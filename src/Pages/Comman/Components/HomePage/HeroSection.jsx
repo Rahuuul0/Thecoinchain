@@ -9,7 +9,7 @@ import RocketLaunchOutlinedIcon from '@mui/icons-material/RocketLaunchOutlined';
 const HeroSection = () => {
     return (
         <>
-            <Box component="div" className='hero-section' sx={{ py: 6 }}>
+            <Box className='hero-section' sx={{ py: 6 }}>
                 <Container maxWidth="lg">
                     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                         <Grid item sm={6}>
@@ -23,7 +23,7 @@ const HeroSection = () => {
                             <Button variant="contained" className='btn btn-primary' startIcon={<RocketLaunchOutlinedIcon />}>
                                 Get Started
                             </Button>
-                            <Box component="div" className='hero-feature'>
+                            <Box className='hero-feature'>
                                 <Grid item container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                                     <Grid item sm={4}>
                                         <Typography component="h4" variant="h4">
@@ -53,8 +53,8 @@ const HeroSection = () => {
                             </Box>
                         </Grid>
                         <Grid item sm={6}>
-                            <Box component="div" className='hero-card-wrapper'>
-                                <Box component="div" className='hero-card-img'>
+                            <Box className='hero-card-wrapper'>
+                                <Box className='hero-card-img'>
                                     {/* <img
                                         src={heroImg}
                                         srcSet={`${heroImg} 1x, ${heroImg2x} 2x, ${heroImg3x} 3x`}
@@ -62,11 +62,11 @@ const HeroSection = () => {
                                         loading="lazy"
                                     /> */}
                                 </Box>
-                                <Box component="div" className='hero-card-content'>
+                                <Box className='hero-card-content'>
                                     <Typography component="h5" variant="h5">
                                         Space Walking
                                     </Typography>
-                                    <Box component="div" className='hero-card-animkid'>
+                                    <Box className='hero-card-animkid'>
                                         {/* <img
                                             src={AnimkidIc}
                                             alt="Animkid"

@@ -28,7 +28,10 @@ const SessionHistory = () => {
             Sessions & login history
         </Typography>,
     ];
-
+    const yesNo = [
+        { date: "2021-06-16", time: "10:46:09", ip: "1.53.208.186", cta: "YES" },
+        { date: "2021-06-16", time: "10:46:09", ip: "1.53.208.148", cta: "NO" }
+    ];
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -173,46 +176,31 @@ const SessionHistory = () => {
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
-                                                        <TableRow
-                                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                        >
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    2021-06-16
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    10:46:09
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    1.53.208.186
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell align="right">
-                                                                <Button size='small' variant='contained' color='error' className='btn btn-error' sx={{ ml: 'auto' }}>NO</Button>
-                                                            </TableCell>
-                                                        </TableRow>
-                                                        <TableRow
-                                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                        >
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    2021-06-16
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    10:46:09
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    1.53.208.148
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell align="right">
-                                                                <Button size='small' variant='contained' color='success' className='btn btn-success' sx={{ ml: 'auto' }}>YES</Button>
-                                                            </TableCell>
-                                                        </TableRow>
+                                                        {yesNo.map((v, i) => {
+                                                            return (
+                                                                <TableRow
+                                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                                >
+                                                                    <TableCell>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
+                                                                            {v.date}
+                                                                        </Typography>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
+                                                                            {v.time}
+                                                                        </Typography>
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
+                                                                            {v.ip}
+                                                                        </Typography>
+                                                                    </TableCell>
+                                                                    <TableCell align="right">
+                                                                        <Button size='small' variant='contained' color={(v.cta === "NO") ? "error" : "success"} className={(v.cta === "NO") ? "btn btn-error" : "btn btn-success"} sx={{ ml: 'auto' }}>{v.cta}</Button>
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            )
+                                                        })}
+
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>

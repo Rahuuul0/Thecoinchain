@@ -378,7 +378,7 @@ const Home = () => {
           </Box>
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             <Grid item xs={12} sm={3} md={3} >
-              <Box textAlign='center' className='howworks-box '>
+              <Box textAlign='center' className='howworks-box contact-line '>
                 <img src={Market} width={96} />
                 <Typography className='small secondary-color '  paddingTop={6} paddingBottom={3} textAlign='center'>Step 1</Typography>
                 <Typography className='' textAlign='center' fontWeight='500' paddingBottom={3} >Subscribe</Typography>
@@ -388,7 +388,7 @@ const Home = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={3} md={3} >
-              <Box textAlign='center' className='howworks-box '>
+              <Box textAlign='center' className='howworks-box contact-line '>
                 <img src={Market} width={96} />
                 <Typography className='small secondary-color '  paddingTop={6} paddingBottom={3} textAlign='center'>Step 2</Typography>
                 <Typography className='' textAlign='center' fontWeight='500' paddingBottom={3} >Connect wallet</Typography>
@@ -398,7 +398,7 @@ const Home = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={3} md={3} >
-              <Box textAlign='center' className='howworks-box '>
+              <Box textAlign='center' className='howworks-box contact-line '>
                 <img src={Market} width={96} />
                 <Typography className='small secondary-color '  paddingTop={6} paddingBottom={3} textAlign='center'>Step 3</Typography>
                 <Typography className='' textAlign='center' fontWeight='500' paddingBottom={3} >Start trading</Typography>
@@ -426,7 +426,7 @@ const Home = () => {
         <Box paddingTop={8} paddingBottom={8}>
           <Stack direction="row" spacing={8}>
          
-            <img src={BusinessSlider} />
+            <img className='margin10' src={BusinessSlider} />
             <img src={Finance} />
             <img src={Investing} />
             <img src={kasobu} />

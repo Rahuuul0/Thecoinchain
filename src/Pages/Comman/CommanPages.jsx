@@ -9,6 +9,10 @@ import CreateAccount from "./CreateAccount";
 import Home from "./Components/HomePage/HomePage";
 import ScanToLogin from "./ScanToLogin";
 import AccountConfirm from "./AccountConfirm";
+import LearnCypto from  "./LearnCypto"
+import LearnCyptoDetail from  "./LearnCyptoDetail"
+import Contact from  "./Contact"
+import Referrals from "./Referrals";
 
 const Customer = () => {
   return (
@@ -22,8 +26,14 @@ const Customer = () => {
         <Route path={`/reset-password`} element={<ResetPassword />} />
         <Route path={`/create-account`} element={<CreateAccount />} />
         <Route path={`/scan-to-login`} element={<ScanToLogin />} />
-        <Route path={`/confirm-account`} element={<AccountConfirm />} />
-      </Routes>     
+        <Route path={`/confirm-account`} element={<AccountConfirm />} /> 
+        <Route path={`/learn-cypto`} element={<LearnCypto />} />
+        <Route path={`/learn-cypto-detail`} element={<LearnCyptoDetail />} />
+        <Route path={`/contact`} element={<Contact />} />
+        <Route path={`/`} exact element={<Home />} />
+        <Route path={`/referrals`} exact element={<Referrals />} />
+      </Routes>
+      <Footer />
     </div>
   );
 };

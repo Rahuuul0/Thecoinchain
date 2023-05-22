@@ -730,14 +730,170 @@ input[type=number] {
     border-radius: 24px;
     box-shadow: 0px 6px 25px rgb(15 15 15 / 10%);
 }
-.howworks-box img:before{
-    content: url('../public/assets/images/connect-line.svg');
+.contact-line{
+    position: relative;
+}
+.contact-line:before{
+    content:"O------------O";
+    /* content: url('http://localhost:3000/market.svg'); */
     position: absolute;
-    left: 32px;
-    bottom: 0;
-    width: 100px;
-    height: 10px;
-    z-index: 11;
-    background-color: #000;
+    left: 76%;
+    top: 10%;
+    width: 160px;
+    height: 12px;
+    z-index: 11; 
+    display: inline-block;
+    /* background-color: #000; */
 }
 /* Homepage Ends */
+/* Learn Cypto Page */
+.center-tab .MuiTabs-flexContainer {
+    justify-content: center !important;
+    gap: 20px;
+}
+.filter-btn .btn {
+    min-width: 72px !important;
+    height: 28px !important;
+    font-size: 14px !important;
+    padding: 6px 12px !important;
+}
+.filter-btn .MuiTabs-root button {
+    font-family: var(--secondary-font);
+}
+.filter-btn button.Mui-selected {
+    background-color: #353945;
+    color: var(--color_light);
+    min-height: 28px;
+}
+.filter-btn button {
+    text-transform: initial;
+    font-size: 14px;
+    min-height: 28px;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-weight: 700;
+    color: #777E91;
+    min-width: 60px;
+}
+.margin-0{
+    margin: 0px;
+}
+#root .btn-green-outlined{
+    color: #58BD7D !important;
+    background-color: rgba(0, 0, 0, 0) !important;
+    border: 1px solid #58BD7D !important;
+    padding: 6px 12px !important;
+    height: 26px;
+    border-radius: 5px !important;
+}
+.avatar-rounded img{
+    border-radius: 15px;
+    width: 100%;
+}
+.about-crypto {
+    position: relative;
+}
+.about-crypto .float-img{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+.search-icon {
+    background-color: #3772FF !important;
+    border-radius: 100% !important;
+    color: #ffffff !important;
+    width: 35px !important;
+    min-width: 35px !important;
+    height: 35px !important;
+}
+.margin10{
+    margin-left: 10px;
+}
+
+/* learn cypto ends */
+
+/* learn cypto detail starts */
+
+.center-breadcrum ol{
+justify-content: center;
+margin-bottom: 20px;
+}
+
+.center-breadcrum .MuiBreadcrumbs-li a{
+    color: var(--color-grey) !important;
+}
+
+.center-breadcrum .MuiBreadcrumbs-li p.MuiTypography-root{
+    color: var(--color-dark) !important;
+    font-weight: 700;
+}
+.smallwidth{
+    max-width: 728px !important;
+    margin: 0 auto !important;
+}
+
+/* learn cypto detail ends */
+/* Contact page */
+
+.float-right{
+    position: absolute !important;
+    top: 15px;
+    right: 15px;
+    height: 20px;
+}
+
+.faq-accordian .MuiPaper-root{
+    box-shadow: none;
+}
+
+.faq-accordian .MuiButtonBase-root{
+    padding-left: 30px;
+    position: relative;
+    border-bottom: 1px solid #E6E8EC;
+}
+.faq-accordian .MuiButtonBase-root p{
+    font-weight: 500;
+}
+.faq-accordian .faq-count{
+    left: 0px ;
+    position: absolute;
+    color: var(--color-grey);
+}
+.faq-accordian .MuiAccordionDetails-root p{
+    font-size: 14px !important;
+    color: var(--color-grey);
+}
+html body .faq-accordian  .Mui-expanded{
+    min-height: 24px !important;
+    margin: 5px 0px 15px 0px;
+}
+.faq-accordian .css-1elwnq4-MuiPaper-root-MuiAccordion-root:before{
+    content: none;
+}
+.faq-accordian .MuiAccordionDetails-root{
+    padding-left: 30px;
+    padding-bottom: 0px;
+}
+#root .button-img .btn {
+    background-color: #ffffff;
+    border-radius: 8px !important;
+    padding: 19px 36px 12px 36px !important;
+    min-width: 48%;
+}
+
+#root .button-img .btn  img{
+    padding-right: 5px;
+}
+.topic-que .MuiInputBase-root{
+    width: 100%;
+    background-color: #fff;
+}
+.newdesignbox img{
+    width: 100%;
+}
+.newdesignbox .inner-con-box{
+    padding: 20px;
+}
+/* .about-crypto img{
+    width: 100%;
+} */

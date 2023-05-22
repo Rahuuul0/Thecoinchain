@@ -107,6 +107,12 @@ button.btn-close {
 .modal-dialog .btn-outlined-secondary:hover {
     border-width: 2px;
 }
+#root .btn-dark{
+    background-color: #23262F;
+    color: #fff;
+    padding: 9px 15px;
+
+}
 
 html body {
     color: var(--text_dark);
@@ -641,6 +647,9 @@ main.auth-wrapper {
 .footer .border-rounded {
     border: 1px solid #E6E8EC;
     border-radius: 90px;
+}
+#root  .border-rounded.btn-green-outlined {
+    border-radius: 90px !important;
 }
 
 .footer-subs-form input {
@@ -1661,7 +1670,10 @@ margin-bottom: 20px;
 .update-profile input{
     background-color: #fff !important;
     border-radius: 12px ;
+    height: 48px;
+    padding: 0px 15px !important;
 }
+/* profile section ends */
 .modal-subscribed .modal-modal-description {
     text-align: center;
     padding-left: 0;

@@ -19,6 +19,7 @@ import PredictionDashboard from "./PredictionDashboard";
 import Subscription from "./Subscription";
 import Profile from "./Profile";
 import Notifications from "./Notifications";
+import SubsPage from "./SubsPage";
 
 const Customer = () => {
   return (
@@ -44,6 +45,7 @@ const Customer = () => {
         <Route path={`/subscription`} exact element={<Subscription />} />
         <Route path={`/profile`} exact element={<Profile />} />
         <Route path={`/notifications`} exact element={<Notifications />} />
+        <Route path={`/subspage`} exact element={<SubsPage />} />
       </Routes>
       <Footer />
     </div>

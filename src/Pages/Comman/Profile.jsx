@@ -1,7 +1,7 @@
 import React from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Modal, Link, Breadcrumbs, Stack, Select, OutlinedInput, MenuItem, Switch,TextField } from '@mui/material';
+import { Box, Container, Grid, Typography, Button, Modal, Link, Breadcrumbs, Stack, Select, OutlinedInput, MenuItem, Switch, TextField } from '@mui/material';
 import User from '../../../public/assets/images/user.svg';
 import Share from '../../../public/assets/images/share-square.svg';
 import Session from '../../../public/assets/images/session.svg';
@@ -120,12 +120,17 @@ const Profile = () => {
                             <Box className='subscription-steps-inner'>
                                 <Box className='subscription-steps-col'>
                                     <Stack spacing={2}>
-                                        <Typography className='left-icon secondary-color'><span><img src={User} /> </span>Profile</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={Share} /> </span>Referrals</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={Api} /> </span>API keys</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={Session} /> </span>Sessions & login history</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={FA} /> </span>2FA</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={Lockbtn} /> </span>Change password</Typography>
+                                        <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
+                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={User} /> </span>Profile</Typography>
+                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Share} /> </span>Referrals</Typography>
+                                            <Typography className='left-icon secondary-color' paddingBottom={2}><span><img src={Api} /> </span>API keys</Typography>
+                                        </Box>
+                                        <Box>
+                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Session} /> </span>Sessions & login history</Typography>
+                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={FA} /> </span>2FA</Typography>
+                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Lockbtn} /> </span>Change password</Typography>
+                                        </Box>
+
                                     </Stack>
 
 
@@ -177,7 +182,7 @@ const Profile = () => {
                                                     </Box>
                                                 </Grid>
                                             </Grid>
-                                            <Button className='btn btn-green-outlined' sx={{ borderRadius: '90px !important' }}>VIP</Button>
+                                            <Button className='btn btn-green-outlined border-rounded' sx={{ borderRadius: '90px !important' }}>VIP</Button>
                                         </Box>
                                         <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
                                             <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} paddingY={5}  >Features</Typography>
@@ -205,12 +210,12 @@ const Profile = () => {
                                             Stay informed, stay profitable
                                         </Typography>
                                     </Box>
-                                    <Box className="update-profile" sx={{backgroundColor: '#F1F2F4', }} padding={5}>
+                                    <Box className="update-profile" sx={{ backgroundColor: '#F1F2F4', }} padding={5}>
                                         <Typography component="h5" variant='body1' className='large-caption'>
                                             Update your profile
                                         </Typography>
                                         <Box className='' paddingY={2}>
-                                            <Typography textTransform='uppercase'  fontWeight='700' className='small-caption primary-font secondary-color'>Name</Typography>
+                                            <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Name</Typography>
                                             <TextField
                                                 // label="Name"
                                                 className="form-control"
@@ -231,7 +236,7 @@ const Profile = () => {
 
                                         </Box>
                                         <Box className=''>
-                                            <Typography textTransform='uppercase'  fontWeight='700' className='small-caption primary-font secondary-color'>Email</Typography>
+                                            <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Email</Typography>
                                             <TextField
                                                 // label="email"
                                                 className="form-control"
@@ -252,7 +257,7 @@ const Profile = () => {
                                         </Box>
                                     </Box>
                                     <Typography textAlign='right' paddingY={3}>
-                                        <Button className='btn btn-primary' sx={{marginLeft: 'auto'}}>Save Settings</Button>
+                                        <Button className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>
                                     </Typography>
                                 </Box>
                             </Box>

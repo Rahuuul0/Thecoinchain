@@ -16,11 +16,13 @@ import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import AppleIcon from '@mui/icons-material/Apple';
 import GoogleIcon from '@mui/icons-material/Google';
 import ReCAPTCHA from "react-google-recaptcha";
+import { useAlertActions } from '../../_actions/alert.actions';
 
 const CreateAccount = () => {
     const navigate = useNavigate();
     const userActions = useUserActions();
-
+    const alertActions = useAlertActions();
+    const captchaRef = useRef(null)
     const validationSchema = Yup.object().shape({
         email: Yup.string()
         .email()
@@ -72,9 +74,19 @@ const CreateAccount = () => {
             console.log("scriptLoad - reCaptcha Ref-");
           };
 
-           
+           const submitForm = () => {
+            const token = captchaRef.current.getValue();
+            if(token)
+            {
+                captchaRef.current.reset();
+                alert(token)
+                userActions.create(formData);
+            }
+            else {
+                alertActions.error("Check the bot box")
+            }
+           }
     
-    useEffect(()=>{window.scrollTo({top:0,left:0,behavior:"smooth"})});
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -126,7 +138,7 @@ const CreateAccount = () => {
                                     noValidate
                                     component="form"
                                     sx={{ mt: '24px' }}
-                                    onSubmit={handleSubmit(userActions.create)}
+                                    onSubmit={handleSubmit(submitForm)}
                                 >
                                     <Box component="div" className='auth-form' >
                                         <TextField
@@ -237,8 +249,9 @@ const CreateAccount = () => {
                                         <FormControlLabel className='auth-checkbox' control={<Checkbox defaultChecked />} label="By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." />
                                        
                                          <ReCAPTCHA
-                                        style={{ display: "block" }}
-                                        theme="dark"// ref={this._reCaptchaRef}
+                                        style={{ margin:"10px auto",display: "block" }}
+                                        theme="light"
+                                        ref={captchaRef}
                                         sitekey={SITE_KEY}
                                         onChange={handleChange}
                                         asyncScriptOnLoad={asyncScriptOnLoad}

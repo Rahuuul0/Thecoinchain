@@ -52,6 +52,11 @@ body .modal-dialog * {
     box-shadow: none;
 }
 
+#root .btn.MuiButton-sizeSmall,
+.modal-dialog .btn.MuiButton-sizeSmall {
+    padding: 4px 15px;
+}
+
 #root .btn-primary,
 .modal-dialog .btn-primary {
     background-color: var(--primary-color) !important;
@@ -1444,4 +1449,134 @@ main.auth-wrapper {
     display: flex;
     justify-content: space-between;
     gap: 20px;
+}
+
+
+/* Notifications */
+.notification-wrapper {
+    background: #F4F5F6;
+    padding: 32px 0;
+}
+
+.notification-list-card,
+.deposit-transfer {
+    background: #FCFCFD;
+    border-radius: 8px;
+    padding: 40px;
+}
+
+.notification-wrapper .notification-wrapper-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.notification-wrapper .notification-wrapper-head h4 {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.notification-list-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 352px;
+    gap: 80px;
+}
+
+.notification-list-itm {
+    display: flex;
+    gap: 16px;
+    align-items: start;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #E6E8EC;
+}
+
+.notification-list-itm:last-child {
+    border: none;
+}
+
+.notification-icon {
+    width: 48px;
+    height: 48px;
+    border: 2px solid #E6E8EC;
+    color: var(--secondary-color);
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notification-title p {
+    font-weight: 500;
+}
+
+.notification-title small {
+    color: var(--secondary-color);
+}
+
+.notification-date {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.notification-date small {
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+
+.notification-circle {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    background-color: #58BD7D;
+}
+
+.notification-filter h5 {
+    margin-bottom: 24px;
+    font-weight: 600;
+    font-size: 24px !important;
+}
+
+.notification-filter-cta {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.MuiFormGroup-root .MuiCheckbox-colorPrimary {
+    color: #E6E8EC;
+}
+
+.MuiFormGroup-root .MuiCheckbox-colorPrimary.Mui-checked {
+    color: var(--primary-color);
+}
+
+.deposit-transfer {
+    margin-top: 16px;
+    display: flex;
+    gap: 30px;
+}
+
+.deposit-transfer-card {
+    display: flex;
+    gap: 32px;
+    flex: 1;
+}
+
+.deposit-transfer h5 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.deposit-transfer p {
+    color: var(--secondary-color);
+    margin-bottom: 16px;
+}
+
+.deposit-transfer-img {
+    min-width: 128px;
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Grid, Typography, Button, Modal, Link, TextField, FormControlLabel, Checkbox } from '@mui/material'
@@ -11,6 +11,9 @@ import VisaIc from '../../../public/assets/images/icons/visa.svg'
 import MasterIc from '../../../public/assets/images/icons/master.svg'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import CloseIcon from '@mui/icons-material/Close';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 const plans = [
     {
@@ -34,6 +37,12 @@ const plans = [
 ]
 
 const Subscription = () => {
+
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -294,23 +303,20 @@ const Subscription = () => {
                                                             USD
                                                         </Typography>
                                                     </Box>
-                                                </Box>
 
-                                                <Box className='devider' sx={{ my: 1, borderColor: '#E6E8EC' }} />
-                                                <Box className='payment-breakdown-list'>
+                                                    <Box className='devider' sx={{ my: 1, borderColor: '#E6E8EC' }} />
                                                     <Box className='payment-breakdown-list-itm'>
-                                                        <Typography component="p" variant='body1'>
-                                                            $15.00 - 7 days plan
+                                                        <Typography component="p" variant='body1' sx={{ color: '#777E90', fontWeight: '400 !important' }}>
+                                                            Service fee
                                                         </Typography>
                                                         <Typography component="p" variant='body1' sx={{ ml: "auto" }}>
                                                             USD
                                                         </Typography>
                                                     </Box>
-                                                </Box>
-                                                <Box className='payment-breakdown-list'>
+
                                                     <Box className='payment-breakdown-list-itm'>
-                                                        <Typography component="p" variant='body1'>
-                                                            $15.00 - 7 days plan
+                                                        <Typography component="p" variant='body1' sx={{ color: '#777E90', fontWeight: '400 !important' }}>
+                                                            You will pay
                                                         </Typography>
                                                         <Typography component="p" variant='body1' sx={{ ml: "auto" }}>
                                                             USD
@@ -319,7 +325,7 @@ const Subscription = () => {
                                                 </Box>
                                                 <Box className="subscription-plan-cta">
                                                     <Button variant='outlined' className='btn btn-outlined-secondary'>Cancel</Button>
-                                                    <Button variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }}>I understand, Continue</Button>
+                                                    <Button variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} onClick={handleOpen}>I understand, Continue</Button>
                                                 </Box>
                                             </Box>
                                         </Box>
@@ -384,6 +390,44 @@ const Subscription = () => {
                     </Box>
                 </Box >
             </ThemeProvider>
+            {/* Modal */}
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box className="modal-dialog modal-subscribed">
+                    <Button onClick={handleClose} variant='outlined' className='btn btn-outlined-secondary btn-round btn-close'><CloseIcon /></Button>
+
+                    <Box className="modal-modal-description" sx={{ mt: 2, p: 2 }}>
+                        <Typography className="modal-modal-title" variant="h2" component="h2">
+                            Yay! 🎉
+                        </Typography>
+                        <Typography className="crypto-fullname" variant="body1" component="p">
+                            You successfully subscribed.<br />
+                            Crypto prediction made easy - our algorithms do the work for you!
+                        </Typography>
+
+                    </Box>
+                    <Box className="modal-subscribed-cta">
+                        <Button
+                            fullWidth
+                            variant="outlined"
+                            className='btn btn-outlined-secondary'
+                        >
+                            Home
+                        </Button>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            className='btn btn-primary'
+                        >
+                            Dashboard
+                        </Button>
+                    </Box>
+                </Box>
+            </Modal>
         </>
     )
 }

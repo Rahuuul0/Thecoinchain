@@ -31,6 +31,10 @@
     outline: none !important;
 }
 
+body .modal-dialog * {
+    font-family: var(--primary-font);
+}
+
 /* button styles */
 #root .btn,
 .modal-dialog .btn {
@@ -52,15 +56,18 @@
 .modal-dialog .btn-primary {
     background-color: var(--primary-color) !important;
     /* min-width: 150px; */
-    height: 46px;
+    /* height: 46px; */
     color: var(--color_light);
+    padding: 9px 15px;
 }
 
-#root .btn-secondary {
+#root .btn-secondary,
+.modal-dialog .btn-secondary {
     background-color: #23262F !important;
     /* min-width: 150px; */
-    height: 46px;
+    /* height: 46px; */
     color: var(--color_light);
+    padding: 9px 15px;
 }
 
 .btn-round {
@@ -79,12 +86,19 @@ button.btn-close {
     padding: 0 !important;
 }
 
-#root .btn-outlined-secondary {
+#root .btn-outlined-secondary,
+.modal-dialog .btn-outlined-secondary {
     /* min-width: 150px; */
-    height: 40px;
+    /* height: 40px; */
+    padding: 9px 15px;
     border: 2px solid #E6E8EC;
     border-radius: 90px;
     color: var(--color_dark);
+}
+
+#root .btn-outlined-secondary:hover,
+.modal-dialog .btn-outlined-secondary:hover {
+    border-width: 2px;
 }
 
 html body {
@@ -1099,7 +1113,7 @@ main.auth-wrapper {
     flex: 1;
 }
 
-.modal-modal-description {
+.crypto-table .modal-modal-description {
     background: #FCFCFD;
     box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
     border-radius: 4px;
@@ -1369,6 +1383,7 @@ main.auth-wrapper {
 .payment-breakdown .payment-breakdown-list-itm {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 12px;
 }
 
 .payment-breakdown .payment-breakdown-list-itm p {
@@ -1379,6 +1394,9 @@ main.auth-wrapper {
     margin-top: 48px;
 }
 
+.payment-info .subscription-plan-cta {
+    margin-top: 48px;
+}
 
 
 .become-a-crypto-trader-cards {
@@ -1403,4 +1421,27 @@ main.auth-wrapper {
     width: 160px;
     height: 160px;
     object-fit: contain;
+}
+
+.modal-subscribed .modal-modal-description {
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.modal-subscribed .modal-modal-description h2 {
+    font-weight: 700;
+    font-family: var(--secondary-font);
+    margin-bottom: 32px;
+    justify-content: center;
+}
+
+.modal-subscribed .modal-modal-description p {
+    font-weight: 500;
+}
+
+.modal-subscribed-cta {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
 }

@@ -18,6 +18,7 @@ import SubscribedPredictMarkert from "./SubscribedPredictMarkert";
 import PredictionDashboard from "./PredictionDashboard";
 import Subscription from "./Subscription";
 import Profile from "./Profile";
+import Notifications from "./Notifications";
 
 const Customer = () => {
   return (
@@ -42,6 +43,7 @@ const Customer = () => {
         <Route path={`/prediction-dashboard`} exact element={<PredictionDashboard />} />
         <Route path={`/subscription`} exact element={<Subscription />} />
         <Route path={`/profile`} exact element={<Profile />} />
+        <Route path={`/notifications`} exact element={<Notifications />} />
       </Routes>
       <Footer />
     </div>

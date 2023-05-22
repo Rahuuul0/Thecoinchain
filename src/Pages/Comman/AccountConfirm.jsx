@@ -26,6 +26,7 @@ import IconButton from "@mui/material/IconButton";
 import LogoLight from "../../../public/assets/images/logo-light.svg";
 import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { useAlertActions } from '../../_actions/alert.actions';
 
 const AccountConfirm = () => {
   const navigate = useNavigate();
@@ -33,9 +34,16 @@ const AccountConfirm = () => {
   const [radioOption, setRadioOption] = useState("by_email");
   const [switchOption, setSwitchOption] = useState(true);
   const onSubmitFun = async () => {
-     userActions.getOtp();
-    // await userActions.create()
-    setSwitchOption(false);
+    if(radioOption=="by_email") {
+      userActions.getOtp();
+     setSwitchOption(false);
+     alert("by email")
+    }
+    else 
+    {
+      alert("by number")
+      // code for 
+    }
   } 
   const handleOtpSubmit = async () => {
     // await userActions.
@@ -44,7 +52,7 @@ const AccountConfirm = () => {
   const [OTP, setOTP] = useState("");
   const { register, handleSubmit, formState, reset, watch } = useForm();
   const { errors, isSubmitting } = formState;
-
+  const alertActions = useAlertActions();
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -163,7 +171,7 @@ const AccountConfirm = () => {
                     </Typography>
                   </Box>
                   <Box noValidate onSubmit={handleOtpSubmit} component="form" sx={{ mt: "24px" }}>
-                    <Box component="div" className="auth-form auth-otp">
+                    <Box component="div" display={"flex"} justifyContent={"center"} className="auth-form auth-otp">
                    
                                         <OTPInput  id="otp1" autoFocus  type='number' variant="filled"  value={OTP} onChange={setOTP}  OTPLength={4} otpType="number" disabled={false} />
                                      
@@ -172,11 +180,11 @@ const AccountConfirm = () => {
                                         <Button onClick={()=>{userActions.getOtp()}} variant="outlined" className='btn btn-outlined-secondary'>
                                             Resend Code
                                         </Button>
-                                        <Button type="button" variant="contained" className='btn btn-primary' onClick={()=>{userActions.verifyRegisterOtp(OTP)}}>
+                                        <Button type="button" variant="contained" className='btn btn-primary' onClick={()=>{if(OTP.length!==4){alertActions.error("Fill OTP First");}else{userActions.verifyRegisterOtp(OTP)}}}>
                                             Continue
                                         </Button>
                                 
-                    </Box>
+                                  </Box>
                   </Box>
                 </Box>
               )}

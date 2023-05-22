@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
@@ -15,6 +15,7 @@ import LogoLight from '../../../public/assets/images/logo-light.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import AppleIcon from '@mui/icons-material/Apple';
 import GoogleIcon from '@mui/icons-material/Google';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const CreateAccount = () => {
     const navigate = useNavigate();
@@ -58,6 +59,22 @@ const CreateAccount = () => {
     const { errors, isSubmitting } = formState;
 
     const formData = watch();
+
+    const SITE_KEY = process.env.REACT_APP_reCAPTCHA_SITE_KEY;
+    const SECRET_KEY = process.env.REACT_APP_reCAPTCHA_SECRET_KEY;
+    
+        
+        const handleChange = value => {
+            console.log("Captcha value:", value);
+          };
+        
+          const asyncScriptOnLoad = () => {
+            console.log("scriptLoad - reCaptcha Ref-");
+          };
+
+           
+    
+    useEffect(()=>{window.scrollTo({top:0,left:0,behavior:"smooth"})});
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -218,6 +235,14 @@ const CreateAccount = () => {
                                         </div>
 
                                         <FormControlLabel className='auth-checkbox' control={<Checkbox defaultChecked />} label="By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." />
+                                       
+                                         <ReCAPTCHA
+                                        style={{ display: "block" }}
+                                        theme="dark"// ref={this._reCaptchaRef}
+                                        sitekey={SITE_KEY}
+                                        onChange={handleChange}
+                                        asyncScriptOnLoad={asyncScriptOnLoad}
+                                    />
                                         <Button type="submit" variant="contained" className='btn btn-primary'>
                                             Sign up
                                         </Button>

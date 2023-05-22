@@ -2,6 +2,8 @@ import { useRecoilState } from 'recoil';
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from '../_helpers';
 import { authAtom } from '../_state';
+import { switchAtom } from '../_state';
+
 import { useAlertActions } from '../_actions/alert.actions';
 import { Labels, Apis,RoutesName } from '../_common/app.constants'
 
@@ -10,6 +12,7 @@ const useUserActions = () => {
     const fetchWrapper = useFetchWrapper();
     const alertActions = useAlertActions();
     const [auth, setAuth] = useRecoilState(authAtom);
+    const [Soption, setSoption] = useRecoilState(switchAtom);
    
     const login = ({ email, password }) => {
         return fetchWrapper.post(Apis.Login, { email, password })
@@ -32,13 +35,34 @@ const useUserActions = () => {
             })
     }
             
-    
-   
-    const passwordRecovery = ({ email }) => {
-        console.warn("called ",email)
-        navigate('/login')
-       alertActions.success('We have sent you the password reset link on your email.')
-    }
+
+    const forgotPassword = (email) => {
+           return fetchWrapper.post(Apis.Forgot_Password, { email })
+           .then(res => {
+            if (res.statusCode === 200) {
+                alertActions.success("We have sent you the code");
+                localStorage.setItem("email",email)
+                setSoption(false)
+            } else {
+                alertActions.error("error");
+            }
+        }).catch((err)=>{console.warn(err)})
+
+        }
+
+        
+        const forgotPasswordVerify = (otp) => {
+            return fetchWrapper.post(Apis.Forgot_Password_Verify, { otp })
+            .then(res => {
+             if (res.statusCode === 200) {
+                 alertActions.success("Success");
+             } else {
+                 alertActions.error("error");
+             }
+         }).catch((err)=>{console.warn(err)})
+ 
+         }
+
 
     const create = ({email, mobile, password, confirm_password }) => {
        
@@ -61,7 +85,8 @@ const useUserActions = () => {
     return {
         login,
         create,
-        passwordRecovery,
+        forgotPassword,
+        forgotPasswordVerify,
         resetPassword, 
         createPassword,
     }

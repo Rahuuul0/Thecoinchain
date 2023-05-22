@@ -10,21 +10,24 @@ export const Labels = {
     Password_Reset_Success: "Your password has been reset successfully",
     Password_Change_Success: "Your password has been change successfully",
     Logout_Success: "Logout successfully",
+    Replce_Text: "XXXX",
     Success_Status_Code: 200,
     Error_Status_Code: 500,
 }
 
 export const RoutesName = {
+    Forgot_Password: "forgot-password",
     Home: '/home',
     login: '/login',
     Change_Password: '/create-password',
 }
 
 export const Apis = {
-    Password_Recovery: "passwordRecovery",
+    Forgot_Password: "forgot-password",
+    Forgot_Password_Verify:"verify-forgot-password-otp",
     Home: '/home',
     Login: 'login',
-    Reset_Password: 'resetPassword',
+    Reset_Password: '/reset-password',
     Change_Password: 'changePassword',
 }
 

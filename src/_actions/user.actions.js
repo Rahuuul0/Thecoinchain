@@ -40,8 +40,7 @@ const useUserActions = () => {
            return fetchWrapper.post(Apis.Forgot_Password, { email })
            .then(res => {
             if (res.statusCode === 200) {
-                alertActions.success("We have sent you the code");
-                localStorage.setItem("email",email)
+                alertActions.success("We have sent you the code");          
                 setSoption(false)
             } else {
                 alertActions.error("error");
@@ -50,7 +49,7 @@ const useUserActions = () => {
 
         }
 
-        
+
         const forgotPasswordVerify = (otp) => {
             return fetchWrapper.post(Apis.Forgot_Password_Verify, { otp })
             .then(res => {

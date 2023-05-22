@@ -55,6 +55,7 @@ const useUserActions = () => {
             .then(res => {
              if (res.statusCode === 200) {
                  alertActions.success("Success");
+                 navigate("/reset-password")
              } else {
                  alertActions.error("error");
              }
@@ -70,9 +71,18 @@ const useUserActions = () => {
     }
 
        
-    const resetPassword = ({ oldpassword, password, confirmpassword}) => {
-       alertActions.success('Password Reset Successfully');
-       navigate('/login')
+    const resetPassword = ({ password}) => {
+        const email = localStorage.getItem("email")
+        const newPassword = password;
+        return fetchWrapper.post(Apis.Reset_Password, { email, newPassword })
+            .then(res => {
+             if (res.statusCode === 200) {
+                alertActions.success('Password Reset Successfully');
+                 navigate("/login")
+             } else {
+                 alertActions.error("error");
+             }
+         }).catch((err)=>{console.warn(err)})
     }
 
     const createPassword = ({ newPassword, confirmPassword }) => {

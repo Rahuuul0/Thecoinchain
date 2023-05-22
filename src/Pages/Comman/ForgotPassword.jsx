@@ -42,7 +42,7 @@ const ForgotPassword = () => {
     }
 
    const onSubmitFunOTP = async () => {
-    if(OTP.length<=4) {
+    if(OTP.length<4) {
         alertActions.error("Fill OTP first")
     }
     else {
@@ -129,7 +129,7 @@ const ForgotPassword = () => {
                                             Continue
                                         </Button>
                                         <Typography onClick={() => { navigate('/login') }} component="p" variant="body2" sx={{ fontSize: '14px', textAlign: 'center', fontWeight: '700', marginTop: '24px' }}>
-                                            Nevermind, I got it
+                                         <Link onClick={() => { navigate('/login') }} >    Nevermind, I got it  </Link>
                                         </Typography>
                                     </Box>
 

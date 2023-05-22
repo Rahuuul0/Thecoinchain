@@ -27,7 +27,7 @@ export const Apis = {
     Forgot_Password_Verify:"verify-forgot-password-otp",
     Home: '/home',
     Login: 'login',
-    Reset_Password: '/reset-password',
+    Reset_Password: 'reset-password',
     Change_Password: 'changePassword',
 }
 

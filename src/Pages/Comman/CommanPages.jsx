@@ -20,6 +20,7 @@ import Subscription from "./Subscription";
 import Profile from "./Profile";
 import Notifications from "./Notifications";
 import SessionHistory from "./SessionHistory";
+import SubsPage from "./SubsPage";
 
 const Customer = () => {
   return (
@@ -46,6 +47,7 @@ const Customer = () => {
         <Route path={`/profile`} exact element={<Profile />} />
         <Route path={`/notifications`} exact element={<Notifications />} />
         <Route path={`/session-and-history`} exact element={<SessionHistory />} />
+        <Route path={`/subspage`} exact element={<SubsPage />} />
       </Routes>
       <Footer />
     </div>

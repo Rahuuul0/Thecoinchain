@@ -299,7 +299,7 @@ const CryptoTable = () => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box className="modal-dialog">
+                <Box className="modal-dialog modal-crypto-table">
                     <Button onClick={handleClose} variant='outlined' className='btn btn-outlined-secondary btn-round btn-close'><CloseIcon /></Button>
                     <Box className="modal-head">
                         <Typography id="modal-modal-title" className="modal-modal-title" variant="h6" component="h2">

@@ -1826,3 +1826,39 @@ margin-bottom: 20px;
 .deposit-transfer-img {
     min-width: 128px;
 }
+
+/* Refferal page css */
+
+
+
+
+
+.main-box .usdt {
+    color: #58BD7D;
+}
+
+
+
+.main-box .center-box .input-link {
+    font-size: 12px !important;
+    font-weight: 700;
+}
+
+.main-box .center-box .input-Code {
+    font-size: 12px !important;
+    font-weight: 700;
+}
+
+.main-box .referrals-btn {
+    color: #000;
+    text-transform: capitalize;
+    font-weight: 700;
+    border-radius: 16px;
+    border: 1px #F1F2F4;
+}
+
+
+.form-input input{
+    height: 48px;
+    padding: 0px 15px !important
+}

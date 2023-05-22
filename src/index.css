@@ -407,12 +407,13 @@ main.auth-wrapper {
     display: none;
 }
 
-.auth-form .MuiFormControl-root .MuiInputBase-root::after,
-.auth-form .MuiFormControl-root .MuiInputBase-root::before {
+/* remove auth-form */
+.MuiFormControl-root .MuiInputBase-root::after,
+.MuiFormControl-root .MuiInputBase-root::before {
     display: none;
 }
 
-.auth-form .MuiFormControl-root label {
+.MuiFormControl-root label {
     font-size: 12px;
     font-family: var(--primary-font) !important;
     font-weight: 700;
@@ -420,34 +421,35 @@ main.auth-wrapper {
     color: #B1B5C4;
 }
 
-.auth-form .MuiFormControl-root label.Mui-focused {
+.MuiFormControl-root label.Mui-focused {
     color: var(--primary-color);
 }
 
-.auth-form .MuiFormControl-root label+.MuiInputBase-root {
+.MuiFormControl-root label+.MuiInputBase-root {
     margin-top: 24px;
     padding: 10.5px 5px 10.5px 16px;
     border: 2px solid #E6E8EC;
     border-radius: 12px;
 }
 
-.auth-form .MuiFormControl-root label.Mui-focused+.MuiInputBase-root {
+.MuiFormControl-root label.Mui-focused+.MuiInputBase-root {
     border-color: var(--primary-color);
 }
 
-.auth-form .MuiFormControl-root .MuiInputBase-root input {
+.MuiFormControl-root .MuiInputBase-root input {
     padding: 0;
     font-size: 14px;
     font-weight: 500;
 }
 
-.auth-form .MuiFormControl-root .MuiInputBase-root input::placeholder,
-.auth-form .MuiFormControl-root .MuiInputBase-root input:-moz-placeholder,
-.auth-form .MuiFormControl-root .MuiInputBase-root input::-webkit-input-placeholder {
+.MuiFormControl-root .MuiInputBase-root input::placeholder,
+.MuiFormControl-root .MuiInputBase-root input:-moz-placeholder,
+.MuiFormControl-root .MuiInputBase-root input::-webkit-input-placeholder {
     color: #777E91;
     opacity: 1;
 }
 
+/* end */
 .scan-forgot {
     display: flex;
     justify-content: space-between;
@@ -1277,7 +1279,7 @@ main.auth-wrapper {
     color: #6C757D;
 }
 
-.subscription-plan-cta {
+.subscription-plan .subscription-plan-cta {
     background: rgba(0, 0, 0, 0.03);
     border-top: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0px 0px 3px 3px;
@@ -1288,11 +1290,94 @@ main.auth-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 24px 0;
+}
+
+.card-inner-head .large-caption {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-inner-head .large-caption.invest-smarter {
+    font-size: 16px !important;
+    font-weight: 500;
+    color: #23262F;
 }
 
 
+.amount-for {
+    background: #F4F5F6;
+    border-radius: 16px;
+    padding: 25px 37px;
+    display: flex;
+    margin: 48px 0;
+}
 
+.payment-amount,
+.payment-for,
+.payment-method {
+    flex: 1;
+    display: flex;
+    gap: 10px;
+}
 
+.wallet-ic {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    background-color: #9757D7;
+}
+
+.payment-for .wallet-ic {
+    background: #58BD7D;
+}
+
+.payment-method .wallet-ic {
+    background: #4BC9F0;
+}
+
+.amount-for small {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.amount-for span.label {
+    display: block;
+    font-weight: 400;
+    color: var(--secondary-color);
+}
+
+.credit-card-head {
+    display: flex;
+}
+
+.card-type {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.subscription-plan-cta {
+    display: flex;
+}
+
+.payment-breakdown .payment-breakdown-list-itm {
+    display: flex;
+    justify-content: space-between;
+}
+
+.payment-breakdown .payment-breakdown-list-itm p {
+    font-weight: 500;
+}
+
+.payment-breakdown {
+    margin-top: 48px;
+}
 
 
 

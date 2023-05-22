@@ -21,6 +21,7 @@ import Profile from "./Profile";
 import Notifications from "./Notifications";
 import SessionHistory from "./SessionHistory";
 import SubsPage from "./SubsPage";
+import Referrals from "./Referrals";
 
 const Customer = () => {
   return (
@@ -48,6 +49,7 @@ const Customer = () => {
         <Route path={`/notifications`} exact element={<Notifications />} />
         <Route path={`/session-and-history`} exact element={<SessionHistory />} />
         <Route path={`/subspage`} exact element={<SubsPage />} />
+        <Route path={`/referrals`} exact element={<Referrals />} />
       </Routes>
       <Footer />
     </div>

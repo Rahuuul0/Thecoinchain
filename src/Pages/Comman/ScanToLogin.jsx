@@ -39,25 +39,25 @@ const ScanToLogin = () => {
                                 <Typography component="h3" variant="h3">
                                     Sign in to CoinGuru
                                 </Typography>
-                                <Box component="div" className='ensure' >
+                                <Box className='ensure' >
                                     <Typography component="small" variant="body2" sx={{ color: '#777E91', display: 'block', textAlign: 'center' }}>
                                         Please ensure you are visiting the correct url.
                                     </Typography>
-                                    <Box component="div" className='ensure-link' >
+                                    <Box className='ensure-link' >
                                         <img src={Lock} alt='lock' />
                                         <span>https://</span> accounts.coinguru.org/login
                                     </Box>
                                 </Box>
-                                <Box component="div" className='devider' />
+                                <Box className='devider' />
                                 <Typography component="small" variant="body2" sx={{ textAlign: 'center', color: '#777E91', display: 'block', marginBottom: '20px' }}>
                                     Please use your CoinGuru app to scan BC code to log in .
                                 </Typography>
                                 <Box
-                                    component="div"
+
                                     className='scanner'
                                     sx={{ mt: '24px' }}
                                 >
-                                    <Box component="div" className='scanner-inner' >
+                                    <Box className='scanner-inner' >
                                         <img src={ScanImg} alt='scanner' />
                                     </Box>
                                 </Box>

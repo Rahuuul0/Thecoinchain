@@ -51,17 +51,17 @@ const ResetPassword = () => {
         <>
             <ThemeProvider theme={theme}>
                 <Container component="main" className='auth-wrapper' maxWidth="fluid">
-                    <Box component="div" className='auth-header'
+                    <Box className='auth-header'
                         sx={{
                             display: "flex",
                             alignItems: "center",
                             justifyContent: 'space-between',
                         }}
                     >
-                        <Box component="div" className='auth-header-logo' >
+                        <Box className='auth-header-logo' >
                             <img src={LogoLight} alt='Coin Guru' />
                         </Box>
-                        <Box component="div" className='dont-have-acc' >
+                        <Box className='dont-have-acc' >
                             <Typography component="p" variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
                                 Already have an account? <Link onClick={() => { navigate("/login"); }}>Login</Link>
                             </Typography>
@@ -71,8 +71,8 @@ const ResetPassword = () => {
                         <Box className='auth-wrapper-bg'>
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
-                        <Box component="div" className='auth-wrapper-form' >
-                            <Box component="div" className='auth-wrapper-form-inner' >
+                        <Box className='auth-wrapper-form' >
+                            <Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
                                     New password
                                 </Typography>
@@ -80,7 +80,7 @@ const ResetPassword = () => {
                                     onSubmit={handleSubmit(userActions.resetPassword)}
                                     noValidate
                                 >
-                                    <Box component="div" className='auth-form' >
+                                    <Box className='auth-form' >
 
 
                                         <TextField

@@ -38,8 +38,8 @@ const arr = [
 const PriceTicker = () => {
     return (
         <>
-            <Box component="div" className='price-ticker'>
-                <Box component="div" className='price-ticker-inner'>
+            <Box className='price-ticker'>
+                <Box className='price-ticker-inner'>
                     {arr.map((v, i) => {
                         return (
                             <Box key={i} component="span" className='price-ticker-itm'>

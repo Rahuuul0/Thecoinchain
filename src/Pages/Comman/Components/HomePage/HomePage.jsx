@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link, Grid, Container, Typography, Toolbar, Box, CssBaseline, Button, IconButton, Stack, Tab } from '@mui/material';
-import { ArrowCircleDownSharp,KeyboardArrowRight } from '@mui/icons-material';
+import { ArrowCircleDownSharp, KeyboardArrowRight } from '@mui/icons-material';
 import HeroImage from "../../../../../public/assets/images/banner.svg";
 import Btc from "../../../../../public/assets/images/btc.svg";
 import Leveragedv3 from "../../../../../public/assets/images/leveragedv3.svg";
@@ -49,8 +49,7 @@ const Home = () => {
               <Typography variant='body2' component="div" className='hero-para secondary-color' paddingBottom={2}>
                 we bring clarity to the volatile world of crypto!
               </Typography>
-              <Typography component="div" paddingBottom={2} >
-
+              <Typography paddingBottom={2} >
                 <Button variant="contained"  className="btn btn-primary " sx={{ borderRadius: '90px', }}>Get started now</Button>
               </Typography>
               <IconButton aria-label="ArrowCircleDown" variant="outlined" color="secondary-color" padding={0}>
@@ -226,7 +225,7 @@ const Home = () => {
                       </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <img src={Leveraged}/>
+                        <img src={Leveraged} />
                       </Grid>
                     </Grid>
                   </Grid>

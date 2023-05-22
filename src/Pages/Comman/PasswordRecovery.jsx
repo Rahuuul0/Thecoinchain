@@ -60,13 +60,13 @@ const PasswordRecovery = () => {
                                 <Typography component="small" variant="body2" sx={{ color: '#777E91', textAlign: 'center', display: 'block' }}>
                                     For security purposes, no withdrawals are permitted for 24 hours after password changed.
                                 </Typography>
-                                <Box component="div" className='devider' />
+                                <Box  className='devider' />
 
                                 <Box component="form"
                                     onSubmit={handleSubmit(userActions.passwordRecovery)}
                                     noValidate
                                 >
-                                    <Box component="div" className="auth-form">
+                                    <Box  className="auth-form">
 
                                         <TextField
                                             label="Enter the account email"
@@ -112,11 +112,11 @@ const PasswordRecovery = () => {
 
 
 
-                            <Box component="div" className='auth-wrapper-form-inner forgot-password' >
+                            <Box className='auth-wrapper-form-inner forgot-password' >
                                 <Typography component="h3" variant="h3">
                                     Security verification
                                 </Typography>
-                                <Box component="div" className='open-id' >
+                                <Box className='open-id' >
                                     <Typography component="small" variant="body2" sx={{ textAlign: 'center', color: '#353945', display: 'block', marginBottom: '20px' }}>
                                         To secure your account, please complete the following verification.
                                     </Typography>
@@ -129,13 +129,13 @@ const PasswordRecovery = () => {
                                     component="form"
                                     sx={{ mt: '24px' }}
                                 >
-                                    <Box component="div" className='auth-form auth-otp' >
+                                    <Box className='auth-form auth-otp' >
                                         <TextField id="otp1" autoFocus type='text' variant="filled" />
                                         <TextField id="otp2" type='text' variant="filled" />
                                         <TextField id="otp3" type='text' variant="filled" />
                                         <TextField id="otp4" type='text' variant="filled" />
                                     </Box>
-                                    <Box component="div" className='auth-otp-cta' >
+                                    <Box className='auth-otp-cta' >
                                         <Button type="submit" variant="outlined" className='btn btn-outlined-secondary'>
                                             Resend Code
                                         </Button>

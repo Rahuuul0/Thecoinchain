@@ -12,6 +12,12 @@ import AccountConfirm from "./AccountConfirm";
 import LearnCypto from  "./LearnCypto"
 import LearnCyptoDetail from  "./LearnCyptoDetail"
 import Contact from  "./Contact"
+import Market from "./Market";
+import PredictMarket from "./PredictMarket";
+import SubscribedPredictMarkert from "./SubscribedPredictMarkert";
+import PredictionDashboard from "./PredictionDashboard";
+import Subscription from "./Subscription";
+import Profile from "./Profile";
 
 const Customer = () => {
   return (
@@ -30,6 +36,12 @@ const Customer = () => {
         <Route path={`/learn-cypto-detail`} element={<LearnCyptoDetail />} />
         <Route path={`/contact`} element={<Contact />} />
         <Route path={`/`} exact element={<Home />} />
+        <Route path={`/market`} exact element={<Market />} />
+        <Route path={`/predict-market`} exact element={<PredictMarket />} />
+        <Route path={`/subscribed-predict-market`} exact element={<SubscribedPredictMarkert />} />
+        <Route path={`/prediction-dashboard`} exact element={<PredictionDashboard />} />
+        <Route path={`/subscription`} exact element={<Subscription />} />
+        <Route path={`/profile`} exact element={<Profile />} />
       </Routes>
       <Footer />
     </div>

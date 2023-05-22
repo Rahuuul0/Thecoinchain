@@ -25,16 +25,22 @@
     --article-font: 'Inter', sans-serif;
     --primary-color: #3772FF;
     --secondary-color: #3772FF;
-    --color-grey: rgba(119, 126, 144, 1)
+    --color-grey: rgba(119, 126, 144, 1);
+    --secondary-color: #777E90;
+}
+
+:focus {
+    outline: none !important;
 }
 
 /* button styles */
-#root .btn {
+#root .btn,
+.modal-dialog .btn {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 0px 30px;
+    padding: 0px 24px;
     gap: 12px;
     font-size: 16px;
     border-radius: 90px !important;
@@ -44,23 +50,40 @@
     box-shadow: none;
 }
 
-#root .btn-primary {
+#root .btn-primary,
+.modal-dialog .btn-primary {
     background-color: var(--primary-color) !important;
-    min-width: 150px;
+    /* min-width: 150px; */
     height: 46px;
     color: var(--color_light);
 }
 
 #root .btn-secondary {
     background-color: #23262F !important;
-    min-width: 150px;
+    /* min-width: 150px; */
     height: 46px;
     color: var(--color_light);
 }
 
+.btn-round {
+    border-radius: 100px !important;
+}
+
+button.btn-close {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border: 2px solid #E6E8EC;
+    color: var(--color_dark);
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    padding: 0 !important;
+}
+
 #root .btn-outlined-secondary {
-    min-width: 150px;
-    height: 46px;
+    /* min-width: 150px; */
+    height: 40px;
     border: 2px solid #E6E8EC;
     border-radius: 90px;
     color: var(--color_dark);
@@ -74,15 +97,15 @@ html body {
 
 html body,
 html,
-#root h1,
-#root h2,
-#root h3,
-#root h4,
-#root h5,
-#root h6,
-#root p,
-#root small,
-#root .small-caption,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+small,
+.small-caption,
 div * {
     font-family: var(--primary-font);
 }
@@ -100,6 +123,7 @@ div * {
 }
 #root h1 {
     font-size: 64px;
+    font-weight: 700;
 }
 
 .font-40 {
@@ -107,10 +131,12 @@ div * {
 }
 
 #root h2 {
+    font-weight: 700;
     font-size: 48px;
 }
 
 #root h3 {
+    font-weight: 700;
     font-size: 40px;
 }
 
@@ -564,7 +590,7 @@ main.auth-wrapper {
 }
 
 .app-nav button.MuiButtonBase-root {
-    color: #777E90;
+    color: var(--secondary-color);
 }
 
 #root .app-nav .btn {
@@ -603,7 +629,7 @@ main.auth-wrapper {
 }
 
 #root .quick-links a {
-    color: #777E90;
+    color: var(--secondary-color);
     font-weight: 700;
 }
 
@@ -641,7 +667,7 @@ main.auth-wrapper {
 .gridBox .top-head {
     font-size: 12px;
     font-weight: 600;
-    color: #777E90;
+    color: var(--secondary-color);
 }
 
 .gridBox button {
@@ -662,8 +688,21 @@ main.auth-wrapper {
     text-transform: capitalize;
 }
 
-.btn {
-    padding: 1px 30px !important;
+
+/* Homepage Ends */
+
+
+/* Market page */
+.market-hero {
+    background-color: #DECBE9;
+    padding: 100px 0;
+    /* background-image: url("../public/assets/images/market-hero.svg"); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right center;
+    position: relative;
+    z-index: 1;
+    min-height: 690px;
 }
 .flex-between-box .MuiGrid-root{
     display: flex;
@@ -683,6 +722,109 @@ main.auth-wrapper {
 }
 
 .learn-cypto-tab button {
+/* .market-hero::after {
+    background-image: url("https://media.istockphoto.com/id/539001564/photo/rajwada-palace-indore.jpg?s=612x612&w=0&k=20&c=ihbWY77GKzZXNmYfvz3dUDpZissBxxcrfSDSMSqa548=");
+    background-repeat: no-repeat;
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    left: auto;
+    width: 100%;
+    height: 500px;
+    z-index: -1;
+} */
+}
+.market-hero h1 {
+    font-weight: 700;
+    font-family: var(--secondary-font);
+    margin-bottom: 32px;
+}
+
+.market-hero-img-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.market-crypto-card-wrapper {
+    background: #FCFCFD;
+    border: 1px solid #F4F5F6;
+    box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
+    box-shadow: 0px 64px 64px -48px #0F0F0F1A;
+    border-radius: 24px;
+    /* padding: 24px; */
+    margin-top: -100px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 70px;
+}
+
+.market-inner {
+    background: #FCFCFD;
+}
+
+.market-crypto-graph {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 24px;
+}
+
+.market-crypto-graph-col {
+    display: flex;
+    gap: 20px;
+}
+
+.market-crypto-graph-ic img {
+    min-width: 40px;
+}
+
+.market-crypto-name .currency-name {
+    font-size: 12px;
+    color: #777E91;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.market-crypto-name .currency-name .status-badge {
+    margin-left: 10px;
+    background: #58BD7D;
+    border-radius: 24px;
+    color: #fff;
+    padding: 2px 8px;
+}
+
+.market-crypto-name .currency-name .status-badge.status-down {
+    background: #FF6838;
+}
+
+.market-crypto-name h5 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.market-crypto-tabs {
+    padding: 24px;
+    border-top: 1px solid #E6E8EC;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Tabs styles */
+.MuiTabs-root {
+    min-height: auto;
+    border: none;
+}
+
+.MuiTabs-root .MuiTabs-indicator {
+    display: none;
+}
+
+.MuiTabs-root button.MuiTab-root {
+    border-radius: 50px;
     text-transform: initial;
     font-size: 14px;
     min-height: 28px;
@@ -745,6 +887,10 @@ main.auth-wrapper {
     font-family: var(--secondary-font);
 }
 .filter-btn button.Mui-selected {
+    min-width: 60px;
+}
+
+.MuiTabs-root button.MuiTab-root.Mui-selected {
     background-color: #353945;
     color: var(--color_light);
     min-height: 28px;
@@ -847,7 +993,7 @@ margin-bottom: 20px;
     font-size: 14px !important;
     color: var(--color-grey);
 }
-html body .faq-accordian  .Mui-expanded{
+.faq-accordian  .Mui-expanded{
     min-height: 24px !important;
     margin: 5px 0px 15px 0px;
 }
@@ -881,3 +1027,530 @@ html body .faq-accordian  .Mui-expanded{
 /* .about-crypto img{
     width: 100%;
 } */
+
+.price-prediction {
+    padding-top: 112px;
+}
+
+.price-prediction h2 {
+    font-family: var(--secondary-font);
+    margin-bottom: 20px;
+}
+
+.learn-n-earn {
+    padding: 112px 0;
+}
+
+.learn-n-earn-head {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.learn-n-earn h2 {
+    font-family: var(--secondary-font);
+}
+
+.learn-n-earn-cards {
+    display: flex;
+    gap: 30px;
+}
+
+.learn-n-earn-card {
+    flex: 1;
+    padding-bottom: 58px;
+    border-bottom: 2px solid #E6E8EC;
+}
+
+.learn-n-earn-video-wrapper {
+    margin-bottom: 48px;
+}
+
+.learn-n-earn-video-wrapper img {
+    width: 100%;
+    height: auto;
+}
+
+.learn-n-earn-card .learn-badge {
+    background: #9757D7;
+    border-radius: 4px;
+    font-weight: 700;
+    padding: 6px 8px;
+    color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.learn-n-earn-card:nth-child(2) .learn-badge {
+    background-color: #58BD7D;
+}
+
+.learn-n-earn-card:nth-child(3) .learn-badge {
+    background-color: var(--primary-color);
+}
+
+.learn-n-earn-cards .body-large {
+    font-weight: 600;
+    margin-top: 22px;
+    margin-bottom: 48px;
+}
+
+.learn-n-earn-by {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.learn-n-earn-by .circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50px;
+    background-color: #58BD7D;
+}
+
+.learn-n-earn-by .body-caption {
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+/* Crypto Table styles*/
+.crypto-list-table>div {
+    padding: 0 10px;
+}
+
+.crypto-list-table table thead th {
+    color: var(--secondary-color);
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.crypto-list-table table tbody td {
+    font-weight: 500;
+}
+
+.crypto-list-table table tbody:before {
+    line-height: 3em;
+    content: "_";
+    color: #FCFCFD;
+    display: block;
+}
+
+.crypto-list-table table tr th,
+.crypto-list-table table tr td {
+    border-color: #E6E8EC;
+}
+
+.crypto-list-table table tr {
+    position: relative;
+    z-index: 1;
+}
+
+.crypto-list-table table tr:after,
+.crypto-list-table table tr::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 40px;
+    height: 100%;
+    background-color: #E6E8EC;
+    opacity: 0;
+    z-index: -1;
+}
+
+.crypto-list-table table tr:after {
+    left: -10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.crypto-list-table table tr::before {
+    right: -10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.crypto-list-table table tr:hover:after,
+.crypto-list-table table tr:hover::before {
+    opacity: 1;
+}
+
+.crypto-list-table table {
+    border-collapse: collapse;
+}
+
+.crypto-list-table table th,
+.crypto-list-table table td {
+    padding: 17px 10px;
+}
+
+.crypto-list-table table tr:hover th,
+.crypto-list-table table tr:hover td {
+    background-color: #E6E8EC;
+}
+
+.crypto-list-table table tr:hover td:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.crypto-list-table table tr:hover td:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.crypto-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.crypto-name .currency_name {
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.crypto-list-table .down {
+    color: #FF6838;
+}
+
+.crypto-list-table .up {
+    color: #58BD7D;
+}
+
+/* Prediction Dashboard */
+.prediction-dashboard-wrapper h4 {
+    font-family: var(--secondary-font);
+    font-weight: 700;
+    margin-bottom: 32px;
+}
+
+.market-prediction-dashboard-inner {
+    padding-top: 36px;
+}
+
+/* FAQ */
+.market-prediction-faq {
+    background: #F4F5F6;
+}
+
+.market-prediction-faq h5.large-caption {
+    font-size: 24px;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.market-prediction-faq-items-wrapper {
+    background: #fcfcfd;
+    padding: 32px 0;
+}
+
+.market-prediction-faq-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.market-prediction-faq-item {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.market-prediction-faq-item-img {
+    width: 128px;
+    min-width: 128px;
+    height: auto;
+}
+
+/* Modal style */
+.modal-dialog {
+    position: absolute;
+    padding: 32px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 448px;
+    border: none;
+    background: #FCFCFD;
+    box-shadow: 0px 64px 64px -48px rgba(31, 47, 70, 0.12);
+    border-radius: 20px;
+}
+
+.modal-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-modal-description .crypto-fullname {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.modal-modal-description .crypto-fullname-small {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-modal-description .crypto-value {
+    font-weight: 600;
+    font-size: 24px;
+    color: #FF6838;
+}
+
+.modal-modal-description .MuiTabs-flexContainer {
+    justify-content: space-between;
+    margin: 24px 0;
+}
+
+.modal-modal-description .value-with-date {
+    display: flex;
+    /* justify-content: space-between; */
+    gap: 10px;
+}
+
+.modal-modal-description .value-with-date-col {
+    flex: 1;
+}
+
+.modal-modal-description {
+    background: #FCFCFD;
+    box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
+    border-radius: 4px;
+    margin-bottom: 32px;
+}
+
+.modal-modal-description .value-details {
+    position: relative;
+}
+
+.modal-modal-description .value-details .btn-round {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    max-width: 30px;
+    min-width: 30px;
+    height: 30px;
+}
+
+
+/* Subscription page */
+.subscription-wrapper-head {
+    padding: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FCFCFD;
+}
+
+.subscription-wrapper-head small {
+    display: flex;
+    align-items: center;
+}
+
+.subscription-wrapper-head h2 {
+    font-family: var(--secondary-font);
+}
+
+
+/* become-a-crypto-trader  */
+.become-a-crypto-trader {
+    padding: 136px 0;
+    background-color: #F4F5F6;
+}
+
+.crypto-trader-head {
+    max-width: 453px;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+.crypto-trader-head h2 {
+    font-family: var(--secondary-font);
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+}
+
+.subscription-steps {
+    background-color: #F8F8F9;
+    padding-top: 80px;
+    padding-bottom: 136px;
+}
+
+.subscription-steps-inner {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 200px;
+}
+
+.subscription-step {
+    border-radius: 48px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    position: relative;
+    z-index: 1;
+    color: var(--secondary-color);
+    margin-bottom: 40px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.subscription-step:after {
+    content: "";
+    position: absolute;
+    top: 70px;
+    left: 15px;
+    width: 24px;
+    height: 2px;
+    border: 1px dashed #777E91;
+    transform: rotate(90deg);
+    z-index: -1;
+}
+
+.subscription-step.current-step {
+    background: #FCFCFD;
+    color: var(--color_dark);
+    box-shadow: 0px 4px 16px -8px rgba(15, 15, 15, 0.1);
+}
+
+.subscription-step .number-circle {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #E6E8EC;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: var(--secondary-font);
+}
+
+.subscription-step.completed-step .number-circle {
+    background-color: #58BD7D;
+    border-color: #58BD7D;
+    color: #fff;
+}
+
+.subscription-step.current-step .number-circle {
+    border-color: #58BD7D;
+}
+
+.subscription-steps-col-details {
+    background: #FCFCFD;
+    box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
+    border-radius: 16px;
+    padding: 40px;
+}
+
+.subscription-steps-col-details h5 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.subscription-plan {
+    margin-top: 32px;
+    margin-bottom: 36px;
+    border-top: 1px solid #E6E8EC;
+}
+
+.subscription-plan-card {
+    margin-top: 22px;
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.075);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.subscription-plan-card .plan-title {
+    background: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 3px 3px 0px 0px;
+    font-weight: 700;
+    font-family: var(--secondary-font);
+    padding: 8px;
+}
+
+.subscription-plan-card .subscription-plan-body {
+    padding: 16px;
+}
+
+.subscription-plan-card .subscription-plan-body .plan-price {
+    font-weight: 700;
+    font-family: var(--secondary-font);
+    margin-bottom: 48px;
+}
+
+.subscription-plan-card .subscription-plan-body .plan-days {
+    font-weight: 400;
+    font-size: 24px;
+    font-family: 'Poppins';
+    color: #6C757D;
+}
+
+.subscription-plan-cta {
+    background: rgba(0, 0, 0, 0.03);
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0px 0px 3px 3px;
+    padding: 9px 16px 8px;
+}
+
+.card-inner-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+
+
+
+
+.become-a-crypto-trader-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+.become-a-crypto-trader-card {
+    background: #FCFCFD;
+    border-radius: 20px;
+    padding: 85px 32px;
+}
+
+.crypto-trader-img {
+    margin-bottom: 32px;
+}
+
+.crypto-trader-img img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+}
+/* profile section */
+.left-icon{
+    position: relative;
+    padding-left: 30px;
+}
+.left-icon img{
+    padding-right: 10px;
+    position: absolute;
+    top: 2px;
+    left: 0px;
+}
+.border-rounded fieldset {
+    border-radius: 90px !important;
+}
+.update-profile input{
+    background-color: #fff !important;
+    border-radius: 12px ;
+}

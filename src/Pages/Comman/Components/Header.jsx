@@ -38,7 +38,7 @@ function Header(props) {
       icon: '',
       link: '/prediction',
     },
-  ] 
+  ]
 
 
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ function Header(props) {
               </ListItemButton>
             </ListItem>
           )
-        })}  
+        })}
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: 'center' }}>
             <ListItemText primary="" onClick={() => { navigate(item.link) }}>
@@ -84,7 +84,7 @@ function Header(props) {
           </ListItemButton>
         </ListItem>
       </List>
-      
+
     </Box>
   );
 
@@ -106,7 +106,7 @@ function Header(props) {
           </IconButton>
           <Typography
             variant="h6"
-            component="div"
+
             onClick={() => { navigate('/') }}
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
           >
@@ -127,21 +127,21 @@ function Header(props) {
               <SearchIcon />
             </Button> */}
 
-           
+
 
           </Box>
 
           <Box sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
 
-            
+
 
             {/* <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
               <SearchIcon />
             </Button> */}
 
-            <Button  className='btn' sx={{ color: '#23262F' }}>
+            <Button className='btn' sx={{ color: '#23262F' }}>
               EN/USD
-            </Button> 
+            </Button>
 
             <Button  onClick={() => { navigate('/create-account') }}  variant="contained" className='btn btn-primary'  sx={{ color: '#fff' }}>
               Sign up

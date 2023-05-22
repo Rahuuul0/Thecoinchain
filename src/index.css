@@ -77,6 +77,14 @@ body .modal-dialog * {
     padding: 9px 15px;
 }
 
+#root .btn-success {
+    background-color: #58BD7D;
+}
+
+#root .btn-error {
+    background-color: #FF6838;
+}
+
 .btn-round {
     border-radius: 100px !important;
 }
@@ -128,18 +136,23 @@ small,
 div * {
     font-family: var(--primary-font);
 }
-.primary-color{
+
+.primary-color {
     color: var(--primary-color);
 }
-.secondary-color{
+
+.secondary-color {
     color: var(--color-grey);
 }
-.primary-font{
+
+.primary-font {
     font-family: var(--primary-font) !important;
 }
-.secondary-font{
+
+.secondary-font {
     font-family: var(--secondary-font) !important;
 }
+
 #root h1 {
     font-size: 64px;
     font-weight: 700;
@@ -664,7 +677,7 @@ main.auth-wrapper {
 .hero-heading {
     font-size: 64px !important;
     font-weight: 700 !important;
-    line-height: 1.3;  
+    line-height: 1.3;
     color: var(--color_dark);
     font-family: var(--secondary-font) !important;
 }
@@ -697,7 +710,8 @@ main.auth-wrapper {
     padding: 2px 0;
 }
 
-.gridBox .green-btn, .gridBox .green-btn:hover {
+.gridBox .green-btn,
+.gridBox .green-btn:hover {
     background-color: #58BD7D;
     color: #fff;
 }
@@ -725,7 +739,8 @@ main.auth-wrapper {
     z-index: 1;
     min-height: 690px;
 }
-.flex-between-box .MuiGrid-root{
+
+.flex-between-box .MuiGrid-root {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -743,7 +758,7 @@ main.auth-wrapper {
 }
 
 .learn-cypto-tab button {
-/* .market-hero::after {
+    /* .market-hero::after {
     background-image: url("https://media.istockphoto.com/id/539001564/photo/rajwada-palace-indore.jpg?s=612x612&w=0&k=20&c=ihbWY77GKzZXNmYfvz3dUDpZissBxxcrfSDSMSqa548=");
     background-repeat: no-repeat;
     content: "";
@@ -757,6 +772,7 @@ main.auth-wrapper {
     z-index: -1;
 } */
 }
+
 .market-hero h1 {
     font-weight: 700;
     font-family: var(--secondary-font);
@@ -864,49 +880,57 @@ main.auth-wrapper {
 .learn-cypto-tab .MuiTabs-indicator {
     display: none;
 }
+
 .grid-cypto-trade {
     padding: 40px 30px;
     border-radius: 15px;
     background-color: #fff;
     box-shadow: 0px 6px 25px rgb(15 15 15 / 10%);
 }
-.crypto-box{
+
+.crypto-box {
     padding: 50px;
     background-color: #ffffff;
     margin-top: 100px;
     border-radius: 24px;
     box-shadow: 0px 6px 25px rgb(15 15 15 / 10%);
 }
-.contact-line{
+
+.contact-line {
     position: relative;
 }
-.contact-line:before{
-    content:"O------------O";
+
+.contact-line:before {
+    content: "O------------O";
     /* content: url('http://localhost:3000/market.svg'); */
     position: absolute;
     left: 76%;
     top: 10%;
     width: 160px;
     height: 12px;
-    z-index: 11; 
+    z-index: 11;
     display: inline-block;
     /* background-color: #000; */
 }
+
 /* Homepage Ends */
 /* Learn Cypto Page */
 .center-tab .MuiTabs-flexContainer {
     justify-content: center !important;
     gap: 20px;
 }
+
 .filter-btn .btn {
     min-width: 72px !important;
     height: 28px !important;
     font-size: 14px !important;
     padding: 6px 12px !important;
 }
+
 .filter-btn .MuiTabs-root button {
     font-family: var(--secondary-font);
 }
+
 .filter-btn button.Mui-selected {
     min-width: 60px;
 }
@@ -916,6 +940,7 @@ main.auth-wrapper {
     color: var(--color_light);
     min-height: 28px;
 }
+
 .filter-btn button {
     text-transform: initial;
     font-size: 14px;
@@ -926,10 +951,12 @@ main.auth-wrapper {
     color: #777E91;
     min-width: 60px;
 }
-.margin-0{
+
+.margin-0 {
     margin: 0px;
 }
-#root .btn-green-outlined{
+
+#root .btn-green-outlined {
     color: #58BD7D !important;
     background-color: rgba(0, 0, 0, 0) !important;
     border: 1px solid #58BD7D !important;
@@ -937,18 +964,22 @@ main.auth-wrapper {
     height: 26px;
     border-radius: 5px !important;
 }
-.avatar-rounded img{
+
+.avatar-rounded img {
     border-radius: 15px;
     width: 100%;
 }
+
 .about-crypto {
     position: relative;
 }
-.about-crypto .float-img{
+
+.about-crypto .float-img {
     position: absolute;
     top: 15px;
     left: 15px;
 }
+
 .search-icon {
     background-color: #3772FF !important;
     border-radius: 100% !important;
@@ -957,7 +988,8 @@ main.auth-wrapper {
     min-width: 35px !important;
     height: 35px !important;
 }
-.margin10{
+
+.margin10 {
     margin-left: 10px;
 }
 
@@ -965,20 +997,24 @@ main.auth-wrapper {
 
 /* learn cypto detail starts */
 
-.center-breadcrum ol{
-justify-content: center;
-margin-bottom: 20px;
+.center-breadcrum ol {
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-.center-breadcrum .MuiBreadcrumbs-li a{
+.center-breadcrum .MuiBreadcrumbs-li a {
     color: var(--color-grey) !important;
+    font-weight: 500;
+    font-size: 12px;
 }
 
-.center-breadcrum .MuiBreadcrumbs-li p.MuiTypography-root{
-    color: var(--color-dark) !important;
-    font-weight: 700;
+.center-breadcrum .MuiBreadcrumbs-li p.MuiTypography-root {
+    color: #353945 !important;
+    font-weight: 600;
+    font-size: 12px !important;
 }
-.smallwidth{
+
+.smallwidth {
     max-width: 728px !important;
     margin: 0 auto !important;
 }
@@ -986,45 +1022,52 @@ margin-bottom: 20px;
 /* learn cypto detail ends */
 /* Contact page */
 
-.float-right{
+.float-right {
     position: absolute !important;
     top: 15px;
     right: 15px;
     height: 20px;
 }
 
-.faq-accordian .MuiPaper-root{
+.faq-accordian .MuiPaper-root {
     box-shadow: none;
 }
 
-.faq-accordian .MuiButtonBase-root{
+.faq-accordian .MuiButtonBase-root {
     padding-left: 30px;
     position: relative;
     border-bottom: 1px solid #E6E8EC;
 }
-.faq-accordian .MuiButtonBase-root p{
+
+.faq-accordian .MuiButtonBase-root p {
     font-weight: 500;
 }
-.faq-accordian .faq-count{
-    left: 0px ;
+
+.faq-accordian .faq-count {
+    left: 0px;
     position: absolute;
     color: var(--color-grey);
 }
-.faq-accordian .MuiAccordionDetails-root p{
+
+.faq-accordian .MuiAccordionDetails-root p {
     font-size: 14px !important;
     color: var(--color-grey);
 }
-.faq-accordian  .Mui-expanded{
+
+.faq-accordian .Mui-expanded {
     min-height: 24px !important;
     margin: 5px 0px 15px 0px;
 }
-.faq-accordian .css-1elwnq4-MuiPaper-root-MuiAccordion-root:before{
+
+.faq-accordian .css-1elwnq4-MuiPaper-root-MuiAccordion-root:before {
     content: none;
 }
-.faq-accordian .MuiAccordionDetails-root{
+
+.faq-accordian .MuiAccordionDetails-root {
     padding-left: 30px;
     padding-bottom: 0px;
 }
+
 #root .button-img .btn {
     background-color: #ffffff;
     border-radius: 8px !important;
@@ -1032,19 +1075,23 @@ margin-bottom: 20px;
     min-width: 48%;
 }
 
-#root .button-img .btn  img{
+#root .button-img .btn img {
     padding-right: 5px;
 }
-.topic-que .MuiInputBase-root{
+
+.topic-que .MuiInputBase-root {
     width: 100%;
     background-color: #fff;
 }
-.newdesignbox img{
+
+.newdesignbox img {
     width: 100%;
 }
-.newdesignbox .inner-con-box{
+
+.newdesignbox .inner-con-box {
     padding: 20px;
 }
+
 /* .about-crypto img{
     width: 100%;
 } */
@@ -1358,6 +1405,10 @@ margin-bottom: 20px;
 
 
 /* Subscription page */
+.subscription-wrapper {
+    background-color: #FCFCFD;
+}
+
 .subscription-wrapper-head {
     padding: 40px 0;
     display: flex;
@@ -1644,24 +1695,29 @@ margin-bottom: 20px;
     height: 160px;
     object-fit: contain;
 }
+
 /* profile section */
-.left-icon{
+.left-icon {
     position: relative;
     padding-left: 30px;
 }
-.left-icon img{
+
+.left-icon img {
     padding-right: 10px;
     position: absolute;
     top: 2px;
     left: 0px;
 }
+
 .border-rounded fieldset {
     border-radius: 90px !important;
 }
-.update-profile input{
+
+.update-profile input {
     background-color: #fff !important;
-    border-radius: 12px ;
+    border-radius: 12px;
 }
+
 .modal-subscribed .modal-modal-description {
     text-align: center;
     padding-left: 0;
@@ -1813,4 +1869,17 @@ margin-bottom: 20px;
 
 .deposit-transfer-img {
     min-width: 128px;
+}
+
+/* Session and History */
+.session-list .MuiTableContainer-root {
+    margin-bottom: 36px;
+}
+
+#root .session-list .MuiTableContainer-root .btn {
+    border-radius: 4px !important;
+}
+
+.login-history {
+    margin-top: 48px;
 }

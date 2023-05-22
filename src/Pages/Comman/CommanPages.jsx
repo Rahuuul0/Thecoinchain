@@ -9,9 +9,9 @@ import CreateAccount from "./CreateAccount";
 import Home from "./Components/HomePage/HomePage";
 import ScanToLogin from "./ScanToLogin";
 import AccountConfirm from "./AccountConfirm";
-import LearnCypto from  "./LearnCypto"
-import LearnCyptoDetail from  "./LearnCyptoDetail"
-import Contact from  "./Contact"
+import LearnCypto from "./LearnCypto"
+import LearnCyptoDetail from "./LearnCyptoDetail"
+import Contact from "./Contact"
 import Market from "./Market";
 import PredictMarket from "./PredictMarket";
 import SubscribedPredictMarkert from "./SubscribedPredictMarkert";
@@ -19,6 +19,7 @@ import PredictionDashboard from "./PredictionDashboard";
 import Subscription from "./Subscription";
 import Profile from "./Profile";
 import Notifications from "./Notifications";
+import SessionHistory from "./SessionHistory";
 
 const Customer = () => {
   return (
@@ -32,7 +33,7 @@ const Customer = () => {
         <Route path={`/reset-password`} element={<ResetPassword />} />
         <Route path={`/create-account`} element={<CreateAccount />} />
         <Route path={`/scan-to-login`} element={<ScanToLogin />} />
-        <Route path={`/confirm-account`} element={<AccountConfirm />} /> 
+        <Route path={`/confirm-account`} element={<AccountConfirm />} />
         <Route path={`/learn-cypto`} element={<LearnCypto />} />
         <Route path={`/learn-cypto-detail`} element={<LearnCyptoDetail />} />
         <Route path={`/contact`} element={<Contact />} />
@@ -44,6 +45,7 @@ const Customer = () => {
         <Route path={`/subscription`} exact element={<Subscription />} />
         <Route path={`/profile`} exact element={<Profile />} />
         <Route path={`/notifications`} exact element={<Notifications />} />
+        <Route path={`/session-and-history`} exact element={<SessionHistory />} />
       </Routes>
       <Footer />
     </div>

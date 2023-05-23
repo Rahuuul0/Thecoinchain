@@ -316,7 +316,7 @@ const Contact = () => {
               </Stack>
             </Box>
             <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' className='small-caption primary-font secondary-color'>What is your issue about?</Typography>
+              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='small-caption primary-font secondary-color'>What is your issue about?</Typography>
               <Select
                 multiple
                 displayEmpty
@@ -349,7 +349,9 @@ const Contact = () => {
             </Box>
 
             <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' className='small-caption primary-font secondary-color'>What is your issue about?</Typography>
+              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4'  
+              sx={{fontSize: '12px',  transform: ' translate(0, -1.5px) scale(0.75)',   fontFamily: 'var(--primary-font) !important' ,    fontWeight: '700',     textTransform: 'uppercase'}}
+     className='small-caption primary-font secondary-color'>What is your issue about?</Typography>
               <Select
                 multiple
                 displayEmpty
@@ -382,10 +384,18 @@ const Contact = () => {
             </Box>
 
             <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' className='small-caption primary-font secondary-color'>Email address</Typography>
+              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4'  
+              sx={{fontSize: '12px',  transform: ' translate(0, -1.5px) scale(0.75)',   fontFamily: 'var(--primary-font) !important' ,    fontWeight: '700',     textTransform: 'uppercase'}}
+     className='small-caption primary-font secondary-color'>Email address</Typography>
               <Select
+              label='email'
                 multiple
                 displayEmpty
+                className="form-control"
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                variant="standard"
                 value={personName}
                 onChange={handleChange}
                 input={<OutlinedInput />}
@@ -414,14 +424,13 @@ const Contact = () => {
               </Select>
             </Box>
             <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' className='small-caption primary-font secondary-color'>Subject</Typography>
-              <TextField
-                // label="Subject"
+               <TextField
+                label="Subject"
                 className="form-control"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                variant="outlined"
+                variant="standard"
                 margin="normal"
                 required
                 fullWidth
@@ -433,17 +442,22 @@ const Contact = () => {
               />
             </Box>
             <Box paddingTop='2'>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' className='small-caption primary-font secondary-color'>Message</Typography>
-              <TextField
+                <TextField
                 id="outlined-multiline-static"
-                label="Multiline"
+                label="Message" 
+                variant="standard" 
+                className="form-control"
+                placeholder='Say something'
+                InputLabelProps={{
+                  shrink: true,
+                }}
                 multiline
                 rows={4}
                 fullWidth
               />
             </Box>
             <Box paddingTop='2'>
-              <Typography textAlign='end  ' sx={{ paddingTop: "40px" }}>
+              <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
                 <Button className='btn btn-primary' sx={{ float: 'right' }} variant='contained'>Send message</Button>
               </Typography>
             </Box>

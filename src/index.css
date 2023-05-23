@@ -141,7 +141,7 @@ p,
 small,
 .small-caption,
 div * {
-    font-family: var(--primary-font);
+    font-family: var(--primary-font) !important;
 }
 
 .primary-color {
@@ -480,7 +480,7 @@ main.auth-wrapper {
 
 .MuiFormControl-root label+.MuiInputBase-root {
     margin-top: 24px;
-    padding: 10.5px 5px 10.5px 16px;
+    padding: 11.5px 5px 11.5px 16px;
     border: 2px solid #E6E8EC;
     border-radius: 12px;
 }
@@ -672,8 +672,8 @@ input[type=number] {
 
 /* Footer Starts */
 .footer-subs-form button {
-    background-color: #FFD700;
-    color: #000;
+    background-color: var(--primary-color);
+    color: #fff;
     padding: 0px 5px;
     height: 32px;
     min-width: 32px;
@@ -686,7 +686,17 @@ input[type=number] {
     border: 1px solid #E6E8EC;
     border-radius: 90px;
 }
-
+.rounded-input .MuiInputBase-root{
+    padding: 11.5px 5px 11.5px 16px;
+    border: 2px solid #E6E8EC;
+    border-radius: 40px
+}
+.rounded-input button{
+    background-color: var(--primary-color);
+    color: #fff;
+    width: 32px;
+    height: 32px;
+}
 #root .border-rounded.btn-green-outlined {
     border-radius: 90px !important;
 }
@@ -700,6 +710,7 @@ input[type=number] {
 #root .quick-links a {
     color: var(--secondary-color);
     font-weight: 700;
+    font-family: var(--secondary-font) !important;
 }
 
 .footer .border-bottom {
@@ -809,6 +820,15 @@ input[type=number] {
     z-index: -1;
 } */
 }
+.market-hero .MuiContainer-root{
+    display: table;
+    min-height: 690px;
+}
+.market-hero  .MuiGrid-root.MuiGrid-container{
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
 
 .market-hero h1 {
     font-weight: 700;
@@ -817,10 +837,10 @@ input[type=number] {
 }
 
 .market-hero-img-wrapper {
-    position: absolute;
+    position: absolute;  
     top: 50%;
     right: 0;
-    transform: translateY(-50%);
+    transform: translate(0px, -50%);
 }
 
 .market-crypto-card-wrapper {
@@ -956,8 +976,8 @@ input[type=number] {
 }
 
 .contact-line:before {
-    content: "O------------O";
-    /* content: url('http://localhost:3000/market.svg'); */
+    /* content: "O------------O"; */
+    content: url('http://localhost:3000/connect-line.svg');
     position: absolute;
     left: 76%;
     top: 10%;
@@ -965,6 +985,7 @@ input[type=number] {
     height: 12px;
     z-index: 11;
     display: inline-block;
+    color: #B1B5C3;
     /* background-color: #000; */
 }
 
@@ -1076,7 +1097,14 @@ input[type=number] {
 
 /* learn cypto detail ends */
 /* Contact page */
-
+.topic-que .MuiTypography-root{
+    transform: translate(0, -1.5px) scale(0.75);
+    left: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    transform-origin: top left;
+}
 .float-right {
     position: absolute !important;
     top: 15px;
@@ -1137,8 +1165,11 @@ input[type=number] {
 .topic-que .MuiInputBase-root {
     width: 100%;
     background-color: #fff;
+    margin-top: 35px;
 }
-
+.topic-que .MuiBox-root{
+    position: relative;
+}
 .newdesignbox img {
     width: 100%;
 }
@@ -2068,4 +2099,7 @@ input[type=number] {
     .auth-otp>div input {
         padding: 20px 10px;
     }
+}
+.short-subhead{
+    padding: 0px 300px;
 }

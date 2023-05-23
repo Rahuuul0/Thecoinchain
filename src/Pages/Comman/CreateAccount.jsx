@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Checkbox, Container, Box, TextField, Typography, Link, Button, FormControlLabel } from '@mui/material'
 import { useForm } from "react-hook-form";
-import { useUserActions } from "../../_actions";
+import { useUserActions } from "../../_actions/user.actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';

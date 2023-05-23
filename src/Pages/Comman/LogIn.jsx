@@ -170,7 +170,7 @@ const LogIn = () => {
                                                         <Link href='#' onClick={() => { navigate("/scan-to-login"); }} variant="body2" sx={{ color: '#777E91!important', textDecoration: 'none' }}>
                                                             Scan to login
                                                         </Link>
-                                                        <Link href='#' onClick={() => { navigate("/password-recovery"); }} variant="body2" sx={{ color: '#3772FF', textDecoration: 'none' }}>
+                                                        <Link href='#' onClick={() => { navigate("/forgot-password"); }} variant="body2" sx={{ color: '#3772FF', textDecoration: 'none' }}>
                                                             Forgot password?
                                                         </Link>
                                                     </Box>

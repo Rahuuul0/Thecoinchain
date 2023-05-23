@@ -2,6 +2,8 @@ import { useRecoilState } from 'recoil';
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from '../_helpers';
 import { authAtom } from '../_state';
+import { switchAtom } from '../_state';
+
 import { useAlertActions } from '../_actions/alert.actions';
 import { Labels, Apis,RoutesName } from '../_common/app.constants'
 
@@ -10,29 +12,101 @@ const useUserActions = () => {
     const fetchWrapper = useFetchWrapper();
     const alertActions = useAlertActions();
     const [auth, setAuth] = useRecoilState(authAtom);
-
-    const login = ({ email, password }) => {
-        alertActions.success("Logged In Successfully");
-        navigate('/home')
-            
-    }
+    const [Soption, setSoption] = useRecoilState(switchAtom);
    
-    const passwordRecovery = ({ email }) => {
-        console.warn("called ",email)
-        navigate('/login')
-       alertActions.success('We have sent you the password reset link on your email.')
+    const login = ({ email, password }) => {
+        return fetchWrapper.post(Apis.Login, { email, password })
+            .then(res => {
+                if (res.statusCode === 200) {
+               
+                    alertActions.success("Logged In Successfully");
+                    navigate("/")
+                } else {
+                    alertActions.error(res.msg);
+                }
+            })
+    }
+            
+
+    const forgotPassword = async (email) => {
+           return fetchWrapper.post(Apis.Forgot_Password, { email })
+           .then(res => {
+            if (res.statusCode === 200) {
+                alertActions.success("We have sent you the code");          
+                setSoption(false)
+            } else {
+                alertActions.error("error");
+            }
+        }).catch((err)=>{console.warn(err)})
+
+        }
+
+
+        const forgotPasswordVerify = async(otp) => {
+            return fetchWrapper.post(Apis.Forgot_Password_Verify, { otp })
+            .then(res => {
+             if (res.statusCode === 200) {
+                 alertActions.success("Success");
+                 navigate("/reset-password")
+             } else {
+                 alertActions.error("error");
+             }
+         }).catch((err)=>{console.warn(err)})
+ 
+         }
+
+
+    const create = async ({email, mobile, password, confirm_password }) => {
+        const phone = mobile;
+        return fetchWrapper.post(Apis.Create, { email, phone, password, confirm_password })
+            .then(res => {
+                if (res.statusCode === 200) {
+                    alertActions.success("Please select an option");
+                    localStorage.setItem("email",res.data.email)
+                    localStorage.setItem("phone",res.data.phone)
+                    navigate("/confirm-account")
+                } else {
+                    alertActions.error("error");
+                }
+            }).catch((err)=>{console.log(err);});
     }
 
-    const create = ({ username, email, password, confirm_password }) => {
-       
-        alertActions.success("Successfully Created Account");
-        navigate("/login")
+    const getOtp = async () => {
+       const  email = localStorage.getItem("email")
+        return fetchWrapper.post(Apis.GetOtp, { email })
+            .then(res => {
+                if (res.statusCode === 200) {
+                    alertActions.success("We have sent you the code ");
+                } else {
+                    alertActions.error("Error");
+                }
+            }).catch((err)=>{console.log(err);});
+    }
+    const verifyRegisterOtp = async (otp) => {
+        return fetchWrapper.post(Apis.VerifyRegisterOtp, { otp })
+            .then(res => {
+                if (res.statusCode === 200) {
+                    alertActions.success("Verified Successfully ");
+                    navigate("/login")
+                } else {
+                    alertActions.error("Error Verifying");
+                }
+            }).catch((err)=>{console.log(err);});
     }
 
        
-    const resetPassword = ({ oldpassword, password, confirmpassword}) => {
-       alertActions.success('Password Reset Successfully');
-       navigate('/login')
+    const resetPassword = async ({ password}) => {
+        const email = localStorage.getItem("email")
+        const newPassword = password;
+        return fetchWrapper.post(Apis.Reset_Password, { email, newPassword })
+            .then(res => {
+             if (res.statusCode === 200) {
+                alertActions.success('Password Reset Successfully');
+                 navigate("/login")
+             } else {
+                 alertActions.error("error");
+             }
+         }).catch((err)=>{console.warn(err)})
     }
 
     const createPassword = ({ newPassword, confirmPassword }) => {
@@ -44,7 +118,10 @@ const useUserActions = () => {
     return {
         login,
         create,
-        passwordRecovery,
+        forgotPassword,
+        forgotPasswordVerify,
+        getOtp,
+        verifyRegisterOtp,
         resetPassword, 
         createPassword,
     }

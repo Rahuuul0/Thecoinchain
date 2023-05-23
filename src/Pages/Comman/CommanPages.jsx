@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import LogIn from "./LogIn";
-import PasswordRecovery from "./PasswordRecovery";
+import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import CreatePassword from "./CreatePassword";
 import CreateAccount from "./CreateAccount";
@@ -26,11 +26,10 @@ import Referrals from "./Referrals";
 const Customer = () => {
   return (
     <div className="customer-panel">
-      <Header />
       <Routes>
+        <Route path={`/`} exact element={<><Header /> <Home /> <Footer /></>} />
         <Route path={`/login`} element={<LogIn />} />
-        <Route path={`/password-recovery`} element={<PasswordRecovery />} />
-        <Route path={`/forgot-password`} element={<PasswordRecovery />} />
+        <Route path={`/forgot-password`} element={<ForgotPassword />} />
         <Route path={`/create-password`} element={<CreatePassword />} />
         <Route path={`/reset-password`} element={<ResetPassword />} />
         <Route path={`/create-account`} element={<CreateAccount />} />
@@ -51,8 +50,7 @@ const Customer = () => {
         <Route path={`/subspage`} exact element={<SubsPage />} />
         <Route path={`/referrals`} exact element={<Referrals />} />
       </Routes>
-      <Footer />
-    </div>
+    </div >
   );
 };
 

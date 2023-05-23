@@ -20,12 +20,11 @@ const ResetPassword = () => {
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        oldpassword: Yup.string().required('Old Password is required'),
         password: Yup.string()
-            .required("Required")
-            .min(8, "Password must be at least 8 characters.")
+            .required("New Password Required")
+            .min(8, "New Password must be at least 8 characters.")
             .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/,
                 "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
             ),
         confirmpassword: Yup.string().required('Confirm Password is required')
@@ -37,11 +36,9 @@ const ResetPassword = () => {
     //password eye IconButton
     const [showPassword, setShowPassword] = React.useState(false);
     const [showPassword2, setShowPassword2] = React.useState(false);
-    const [showPassword3, setShowPassword3] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
-    const handleClickShowPassword3 = () => setShowPassword3((show) => !show);
 
     // get functions to build form with useForm() hook
     const { register, handleSubmit, formState } = useForm(formOptions);
@@ -74,59 +71,21 @@ const ResetPassword = () => {
                         <Box className='auth-wrapper-form' >
                             <Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
-                                    New password
+                                    New Password
                                 </Typography>
                                 <Box component="form"
                                     onSubmit={handleSubmit(userActions.resetPassword)}
                                     noValidate
                                 >
-                                    <Box className='auth-form' >
-
-
+                                    <Box component="div" className='auth-form' >
                                         <TextField
-                                            label="Old Password"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="old_password"
-                                            placeholder='Old Password'
-                                            type={showPassword ? "text" : "password"}
-                                            name="old_password"
-                                            autoComplete="old_password"
-                                            size="small"
-                                            autoFocus
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            variant="standard"
-                                            {...register('oldpassword')}
-                                            className={`form-control ${errors.oldpassword ? 'is-invalid' : ''}`}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton onClick={handleClickShowPassword}>
-                                                            {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                )
-                                            }}
-                                        //  InputProps={{
-                                        //     startAdornment: (
-                                        //       <InputAdornment position="start">
-                                        //         <LockOutlined />
-                                        //       </InputAdornment>
-                                        //     ), 
-                                        //   }}
-                                        />
-                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.oldpassword?.message}</div>
-                                        <TextField
-                                            label="Current Password"
+                                            label="New Password"
                                             margin="normal"
                                             required
                                             fullWidth
                                             id="password"
                                             placeholder='Password'
-                                            type={showPassword2 ? "text" : "password"}
+                                            type={showPassword ? "text" : "password"}
                                             name="password"
                                             autoComplete="current-password"
                                             size="small"
@@ -139,30 +98,23 @@ const ResetPassword = () => {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <IconButton onClick={handleClickShowPassword2}>
-                                                            {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                        <IconButton onClick={handleClickShowPassword}>
+                                                            {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
                                                         </IconButton>
                                                     </InputAdornment>
                                                 )
                                             }}
                                             autoFocus
-                                        //  InputProps={{
-                                        //     startAdornment: (
-                                        //       <InputAdornment position="start">
-                                        //         <LockOutlined />
-                                        //       </InputAdornment>
-                                        //     ), 
-                                        //   }}
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.password?.message}</div>
                                         <TextField
-                                            label="Confirm Password"
+                                            label="Confirm New Password"
                                             margin="normal"
                                             required
                                             fullWidth
                                             id="confirm_password"
                                             placeholder='Confirm Password'
-                                            type={showPassword3 ? "text" : "password"}
+                                            type={showPassword2 ? "text" : "password"}
                                             name="confirm_password"
                                             autoComplete="confirm-password"
                                             size="small"
@@ -175,20 +127,13 @@ const ResetPassword = () => {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <IconButton onClick={handleClickShowPassword3}>
-                                                            {showPassword3 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                        <IconButton onClick={handleClickShowPassword2}>
+                                                            {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
                                                         </IconButton>
                                                     </InputAdornment>
                                                 )
                                             }}
                                             autoFocus
-                                        //  InputProps={{
-                                        //     startAdornment: (
-                                        //       <InputAdornment position="start">
-                                        //         <LockOutlined />
-                                        //       </InputAdornment>
-                                        //     ), 
-                                        //   }}
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirmpassword?.message}</div>
 

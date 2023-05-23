@@ -1,10 +1,14 @@
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from 'recoil';
 import React from 'react'
+import {useState} from "react";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { useAlertActions } from '../../_actions/alert.actions';
+import { switchAtom } from '../../_state/users';
 import { useUserActions } from "../../_actions/user.actions"
 import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
 import IconButton from "@mui/material/IconButton";
@@ -12,10 +16,14 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LogoLight from '../../../public/assets/images/logo-light.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import OTPInput from "otp-input-react";
 
-const PasswordRecovery = () => {
+
+const ForgotPassword = () => {
     const navigate = useNavigate();
     const userActions = useUserActions();
+    const alertActions = useAlertActions();
+    const [Soption, setSoption] = useRecoilState(switchAtom);
 
     // form validation rules
     const validationSchema = Yup.object().shape({
@@ -24,10 +32,27 @@ const PasswordRecovery = () => {
             .trim()
             .required("Email Address is required"),
     });
+
     const formOptions = { resolver: yupResolver(validationSchema) };
     const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
+    
+    const onSubmitFun = async () => {
+        await userActions.forgotPassword(formData.email);
+    }
+
+   const onSubmitFunOTP = async () => {
+    if(OTP.length<4) {
+        alertActions.error("Fill OTP first")
+    }
+    else {
+        await userActions.forgotPasswordVerify(OTP)
+    }
+   } 
+
+    const [OTP, setOTP] = useState("");
     const formData = watch();
+  
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -53,7 +78,7 @@ const PasswordRecovery = () => {
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
                         <Box className='auth-wrapper-form' >
-                            {/* <Box className='auth-wrapper-form-inner' >
+                        {Soption?<Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
                                     Forgot password
                                 </Typography>
@@ -63,7 +88,7 @@ const PasswordRecovery = () => {
                                 <Box  className='devider' />
 
                                 <Box component="form"
-                                    onSubmit={handleSubmit(userActions.passwordRecovery)}
+                                    onSubmit={handleSubmit(onSubmitFun)}
                                     noValidate
                                 >
                                     <Box  className="auth-form">
@@ -99,20 +124,21 @@ const PasswordRecovery = () => {
                                         <Button
                                             type="submit"
                                             variant="contained"
-                                            className='btn btn-primary'>
+                                            className='btn btn-primary'
+                                            >
                                             Continue
                                         </Button>
                                         <Typography onClick={() => { navigate('/login') }} component="p" variant="body2" sx={{ fontSize: '14px', textAlign: 'center', fontWeight: '700', marginTop: '24px' }}>
-                                            Nevermind, I got it
+                                         <Link onClick={() => { navigate('/login') }} >    Nevermind, I got it  </Link>
                                         </Typography>
                                     </Box>
 
                                 </Box>
-                            </Box> */}
+                            </Box>:
 
 
 
-                            <Box className='auth-wrapper-form-inner forgot-password' >
+                            <Box  onSubmit={handleSubmit(onSubmitFunOTP)} noValidate component="div" className='auth-wrapper-form-inner forgot-password' >
                                 <Typography component="h3" variant="h3">
                                     Security verification
                                 </Typography>
@@ -121,7 +147,7 @@ const PasswordRecovery = () => {
                                         To secure your account, please complete the following verification.
                                     </Typography>
                                     <Typography component="p" variant="body-caption" sx={{ textAlign: 'center', color: '#777E90', display: 'block', marginBottom: '20px' }}>
-                                        Enter the 6 digit code received by <span style={{ color: '#23262F' }}>t*m@u*8.net</span>
+                                        Enter the 4 digit code received by <span style={{ color: '#23262F' }}>{localStorage.getItem("email")}</span>
                                     </Typography>
                                 </Box>
                                 <Box
@@ -129,22 +155,20 @@ const PasswordRecovery = () => {
                                     component="form"
                                     sx={{ mt: '24px' }}
                                 >
-                                    <Box className='auth-form auth-otp' >
-                                        <TextField id="otp1" autoFocus type='text' variant="filled" />
-                                        <TextField id="otp2" type='text' variant="filled" />
-                                        <TextField id="otp3" type='text' variant="filled" />
-                                        <TextField id="otp4" type='text' variant="filled" />
+                                    <Box justifyContent={"center"} display={"flex"} component="div" className='auth-form auth-otp'  >
+                                        <OTPInput  id="otp1" autoFocus  type='number' variant="filled"  value={OTP} onChange={setOTP}  OTPLength={4} otpType="number" disabled={false} />
+                                     
                                     </Box>
-                                    <Box className='auth-otp-cta' >
-                                        <Button type="submit" variant="outlined" className='btn btn-outlined-secondary'>
+                                    <Box component="div" className='auth-otp-cta' >
+                                        <Button type="button" variant="outlined" className='btn btn-outlined-secondary' onClick={()=>{userActions.forgotPassword(formData.email)}}>
                                             Resend Code
                                         </Button>
-                                        <Button type="submit" variant="contained" className='btn btn-primary' onClick={() => { navigate("/reset-password"); }}>
+                                        <Button type="submit" variant="contained" className='btn btn-primary' >
                                             Continue
                                         </Button>
                                     </Box>
                                 </Box>
-                            </Box>
+                            </Box>}
 
 
 
@@ -156,4 +180,4 @@ const PasswordRecovery = () => {
     )
 }
 
-export default PasswordRecovery
+export default ForgotPassword

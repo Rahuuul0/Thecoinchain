@@ -6,7 +6,6 @@ import Btc from "../../../../../public/assets/images/btc.svg";
 import Leveragedv3 from "../../../../../public/assets/images/leveragedv3.svg";
 import Leveraged from "../../../../../public/assets/images/leveraged.svg";
 import Leveragedv2 from "../../../../../public/assets/images/leveragedv2.svg";
-import Leveragedv1 from "../../../../../public/assets/images/leveragedv1.svg";
 import BuyCypto from "../../../../../public/assets/images/buyCypto.svg";
 import Market from "../../../../../public/assets/images/market.svg";
 import LearnCypto from "../../../../../public/assets/images/learn-cypto.svg";

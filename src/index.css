@@ -810,6 +810,15 @@ input[type=number] {
     z-index: -1;
 } */
 }
+.market-hero .MuiContainer-root{
+    display: table;
+    min-height: 690px;
+}
+.market-hero  .MuiGrid-root.MuiGrid-container{
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+}
 
 .market-hero h1 {
     font-weight: 700;
@@ -818,9 +827,10 @@ input[type=number] {
 }
 
 .market-hero-img-wrapper {
-    position: absolute;
-    top: 0;
+    position: absolute;  
+    top: 50%;
     right: 0;
+    transform: translate(0px, -50%);
 }
 
 .market-crypto-card-wrapper {
@@ -1960,3 +1970,7 @@ input[type=number] {
 }
 
 /* Homepage Ends */
+
+.short-subhead{
+    padding: 0px 300px;
+}

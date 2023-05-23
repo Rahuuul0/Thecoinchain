@@ -46,7 +46,7 @@ const Home = () => {
               <Typography variant='h1' component="div" className='hero-heading primary-color'>
                 Predictive analysis at its best
               </Typography>
-              <Typography variant='body2' component="div" className='hero-para secondary-color' paddingBottom={2}>
+              <Typography variant='body2' component="div" className='hero-para primary-font secondary-color' paddingBottom={2}>
                 we bring clarity to the volatile world of crypto!
               </Typography>
               <Typography paddingBottom={2} >
@@ -69,60 +69,60 @@ const Home = () => {
             <Grid item xs={12} sm={3} md={3} className='gridBox'>
               <img src={Btc} />
               <Stack direction="row" spacing={2} alignItems='center' paddingTop={1} paddingBottom={1}>
-                <Typography className='top-head' fontSize={12}>
+                <Typography className='top-head' sx={{fontSize:'12px !important'}}>
                   BTC/USDT
                 </Typography>
                 <Button variant="contained" className='orange-btn' sx={{ borderRadius: '90px', }}> -0.79%</Button>
               </Stack>
-              <Typography variant='h4' component='div' fontSize={24} fontWeight={600} paddingBottom={1} className='primary-font'>
+              <Typography variant='h4' component='div' sx={{fontSize:'24px !important'}} fontWeight={600} paddingBottom={1} className='primary-font'>
                 36,641.20
               </Typography>
-              <Typography variant='h6' component='div' fontSize={12} fontWeight={400} className='primary-font'>
-                36,641.20
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={3} md={3} className='gridBox'>
-              <img src={Btc} />
-              <Stack direction="row" spacing={2} alignItems='center' paddingTop={1} paddingBottom={1}>
-                <Typography className='top-head' fontSize={12}>
-                  BTC/USDT
-                </Typography>
-                <Button variant="contained" className='green-btn' sx={{ borderRadius: '90px', }}> -0.79%</Button>
-              </Stack>
-              <Typography variant='h4' component='div' fontSize={24} fontWeight={600} paddingBottom={1} className='primary-font'>
-                36,641.20
-              </Typography>
-              <Typography variant='h6' component='div' fontSize={12} fontWeight={400} className='primary-font'>
+              <Typography variant='h6' component='div' sx={{fontSize:'12px !important'}} fontWeight={400} className='primary-font'>
                 36,641.20
               </Typography>
             </Grid>
             <Grid item xs={12} sm={3} md={3} className='gridBox'>
               <img src={Btc} />
               <Stack direction="row" spacing={2} alignItems='center' paddingTop={1} paddingBottom={1}>
-                <Typography className='top-head' fontSize={12}>
+                <Typography className='top-head' sx={{fontSize:'12px !important'}}>
                   BTC/USDT
                 </Typography>
                 <Button variant="contained" className='green-btn' sx={{ borderRadius: '90px', }}> -0.79%</Button>
               </Stack>
-              <Typography variant='h4' component='div' fontSize={24} fontWeight={600} paddingBottom={1} className='primary-font'>
+              <Typography variant='h4' component='div' sx={{fontSize:'24px !important'}} fontWeight={600} paddingBottom={1} className='primary-font'>
                 36,641.20
               </Typography>
-              <Typography variant='h6' component='div' fontSize={12} fontWeight={400} className='primary-font'>
+              <Typography variant='h6' component='div' sx={{fontSize:'12px !important'}} fontWeight={400} className='primary-font'>
                 36,641.20
               </Typography>
             </Grid>
             <Grid item xs={12} sm={3} md={3} className='gridBox'>
               <img src={Btc} />
               <Stack direction="row" spacing={2} alignItems='center' paddingTop={1} paddingBottom={1}>
-                <Typography className='top-head' fontSize={12}>
+                <Typography className='top-head' sx={{fontSize:'12px !important'}}>
                   BTC/USDT
                 </Typography>
                 <Button variant="contained" className='green-btn' sx={{ borderRadius: '90px', }}> -0.79%</Button>
               </Stack>
-              <Typography variant='h4' component='div' fontSize={24} fontWeight={600} paddingBottom={1} className='primary-font'>
+              <Typography variant='h4' component='div' sx={{fontSize:'24px !important'}} fontWeight={600} paddingBottom={1} className='primary-font'>
                 36,641.20
               </Typography>
-              <Typography variant='h6' component='div' fontSize={12} fontWeight={400} className='primary-font'>
+              <Typography variant='h6' component='div' sx={{fontSize:'12px !important'}} fontWeight={400} className='primary-font'>
+                36,641.20
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={3} md={3} className='gridBox'>
+              <img src={Btc} />
+              <Stack direction="row" spacing={2} alignItems='center' paddingTop={1} paddingBottom={1}>
+                <Typography className='top-head' sx={{fontSize:'12px !important'}}>
+                  BTC/USDT
+                </Typography>
+                <Button variant="contained" className='green-btn' sx={{ borderRadius: '90px', }}> -0.79%</Button>
+              </Stack>
+              <Typography variant='h4' component='div' sx={{fontSize:'24px !important'}} fontWeight={600} paddingBottom={1} className='primary-font'>
+                36,641.20
+              </Typography>
+              <Typography variant='h6' component='div' sx={{fontSize:'12px !important'}} fontWeight={400} className='primary-font'>
                 36,641.20
               </Typography>
             </Grid>
@@ -171,14 +171,14 @@ const Home = () => {
                     <Grid container columnSpacing={{ xs: 1, sm:4 }} className='flex-between-box' marginBottom={3} >
                       <Grid item xs={6} paddingRight={3}>
                       <Stack spacing={2} justifyContent='space-between'>
-                        <Typography fontSize={16}>
+                        <Typography fontSize={16} className='primary-font'>
                           Leveraged tokens now available
                         </Typography>
-                        <Typography fontSize={16} className='secondary-color'>
+                        <Typography sx={{fontSize: "14px !important"}} className='secondary-color primary-font'>
                           Good things come in 3s. Get 3x Leveraged tokens now.
                         </Typography>
                       </Stack>
-                      <Typography fontSize={14} fontWeight={400} className='secondary-color'>
+                      <Typography sx={{fontSize: "14px !important"}} fontWeight={400} className='secondary-color primary-font'>
                          Jun 1, 2021
                       </Typography>
                       </Grid>
@@ -192,14 +192,14 @@ const Home = () => {
                     <Grid container columnSpacing={{ xs: 1, sm:4 }} className='flex-between-box' marginBottom={3} >
                       <Grid item xs={6} paddingRight={3}>
                       <Stack spacing={2} justifyContent='space-between'>
-                        <Typography fontSize={16}>
+                        <Typography fontSize={16} className='primary-font'>
                           Leveraged tokens now available
                         </Typography>
-                        <Typography fontSize={16} className='secondary-color'>
+                        <Typography sx={{fontSize: "14px !important"}} className='secondary-color primary-font'>
                           Good things come in 3s. Get 3x Leveraged tokens now.
                         </Typography>
                       </Stack>
-                      <Typography fontSize={14} fontWeight={400} className='secondary-color'>
+                      <Typography sx={{fontSize: "14px !important"}} fontWeight={400} className='secondary-color primary-font'>
                          Jun 1, 2021
                       </Typography>
                       </Grid>
@@ -213,14 +213,14 @@ const Home = () => {
                     <Grid container columnSpacing={{ xs: 1, sm:4 }} className='flex-between-box' marginBottom={3} >
                       <Grid item xs={6} paddingRight={3}>
                       <Stack spacing={2} justifyContent='space-between'>
-                        <Typography fontSize={16}>
+                        <Typography fontSize={16} className=' primary-font'>
                           Leveraged tokens now available
                         </Typography>
-                        <Typography fontSize={16} className='secondary-color'>
+                        <Typography sx={{fontSize: "14px !important"}} className='secondary-color primary-font'>
                           Good things come in 3s. Get 3x Leveraged tokens now.
                         </Typography>
                       </Stack>
-                      <Typography fontSize={14} fontWeight={400} className='secondary-color'>
+                      <Typography sx={{fontSize: "14px !important"}} fontWeight={400} className='secondary-color primary-font'>
                          Jun 1, 2021
                       </Typography>
                       </Grid>
@@ -244,7 +244,7 @@ const Home = () => {
       <Container maxWidth='fluid' className='' sx={{backgroundColor: '#F4F5F6'}} >
         <Container>
           <Box paddingTop={5} paddingBottom={5} >
-            <Typography variant='h2' component="div" className='primary-font' textAlign='center' sx={{fontWeight: '700'}}>Become a crypto <br/>trader in seconds</Typography>
+            <Typography variant='h2' component="div" className='secondary-font' textAlign='center' sx={{fontWeight: '700'}}>Become a crypto <br/>trader in seconds</Typography>
             <Typography className='secondary-color' textAlign='center' paddingTop={3} paddingBottom={4}>We've got everything you need to start trading.</Typography>
             <Box paddingBottom={6}>
               <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -252,7 +252,7 @@ const Home = () => {
                   <Box textAlign='center' className='grid-cypto-trade'>
                     <img src={BuyCypto} paddingBottom={3}/>
                     <Typography variant='h6' paddingBottom={3}>Buy & Sell Crypto</Typography>
-                    <Typography className='secondary-color' paddingBottom={3}>
+                    <Typography className='body-caption secondary-color' paddingBottom={3}>
                     We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                     </Typography>
                     <Button className='btn btn-outlined-secondary' sx={{margin:'0 auto'}}>Buy crypto</Button>
@@ -262,7 +262,7 @@ const Home = () => {
                   <Box textAlign='center' className='grid-cypto-trade'>
                     <img src={Market} paddingBottom={3}/>
                     <Typography variant='h6' paddingBottom={3}>Trade Assets</Typography>
-                    <Typography className='secondary-color' paddingBottom={3}>
+                    <Typography className='body-caption secondary-color' paddingBottom={3}>
                     We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                     </Typography>
                     <Button className='btn btn-outlined-secondary' sx={{margin:'0 auto'}}>Trade now</Button>
@@ -272,7 +272,7 @@ const Home = () => {
                   <Box textAlign='center' className='grid-cypto-trade'>
                     <img src={LearnCypto} paddingBottom={3}/>
                     <Typography variant='h6' paddingBottom={3}>Learn crypto</Typography>
-                    <Typography className='secondary-color' paddingBottom={3}>
+                    <Typography className='body-caption secondary-color' paddingBottom={3}>
                     We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                     </Typography>
                     <Button className='btn btn-outlined-secondary' sx={{margin:'0 auto'}}>Learn now</Button>
@@ -344,7 +344,7 @@ const Home = () => {
       {/* section starts */}
       <Container maxWidth='fluid' sx={{backgroundColor: '#F4F5F6'}}>
         <Container>
-          <Box  paddingBottom={12} paddingTop={12}>
+          <Box  paddingBottom={15} paddingTop={15}>
             <Box textAlign='center' >
               <img src={DarkLogo} />
               <Typography variant='h2' component="div" className='secondary-font' textAlign='center' paddingBottom={3} sx={{fontWeight: '700'}}>Stay in the know on<br/> crypto with coinguru</Typography>
@@ -353,10 +353,10 @@ const Home = () => {
             <Box className='crypto-box'>
               <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                   <Grid item xs={12} sm={6} md={6} paddingRight={6} >               
-                      <Typography className='small secondary-color' sx={{textTransform: 'uppercase'}} paddingBottom={3}>Crypto news</Typography>
+                      <Typography className='small-caption secondary-color' sx={{textTransform: 'uppercase'}} fontWeight={700} paddingBottom={3}>Crypto news</Typography>
                       <Typography paddingBottom={3} className='body-large'>Be Part of our Global Community</Typography>
                       <Typography className='secondary-color' paddingBottom={14}>Let’s stay in touch. Join our communities to keep up with the BitCloud team and our traders from across the world.</Typography>
-                      <Button className='btn-outlined-secondary'>Join now</Button>
+                      <Button className='btn-outlined-secondary' sx={{textTransform:'capitalize'}}>Join now</Button>
                   </Grid> 
                   <Grid item xs={12} sm={6} md={6} textAlign='right'>
                     <img src={Globe}/>
@@ -371,7 +371,7 @@ const Home = () => {
         <Container>
           <Box textAlign='center'  paddingBottom={12} paddingTop={12}>
             <Typography variant='h2' component="div" className='secondary-font' textAlign='center' paddingBottom={3} sx={{fontWeight: '700'}}>How it work</Typography>
-             <Typography className='secondary-color'>
+             <Typography className=''>
              Power up your crypto game with our data-driven predictions!
               </Typography> 
           </Box>
@@ -379,9 +379,9 @@ const Home = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box textAlign='center' className='howworks-box contact-line '>
                 <img src={Market} width={96} />
-                <Typography className='small secondary-color '  paddingTop={6} paddingBottom={3} textAlign='center'>Step 1</Typography>
+                <Typography className='small-caption secondary-color '  paddingTop={6} paddingBottom={3} textAlign='center'>Step 1</Typography>
                 <Typography className='' textAlign='center' fontWeight='500' paddingBottom={3} >Subscribe</Typography>
-                <Typography>
+                <Typography component='div' variant='p' className='body-caption'>
                 Stacks is a production-ready library of stackable content blocks built in React Native.
                 </Typography>
               </Box>
@@ -389,9 +389,9 @@ const Home = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box textAlign='center' className='howworks-box contact-line '>
                 <img src={Market} width={96} />
-                <Typography className='small secondary-color '  paddingTop={6} paddingBottom={3} textAlign='center'>Step 2</Typography>
+                <Typography className='small-caption secondary-color '  paddingTop={6} paddingBottom={3} textAlign='center'>Step 2</Typography>
                 <Typography className='' textAlign='center' fontWeight='500' paddingBottom={3} >Connect wallet</Typography>
-                <Typography>
+                <Typography component='div' variant='p' className='body-caption'>
                 Stacks is a production-ready library of stackable content blocks built in React Native.
                 </Typography>
               </Box>
@@ -399,9 +399,9 @@ const Home = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box textAlign='center' className='howworks-box contact-line '>
                 <img src={Market} width={96} />
-                <Typography className='small secondary-color '  paddingTop={6} paddingBottom={3} textAlign='center'>Step 3</Typography>
+                <Typography className='small-caption secondary-color '  paddingTop={6} paddingBottom={3} textAlign='center'>Step 3</Typography>
                 <Typography className='' textAlign='center' fontWeight='500' paddingBottom={3} >Start trading</Typography>
-                <Typography>
+                <Typography component='div' variant='p' className='body-caption'>
                 Stacks is a production-ready library of stackable content blocks built in React Native.
                 </Typography>
               </Box>
@@ -409,9 +409,9 @@ const Home = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box textAlign='center' className='howworks-box '>
                 <img src={Market} width={96} />
-                <Typography className='small secondary-color '  paddingTop={6} paddingBottom={3} textAlign='center'>Step 4</Typography>
+                <Typography className='small-caption secondary-color '  paddingTop={6} paddingBottom={3} textAlign='center'>Step 4</Typography>
                 <Typography className='' textAlign='center' fontWeight='500' paddingBottom={3} >Earn money</Typography>
-                <Typography>
+                <Typography component='div' variant='p' className='body-caption'>
                 Stacks is a production-ready library of stackable content blocks built in React Native.
                 </Typography>
               </Box>

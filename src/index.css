@@ -141,7 +141,7 @@ p,
 small,
 .small-caption,
 div * {
-    font-family: var(--primary-font);
+    font-family: var(--primary-font) !important;
 }
 
 .primary-color {
@@ -476,7 +476,7 @@ main.auth-wrapper {
 
 .MuiFormControl-root label+.MuiInputBase-root {
     margin-top: 24px;
-    padding: 10.5px 5px 10.5px 16px;
+    padding: 11.5px 5px 11.5px 16px;
     border: 2px solid #E6E8EC;
     border-radius: 12px;
 }
@@ -648,8 +648,8 @@ main.auth-wrapper {
 
 /* Footer Starts */
 .footer-subs-form button {
-    background-color: #FFD700;
-    color: #000;
+    background-color: var(--primary-color);
+    color: #fff;
     padding: 0px 5px;
     height: 32px;
     min-width: 32px;
@@ -662,7 +662,17 @@ main.auth-wrapper {
     border: 1px solid #E6E8EC;
     border-radius: 90px;
 }
-
+.rounded-input .MuiInputBase-root{
+    padding: 11.5px 5px 11.5px 16px;
+    border: 2px solid #E6E8EC;
+    border-radius: 40px
+}
+.rounded-input button{
+    background-color: var(--primary-color);
+    color: #fff;
+    width: 32px;
+    height: 32px;
+}
 #root .border-rounded.btn-green-outlined {
     border-radius: 90px !important;
 }
@@ -676,6 +686,7 @@ main.auth-wrapper {
 #root .quick-links a {
     color: var(--secondary-color);
     font-weight: 700;
+    font-family: var(--secondary-font) !important;
 }
 
 .footer .border-bottom {
@@ -921,6 +932,7 @@ main.auth-wrapper {
     height: 12px;
     z-index: 11;
     display: inline-block;
+    color: #B1B5C3;
     /* background-color: #000; */
 }
 
@@ -1032,7 +1044,14 @@ main.auth-wrapper {
 
 /* learn cypto detail ends */
 /* Contact page */
-
+.topic-que .MuiTypography-root{
+    transform: translate(0, -1.5px) scale(0.75);
+    left: 0px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    transform-origin: top left;
+}
 .float-right {
     position: absolute !important;
     top: 15px;
@@ -1093,8 +1112,11 @@ main.auth-wrapper {
 .topic-que .MuiInputBase-root {
     width: 100%;
     background-color: #fff;
+    margin-top: 35px;
 }
-
+.topic-que .MuiBox-root{
+    position: relative;
+}
 .newdesignbox img {
     width: 100%;
 }

@@ -15,7 +15,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import CoinGuru from '../../../../public/assets/images/logo.svg'
+import CoinGuru from '../../../../public/assets/images/logo.svg';
+
+import connectline from '../../../../public/assets/images/connect-line.svg'
 
 
 const drawerWidth = 240;

@@ -18,17 +18,9 @@ const useUserActions = () => {
         return fetchWrapper.post(Apis.Login, { email, password })
             .then(res => {
                 if (res.statusCode === 200) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    let { data } = res;
-                    data['role_name'] = (data.userRoleType === Labels.Role_Type_Admin) ? Labels.Text_Admin : Labels.Text_Sam
-                    data['access_token'] = res.access_token;
-                    localStorage.setItem(Labels.Local_Storage_User, JSON.stringify(data));
-                    localStorage.setItem(Labels.Local_Storage_LeadSourceId, JSON.stringify(data));
-                    setAuth(data);
-                    // get return url from location state or default to home page
-                    alertActions.success(Labels.Login_Success);
-                    (data.userRoleType == Labels.Role_Type_Admin)
-                        ? navigate(RoutesName.Admin) : navigate(RoutesName.Sam)
+               
+                    alertActions.success("Logged In Successfully");
+                    navigate("/")
                 } else {
                     alertActions.error(res.msg);
                 }
@@ -64,14 +56,46 @@ const useUserActions = () => {
          }
 
 
-    const create = ({email, mobile, password, confirm_password }) => {
-       
-        alertActions.success("Please select an option");
-        navigate("/confirm-account")
+    const create = async ({email, mobile, password, confirm_password }) => {
+        const phone = mobile;
+        return fetchWrapper.post(Apis.Create, { email, phone, password, confirm_password })
+            .then(res => {
+                if (res.statusCode === 200) {
+                    alertActions.success("Please select an option");
+                    localStorage.setItem("email",res.data.email)
+                    localStorage.setItem("phone",res.data.phone)
+                    navigate("/confirm-account")
+                } else {
+                    alertActions.error("error");
+                }
+            }).catch((err)=>{console.log(err);});
+    }
+
+    const getOtp = async () => {
+       const  email = localStorage.getItem("email")
+        return fetchWrapper.post(Apis.GetOtp, { email })
+            .then(res => {
+                if (res.statusCode === 200) {
+                    alertActions.success("We have sent you the code ");
+                } else {
+                    alertActions.error("Error");
+                }
+            }).catch((err)=>{console.log(err);});
+    }
+    const verifyRegisterOtp = async (otp) => {
+        return fetchWrapper.post(Apis.VerifyRegisterOtp, { otp })
+            .then(res => {
+                if (res.statusCode === 200) {
+                    alertActions.success("Verified Successfully ");
+                    navigate("/login")
+                } else {
+                    alertActions.error("Error Verifying");
+                }
+            }).catch((err)=>{console.log(err);});
     }
 
        
-    const resetPassword = ({ password}) => {
+    const resetPassword = async ({ password}) => {
         const email = localStorage.getItem("email")
         const newPassword = password;
         return fetchWrapper.post(Apis.Reset_Password, { email, newPassword })
@@ -96,6 +120,9 @@ const useUserActions = () => {
         create,
         forgotPassword,
         forgotPasswordVerify,
+        getOtp,
+        verifyRegisterOtp,
+        passwordRecovery,
         resetPassword, 
         createPassword,
     }

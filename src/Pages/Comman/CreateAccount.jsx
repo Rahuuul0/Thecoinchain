@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
@@ -15,11 +15,16 @@ import LogoLight from '../../../public/assets/images/logo-light.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import AppleIcon from '@mui/icons-material/Apple';
 import GoogleIcon from '@mui/icons-material/Google';
+import ReCAPTCHA from "react-google-recaptcha";
+import { useAlertActions } from '../../_actions/alert.actions';
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import GoogleAuth from "./GoogleAuth";
 const CreateAccount = () => {
     const navigate = useNavigate();
     const userActions = useUserActions();
-
+    const alertActions = useAlertActions();
+    const captchaRef = useRef(null)
     const validationSchema = Yup.object().shape({
         email: Yup.string()
         .email()
@@ -58,6 +63,32 @@ const CreateAccount = () => {
     const { errors, isSubmitting } = formState;
 
     const formData = watch();
+
+    const SITE_KEY = process.env.REACT_APP_reCAPTCHA_SITE_KEY;
+    const SECRET_KEY = process.env.REACT_APP_reCAPTCHA_SECRET_KEY;
+    
+        
+        const handleChange = value => {
+            console.log("Captcha value:", value);
+          };
+        
+          const asyncScriptOnLoad = () => {
+            console.log("scriptLoad - reCaptcha Ref-");
+          };
+
+           const submitForm = () => {
+            const token = captchaRef.current.getValue();
+            if(token)
+            {
+                captchaRef.current.reset();
+                alert(token)
+                userActions.create(formData);
+            }
+            else {
+                alertActions.error("Check the bot box")
+            }
+           }
+    
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -92,10 +123,11 @@ const CreateAccount = () => {
                                     <Typography component="small" variant="body2" sx={{ textAlign: 'center', color: '#777E91', display: 'block', marginBottom: '20px' }}>
                                         Use Your OpenID to Sign up
                                     </Typography>
-                                    <Box className='open-id-btn-wrapper' >
-                                        <Button variant="contained" className='btn btn-primary' startIcon={<GoogleIcon />}>
-                                            Google
-                                        </Button>
+                                    <Box component="div" className='open-id-btn-wrapper' >
+                                     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}>
+
+                                        <GoogleAuth/>
+                                        </GoogleOAuthProvider>
                                         <Button variant="contained" className='btn btn-secondary' startIcon={<AppleIcon />}>
                                             Apple
                                         </Button>
@@ -109,7 +141,7 @@ const CreateAccount = () => {
                                     noValidate
                                     component="form"
                                     sx={{ mt: '24px' }}
-                                    onSubmit={handleSubmit(userActions.create)}
+                                    onSubmit={handleSubmit(submitForm)}
                                 >
                                     <Box className='auth-form' >
                                         <TextField
@@ -218,7 +250,16 @@ const CreateAccount = () => {
                                         </div>
 
                                         <FormControlLabel className='auth-checkbox' control={<Checkbox defaultChecked />} label="By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." />
-                                        <Button type="submit" disabled={isSubmitting} variant="contained" className='btn btn-primary'>
+                                       
+                                         <ReCAPTCHA
+                                        style={{ margin:"10px auto",display: "flex",justifyContent:"center" }}
+                                        theme="light"
+                                        ref={captchaRef}
+                                        sitekey={SITE_KEY}
+                                        onChange={handleChange}
+                                        asyncScriptOnLoad={asyncScriptOnLoad}
+                                    />
+                                        <Button type="submit" variant="contained" className='btn btn-primary'>
                                             Sign up
                                         </Button>
                                     </Box>

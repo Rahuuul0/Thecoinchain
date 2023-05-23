@@ -24,6 +24,7 @@ import Globe from "../../../../../public/assets/images/globe.svg";
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import {useEffect} from "react"
 import Marquee from "react-fast-marquee";
 
 
@@ -33,6 +34,8 @@ const Home = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  
+useEffect(()=>{window.scrollTo({top:0,left:0,behavior:"smooth"})});
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}>

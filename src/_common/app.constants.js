@@ -28,6 +28,9 @@ export const Apis = {
     Home: '/home',
     Login: 'login',
     Reset_Password: 'reset-password',
+    Create:'createAccount',
+    GetOtp:'get-otp',
+    VerifyRegisterOtp:'verify-user',
     Change_Password: 'changePassword',
 }
 

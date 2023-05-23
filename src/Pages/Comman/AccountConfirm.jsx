@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../_common/app.constants";
+import { useUserActions } from "../../_actions/user.actions"
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+
 import {
   Checkbox,
   Container,
@@ -21,12 +26,33 @@ import IconButton from "@mui/material/IconButton";
 import LogoLight from "../../../public/assets/images/logo-light.svg";
 import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { useAlertActions } from '../../_actions/alert.actions';
 
 const AccountConfirm = () => {
   const navigate = useNavigate();
+  const userActions = useUserActions();
   const [radioOption, setRadioOption] = useState("by_email");
   const [switchOption, setSwitchOption] = useState(true);
+  const onSubmitFun = async () => {
+    if(radioOption=="by_email") {
+      userActions.getOtp();
+     setSwitchOption(false);
+     alert("by email")
+    }
+    else 
+    {
+      alert("by number")
+      // code for 
+    }
+  } 
+  const handleOtpSubmit = async () => {
+    // await userActions.
+    alert("called")
+  } 
   const [OTP, setOTP] = useState("");
+  const { register, handleSubmit, formState, reset, watch } = useForm();
+  const { errors, isSubmitting } = formState;
+  const alertActions = useAlertActions();
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -86,7 +112,7 @@ const AccountConfirm = () => {
                       Please complete the verifications below
                     </Typography>
                   </Box>
-                  <Box noValidate component="form" sx={{ mt: "24px" }}>
+                  <Box noValidate onSubmit={handleSubmit(onSubmitFun)} component="form" sx={{ mt: "24px" }}>
                     <Box component="div" className="auth-form">
                       <FormControl className="confirm-account">
                         <RadioGroup
@@ -97,17 +123,17 @@ const AccountConfirm = () => {
                           onChange={(e) => {
                             setRadioOption(e.target.value);
                           }}
-                        >
+                        > 
                           <FormControlLabel
                             value="by_mobile"
                             control={<Radio />}
-                            label="Get the code by text message (SM) at +1 234 567 890"
+                            label={`Get the code by text message (SM) at ${localStorage.getItem("phone")}`}
                           />
                           <Box component="div" className="devider" />
                           <FormControlLabel
                             value="by_email"
                             control={<Radio />}
-                            label="Get the code by email at tranm••••••••••••@gm•••.com"
+                            label={`Get the code by email at ${localStorage.getItem("email")}`}
                           />
                         </RadioGroup>
                       </FormControl>
@@ -116,9 +142,6 @@ const AccountConfirm = () => {
                         type="submit"
                         variant="contained"
                         className="btn btn-primary"
-                        onClick={() => {
-                          setSwitchOption(false);
-                        }}
                         endIcon={<KeyboardArrowRightIcon />}
                       >
                         Continue
@@ -143,74 +166,25 @@ const AccountConfirm = () => {
                       }}
                     >
                       {radioOption !== "by_email"
-                        ? "We have sent the code by text message (SM) at +1 234 567 890"
-                        : "We have sent the code by email at tranm••••••••••••@gm•••.com"}
+                        ? `We have sent the code by text message (SM) at ${localStorage.getItem("phone")}`
+                        : `We have sent the code by email at ${localStorage.getItem("email")}`}
                     </Typography>
                   </Box>
-                  <Box noValidate component="form" sx={{ mt: "24px" }}>
-                    <Box component="div" className="auth-form auth-otp">
-                      <TextField
-                        autoComplete="off"
-                        autoFocus={true}
-                        id="otp1"
-                        type="number"
-                        onKeyDown={(evt) => {
-                          if (evt.target.value <= 1) {
-                            ["e", "E", "+", "-"].includes(evt.key) &&
-                              evt.preventDefault()
-                          }
-                          else {
-                            evt.preventDefault()
-                          }
-                        }}
-                        variant="filled"
-                      />
-                      <TextField
-                        autoComplete="off"
-                        id="otp2"
-                        type="number"
-                        onKeyDown={(evt) => {
-                          if (evt.target.value <= 1) {
-                            ["e", "E", "+", "-"].includes(evt.key) &&
-                              evt.preventDefault()
-                          }
-                          else {
-                            evt.preventDefault()
-                          }
-                        }}
-                        variant="filled"
-                      />
-                      <TextField
-                        autoComplete="off"
-                        id="otp3"
-                        type="number"
-                        onKeyDown={(evt) => {
-                          if (evt.target.value <= 1) {
-                            ["e", "E", "+", "-"].includes(evt.key) &&
-                              evt.preventDefault()
-                          }
-                          else {
-                            evt.preventDefault()
-                          }
-                        }}
-                        variant="filled"
-                      />
-                      <TextField
-                        autoComplete="off"
-                        id="otp4"
-                        type="number"
-                        onKeyDown={(evt) => {
-                          if (evt.target.value <= 1) {
-                            ["e", "E", "+", "-"].includes(evt.key) &&
-                              evt.preventDefault()
-                          }
-                          else {
-                            evt.preventDefault()
-                          }
-                        }}
-                        variant="filled"
-                      />
-                    </Box>
+                  <Box noValidate onSubmit={handleOtpSubmit} component="form" sx={{ mt: "24px" }}>
+                    <Box component="div" display={"flex"} justifyContent={"center"} className="auth-form auth-otp">
+                   
+                                        <OTPInput  id="otp1" autoFocus  type='number' variant="filled"  value={OTP} onChange={setOTP}  OTPLength={4} otpType="number" disabled={false} />
+                                     
+                                    </Box>
+                                    <Box component="div" className='auth-otp-cta' >
+                                        <Button onClick={()=>{userActions.getOtp()}} variant="outlined" className='btn btn-outlined-secondary'>
+                                            Resend Code
+                                        </Button>
+                                        <Button type="button" variant="contained" className='btn btn-primary' onClick={()=>{if(OTP.length!==4){alertActions.error("Fill OTP First");}else{userActions.verifyRegisterOtp(OTP)}}}>
+                                            Continue
+                                        </Button>
+                                
+                                  </Box>
                   </Box>
                 </Box>
               )}

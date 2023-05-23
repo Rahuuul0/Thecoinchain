@@ -15,10 +15,10 @@ const Market = () => {
             <ThemeProvider theme={theme}>
                 <Box component="main" className='market-wrapper' sx={{ mt: 8 }}>
                     <MarketHero />
+                    <MarketCard />
                     <Box className='market-inner'>
                         <Container maxWidth="lg">
 
-                            <MarketCard />
                             <CryptoTable />
 
                             <Box className='price-prediction'>

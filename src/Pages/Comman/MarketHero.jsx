@@ -12,7 +12,7 @@ const MarketHero = () => {
                             <Typography component="h1" variant='h1'>
                                 Invest smarter, not harder
                             </Typography>
-                            <Typography component="p" variant='body1' className='body-large'>
+                            <Typography component="p" variant='body1' className='body-large' sx={{ color: '#353945' }}>
                                 with our machine learning crypto predictions!
                             </Typography>
                         </Grid>

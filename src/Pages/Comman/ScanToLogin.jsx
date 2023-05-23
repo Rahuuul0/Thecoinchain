@@ -1,19 +1,20 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../_common/app.constants"
+import { theme } from "../../_common/app.constants";
 import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
-import LogoLight from '../../../public/assets/images/logo-light.svg'
-import AuthBg from '../../../public/assets/images/auth-bg.svg'
-import Lock from '../../../public/assets/images/icons/lock.svg'
-import ScanImg from '../../../public/assets/images/scan-img.png'
+import LogoLight from '../../../public/assets/images/logo-light.svg';
+import LogoDark from '../../../public/assets/images/logo.svg';
+import AuthBg from '../../../public/assets/images/auth-bg.svg';
+import Lock from '../../../public/assets/images/icons/lock.svg';
+import ScanImg from '../../../public/assets/images/scan-img.png';
 
 const ScanToLogin = () => {
     const navigate = useNavigate();
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Container component="main" className='auth-wrapper' maxWidth="fluid">
+                <Container component="main" className='auth-wrapper scan-to-login' maxWidth="fluid">
                     <Box className='auth-header'
                         sx={{
                             display: "flex",
@@ -22,7 +23,8 @@ const ScanToLogin = () => {
                         }}
                     >
                         <Box className='auth-header-logo' >
-                            <img src={LogoLight} alt='Coin Guru' />
+                            <img src={LogoLight} alt='Coin Guru' className='desktop' />
+                            <img src={LogoDark} alt='Coin Guru' className='ipad' />
                         </Box>
                         <Box className='dont-have-acc' >
                             <Typography component="p" variant="body2" onClick={() => { navigate("/create-account"); }} sx={{ fontSize: '14px', color: '#2B2B2B;' }}>

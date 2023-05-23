@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../_common/app.constants";
-import { useUserActions } from "../../_actions/user.actions"
+import { useUserActions } from "../../_actions/user.actions";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -24,6 +24,7 @@ import {
 import OTPInput, { ResendOTP } from "otp-input-react";
 import IconButton from "@mui/material/IconButton";
 import LogoLight from "../../../public/assets/images/logo-light.svg";
+import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useAlertActions } from '../../_actions/alert.actions';
@@ -62,8 +63,9 @@ const AccountConfirm = () => {
               justifyContent: "space-between",
             }}
           >
-            <Box component="div" className="auth-header-logo">
-              <img src={LogoLight} alt="Coin Guru" />
+            <Box className='auth-header-logo' >
+              <img src={LogoLight} alt='Coin Guru' className='desktop' />
+              <img src={LogoDark} alt='Coin Guru' className='ipad' />
             </Box>
             <Box component="div" className="dont-have-acc">
               <Typography

@@ -26,17 +26,17 @@ function Header(props) {
     {
       page: 'Academy',
       icon: '',
-      link: '/academy',
+      // link: '/academy',
     },
     {
       page: 'Community',
       icon: '',
-      link: '/community',
+      // link: '/community',
     },
     {
       page: 'Prediction',
       icon: '',
-      link: '/prediction',
+      link: '/prediction-dashboard',
     },
   ]
 

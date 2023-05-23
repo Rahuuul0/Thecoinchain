@@ -21,10 +21,10 @@ const ResetPassword = () => {
     // form validation rules 
     const validationSchema = Yup.object().shape({
         password: Yup.string()
-            .required("Required")
-            .min(8, "Password must be at least 8 characters.")
+            .required("New Password Required")
+            .min(8, "New Password must be at least 8 characters.")
             .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/,
                 "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
             ),
         confirmpassword: Yup.string().required('Confirm Password is required')
@@ -73,7 +73,7 @@ const ResetPassword = () => {
                         <Box className='auth-wrapper-form' >
                             <Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
-                                    New password
+                                    New Password
                                 </Typography>
                                 <Box component="form"
                                     onSubmit={handleSubmit(userActions.resetPassword)}
@@ -81,7 +81,7 @@ const ResetPassword = () => {
                                 >
                                     <Box component="div" className='auth-form' >
                                         <TextField
-                                            label="Current Password"
+                                            label="New Password"
                                             margin="normal"
                                             required
                                             fullWidth
@@ -107,17 +107,10 @@ const ResetPassword = () => {
                                                 )
                                             }}
                                             autoFocus
-                                        //  InputProps={{
-                                        //     startAdornment: (
-                                        //       <InputAdornment position="start">
-                                        //         <LockOutlined />
-                                        //       </InputAdornment>
-                                        //     ), 
-                                        //   }}
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.password?.message}</div>
                                         <TextField
-                                            label="Confirm Password"
+                                            label="Confirm New Password"
                                             margin="normal"
                                             required
                                             fullWidth
@@ -143,13 +136,6 @@ const ResetPassword = () => {
                                                 )
                                             }}
                                             autoFocus
-                                        //  InputProps={{
-                                        //     startAdornment: (
-                                        //       <InputAdornment position="start">
-                                        //         <LockOutlined />
-                                        //       </InputAdornment>
-                                        //     ), 
-                                        //   }}
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirmpassword?.message}</div>
 

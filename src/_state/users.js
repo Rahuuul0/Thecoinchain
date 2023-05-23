@@ -15,8 +15,14 @@ const userErrorAtom = atom({
     default: false,   
 });
 
+const switchAtom = atom({
+    key: 'switchAtom',
+    default: true,   
+});
+
 export { 
     usersAtom,
     userAtom,
-    userErrorAtom
+    userErrorAtom,
+    switchAtom
 };

@@ -41,7 +41,7 @@ const LogIn = () => {
             .required("Password is required")
             .min(8, "Password must be at least 8 characters.")
             .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%#*?&])[A-Za-z\d@$!#%*?&]{8,}$/,
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
                 "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
             ),
     });
@@ -170,7 +170,7 @@ const LogIn = () => {
                                                         <Link href='#' onClick={() => { navigate("/scan-to-login"); }} variant="body2" sx={{ color: '#777E91!important', textDecoration: 'none' }}>
                                                             Scan to login
                                                         </Link>
-                                                        <Link href='#' onClick={() => { navigate("/password-recovery"); }} variant="body2" sx={{ color: '#3772FF', textDecoration: 'none' }}>
+                                                        <Link href='#' onClick={() => { navigate("/forgot-password"); }} variant="body2" sx={{ color: '#3772FF', textDecoration: 'none' }}>
                                                             Forgot password?
                                                         </Link>
                                                     </Box>

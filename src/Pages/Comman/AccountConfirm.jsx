@@ -37,17 +37,14 @@ const AccountConfirm = () => {
     if(radioOption=="by_email") {
       userActions.getOtp();
      setSwitchOption(false);
-     alert("by email")
     }
     else 
     {
-      alert("by number")
       // code for 
     }
   } 
   const handleOtpSubmit = async () => {
     // await userActions.
-    alert("called")
   } 
   const [OTP, setOTP] = useState("");
   const { register, handleSubmit, formState, reset, watch } = useForm();

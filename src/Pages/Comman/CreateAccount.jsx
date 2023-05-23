@@ -81,7 +81,6 @@ const CreateAccount = () => {
             if(token)
             {
                 captchaRef.current.reset();
-                alert(token)
                 userActions.create(formData);
             }
             else {

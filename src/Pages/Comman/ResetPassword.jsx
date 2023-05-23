@@ -36,11 +36,9 @@ const ResetPassword = () => {
     //password eye IconButton
     const [showPassword, setShowPassword] = React.useState(false);
     const [showPassword2, setShowPassword2] = React.useState(false);
-    const [showPassword3, setShowPassword3] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
-    const handleClickShowPassword3 = () => setShowPassword3((show) => !show);
 
     // get functions to build form with useForm() hook
     const { register, handleSubmit, formState } = useForm(formOptions);
@@ -87,7 +85,7 @@ const ResetPassword = () => {
                                             fullWidth
                                             id="password"
                                             placeholder='Password'
-                                            type={showPassword2 ? "text" : "password"}
+                                            type={showPassword ? "text" : "password"}
                                             name="password"
                                             autoComplete="current-password"
                                             size="small"
@@ -100,8 +98,8 @@ const ResetPassword = () => {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <IconButton onClick={handleClickShowPassword2}>
-                                                            {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                        <IconButton onClick={handleClickShowPassword}>
+                                                            {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
                                                         </IconButton>
                                                     </InputAdornment>
                                                 )
@@ -116,7 +114,7 @@ const ResetPassword = () => {
                                             fullWidth
                                             id="confirm_password"
                                             placeholder='Confirm Password'
-                                            type={showPassword3 ? "text" : "password"}
+                                            type={showPassword2 ? "text" : "password"}
                                             name="confirm_password"
                                             autoComplete="confirm-password"
                                             size="small"
@@ -129,8 +127,8 @@ const ResetPassword = () => {
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <IconButton onClick={handleClickShowPassword3}>
-                                                            {showPassword3 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                        <IconButton onClick={handleClickShowPassword2}>
+                                                            {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
                                                         </IconButton>
                                                     </InputAdornment>
                                                 )

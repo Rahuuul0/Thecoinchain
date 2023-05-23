@@ -29,8 +29,19 @@ const SessionHistory = () => {
         </Typography>,
     ];
     const yesNo = [
-        { date: "2021-06-16", time: "10:46:09", ip: "1.53.208.186", cta: "YES" },
-        { date: "2021-06-16", time: "10:46:09", ip: "1.53.208.148", cta: "NO" }
+        {
+            date: "2021-06-16",
+            time: "10:46:09",
+            ip: "1.53.208.186",
+            cta: "YES",
+        },
+
+        {
+            date: "2021-06-16",
+            time: "10:46:09",
+            ip: "1.53.208.148",
+            cta: "NO",
+        }
     ];
     return (
         <>

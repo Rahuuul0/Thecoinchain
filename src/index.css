@@ -608,7 +608,7 @@ main.auth-wrapper {
 
 .auth-otp-cta .btn {
     min-width: 100px !important;
-    padding: 0 20px !important;
+    /* padding: 0 20px !important; */
 }
 
 .auth-wrapper-form-inner.forgot-password {
@@ -1938,7 +1938,7 @@ main.auth-wrapper {
 }
 
 
-.form-input input{
+.form-input input {
     height: 48px;
     padding: 0px 15px !important
 }

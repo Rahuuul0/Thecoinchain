@@ -20,7 +20,6 @@ const ResetPassword = () => {
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        oldpassword: Yup.string().required('Old Password is required'),
         password: Yup.string()
             .required("Required")
             .min(8, "Password must be at least 8 characters.")
@@ -80,45 +79,7 @@ const ResetPassword = () => {
                                     onSubmit={handleSubmit(userActions.resetPassword)}
                                     noValidate
                                 >
-                                    <Box className='auth-form' >
-
-
-                                        <TextField
-                                            label="Old Password"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="old_password"
-                                            placeholder='Old Password'
-                                            type={showPassword ? "text" : "password"}
-                                            name="old_password"
-                                            autoComplete="old_password"
-                                            size="small"
-                                            autoFocus
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            variant="standard"
-                                            {...register('oldpassword')}
-                                            className={`form-control ${errors.oldpassword ? 'is-invalid' : ''}`}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton onClick={handleClickShowPassword}>
-                                                            {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                )
-                                            }}
-                                        //  InputProps={{
-                                        //     startAdornment: (
-                                        //       <InputAdornment position="start">
-                                        //         <LockOutlined />
-                                        //       </InputAdornment>
-                                        //     ), 
-                                        //   }}
-                                        />
-                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.oldpassword?.message}</div>
+                                    <Box component="div" className='auth-form' >
                                         <TextField
                                             label="Current Password"
                                             margin="normal"

@@ -623,6 +623,22 @@ main.auth-wrapper {
     font-size: 12px !important;
 }
 
+
+/* X----- Number feild arrows hidden */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Number feild arrows hidden ----X */
 /* 15-05-2023 */
 /* Header Starts */
 
@@ -1920,3 +1936,5 @@ main.auth-wrapper {
     height: 48px;
     padding: 0px 15px !important
 }
+
+/* Homepage Ends */

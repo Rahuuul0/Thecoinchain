@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
 import { useForm } from "react-hook-form";
-import { useUserActions } from "../../_actions/user.actions"
+import { useUserActions } from "../../_actions/"
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -41,7 +41,7 @@ const LogIn = () => {
             .required("Password is required")
             .min(8, "Password must be at least 8 characters.")
             .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%#*?&])[A-Za-z\d@$!#%*?&]{8,}$/,
                 "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
             ),
     });

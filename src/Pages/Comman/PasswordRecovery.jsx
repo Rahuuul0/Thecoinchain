@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React from 'react'
+import {useState} from "react";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { useForm } from "react-hook-form";
@@ -28,6 +29,9 @@ const PasswordRecovery = () => {
     const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
     const formData = watch();
+
+    const [changeOption,setChangeOption] = useState(true);
+    
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -53,7 +57,7 @@ const PasswordRecovery = () => {
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
                         <Box className='auth-wrapper-form' >
-                            {/* <Box className='auth-wrapper-form-inner' >
+                        {changeOption?<Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
                                     Forgot password
                                 </Typography>
@@ -63,7 +67,7 @@ const PasswordRecovery = () => {
                                 <Box  className='devider' />
 
                                 <Box component="form"
-                                    onSubmit={handleSubmit(userActions.passwordRecovery)}
+                                    onSubmit={()=>{handleSubmit(userActions.passwordRecovery);setChangeOption(false)}}
                                     noValidate
                                 >
                                     <Box  className="auth-form">
@@ -99,7 +103,8 @@ const PasswordRecovery = () => {
                                         <Button
                                             type="submit"
                                             variant="contained"
-                                            className='btn btn-primary'>
+                                            className='btn btn-primary'
+                                            >
                                             Continue
                                         </Button>
                                         <Typography onClick={() => { navigate('/login') }} component="p" variant="body2" sx={{ fontSize: '14px', textAlign: 'center', fontWeight: '700', marginTop: '24px' }}>
@@ -108,7 +113,7 @@ const PasswordRecovery = () => {
                                     </Box>
 
                                 </Box>
-                            </Box> */}
+                            </Box>:
 
 
 
@@ -144,7 +149,7 @@ const PasswordRecovery = () => {
                                         </Button>
                                     </Box>
                                 </Box>
-                            </Box>
+                            </Box>}
 
 
 

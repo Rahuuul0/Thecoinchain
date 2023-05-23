@@ -10,12 +10,29 @@ const useUserActions = () => {
     const fetchWrapper = useFetchWrapper();
     const alertActions = useAlertActions();
     const [auth, setAuth] = useRecoilState(authAtom);
-
+   
     const login = ({ email, password }) => {
-        alertActions.success("Logged In Successfully");
-        navigate('/home')
-            
+        return fetchWrapper.post(Apis.Login, { email, password })
+            .then(res => {
+                if (res.statusCode === 200) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    let { data } = res;
+                    data['role_name'] = (data.userRoleType === Labels.Role_Type_Admin) ? Labels.Text_Admin : Labels.Text_Sam
+                    data['access_token'] = res.access_token;
+                    localStorage.setItem(Labels.Local_Storage_User, JSON.stringify(data));
+                    localStorage.setItem(Labels.Local_Storage_LeadSourceId, JSON.stringify(data));
+                    setAuth(data);
+                    // get return url from location state or default to home page
+                    alertActions.success(Labels.Login_Success);
+                    (data.userRoleType == Labels.Role_Type_Admin)
+                        ? navigate(RoutesName.Admin) : navigate(RoutesName.Sam)
+                } else {
+                    alertActions.error(res.msg);
+                }
+            })
     }
+            
+    
    
     const passwordRecovery = ({ email }) => {
         console.warn("called ",email)
@@ -23,10 +40,10 @@ const useUserActions = () => {
        alertActions.success('We have sent you the password reset link on your email.')
     }
 
-    const create = ({ username, email, password, confirm_password }) => {
+    const create = ({email, mobile, password, confirm_password }) => {
        
-        alertActions.success("Successfully Created Account");
-        navigate("/login")
+        alertActions.success("Please select an option");
+        navigate("/confirm-account")
     }
 
        

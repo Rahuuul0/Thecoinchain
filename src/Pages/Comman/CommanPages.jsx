@@ -26,8 +26,8 @@ import Referrals from "./Referrals";
 const Customer = () => {
   return (
     <div className="customer-panel">
-      <Header />
       <Routes>
+        <Route path={`/`} exact element={<><Header /> <Home /> <Footer /></>} />
         <Route path={`/login`} element={<LogIn />} />
         <Route path={`/password-recovery`} element={<PasswordRecovery />} />
         <Route path={`/forgot-password`} element={<PasswordRecovery />} />
@@ -52,7 +52,8 @@ const Customer = () => {
         <Route path={`/referrals`} exact element={<Referrals />} />
       </Routes>
       <Footer />
-    </div>
+    </Routes>     
+    </div >
   );
 };
 

@@ -18,7 +18,7 @@ function useFetchWrapper() {
         delete: request('DELETE')
     };
 
-    function request(method) {        
+    function request(method) { 
         return (url, body,file=false) => {
             const baseUrl = `${process.env.REACT_APP_API_URL}`;
             url = `${baseUrl}/${url}`;            
@@ -51,6 +51,7 @@ function useFetchWrapper() {
     
     function handleResponse(response) {
         return response.text().then(text => {
+           
             const data = text && JSON.parse(text);              
             if (!response.ok) {                
                 if ([401, 403].includes(response.status) && auth?.access_token) {

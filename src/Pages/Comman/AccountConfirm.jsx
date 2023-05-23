@@ -34,18 +34,17 @@ const AccountConfirm = () => {
   const [radioOption, setRadioOption] = useState("by_email");
   const [switchOption, setSwitchOption] = useState(true);
   const onSubmitFun = async () => {
-    if(radioOption=="by_email") {
+    if (radioOption == "by_email") {
       userActions.getOtp();
-     setSwitchOption(false);
+      setSwitchOption(false);
     }
-    else 
-    {
+    else {
       // code for 
     }
-  } 
+  }
   const handleOtpSubmit = async () => {
     // await userActions.
-  } 
+  }
   const [OTP, setOTP] = useState("");
   const { register, handleSubmit, formState, reset, watch } = useForm();
   const { errors, isSubmitting } = formState;
@@ -120,7 +119,7 @@ const AccountConfirm = () => {
                           onChange={(e) => {
                             setRadioOption(e.target.value);
                           }}
-                        > 
+                        >
                           <FormControlLabel
                             value="by_mobile"
                             control={<Radio />}
@@ -169,19 +168,19 @@ const AccountConfirm = () => {
                   </Box>
                   <Box noValidate onSubmit={handleOtpSubmit} component="form" sx={{ mt: "24px" }}>
                     <Box component="div" display={"flex"} justifyContent={"center"} className="auth-form auth-otp">
-                   
-                                        <OTPInput  id="otp1" autoFocus  type='number' variant="filled"  value={OTP} onChange={setOTP}  OTPLength={4} otpType="number" disabled={false} />
-                                     
-                                    </Box>
-                                    <Box component="div" className='auth-otp-cta' >
-                                        <Button onClick={()=>{userActions.getOtp()}} variant="outlined" className='btn btn-outlined-secondary'>
-                                            Resend Code
-                                        </Button>
-                                        <Button type="button" variant="contained" className='btn btn-primary' onClick={()=>{if(OTP.length!==4){alertActions.error("Fill OTP First");}else{userActions.verifyRegisterOtp(OTP)}}}>
-                                            Continue
-                                        </Button>
-                                
-                                  </Box>
+
+                      <OTPInput id="otp1" autoFocus type='number' variant="filled" value={OTP} onChange={setOTP} OTPLength={4} otpType="number" disabled={false} />
+
+                    </Box>
+                    <Box component="div" className='auth-otp-cta' >
+                      <Button onClick={() => { userActions.getOtp() }} variant="outlined" className='btn btn-outlined-secondary'>
+                        Resend Code
+                      </Button>
+                      <Button type="button" variant="contained" className='btn btn-primary' onClick={() => { if (OTP.length !== 4) { alertActions.error("Fill OTP First"); } else { userActions.verifyRegisterOtp(OTP) } }}>
+                        Continue
+                      </Button>
+
+                    </Box>
                   </Box>
                 </Box>
               )}

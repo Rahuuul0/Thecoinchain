@@ -575,16 +575,14 @@ main.auth-wrapper {
     font-size: 14px;
 }
 
-.auth-otp {
+.auth-otp>div {
     display: flex;
-    gap: 10px;
+    gap: 16px;
+    width: 100%;
 }
 
-.auth-form.auth-otp .MuiFormControl-root .MuiInputBase-root {
-    border-radius: 8px;
-}
-
-.auth-form.auth-otp .MuiFormControl-root .MuiInputBase-root input {
+.auth-otp>div input {
+    margin: 0 !important;
     padding: 30px 15px;
     background: #F4F5F6;
     border: 1px solid #F4F5F6;
@@ -592,9 +590,11 @@ main.auth-wrapper {
     text-align: center;
     font-size: 24px;
     font-weight: 700;
+    border-radius: 8px;
+    flex: 1;
 }
 
-.auth-form.auth-otp .MuiFormControl-root .MuiInputBase-root input:focus {
+.auth-otp>div input:focus {
     background-color: #fff;
     border: 1px solid #E6E8EC;
 }

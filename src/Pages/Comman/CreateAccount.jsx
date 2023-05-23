@@ -18,6 +18,8 @@ import GoogleIcon from '@mui/icons-material/Google';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useAlertActions } from '../../_actions/alert.actions';
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import GoogleAuth from "./GoogleAuth";
 const CreateAccount = () => {
     const navigate = useNavigate();
     const userActions = useUserActions();
@@ -122,9 +124,10 @@ const CreateAccount = () => {
                                         Use Your OpenID to Sign up
                                     </Typography>
                                     <Box component="div" className='open-id-btn-wrapper' >
-                                        <Button variant="contained" className='btn btn-primary' startIcon={<GoogleIcon />}>
-                                            Google
-                                        </Button>
+                                     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}>
+
+                                        <GoogleAuth/>
+                                        </GoogleOAuthProvider>
                                         <Button variant="contained" className='btn btn-secondary' startIcon={<AppleIcon />}>
                                             Apple
                                         </Button>
@@ -249,7 +252,7 @@ const CreateAccount = () => {
                                         <FormControlLabel className='auth-checkbox' control={<Checkbox defaultChecked />} label="By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." />
                                        
                                          <ReCAPTCHA
-                                        style={{ margin:"10px auto",display: "block" }}
+                                        style={{ margin:"10px auto",display: "flex",justifyContent:"center" }}
                                         theme="light"
                                         ref={captchaRef}
                                         sitekey={SITE_KEY}

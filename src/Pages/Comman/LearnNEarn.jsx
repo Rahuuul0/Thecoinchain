@@ -11,7 +11,7 @@ const LearnNEarn = () => {
                     <Typography component="h2" variant='h2'>
                         Learn and earn
                     </Typography>
-                    <Typography component="p" variant='body1' sx={{ color: '#353945' }}>
+                    <Typography className='short-subhead' component="p" variant='body1' sx={{ color: '#353945' }} paddingY={2}>
                         Stacks is a production-ready library of stackablecontent blocks built in React Native.
                     </Typography>
                 </Box>
@@ -72,7 +72,7 @@ const LearnNEarn = () => {
                     </Box>
                 </Box>
                 <Button
-                    sx={{ mt: 8, mx: 'auto' }}
+                    sx={{ mt: 10 , mx: 'auto' }}
                     variant="outlined"
                     className='btn btn-outlined-secondary' startIcon={<RotateLeftIcon />}>
                     Load more

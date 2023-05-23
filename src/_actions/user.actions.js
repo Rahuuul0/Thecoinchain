@@ -28,7 +28,7 @@ const useUserActions = () => {
     }
             
 
-    const forgotPassword = (email) => {
+    const forgotPassword = async (email) => {
            return fetchWrapper.post(Apis.Forgot_Password, { email })
            .then(res => {
             if (res.statusCode === 200) {
@@ -42,7 +42,7 @@ const useUserActions = () => {
         }
 
 
-        const forgotPasswordVerify = (otp) => {
+        const forgotPasswordVerify = async(otp) => {
             return fetchWrapper.post(Apis.Forgot_Password_Verify, { otp })
             .then(res => {
              if (res.statusCode === 200) {
@@ -122,7 +122,6 @@ const useUserActions = () => {
         forgotPasswordVerify,
         getOtp,
         verifyRegisterOtp,
-        passwordRecovery,
         resetPassword, 
         createPassword,
     }

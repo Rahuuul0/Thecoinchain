@@ -1505,7 +1505,7 @@ input[type=number] {
     top: 70px;
     left: 15px;
     width: 24px;
-    height: 2px;
+    height: 0px;
     border: 1px dashed #777E91;
     transform: rotate(90deg);
     z-index: -1;

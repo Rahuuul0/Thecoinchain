@@ -51,8 +51,6 @@ const Customer = () => {
         <Route path={`/subspage`} exact element={<SubsPage />} />
         <Route path={`/referrals`} exact element={<Referrals />} />
       </Routes>
-      <Footer />
-    </Routes>     
     </div >
   );
 };

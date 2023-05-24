@@ -14,7 +14,7 @@ const useUserActions = () => {
     const [auth, setAuth] = useRecoilState(authAtom);
     const [Soption, setSoption] = useRecoilState(switchAtom);
    
-    const login = ({ email, password }) => {
+    const login = async ({ email, password }) => {
         return fetchWrapper.post(Apis.Login, { email, password })
             .then(res => {
                 if (res.statusCode === 200) {
@@ -24,8 +24,14 @@ const useUserActions = () => {
                 } else {
                     alertActions.error(res.msg);
                 }
-            })
+            }).catch((err)=>{console.warn(err)})
     }
+       
+    const loginMobile = ({ number, passwordMob }) => {
+
+            alertActions.success("called"+ number +" "+passwordMob);
+    }
+            
             
 
     const forgotPassword = async (email) => {
@@ -117,6 +123,7 @@ const useUserActions = () => {
 
     return {
         login,
+        loginMobile,
         create,
         forgotPassword,
         forgotPasswordVerify,

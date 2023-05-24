@@ -150,7 +150,7 @@ const Referrals = () => {
                                                 referrals pay. Learn more
                                             </Typography>
                                             <Box className="center-box" padding={3} marginY={2} sx={{ backgroundColor: '#F1F2F4', borderRadius: '10px' }}>
-                                                <Typography component="h6" variant="h6" paddingBottom={0} fontWeight={600} paddingBottom={2} className="body-large">
+                                                <Typography component="h6" variant="h6" paddingBottom={0} fontWeight={600} className="body-large">
                                                     Invite friends to earn 20%
                                                 </Typography>
                                                 <Grid item container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

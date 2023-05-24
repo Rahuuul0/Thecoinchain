@@ -157,7 +157,7 @@ const Subscription = () => {
                                                     </Typography>
                                                 </Box>
                                             </Box>
-                                            <Box className='credit-ca   rd-head'>
+                                            <Box className='credit-card-head'>
                                                 <Typography component="h5" variant='body1' className='large-caption' sx={{ fontWeight: '600' }}>
                                                     Credit Card
                                                 </Typography>
@@ -201,8 +201,8 @@ const Subscription = () => {
                                                     autoComplete="off"
                                                     size="small"
                                                 />
-                                                <Grid container spacing={4} rowSpacing={1} sx={{ flexGrow: 1 }}>
-                                                    <Grid item xs={12} sm={12} md={6}>
+                                                <Grid container columnSpacing={{ xs: 1, sm: 2, md: 4 }} rowSpacing={1} sx={{ flexGrow: 2 }}>
+                                                    <Grid item xs={6}>
                                                         <TextField
                                                             label="EXPIRATION DATE"
                                                             className="form-control"
@@ -221,7 +221,7 @@ const Subscription = () => {
                                                             size="small"
                                                         />
                                                     </Grid>
-                                                    <Grid item xs={12} sm={12} md={6}>
+                                                    <Grid item xs={6}>
                                                         <TextField
                                                             label="CSV"
                                                             className="form-control"
@@ -382,20 +382,19 @@ const Subscription = () => {
                                         We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                                     </Typography>
 
-                                    <Button variant='outlined' className='btn- btn-outlined-secondary'>Learn now</Button>
+                                    <Button variant='outlined' className='btn btn-outlined-secondary'>Learn now</Button>
                                 </Box>
                             </Box>
                             <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }}>Contact Us</Button>
                         </Container>
                     </Box>
                 </Box >
-            </ThemeProvider>
+            </ThemeProvider >
             {/* Modal */}
-            <Modal
+            < Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
             >
                 <Box className="modal-dialog modal-subscribed">
                     <Button onClick={handleClose} variant='outlined' className='btn btn-outlined-secondary btn-round btn-close'><CloseIcon /></Button>
@@ -427,7 +426,7 @@ const Subscription = () => {
                         </Button>
                     </Box>
                 </Box>
-            </Modal>
+            </Modal >
         </>
     )
 }

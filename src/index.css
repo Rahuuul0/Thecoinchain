@@ -46,7 +46,7 @@ body .modal-dialog * {
     align-items: center;
     padding: 0px 24px;
     gap: 12px;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 90px !important;
     font-family: var(--secondary-font) !important;
     font-weight: 700;
@@ -1897,8 +1897,8 @@ input[type=number] {
 }
 
 .notification-icon {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border: 2px solid #E6E8EC;
     color: var(--secondary-color);
     border-radius: 100px;
@@ -2083,6 +2083,10 @@ input[type=number] {
         gap: 64px;
     }
 
+    .notification-list-wrapper {
+        grid-template-columns: 1fr 230px;
+    }
+
 }
 
 @media (max-width: 991.98px) {
@@ -2096,6 +2100,39 @@ input[type=number] {
 
     .subscription-steps-col-details {
         padding: 40px 24px;
+    }
+
+    .notification-date {
+        align-items: flex-start;
+    }
+
+    .notification-list-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .notification-list-wrapper .notification-filter {
+        order: 1;
+    }
+
+    .notification-list-wrapper .notification-list {
+        order: 2;
+    }
+
+    .deposit-transfer-card {
+        flex-wrap: wrap;
+        min-width: 222px;
+    }
+
+    .deposit-transfer {
+        padding: 20px 0;
+        overflow-x: auto;
+    }
+
+    .deposit-transfer-img,
+    .deposit-transfer-img img {
+        width: 100%;
+        max-height: 370px;
+        object-fit: contain;
     }
 }
 
@@ -2267,6 +2304,7 @@ input[type=number] {
     .amount-for {
         flex-wrap: wrap;
         gap: 36px;
+        margin-top: 0;
     }
 
     .payment-amount,
@@ -2274,6 +2312,25 @@ input[type=number] {
     .payment-method {
         flex: 100%;
     }
+
+    .card-inner-head {
+        gap: 20px;
+    }
+
+    .card-inner-head .large-caption.invest-smarter {
+        text-align: right;
+    }
+
+    .notification-wrapper {
+        padding: 0;
+        background-color: #FCFCFD;
+    }
+
+    .notification-list-card {
+        padding: 0;
+    }
+
+
 }
 
 @media (max-width: 680.98px) {
@@ -2281,10 +2338,10 @@ input[type=number] {
         grid-template-columns: repeat(1, 1fr);
     }
 
-
 }
 
 @media (max-width: 575.98px) {
+
     .learn-n-earn-head {
         padding: 0 8%;
     }
@@ -2297,11 +2354,50 @@ input[type=number] {
     .become-a-crypto-trader .btn {
         width: 100%;
     }
+
+    .notification-wrapper .notification-wrapper-head {
+        flex-wrap: wrap;
+    }
+
+    .notification-wrapper .notification-wrapper-head h4 {
+        margin-bottom: 20px;
+    }
 }
 
 @media (max-width: 480.98px) {
     .learn-n-earn-head {
         padding: 0;
+    }
+
+    .subscription-plan-cta {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .subscription-plan-cta .btn {
+        width: 100%;
+    }
+
+    .modal-subscribed-cta {
+        flex-wrap: wrap;
+    }
+
+    .notification-head-cta {
+        width: 100%;
+    }
+
+    .notification-wrapper .modal-subscribed-cta {
+        flex-wrap: nowrap;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .notification-wrapper .modal-subscribed-cta .btn {
+        width: auto;
+    }
+
+    .modal-subscribed-cta .btn {
+        width: 100%;
     }
 }
 

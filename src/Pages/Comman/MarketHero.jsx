@@ -7,16 +7,16 @@ const MarketHero = () => {
         <>
             <Box className='market-hero'>
                 <Container maxWidth="lg">
-                    <Grid container>
-                        <Grid item md={6}>
-                            <Typography component="h1" variant='h1'>
+                    <Grid container sx={{ alignItems: 'center' }}>
+                        <Grid item  xs={12} sm={6} md={6}>
+                            <Typography component="h1" variant='h1' fontFamily='var(--secondary-font) !important' position='relative' zIndex='2'>
                                 Invest smarter, not harder
                             </Typography>
-                            <Typography component="p" variant='body1' className='body-large'>
+                            <Typography component="p" variant='body1' className='body-large' position='relative' zIndex='2' sx={{ color: '#353945' }}>
                                 with our machine learning crypto predictions!
                             </Typography>
                         </Grid>
-                        <Grid item md={6}>
+                        <Grid item xs={12} sm={6} md={6}>
                             <Box className='market-hero-img-wrapper'>
                                 <img src={MarketHeroImg} alt='' />
                             </Box>

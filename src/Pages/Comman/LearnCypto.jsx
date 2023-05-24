@@ -63,24 +63,15 @@ const LearnCypto = () => {
     return (
         <>
         <Container sx={{pt: 14}}>
-          <Box  paddingBottom={10}>
+          <Box  paddingBottom={15}>
             <Typography variant='h1' className='secondary-font' fontWeight='700' textAlign='center'>Blockchain & Crypto</Typography>
             <Typography textAlign='center' className='secondary-color'>A Beginner’s Guide to TradingView</Typography>
             <Box>
-              <Box className="learn-cypto-tab center-tab" sx={{ width: '100%', typography: 'body1' }}>
-                <TabContext value={value}>
-                  <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
-                    <TabList onChange={handleChange} aria-label="tabs">
-                      <Tab label="Learn now" value="1" />
-                      <Tab label="Video tutorial" value="2" />
-                    </TabList>
-                  </Box>
-                  <TabPanel value="1" sx={{paddingRight:'0', paddingLeft:'0'}} >
-                    <img src={VideoImg}/>
-                  </TabPanel>
-                  <TabPanel value="2">Bitcoin</TabPanel>
-                </TabContext>
-              </Box>
+              <Stack direction='row' spacing={3} justifyContent='center' paddingY={3}>
+                <Button variant='contained' className='btn btn-primary'>Learn Now </Button>
+                <Button variant='outlined' className='btn btn-outlined-secondary'>Video Tutorial </Button>
+              </Stack>
+              <img src={VideoImg}/>            
             </Box>
           </Box>
         </Container>

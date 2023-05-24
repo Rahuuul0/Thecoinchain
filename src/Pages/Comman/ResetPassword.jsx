@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../_common/app.constants"
+import { theme } from "../../_common/app.constants";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -9,9 +9,10 @@ import { useUserActions } from "../../_actions/user.actions";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from "@mui/material/IconButton";
-import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material'
-import LogoLight from '../../../public/assets/images/logo-light.svg'
-import AuthBg from '../../../public/assets/images/auth-bg.svg'
+import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
+import LogoLight from '../../../public/assets/images/logo-light.svg';
+import LogoDark from '../../../public/assets/images/logo.svg';
+import AuthBg from '../../../public/assets/images/auth-bg.svg';
 
 const ResetPassword = () => {
     const navigate = useNavigate();
@@ -56,7 +57,8 @@ const ResetPassword = () => {
                         }}
                     >
                         <Box className='auth-header-logo' >
-                            <img src={LogoLight} alt='Coin Guru' />
+                            <img src={LogoLight} alt='Coin Guru' className='desktop' />
+                            <img src={LogoDark} alt='Coin Guru' className='ipad' />
                         </Box>
                         <Box className='dont-have-acc' >
                             <Typography component="p" variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>

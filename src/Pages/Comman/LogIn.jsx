@@ -16,6 +16,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { useAlertActions } from '../../_actions/alert.actions';
 import LogoLight from '../../../public/assets/images/logo-light.svg'
+import LogoDark from '../../../public/assets/images/logo.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import Lock from '../../../public/assets/images/icons/lock.svg'
 
@@ -70,7 +71,8 @@ const LogIn = () => {
                         }}
                     >
                         <Box className='auth-header-logo' >
-                            <img src={LogoLight} alt='Coin Guru' />
+                            <img src={LogoLight} alt='Coin Guru' className='desktop' />
+                            <img src={LogoDark} alt='Coin Guru' className='ipad' />
                         </Box>
                         <Box className='dont-have-acc' >
                             <Typography component="p" variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>

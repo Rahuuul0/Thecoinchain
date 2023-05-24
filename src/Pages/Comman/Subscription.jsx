@@ -157,7 +157,7 @@ const Subscription = () => {
                                                     </Typography>
                                                 </Box>
                                             </Box>
-                                            <Box className='credit-card-head'>
+                                            <Box className='credit-ca   rd-head'>
                                                 <Typography component="h5" variant='body1' className='large-caption' sx={{ fontWeight: '600' }}>
                                                     Credit Card
                                                 </Typography>
@@ -201,8 +201,8 @@ const Subscription = () => {
                                                     autoComplete="off"
                                                     size="small"
                                                 />
-                                                <Grid container spacing={4}>
-                                                    <Grid item md={6}>
+                                                <Grid container spacing={4} rowSpacing={1} sx={{ flexGrow: 1 }}>
+                                                    <Grid item xs={12} sm={12} md={6}>
                                                         <TextField
                                                             label="EXPIRATION DATE"
                                                             className="form-control"
@@ -221,7 +221,7 @@ const Subscription = () => {
                                                             size="small"
                                                         />
                                                     </Grid>
-                                                    <Grid item md={6}>
+                                                    <Grid item xs={12} sm={12} md={6}>
                                                         <TextField
                                                             label="CSV"
                                                             className="form-control"
@@ -352,7 +352,7 @@ const Subscription = () => {
                                     <Typography component="p" variant='body1' sx={{ fontWeight: '500' }}>
                                         Buy & Sell Crypto
                                     </Typography>
-                                    <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#777E90', my: 2 }}>
+                                    <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90', my: 2 }}>
                                         We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                                     </Typography>
 
@@ -365,7 +365,7 @@ const Subscription = () => {
                                     <Typography component="p" variant='body1' sx={{ fontWeight: '500' }}>
                                         Trade Assets
                                     </Typography>
-                                    <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#777E90', my: 2 }}>
+                                    <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90', my: 2 }}>
                                         We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                                     </Typography>
 
@@ -378,7 +378,7 @@ const Subscription = () => {
                                     <Typography component="p" variant='body1' sx={{ fontWeight: '500' }}>
                                         Earn Rewards for Trading
                                     </Typography>
-                                    <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#777E90', my: 2 }}>
+                                    <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90', my: 2 }}>
                                         We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                                     </Typography>
 

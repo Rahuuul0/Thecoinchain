@@ -543,7 +543,8 @@ main.auth-wrapper {
     margin-top: -24px;
 }
 
-.auth-checkbox .MuiButtonBase-root.Mui-checked {
+.auth-checkbox .MuiButtonBase-root.Mui-checked,
+.MuiFormControlLabel-root .MuiCheckbox-root.Mui-checked {
     color: var(--primary-color);
 }
 
@@ -1522,7 +1523,7 @@ input[type=number] {
 }
 
 .subscription-wrapper-head small a {
-    color: #353945;
+    color: #353945 !important;
 }
 
 .subscription-wrapper-head h2 {
@@ -1544,7 +1545,7 @@ input[type=number] {
 }
 
 .crypto-trader-head h2 {
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
     letter-spacing: -0.02em;
     margin-bottom: 20px;
 }
@@ -1658,7 +1659,7 @@ input[type=number] {
 
 .subscription-plan-card .subscription-plan-body .plan-price {
     font-weight: 700;
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
     margin-bottom: 48px;
 }
 
@@ -1667,6 +1668,10 @@ input[type=number] {
     font-size: 24px;
     font-family: 'Poppins';
     color: #6C757D;
+}
+
+.subscription-plan-card .subscription-plan-body p {
+    font-size: 14px !important;
 }
 
 .subscription-plan .subscription-plan-cta {
@@ -2073,15 +2078,34 @@ input[type=number] {
     .market-prediction-faq-items {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .subscription-steps-inner {
+        gap: 64px;
+    }
+
 }
 
 @media (max-width: 991.98px) {
     .market-hero-img-wrapper {
         right: -50%;
     }
+
+    .subscription-steps-inner {
+        gap: 32px;
+    }
+
+    .subscription-steps-col-details {
+        padding: 40px 24px;
+    }
 }
 
 @media (max-width: 767.98px) {
+    .subscription-steps {
+        border-top: 1px solid #eee;
+        padding-top: 0;
+        padding-bottom: 34px;
+    }
+
     .auth-header {
         background-color: #fff;
         flex-wrap: wrap;
@@ -2112,6 +2136,10 @@ input[type=number] {
 
     #root h1 {
         font-size: 40px;
+    }
+
+    #root h2 {
+        font-size: 32px;
     }
 
     .market-hero h1 {
@@ -2182,12 +2210,77 @@ input[type=number] {
         font-size: 14px;
         font-weight: 500;
     }
+
+    .subscription-wrapper-head {
+        flex-wrap: wrap;
+        padding: 32px 0;
+    }
+
+    .subscription-steps {
+        background-color: #FCFCFD;
+    }
+
+    .subscription-steps-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .subscription-steps-col {
+        display: none;
+    }
+
+    .subscription-steps-col-details {
+        padding: 0;
+        padding-bottom: 40px;
+    }
+
+    .card-inner-head {
+        padding: 32px 0;
+    }
+
+    .subscription-plan {
+        margin-top: 0;
+    }
+
+    .subscription-plan-card .plan-title {
+        font-size: 24px !important;
+        font-weight: 600;
+    }
+
+    .become-a-crypto-trader-cards {
+        grid-template-columns: 1fr;
+        margin-bottom: 48px;
+    }
+
+    .become-a-crypto-trader {
+        padding: 64px 0;
+    }
+
+    .crypto-trader-head {
+        text-align: left;
+        margin-bottom: 48px;
+    }
+
+    .become-a-crypto-trader-card {
+        padding: 81px 24px;
+    }
+
+    .amount-for {
+        flex-wrap: wrap;
+        gap: 36px;
+    }
+
+    .payment-amount,
+    .payment-for,
+    .payment-method {
+        flex: 100%;
+    }
 }
 
 @media (max-width: 680.98px) {
     .market-prediction-faq-items {
         grid-template-columns: repeat(1, 1fr);
     }
+
 
 }
 
@@ -2201,6 +2294,9 @@ input[type=number] {
         max-width: 100%;
     }
 
+    .become-a-crypto-trader .btn {
+        width: 100%;
+    }
 }
 
 @media (max-width: 480.98px) {

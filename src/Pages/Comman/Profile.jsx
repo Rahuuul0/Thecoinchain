@@ -120,12 +120,12 @@ const Profile = () => {
                             <Box className='subscription-steps-inner'>
                                 <Box className='subscription-steps-col'>
                                     <Stack spacing={2}>
-                                        <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={User} /> </span>Profile</Typography>
+                                        <Box sx={{ borderBottom: '1px solid #E6E8EC' }} paddingBottom={2}>
+                                            <Typography className='left-icon secondary-color' paddingBottom={4} fontWeight={700}><span><img src={User} /> </span>Profile</Typography>
                                             <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Share} /> </span>Referrals</Typography>
                                             <Typography className='left-icon secondary-color' paddingBottom={2}><span><img src={Api} /> </span>API keys</Typography>
                                         </Box>
-                                        <Box>
+                                        <Box paddingTop={2}>
                                             <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Session} /> </span>Sessions & login history</Typography>
                                             <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={FA} /> </span>2FA</Typography>
                                             <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Lockbtn} /> </span>Change password</Typography>
@@ -182,13 +182,13 @@ const Profile = () => {
                                                     </Box>
                                                 </Grid>
                                             </Grid>
-                                            <Button className='btn btn-green-outlined border-rounded' sx={{ borderRadius: '90px !important' }}>VIP</Button>
+                                            <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', borderRadius: '90px !important' }}>VIP</Button>
                                         </Box>
                                         <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
                                             <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} paddingY={5}  >Features</Typography>
                                         </Box>
                                         <Box>
-                                            <Grid container paddingTop={5} paddingBottom={3}>
+                                            <Grid container paddingTop={5} paddingBottom={1}>
                                                 <Grid item xs={12} sm={11} md={11}>
                                                     <Typography component="p" variant='body2' fontWeight={500} >VIP - Your annual plan will be expired on 15/2/2025</Typography>
                                                 </Grid>
@@ -215,40 +215,36 @@ const Profile = () => {
                                             Update your profile
                                         </Typography>
                                         <Box className='' paddingY={2}>
-                                            <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Name</Typography>
-                                            <TextField
-                                                // label="Name"
-                                                className="form-control"
+                                             <TextField
+                                                label="Name"
+                                                className="form-control white-input-box"
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
-                                                variant="outlined"
+                                                variant="standard"
                                                 margin="normal"
                                                 required
                                                 fullWidth
                                                 id="name"
-                                                placeholder='Name'
+                                                // placeholder='Password'
                                                 name="name"
                                                 autoComplete="off"
-                                                backgroundColor='#fff'
-                                            // size="small"
                                             />
 
                                         </Box>
                                         <Box className=''>
-                                            <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Email</Typography>
                                             <TextField
-                                                // label="email"
-                                                className="form-control"
+                                                label="Email"
+                                                className="form-control white-input-box"
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
-                                                variant="outlined"
+                                                variant="standard"
                                                 margin="normal"
                                                 required
                                                 fullWidth
                                                 id="email"
-                                                placeholder='Email'
+                                                // placeholder='Email'
                                                 name="email"
                                                 autoComplete="off"
                                             // size="small"

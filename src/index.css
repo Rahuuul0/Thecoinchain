@@ -1063,6 +1063,9 @@ input[type=number] {
     width: 35px !important;
     min-width: 35px !important;
     height: 35px !important;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .margin10 {
@@ -1097,7 +1100,7 @@ input[type=number] {
 
 /* learn cypto detail ends */
 /* Contact page */
-.topic-que .MuiTypography-root{
+.topic-que .label-text.MuiTypography-root{
     transform: translate(0, -1.5px) scale(0.75);
     left: 0px;
     position: absolute;
@@ -1161,8 +1164,11 @@ input[type=number] {
 #root .button-img .btn img {
     padding-right: 5px;
 }
+.topic-que .topic-select-radio .MuiTypography-root{
+    top: -30px !important;
+}
 
-.topic-que .MuiInputBase-root {
+.topic-que .MuiInputBase-root ,.topic-que .MuiStack-root{
     width: 100%;
     background-color: #fff;
     margin-top: 35px;
@@ -1797,14 +1803,17 @@ input[type=number] {
 
 .border-rounded fieldset {
     border-radius: 90px !important;
+    border: 0px;
 }
-
-.update-profile input {
+.white-input-box .MuiInputBase-root.MuiInput-root{
+    background-color: #ffffff;
+}
+/* .update-profile input {
     background-color: #fff !important;
     border-radius: 12px;
     height: 48px;
     padding: 0px 15px !important;
-}
+} */
 
 /* profile section ends */
 .modal-subscribed .modal-modal-description {
@@ -2102,4 +2111,25 @@ input[type=number] {
 }
 .short-subhead{
     padding: 0px 300px;
+}
+.small-btn{    
+    height: 20px;
+    min-width: 50px !important;
+    font-size: 12px !important;
+}
+.bottom-border{
+    position: relative;
+}
+.bottom-border:before{
+    content: "";
+    background-color: #E6E8EC;
+    width: 166px;
+    height: 2px;
+    position: absolute;
+    display: block;
+    bottom: 0px;
+}
+.black-label.MuiFormControl-root label {
+    color: #353945;
+    transform: none;
 }

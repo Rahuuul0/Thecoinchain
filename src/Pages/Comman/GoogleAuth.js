@@ -9,8 +9,9 @@ function GoogleAuth(props) {
     const [ user, setUser ] = useState([]);
 
     const login = useGoogleLogin({
+        ux_mode:"redirect",
         onSuccess: (codeResponse) => setUser(codeResponse),
-        onError: (error) => console.log('Login Failed:', error)
+        onError: (error) => console.log('Login Failed:', error),
     });
 
     useEffect(

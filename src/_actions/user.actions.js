@@ -115,6 +115,20 @@ const useUserActions = () => {
          }).catch((err)=>{console.warn(err)})
     }
 
+    const changePassword = async ({old_password, new_password}) => {
+        const email = localStorage.getItem("email")
+        const newPassword = password;
+        return fetchWrapper.post(Apis.Reset_Password, { old_password, new_password })
+            .then(res => {
+             if (res.statusCode === 200) {
+                alertActions.success('Password Reset Successfully');
+                 navigate("/login")
+             } else {
+                 alertActions.error("error");
+             }
+         }).catch((err)=>{console.warn(err)})
+    }
+
     const createPassword = ({ newPassword, confirmPassword }) => {
                 alertActions.success('New Password Created Successfully');
                 navigate('/login');
@@ -126,6 +140,7 @@ const useUserActions = () => {
         loginMobile,
         create,
         forgotPassword,
+        changePassword,
         forgotPasswordVerify,
         getOtp,
         verifyRegisterOtp,

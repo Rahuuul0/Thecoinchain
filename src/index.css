@@ -127,6 +127,7 @@ html body {
     color: var(--color_dark);
     margin: 0;
     padding: 0;
+    background-color: #FCFCFD;
 }
 
 html body,
@@ -686,17 +687,20 @@ input[type=number] {
     border: 1px solid #E6E8EC;
     border-radius: 90px;
 }
-.rounded-input .MuiInputBase-root{
+
+.rounded-input .MuiInputBase-root {
     padding: 11.5px 5px 11.5px 16px;
     border: 2px solid #E6E8EC;
     border-radius: 40px
 }
-.rounded-input button{
+
+.rounded-input button {
     background-color: var(--primary-color);
     color: #fff;
     width: 32px;
     height: 32px;
 }
+
 #root .border-rounded.btn-green-outlined {
     border-radius: 90px !important;
 }
@@ -776,7 +780,7 @@ input[type=number] {
 /* Market page */
 .market-hero {
     background-color: #DECBE9;
-    padding: 100px 0;
+    padding: 0;
     /* background-image: url("../public/assets/images/market-hero.svg"); */
     background-size: contain;
     background-repeat: no-repeat;
@@ -786,6 +790,7 @@ input[type=number] {
     min-height: 490px;
     align-items: center;
     display: flex;
+    overflow: hidden;
 }
 
 .flex-between-box .MuiGrid-root {
@@ -820,11 +825,13 @@ input[type=number] {
     z-index: -1;
 } */
 }
-.market-hero .MuiContainer-root{
+
+.market-hero .MuiContainer-root {
     display: table;
     min-height: 690px;
 }
-.market-hero  .MuiGrid-root.MuiGrid-container{
+
+.market-hero .MuiGrid-root.MuiGrid-container {
     display: table-cell;
     vertical-align: middle;
     height: 100%;
@@ -837,7 +844,7 @@ input[type=number] {
 }
 
 .market-hero-img-wrapper {
-    position: absolute;  
+    position: absolute;
     top: 50%;
     right: 0;
     transform: translate(0px, -50%);
@@ -846,12 +853,14 @@ input[type=number] {
 .market-crypto-card-wrapper {
     position: relative;
     z-index: 1;
+    background: #FCFCFD;
+    padding-bottom: 70px;
 }
 
 .market-crypto-card-wrapper::after {
     content: "";
     width: 100%;
-    height: 50%;
+    height: 40%;
     background-color: #DECBE9;
     z-index: -1;
     position: absolute;
@@ -869,7 +878,6 @@ input[type=number] {
     /* margin-top: -100px; */
     position: relative;
     z-index: 1;
-    margin-bottom: 70px;
 }
 
 
@@ -898,6 +906,7 @@ input[type=number] {
     color: #777E91;
     font-weight: 600;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .market-crypto-name .currency-name .status-badge {
@@ -1097,7 +1106,7 @@ input[type=number] {
 
 /* learn cypto detail ends */
 /* Contact page */
-.topic-que .MuiTypography-root{
+.topic-que .MuiTypography-root {
     transform: translate(0, -1.5px) scale(0.75);
     left: 0px;
     position: absolute;
@@ -1105,6 +1114,7 @@ input[type=number] {
     top: 0px;
     transform-origin: top left;
 }
+
 .float-right {
     position: absolute !important;
     top: 15px;
@@ -1167,9 +1177,11 @@ input[type=number] {
     background-color: #fff;
     margin-top: 35px;
 }
-.topic-que .MuiBox-root{
+
+.topic-que .MuiBox-root {
     position: relative;
 }
+
 .newdesignbox img {
     width: 100%;
 }
@@ -1198,6 +1210,7 @@ input[type=number] {
 .learn-n-earn-head {
     text-align: center;
     margin-bottom: 60px;
+    padding: 0 30%;
 }
 
 .learn-n-earn h2 {
@@ -1290,7 +1303,7 @@ input[type=number] {
 
 .crypto-list-table table tr th,
 .crypto-list-table table tr td {
-    border-color: #E6E8EC;
+    border-color: #F4F5F6;
 }
 
 .crypto-list-table table tr {
@@ -1305,7 +1318,7 @@ input[type=number] {
     top: 0;
     width: 40px;
     height: 100%;
-    background-color: #E6E8EC;
+    background-color: #F4F5F6;
     opacity: 0;
     z-index: -1;
 }
@@ -1338,7 +1351,7 @@ input[type=number] {
 
 .crypto-list-table table tr:hover th,
 .crypto-list-table table tr:hover td {
-    background-color: #E6E8EC;
+    background-color: #F4F5F6;
 }
 
 .crypto-list-table table tr:hover td:first-child {
@@ -1371,7 +1384,7 @@ input[type=number] {
 
 /* Prediction Dashboard */
 .prediction-dashboard-wrapper h4 {
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
     font-weight: 700;
     margin-bottom: 32px;
 }
@@ -1385,7 +1398,7 @@ input[type=number] {
     background: #F4F5F6;
 }
 
-.market-prediction-faq h5.large-caption {
+#root .market-prediction-faq h5.large-caption {
     font-size: 24px;
     color: var(--secondary-color);
     font-weight: 600;
@@ -1508,8 +1521,12 @@ input[type=number] {
     align-items: center;
 }
 
+.subscription-wrapper-head small a {
+    color: #353945;
+}
+
 .subscription-wrapper-head h2 {
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
 }
 
 
@@ -1607,7 +1624,7 @@ input[type=number] {
 }
 
 .subscription-steps-col-details h5 {
-    font-size: 24px;
+    font-size: 24px !important;
     font-weight: 600;
 }
 
@@ -1631,7 +1648,7 @@ input[type=number] {
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 3px 3px 0px 0px;
     font-weight: 700;
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
     padding: 8px;
 }
 
@@ -2044,9 +2061,25 @@ input[type=number] {
     .learn-n-earn {
         padding: 112px 0;
     }
+
+    .market-hero .MuiContainer-root {
+        min-height: 571px;
+    }
+
+    .market-crypto-card-wrapper::after {
+        height: 45%;
+    }
+
+    .market-prediction-faq-items {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-@media (max-width: 991.98px) {}
+@media (max-width: 991.98px) {
+    .market-hero-img-wrapper {
+        right: -50%;
+    }
+}
 
 @media (max-width: 767.98px) {
     .auth-header {
@@ -2071,13 +2104,113 @@ input[type=number] {
     #root .auth-wrapper h3 {
         font-size: 32px;
     }
+
+    .market-hero-img-wrapper {
+        position: inherit;
+        transform: none;
+    }
+
+    #root h1 {
+        font-size: 40px;
+    }
+
+    .market-hero h1 {
+        margin-bottom: 16px;
+    }
+
+    #root .body-large {
+        font-size: 16px;
+    }
+
+    .market-hero {
+        padding: 64px 0;
+    }
+
+    .market-hero,
+    .market-hero .MuiContainer-root {
+        min-height: unset;
+    }
+
+    .market-crypto-graph {
+        overflow-x: auto;
+    }
+
+    #root .price-prediction h2 {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    #root .price-prediction p {
+        font-size: 14px;
+    }
+
+    #root .learn-n-earn h2 {
+        font-size: 40px;
+    }
+
+    .learn-n-earn,
+    .price-prediction {
+        padding-top: 64px;
+    }
+
+    .learn-n-earn-head {
+        padding: 0 25%;
+    }
+
+    .learn-n-earn-cards {
+        flex-wrap: wrap;
+    }
+
+    .learn-n-earn-card {
+        width: 100%;
+        flex: 100%;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .market-crypto-card-wrapper {
+        padding-bottom: 16px;
+    }
+
+    #root .prediction-dashboard-wrapper h4 {
+        font-weight: 600;
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+
+    #root .market-prediction-faq h5.large-caption {
+        font-size: 14px;
+        font-weight: 500;
+    }
 }
 
-@media (max-width: 575.98px) {}
+@media (max-width: 680.98px) {
+    .market-prediction-faq-items {
+        grid-template-columns: repeat(1, 1fr);
+    }
 
-@media (max-width: 480.98px) {}
+}
+
+@media (max-width: 575.98px) {
+    .learn-n-earn-head {
+        padding: 0 8%;
+    }
+
+    .modal-dialog {
+        width: calc(98% - 64px);
+        max-width: 100%;
+    }
+
+}
+
+@media (max-width: 480.98px) {
+    .learn-n-earn-head {
+        padding: 0;
+    }
+}
 
 @media (max-width: 320.98px) {
+
     .auth-wrapper-form {
         padding: 40px 16px 16px;
         width: calc(100% - 32px);
@@ -2099,7 +2232,4 @@ input[type=number] {
     .auth-otp>div input {
         padding: 20px 10px;
     }
-}
-.short-subhead{
-    padding: 0px 300px;
 }

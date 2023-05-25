@@ -14,18 +14,24 @@ const useUserActions = () => {
     const [auth, setAuth] = useRecoilState(authAtom);
     const [Soption, setSoption] = useRecoilState(switchAtom);
    
-    const login = ({ email, password }) => {
+    const login = async ({ email, password }) => {
         return fetchWrapper.post(Apis.Login, { email, password })
             .then(res => {
                 if (res.statusCode === 200) {
-               
+                    localStorage.setItem("email",res.data.email)
                     alertActions.success("Logged In Successfully");
                     navigate("/")
                 } else {
                     alertActions.error(res.msg);
                 }
-            })
+            }).catch((err)=>{console.warn(err)})
     }
+       
+    const loginMobile = ({ number, passwordMob }) => {
+
+            alertActions.success("called"+ number +" "+passwordMob);
+    }
+            
             
 
     const forgotPassword = async (email) => {
@@ -109,6 +115,19 @@ const useUserActions = () => {
          }).catch((err)=>{console.warn(err)})
     }
 
+    const changePassword = async ({old_password, new_password}) => {
+    
+        return fetchWrapper.post(Apis.Change_Password, { old_password, new_password })
+            .then(res => {
+             if (res.statusCode === 200) {
+                alertActions.success('Password Change Successfully');
+                //  navigate("/login")
+             } else {
+                 alertActions.error("error");
+             }
+         }).catch((err)=>{console.warn(err)})
+    }
+
     const createPassword = ({ newPassword, confirmPassword }) => {
                 alertActions.success('New Password Created Successfully');
                 navigate('/login');
@@ -117,8 +136,10 @@ const useUserActions = () => {
 
     return {
         login,
+        loginMobile,
         create,
         forgotPassword,
+        changePassword,
         forgotPasswordVerify,
         getOtp,
         verifyRegisterOtp,

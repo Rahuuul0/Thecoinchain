@@ -31,7 +31,8 @@ const CreateAccount = () => {
             .email()
             .trim()
             .required("Email Address is required"),
-        mobile: Yup.string().required("Mobile number is required"),
+        mobile: Yup.string().required("Mobile number is required").matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, {message: "Please enter valid number.", excludeEmptyString: false}),
+        // mobile: Yup.string().required("Mobile number is required").max(10,"Mobile Number can't be more than 10 digits"),
         password: Yup.string()
             .trim()
             .required("Password is required")
@@ -78,16 +79,22 @@ const CreateAccount = () => {
     };
 
     const submitForm = () => {
-        const token = captchaRef.current.getValue();
-        if (token) {
-            captchaRef.current.reset();
-            userActions.create(formData);
+        if(agreement) {
+            const token = captchaRef.current.getValue();
+            if (token) {
+                captchaRef.current.reset();
+                userActions.create(formData);
+            }
+            else {
+                alertActions.error("reCAPTCHA is mandatory")
+            }
         }
         else {
-            alertActions.error("Check the bot box")
+            alertActions.error("You must agree with the Terms and Conditions")
         }
-    }
-
+    } 
+    const [ profile, setProfile ] = useState([]);
+    const [ agreement, setAgreement ] = useState(false);
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -126,7 +133,7 @@ const CreateAccount = () => {
                                     <Box component="div" className='open-id-btn-wrapper' >
                                         <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}>
 
-                                            <GoogleAuth />
+                                            <GoogleAuth setProfile = {setProfile} />
                                         </GoogleOAuthProvider>
                                         <Button variant="contained" className='btn btn-secondary' startIcon={<AppleIcon />}>
                                             Apple
@@ -249,8 +256,7 @@ const CreateAccount = () => {
                                         <div style={{ color: "red" }}> {errors.confirm_password?.message}
                                         </div>
 
-                                        <FormControlLabel className='auth-checkbox' control={<Checkbox defaultChecked />} label="By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." />
-
+                                        <FormControlLabel className='auth-checkbox' control={<Checkbox onChange={()=>{setAgreement(!agreement)}} />} label="By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." />
                                         <ReCAPTCHA
                                             style={{ margin: "10px auto", display: "flex", justifyContent: "center" }}
                                             theme="light"

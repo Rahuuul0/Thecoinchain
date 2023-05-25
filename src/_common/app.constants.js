@@ -31,7 +31,7 @@ export const Apis = {
     Create:'createAccount',
     GetOtp:'get-otp',
     VerifyRegisterOtp:'verify-user',
-    Change_Password: 'changePassword',
+    Change_Password: 'change-password',
 }
 
 export const theme = createTheme({

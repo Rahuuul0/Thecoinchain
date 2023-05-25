@@ -19,10 +19,16 @@ import LogoLight from '../../../public/assets/images/logo-light.svg'
 import LogoDark from '../../../public/assets/images/logo.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import Lock from '../../../public/assets/images/icons/lock.svg'
-
+import { MuiTelInput } from 'mui-tel-input'
 const LogIn = () => {
 
     const [value, setValue] = React.useState('1');
+    const [phone, setPhone] = React.useState('')
+
+    const handlePhone = (newPhone) => {
+        setPhone(newPhone)
+      }
+    
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -46,6 +52,19 @@ const LogIn = () => {
                 "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
             ),
     });
+    const validationSchemaMobile = Yup.object().shape({
+        number: Yup.string()
+            .trim()
+            .required("Mobile number is required"),
+        passwordMob: Yup.string()
+            .trim()
+            .required("Password is required")
+            .min(8, "Password must be at least 8 characters.")
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
+            ),
+    });
 
     //password eye IconButton
     const [showPassword, setShowPassword] = React.useState(false);
@@ -53,12 +72,21 @@ const LogIn = () => {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     //yup validation
-    const formOptions = { resolver: yupResolver(validationSchema) };
+    const formOptions = { resolver: yupResolver(value==1?validationSchema:validationSchemaMobile) };
     // get functions to build form with useForm() hook
     const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
 
     const formData = watch();
+    const handleFormSubmit = () => {
+        if(value==1) {
+            userActions.login(formData)
+        }
+        else {
+            userActions.loginMobile(formData)
+        }
+
+    }
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -104,7 +132,7 @@ const LogIn = () => {
                                     noValidate
                                     component="form"
                                     sx={{ mt: '24px' }}
-                                    onSubmit={handleSubmit(userActions.login)}
+                                    onSubmit={handleSubmit(handleFormSubmit)}
                                 >
                                     <Box className='auth-form' >
                                         <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -185,27 +213,23 @@ const LogIn = () => {
                                                     </Button>
                                                 </TabPanel>
                                                 <TabPanel value="2" sx={{ p: 0 }}>
-                                                    <TextField
-                                                        label="Number"
-                                                        className="form-control"
-                                                        InputLabelProps={{
-                                                            shrink: true,
-                                                        }}
-                                                        variant="standard"
-                                                        margin="normal"
-                                                        required
-                                                        fullWidth
-                                                        id="number"
-                                                        placeholder='Number'
-                                                        name="number"
-                                                        autoComplete="off"
-                                                        size="small"
-                                                        type="number"
-                                                        {...register("email")}
-                                                        onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
 
-                                                    />
-                                                    <div style={{ color: "red" }}>{errors.email?.message}
+                                                        <MuiTelInput
+                                                            label="Number"
+                                                            className="form-control"
+                                                            variant="standard"
+                                                            required
+                                                            margin="normal"
+                                                           
+                                                             placeholder='Number'
+                                                             autoComplete="off"
+                                                             size="small"
+                                                             autoFocus
+                                                             {...register("number")}
+                                                             value={phone} 
+                                                             onChange={handlePhone} 
+                                                             />
+                                                    <div style={{ color: "red" }}>{errors.number?.message}
                                                     </div>
 
                                                     <TextField
@@ -224,8 +248,8 @@ const LogIn = () => {
                                                         autoComplete="off"
                                                         size="small"
                                                         type={showPassword ? "text" : "password"}
-                                                        {...register("password")}
-                                                        onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                                                        {...register("passwordMob")}
+                                                        onChange={(e) => reset({ ...formData, passwordMob: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                                         InputProps={{
                                                             endAdornment: (
                                                                 <InputAdornment position="end">
@@ -236,7 +260,7 @@ const LogIn = () => {
                                                             ),
                                                         }}
                                                     />
-                                                    <div style={{ color: "red" }}> {errors.password?.message}</div>
+                                                    <div style={{ color: "red" }}> {errors.passwordMob?.message}</div>
 
                                                     <Box className='scan-forgot'>
                                                         <Link href='#' onClick={() => { navigate("/scan-to-login"); }} variant="body2" sx={{ color: '#777E91!important', textDecoration: 'none' }}>
@@ -251,9 +275,10 @@ const LogIn = () => {
                                                         type="submit"
                                                         variant="contained"
                                                         className='btn btn-primary'
-                                                        disabled={isSubmitting}>
+                                                        >
                                                         Login
-                                                    </Button></TabPanel>
+                                                    </Button>                                                
+                                                </TabPanel>
                                             </TabContext>
                                         </Box>
                                     </Box>
@@ -266,5 +291,5 @@ const LogIn = () => {
         </>
     )
 }
+export default LogIn;
 
-export default LogIn

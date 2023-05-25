@@ -5,13 +5,13 @@ import { Checkbox, Container, Box, TextField, Typography, Link, Button, FormCont
 import axios from 'axios';
 import GoogleIcon from '@mui/icons-material/Google';
 
-function GoogleAuth() {
+function GoogleAuth(props) {
     const [ user, setUser ] = useState([]);
-    const [ profile, setProfile ] = useState([]);
 
     const login = useGoogleLogin({
+        ux_mode:"redirect",
         onSuccess: (codeResponse) => setUser(codeResponse),
-        onError: (error) => console.log('Login Failed:', error)
+        onError: (error) => console.log('Login Failed:', error),
     });
 
     useEffect(
@@ -25,7 +25,7 @@ function GoogleAuth() {
                         }
                     })
                     .then((res) => {
-                        setProfile(res.data);
+                        props.setProfile(res.data);
                     })
                     .catch((err) => console.log(err));
             }
@@ -33,7 +33,7 @@ function GoogleAuth() {
         [ user ]
     );
     return ( 
-                <Button target="_blank" onClick={() => login()} variant="contained" className='btn btn-primary'  startIcon={<GoogleIcon />}>Google</Button>
+                <Button onClick={() => login()} variant="contained" className='btn btn-primary'  startIcon={<GoogleIcon />}>Google</Button>
     );
 }
 

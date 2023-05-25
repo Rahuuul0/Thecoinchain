@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect }from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Grid, Typography, Button, Modal } from '@mui/material'
@@ -12,6 +12,7 @@ import FAQ06 from '../../../public/assets/images/faq-06.svg'
 
 const PredictionDashboard = () => {
 
+    useEffect(()=>{window.scrollTo({top:0,left:0,behavior:"smooth"})});
     return (
         <>
             <ThemeProvider theme={theme}>

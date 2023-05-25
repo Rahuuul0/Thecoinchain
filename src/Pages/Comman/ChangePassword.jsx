@@ -21,15 +21,17 @@ const ChangePassword = () => {
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        password: Yup.string()
-            .required("New Password Required")
+        old_password: Yup.string()
+        .required("Old Password is required"),
+        new_password: Yup.string()
+            .required("New Password is required")
             .min(8, "New Password must be at least 8 characters.")
             .matches(
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/,
                 "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
             ),
-        confirmpassword: Yup.string().required('Confirm Password is required')
-            .oneOf([Yup.ref('password'), null], 'Passwords must match')
+        confirm_password: Yup.string().required('Confirm Password is required')
+            .oneOf([Yup.ref('new_password'), null], 'Passwords must match')
 
     });
     const formOptions = { resolver: yupResolver(validationSchema) };
@@ -78,27 +80,27 @@ const ChangePassword = () => {
                                     Change Password
                                 </Typography>
                                 <Box component="form"
-                                    onSubmit={handleSubmit(userActions.resetPassword)}
+                                    onSubmit={handleSubmit(userActions.changePassword)}
                                     noValidate
                                 >
                                     <Box component="div" className='auth-form' >
                                         <TextField
-                                            label="Current Password"
+                                            label="Old Password"
                                             margin="normal"
                                             required
                                             fullWidth
                                             id="password"
-                                            placeholder='Password'
+                                            placeholder='Old Password'
                                             type={showPassword ? "text" : "password"}
                                             name="password"
-                                            autoComplete="current-password"
+                                            autoComplete="old-password"
                                             size="small"
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
                                             variant="standard"
-                                            {...register('currentpassword')}
-                                            className={`form-control ${errors.currentpassword ? 'is-invalid' : ''}`}
+                                            {...register('old_password')}
+                                            className={`form-control ${errors.old_password ? 'is-invalid' : ''}`}
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
@@ -110,14 +112,14 @@ const ChangePassword = () => {
                                             }}
                                             autoFocus
                                         />
-                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.currentpassword?.message}</div>
+                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.old_password?.message}</div>
                                         <TextField
                                             label="New Password"
                                             margin="normal"
                                             required
                                             fullWidth
                                             id="password"
-                                            placeholder='Password'
+                                            placeholder='New Password'
                                             type={showPassword2 ? "text" : "password"}
                                             name="password"
                                             autoComplete="current-password"
@@ -126,8 +128,8 @@ const ChangePassword = () => {
                                                 shrink: true,
                                             }}
                                             variant="standard"
-                                            {...register('newpassword')}
-                                            className={`form-control ${errors.newpassword ? 'is-invalid' : ''}`}
+                                            {...register('new_password')}
+                                            className={`form-control ${errors.new_password ? 'is-invalid' : ''}`}
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
@@ -139,14 +141,14 @@ const ChangePassword = () => {
                                             }}
                                         
                                         />
-                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.newpassword?.message}</div>
+                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.new_password?.message}</div>
                                         <TextField
                                             label="Confirm New Password"
                                             margin="normal"
                                             required
                                             fullWidth
                                             id="confirm_password"
-                                            placeholder='Confirm Password'
+                                            placeholder='Confirm New Password'
                                             type={showPassword3 ? "text" : "password"}
                                             name="confirm_password"
                                             autoComplete="confirm-password"
@@ -155,8 +157,8 @@ const ChangePassword = () => {
                                                 shrink: true,
                                             }}
                                             variant="standard"
-                                            {...register('confirmpassword')}
-                                            className={`form-control ${errors.confirmpassword ? 'is-invalid' : ''}`}
+                                            {...register('confirm_password')}
+                                            className={`form-control ${errors.confirm_password ? 'is-invalid' : ''}`}
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
@@ -168,7 +170,7 @@ const ChangePassword = () => {
                                             }}
                                             autoFocus
                                         />
-                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirmpassword?.message}</div>
+                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirm_password?.message}</div>
 
                                         <Button
                                             type="submit"

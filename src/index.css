@@ -89,7 +89,9 @@ body .modal-dialog * {
 #root .btn-error {
     background-color: #FF6838;
 }
-
+#root .gold-color {
+    color: #FFD700;
+}
 .btn-round {
     border-radius: 100px !important;
 }
@@ -2041,6 +2043,38 @@ p.left-icon img {
     padding: 0px 15px !important
 }
 
+.short-subhead {
+    padding: 0px 300px;
+}
+
+.small-btn {
+    height: 20px;
+    min-width: 50px !important;
+    font-size: 12px !important;
+}
+
+.bottom-border {
+    position: relative;
+}
+
+.bottom-border:before {
+    content: "";
+    background-color: #E6E8EC;
+    width: 166px;
+    height: 2px;
+    position: absolute;
+    display: block;
+    bottom: 0px;
+}
+
+.black-label.MuiFormControl-root label {
+    color: #353945;
+    transform: none;
+}
+.ipad-visible{
+    display: none;
+}
+
 /* Homepage Ends */
 
 
@@ -2115,6 +2149,41 @@ p.left-icon img {
         gap: 48px;
     }
 
+    /* homepage */
+    .ipad-none {
+        display: none !important;
+    }
+
+    .slider-icon svg {
+        width: 14px !important;
+        position: relative;
+        top: 3px;
+        left: 0px;
+    }
+
+    .slider-icon {
+        border: 2px solid transparent !important;
+        padding: 0px 9px;
+    }
+
+    .slider-icon.active-slider-icon {
+        border: 2px solid #E6E8EC !important;
+        padding: 0px 9px;
+        border-radius: 50px;
+    }
+
+    .scrolling-tab {
+        gap: 8px;
+        padding: 5px 0;
+        overflow-y: hidden;
+        width: 100%;
+        justify-content: unset;
+        align-items: center;
+        flex-wrap: unset !important;
+    }
+    .ipad-visible{
+        display: block !important;
+    }
 }
 
 @media (max-width: 991.98px) {
@@ -2199,7 +2268,8 @@ p.left-icon img {
     }
 
     /* homepage */
-    .filter-btn, .learn-cypto-tab .MuiTabs-flexContainer{
+    .filter-btn,
+    .learn-cypto-tab .MuiTabs-flexContainer {
         gap: 8px;
         padding: 5px 0;
         overflow-y: hidden;
@@ -2208,32 +2278,51 @@ p.left-icon img {
         align-items: center;
         flex-wrap: unset;
     }
-    .hero-heading{
+    .become-crypto h2{
+        text-align: left;
+    }
+    .hero-heading {
         font-size: 48px !important;
     }
-    .mobile-flex{
+    .m-width-100{
+        max-width: 100%;
+        min-width: 100% !important;
+    }
+    .flow-reverse-mobile{
+        flex-flow: column-reverse !important;
+    }
+    .mobile-flex {
         display: flex;
         align-items: start;
     }
-    .mobile-flex img{
+    .mobile-flex img {
         padding-right: 20px;
     }
-    .grid-bit{
+    #root h2.stay-heading{
+        font-size: 48px !important;
+    }
+
+    .grid-bit {
         margin: 0px !important;
         width: 100% !important;
     }
-    .mobile-text-center{
+
+    .mobile-text-center {
         text-align: center !important;
     }
-    .mobile-none{
+
+    .mobile-none {
         display: none !important;
     }
-    .flex-between-box .MuiGrid-root{
+
+    .flex-between-box .MuiGrid-root {
         margin-bottom: 30px !important;
     }
-    .mobile-font-40{
+
+    .mobile-font-40 {
         font-size: 40px !important;
     }
+
     .market-hero-img-wrapper {
         position: inherit;
         transform: none;
@@ -2397,7 +2486,26 @@ p.left-icon img {
     .notification-list-card {
         padding: 0;
     }
-
+/* cypto page */
+    #root h2.mobile-f-48{
+        font-size: 48px !important;
+    }
+    .crypto-box{
+        padding: 0px;
+        box-shadow: none;
+        background-color: transparent;
+        text-align: center !important;
+    }
+    #root Button{
+        text-transform: capitalize;
+    }
+    .padding-0-mobile{
+        padding: 0px !important;
+    }
+    .mobile-w-100{
+        width: 100% !important;
+        margin: 0 !important;
+    }
 
 }
 

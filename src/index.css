@@ -59,6 +59,11 @@ body .modal-dialog * {
     padding: 4px 15px;
 }
 
+#root .btn.btn-table.MuiButton-sizeSmall,
+.modal-dialog .btn.btn-table.MuiButton-sizeSmall {
+    border-radius: 4px !important;
+}
+
 #root .btn-primary,
 .modal-dialog .btn-primary {
     background-color: var(--primary-color) !important;
@@ -741,6 +746,7 @@ input[type=number] {
 .gridBox {
     padding: 50px 30px 50px 30px !important;
     border-radius: 32px;
+    transition: 0.3s;
 }
 
 .gridBox:hover {
@@ -1085,7 +1091,7 @@ input[type=number] {
 
 .center-breadcrum ol {
     justify-content: center;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .center-breadcrum .MuiBreadcrumbs-li a {
@@ -1805,16 +1811,20 @@ input[type=number] {
 }
 
 /* profile section */
-.left-icon {
-    position: relative;
-    padding-left: 30px;
+p.left-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px !important;
+    font-weight: 700;
+    font-family: var(--secondary-font) !important;
 }
 
-.left-icon img {
-    padding-right: 10px;
-    position: absolute;
-    top: 2px;
-    left: 0px;
+p.left-icon img {
+    width: 24px;
+    height: auto;
+    max-height: 24px;
+    max-width: 24px;
 }
 
 .border-rounded fieldset {
@@ -2055,7 +2065,8 @@ input[type=number] {
         right: -24%;
     }
 
-    #root .price-prediction h2 {
+    #root .price-prediction h2,
+    #root .subscription-wrapper-head h2 {
         font-size: 40px;
     }
 
@@ -2085,6 +2096,10 @@ input[type=number] {
 
     .notification-list-wrapper {
         grid-template-columns: 1fr 230px;
+    }
+
+    .session-history .subscription-steps-inner {
+        gap: 48px;
     }
 
 }

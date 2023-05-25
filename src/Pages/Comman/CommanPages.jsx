@@ -21,6 +21,7 @@ import Notifications from "./Notifications";
 import SessionHistory from "./SessionHistory";
 import SubsPage from "./SubsPage";
 import Referrals from "./Referrals";
+import ChangePassword from "./ChangePassword";
 
 const Customer = () => {
   return (
@@ -30,6 +31,7 @@ const Customer = () => {
         <Route path={`/login`} element={<LogIn />} />
         <Route path={`/forgot-password`} element={<ForgotPassword />} />
         <Route path={`/reset-password`} element={<ResetPassword />} />
+        <Route path={`/change-password`} element={<ChangePassword />} />
         <Route path={`/create-account`} element={<CreateAccount />} />
         <Route path={`/scan-to-login`} element={<ScanToLogin />} />
         <Route path={`/confirm-account`} element={<AccountConfirm />} />

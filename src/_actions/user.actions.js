@@ -18,7 +18,7 @@ const useUserActions = () => {
         return fetchWrapper.post(Apis.Login, { email, password })
             .then(res => {
                 if (res.statusCode === 200) {
-               
+                    localStorage.setItem("email",res.data.email)
                     alertActions.success("Logged In Successfully");
                     navigate("/")
                 } else {
@@ -115,6 +115,19 @@ const useUserActions = () => {
          }).catch((err)=>{console.warn(err)})
     }
 
+    const changePassword = async ({old_password, new_password}) => {
+    
+        return fetchWrapper.post(Apis.Change_Password, { old_password, new_password })
+            .then(res => {
+             if (res.statusCode === 200) {
+                alertActions.success('Password Change Successfully');
+                //  navigate("/login")
+             } else {
+                 alertActions.error("error");
+             }
+         }).catch((err)=>{console.warn(err)})
+    }
+
     const createPassword = ({ newPassword, confirmPassword }) => {
                 alertActions.success('New Password Created Successfully');
                 navigate('/login');
@@ -126,6 +139,7 @@ const useUserActions = () => {
         loginMobile,
         create,
         forgotPassword,
+        changePassword,
         forgotPasswordVerify,
         getOtp,
         verifyRegisterOtp,

@@ -2207,7 +2207,7 @@ input[type=number] {
     }
 
     /* homepage */
-    .filter-btn{
+    .filter-btn, .learn-cypto-tab .MuiTabs-flexContainer{
         gap: 8px;
         padding: 5px 0;
         overflow-y: hidden;
@@ -2215,6 +2215,32 @@ input[type=number] {
         justify-content: unset;
         align-items: center;
         flex-wrap: unset;
+    }
+    .hero-heading{
+        font-size: 48px !important;
+    }
+    .mobile-flex{
+        display: flex;
+        align-items: start;
+    }
+    .mobile-flex img{
+        padding-right: 20px;
+    }
+    .grid-bit{
+        margin: 0px !important;
+        width: 100% !important;
+    }
+    .mobile-text-center{
+        text-align: center !important;
+    }
+    .mobile-none{
+        display: none !important;
+    }
+    .flex-between-box .MuiGrid-root{
+        margin-bottom: 30px !important;
+    }
+    .mobile-font-40{
+        font-size: 40px !important;
     }
 }
 

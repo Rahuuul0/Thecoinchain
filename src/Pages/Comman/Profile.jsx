@@ -93,7 +93,7 @@ const Profile = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Box component="main" className='subscription-wrapper' sx={{ mt: 8 }}>
+                <Box component="main" className='subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>

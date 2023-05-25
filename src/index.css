@@ -2090,6 +2090,15 @@ p.left-icon img {
 .ipad-visible{
     display: none;
 }
+.copied-adorement .MuiInputAdornment-root p{
+    color: #ffffff;
+    text-transform: uppercase;
+    background-color: #23262F;
+    font-weight: 700;
+    font-size: 12px !important;
+    padding: 4px 9px;
+    border-radius: 4px;
+}
 /* account */
 .update-profile .MuiFormControl-root label{
     color: #353945;
@@ -2549,7 +2558,16 @@ p.left-icon img {
     .account-main .subscription-steps-col{
         display: block !important;
     }
-    
+    .bredcrum-div .subscription-wrapper-head{
+        display: block ;
+    }
+    .center-breadcrum ol{
+        justify-content: start;
+    }
+    /* refferals */
+    #root .mobile-body-large{
+        font-size: 24px;
+    }
 }
 
 @media (max-width: 680.98px) {

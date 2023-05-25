@@ -1,16 +1,14 @@
 import React from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Modal, Link, Breadcrumbs, Stack, Select, OutlinedInput, MenuItem, Switch, TextField, FormControl } from '@mui/material';
+import { Box, Container, Grid, Typography, Button,  Link, Breadcrumbs, Stack, InputAdornment , TextField,  } from '@mui/material';
 import User from '../../../public/assets/images/user.svg';
 import Share from '../../../public/assets/images/share-square.svg';
 import Session from '../../../public/assets/images/session.svg';
 import Api from '../../../public/assets/images/api.svg';
-import BtcImg from '../../../public/assets/images/icons/btc-ic.svg';
 import FA from '../../../public/assets/images/fa.svg';
 import Lockbtn from '../../../public/assets/images/lockbtn.svg';
 import { KeyboardArrowRightIcon, NavigateNext } from '@mui/icons-material/';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 const plans = [
     {
@@ -74,7 +72,7 @@ const Referrals = () => {
             Home
         </Link>,
         <Typography key="3" color="text.primary">
-            Profile info
+            Referrals
         </Typography>,
     ];
     const names = [
@@ -93,11 +91,11 @@ const Referrals = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Box component="main" className='subscription-wrapper' sx={{ mt: 8 }}>
+                <Box component="main" className='subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>
-                                Profile info
+                            Referrals
                             </Typography>
 
                             <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
@@ -122,7 +120,7 @@ const Referrals = () => {
                                     <Stack spacing={2}>
                                         <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
                                             <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={User} /> </span>Profile</Typography>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4} fontWeight={700}><span><img src={Share} /> </span>Referrals</Typography>
+                                            <Typography className='left-icon secondary-color' paddingBottom={4} fontWeight={700} color='#23262F'><span><img src={Share} /> </span>Referrals</Typography>
                                             <Typography className='left-icon secondary-color' paddingBottom={2}><span><img src={Api} /> </span>API keys</Typography>
                                         </Box>
                                         <Box>
@@ -150,11 +148,11 @@ const Referrals = () => {
                                                 referrals pay. Learn more
                                             </Typography>
                                             <Box className="center-box" padding={3} marginY={2} sx={{ backgroundColor: '#F1F2F4', borderRadius: '10px' }}>
-                                                <Typography component="h6" variant="h6" paddingBottom={0} fontWeight={600} className="body-large">
+                                                <Typography component="h6" variant="h6" paddingBottom={0} fontWeight={600} className="body-large mobile-body-large">
                                                     Invite friends to earn 20%
                                                 </Typography>
-                                                <Grid item container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                                                    <Grid item sm={6}>
+                                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                                    <Grid item xs={12}  sm={6}>
                                                        <TextField
                                                             label="REFERRALS LINK"
                                                             className="black-label form-control white-input-box"
@@ -173,10 +171,13 @@ const Referrals = () => {
                                                         />
 
                                                     </Grid>
-                                                    <Grid item sm={6}>
+                                                    <Grid item xs={12} sm={6}>
                                                        <TextField
                                                             label="REFERRALS CODE"
-                                                            className="black-label form-control white-input-box"
+                                                            InputProps={{
+                                                                endAdornment: <InputAdornment position="end">Copied</InputAdornment>,
+                                                            }}
+                                                            className="black-label form-control white-input-box copied-adorement"
                                                             InputLabelProps={{
                                                                 shrink: true,
                                                             }}

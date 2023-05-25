@@ -117,7 +117,7 @@ const Contact = () => {
       <Container>
         <Box paddingTop={5} paddingBottom={10}>
           <Grid container sx={{ alignItems: 'center' }}>
-            <Grid item xs={12} sm={6} md={6} paddingRight={5}>
+            <Grid item xs={12} sm={6} md={6} paddingRight={5} className='padding-0-mobile'>
               <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} >Save your time with Stacks</Typography>
               <Typography variant='h1' component="div" className='hero-heading primary-color'>
                 How can we help
@@ -127,7 +127,7 @@ const Contact = () => {
               </Typography>
               <Typography component="div" paddingBottom={2} >
 
-                <Search>
+                <Search className='contact-search'>
 
                   <StyledInputBase
                     className='primary-font'
@@ -135,7 +135,7 @@ const Contact = () => {
                     inputProps={{ 'aria-label': 'search' }}
                   />
 
-                  <SearchIconWrapper >
+                  <SearchIconWrapper className='padding-0-mobile'>
                     <Box className='search-icon'>
                       <ArrowRightAlt />
                     </Box>

@@ -59,6 +59,11 @@ body .modal-dialog * {
     padding: 4px 15px;
 }
 
+#root .btn.btn-table.MuiButton-sizeSmall,
+.modal-dialog .btn.btn-table.MuiButton-sizeSmall {
+    border-radius: 4px !important;
+}
+
 #root .btn-primary,
 .modal-dialog .btn-primary {
     background-color: var(--primary-color) !important;
@@ -741,6 +746,7 @@ input[type=number] {
 .gridBox {
     padding: 50px 30px 50px 30px !important;
     border-radius: 32px;
+    transition: 0.3s;
 }
 
 .gridBox:hover {
@@ -1088,7 +1094,7 @@ input[type=number] {
 
 .center-breadcrum ol {
     justify-content: center;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .center-breadcrum .MuiBreadcrumbs-li a {
@@ -1110,7 +1116,7 @@ input[type=number] {
 
 /* learn cypto detail ends */
 /* Contact page */
-.topic-que .label-text.MuiTypography-root{
+.topic-que .label-text.MuiTypography-root {
     transform: translate(0, -1.5px) scale(0.75);
     left: 0px;
     position: absolute;
@@ -1175,11 +1181,13 @@ input[type=number] {
 #root .button-img .btn img {
     padding-right: 5px;
 }
-.topic-que .topic-select-radio .MuiTypography-root{
+
+.topic-que .topic-select-radio .MuiTypography-root {
     top: -30px !important;
 }
 
-.topic-que .MuiInputBase-root ,.topic-que .MuiStack-root{
+.topic-que .MuiInputBase-root,
+.topic-que .MuiStack-root {
     width: 100%;
     background-color: #fff;
     margin-top: 35px;
@@ -1811,31 +1819,37 @@ input[type=number] {
 }
 
 /* profile section */
-.left-icon {
-    position: relative;
-    padding-left: 30px;
+p.left-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px !important;
+    font-weight: 700;
+    font-family: var(--secondary-font) !important;
 }
 
-.left-icon img {
-    padding-right: 10px;
-    position: absolute;
-    top: 2px;
-    left: 0px;
+p.left-icon img {
+    width: 24px;
+    height: auto;
+    max-height: 24px;
+    max-width: 24px;
 }
 
 .border-rounded fieldset {
     border-radius: 90px !important;
     border: 0px;
 }
-.white-input-box .MuiInputBase-root.MuiInput-root{
+
+.white-input-box .MuiInputBase-root.MuiInput-root {
     background-color: #ffffff;
 }
+
 /* .update-profile input {
     background-color: #fff !important;
     border-radius: 12px;
     height: 48px;
     padding: 0px 15px !important;
-} */
+}
 
 /* profile section ends */
 .modal-subscribed .modal-modal-description {
@@ -2030,30 +2044,6 @@ input[type=number] {
 /* Homepage Ends */
 
 
-.short-subhead{
-    padding: 0px 300px;
-}
-.small-btn{    
-    height: 20px;
-    min-width: 50px !important;
-    font-size: 12px !important;
-}
-.bottom-border{
-    position: relative;
-}
-.bottom-border:before{
-    content: "";
-    background-color: #E6E8EC;
-    width: 166px;
-    height: 2px;
-    position: absolute;
-    display: block;
-    bottom: 0px;
-}
-.black-label.MuiFormControl-root label {
-    color: #353945;
-    transform: none;
-}
 
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
@@ -2088,7 +2078,8 @@ input[type=number] {
         right: -24%;
     }
 
-    #root .price-prediction h2 {
+    #root .price-prediction h2,
+    #root .subscription-wrapper-head h2 {
         font-size: 40px;
     }
 
@@ -2099,34 +2090,31 @@ input[type=number] {
     .learn-n-earn {
         padding: 112px 0;
     }
-    /* homepage */
-    .ipad-none{
-        display: none !important;
+
+    .market-hero .MuiContainer-root {
+        min-height: 571px;
     }
-    .slider-icon svg{
-        width: 14px !important;
-        position: relative;
-        top: 3px;
-        left: 0px;
+
+    .market-crypto-card-wrapper::after {
+        height: 45%;
     }
-    .slider-icon{
-        border: 2px solid transparent!important;
-        padding: 0px 9px;
+
+    .market-prediction-faq-items {
+        grid-template-columns: repeat(2, 1fr);
     }
-    .slider-icon.active-slider-icon{
-        border: 2px solid #E6E8EC!important;
-        padding: 0px 9px;
-        border-radius: 50px;
+
+    .subscription-steps-inner {
+        gap: 64px;
     }
-    .scrolling-tab{ 
-        gap: 8px;
-        padding: 5px 0;
-        overflow-y: hidden;
-        width: 100%;
-        justify-content: unset;
-        align-items: center;
-        flex-wrap: unset !important;
+
+    .notification-list-wrapper {
+        grid-template-columns: 1fr 230px;
     }
+
+    .session-history .subscription-steps-inner {
+        gap: 48px;
+    }
+
 }
 
 @media (max-width: 991.98px) {
@@ -2173,6 +2161,10 @@ input[type=number] {
         width: 100%;
         max-height: 370px;
         object-fit: contain;
+    }
+
+    .session-history .subscription-steps-inner {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -2242,6 +2234,171 @@ input[type=number] {
     .mobile-font-40{
         font-size: 40px !important;
     }
+    .market-hero-img-wrapper {
+        position: inherit;
+        transform: none;
+    }
+
+    #root h1 {
+        font-size: 40px;
+    }
+
+    #root h2 {
+        font-size: 32px;
+    }
+
+    .market-hero h1 {
+        margin-bottom: 16px;
+    }
+
+    #root .body-large {
+        font-size: 16px;
+    }
+
+    .market-hero {
+        padding: 64px 0;
+    }
+
+    .market-hero,
+    .market-hero .MuiContainer-root {
+        min-height: unset;
+    }
+
+    .market-crypto-graph {
+        overflow-x: auto;
+    }
+
+    #root .price-prediction h2 {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    #root .price-prediction p {
+        font-size: 14px;
+    }
+
+    #root .learn-n-earn h2 {
+        font-size: 40px;
+    }
+
+    .learn-n-earn,
+    .price-prediction {
+        padding-top: 64px;
+    }
+
+    .learn-n-earn-head {
+        padding: 0 25%;
+    }
+
+    .learn-n-earn-cards {
+        flex-wrap: wrap;
+    }
+
+    .learn-n-earn-card {
+        width: 100%;
+        flex: 100%;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .market-crypto-card-wrapper {
+        padding-bottom: 16px;
+    }
+
+    #root .prediction-dashboard-wrapper h4 {
+        font-weight: 600;
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+
+    #root .market-prediction-faq h5.large-caption {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .subscription-wrapper-head {
+        flex-wrap: wrap;
+        padding: 32px 0;
+    }
+
+    .subscription-steps {
+        background-color: #FCFCFD;
+    }
+
+    .subscription-steps-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .subscription-steps-col {
+        display: none;
+    }
+
+    .subscription-steps-col-details {
+        padding: 0;
+        padding-bottom: 40px;
+    }
+
+    .card-inner-head {
+        padding: 32px 0;
+    }
+
+    .subscription-plan {
+        margin-top: 0;
+    }
+
+    .subscription-plan-card .plan-title {
+        font-size: 24px !important;
+        font-weight: 600;
+    }
+
+    .become-a-crypto-trader-cards {
+        grid-template-columns: 1fr;
+        margin-bottom: 48px;
+    }
+
+    .become-a-crypto-trader {
+        padding: 64px 0;
+    }
+
+    .crypto-trader-head {
+        text-align: left;
+        margin-bottom: 48px;
+    }
+
+    .become-a-crypto-trader-card {
+        padding: 81px 24px;
+    }
+
+    .amount-for {
+        flex-wrap: wrap;
+        gap: 36px;
+        margin-top: 0;
+    }
+
+    .payment-amount,
+    .payment-for,
+    .payment-method {
+        flex: 100%;
+    }
+
+    .card-inner-head {
+        gap: 20px;
+    }
+
+    .card-inner-head .large-caption.invest-smarter {
+        text-align: right;
+    }
+
+    .notification-wrapper {
+        padding: 0;
+        background-color: #FCFCFD;
+    }
+
+    .notification-list-card {
+        padding: 0;
+    }
+
+
 }
 
 @media (max-width: 680.98px) {

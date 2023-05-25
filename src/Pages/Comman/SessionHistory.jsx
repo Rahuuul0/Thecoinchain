@@ -46,7 +46,7 @@ const SessionHistory = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Box component="main" className='subscription-wrapper' sx={{ mt: 8 }}>
+                <Box component="main" className='subscription-wrapper session-history' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>
@@ -127,7 +127,7 @@ const SessionHistory = () => {
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell align="right">
-                                                                <Button size='small' variant='contained' className='btn btn-secondary' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
+                                                                <Button size='small' variant='contained' className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
                                                             </TableCell>
                                                         </TableRow>
                                                         <TableRow
@@ -150,7 +150,7 @@ const SessionHistory = () => {
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell align="right">
-                                                                <Button size='small' variant='contained' className='btn btn-secondary' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
+                                                                <Button size='small' variant='contained' className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
                                                             </TableCell>
                                                         </TableRow>
                                                     </TableBody>
@@ -206,7 +206,7 @@ const SessionHistory = () => {
                                                                         </Typography>
                                                                     </TableCell>
                                                                     <TableCell align="right">
-                                                                        <Button size='small' variant='contained' color={(v.cta === "NO") ? "error" : "success"} className={(v.cta === "NO") ? "btn btn-error" : "btn btn-success"} sx={{ ml: 'auto' }}>{v.cta}</Button>
+                                                                        <Button size='small' variant='contained' color={(v.cta === "NO") ? "error" : "success"} className={(v.cta === "NO") ? "btn btn-table btn-error" : "btn btn-table btn-success"} sx={{ ml: 'auto' }}>{v.cta}</Button>
                                                                     </TableCell>
                                                                 </TableRow>
                                                             )

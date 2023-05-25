@@ -2090,7 +2090,15 @@ p.left-icon img {
 .ipad-visible{
     display: none;
 }
-
+/* account */
+.update-profile .MuiFormControl-root label{
+    color: #353945;
+    transform: none;
+}
+.update-profile .MuiFormControl-root label.Mui-focused{
+    color: #353945;
+    transform: none;
+}
 
 
 /* Media Queries  */
@@ -2537,6 +2545,11 @@ p.left-icon img {
     #root .button-img .btn{        
         padding: 17px 39px 12px 36px !important;
     }
+    /* account-profile */
+    .account-main .subscription-steps-col{
+        display: block !important;
+    }
+    
 }
 
 @media (max-width: 680.98px) {

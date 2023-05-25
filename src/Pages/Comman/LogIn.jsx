@@ -6,6 +6,9 @@ import { Container, Box, TextField, Typography, Link, Button, InputAdornment } f
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions"
 import { yupResolver } from "@hookform/resolvers/yup";
+import { MuiTelInput } from 'mui-tel-input'
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { useAlertActions } from '../../_actions/alert.actions';
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
@@ -14,12 +17,12 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { useAlertActions } from '../../_actions/alert.actions';
 import LogoLight from '../../../public/assets/images/logo-light.svg'
 import LogoDark from '../../../public/assets/images/logo.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import Lock from '../../../public/assets/images/icons/lock.svg'
-import { MuiTelInput } from 'mui-tel-input'
+import GoogleAuth from "./GoogleAuth";
+import AppleIcon from '@mui/icons-material/Apple';
 const LogIn = () => {
 
     const [value, setValue] = React.useState('1');
@@ -126,7 +129,24 @@ const LogIn = () => {
                                         <span>https://</span> accounts.coinguru.org/login
                                     </Box>
                                 </Box>
+                                <Box className='open-id' >
+                                    <Typography component="small" variant="body2" sx={{ textAlign: 'center', color: '#777E91', display: 'block', marginBottom: '20px' }}>
+                                        Use Your OpenID to Sign In
+                                    </Typography>
+                                    <Box component="div" className='open-id-btn-wrapper' >
+                                        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}>
+
+                                            <GoogleAuth />
+                                        </GoogleOAuthProvider>
+                                        <Button variant="contained" className='btn btn-secondary' startIcon={<AppleIcon />}>
+                                            Apple
+                                        </Button>
+                                    </Box>
+                                </Box>
                                 <Box className='devider' />
+                                <Typography component="small" variant="body2" sx={{ textAlign: 'center', color: '#777E91', display: 'block', marginBottom: '20px' }}>
+                                    Or continue with email
+                                </Typography>
 
                                 <Box
                                     noValidate

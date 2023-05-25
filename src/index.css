@@ -1110,11 +1110,7 @@ input[type=number] {
 
 /* learn cypto detail ends */
 /* Contact page */
-<<<<<<< HEAD
 .topic-que .label-text.MuiTypography-root{
-=======
-.topic-que .MuiTypography-root {
->>>>>>> 598ada7c16685e30d6e9fbe86d0a39fbab0c39d7
     transform: translate(0, -1.5px) scale(0.75);
     left: 0px;
     position: absolute;
@@ -2103,7 +2099,6 @@ input[type=number] {
     .learn-n-earn {
         padding: 112px 0;
     }
-<<<<<<< HEAD
     /* homepage */
     .ipad-none{
         display: none !important;
@@ -2132,29 +2127,6 @@ input[type=number] {
         align-items: center;
         flex-wrap: unset !important;
     }
-=======
-
-    .market-hero .MuiContainer-root {
-        min-height: 571px;
-    }
-
-    .market-crypto-card-wrapper::after {
-        height: 45%;
-    }
-
-    .market-prediction-faq-items {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .subscription-steps-inner {
-        gap: 64px;
-    }
-
-    .notification-list-wrapper {
-        grid-template-columns: 1fr 230px;
-    }
-
->>>>>>> 598ada7c16685e30d6e9fbe86d0a39fbab0c39d7
 }
 
 @media (max-width: 991.98px) {
@@ -2234,7 +2206,6 @@ input[type=number] {
         font-size: 32px;
     }
 
-<<<<<<< HEAD
     /* homepage */
     .filter-btn{
         gap: 8px;
@@ -2245,173 +2216,6 @@ input[type=number] {
         align-items: center;
         flex-wrap: unset;
     }
-=======
-    .market-hero-img-wrapper {
-        position: inherit;
-        transform: none;
-    }
-
-    #root h1 {
-        font-size: 40px;
-    }
-
-    #root h2 {
-        font-size: 32px;
-    }
-
-    .market-hero h1 {
-        margin-bottom: 16px;
-    }
-
-    #root .body-large {
-        font-size: 16px;
-    }
-
-    .market-hero {
-        padding: 64px 0;
-    }
-
-    .market-hero,
-    .market-hero .MuiContainer-root {
-        min-height: unset;
-    }
-
-    .market-crypto-graph {
-        overflow-x: auto;
-    }
-
-    #root .price-prediction h2 {
-        font-size: 24px;
-        font-weight: 600;
-    }
-
-    #root .price-prediction p {
-        font-size: 14px;
-    }
-
-    #root .learn-n-earn h2 {
-        font-size: 40px;
-    }
-
-    .learn-n-earn,
-    .price-prediction {
-        padding-top: 64px;
-    }
-
-    .learn-n-earn-head {
-        padding: 0 25%;
-    }
-
-    .learn-n-earn-cards {
-        flex-wrap: wrap;
-    }
-
-    .learn-n-earn-card {
-        width: 100%;
-        flex: 100%;
-        padding-bottom: 0;
-        border-bottom: none;
-    }
-
-    .market-crypto-card-wrapper {
-        padding-bottom: 16px;
-    }
-
-    #root .prediction-dashboard-wrapper h4 {
-        font-weight: 600;
-        font-size: 24px;
-        margin-bottom: 0;
-    }
-
-    #root .market-prediction-faq h5.large-caption {
-        font-size: 14px;
-        font-weight: 500;
-    }
-
-    .subscription-wrapper-head {
-        flex-wrap: wrap;
-        padding: 32px 0;
-    }
-
-    .subscription-steps {
-        background-color: #FCFCFD;
-    }
-
-    .subscription-steps-inner {
-        grid-template-columns: 1fr;
-    }
-
-    .subscription-steps-col {
-        display: none;
-    }
-
-    .subscription-steps-col-details {
-        padding: 0;
-        padding-bottom: 40px;
-    }
-
-    .card-inner-head {
-        padding: 32px 0;
-    }
-
-    .subscription-plan {
-        margin-top: 0;
-    }
-
-    .subscription-plan-card .plan-title {
-        font-size: 24px !important;
-        font-weight: 600;
-    }
-
-    .become-a-crypto-trader-cards {
-        grid-template-columns: 1fr;
-        margin-bottom: 48px;
-    }
-
-    .become-a-crypto-trader {
-        padding: 64px 0;
-    }
-
-    .crypto-trader-head {
-        text-align: left;
-        margin-bottom: 48px;
-    }
-
-    .become-a-crypto-trader-card {
-        padding: 81px 24px;
-    }
-
-    .amount-for {
-        flex-wrap: wrap;
-        gap: 36px;
-        margin-top: 0;
-    }
-
-    .payment-amount,
-    .payment-for,
-    .payment-method {
-        flex: 100%;
-    }
-
-    .card-inner-head {
-        gap: 20px;
-    }
-
-    .card-inner-head .large-caption.invest-smarter {
-        text-align: right;
-    }
-
-    .notification-wrapper {
-        padding: 0;
-        background-color: #FCFCFD;
-    }
-
-    .notification-list-card {
-        padding: 0;
-    }
-
-
->>>>>>> 598ada7c16685e30d6e9fbe86d0a39fbab0c39d7
 }
 
 @media (max-width: 680.98px) {

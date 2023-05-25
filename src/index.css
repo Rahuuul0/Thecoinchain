@@ -2008,6 +2008,30 @@ input[type=number] {
 /* Homepage Ends */
 
 
+.short-subhead{
+    padding: 0px 300px;
+}
+.small-btn{    
+    height: 20px;
+    min-width: 50px !important;
+    font-size: 12px !important;
+}
+.bottom-border{
+    position: relative;
+}
+.bottom-border:before{
+    content: "";
+    background-color: #E6E8EC;
+    width: 166px;
+    height: 2px;
+    position: absolute;
+    display: block;
+    bottom: 0px;
+}
+.black-label.MuiFormControl-root label {
+    color: #353945;
+    transform: none;
+}
 
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
@@ -2053,6 +2077,34 @@ input[type=number] {
     .learn-n-earn {
         padding: 112px 0;
     }
+    /* homepage */
+    .ipad-none{
+        display: none !important;
+    }
+    .slider-icon svg{
+        width: 14px !important;
+        position: relative;
+        top: 3px;
+        left: 0px;
+    }
+    .slider-icon{
+        border: 2px solid transparent!important;
+        padding: 0px 9px;
+    }
+    .slider-icon.active-slider-icon{
+        border: 2px solid #E6E8EC!important;
+        padding: 0px 9px;
+        border-radius: 50px;
+    }
+    .scrolling-tab{ 
+        gap: 8px;
+        padding: 5px 0;
+        overflow-y: hidden;
+        width: 100%;
+        justify-content: unset;
+        align-items: center;
+        flex-wrap: unset !important;
+    }
 }
 
 @media (max-width: 991.98px) {}
@@ -2079,6 +2131,17 @@ input[type=number] {
 
     #root .auth-wrapper h3 {
         font-size: 32px;
+    }
+
+    /* homepage */
+    .filter-btn{
+        gap: 8px;
+        padding: 5px 0;
+        overflow-y: hidden;
+        width: 100%;
+        justify-content: unset;
+        align-items: center;
+        flex-wrap: unset;
     }
 }
 
@@ -2108,28 +2171,4 @@ input[type=number] {
     .auth-otp>div input {
         padding: 20px 10px;
     }
-}
-.short-subhead{
-    padding: 0px 300px;
-}
-.small-btn{    
-    height: 20px;
-    min-width: 50px !important;
-    font-size: 12px !important;
-}
-.bottom-border{
-    position: relative;
-}
-.bottom-border:before{
-    content: "";
-    background-color: #E6E8EC;
-    width: 166px;
-    height: 2px;
-    position: absolute;
-    display: block;
-    bottom: 0px;
-}
-.black-label.MuiFormControl-root label {
-    color: #353945;
-    transform: none;
 }

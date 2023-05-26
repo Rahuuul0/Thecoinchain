@@ -18,7 +18,7 @@ const useUserActions = () => {
         return fetchWrapper.post(Apis.Login, { email, password })
             .then(res => {
                 if (res.statusCode === 200) {
-                    localStorage.setItem("email",res.data.email)
+               
                     alertActions.success("Logged In Successfully");
                     navigate("/")
                 } else {
@@ -116,12 +116,12 @@ const useUserActions = () => {
     }
 
     const changePassword = async ({old_password, new_password}) => {
-    
-        return fetchWrapper.post(Apis.Change_Password, { old_password, new_password })
+        const email = localStorage.getItem("email")
+        return fetchWrapper.post(Apis.Reset_Password, { old_password, new_password })
             .then(res => {
              if (res.statusCode === 200) {
-                alertActions.success('Password Change Successfully');
-                //  navigate("/login")
+                alertActions.success('Password Reset Successfully');
+                 navigate("/login")
              } else {
                  alertActions.error("error");
              }

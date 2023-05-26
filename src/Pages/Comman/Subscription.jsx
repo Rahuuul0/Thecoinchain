@@ -117,7 +117,7 @@ const Subscription = () => {
                                                     </Typography>
                                                     <Box className="subscription-plan-body">
                                                         <Typography component="h4" variant='h4' className='plan-price'>
-                                                            {subscriptionData[plans.length-(i+1)]?.subscription_price}  <span className='plan-days'>/ {subscriptionData[plans.length-(i+1)]?.duration} days</span>
+                                                            {subscriptionData[subscriptionData.length-(i+1)]?.subscription_price}  <span className='plan-days'>/ {subscriptionData[subscriptionData.length-(i+1)]?.duration} days</span>
                                                         </Typography>
 
                                                         <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>

@@ -56,7 +56,6 @@ const Subscription = () => {
        response.then((res)=>{setSubscriptionData(res)})
 
     },[])
-console.log(subscriptionData);
         
     return (
         <>
@@ -115,7 +114,6 @@ console.log(subscriptionData);
                                                 <Box className="subscription-plan-card">
                                                     <Typography component="h4" variant='h4' className='plan-title'>
                                                         {plan.title}
-                                                        {console.log(subscriptionData[plans.length-(i+1)],'gfdfg')}
                                                     </Typography>
                                                     <Box className="subscription-plan-body">
                                                         <Typography component="h4" variant='h4' className='plan-price'>

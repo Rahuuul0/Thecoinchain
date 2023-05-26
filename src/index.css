@@ -89,9 +89,11 @@ body .modal-dialog * {
 #root .btn-error {
     background-color: #FF6838;
 }
+
 #root .gold-color {
     color: #FFD700;
 }
+
 .btn-round {
     border-radius: 100px !important;
 }
@@ -1126,20 +1128,25 @@ input[type=number] {
     top: 0px;
     transform-origin: top left;
 }
-.topic-que  .MuiFormControl-root label{
+
+.topic-que .MuiFormControl-root label {
     transform: none !important;
 }
+
 /* Homepage Ends */
 #root .topic-que .MuiSelect-select {
     padding: 10.5px 5px 10.5px 16px !important;
     border: 2px solid #E6E8EC !important;
-    border-radius: 12px !important  ;   font-size: 14px  !important;
+    border-radius: 12px !important;
+    font-size: 14px !important;
 }
-#root .topic-que fieldset{
+
+#root .topic-que fieldset {
     border: 0px !important;
 }
-#root .topic-que .MuiSelect-select p{
-    font-size: 14px  !important;
+
+#root .topic-que .MuiSelect-select p {
+    font-size: 14px !important;
 }
 
 
@@ -2087,10 +2094,12 @@ p.left-icon img {
     color: #353945;
     transform: none;
 }
-.ipad-visible{
+
+.ipad-visible {
     display: none;
 }
-.copied-adorement .MuiInputAdornment-root p{
+
+.copied-adorement .MuiInputAdornment-root p {
     color: #ffffff;
     text-transform: uppercase;
     background-color: #23262F;
@@ -2099,14 +2108,20 @@ p.left-icon img {
     padding: 4px 9px;
     border-radius: 4px;
 }
+
 /* account */
-.update-profile .MuiFormControl-root label{
+.update-profile .MuiFormControl-root label {
     color: #353945;
     transform: none;
 }
-.update-profile .MuiFormControl-root label.Mui-focused{
+
+.update-profile .MuiFormControl-root label.Mui-focused {
     color: #353945;
     transform: none;
+}
+
+.for-mobile {
+    display: none;
 }
 
 
@@ -2212,7 +2227,8 @@ p.left-icon img {
         align-items: center;
         flex-wrap: unset !important;
     }
-    .ipad-visible{
+
+    .ipad-visible {
         display: block !important;
     }
 }
@@ -2269,6 +2285,38 @@ p.left-icon img {
 }
 
 @media (max-width: 767.98px) {
+    .for-mobile {
+        display: block;
+    }
+
+    .for-desktop {
+        display: none;
+    }
+
+    .dropdown-mobile .MuiSelect-select,
+    .MuiPopover-root .MuiList-root .MuiMenuItem-root {
+        font-size: 14px !important;
+        font-weight: 500;
+    }
+
+    .learn-earn-dropdown {
+        margin-top: 32px;
+        margin-bottom: 48px;
+    }
+
+    .dropdown-mobile.notification-filter h5 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #FCFCFD;
+        border: 1px solid #E6E8EC;
+        border-radius: 12px;
+        padding: 12px;
+        font-size: 14px !important;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
     .subscription-steps {
         border-top: 1px solid #eee;
         padding-top: 0;
@@ -2309,27 +2357,42 @@ p.left-icon img {
         align-items: center;
         flex-wrap: unset;
     }
-    .become-crypto h2{
-        text-align: left;
-    }
+
     .hero-heading {
         font-size: 48px !important;
     }
-    .m-width-100{
+
+    .become-crypto h2 {
+        text-align: left;
+    }
+
+    .hero-heading {
+        font-size: 48px !important;
+    }
+
+    .m-width-100 {
         max-width: 100%;
         min-width: 100% !important;
     }
-    .flow-reverse-mobile{
+
+    .flow-reverse-mobile {
         flex-flow: column-reverse !important;
     }
+
     .mobile-flex {
         display: flex;
         align-items: start;
     }
+
     .mobile-flex img {
         padding-right: 20px;
     }
-    #root h2.stay-heading{
+
+    .mobile-flex img {
+        padding-right: 20px;
+    }
+
+    #root h2.stay-heading {
         font-size: 48px !important;
     }
 
@@ -2517,55 +2580,68 @@ p.left-icon img {
     .notification-list-card {
         padding: 0;
     }
-/* cypto page */
-    #root h2.mobile-f-48{
+
+    /* cypto page */
+    #root h2.mobile-f-48 {
         font-size: 48px !important;
     }
-    .crypto-box{
+
+    .crypto-box {
         padding: 0px;
         box-shadow: none;
         background-color: transparent;
         text-align: center !important;
     }
-    #root Button{
+
+    #root Button {
         text-transform: capitalize;
     }
-    .padding-0-mobile{
+
+    .padding-0-mobile {
         padding: 0px !important;
     }
-    .mobile-w-100{
+
+    .mobile-w-100 {
         width: 100% !important;
         margin: 0 !important;
     }
- /*contact page  */
-    .contact-search{
-        border: 2px solid #E6E8EC;    
+
+    /*contact page  */
+    .contact-search {
+        border: 2px solid #E6E8EC;
         width: 100% !important;
         border-radius: 90px !important;
     }
-    .button-img img{
+
+    .button-img img {
         display: none;
     }
+
     #root .topic-que .MuiSelect-select p {
         text-overflow: ellipsis;
         max-width: 90%;
         overflow: hidden;
     }
-    #root .button-img .btn{        
+
+    #root .button-img .btn {
         padding: 17px 39px 12px 36px !important;
     }
+
     /* account-profile */
-    .account-main .subscription-steps-col{
+    .account-main .subscription-steps-col {
         display: block !important;
     }
-    .bredcrum-div .subscription-wrapper-head{
-        display: block ;
+
+    .bredcrum-div .subscription-wrapper-head {
+        display: block;
     }
-    .center-breadcrum ol{
+
+    .center-breadcrum ol {
         justify-content: start;
     }
+
     /* refferals */
-    #root .mobile-body-large{
+    #root .mobile-body-large {
         font-size: 24px;
     }
     /* Subscriptions */

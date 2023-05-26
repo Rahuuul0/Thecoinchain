@@ -1,7 +1,7 @@
 export { fakeBackend };
 
 // array in local storage for registered users
-const usersKey = 'energyby5-users';
+const usersKey = 'coinguru-users';
 let users = JSON.parse(localStorage.getItem(usersKey)) || [];
 
 function fakeBackend() {

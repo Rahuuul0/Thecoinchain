@@ -21,6 +21,7 @@ import Notifications from "./Notifications";
 import SessionHistory from "./SessionHistory";
 import SubsPage from "./SubsPage";
 import Referrals from "./Referrals";
+import ChangePassword from "./ChangePassword";
 
 const Customer = () => {
   return (
@@ -30,6 +31,7 @@ const Customer = () => {
         <Route path={`/login`} element={<LogIn />} />
         <Route path={`/forgot-password`} element={<ForgotPassword />} />
         <Route path={`/reset-password`} element={<ResetPassword />} />
+        <Route path={`/change-password`} element={<ChangePassword />} />
         <Route path={`/create-account`} element={<CreateAccount />} />
         <Route path={`/scan-to-login`} element={<ScanToLogin />} />
         <Route path={`/confirm-account`} element={<AccountConfirm />} />
@@ -40,7 +42,7 @@ const Customer = () => {
         <Route path={`/market`} exact element={<Market />} />
         <Route path={`/predict-market`} exact element={<PredictMarket />} />
         <Route path={`/subscribed-predict-market`} exact element={<SubscribedPredictMarkert />} />
-        <Route path={`/prediction-dashboard`} exact element={<PredictionDashboard />} />
+        <Route path={`/prediction-dashboard`} exact element={ <><Header /> <PredictionDashboard />  <Footer /></>} />
         <Route path={`/subscription`} exact element={<Subscription />} />
         <Route path={`/profile`} exact element={<Profile />} />
         <Route path={`/notifications`} exact element={<Notifications />} />
@@ -48,7 +50,7 @@ const Customer = () => {
         <Route path={`/subspage`} exact element={<SubsPage />} />
         <Route path={`/referrals`} exact element={<Referrals />} />
       </Routes>
-    </div >
+    </div>
   );
 };
 

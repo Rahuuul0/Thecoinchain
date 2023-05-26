@@ -2568,6 +2568,15 @@ p.left-icon img {
     #root .mobile-body-large{
         font-size: 24px;
     }
+    /* Subscriptions */
+    .subs-div.MuiStack-root{
+        display: block;
+    }
+    .subs-div.MuiStack-root button{
+        width: 100%;
+        min-width: 100%;
+        margin: 0px 0px 20px 0px;
+    }
 }
 
 @media (max-width: 680.98px) {

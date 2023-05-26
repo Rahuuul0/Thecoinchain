@@ -113,7 +113,7 @@ const Referrals = () => {
                         </Box>
                     </Container>
 
-                    <Box className='subscription-steps'>
+                    <Box className='subscription-steps account-main'>
                         <Container maxWidth="lg">
                             <Box className='subscription-steps-inner'>
                                 <Box className='subscription-steps-col'>

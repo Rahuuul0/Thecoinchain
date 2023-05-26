@@ -74,7 +74,7 @@ const SubsPage = () => {
             Home
         </Link>,
         <Typography key="3" color="text.primary">
-            Profile info
+            Subscriptions
         </Typography>,
     ];
     const names = [
@@ -93,11 +93,11 @@ const SubsPage = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Box component="main" className='subscription-wrapper' sx={{ mt: 8 }}>
+                <Box component="main" className='subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>
-                                Profile info
+                            Subscriptions
                             </Typography>
 
                             <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
@@ -115,7 +115,7 @@ const SubsPage = () => {
                         </Box>
                     </Container>
 
-                    <Box className='subscription-steps'>
+                    <Box className='subscription-steps account-main'>
                         <Container maxWidth="lg">
                             <Box className='subscription-steps-inner'>
                                 <Box className='subscription-steps-col'>
@@ -139,7 +139,7 @@ const SubsPage = () => {
                                     <Box textAlign='center'>
                                         <img src={SubsImage} />
                                         <Typography variant='p' component='div' sx={{ color: '#777E90', fontSize: '14px' }}>Your subscription and recurring payment has been canceled.</Typography>
-                                        <Stack direction='row' spacing={3}paddingY={4} justifyContent='center'>
+                                        <Stack className='subs-div' direction='row' spacing={3}paddingY={4} justifyContent='center'>
                                             <Button className='btn btn-outlined-secondary' >Home</Button> 
                                             <Button className='btn btn-dark' >Resubscribe</Button>
                                         </Stack>

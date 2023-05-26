@@ -2044,6 +2044,10 @@ p.left-icon img {
 /* Homepage Ends */
 
 
+.for-mobile {
+    display: none;
+}
+
 
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
@@ -2169,6 +2173,38 @@ p.left-icon img {
 }
 
 @media (max-width: 767.98px) {
+    .for-mobile {
+        display: block;
+    }
+
+    .for-desktop {
+        display: none;
+    }
+
+    .dropdown-mobile .MuiSelect-select,
+    .MuiPopover-root .MuiList-root .MuiMenuItem-root {
+        font-size: 14px !important;
+        font-weight: 500;
+    }
+
+    .learn-earn-dropdown {
+        margin-top: 32px;
+        margin-bottom: 48px;
+    }
+
+    .dropdown-mobile.notification-filter h5 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #FCFCFD;
+        border: 1px solid #E6E8EC;
+        border-radius: 12px;
+        padding: 12px;
+        font-size: 14px !important;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
     .subscription-steps {
         border-top: 1px solid #eee;
         padding-top: 0;
@@ -2199,7 +2235,8 @@ p.left-icon img {
     }
 
     /* homepage */
-    .filter-btn, .learn-cypto-tab .MuiTabs-flexContainer{
+    .filter-btn,
+    .learn-cypto-tab .MuiTabs-flexContainer {
         gap: 8px;
         padding: 5px 0;
         overflow-y: hidden;
@@ -2208,32 +2245,41 @@ p.left-icon img {
         align-items: center;
         flex-wrap: unset;
     }
-    .hero-heading{
+
+    .hero-heading {
         font-size: 48px !important;
     }
-    .mobile-flex{
+
+    .mobile-flex {
         display: flex;
         align-items: start;
     }
-    .mobile-flex img{
+
+    .mobile-flex img {
         padding-right: 20px;
     }
-    .grid-bit{
+
+    .grid-bit {
         margin: 0px !important;
         width: 100% !important;
     }
-    .mobile-text-center{
+
+    .mobile-text-center {
         text-align: center !important;
     }
-    .mobile-none{
+
+    .mobile-none {
         display: none !important;
     }
-    .flex-between-box .MuiGrid-root{
+
+    .flex-between-box .MuiGrid-root {
         margin-bottom: 30px !important;
     }
-    .mobile-font-40{
+
+    .mobile-font-40 {
         font-size: 40px !important;
     }
+
     .market-hero-img-wrapper {
         position: inherit;
         transform: none;

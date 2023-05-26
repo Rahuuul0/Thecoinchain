@@ -93,7 +93,7 @@ const Profile = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Box component="main" className='subscription-wrapper' sx={{ mt: 8 }}>
+                <Box component="main" className='subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>
@@ -115,7 +115,7 @@ const Profile = () => {
                         </Box>
                     </Container>
 
-                    <Box className='subscription-steps'>
+                    <Box className='subscription-steps account-main'>
                         <Container maxWidth="lg">
                             <Box className='subscription-steps-inner'>
                                 <Box className='subscription-steps-col'>
@@ -139,10 +139,12 @@ const Profile = () => {
                                     <Box className="step-one">
                                         <Box className=''>
                                             <Grid container  >
-                                                <Grid item xs={12} sm={8} md={8}>
+                                                <Grid item xs={12} sm={8} md={8}  sx={{ paddingBottom : {xs: '20px' , md: '5px'}}}>
                                                     <Box>
                                                         <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} >Breanne Schinner</Typography>
                                                         <Typography component="p" variant='body2' className='secondary-color' sx={{ fontSize: '14px', color: '#777E90' }}>hello@coinguru.org</Typography>
+                                                        <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>VIP</Button>
+                                        
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={12} sm={4} md={4}>
@@ -182,20 +184,19 @@ const Profile = () => {
                                                     </Box>
                                                 </Grid>
                                             </Grid>
-                                            <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', borderRadius: '90px !important' }}>VIP</Button>
-                                        </Box>
+                                           </Box>
                                         <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
                                             <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} paddingY={5}  >Features</Typography>
                                         </Box>
                                         <Box>
-                                            <Grid container paddingTop={5} paddingBottom={1}>
-                                                <Grid item xs={12} sm={11} md={11}>
+                                            <Box display='flex' paddingY={3}>
+                                                <span >
                                                     <Typography component="p" variant='body2' fontWeight={500} >VIP - Your annual plan will be expired on 15/2/2025</Typography>
-                                                </Grid>
-                                                <Grid item xs={12} sm={1} md={1}>
+                                                </span>
+                                                <span >
                                                     <Switch {...label} defaultChecked />
-                                                </Grid>
-                                            </Grid>
+                                                </span>
+                                            </Box>
                                         </Box>
                                         <Typography component="p" variant='body2' paddingBottom={3} >
                                             Get all crypto price predictions
@@ -210,7 +211,7 @@ const Profile = () => {
                                             Stay informed, stay profitable
                                         </Typography>
                                     </Box>
-                                    <Box className="update-profile" sx={{ backgroundColor: '#F1F2F4', }} padding={5}>
+                                    <Box className="update-profile" sx={{ backgroundColor: '#F1F2F4', padding : {xs: '20px' , md: '40px'}, borderRadius: '15px' }} >
                                         <Typography component="h5" variant='body1' className='large-caption'>
                                             Update your profile
                                         </Typography>
@@ -253,7 +254,7 @@ const Profile = () => {
                                         </Box>
                                     </Box>
                                     <Typography textAlign='right' paddingY={3}>
-                                        <Button className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>
+                                        <Button className='btn btn-primary' sx={{ marginLeft : {xs: 'initial' , md: 'auto'} }}>Save Settings</Button>
                                     </Typography>
                                 </Box>
                             </Box>

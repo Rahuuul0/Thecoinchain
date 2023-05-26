@@ -141,7 +141,7 @@ const Referrals = () => {
                                                 Total rewards
                                             </Typography>
                                             <Typography component="h3" variant="h3" className="secondary-font" fontWeight={700} paddingBottom={2}>
-                                                1,056.00  <span className='usdt' >USDT</span>
+                                                1,056.00  <span className='green-color' >USDT</span>
                                             </Typography>
                                             <Typography component="p" variant="p" className="secondary-color small-caption " paddingBottom={3}  >
                                                 You're earning 20% of the subscription plan your<br />

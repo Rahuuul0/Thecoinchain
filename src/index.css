@@ -28,7 +28,9 @@
     --color-grey: rgba(119, 126, 144, 1);
     --secondary-color: #777E90;
 }
-
+.color-dark{
+    color: #23262F;
+}
 :focus {
     outline: none !important;
 }
@@ -83,7 +85,7 @@ body .modal-dialog * {
 }
 
 #root .btn-success {
-    background-color: #58BD7D;
+    background-color: #58BD7D !important;
 }
 
 #root .btn-error {
@@ -166,7 +168,7 @@ div * {
     font-family: var(--primary-font) !important;
 }
 
-.secondary-font {
+#root .secondary-font {
     font-family: var(--secondary-font) !important;
 }
 
@@ -742,7 +744,7 @@ input[type=number] {
     font-family: var(--secondary-font) !important;
 }
 
-.orange-btn {
+ #root .orange-btn {
     background-color: #FF6838 !important;
     color: #fff !important;
 }
@@ -2123,8 +2125,21 @@ p.left-icon img {
 .for-mobile {
     display: none;
 }
+/* 2fa page */
 
-
+.fa span{
+    color: #58BD7D;
+}
+.fa-heading-box h3{
+    font-family: var(--secondary-font) !important;
+}
+.email-icon{
+    position: relative;
+    top: 6px;
+}
+.fa-disabled span{
+    color: #FF6838;
+}
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
 

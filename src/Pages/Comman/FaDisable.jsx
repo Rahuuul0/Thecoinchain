@@ -122,6 +122,7 @@ const Profile = () => {
                                         </Grid>
                                         <Grid items xs={12} md={12}>
                                             <Box
+                                                justifyContent='center'
 
                                                 className='scanner'
                                                 sx={{ mt: '24px' }}
@@ -134,7 +135,7 @@ const Profile = () => {
                                     </Grid>
 
                                     <Typography textAlign='right' paddingY={3}>
-                                        <Button className='btn btn-success btn-primary mobile-w-100' >Enable 2FA</Button>
+                                        <Button className='btn btn-success btn-primary mobile-w-100' sx={{margin: '0 auto'}} >Enable 2FA</Button>
                                     </Typography>
                                 </Box>
                             </Box>

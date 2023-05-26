@@ -18,7 +18,7 @@ function handleClick(event) {
 
 
 
-const Profile = () => {
+const FaEnable = () => {
    
     const breadcrumbs = [
         <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
@@ -155,4 +155,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default FaEnable

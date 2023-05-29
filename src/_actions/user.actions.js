@@ -1,47 +1,102 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from '../_helpers';
-import { authAtom } from '../_state';
-import { switchAtom } from '../_state';
-
+import { switchAtom, userErrorAtom } from '../_state';
 import { useAlertActions } from '../_actions/alert.actions';
-import { Labels, Apis,RoutesName } from '../_common/app.constants'
+import { Labels, Apis } from '../_common/app.constants'
+import axios from 'axios';
 
 const useUserActions = () => {
     const navigate = useNavigate()
     const fetchWrapper = useFetchWrapper();
     const alertActions = useAlertActions();
-    const [auth, setAuth] = useRecoilState(authAtom);
     const [Soption, setSoption] = useRecoilState(switchAtom);
-   
-    const login = async ({ email, password }) => {
+    const setUserError = useSetRecoilState(userErrorAtom);
+
+    const login = async ({email, password}) => {
         return fetchWrapper.post(Apis.Login, { email, password })
             .then(res => {
                 if (res.statusCode === 200) {
+                    setUserError(true)
                     localStorage.setItem("email",res.data.email)
-                    alertActions.success("Logged In Successfully");
+                    alertActions.success(Labels.Login_Success);
                     navigate("/")
                 } else {
                     alertActions.error(res.msg);
                 }
             }).catch((err)=>{console.warn(err)})
     }
+
+    const loginAuth = async (data) => {
+        let authData = {}
+        authData.type = data.type;
+        authData.google_id = data.google_id;
+        authData.email = data.email;
+        return fetchWrapper.post(Apis.Login, authData)
+            .then(res => {
+                if (res.statusCode === 200) {
+                    localStorage.setItem("email",res.data.email)
+                    alertActions.success(Labels.Login_Success);
+                    navigate("/")
+                } else {
+                    alertActions.error(res.msg);
+                }
+            }).catch((err)=>{console.warn(err)})
+    }
+
+    const googleAuth = async (user) => {
+        axios
+            .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user?.access_token}`, {
+                headers: {
+                    Authorization: `Bearer ${user.access_token}`,
+                    Accept: 'application/json'
+                }
+            })
+            .then((res) => {
+                let authData = {}
+                authData.type = 'google';
+                authData.name = res.data.name;
+                authData.google_id = res.data.id;
+                authData.email = res.data.email;
+                 createAuth(authData);
+            })
+            
+            .catch((err) => console.log(err));
+    }
+
+    const googleLogin = async (user) => {
+        axios
+            .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user?.access_token}`, {
+                headers: {
+                    Authorization: `Bearer ${user.access_token}`,
+                    Accept: 'application/json'
+                }
+            })
+            .then((res) => {
+                let loginData = {}
+                loginData.type = 'google';
+                loginData.google_id = res.data.id;
+                loginData.email = res.data.email;
+                console.log(loginData,'loginData');
+                loginAuth(loginData);
+            })
+
+            .catch((err) => console.log(err));
+    }
        
     const loginMobile = ({ number, passwordMob }) => {
 
             alertActions.success("called"+ number +" "+passwordMob);
     }
-            
-            
 
     const forgotPassword = async (email) => {
            return fetchWrapper.post(Apis.Forgot_Password, { email })
            .then(res => {
             if (res.statusCode === 200) {
-                alertActions.success("We have sent you the code");          
+                alertActions.success(Labels.Password_Reset_Email.replaceAll(Labels.Replce_Text, email));        
                 setSoption(false)
             } else {
-                alertActions.error("error");
+                alertActions.error(Labels.Error);
             }
         }).catch((err)=>{console.warn(err)})
 
@@ -52,10 +107,10 @@ const useUserActions = () => {
             return fetchWrapper.post(Apis.Forgot_Password_Verify, { otp })
             .then(res => {
              if (res.statusCode === 200) {
-                 alertActions.success("Success");
+                 alertActions.success(Labels.Success);
                  navigate("/reset-password")
              } else {
-                 alertActions.error("error");
+                 alertActions.error(Labels.Error);
              }
          }).catch((err)=>{console.warn(err)})
  
@@ -64,19 +119,44 @@ const useUserActions = () => {
 
     const create = async ({email, mobile, password, confirm_password }) => {
         const phone = mobile;
-        return fetchWrapper.post(Apis.Create, { email, phone, password, confirm_password })
+        const type = "website";
+        const name = "Unknown Name";
+
+        return fetchWrapper.post(Apis.Create,{email, phone, password, confirm_password ,type, name } )
             .then(res => {
                 if (res.statusCode === 200) {
                     alertActions.success("Please select an option");
-                    localStorage.setItem("email",res.data.email)
-                    localStorage.setItem("phone",res.data.phone)
+                    localStorage.setItem("email", res.data.email)
+                    localStorage.setItem("phone", res.data.phone)
                     navigate("/confirm-account")
                 } else {
-                    alertActions.error("error");
+                    alertActions.error(Labels.Error);
                 }
-            }).catch((err)=>{console.log(err);});
+            }).catch((err) => { console.log(err); });
     }
 
+    const createAuth = async (data) => {
+        console.warn(data)
+        let authData = {}
+        authData.type = data.type;
+        authData.name = data.name;
+        authData.google_id = data.google_id;
+        authData.email = data.email;
+        authData.password = "Admin@123";
+        authData.phone = '1235485695'
+        return fetchWrapper.post(Apis.Create, authData)
+            .then(res => {
+                if (res.statusCode === 200) {
+                    alertActions.success("Please select an option");
+                    localStorage.setItem("email", res.data.email)
+                    localStorage.setItem("phone", res.data.phone)
+                    navigate("/")
+                } else {
+                    alertActions.error(Labels.Error);
+                }
+            }).catch((err) => { console.log(err); });
+    }
+    
     const getOtp = async () => {
        const  email = localStorage.getItem("email")
         return fetchWrapper.post(Apis.GetOtp, { email })
@@ -84,7 +164,7 @@ const useUserActions = () => {
                 if (res.statusCode === 200) {
                     alertActions.success("We have sent you the code ");
                 } else {
-                    alertActions.error("Error");
+                    alertActions.error(Labels.Error);
                 }
             }).catch((err)=>{console.log(err);});
     }
@@ -92,7 +172,7 @@ const useUserActions = () => {
         return fetchWrapper.post(Apis.VerifyRegisterOtp, { otp })
             .then(res => {
                 if (res.statusCode === 200) {
-                    alertActions.success("Verified Successfully ");
+                    alertActions.success(Labels.Verified);
                     navigate("/login")
                 } else {
                     alertActions.error("Error Verifying");
@@ -107,10 +187,10 @@ const useUserActions = () => {
         return fetchWrapper.post(Apis.Reset_Password, { email, newPassword })
             .then(res => {
              if (res.statusCode === 200) {
-                alertActions.success('Password Reset Successfully');
+                alertActions.success(Labels.Password_Reset_Success);
                  navigate("/login")
              } else {
-                 alertActions.error("error");
+                 alertActions.error(Labels.Error);
              }
          }).catch((err)=>{console.warn(err)})
     }
@@ -120,10 +200,9 @@ const useUserActions = () => {
         return fetchWrapper.post(Apis.Change_Password, { old_password, new_password })
             .then(res => {
              if (res.statusCode === 200) {
-                alertActions.success('Password Change Successfully');
-                //  navigate("/login")
+                alertActions.success(Labels.Password_Change_Success);
              } else {
-                 alertActions.error("error");
+                 alertActions.error(Labels.Error);
              }
          }).catch((err)=>{console.warn(err)})
     }
@@ -145,6 +224,9 @@ const useUserActions = () => {
         verifyRegisterOtp,
         resetPassword, 
         createPassword,
+        googleAuth,
+        googleLogin,
+        loginAuth
     }
 
 }

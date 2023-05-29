@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from 'recoil';
 import React from 'react'
 import { useState } from "react";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {  ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,7 +12,6 @@ import { switchAtom } from '../../_state/users';
 import { useUserActions } from "../../_actions/user.actions";
 import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
 import IconButton from "@mui/material/IconButton";
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LogoLight from '../../../public/assets/images/logo-light.svg';
 import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
@@ -127,6 +126,7 @@ const ForgotPassword = () => {
                                             type="submit"
                                             variant="contained"
                                             className='btn btn-primary'
+                                            disabled={isSubmitting}
                                         >
                                             Continue
                                         </Button>

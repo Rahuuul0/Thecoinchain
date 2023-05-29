@@ -10,6 +10,7 @@ import BuyCypto from "../../../../../public/assets/images/buyCypto.svg";
 import Market from "../../../../../public/assets/images/market.svg";
 import LearnCypto from "../../../../../public/assets/images/learn-cypto.svg";
 import Appleicon from "../../../../../public/assets/images/apple.svg";
+import GoogleIcon from "../../../../../public/assets/images/google-g-2015-logo-svgrepo-com.svg";
 import InformedCypto from "../../../../../public/assets/images/informed-cypto.svg";
 import DarkLogo from "../../../../../public/assets/images/logo.svg";
 import BusinessSlider from "../../../../../public/assets/images/businessinsider.svg";
@@ -309,11 +310,12 @@ useEffect(()=>{window.scrollTo({top:0,left:0,behavior:"smooth"})});
                 <Typography className='' variant='h5' fontSize={24} paddingBottom={5}>
                   Coming soon...
                 </Typography>
+
                 <Stack direction="row" spacing={2} sx={{ borderBottom: '1px solid #E6E8EC', paddingBottom: '20px' ,paddingTop: '20px' }} >
-                   <img src={Appleicon}/>
+                   <img src={GoogleIcon}/>
                    <Box>
                     <Typography variant='' component='div'  className='body-caption secondary-color'>Download from</Typography>
-                    <Typography variant='' component='div' className='body-large '>Appstore</Typography>
+                    <Typography variant='' component='div' className='body-large '>Google Play</Typography>
                    </Box>
                 </Stack>
 
@@ -321,7 +323,7 @@ useEffect(()=>{window.scrollTo({top:0,left:0,behavior:"smooth"})});
                    <img src={Appleicon}/>
                    <Box>
                     <Typography variant='' component='div'  className='body-caption secondary-color'>Download from</Typography>
-                    <Typography variant='' component='div' className='body-large '>Google Play</Typography>
+                    <Typography variant='' component='div' className='body-large '>Appstore</Typography>
                    </Box>
                 </Stack>
 

@@ -11,6 +11,10 @@ import FA from '../../../public/assets/images/fa.svg';
 import Lockbtn from '../../../public/assets/images/lockbtn.svg';
 import { KeyboardArrowRightIcon, NavigateNext } from '@mui/icons-material/';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import { useForm } from "react-hook-form";
+import { useUserActions } from "../../_actions/user.actions"
 
 const plans = [
     {
@@ -46,6 +50,7 @@ const MenuProps = {
         },
     },
 };
+
 function getStyles(name, personName, theme) {
     return {
         fontWeight:
@@ -55,8 +60,31 @@ function getStyles(name, personName, theme) {
     };
 }
 const Profile = () => {
+    const profileUpdate = useUserActions();
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
+  //yup validation
+    const validationSchema = Yup.object().shape({
+        name: Yup.string()
+        .trim()
+        .required("Name is required"),
+        email: Yup.string()
+            .email()
+            .trim()
+            .required("Email Address is required"),
+        mobile: Yup.string()
+            .trim()
+            .required("Mobile is required")        
+    });
+     
+       const formOptions = { resolver: yupResolver(validationSchema) };
+       // get functions to build form with useForm() hook
+       const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
+       const { errors, isSubmitting } = formState;
+        
+    //    const SubmitForm= () =>{
+    //       alert('gfgfggdf');
+    //    }
 
     const [personName, setPersonName] = React.useState([]);
     const handleChange = (event, newValue) => {
@@ -90,6 +118,11 @@ const Profile = () => {
         'Usa',
     ];
     const [value, setValue] = React.useState('1');
+
+    const submitFunction = () => {
+        profileUpdate.updateUser(localStorage.getItem("id"),formData)
+    }
+    const formData = watch();
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -210,11 +243,16 @@ const Profile = () => {
                                             Stay informed, stay profitable
                                         </Typography>
                                     </Box>
-                                    <Box className="update-profile" sx={{ backgroundColor: '#F1F2F4', }} padding={5}>
+                                    <Box  
+                                        noValidate
+                                        component="form"
+                                        onSubmit={handleSubmit(submitFunction)}
+                                    >
+                                    <Box   className="update-profile" sx={{ backgroundColor: '#F1F2F4', }} padding={5}>
                                         <Typography component="h5" variant='body1' className='large-caption'>
                                             Update your profile
                                         </Typography>
-                                        <Box className='' paddingY={2}>
+                                        <Box className='' paddingY={1} >
                                             <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Name</Typography>
                                             <TextField
                                                 // label="Name"
@@ -232,10 +270,12 @@ const Profile = () => {
                                                 autoComplete="off"
                                                 backgroundColor='#fff'
                                             // size="small"
+                                                autoFocus
+                                                {...register("name")}
                                             />
-
+                                             <div style={{ color: "red" }}>{errors.name?.message}</div>
                                         </Box>
-                                        <Box className=''>
+                                        <Box className=''  paddingY={1}>
                                             <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Email</Typography>
                                             <TextField
                                                 // label="email"
@@ -252,19 +292,42 @@ const Profile = () => {
                                                 name="email"
                                                 autoComplete="off"
                                             // size="small"
+                                                {...register("email")}
                                             />
-
+                                              <div style={{ color: "red" }}>{errors.email?.message}</div>
+                                        </Box>
+                                        <Box className=''>
+                                            <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Mobile</Typography>
+                                            <TextField
+                                                // label="email"
+                                                className="form-control"
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                                variant="outlined"
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                id="mobile"
+                                                placeholder='Mobile'
+                                                name="mobile"
+                                                autoComplete="off"
+                                            // size="small"
+                                               {...register("mobile")}
+                                            />
+                                            <div style={{ color: "red" }}>{errors.mobile?.message}</div>
                                         </Box>
                                     </Box>
                                     <Typography textAlign='right' paddingY={3}>
-                                        <Button className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>
+                                        <Button type="submit" className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>
                                     </Typography>
+                                    </Box>
                                 </Box>
                             </Box>
                         </Container>
                     </Box>
 
-                </Box >
+                </Box>
             </ThemeProvider>
         </>
     )

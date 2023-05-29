@@ -19,6 +19,7 @@ const useUserActions = () => {
             .then(res => {
                 if (res.statusCode === 200) {
                     localStorage.setItem("email",res.data.email)
+                    localStorage.setItem("id",res.data.id)
                     alertActions.success("Logged In Successfully");
                     navigate("/")
                 } else {
@@ -133,6 +134,18 @@ const useUserActions = () => {
                 navigate('/login');
                
     }
+    const updateUser =(id,{name,email, mobile})=>{
+        const phone = mobile;
+      return fetchWrapper.post(`${Apis.Update_User}?id=${id}`,{name,email,phone})
+      .then(res=>{
+        if(res.statusCode === 200){
+            alertActions.success('Update User is Successfully' )
+        } else{
+            alertActions.error("error");
+        }
+      }).catch((err)=>{console.warn(err)})
+       
+    }
 
     return {
         login,
@@ -145,6 +158,7 @@ const useUserActions = () => {
         verifyRegisterOtp,
         resetPassword, 
         createPassword,
+        updateUser,
     }
 
 }

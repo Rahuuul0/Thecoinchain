@@ -32,6 +32,7 @@ export const Apis = {
     GetOtp:'get-otp',
     VerifyRegisterOtp:'verify-user',
     Change_Password: 'change-password',
+    Update_User: 'update-user'
 }
 
 export const theme = createTheme({

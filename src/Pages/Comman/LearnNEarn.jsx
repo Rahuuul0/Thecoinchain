@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { Box, Container, Grid, Typography, Button, FormControl, MenuItem } from '@mui/material'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Learn01 from '../../../public/assets/images/learn01.png'
+import Learn02 from '../../../public/assets/images/learn02.png'
+import Learn03 from '../../../public/assets/images/learn03.png'
+import LoadingImg from '../../../public/assets/images/icons/loading.svg'
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 
 const LearnNEarn = () => {
@@ -46,7 +49,10 @@ const LearnNEarn = () => {
                 <Box className='learn-n-earn-cards'>
                     <Box className='learn-n-earn-card'>
                         <Box className='learn-n-earn-video-wrapper'>
-                            <img src={Learn01} alt='' />
+                            <video poster={Learn01} width="100%" height="100%" controls>
+                                <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
                         </Box>
                         <span className='learn-badge'>Learn & Earn</span>
                         <Typography component="p" variant='body1' className='body-large'>
@@ -64,7 +70,10 @@ const LearnNEarn = () => {
                     </Box>
                     <Box className='learn-n-earn-card'>
                         <Box className='learn-n-earn-video-wrapper'>
-                            <img src={Learn01} alt='' />
+                            <video poster={Learn02} width="100%" height="100%" controls>
+                                <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
                         </Box>
                         <span className='learn-badge'>weekly watchlist airdrop</span>
                         <Typography component="p" variant='body1' className='body-large'>
@@ -82,7 +91,10 @@ const LearnNEarn = () => {
                     </Box>
                     <Box className='learn-n-earn-card'>
                         <Box className='learn-n-earn-video-wrapper'>
-                            <img src={Learn01} alt='' />
+                            <video poster={Learn03} width="100%" height="100%" controls>
+                                <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
                         </Box>
                         <span className='learn-badge'>featured</span>
                         <Typography component="p" variant='body1' className='body-large'>
@@ -102,8 +114,8 @@ const LearnNEarn = () => {
                 <Button
                     sx={{ mt: 10, mx: 'auto' }}
                     variant="outlined"
-                    className='btn btn-outlined-secondary' startIcon={<RotateLeftIcon />}>
-                    Load more
+                    className='btn btn-outlined-secondary'>
+                    <img src={LoadingImg} alt='loading' /> Load more
                 </Button>
             </Box>
         </>

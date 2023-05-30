@@ -25,6 +25,8 @@ import ChangePassword from "./ChangePassword";
 import FaEnable from "./FaEnable";
 import PrivacyPolicy from "./PrivacyPolicy";
 import FaDisable from "./FaDisable";
+import Disclaimer from "./Disclaimer";
+import TermsOfUse from "./TermsOfUse";
 
 
 const Customer = () => {
@@ -46,7 +48,7 @@ const Customer = () => {
         <Route path={`/market`} exact element={<Market />} />
         <Route path={`/predict-market`} exact element={<PredictMarket />} />
         <Route path={`/subscribed-predict-market`} exact element={<SubscribedPredictMarkert />} />
-        <Route path={`/prediction-dashboard`} exact element={ <><Header /> <PredictionDashboard />  <Footer /></>} />
+        <Route path={`/prediction-dashboard`} exact element={<><Header /> <PredictionDashboard />  <Footer /></>} />
         <Route path={`/subscription`} exact element={<Subscription />} />
         <Route path={`/profile`} exact element={<Profile />} />
         <Route path={`/notifications`} exact element={<Notifications />} />
@@ -56,6 +58,8 @@ const Customer = () => {
         <Route path={`/fa-enable`} exact element={<FaEnable />} />
         <Route path={`/fa-disable`} exact element={<FaDisable />} />
         <Route path={`/privacy-policy`} exact element={<PrivacyPolicy />} />
+        <Route path={`/disclaimer`} exact element={<Disclaimer />} />
+        <Route path={`/terms-of-use`} exact element={<TermsOfUse />} />
       </Routes>
     </div>
   );

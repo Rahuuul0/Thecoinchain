@@ -10,9 +10,11 @@ import GraphDown from '../../../public/assets/images/chart-down.svg';
 import BtcIc from '../../../public/assets/images/icons/btc-ic.svg';
 import AtcIc from '../../../public/assets/images/icons/atc-ic.svg';
 import EthIc from '../../../public/assets/images/icons/eth-ic.svg';
+import { useNavigate } from 'react-router-dom';
 
 const MarketCard = () => {
 
+    const navigate = useNavigate();
     const [value, setValue] = useState('1');
 
     const handleChange = (event, newValue) => {
@@ -112,7 +114,7 @@ const MarketCard = () => {
                             </TabContext>
                             <Button
                                 variant="outlined"
-                                className='btn btn-outlined-secondary'>
+                                className='btn btn-outlined-secondary' onClick={() => { navigate("../predict-market") }}>
                                 Predict
                             </Button>
                         </Box>

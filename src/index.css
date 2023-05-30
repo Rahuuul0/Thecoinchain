@@ -28,9 +28,7 @@
     --color-grey: rgba(119, 126, 144, 1);
     --secondary-color: #777E90;
 }
-.color-dark{
-    color: #23262F;
-}
+
 :focus {
     outline: none !important;
 }
@@ -85,7 +83,7 @@ body .modal-dialog * {
 }
 
 #root .btn-success {
-    background-color: #58BD7D !important;
+    background-color: #58BD7D;
 }
 
 #root .btn-error {
@@ -168,7 +166,7 @@ div * {
     font-family: var(--primary-font) !important;
 }
 
-#root .secondary-font {
+.secondary-font {
     font-family: var(--secondary-font) !important;
 }
 
@@ -477,7 +475,7 @@ main.auth-wrapper {
 }
 
 .auth-form .MuiTabs-root button {
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
 }
 
 .auth-form button.Mui-selected {
@@ -801,7 +799,7 @@ input[type=number] {
     font-family: var(--secondary-font) !important;
 }
 
- #root .orange-btn {
+.orange-btn {
     background-color: #FF6838 !important;
     color: #fff !important;
 }
@@ -909,7 +907,7 @@ input[type=number] {
 
 .market-hero h1 {
     font-weight: 700;
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
     margin-bottom: 32px;
 }
 
@@ -1027,7 +1025,7 @@ input[type=number] {
 }
 
 .learn-cypto-tab .MuiTabs-root button {
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
 }
 
 
@@ -1083,7 +1081,7 @@ input[type=number] {
 }
 
 .filter-btn .MuiTabs-root button {
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
 }
 
 .filter-btn button.Mui-selected {
@@ -1298,7 +1296,7 @@ input[type=number] {
 }
 
 .price-prediction h2 {
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
     margin-bottom: 20px;
 }
 
@@ -1313,7 +1311,7 @@ input[type=number] {
 }
 
 .learn-n-earn h2 {
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
 }
 
 .learn-n-earn-cards {
@@ -1376,6 +1374,10 @@ input[type=number] {
 .learn-n-earn-by .body-caption {
     color: var(--secondary-color);
     font-weight: 500;
+}
+
+video {
+    border-radius: 16px;
 }
 
 /* Crypto Table styles*/
@@ -1702,7 +1704,7 @@ input[type=number] {
     align-items: center;
     font-weight: 700;
     font-size: 14px;
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
 }
 
 .subscription-step.completed-step .number-circle {
@@ -1877,7 +1879,6 @@ input[type=number] {
     margin-top: 48px;
 }
 
-
 .become-a-crypto-trader-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1890,6 +1891,7 @@ input[type=number] {
     background: #FCFCFD;
     border-radius: 20px;
     padding: 85px 32px;
+    text-align: center;
 }
 
 .crypto-trader-img {
@@ -1900,6 +1902,10 @@ input[type=number] {
     width: 160px;
     height: 160px;
     object-fit: contain;
+}
+
+.become-a-crypto-trader-card .btn {
+    margin: auto;
 }
 
 /* profile section */
@@ -1944,7 +1950,7 @@ p.left-icon img {
 
 .modal-subscribed .modal-modal-description h2 {
     font-weight: 700;
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
     margin-bottom: 32px;
     justify-content: center;
 }
@@ -2125,9 +2131,6 @@ p.left-icon img {
     padding: 0px 15px !important
 }
 
-.short-subhead {
-    padding: 0px 300px;
-}
 
 .small-btn {
     height: 20px;
@@ -2182,21 +2185,14 @@ p.left-icon img {
 .for-mobile {
     display: none;
 }
-/* 2fa page */
 
-.fa span{
-    color: #58BD7D;
+video[poster] {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 16px;
 }
-.fa-heading-box h3{
-    font-family: var(--secondary-font) !important;
-}
-.email-icon{
-    position: relative;
-    top: 6px;
-}
-.fa-disabled span{
-    color: #FF6838;
-}
+
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
 
@@ -2360,6 +2356,11 @@ p.left-icon img {
     .for-mobile {
         display: block;
     }
+
+    .market-hero-img-wrapper img.for-mobile {
+        width: 100%;
+    }
+
 
     .for-desktop {
         display: none;
@@ -2715,15 +2716,6 @@ p.left-icon img {
     /* refferals */
     #root .mobile-body-large {
         font-size: 24px;
-    }
-    /* Subscriptions */
-    .subs-div.MuiStack-root{
-        display: block;
-    }
-    .subs-div.MuiStack-root button{
-        width: 100%;
-        min-width: 100%;
-        margin: 0px 0px 20px 0px;
     }
 }
 

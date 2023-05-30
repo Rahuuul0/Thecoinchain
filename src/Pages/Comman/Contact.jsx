@@ -1,8 +1,11 @@
 import { Container, Typography, Grid, Box, Stack, Button, Tab, Accordion, AccordionSummary, TextField, AccordionDetails, Select, OutlinedInput, MenuItem } from '@mui/material'
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
-import {  ArrowRightAlt, ExpandMore } from '@mui/icons-material';
+import { ArrowRightAlt, ExpandMore } from '@mui/icons-material';
 import { useContactActions } from '../../_actions';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
 import ContactHeroImage from "../../../public/assets/images/contact.svg";
 import InputBase from '@mui/material/InputBase';
 import Media from "../../../public/assets/images/media-img.svg";
@@ -94,9 +97,29 @@ function getStyles(name, personName, theme) {
 }
 
 const Contact = () => {
+  const useContactAddActions = useContactActions();
   const [value, setValue] = React.useState('1');
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
+
+  // form validation rules 
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .trim()
+      .required('Add Utility is required'),
+  });
+
+  //yup validation
+  const formOptions = { resolver: yupResolver(value == 1 ? validationSchema : validationSchemaMobile) };
+  // get functions to build form with useForm() hook
+  const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
+  const { errors, isSubmitting } = formState;
+
+  const formData = watch();
+
+  const handleFormSubmit = () =>{
+
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -150,7 +173,7 @@ const Contact = () => {
       </Container>
       {/* Banner Ends */}
 
-      <Container maxWidth='fluid' sx={{padding:'0px !important'}}>
+      <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
         <Box paddingY={7} className='newdesignbox'>
           <Grid container spacing={0} rowSpacing={6} >
             <Grid item xs={12} sm={3} md={3} >
@@ -350,9 +373,9 @@ const Contact = () => {
             </Box>
 
             <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4'  
-              sx={{fontSize: '12px',  transform: ' translate(0, -1.5px) scale(0.75)',   fontFamily: 'var(--primary-font) !important' ,    fontWeight: '700',     textTransform: 'uppercase'}}
-     className='small-caption primary-font secondary-color'>What is your issue about?</Typography>
+              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4'
+                sx={{ fontSize: '12px', transform: ' translate(0, -1.5px) scale(0.75)', fontFamily: 'var(--primary-font) !important', fontWeight: '700', textTransform: 'uppercase' }}
+                className='small-caption primary-font secondary-color'>What is your issue about?</Typography>
               <Select
                 multiple
                 displayEmpty
@@ -385,47 +408,31 @@ const Contact = () => {
             </Box>
 
             <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4'  
-              sx={{fontSize: '12px',  transform: ' translate(0, -1.5px) scale(0.75)',   fontFamily: 'var(--primary-font) !important' ,    fontWeight: '700',     textTransform: 'uppercase'}}
-     className='small-caption primary-font secondary-color'>Email address</Typography>
-              <Select
-              label='email'
-                multiple
-                displayEmpty
+              <TextField
+                label="Email"
                 className="form-control"
+                type="email"
                 InputLabelProps={{
-                    shrink: true,
+                  shrink: true,
                 }}
                 variant="standard"
-                value={personName}
-                onChange={handleChange}
-                input={<OutlinedInput />}
-                renderValue={(selected) => {
-                  if (selected.length === 0) {
-                    return <p className='margin-0'>Email</p>;
-                  }
-
-                  return selected.join(', ');
-                }}
-                MenuProps={MenuProps}
-                inputProps={{ 'aria-label': 'Without label' }}
-              >
-                <MenuItem disabled value="">
-                  Email
-                </MenuItem>
-                {names.map((name) => (
-                  <MenuItem
-                    key={name}
-                    value={name}
-                    style={getStyles(name, personName, theme)}
-                  >
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                placeholder='Email address'
+                name="email"
+                autoComplete="off"
+                size="small"
+                autoFocus
+                {...register("email")}
+                onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+              />
+              <div style={{ color: "red" }}>{errors.email?.message}</div>
             </Box>
+
             <Box paddingBottom={2}>
-               <TextField
+              <TextField
                 label="Subject"
                 className="form-control"
                 InputLabelProps={{
@@ -436,17 +443,16 @@ const Contact = () => {
                 required
                 fullWidth
                 id="Subject"
-                // placeholder='Password'
+                placeholder='Subject'
                 name="subject"
                 autoComplete="off"
-              // size="small"
               />
             </Box>
             <Box paddingTop='2'>
-                <TextField
+              <TextField
                 id="outlined-multiline-static"
-                label="Message" 
-                variant="standard" 
+                label="Message"
+                variant="standard"
                 className="form-control"
                 placeholder='Say something'
                 InputLabelProps={{

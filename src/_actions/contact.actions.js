@@ -23,4 +23,4 @@ const useContactActions = () => {
   }
 
 }
-export { useAddUtilityActions };
+export { useContactActions };

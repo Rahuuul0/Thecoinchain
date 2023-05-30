@@ -1,12 +1,46 @@
-import { Container, Typography, Box } from '@mui/material'
-import React from 'react'
+import { Container, Typography, Box, Link, Breadcrumbs, } from '@mui/material';
+import React from 'react';
+import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
+
+function handleClick(event) {
+    event.preventDefault();
+    console.info('You clicked a breadcrumb.');
+}
+
 
 const Disclaimer = () => {
+
+    const breadcrumbs = [
+        <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
+            Home
+        </Link>,
+        <Typography key="3" color="text.primary" sx={{ m: "0!important" }}>
+            Disclaimer
+        </Typography >,
+    ];
+
     return (
         <>
-            <Box component="main" className='extra-wrapper' sx={{ mt: 8 }}>
-                <Container>
-                    <Typography variant='h1' component="h1" className='extra-heading'>Disclaimer</Typography>
+            <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
+                <Container maxWidth="lg">
+                    <Box className='subscription-wrapper-head'>
+                        <Typography component="h2" variant='h2'>
+                            Disclaimer
+                        </Typography>
+
+                        <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
+                            <Box >
+                                <Breadcrumbs
+                                    separator={<NavigateNext fontSize="small" />}
+                                    aria-label="breadcrumb"
+                                    className='center-breadcrum'
+                                >
+                                    {breadcrumbs}
+                                </Breadcrumbs>
+
+                            </Box>
+                        </Box>
+                    </Box>
                     <Typography variant='body2' component="p">
                         Crypto-Rating.com makes no warranties whatsoever regarding reliability, accuracy or completeness of any text or graphical information available on the website. Any reference you place on this information remains strictly at your own risk. Price Predictions, Forecasts, Texts provided by Crypto-Rating.com is for information purposes only.
                     </Typography>
@@ -51,7 +85,7 @@ const Disclaimer = () => {
                     </Typography>
 
                 </Container>
-            </Box>
+            </Box >
         </>
     )
 }

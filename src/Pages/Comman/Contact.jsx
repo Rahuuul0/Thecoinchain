@@ -1,10 +1,13 @@
 import { Container, Typography, Grid, Box, Stack, Button, Tab, Accordion, AccordionSummary, TextField, AccordionDetails, Select, OutlinedInput, MenuItem } from '@mui/material'
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { ArrowRightAlt, ExpandMore } from '@mui/icons-material';
 import { useContactActions } from '../../_actions';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { contact_AddAtom } from '../../_state';
+import { useRecoilState } from 'recoil';
 import * as Yup from "yup";
 import ContactHeroImage from "../../../public/assets/images/contact.svg";
 import InputBase from '@mui/material/InputBase';
@@ -39,7 +42,7 @@ const Search = styled('div')(({ theme }) => ({
   maxWidth: '350px',
   fontSize: '14px',
   [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
+    marginLeft: theme.spacing(0),
     width: 'auto',
   },
 }));
@@ -56,7 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       border: '2px solid #E6E8EC',
       borderRadius: '90px',
       '&:focus': {
-        width: '20ch',
+        width: '300px',
       },
     },
   },
@@ -65,8 +68,8 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
   position: 'absolute',
-  top: '9%',
-  right: '5%',
+  top: '0%',
+  right: '1%',
   pointerEvents: 'none',
   display: 'flex',
   alignItems: 'center',
@@ -98,27 +101,39 @@ function getStyles(name, personName, theme) {
 
 const Contact = () => {
   const useContactAddActions = useContactActions();
-  const [value, setValue] = React.useState('1');
+  const [value, setValue] = useState('1');
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+  const [personName, setPersonName] = useState([]);
+  const [contactError, setContactError] = useRecoilState(contact_AddAtom)
 
   // form validation rules 
   const validationSchema = Yup.object().shape({
-    email: Yup.string()
+    ct_cu_email: Yup.string()
       .trim()
-      .required('Add Utility is required'),
+      .required('Email is required'),
+    ct_cu_subject: Yup.string()
+      .trim()
   });
 
   //yup validation
   const formOptions = { resolver: yupResolver(value == 1 ? validationSchema : validationSchemaMobile) };
   // get functions to build form with useForm() hook
   const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
-  const { errors, isSubmitting } = formState;
+  const { errors } = formState;
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formData = watch();
 
-  const handleFormSubmit = () =>{
-alert(111111111)
+  useEffect(() => {
+    if (contactError)
+        setIsSubmitting(false)
+}, [contactError])
+
+  const handleFormSubmit = (data) =>{
+    console.log(data,'data')
+    setIsSubmitting(true)
+    setUserError(false)
+    return useContactAddActions.add(data);
   }
 
   const handleChange = (event, newValue) => {
@@ -134,14 +149,11 @@ alert(111111111)
 
   return (
     <>
-      <Box component="main" sx={{ pt: 8 }}>
-      onSubmit={handleSubmit(handleFormSubmit)}
-      </Box>
       {/* Banner starts */}
       <Container>
         <Box paddingTop={5} paddingBottom={10}>
           <Grid container sx={{ alignItems: 'center' }}>
-            <Grid item xs={12} sm={6} md={6} paddingRight={8}>
+            <Grid item xs={12} sm={6} md={6} paddingRight={5} className='padding-0-mobile'>
               <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} >Save your time with Stacks</Typography>
               <Typography variant='h1' component="div" className='hero-heading primary-color'>
                 How can we help
@@ -151,7 +163,7 @@ alert(111111111)
               </Typography>
               <Typography component="div" paddingBottom={2} >
 
-                <Search>
+                <Search className='contact-search'>
 
                   <StyledInputBase
                     className='primary-font'
@@ -159,8 +171,10 @@ alert(111111111)
                     inputProps={{ 'aria-label': 'search' }}
                   />
 
-                  <SearchIconWrapper className='search-icon'>
-                    <ArrowRightAlt />
+                  <SearchIconWrapper className='padding-0-mobile'>
+                    <Box className='search-icon'>
+                      <ArrowRightAlt />
+                    </Box>
                   </SearchIconWrapper>
                 </Search>
               </Typography>
@@ -331,8 +345,15 @@ alert(111111111)
       <Container maxWidth='fluid' sx={{ backgroundColor: '#F8F8F9' }}>
         <Container className='smallwidth'>
           <Box paddingY={10} className="topic-que">
-            <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' className='small-caption primary-font secondary-color'>Select a topic</Typography>
+          <Box
+          noValidate
+          component="form"
+          sx={{ mt: '24px' }}
+          onSubmit={handleSubmit(handleFormSubmit)}
+                                >
+          
+            <Box paddingBottom={2} className='topic-select-radio'>
+              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>Select a topic</Typography>
 
               <Stack direction='row' spacing={3} className='button-img' >
                 <Button className='btn' variant="outlined" > <span><img src={GenralIcon} /></span> General</Button>
@@ -340,7 +361,7 @@ alert(111111111)
               </Stack>
             </Box>
             <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='small-caption primary-font secondary-color'>What is your issue about?</Typography>
+              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>What is your issue about?</Typography>
               <Select
                 multiple
                 displayEmpty
@@ -425,10 +446,10 @@ alert(111111111)
                 autoComplete="off"
                 size="small"
                 autoFocus
-                {...register("email")}
-                onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                {...register("ct_cu_email")}
+                onChange={(e) => reset({ ...formData, ct_cu_email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
               />
-              <div style={{ color: "red" }}>{errors.email?.message}</div>
+              <div style={{ color: "red" }}>{errors.ct_cu_email?.message}</div>
             </Box>
 
             <Box paddingBottom={2}>
@@ -446,7 +467,10 @@ alert(111111111)
                 placeholder='Subject'
                 name="subject"
                 autoComplete="off"
+                {...register("ct_cu_subject")}
+                onChange={(e) => reset({ ...formData, ct_cu_subject: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
               />
+               <div style={{ color: "red" }}>{errors.ct_cu_subject?.message}</div>
             </Box>
             <Box paddingTop='2'>
               <TextField
@@ -461,18 +485,21 @@ alert(111111111)
                 multiline
                 rows={4}
                 fullWidth
+                {...register("ct_cu_msg")}
               />
             </Box>
             <Box paddingTop='2'>
               <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
                 <Button 
+                type='submit'
                 className='btn btn-primary' 
                 sx={{ float: 'right' }} 
+                disabled={isSubmitting}
                 variant='contained'>Send message
                 </Button>
               </Typography>
             </Box>
-
+          </Box>
           </Box>
         </Container>
       </Container>

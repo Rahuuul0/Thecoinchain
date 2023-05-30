@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {  ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
 import { Checkbox, Container, Box, TextField, Typography, Link, Button, FormControlLabel } from '@mui/material'
 import { useForm } from "react-hook-form";
@@ -15,12 +15,12 @@ import LogoLight from '../../../public/assets/images/logo-light.svg';
 import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
 import AppleIcon from '@mui/icons-material/Apple';
-import GoogleIcon from '@mui/icons-material/Google';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useAlertActions } from '../../_actions/alert.actions';
 
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import GoogleAuth from "./GoogleAuth";
+import GoogleAuth from "./GoogleAuth.jsx";
+
 const CreateAccount = () => {
     const navigate = useNavigate();
     const userActions = useUserActions();
@@ -31,8 +31,7 @@ const CreateAccount = () => {
             .email()
             .trim()
             .required("Email Address is required"),
-        mobile: Yup.string().required("Mobile number is required").matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, {message: "Please enter valid number.", excludeEmptyString: false}),
-        // mobile: Yup.string().required("Mobile number is required").max(10,"Mobile Number can't be more than 10 digits"),
+        mobile: Yup.string().required("Mobile Number is required").matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, {message: "Please enter valid number.", excludeEmptyString: false}),
         password: Yup.string()
             .trim()
             .required("Password is required")
@@ -83,7 +82,7 @@ const CreateAccount = () => {
             const token = captchaRef.current.getValue();
             if (token) {
                 captchaRef.current.reset();
-                userActions.create(formData);
+               return userActions.create(formData);
             }
             else {
                 alertActions.error("reCAPTCHA is mandatory")
@@ -93,7 +92,6 @@ const CreateAccount = () => {
             alertActions.error("You must agree with the Terms and Conditions")
         }
     } 
-    const [ profile, setProfile ] = useState([]);
     const [ agreement, setAgreement ] = useState(false);
     return (
         <>
@@ -133,7 +131,7 @@ const CreateAccount = () => {
                                     <Box component="div" className='open-id-btn-wrapper' >
                                         <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}>
 
-                                            <GoogleAuth setProfile = {setProfile} />
+                                            <GoogleAuth />
                                         </GoogleOAuthProvider>
                                         <Button variant="contained" className='btn btn-secondary' startIcon={<AppleIcon />}>
                                             Apple
@@ -265,7 +263,11 @@ const CreateAccount = () => {
                                             onChange={handleChange}
                                             asyncScriptOnLoad={asyncScriptOnLoad}
                                         />
-                                        <Button type="submit" variant="contained" className='btn btn-primary'>
+                                        <Button 
+                                        type="submit" 
+                                        variant="contained" 
+                                        disabled={isSubmitting}
+                                        className='btn btn-primary'>
                                             Sign up
                                         </Button>
                                     </Box>

@@ -1,16 +1,14 @@
 import React from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Modal, Link, Breadcrumbs, Stack, Select, OutlinedInput, MenuItem, Switch, TextField, FormControl } from '@mui/material';
+import { Box, Container, Grid, Typography, Button,  Link, Breadcrumbs, Stack, InputAdornment , TextField,  } from '@mui/material';
 import User from '../../../public/assets/images/user.svg';
 import Share from '../../../public/assets/images/share-square.svg';
 import Session from '../../../public/assets/images/session.svg';
 import Api from '../../../public/assets/images/api.svg';
-import BtcImg from '../../../public/assets/images/icons/btc-ic.svg';
 import FA from '../../../public/assets/images/fa.svg';
 import Lockbtn from '../../../public/assets/images/lockbtn.svg';
 import { KeyboardArrowRightIcon, NavigateNext } from '@mui/icons-material/';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 const plans = [
     {
@@ -74,7 +72,7 @@ const Referrals = () => {
             Home
         </Link>,
         <Typography key="3" color="text.primary">
-            Profile info
+            Referrals
         </Typography>,
     ];
     const names = [
@@ -93,11 +91,11 @@ const Referrals = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Box component="main" className='subscription-wrapper' sx={{ mt: 8 }}>
+                <Box component="main" className='subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>
-                                Profile info
+                            Referrals
                             </Typography>
 
                             <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
@@ -115,14 +113,14 @@ const Referrals = () => {
                         </Box>
                     </Container>
 
-                    <Box className='subscription-steps'>
+                    <Box className='subscription-steps account-main'>
                         <Container maxWidth="lg">
                             <Box className='subscription-steps-inner'>
                                 <Box className='subscription-steps-col'>
                                     <Stack spacing={2}>
                                         <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
                                             <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={User} /> </span>Profile</Typography>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Share} /> </span>Referrals</Typography>
+                                            <Typography className='left-icon secondary-color' paddingBottom={4} fontWeight={700} color='#23262F'><span><img src={Share} /> </span>Referrals</Typography>
                                             <Typography className='left-icon secondary-color' paddingBottom={2}><span><img src={Api} /> </span>API keys</Typography>
                                         </Box>
                                         <Box>
@@ -143,65 +141,61 @@ const Referrals = () => {
                                                 Total rewards
                                             </Typography>
                                             <Typography component="h3" variant="h3" className="secondary-font" fontWeight={700} paddingBottom={2}>
-                                                1,056.00  <span className='usdt' >USDT</span>
+                                                1,056.00  <span className='green-color' >USDT</span>
                                             </Typography>
-                                            <Typography component="p" variant="p" className="secondary-color small-caption "  >
+                                            <Typography component="p" variant="p" className="secondary-color small-caption " paddingBottom={3}  >
                                                 You're earning 20% of the subscription plan your<br />
                                                 referrals pay. Learn more
                                             </Typography>
                                             <Box className="center-box" padding={3} marginY={2} sx={{ backgroundColor: '#F1F2F4', borderRadius: '10px' }}>
-                                                <Typography component="h6" variant="h6" fontWeight={600} paddingBottom={2} className="body-large">
+                                                <Typography component="h6" variant="h6" paddingBottom={0} fontWeight={600} className="body-large mobile-body-large">
                                                     Invite friends to earn 20%
                                                 </Typography>
-                                                <Grid item container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                                                    <Grid item sm={6}>
-                                                        <Typography component="div" fontWeight={700} variant="h6" className="input-link small-caption" textTransform='uppercase' >
-                                                            REFERRALS LINK
-
-                                                        </Typography>
-                                                        <TextField
-                                                            // label="Link"
-                                                            className="form-control form-input"
+                                                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                                                    <Grid item xs={12}  sm={6}>
+                                                       <TextField
+                                                            label="REFERRALS LINK"
+                                                            className="black-label form-control white-input-box"
                                                             InputLabelProps={{
                                                                 shrink: true,
                                                             }}
-                                                            variant="outlined"
+                                                            variant="standard"
                                                             margin="normal"
                                                             required
                                                             fullWidth
                                                             id="link"
-                                                            placeholder='link'
+                                                            // placeholder='link'
                                                             name="link"
                                                             autoComplete="off"
-                                                            size="small"
-
+                                                        // size="small"
                                                         />
-                                                    </Grid>
-                                                    <Grid item sm={6}>
-                                                    <Typography component="div" fontWeight={700} variant="h6" className="input-link small-caption" textTransform='uppercase' >
-                                                    REFERRAL CODE
 
-                                                        </Typography> <TextField
-                                                            // label="REFERRALS COD E"
-                                                            className="form-control form-input"
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={6}>
+                                                       <TextField
+                                                            label="REFERRALS CODE"
+                                                            InputProps={{
+                                                                endAdornment: <InputAdornment position="end">Copied</InputAdornment>,
+                                                            }}
+                                                            className="black-label form-control white-input-box copied-adorement"
                                                             InputLabelProps={{
                                                                 shrink: true,
                                                             }}
-                                                            variant="outlined"
+                                                            variant="standard"
                                                             margin="normal"
                                                             required
                                                             fullWidth
                                                             id="code"
-                                                            placeholder='Link'
+                                                            // placeholder='Link'
                                                             name="code"
-                                                            autoComplete="off"     
-                                                            
+                                                            autoComplete="off"
+
                                                         // size="small"
                                                         />
                                                     </Grid>
                                                 </Grid>
                                             </Box>
-                                            <Button variant="outlined" className="referrals-btn btn btn-outlined-secondary">My dashboard</Button>
+                                            <Button variant="outlined" sx={{ marginY: '30px' }} className="referrals-btn btn btn-outlined-secondary">My dashboard</Button>
                                         </Box>
                                     </Box>
                                 </Box>

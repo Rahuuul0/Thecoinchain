@@ -6,13 +6,15 @@ export const Labels = {
     Error: 'error',
     Login_Success: "Login successfully",
     Upload_Success: "Uploaded successfully",
-    Password_Reset_Email: 'Password reset link has been sent to your XXXX successfully',
+    Password_Reset_Email: 'OTP sent, please check your XXXX successfully',
     Password_Reset_Success: "Your password has been reset successfully",
     Password_Change_Success: "Your password has been change successfully",
     Logout_Success: "Logout successfully",
+    Verified: "Verified Successfully ",
     Replce_Text: "XXXX",
     Success_Status_Code: 200,
     Error_Status_Code: 500,
+    
 }
 
 export const RoutesName = {
@@ -32,7 +34,8 @@ export const Apis = {
     GetOtp:'get-otp',
     VerifyRegisterOtp:'verify-user',
     Change_Password: 'change-password',
-    Contact: 'contact-us'
+    Contact: 'contact-us',
+    Update_User: 'update-user'
 }
 
 export const theme = createTheme({

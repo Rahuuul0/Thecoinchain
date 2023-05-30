@@ -23,7 +23,9 @@ import SubsPage from "./SubsPage";
 import Referrals from "./Referrals";
 import ChangePassword from "./ChangePassword";
 import FaEnable from "./FaEnable";
+import PrivacyPolicy from "./PrivacyPolicy";
 import FaDisable from "./FaDisable";
+
 
 const Customer = () => {
   return (
@@ -53,6 +55,7 @@ const Customer = () => {
         <Route path={`/referrals`} exact element={<Referrals />} />
         <Route path={`/fa-enable`} exact element={<FaEnable />} />
         <Route path={`/fa-disable`} exact element={<FaDisable />} />
+        <Route path={`/privacy-policy`} exact element={<PrivacyPolicy />} />
       </Routes>
     </div>
   );

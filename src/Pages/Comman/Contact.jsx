@@ -118,7 +118,7 @@ const Contact = () => {
   const formData = watch();
 
   const handleFormSubmit = () =>{
-
+alert(111111111)
   }
 
   const handleChange = (event, newValue) => {
@@ -135,7 +135,7 @@ const Contact = () => {
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}>
-
+      onSubmit={handleSubmit(handleFormSubmit)}
       </Box>
       {/* Banner starts */}
       <Container>
@@ -465,7 +465,11 @@ const Contact = () => {
             </Box>
             <Box paddingTop='2'>
               <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
-                <Button className='btn btn-primary' sx={{ float: 'right' }} variant='contained'>Send message</Button>
+                <Button 
+                className='btn btn-primary' 
+                sx={{ float: 'right' }} 
+                variant='contained'>Send message
+                </Button>
               </Typography>
             </Box>
 

@@ -192,12 +192,12 @@ function Header(props) {
                       <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="female"
+                        defaultValue="English"
                         name="radio-buttons-group"
                       >
-                        <FormControlLabel value="female" control={<Radio />} label="Female" />
-                        <FormControlLabel value="male" control={<Radio />} label="Male" />
-                        <FormControlLabel value="other" control={<Radio />} label="Other" />
+                        <FormControlLabel value="English" control={<Radio />} label="English" />
+                        <FormControlLabel value="Chinese" control={<Radio />} label="Chinese" />
+                        <FormControlLabel value="Japanese" control={<Radio />} label="Japanese" />
                       </RadioGroup>
                     </FormControl>
                   </Grid>

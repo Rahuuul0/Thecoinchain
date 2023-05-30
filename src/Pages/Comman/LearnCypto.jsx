@@ -11,6 +11,7 @@ import { Search, ArrowRightAlt, ArrowDropDown } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
+import { useNavigate } from 'react-router-dom';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -46,6 +47,9 @@ function getStyles(name, personName, theme) {
 }
 
 const LearnCypto = () => {
+
+  const navigate = useNavigate();
+
   const [value, setValue] = React.useState('1');
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
@@ -226,7 +230,7 @@ const LearnCypto = () => {
 
           <Grid container spacing={6} rowSpacing={6} >
             <Grid item xs={12} md={6} xl={4} >
-              <Box className='about-crypto'>
+              <Box className='about-crypto' onclick={() => { navigate("../learn-cypto-detail") }}>
                 <Button textTransform='uppercase' className='orange-btn float-img small-btn'>New</Button>
 
                 <Box className='avatar-rounded'>
@@ -249,7 +253,7 @@ const LearnCypto = () => {
             </Grid>
 
             <Grid item xs={12} md={6} xl={4} >
-              <Box className='about-crypto'>
+              <Box className='about-crypto' onclick={() => { navigate("../learn-cypto-detail") }}>
                 <Button textTransform='uppercase' className='orange-btn float-img small-btn'>New</Button>
 
                 <Box className='avatar-rounded'>
@@ -272,7 +276,7 @@ const LearnCypto = () => {
             </Grid>
 
             <Grid item xs={12} md={6} xl={4} >
-              <Box className='about-crypto'>
+              <Box className='about-crypto' onclick={() => { navigate("../learn-cypto-detail") }}>
                 <Button textTransform='uppercase' className='orange-btn float-img small-btn'>New</Button>
 
                 <Box className='avatar-rounded'>
@@ -295,7 +299,7 @@ const LearnCypto = () => {
             </Grid>
 
             <Grid item xs={12} md={6} xl={4} >
-              <Box className='about-crypto'>
+              <Box className='about-crypto' onclick={() => { navigate("../learn-cypto-detail") }}>
                 <Button textTransform='uppercase' className='orange-btn float-img small-btn'>New</Button>
 
                 <Box className='avatar-rounded'>
@@ -318,7 +322,7 @@ const LearnCypto = () => {
             </Grid>
 
             <Grid item xs={12} md={6} xl={4} >
-              <Box className='about-crypto'>
+              <Box className='about-crypto' onClick={() => { navigate("../learn-cypto-detail") }}>
                 <Button textTransform='uppercase' className='orange-btn float-img small-btn'>New</Button>
 
                 <Box className='avatar-rounded'>

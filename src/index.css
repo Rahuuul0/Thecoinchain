@@ -2208,6 +2208,16 @@ video[poster] {
     border-radius: 16px;
 }
 
+#root .extra-wrapper h1 {
+    margin-bottom: 24px;
+    font-size: 48px;
+    font-family: var(--secondary-font) !important;
+}
+
+.extra-wrapper p {
+    margin-bottom: 24px;
+}
+
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
 
@@ -2242,7 +2252,8 @@ video[poster] {
     }
 
     #root .price-prediction h2,
-    #root .subscription-wrapper-head h2 {
+    #root .subscription-wrapper-head h2,
+    #root .extra-wrapper h1 {
         font-size: 40px;
     }
 

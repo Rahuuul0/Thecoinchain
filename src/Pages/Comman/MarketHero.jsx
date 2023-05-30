@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Container, Grid, Typography, Button } from '@mui/material'
 import MarketHeroImg from '../../../public/assets/images/market-hero.svg'
+import MarketHeroMobileImg from '../../../public/assets/images/market-hero-mobile.svg'
 
 const MarketHero = () => {
     return (
@@ -18,7 +19,8 @@ const MarketHero = () => {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                             <Box className='market-hero-img-wrapper'>
-                                <img src={MarketHeroImg} alt='' />
+                                <img src={MarketHeroImg} alt='Market' className='for-desktop' />
+                                <img src={MarketHeroMobileImg} alt='Market' className='for-mobile' />
                             </Box>
                         </Grid>
                     </Grid>

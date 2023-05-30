@@ -27,9 +27,11 @@ import TabPanel from '@mui/lab/TabPanel';
 import { useEffect } from "react"
 import Marquee from "react-fast-marquee";
 import CryptoTable from '../../CryptoTable';
+import { useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
+  const navigate = useNavigate();
   const [value, setValue] = React.useState('1');
 
   const handleChange = (event, newValue) => {
@@ -54,7 +56,7 @@ const Home = () => {
                 we bring clarity to the volatile world of crypto!
               </Typography>
               <Typography paddingBottom={2} >
-                <Button variant="contained" className="btn btn-primary " sx={{ borderRadius: '90px', }}>Get started now</Button>
+                <Button variant="contained" className="btn btn-primary " sx={{ borderRadius: '90px', }} onClick={() => { navigate("./market") }}>Get started now</Button>
               </Typography>
               <IconButton aria-label="ArrowCircleDown" variant="outlined" color="secondary-color ipad-none" padding={0}>
                 <ArrowCircleDownSharp />
@@ -91,61 +93,61 @@ const Home = () => {
 
             </Grid>
             <Grid item xs={12} sm={3} md={3} className='gridBox'>
-            <Box className="mobile-flex">
-              <img src={Btc} />
-              <Box>
-              <Stack direction="row" spacing={2} alignItems='center' paddingTop={0} paddingBottom={1}>
-                <Typography className='top-head' sx={{ fontSize: '12px !important' }}>
-                  BTC/USDT
-                </Typography>
-                <Button variant="contained" className='green-btn' sx={{ borderRadius: '90px', }}> -0.79%</Button>
-              </Stack>
-              <Typography variant='h4' component='div' sx={{ fontSize: '24px !important' }} fontWeight={600} paddingBottom={1} className='primary-font'>
-                36,641.20
-              </Typography>
-              <Typography variant='h6' component='div' sx={{ fontSize: '12px !important' }} fontWeight={400} className='primary-font'>
-                36,641.20
-              </Typography>
-              </Box></Box>
+              <Box className="mobile-flex">
+                <img src={Btc} />
+                <Box>
+                  <Stack direction="row" spacing={2} alignItems='center' paddingTop={0} paddingBottom={1}>
+                    <Typography className='top-head' sx={{ fontSize: '12px !important' }}>
+                      BTC/USDT
+                    </Typography>
+                    <Button variant="contained" className='green-btn' sx={{ borderRadius: '90px', }}> -0.79%</Button>
+                  </Stack>
+                  <Typography variant='h4' component='div' sx={{ fontSize: '24px !important' }} fontWeight={600} paddingBottom={1} className='primary-font'>
+                    36,641.20
+                  </Typography>
+                  <Typography variant='h6' component='div' sx={{ fontSize: '12px !important' }} fontWeight={400} className='primary-font'>
+                    36,641.20
+                  </Typography>
+                </Box></Box>
             </Grid>
             <Grid item xs={12} sm={3} md={3} className='gridBox'>
-            <Box className="mobile-flex">
-              <img src={Btc} />
-              <Box>
-              <Stack direction="row" spacing={2} alignItems='center' paddingTop={0} paddingBottom={1}>
-                <Typography className='top-head' sx={{ fontSize: '12px !important' }}>
-                  BTC/USDT
-                </Typography>
-                <Button variant="contained" className='green-btn' sx={{ borderRadius: '90px', }}> -0.79%</Button>
-              </Stack>
-              <Typography variant='h4' component='div' sx={{ fontSize: '24px !important' }} fontWeight={600} paddingBottom={1} className='primary-font'>
-                36,641.20
-              </Typography>
-              <Typography variant='h6' component='div' sx={{ fontSize: '12px !important' }} fontWeight={400} className='primary-font'>
-                36,641.20
-              </Typography>
-              </Box></Box>
+              <Box className="mobile-flex">
+                <img src={Btc} />
+                <Box>
+                  <Stack direction="row" spacing={2} alignItems='center' paddingTop={0} paddingBottom={1}>
+                    <Typography className='top-head' sx={{ fontSize: '12px !important' }}>
+                      BTC/USDT
+                    </Typography>
+                    <Button variant="contained" className='green-btn' sx={{ borderRadius: '90px', }}> -0.79%</Button>
+                  </Stack>
+                  <Typography variant='h4' component='div' sx={{ fontSize: '24px !important' }} fontWeight={600} paddingBottom={1} className='primary-font'>
+                    36,641.20
+                  </Typography>
+                  <Typography variant='h6' component='div' sx={{ fontSize: '12px !important' }} fontWeight={400} className='primary-font'>
+                    36,641.20
+                  </Typography>
+                </Box></Box>
             </Grid>
             <Grid item xs={12} sm={3} md={3} className='gridBox'>
-            <Box className="mobile-flex">
-              <img src={Btc} />
-            <Box>
-              <Stack direction="row" spacing={2} alignItems='center' paddingTop={0} paddingBottom={1}>
-                <Typography className='top-head' sx={{ fontSize: '12px !important' }}>
-                  BTC/USDT
-                </Typography>
-                <Button variant="contained" className='green-btn' sx={{ borderRadius: '90px', }}> -0.79%</Button>
-              </Stack>
-              <Typography variant='h4' component='div' sx={{ fontSize: '24px !important' }} fontWeight={600} paddingBottom={1} className='primary-font'>
-                36,641.20
-              </Typography>
-              <Typography variant='h6' component='div' sx={{ fontSize: '12px !important' }} fontWeight={400} className='primary-font'>
-                36,641.20
-              </Typography>
-              </Box>
+              <Box className="mobile-flex">
+                <img src={Btc} />
+                <Box>
+                  <Stack direction="row" spacing={2} alignItems='center' paddingTop={0} paddingBottom={1}>
+                    <Typography className='top-head' sx={{ fontSize: '12px !important' }}>
+                      BTC/USDT
+                    </Typography>
+                    <Button variant="contained" className='green-btn' sx={{ borderRadius: '90px', }}> -0.79%</Button>
+                  </Stack>
+                  <Typography variant='h4' component='div' sx={{ fontSize: '24px !important' }} fontWeight={600} paddingBottom={1} className='primary-font'>
+                    36,641.20
+                  </Typography>
+                  <Typography variant='h6' component='div' sx={{ fontSize: '12px !important' }} fontWeight={400} className='primary-font'>
+                    36,641.20
+                  </Typography>
+                </Box>
               </Box>
             </Grid>
-            
+
           </Grid>
         </Box>
       </Container>
@@ -158,7 +160,7 @@ const Home = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={4} md={4} textAlign='right' className='mobile-none'>
-              <Button variant="outlined" sx={{ borderRadius: '90px' }}>View more</Button>
+              <Button variant="outlined" sx={{ borderRadius: '90px' }} onClick={() => { navigate("./learn-cypto") }}>View more</Button>
             </Grid>
           </Grid>
 
@@ -209,7 +211,7 @@ const Home = () => {
 
                     {/* 1st box end */}
 
-                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} rowSpacing={{xs: 3}} className='flex-between-box' marginBottom={3} >
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} rowSpacing={{ xs: 3 }} className='flex-between-box' marginBottom={3} >
                       <Grid item xs={6} paddingRight={3} >
                         <Stack spacing={2} justifyContent='space-between'>
                           <Typography fontSize={16} className='primary-font'>
@@ -298,7 +300,7 @@ const Home = () => {
       {/* learn cypto star*/}
 
       <Container>
-        <Box sx={{ display: { xs: 'block', md: 'flex' } }}  justifyContent='space-between'>
+        <Box sx={{ display: { xs: 'block', md: 'flex' } }} justifyContent='space-between'>
           <Typography component='h2' variant='h2' className='secondary-font mobile-font-40' paddingBottom={2}>Market trend</Typography>
           <Typography className='' variant='p' component='p' sx={{ display: { xs: 'block', md: 'none' } }}><span className='gold-color'>Subscribe</span> to gain complete access to the most precise short and long-term predictions of cryptocurrency prices.</Typography>
           <Button className='btn btn-outlined-secondary mobile-none'>View More</Button>
@@ -349,12 +351,12 @@ const Home = () => {
                     <Typography className='body-caption secondary-color' paddingBottom={3}>
                       We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                     </Typography>
-                    <Button className='btn btn-outlined-secondary' sx={{ margin: '0 auto' }}>Learn now</Button>
+                    <Button className='btn btn-outlined-secondary' sx={{ margin: '0 auto' }} onClick={() => { navigate("./learn-cypto") }}>Learn now</Button>
                   </Box>
                 </Grid>
               </Grid>
             </Box>
-            <Button sx={{ margin: '0 auto', }} variant='contained' className='btn btn-primary m-width-100'>Contact Us</Button>
+            <Button sx={{ margin: '0 auto', }} variant='contained' className='btn btn-primary m-width-100' onClick={() => { navigate("./contact") }}>Contact Us</Button>
           </Box>
         </Container>
       </Container>

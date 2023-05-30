@@ -25,6 +25,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import {useEffect} from "react"
 import Marquee from "react-fast-marquee";
+import CryptoTable from '../../CryptoTable';
 
 
 const Home = () => {
@@ -242,6 +243,23 @@ useEffect(()=>{window.scrollTo({top:0,left:0,behavior:"smooth"})});
       </Container>
 
       {/* learn cypto star*/}
+
+      <Container>
+        <Box display='flex' justifyContent='space-between'>
+          <Typography component='div' variant='h3' className='secondary-font'>Market trend</Typography>
+          <Button className='btn btn-outlined-secondary'>View More</Button>
+        </Box>
+        <Stack direction='row' className='filter-btn' spacing='2' paddingTop={5}>
+                    <Button  variant="contained" className='btn btn-secondary' >All </Button>
+                    <Button>DeFi</Button>
+                    <Button>Innovation</Button>
+                    <Button>POS</Button>
+                    <Button>NFT</Button>
+                    <Button>POW</Button>
+                    <Button>Storage</Button>
+                  </Stack>
+        <CryptoTable />
+      </Container>
 
       <Container maxWidth='fluid' className='' sx={{backgroundColor: '#F4F5F6'}} >
         <Container>

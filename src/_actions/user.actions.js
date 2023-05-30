@@ -1,7 +1,7 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from '../_helpers';
-import { switchAtom, userErrorAtom } from '../_state';
+import { switchAtom, userErrorAtom ,authAtom} from '../_state';
 import { useAlertActions } from '../_actions/alert.actions';
 import { Labels, Apis } from '../_common/app.constants'
 import axios from 'axios';
@@ -12,14 +12,17 @@ const useUserActions = () => {
     const alertActions = useAlertActions();
     const [Soption, setSoption] = useRecoilState(switchAtom);
     const setUserError = useSetRecoilState(userErrorAtom);
-
+    const setAuth = useSetRecoilState(authAtom);
     const login = async ({email, password}) => {
         return fetchWrapper.post(Apis.Login, { email, password })
             .then(res => {
                 if (res.statusCode === 200) {
+                    let {data} = res;
                     setUserError(true)
                     localStorage.setItem("email",res.data.email)
-                    localStorage.setItem("id",res.data.id)                    
+                    localStorage.setItem("id",res.data.id)  
+                    localStorage.setItem(Labels.Local_Storage_User, JSON.stringify(data));    
+                    setAuth(data);            
                     alertActions.success(Labels.Login_Success);
                     navigate("/")
                 } else {
@@ -37,6 +40,7 @@ const useUserActions = () => {
             .then(res => {
                 if (res.statusCode === 200) {
                     localStorage.setItem("email",res.data.email)
+                    localStorage.setItem("user",res.data)     
                     alertActions.success(Labels.Login_Success);
                     navigate("/")
                 } else {
@@ -86,7 +90,6 @@ const useUserActions = () => {
     }
        
     const loginMobile = ({ number, passwordMob }) => {
-
             alertActions.success("called"+ number +" "+passwordMob);
     }
 
@@ -102,7 +105,6 @@ const useUserActions = () => {
         }).catch((err)=>{console.warn(err)})
 
         }
-
 
         const forgotPasswordVerify = async(otp) => {
             return fetchWrapper.post(Apis.Forgot_Password_Verify, { otp })
@@ -151,6 +153,7 @@ const useUserActions = () => {
                     alertActions.success("Please select an option");
                     localStorage.setItem("email", res.data.email)
                     localStorage.setItem("phone", res.data.phone)
+                    localStorage.setItem("user",res.data)     
                     navigate("/")
                 } else {
                     alertActions.error(Labels.Error);
@@ -222,8 +225,15 @@ const useUserActions = () => {
         } else{
             alertActions.error("error");
         }
-      }).catch((err)=>{console.warn(err)})
-       
+      }).catch((err)=>{console.warn(err)})       
+    }
+
+    const logout = () => {
+        // remove user from local storage, set auth state to null and redirect to login page
+        localStorage.removeItem(Labels.Local_Storage_User);
+        setAuth(null);
+        alertActions.success(Labels.Logout_Success);
+        navigate('/');
     }
 
     return {
@@ -240,7 +250,8 @@ const useUserActions = () => {
         updateUser,
         googleAuth,
         googleLogin,
-        loginAuth
+        loginAuth,
+        logout
     }
 
 }

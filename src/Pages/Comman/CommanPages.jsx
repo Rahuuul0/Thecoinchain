@@ -22,6 +22,8 @@ import SessionHistory from "./SessionHistory";
 import SubsPage from "./SubsPage";
 import Referrals from "./Referrals";
 import ChangePassword from "./ChangePassword";
+import FaEnable from "./FaEnable";
+import FaDisable from "./FaDisable";
 
 const Customer = () => {
   return (
@@ -49,6 +51,8 @@ const Customer = () => {
         <Route path={`/session-and-history`} exact element={<SessionHistory />} />
         <Route path={`/subspage`} exact element={<SubsPage />} />
         <Route path={`/referrals`} exact element={<Referrals />} />
+        <Route path={`/fa-enable`} exact element={<FaEnable />} />
+        <Route path={`/fa-disable`} exact element={<FaDisable />} />
       </Routes>
     </div>
   );

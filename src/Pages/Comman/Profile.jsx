@@ -1,45 +1,24 @@
 import React from 'react'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Grid, Typography, Button, Modal, Link, Breadcrumbs, Stack, Select, OutlinedInput, MenuItem, Switch, TextField } from '@mui/material';
 import User from '../../../public/assets/images/user.svg';
 import Share from '../../../public/assets/images/share-square.svg';
 import Session from '../../../public/assets/images/session.svg';
 import Api from '../../../public/assets/images/api.svg';
-import BtcImg from '../../../public/assets/images/icons/btc-ic.svg';
 import FA from '../../../public/assets/images/fa.svg';
 import Lockbtn from '../../../public/assets/images/lockbtn.svg';
-import { KeyboardArrowRightIcon, NavigateNext } from '@mui/icons-material/';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import {  NavigateNext } from '@mui/icons-material/';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions"
 
-const plans = [
-    {
-        title: '7 days Plan',
-        price: '$15 ',
-        days: '7 days',
-        extra: 'Get all crypto price predictions & Trade with Machine Learning',
-    },
-    {
-        title: '1 month Plan',
-        price: '$40 ',
-        days: '1 month',
-        extra: 'Get all crypto price predictions & Trade with Machine Learning',
-    },
-    {
-        title: '1 year Plan',
-        price: '$250 ',
-        days: '1 year',
-        extra: 'Get all crypto price predictions & Trade with Machine Learning',
-    }
-]
 function handleClick(event) {
     event.preventDefault();
     console.info('You clicked a breadcrumb.');
 }
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -63,7 +42,7 @@ const Profile = () => {
     const profileUpdate = useUserActions();
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-  //yup validation
+    //yup validation
     const validationSchema = Yup.object().shape({
         name: Yup.string()
         .trim()
@@ -77,14 +56,11 @@ const Profile = () => {
             .required("Mobile is required")        
     });
      
-       const formOptions = { resolver: yupResolver(validationSchema) };
-       // get functions to build form with useForm() hook
-       const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
-       const { errors, isSubmitting } = formState;
-        
-    //    const SubmitForm= () =>{
-    //       alert('gfgfggdf');
-    //    }
+    const formOptions = { resolver: yupResolver(validationSchema) };
+    // get functions to build form with useForm() hook
+    const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
+    const { errors, isSubmitting } = formState;       
+   
 
     const [personName, setPersonName] = React.useState([]);
     const handleChange = (event, newValue) => {
@@ -126,7 +102,7 @@ const Profile = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Box component="main" className='subscription-wrapper' sx={{ mt: 8 }}>
+                <Box component="main" className='subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>
@@ -147,35 +123,33 @@ const Profile = () => {
                             </Box>
                         </Box>
                     </Container>
-
-                    <Box className='subscription-steps'>
+                    <Box className='subscription-steps account-main'>
                         <Container maxWidth="lg">
                             <Box className='subscription-steps-inner'>
                                 <Box className='subscription-steps-col'>
                                     <Stack spacing={2}>
-                                        <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={User} /> </span>Profile</Typography>
+                                        <Box sx={{ borderBottom: '1px solid #E6E8EC' }} paddingBottom={2}>
+                                            <Typography className='left-icon secondary-color' paddingBottom={4} fontWeight={700}><span><img src={User} /> </span>Profile</Typography>
                                             <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Share} /> </span>Referrals</Typography>
                                             <Typography className='left-icon secondary-color' paddingBottom={2}><span><img src={Api} /> </span>API keys</Typography>
                                         </Box>
-                                        <Box>
+                                        <Box paddingTop={2}>
                                             <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Session} /> </span>Sessions & login history</Typography>
                                             <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={FA} /> </span>2FA</Typography>
                                             <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Lockbtn} /> </span>Change password</Typography>
                                         </Box>
-
                                     </Stack>
-
-
                                 </Box>
                                 <Box className='subscription-steps-col-details'>
                                     <Box className="step-one">
                                         <Box className=''>
                                             <Grid container  >
-                                                <Grid item xs={12} sm={8} md={8}>
+                                                <Grid item xs={12} sm={8} md={8}  sx={{ paddingBottom : {xs: '20px' , md: '5px'}}}>
                                                     <Box>
                                                         <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} >Breanne Schinner</Typography>
                                                         <Typography component="p" variant='body2' className='secondary-color' sx={{ fontSize: '14px', color: '#777E90' }}>hello@coinguru.org</Typography>
+                                                        <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>VIP</Button>
+                                        
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={12} sm={4} md={4}>
@@ -215,20 +189,19 @@ const Profile = () => {
                                                     </Box>
                                                 </Grid>
                                             </Grid>
-                                            <Button className='btn btn-green-outlined border-rounded' sx={{ borderRadius: '90px !important' }}>VIP</Button>
-                                        </Box>
+                                           </Box>
                                         <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
                                             <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} paddingY={5}  >Features</Typography>
                                         </Box>
                                         <Box>
-                                            <Grid container paddingTop={5} paddingBottom={3}>
-                                                <Grid item xs={12} sm={11} md={11}>
+                                            <Box display='flex' paddingY={3}>
+                                                <span >
                                                     <Typography component="p" variant='body2' fontWeight={500} >VIP - Your annual plan will be expired on 15/2/2025</Typography>
-                                                </Grid>
-                                                <Grid item xs={12} sm={1} md={1}>
+                                                </span>
+                                                <span >
                                                     <Switch {...label} defaultChecked />
-                                                </Grid>
-                                            </Grid>
+                                                </span>
+                                            </Box>
                                         </Box>
                                         <Typography component="p" variant='body2' paddingBottom={3} >
                                             Get all crypto price predictions
@@ -254,22 +227,19 @@ const Profile = () => {
                                         </Typography>
                                         <Box className='' paddingY={1} >
                                             <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Name</Typography>
-                                            <TextField
-                                                // label="Name"
+                                            <TextField                                                
                                                 className="form-control"
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
-                                                variant="outlined"
+                                                variant="standard"
                                                 margin="normal"
                                                 required
                                                 fullWidth
-                                                id="name"
-                                                placeholder='Name'
+                                                id="name"                                                
                                                 name="name"
                                                 autoComplete="off"
-                                                backgroundColor='#fff'
-                                            // size="small"
+                                                backgroundColor='#fff'                                           
                                                 autoFocus
                                                 {...register("name")}
                                             />
@@ -278,28 +248,25 @@ const Profile = () => {
                                         <Box className=''  paddingY={1}>
                                             <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Email</Typography>
                                             <TextField
-                                                // label="email"
-                                                className="form-control"
+                                                label="Email"
+                                                className="form-control white-input-box"
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
-                                                variant="outlined"
+                                                variant="standard"
                                                 margin="normal"
                                                 required
                                                 fullWidth
-                                                id="email"
-                                                placeholder='Email'
+                                                id="email"                                              
                                                 name="email"
-                                                autoComplete="off"
-                                            // size="small"
+                                                autoComplete="off"                                           
                                                 {...register("email")}
                                             />
                                               <div style={{ color: "red" }}>{errors.email?.message}</div>
                                         </Box>
                                         <Box className=''>
                                             <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Mobile</Typography>
-                                            <TextField
-                                                // label="email"
+                                            <TextField                                               
                                                 className="form-control"
                                                 InputLabelProps={{
                                                     shrink: true,
@@ -311,8 +278,7 @@ const Profile = () => {
                                                 id="mobile"
                                                 placeholder='Mobile'
                                                 name="mobile"
-                                                autoComplete="off"
-                                            // size="small"
+                                                autoComplete="off"                                           
                                                {...register("mobile")}
                                             />
                                             <div style={{ color: "red" }}>{errors.mobile?.message}</div>

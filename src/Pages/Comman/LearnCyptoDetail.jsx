@@ -3,7 +3,7 @@ import { Container, Typography,  Grid, Box, Stack,Button, Link,Breadcrumbs, } fr
 import VideoImg from "../../../public/assets/images/coinguru-video.svg";
 import Avatar from "../../../public/assets/images/avatar.svg";
 import GridImage from "../../../public/assets/images/grid.svg";
-import { NavigateNext} from '@mui/icons-material';
+import { NavigateNext, ArrowDropDown} from '@mui/icons-material';
 import Love from "../../../public/assets/images/love.svg";
 import Share from "../../../public/assets/images/share.svg";
 
@@ -17,7 +17,7 @@ function handleClick(event) {
 const LearnCyptoDetail = () => {
   const breadcrumbs = [
     <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
-      MUI
+      Learn crypto
     </Link>,
     <Link
       underline="hover"
@@ -26,18 +26,18 @@ const LearnCyptoDetail = () => {
       href="/"
       onClick={handleClick}
     >
-      Core
+      Trading
     </Link>,
     <Typography key="3" color="text.primary">
-      Breadcrumb
+      Bitcoin
     </Typography>,
   ];
 
     return (
         <>
-         <Container sx={{pt: 14}}>
-          <Box  paddingBottom={10}>
-            <Typography variant='h1' className='secondary-font' fontWeight='700' textAlign='center'>Blockchain & Crypto</Typography>
+         <Container sx={{pt: 10}}>
+          <Box  >
+            <Typography  paddingTop={5} paddingBottom={5} variant='h1' className='secondary-font' fontWeight='700' textAlign='center'>A beginner’s guide to <br/>trading view</Typography>
             <Breadcrumbs
               separator={<NavigateNext fontSize="small" />}
               aria-label="breadcrumb"
@@ -58,13 +58,13 @@ const LearnCyptoDetail = () => {
               <img src={VideoImg}/>
             </Box>
             <Box className='smallwidth'>
-              <Typography variant='h2' fontWeight='700' component='div' className='font-secondary font-40' paddingBottom={4}>Introduction</Typography>
-              <Typography className='secondary-font secondary-color' variant='body2' component='div' paddingBottom={3}>For traders who love technical analysis, robust charting tools are essential. TradingView is one option for both amateur and experienced traders. It offers numerous trading and charting tools and also a free membership option. Let’s face it... not everyone has the money or need for a Bloomberg terminal subscription.</Typography>
-              <Typography className='secondary-font secondary-color'  variant='body2' component='div' paddingBottom={3}>The Stacks series of products: Stacks: Landing Page Kit, Stacks: Portfolio Kit,  Stacks: eCommerce Kit. "Stacks is a production-ready library of stackable content blocks built in React Native. </Typography>
-              <Typography className='secondary-font secondary-color'  variant='body2' component='div' paddingBottom={10}>Mix-and-match dozens of responsive elements to quickly configure your favorite landing page layouts or hit the ground running with 10 pre-built templates, all in light or dark mode." </Typography>
-              <Typography variant='h2' fontWeight='700' component='div' className='font-secondary font-40' paddingBottom={4}>What does TradingView do?</Typography>
-              <Typography className='secondary-font secondary-color' variant='body2' component='div' paddingBottom={3}>The Stacks series of products: Stacks: Landing Page Kit, Stacks: Portfolio Kit,  Stacks: eCommerce Kit. "Stacks is a production-ready library of stackable content blocks built in React Native.</Typography>
-              <Typography className='secondary-font secondary-color'  variant='body2' component='div' paddingBottom={3}>Mix-and-match dozens of responsive elements to quickly configure your favorite landing page layouts or hit the ground running with 10 pre-built templates, all in light or dark mode."</Typography>
+              <Typography variant='h2' fontWeight='700' component='div' className='secondary-font font-40 bottom-border' marginBottom={4} paddingBottom={4}>Introduction</Typography>
+              <Typography className='secondary-color' variant='p' component='p' paddingBottom={3}>For traders who love technical analysis, robust charting tools are essential. TradingView is one option for both amateur and experienced traders. It offers numerous trading and charting tools and also a free membership option. Let’s face it... not everyone has the money or need for a Bloomberg terminal subscription.</Typography>
+              <Typography className='secondary-color'  variant='p' component='p' paddingBottom={3}>The Stacks series of products: Stacks: Landing Page Kit, Stacks: Portfolio Kit,  Stacks: eCommerce Kit. "Stacks is a production-ready library of stackable content blocks built in React Native. </Typography>
+              <Typography className='secondary-color'  variant='p' component='p' paddingBottom={10}>Mix-and-match dozens of responsive elements to quickly configure your favorite landing page layouts or hit the ground running with 10 pre-built templates, all in light or dark mode." </Typography>
+              <Typography variant='h2' fontWeight='700' component='div' className='secondary-font font-40 bottom-border'  marginBottom={4} paddingBottom={4} paddingTop={4}>What does TradingView do?</Typography>
+              <Typography className='secondary-color' variant='p' component='p' paddingBottom={3}>The Stacks series of products: Stacks: Landing Page Kit, Stacks: Portfolio Kit,  Stacks: eCommerce Kit. "Stacks is a production-ready library of stackable content blocks built in React Native.</Typography>
+              <Typography className='secondary-color'  variant='p' component='p' paddingBottom={3}>Mix-and-match dozens of responsive elements to quickly configure your favorite landing page layouts or hit the ground running with 10 pre-built templates, all in light or dark mode."</Typography>
             </Box>
             </Box>
             <Box>
@@ -72,12 +72,12 @@ const LearnCyptoDetail = () => {
               <img src={VideoImg}/>
             </Box>
             <Box className='smallwidth'>
-              <Typography variant='h2' fontWeight='700' component='div' className='font-secondary font-40' paddingBottom={4}>How expensive is TradingView?</Typography>
-              <Typography className='secondary-font secondary-color' variant='body2' component='div' paddingBottom={3}>The Stacks series of products: Stacks: Landing Page Kit, Stacks: Portfolio Kit,  Stacks: eCommerce Kit. "Stacks is a production-ready library of stackable content blocks built in React Native.</Typography>
-              <Typography className='secondary-font secondary-color'  variant='body2' component='div' paddingBottom={3}> Mix-and-match dozens of responsive elements to quickly configure your favorite landing page layouts or hit the ground running with 10 pre-built templates, all in light or dark mode." </Typography>
-              <Typography variant='h2' fontWeight='700' component='div' className='font-secondary font-40' paddingBottom={4}>Understanding the TradingView UI</Typography>
-              <Typography className='secondary-font secondary-color' variant='body2' component='div' paddingBottom={3}>The Stacks series of products: Stacks: Landing Page Kit, Stacks: Portfolio Kit,  Stacks: eCommerce Kit. "Stacks is a production-ready library of stackable content blocks built in React Native. </Typography>
-              <Typography className='secondary-font secondary-color'  variant='body2' component='div' paddingBottom={10}>Mix-and-match dozens of responsive elements to quickly configure your favorite landing page layouts or hit the ground running with 10 pre-built templates, all in light or dark mode." </Typography>
+              <Typography variant='h2' fontWeight='700' component='div' className='secondary-font font-40 bottom-border'  marginBottom={4} paddingBottom={4} paddingTop={4}>How expensive is TradingView?</Typography>
+              <Typography className='secondary-color' variant='p' component='p' paddingBottom={3}>The Stacks series of products: Stacks: Landing Page Kit, Stacks: Portfolio Kit,  Stacks: eCommerce Kit. "Stacks is a production-ready library of stackable content blocks built in React Native.</Typography>
+              <Typography className='secondary-color'  variant='p' component='p' paddingBottom={3}> Mix-and-match dozens of responsive elements to quickly configure your favorite landing page layouts or hit the ground running with 10 pre-built templates, all in light or dark mode." </Typography>
+              <Typography variant='h2' fontWeight='700' component='div' className='secondary-font font-40 bottom-border'  marginBottom={4} paddingBottom={4} paddingTop={4}>Understanding the TradingView UI</Typography>
+              <Typography className='secondary-color' variant='p' component='p' paddingBottom={3}>The Stacks series of products: Stacks: Landing Page Kit, Stacks: Portfolio Kit,  Stacks: eCommerce Kit. "Stacks is a production-ready library of stackable content blocks built in React Native. </Typography>
+              <Typography className='secondary-color'  variant='p' component='p' paddingBottom={10}>Mix-and-match dozens of responsive elements to quickly configure your favorite landing page layouts or hit the ground running with 10 pre-built templates, all in light or dark mode." </Typography>
             </Box>
             </Box>
             <Box>
@@ -94,7 +94,7 @@ const LearnCyptoDetail = () => {
           <Grid container spacing={6 } rowSpacing={6} >
             <Grid item xs={12} sm={4} md={4} >
               <Box className='about-crypto'>
-                <Button textTransform='uppercase' className='orange-btn float-img'>New</Button>
+                <Button textTransform='uppercase' className='orange-btn float-img small-btn'>New</Button>
                 
                 <Box className='avatar-rounded'>
                 <img src={GridImage}  />
@@ -117,7 +117,7 @@ const LearnCyptoDetail = () => {
 
             <Grid item xs={12} sm={4} md={4} >
               <Box className='about-crypto'>
-                <Button textTransform='uppercase' className='orange-btn float-img'>New</Button>
+                <Button textTransform='uppercase' className='orange-btn float-img small-btn'>New</Button>
                 
                 <Box className='avatar-rounded'>
                 <img src={GridImage}  />
@@ -140,7 +140,7 @@ const LearnCyptoDetail = () => {
 
             <Grid item xs={12} sm={4} md={4} >
               <Box className='about-crypto'>
-                <Button textTransform='uppercase' className='orange-btn float-img'>New</Button>
+                <Button textTransform='uppercase' className='orange-btn float-img small-btn'>New</Button>
                 
                 <Box className='avatar-rounded'>
                 <img src={GridImage}  />
@@ -162,7 +162,7 @@ const LearnCyptoDetail = () => {
             </Grid>           
           </Grid>
           <Typography textAlign='center' paddingTop={10}>
-            <Button className='btn-outlined-secondary'>Learn More</Button>
+            <Button className='btn-outlined-secondary' endIcon={<ArrowDropDown/>}>Learn More</Button>
           </Typography>
           </Box>
         </Container>

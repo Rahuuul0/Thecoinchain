@@ -46,7 +46,7 @@ const SessionHistory = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Box component="main" className='subscription-wrapper' sx={{ mt: 8 }}>
+                <Box component="main" className='subscription-wrapper session-history' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>
@@ -66,9 +66,9 @@ const SessionHistory = () => {
                         </Box>
                     </Container>
 
-                    <Box className='subscription-steps'>
+                    <Box className='subscription-steps account-main'>
                         <Container maxWidth="lg">
-                            <Box className='subscription-steps-inner'>
+                            <Box className='subscription-steps-inner '>
                                 <Box className='subscription-steps-col'>
                                     <Stack spacing={2}>
                                         <Typography className='left-icon secondary-color'><span><img src={User} /> </span>Profile</Typography>
@@ -84,9 +84,9 @@ const SessionHistory = () => {
                                         <Typography component="h5" variant='h5'>
                                             Active sessions
                                         </Typography>
-                                        <Box className='session-list'>
+                                        <Box className='session-list' marginBottom={5}>
                                             <TableContainer>
-                                                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                                <Table   sx={{ minWidth : {xs: '250px' , md: '650px'}}} aria-label="simple table">
                                                     <TableHead>
                                                         <TableRow>
                                                             <TableCell>
@@ -127,7 +127,7 @@ const SessionHistory = () => {
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell align="right">
-                                                                <Button size='small' variant='contained' className='btn btn-secondary' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
+                                                                <Button size='small' variant='contained' className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
                                                             </TableCell>
                                                         </TableRow>
                                                         <TableRow
@@ -150,13 +150,13 @@ const SessionHistory = () => {
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell align="right">
-                                                                <Button size='small' variant='contained' className='btn btn-secondary' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
+                                                                <Button size='small' variant='contained' className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
                                                             </TableCell>
                                                         </TableRow>
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                            <Button variant='outlined' className='btn btn-outlined-secondary' sx={{ ml: 'auto' }}>Log out all other devices</Button>
+                                            <Button variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto' , marginY : {xs: '40px ' , md: '40px'}}}>Log out all other devices</Button>
                                         </Box>
                                     </Box>
 
@@ -166,7 +166,7 @@ const SessionHistory = () => {
                                         </Typography>
                                         <Box className='session-list'>
                                             <TableContainer>
-                                                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                                <Table sx={{minWidth : {xs: '250px' , md: '650px'}}} aria-label="simple table">
                                                     <TableHead>
                                                         <TableRow>
                                                             <TableCell>
@@ -206,7 +206,7 @@ const SessionHistory = () => {
                                                                         </Typography>
                                                                     </TableCell>
                                                                     <TableCell align="right">
-                                                                        <Button size='small' variant='contained' color={(v.cta === "NO") ? "error" : "success"} className={(v.cta === "NO") ? "btn btn-error" : "btn btn-success"} sx={{ ml: 'auto' }}>{v.cta}</Button>
+                                                                        <Button size='small' variant='contained' color={(v.cta === "NO") ? "error" : "success"} className={(v.cta === "NO") ? "btn btn-table btn-error" : "btn btn-table btn-success"} sx={{ ml: 'auto' }}>{v.cta}</Button>
                                                                     </TableCell>
                                                                 </TableRow>
                                                             )
@@ -215,7 +215,7 @@ const SessionHistory = () => {
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                            <Button variant='outlined' className='btn btn-outlined-secondary' sx={{ ml: 'auto' }}>Contact us</Button>
+                                            <Button variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto' }}>Contact us</Button>
                                         </Box>
                                     </Box>
                                 </Box>

@@ -8,6 +8,7 @@ import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
 import Lock from '../../../public/assets/images/icons/lock.svg';
 import ScanImg from '../../../public/assets/images/scan-img.png';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 const ScanToLogin = () => {
     const navigate = useNavigate();
@@ -63,6 +64,9 @@ const ScanToLogin = () => {
                                         <img src={ScanImg} alt='scanner' />
                                     </Box>
                                 </Box>
+                                <Button onClick={() => { navigate("/login"); }} variant="contained" className='btn btn-primary' startIcon={<ChevronLeftIcon />}>
+                                    Go Back
+                                </Button>
                             </Box>
                         </Box>
                     </Box>

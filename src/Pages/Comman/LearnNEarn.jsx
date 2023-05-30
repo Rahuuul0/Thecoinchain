@@ -1,9 +1,17 @@
-import React from 'react'
-import { Box, Container, Grid, Typography, Button } from '@mui/material'
+import React, { useState } from 'react'
+import { Box, Container, Grid, Typography, Button, FormControl, MenuItem } from '@mui/material'
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Learn01 from '../../../public/assets/images/learn01.png'
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 
 const LearnNEarn = () => {
+
+    const [learnEarn, setLearnEarn] = useState('');
+
+    const handleChangeLearn = (event) => {
+        setLearnEarn(event.target.value);
+    };
+
     return (
         <>
             <Box className='learn-n-earn'>
@@ -14,6 +22,26 @@ const LearnNEarn = () => {
                     <Typography className='short-subhead' component="p" variant='body1' sx={{ color: '#353945' }} paddingY={2}>
                         Stacks is a production-ready library of stackablecontent blocks built in React Native.
                     </Typography>
+
+                    <Box className='for-mobile dropdown-mobile learn-earn-dropdown'>
+                        <FormControl sx={{ m: 0, minWidth: 120, width: '100%', textAlign: 'left', fontSize: '14px', fontWeight: '500' }}>
+                            <Select
+                                value={learnEarn}
+                                onChange={handleChangeLearn}
+                                displayEmpty
+                                inputProps={{ 'aria-label': 'Without label' }}
+                            >
+                                <MenuItem value={10}>2D Design</MenuItem>
+                                <MenuItem value={20}>3D Design</MenuItem>
+                            </Select>
+                        </FormControl>
+                        {/* <Button
+                                variant="outlined"
+                                className='btn btn-outlined-secondary'>
+                                Predict
+                            </Button> */}
+                    </Box>
+
                 </Box>
                 <Box className='learn-n-earn-cards'>
                     <Box className='learn-n-earn-card'>
@@ -72,7 +100,7 @@ const LearnNEarn = () => {
                     </Box>
                 </Box>
                 <Button
-                    sx={{ mt: 10 , mx: 'auto' }}
+                    sx={{ mt: 10, mx: 'auto' }}
                     variant="outlined"
                     className='btn btn-outlined-secondary' startIcon={<RotateLeftIcon />}>
                     Load more

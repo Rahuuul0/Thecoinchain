@@ -16,16 +16,11 @@ const Footer = () => {
     <footer className="footer" style={{ backgroundColor: '#FCFCFD', color: '#fff' }}>
       <Container>
         <Box paddingTop={5}>
-          <Grid container columns={{ xs: 4, sm: 8, md: 12 }} sx={{ justifyContent: 'space-between' }}>
+          <Grid container   sx={{ justifyContent: 'space-between' }}>
 
             <Grid item xs={12} sm={12} md={2} paddingTop={4} paddingBottom={4} >
               <Typography
-                variant="h5"
-
-                fontWeight="700"
-                paddingBottom={4}
-                sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'flex' } }}
-              > <img className='logo-cg' src={Darklogo} />
+              > <img className='logo-cg' src={Darklogo} /> <img className='logo-cg' src={Darklogo} />
               </Typography>
 
 

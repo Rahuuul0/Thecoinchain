@@ -7,7 +7,7 @@ import VideoImg from "../../../public/assets/images/coinguru-video.svg";
 import Blog1 from "../../../public/assets/images/blog-1.svg";
 import Avatar from "../../../public/assets/images/avatar.svg";
 import GridImage from "../../../public/assets/images/grid.svg";
-import { Search , ArrowRightAlt} from '@mui/icons-material';
+import { Search , ArrowRightAlt, ArrowDropDown  } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
@@ -65,9 +65,9 @@ const LearnCypto = () => {
         <Container sx={{pt: 14}}>
           <Box  paddingBottom={15}>
             <Typography variant='h1' className='secondary-font' fontWeight='700' textAlign='center'>Blockchain & Crypto</Typography>
-            <Typography textAlign='center' className='secondary-color'>A Beginner’s Guide to TradingView</Typography>
+            <Typography textAlign='center' className='secondary-color body-large'>A creative agency that lead and inspire</Typography>
             <Box>
-              <Stack direction='row' spacing={3} justifyContent='center' paddingY={3}>
+              <Stack direction='row' spacing={3} justifyContent='center' paddingTop={3} paddingBottom={10}>
                 <Button variant='contained' className='btn btn-primary'>Learn Now </Button>
                 <Button variant='outlined' className='btn btn-outlined-secondary'>Video Tutorial </Button>
               </Stack>
@@ -81,18 +81,18 @@ const LearnCypto = () => {
         {/* Our Blog section */}
         <Container maxWidth='fluid'  sx={{backgroundColor:'#F4F5F6'}}>
           <Container>
-            <Box paddingTop={10} paddingBottom={10}>
+            <Box paddingTop={15} paddingBottom={3}>
               <Grid container >
                 <Grid item xs={12} sm={5} md={5}>
-                  <Typography className='small secondary-color'>Our Blog</Typography>
+                  <Typography className='small-caption secondary-color'>Our Blog</Typography>
                 </Grid>
                 <Grid item xs={12} sm={7} md={7}>
                   <Typography variant='h2' className='secondary-font' fontWeight='700' paddingBottom={4}>Latest Releases</Typography>
                   <Typography>Stacks is a production-ready library of stackable content blocks built in React Native.</Typography>
                   <Stack direction='row' className='filter-btn' spacing='2' paddingTop={5}>
-                    <Button  variant="contained" className='btn btn-secondary' >Bitcoin </Button>
-                    <Button>Blockchain</Button>
-                    <Button>Tutorials</Button>
+                    <Button  variant="contained" className='btn btn-secondary' >2D Design </Button>
+                    <Button>3D Design</Button>
+                    <Button>User Experience</Button>
                   </Stack>
                 </Grid>
               </Grid>              
@@ -103,7 +103,7 @@ const LearnCypto = () => {
                 <Grid item xs={12} sm={5} md={5}>
                   <Box className='blog-box' display='flex' flexDirection='column' justifyContent='space-between'>
                     <Box height='50'>
-                      <Button textTransform='uppercase' sx={{marginBottom: '50px'}} className='orange-btn'>New</Button>
+                      <Button textTransform='uppercase' sx={{marginBottom: '50px'}} className='orange-btn small-btn'>New</Button>
                     </Box>
                     <Box className='' paddingBottom={5}>
                       <Typography variant='h4' fontWeight='700' className='secondary-font' paddingBottom={2}>A Beginner's Guide to TradingView</Typography>
@@ -115,7 +115,7 @@ const LearnCypto = () => {
                   
                 </Grid>
                 <Grid item xs={12} sm={7} md={7}>
-                  <img src={Blog1}/>
+                  <img sx={{maxWidth: '100%'}} src={Blog1}/>
                 </Grid>
               </Grid>
             </Box>
@@ -125,7 +125,7 @@ const LearnCypto = () => {
                 <Grid item xs={12} sm={5} md={5}>
                   <Box className='blog-box' display='flex' flexDirection='column' justifyContent='space-between'>
                     <Box height='50'>
-                      <Button textTransform='uppercase' sx={{marginBottom: '50px'}} className='orange-btn'>beginner</Button>
+                      <Button textTransform='uppercase' sx={{marginBottom: '50px'}} className='orange-btn small-btn'>beginner</Button>
                     </Box>
                     <Box className='' paddingBottom={5}>
                       <Typography variant='h4' fontWeight='700' className='secondary-font' paddingBottom={2}>A Beginner's Guide to TradingView</Typography>
@@ -137,7 +137,7 @@ const LearnCypto = () => {
                   
                 </Grid>
                 <Grid item xs={12} sm={7} md={7}>
-                  <img src={Blog1}/>
+                  <img sx={{maxWidth: '100%'}} src={Blog1}/>
                 </Grid>
               </Grid>
             </Box>
@@ -147,7 +147,7 @@ const LearnCypto = () => {
                 <Grid item xs={12} sm={5} md={5}>
                   <Box className='blog-box' display='flex' flexDirection='column' justifyContent='space-between'>
                     <Box sx={{height:'50px'}}>
-                      <Button textTransform='uppercase' sx={{marginBottom: '50px'}} className='orange-btn'>beginner</Button>
+                      <Button textTransform='uppercase' sx={{marginBottom: '50px'}} className='orange-btn small-btn'>beginner</Button>
                     </Box>
                     <Box className='' paddingBottom={5}>
                       <Typography variant='h4' fontWeight='700' className='secondary-font' paddingBottom={2}>A Beginner's Guide to TradingView</Typography>
@@ -159,7 +159,7 @@ const LearnCypto = () => {
                   
                 </Grid>
                 <Grid item xs={12} sm={7} md={7}>
-                  <img src={Blog1}/>
+                  <img sx={{maxWidth: '100%'}} src={Blog1}/>
                 </Grid>
               </Grid>
             </Box>
@@ -176,9 +176,9 @@ const LearnCypto = () => {
             </Stack>
 
           </Box>
-          <Box display='flex' flexDirection='row' justifyContent='space-between'>
+          <Box sx={{ display: { xs: 'block', md: 'flex' } }} flexDirection='row' justifyContent='space-between' paddingTop={3} paddingBottom={8}>
             <Box>
-              <FormControl sx={{ m: 1, width: 300, mt: 3 }}>
+              <FormControl className='mobile-w-100' sx={{ m: 1, width: 300, mt: 3 }}>
                 <Select
                   multiple
                   displayEmpty
@@ -221,9 +221,9 @@ const LearnCypto = () => {
           </Box>
 
           <Grid container spacing={6 } rowSpacing={6} >
-            <Grid item xs={12} sm={4} md={4} >
+            <Grid item xs={12} md={6} xl={4} >
               <Box className='about-crypto'>
-                <Button textTransform='uppercase' className='orange-btn float-img'>New</Button>
+                <Button textTransform='uppercase' className='orange-btn float-img small-btn'>New</Button>
                 
                 <Box className='avatar-rounded'>
                 <img src={GridImage}  />
@@ -233,7 +233,7 @@ const LearnCypto = () => {
                   <img src={Avatar}/>
                   <Box sx={{paddingLeft:'15px'}}>
                     <Typography fontWeight='500'>Top 7 NFT usecase</Typography>
-                    <Typography className='small secondary-color' fontWeight='500'><span>First Name</span> <span>Last Name</span></Typography>
+                    <Typography className='small-caption secondary-color' fontWeight='500'><span>First Name</span> <span>Last Name</span></Typography>
                   </Box>  
                   </Box>
                                   
@@ -244,9 +244,9 @@ const LearnCypto = () => {
               </Box>
             </Grid>
 
-            <Grid item xs={12} sm={4} md={4} >
+            <Grid item xs={12} md={6} xl={4} >
               <Box className='about-crypto'>
-                <Button textTransform='uppercase' className='orange-btn float-img'>New</Button>
+                <Button textTransform='uppercase' className='orange-btn float-img small-btn'>New</Button>
                 
                 <Box className='avatar-rounded'>
                 <img src={GridImage}  />
@@ -256,7 +256,7 @@ const LearnCypto = () => {
                   <img src={Avatar}/>
                   <Box sx={{paddingLeft:'15px'}}>
                     <Typography fontWeight='500'>Top 7 NFT usecase</Typography>
-                    <Typography className='small secondary-color' fontWeight='500'><span>First Name</span> <span>Last Name</span></Typography>
+                    <Typography className='small-caption secondary-color' fontWeight='500'><span>First Name</span> <span>Last Name</span></Typography>
                   </Box>  
                   </Box>
                                   
@@ -267,9 +267,9 @@ const LearnCypto = () => {
               </Box>
             </Grid>
 
-            <Grid item xs={12} sm={4} md={4} >
+            <Grid item xs={12} md={6} xl={4} >
               <Box className='about-crypto'>
-                <Button textTransform='uppercase' className='orange-btn float-img'>New</Button>
+                <Button textTransform='uppercase' className='orange-btn float-img small-btn'>New</Button>
                 
                 <Box className='avatar-rounded'>
                 <img src={GridImage}  />
@@ -279,7 +279,7 @@ const LearnCypto = () => {
                   <img src={Avatar}/>
                   <Box sx={{paddingLeft:'15px'}}>
                     <Typography fontWeight='500'>Top 7 NFT usecase</Typography>
-                    <Typography className='small secondary-color' fontWeight='500'><span>First Name</span> <span>Last Name</span></Typography>
+                    <Typography className='small-caption secondary-color' fontWeight='500'><span>First Name</span> <span>Last Name</span></Typography>
                   </Box>  
                   </Box>
                                   
@@ -290,9 +290,9 @@ const LearnCypto = () => {
               </Box>
             </Grid>
 
-            <Grid item xs={12} sm={4} md={4} >
+            <Grid item xs={12} md={6} xl={4} >
               <Box className='about-crypto'>
-                <Button textTransform='uppercase' className='orange-btn float-img'>New</Button>
+                <Button textTransform='uppercase' className='orange-btn float-img small-btn'>New</Button>
                 
                 <Box className='avatar-rounded'>
                 <img src={GridImage}  />
@@ -302,7 +302,7 @@ const LearnCypto = () => {
                   <img src={Avatar}/>
                   <Box sx={{paddingLeft:'15px'}}>
                     <Typography fontWeight='500'>Top 7 NFT usecase</Typography>
-                    <Typography className='small secondary-color' fontWeight='500'><span>First Name</span> <span>Last Name</span></Typography>
+                    <Typography className='small-caption secondary-color' fontWeight='500'><span>First Name</span> <span>Last Name</span></Typography>
                   </Box>  
                   </Box>
                                   
@@ -313,9 +313,9 @@ const LearnCypto = () => {
               </Box>
             </Grid>
 
-            <Grid item xs={12} sm={4} md={4} >
+            <Grid item xs={12} md={6} xl={4} >
               <Box className='about-crypto'>
-                <Button textTransform='uppercase' className='orange-btn float-img'>New</Button>
+                <Button textTransform='uppercase' className='orange-btn float-img small-btn'>New</Button>
                 
                 <Box className='avatar-rounded'>
                 <img src={GridImage}  />
@@ -325,7 +325,7 @@ const LearnCypto = () => {
                   <img src={Avatar}/>
                   <Box sx={{paddingLeft:'15px'}}>
                     <Typography fontWeight='500'>Top 7 NFT usecase</Typography>
-                    <Typography className='small secondary-color' fontWeight='500'><span>First Name</span> <span>Last Name</span></Typography>
+                    <Typography className='small-caption secondary-color' fontWeight='500'><span>First Name</span> <span>Last Name</span></Typography>
                   </Box>  
                   </Box>
                                   
@@ -337,6 +337,9 @@ const LearnCypto = () => {
               
             </Grid>
           </Grid>
+          <Box paddingTop={8} paddingBottom={15}>
+            <Button sx={{margin: '0 auto'}} className='btn btn-outlined-secondary' varient='outlined' endIcon={<ArrowDropDown/>}>Learn More</Button>
+          </Box>
           </Box>
         </Container>
 
@@ -346,13 +349,13 @@ const LearnCypto = () => {
           <Box  paddingBottom={12} paddingTop={12}>
             <Box textAlign='center' >
               <img src={DarkLogo} />
-              <Typography variant='h2' component="div" className='secondary-font' textAlign='center' paddingBottom={3} sx={{fontWeight: '700'}}>Stay in the know on<br/> crypto with coinguru</Typography>
+              <Typography variant='h2' component="h2" className='secondary-font mobile-f-48' textAlign='center' paddingBottom={3} sx={{fontWeight: '700'}}>Stay in the know on<br/> crypto with coinguru</Typography>
               <Typography className='secondary-color'>A creative agency that lead and inspire</Typography> 
             </Box>
             <Box className='crypto-box'>
-              <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                  <Grid item xs={12} sm={6} md={6} paddingRight={6} >               
-                      <Typography className='small secondary-color' sx={{textTransform: 'uppercase'}} paddingBottom={3}>Crypto news</Typography>
+              <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} className='flow-reverse-mobile'>
+                  <Grid item xs={12} sm={6} md={6} paddingRight={6} className='padding-0-mobile'>               
+                      <Typography className='small-caption secondary-color' sx={{textTransform: 'uppercase'}} paddingBottom={3}>Crypto news</Typography>
                       <Typography paddingBottom={3} className='body-large'>Be Part of our Global Community</Typography>
                       <Typography className='secondary-color' paddingBottom={14}>Let’s stay in touch. Join our communities to keep up with the BitCloud team and our traders from across the world.</Typography>
                       <Button className='btn-outlined-secondary'>Join now</Button>

@@ -11,6 +11,7 @@ import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';  
 import LockIcon from '../../../../public/assets/images/lockbtn.svg'; 
+import BrightnessIcon from '../../../../public/assets/images/brightness.svg'; 
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
 const drawerWidth = 240;
@@ -209,22 +210,34 @@ function Header(props) {
 
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                   <Grid item xs={6} sm={6} md={6}>
-                    <Typography variant='h5' component='h5' className='small-caption language-box' >Language</Typography>
-                    <FormControl>
-                      <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+                    <FormControl className='language-dropdown'>
+                      <FormLabel id="demo-radio-buttons-group-label"  className='small-caption language-box' >Language</FormLabel>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="female"
+                        defaultValue="English"
                         name="radio-buttons-group"
                       >
-                        <FormControlLabel value="female" control={<Radio />} label="Female" />
-                        <FormControlLabel value="male" control={<Radio />} label="Male" />
-                        <FormControlLabel value="other" control={<Radio />} label="Other" />
+                        <FormControlLabel className='radio-option' value="english" control={<Radio />} label="English" />
+                        <FormControlLabel className='radio-option' value="chinese" control={<Radio />} label="Chinese" />
+                        <FormControlLabel className='radio-option' value="japanese" control={<Radio />} label="Japanese" />
                       </RadioGroup>
                     </FormControl>
                   </Grid>
                   <Grid item xs={6} sm={6} md={6}>
-                    xs=2
+                  <FormControl className='language-dropdown'>
+                      <FormLabel id="currency-label"  className='small-caption language-box' >Currency</FormLabel>
+                  <RadioGroup
+                        aria-labelledby="currency-label"
+                        defaultValue="USD"
+                        name="radio-buttons-group"
+                      >
+                        <FormControlLabel className='radio-option' value="usd" control={<Radio />} label="USD" />
+                        <FormControlLabel className='radio-option' value="aud" control={<Radio />} label="AUD" />
+                        <FormControlLabel className='radio-option' value="eur" control={<Radio />} label="EUR" />
+                        <FormControlLabel className='radio-option' value="jpy" control={<Radio />} label="JPY" />
+                        <FormControlLabel className='radio-option' value="btc" control={<Radio />} label="BTC" />
+                      </RadioGroup>
+                      </FormControl>
                   </Grid>
                 </Grid>
               </Box>
@@ -308,7 +321,7 @@ function Header(props) {
               <Divider />
               <MenuItem onClick={handleCloseAnchor}>
                 <span className='inner-div-user'>
-                  <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> 2FA security</span>
+                  <span className='img-div-dropdown head-menu'><img src={LockIcon} /> 2FA security</span>
                   <span className='pl-3 sub-head-menu'>Setup 2FA for more security</span>
                 </span>
               </MenuItem>
@@ -319,7 +332,20 @@ function Header(props) {
                   <span className='pl-3 sub-head-menu'>View additional settings</span>
                 </span>
               </MenuItem>
+              <Divider /> 
+              <MenuItem onClick={handleCloseAnchor}>
+                <span className='inner-div-user'>
+                  <span className='img-div-dropdown head-menu'><img src={BrightnessIcon} /> Dark mode</span>
+                  <span className='pl-3 sub-head-menu'>Switch dark/light mode</span>
+                  <span></span>
+                </span>
+              </MenuItem>
               <Divider />
+              <MenuItem onClick={handleCloseAnchor}>
+                <span className='inner-div-user'>
+                  <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Log out</span>
+                </span>
+              </MenuItem>
            
             </Menu>
 

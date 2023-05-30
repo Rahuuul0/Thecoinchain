@@ -708,12 +708,13 @@ input[type=number] {
     flex-direction: column;
 }
 .inner-div-user .pl-3{
-    padding-left: 26px;
+    padding-left: 30px;
 }
 .inner-div-user .img-div-dropdown img{
     position: relative;
     top: 6px;
     width: 20px;
+    margin-right: 6px;
 }
 .inner-div-user .head-menu{
     font-size: 14px !important;
@@ -721,7 +722,21 @@ input[type=number] {
 .inner-div-user .sub-head-menu{
     font-size: 10px !important;
 }
-
+.language-dropdown.MuiFormControl-root label{
+    transform: none;
+    text-transform: unset !important;
+    margin-bottom: 20px;
+}
+.language-dropdown.MuiFormControl-root label.radio-option {
+    margin-bottom: 0px;
+}
+.language-dropdown.MuiFormControl-root label span.MuiTypography-root{
+    transform: none;
+    font-size: 14px !important;
+    text-transform: unset !important;
+    color: #777E90 !important;
+    font-family: var(--secondary-font) !important;
+}
 .app-nav button.MuiButtonBase-root {
     color: var(--secondary-color);
 }

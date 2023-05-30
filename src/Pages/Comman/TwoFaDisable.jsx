@@ -11,6 +11,7 @@ import Lockbtn from '../../../public/assets/images/lockbtn.svg';
 import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
 import ScanImg from '../../../public/assets/images/scan-img.png';
 import { useNavigate } from 'react-router-dom';
+import Sidebar from './Components/Sidebar';
 
 function handleClick(event) {
     event.preventDefault();
@@ -58,26 +59,7 @@ const TwoFaDisable = () => {
                     <Box className='subscription-steps account-main'>
                         <Container maxWidth="lg">
                             <Box className='subscription-steps-inner'>
-                                <Box className='subscription-steps-col'>
-                                    <Stack spacing={2}>
-                                        <Box sx={{ borderBottom: '1px solid #E6E8EC' }} paddingBottom={2}>
-                                            <Typography className='left-icon secondary-color' onClick={() => { navigate("/my-account") }} paddingBottom={4} fontWeight={700}><span><img src={User} /> </span>Profile</Typography>
-                                            <Typography className='left-icon secondary-color' onClick={() => { navigate("/referrals") }} paddingBottom={4}><span><img src={Share} /> </span>Referrals</Typography>
-                                            <Typography className='left-icon secondary-color' onClick={() => { navigate("/api-keys") }} paddingBottom={2}><span><img src={Api} /> </span>
-                                                Subscriptions
-                                                {/* API keys */}
-                                            </Typography>
-                                        </Box>
-                                        <Box paddingTop={2}>
-                                            <Typography className='left-icon secondary-color' onClick={() => { navigate("/session-and-history") }} paddingBottom={4}><span><img src={Session} /> </span>Sessions & login history</Typography>
-                                            <Typography className='left-icon secondary-color' onClick={() => { navigate("/2fa-enable") }} paddingBottom={4}><span><img src={FA} /> </span>2FA</Typography>
-                                            <Typography className='left-icon secondary-color' onClick={() => { navigate("/change-account-password") }} paddingBottom={4}><span><img src={Lockbtn} /> </span>Change password</Typography>
-                                        </Box>
-
-                                    </Stack>
-
-
-                                </Box>
+                                <Sidebar />
                                 <Box className='subscription-steps-col-details'>
                                     <Box className="step-one">
                                         <Box className='fa-heading-box'>

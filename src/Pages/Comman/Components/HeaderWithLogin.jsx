@@ -9,7 +9,7 @@ import galleryImage from '../../../../public/assets/images/gallery.svg';
 import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined } from '@mui/icons-material/';
 import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
-import UserAvatar from '../../../../public/assets/images/avatarUser.svg';  
+import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import { useUserActions } from "../../../_actions/user.actions";
 const drawerWidth = 240;
 
@@ -18,7 +18,7 @@ function Header(props) {
   const navItems = [
     {
       page: 'Community',
-      icon: '',     
+      icon: '',
     },
     {
       page: 'Prediction',
@@ -65,7 +65,7 @@ function Header(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
-      
+
       <Divider />
       <List>
         {navItems.map((item, i) => {
@@ -213,7 +213,7 @@ function Header(props) {
             <Badge badgeContent={2} className="green-bg-badge navbtn">
               <NotificationsNone color="action" />
             </Badge>
-            <Button onClick={e=>navigate('/account') } variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+            <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
               Account
             </Button>
             <IconButton aria-label="sunny" color="primary">
@@ -262,41 +262,41 @@ function Header(props) {
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-              <MenuItem onClick={e=>navigate('/account/profile') }>
-                <span onClick className='inner-div-user'>
+              <MenuItem onClick={() => navigate('/account/profile')}>
+                <span className='inner-div-user'>
                   <span className='img-div-dropdown head-menu'><img src={UserIcon} /> Profile</span>
                   <span className='pl-3 sub-head-menu'>Important account details</span>
                 </span>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={handleCloseAnchor}>
+              <MenuItem onClick={() => navigate('/account/referrals')}>
                 <span className='inner-div-user'>
                   <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Referrals</span>
                   <span className='pl-3 sub-head-menu'>Invite your friends and earn rewards</span>
                 </span>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={handleCloseAnchor}>
+              <MenuItem onClick={() => navigate('/account/2fa-enable')}>
                 <span className='inner-div-user'>
                   <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> 2FA security</span>
                   <span className='pl-3 sub-head-menu'>Setup 2FA for more security</span>
                 </span>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={handleCloseAnchor}>
+              <MenuItem onClick={() => navigate('/account/session-and-history')}>
                 <span className='inner-div-user'>
                   <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Settings</span>
                   <span className='pl-3 sub-head-menu'>View additional settings</span>
                 </span>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={()=>userActions.logout()}>
+              <MenuItem onClick={() => userActions.logout()}>
                 <span className='inner-div-user'>
-                  <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Logout</span>                  
+                  <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Logout</span>
                 </span>
               </MenuItem>
               <Divider />
-           
+
             </Menu>
           </Box>
         </Toolbar>

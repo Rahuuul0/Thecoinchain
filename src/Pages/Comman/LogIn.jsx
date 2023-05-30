@@ -1,4 +1,5 @@
-import React from 'react'
+import { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
@@ -6,6 +7,11 @@ import { Container, Box, TextField, Typography, Link, Button, InputAdornment } f
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions"
 import { yupResolver } from "@hookform/resolvers/yup";
+import { MuiTelInput } from 'mui-tel-input'
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { useAlertActions } from '../../_actions/alert.actions';
+import { userErrorAtom } from '../../_state';
+import { useRecoilState } from 'recoil';
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
@@ -14,16 +20,18 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { useAlertActions } from '../../_actions/alert.actions';
 import LogoLight from '../../../public/assets/images/logo-light.svg'
 import LogoDark from '../../../public/assets/images/logo.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import Lock from '../../../public/assets/images/icons/lock.svg'
-import { MuiTelInput } from 'mui-tel-input'
+import GoogleLogin from "./GoogleLogin.jsx";
+import AppleIcon from '@mui/icons-material/Apple';
 const LogIn = () => {
 
-    const [value, setValue] = React.useState('1');
-    const [phone, setPhone] = React.useState('')
+    const [value, setValue] = useState('1');
+    const [phone, setPhone] = useState('')
+    const [userError, setUserError] = useRecoilState(userErrorAtom);
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const handlePhone = (newPhone) => {
         setPhone(newPhone)
@@ -75,10 +83,18 @@ const LogIn = () => {
     const formOptions = { resolver: yupResolver(value==1?validationSchema:validationSchemaMobile) };
     // get functions to build form with useForm() hook
     const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
-    const { errors, isSubmitting } = formState;
+    const { errors } = formState;
+
+
+    useEffect(() => {
+        if (userError)
+            setIsSubmitting(false)
+    }, [userError])
 
     const formData = watch();
     const handleFormSubmit = () => {
+        setIsSubmitting(true)
+        setUserError(false)
         if(value==1) {
             userActions.login(formData)
         }
@@ -124,6 +140,20 @@ const LogIn = () => {
                                     <Box className='ensure-link' >
                                         <img src={Lock} alt='lock' />
                                         <span>https://</span> accounts.coinguru.org/login
+                                    </Box>
+                                </Box>
+                                <Box className='open-id' >
+                                    <Typography component="small" variant="body2" sx={{ textAlign: 'center', color: '#777E91', display: 'block', marginBottom: '20px' }}>
+                                        Use Your OpenID to Sign In
+                                    </Typography>
+                                    <Box component="div" className='open-id-btn-wrapper' >
+                                        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}>
+
+                                            <GoogleLogin />
+                                        </GoogleOAuthProvider>
+                                        <Button variant="contained" className='btn btn-secondary' startIcon={<AppleIcon />}>
+                                            Apple
+                                        </Button>
                                     </Box>
                                 </Box>
                                 <Box className='devider' />

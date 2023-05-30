@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import Users from './Pages/User/UserPages';
 import Comman from './Pages/Comman/CommanPages';
 import { fakeBackend } from './_helpers'
 import { alertAtom } from './_state/';
@@ -17,7 +16,6 @@ const App = () => {
             open={open}
          >
             <Routes>
-               <Route path={`/account`} element={<Users />} />
                <Route path="*" exact element={<Comman />} />
             </Routes>
          </SnackbarProvider>

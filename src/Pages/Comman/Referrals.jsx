@@ -1,7 +1,7 @@
 import React from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button,  Link, Breadcrumbs, Stack, InputAdornment , TextField,  } from '@mui/material';
+import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Stack, InputAdornment, TextField, } from '@mui/material';
 import User from '../../../public/assets/images/user.svg';
 import Share from '../../../public/assets/images/share-square.svg';
 import Session from '../../../public/assets/images/session.svg';
@@ -9,6 +9,7 @@ import Api from '../../../public/assets/images/api.svg';
 import FA from '../../../public/assets/images/fa.svg';
 import Lockbtn from '../../../public/assets/images/lockbtn.svg';
 import { KeyboardArrowRightIcon, NavigateNext } from '@mui/icons-material/';
+import Sidebar from './Components/Sidebar';
 
 const plans = [
     {
@@ -95,7 +96,7 @@ const Referrals = () => {
                     <Container maxWidth="lg">
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>
-                            Referrals
+                                Referrals
                             </Typography>
 
                             <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
@@ -116,23 +117,7 @@ const Referrals = () => {
                     <Box className='subscription-steps account-main'>
                         <Container maxWidth="lg">
                             <Box className='subscription-steps-inner'>
-                                <Box className='subscription-steps-col'>
-                                    <Stack spacing={2}>
-                                        <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={User} /> </span>Profile</Typography>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4} fontWeight={700} color='#23262F'><span><img src={Share} /> </span>Referrals</Typography>
-                                            <Typography className='left-icon secondary-color' paddingBottom={2}><span><img src={Api} /> </span>API keys</Typography>
-                                        </Box>
-                                        <Box>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Session} /> </span>Sessions & login history</Typography>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={FA} /> </span>2FA</Typography>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Lockbtn} /> </span>Change password</Typography>
-                                        </Box>
-
-                                    </Stack>
-
-
-                                </Box>
+                                <Sidebar />
                                 <Box className='subscription-steps-col-details'>
 
                                     <Box className="main-box" >
@@ -152,8 +137,8 @@ const Referrals = () => {
                                                     Invite friends to earn 20%
                                                 </Typography>
                                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                                                    <Grid item xs={12}  sm={6}>
-                                                       <TextField
+                                                    <Grid item xs={12} sm={6}>
+                                                        <TextField
                                                             label="REFERRALS LINK"
                                                             className="black-label form-control white-input-box"
                                                             InputLabelProps={{
@@ -172,7 +157,7 @@ const Referrals = () => {
 
                                                     </Grid>
                                                     <Grid item xs={12} sm={6}>
-                                                       <TextField
+                                                        <TextField
                                                             label="REFERRALS CODE"
                                                             InputProps={{
                                                                 endAdornment: <InputAdornment position="end">Copied</InputAdornment>,

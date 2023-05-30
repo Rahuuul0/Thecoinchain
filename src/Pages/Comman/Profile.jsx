@@ -1,7 +1,7 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Modal, Link, Breadcrumbs, Stack, Select, OutlinedInput, MenuItem, Switch, TextField } from '@mui/material';
+import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Stack, Select, OutlinedInput, MenuItem, Switch, TextField } from '@mui/material';
 import User from '../../../public/assets/images/user.svg';
 import Share from '../../../public/assets/images/share-square.svg';
 import Session from '../../../public/assets/images/session.svg';

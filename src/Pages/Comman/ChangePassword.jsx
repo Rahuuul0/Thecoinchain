@@ -63,7 +63,7 @@ const ChangePassword = () => {
                         <Box className='auth-header-logo' >
                             <img src={LogoLight} alt='Coin Guru' className='desktop' />
                             <img src={LogoDark} alt='Coin Guru' className='ipad' />
-                        </Box>                       
+                        </Box>
                     </Box>
                     <Box className='auth-wrapper-inner'>
                         <Box className='auth-wrapper-bg'>

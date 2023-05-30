@@ -728,7 +728,14 @@ input[type=number] {
     margin-bottom: 20px;
 }
 .language-dropdown.MuiFormControl-root label.radio-option {
-    margin-bottom: 0px;
+    margin: 5px 0px;
+    border-bottom: 1px solid #E6E8EC;
+    width: 100%;  
+    padding: 10px 0px 10px 0;
+    margin: 0;
+}
+.language-dropdown.MuiFormControl-root label.radio-option:last-child{
+    border: none;
 }
 .language-dropdown.MuiFormControl-root label span.MuiTypography-root{
     transform: none;
@@ -740,7 +747,17 @@ input[type=number] {
 .app-nav button.MuiButtonBase-root {
     color: var(--secondary-color);
 }
-
+.language-dropdown{
+    width: 100%;
+    padding: 15px 15px 0px 15px !important;
+}
+.language-dropdown span svg{
+    width: 8px !important;
+    height: 8px !important;
+}
+ .menu-box{
+    padding: 5px !important;
+}
 #root .app-nav .btn {
     height: 46px;
     color: #23262F;

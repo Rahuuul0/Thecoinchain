@@ -206,10 +206,10 @@ function Header(props) {
               sx={{ borderRadius: '12px' }}
               onClose={handleCloseB}
             >
-              <Box>
+              <Box className='menu-box'>
 
-                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                  <Grid item xs={6} sm={6} md={6}>
+                <Grid container>
+                  <Grid item xs={6} sm={6} md={6} sx={{borderRight: '1px solid #E6E8EC'}}>
                     <FormControl className='language-dropdown'>
                       <FormLabel id="demo-radio-buttons-group-label"  className='small-caption language-box' >Language</FormLabel>
                       <RadioGroup
@@ -223,7 +223,7 @@ function Header(props) {
                       </RadioGroup>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={6} sm={6} md={6}>
+                  <Grid item xs={6} sm={6} md={6} className='right-box'>
                   <FormControl className='language-dropdown'>
                       <FormLabel id="currency-label"  className='small-caption language-box' >Currency</FormLabel>
                   <RadioGroup

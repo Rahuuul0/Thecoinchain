@@ -1,35 +1,23 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
+import { ListItem, List, ListItemButton, ListItemIcon, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid } from '@mui/material/';
 import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
-
-import connectline from '../../../../public/assets/images/connect-line.svg'
-
+import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer, InputAdornment } from '@mui/material';
+import galleryImage from '../../../../public/assets/images/gallery.svg';
+import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined } from '@mui/icons-material/';
+import ShareIcon from '../../../../public/assets/images/share-square.svg';
+import UserIcon from '../../../../public/assets/images/user.svg';
+import UserAvatar from '../../../../public/assets/images/avatarUser.svg';  
+import LockIcon from '../../../../public/assets/images/lockbtn.svg'; 
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 const drawerWidth = 240;
 
 function Header(props) {
 
   const navItems = [
-    {
-      page: 'Academy',
-      icon: '',
-      // link: '/academy',
-    },
     {
       page: 'Community',
       icon: '',
@@ -42,6 +30,32 @@ function Header(props) {
     },
   ]
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const [anchorElB, setAnchorElB] = React.useState(null);
+  const openB = Boolean(anchorElB);
+  const handleClickB = (event) => {
+    setAnchorElB(event.currentTarget);
+  };
+  const handleCloseB = () => {
+    setAnchorElB(null);
+  };
+
+  const [anchorElAnchor, setAnchorElAnchor] = React.useState(null);
+  const openAnchor = Boolean(anchorElAnchor);
+  const handleClickAnchor = (event) => {
+    setAnchorElAnchor(event.currentTarget);
+  };
+  const handleCloseAnchor = () => {
+    setAnchorElAnchor(null);
+  };
 
   const navigate = useNavigate();
   const { window } = props;
@@ -114,9 +128,42 @@ function Header(props) {
           >
             <img src={CoinGuru} alt='Coin Guru' />
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'left', } }}>
-
+          <Box className='' sx={{ display: { xs: 'none', sm: 'flex', flex: 2, textAlign: 'left', } }}>
+            <ul className='navItem'>
+              <li >
+                <Button
+                  id="demo-positioned-button"
+                  aria-controls={open ? 'demo-positioned-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                >
+                  Academy
+                </Button>
+                <Menu
+                  className='dropdown-menu'
+                  id="demo-positioned-menu"
+                  aria-labelledby="demo-positioned-button"
+                  anchorEl={anchorEl}
+                  open={open}
+                  sx={{ borderRadius: '12px' }}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                >
+                  <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
+                  <MenuItem onClick={handleClose}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
+                </Menu>
+              </li>
+            </ul>
             {navItems.map((item, i) => (
+
               <Button onClick={() => { navigate(item.link) }} key={i} sx={{ color: '#fff' }}>
                 {item.icon &&
                   <img src={item.icon} alt={item.page} />
@@ -124,6 +171,7 @@ function Header(props) {
                 {item.page}
               </Button>
             ))}
+
 
             {/* <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
               <SearchIcon />
@@ -133,7 +181,7 @@ function Header(props) {
 
           </Box>
 
-          <Box sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
+          <Box className='end-flex' sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
 
 
 
@@ -141,16 +189,145 @@ function Header(props) {
               <SearchIcon />
             </Button> */}
 
-            <Button className='btn' sx={{ color: '#23262F' }}>
+            <Button id="demo-positioned-button"
+              aria-controls={openB ? 'demo-positioned-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openB ? 'true' : undefined}
+              onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
               EN/USD
             </Button>
+            <Menu
+              className='dropdown-menu en-dropdown'
+              id="demo-positioned-menu"
+              aria-labelledby="demo-positioned-button"
+              anchorEl={anchorElB}
+              open={openB}
+              sx={{ borderRadius: '12px' }}
+              onClose={handleCloseB}
+            >
+              <Box>
 
-            <Button  onClick={() => { navigate('/create-account') }}  variant="contained" className='btn btn-primary'  sx={{ color: '#fff' }}>
-              Sign up
+                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                  <Grid item xs={6} sm={6} md={6}>
+                    <Typography variant='h5' component='h5' className='small-caption language-box' >Language</Typography>
+                    <FormControl>
+                      <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+                      <RadioGroup
+                        aria-labelledby="demo-radio-buttons-group-label"
+                        defaultValue="female"
+                        name="radio-buttons-group"
+                      >
+                        <FormControlLabel value="female" control={<Radio />} label="Female" />
+                        <FormControlLabel value="male" control={<Radio />} label="Male" />
+                        <FormControlLabel value="other" control={<Radio />} label="Other" />
+                      </RadioGroup>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={6} sm={6} md={6}>
+                    xs=2
+                  </Grid>
+                </Grid>
+              </Box>
+            </Menu>
+            <IconButton aria-label="flash" color="primary">
+              <FlashOnOutlined />
+            </IconButton>
+            <Badge badgeContent={2} className="green-bg-badge navbtn">
+              <NotificationsNone color="action" />
+            </Badge>
+
+            <Button variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+              Account
             </Button>
-            <Button onClick={() => { navigate('/login') }} variant="outline" className='btn btn-outline'  sx={{ color: '#23262F' , backgroundColor: '#ffffff00', border: '1px solid' }}>
-              Login
-            </Button>
+
+            <IconButton aria-label="sunny" color="primary">
+              <WbSunnyOutlined />
+            </IconButton>
+            <IconButton onClick={handleClickAnchor}
+              size="small"
+              sx={{ ml: 2 }}
+              aria-controls={openAnchor ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img' aria-label="flash" color="primary">
+              <img src={UserAvatar} />
+            </IconButton >
+
+
+
+
+
+
+            <Menu
+              anchorEl={anchorElAnchor}
+              id="account-menu"
+              open={openAnchor}
+              onClose={handleCloseAnchor}
+              onClick={handleCloseAnchor}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                  mt: 1.5,
+                  '& .MuiAvatar-root': {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  '&:before': {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+              <MenuItem onClick={handleCloseAnchor}>
+                <span className='inner-div-user'>
+                  <span className='img-div-dropdown head-menu'><img src={UserIcon} /> Profile</span>
+                  <span className='pl-3 sub-head-menu'>Important account details</span>
+                </span>
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={handleCloseAnchor}>
+                <span className='inner-div-user'>
+                  <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Referrals</span>
+                  <span className='pl-3 sub-head-menu'>Invite your friends and earn rewards</span>
+                </span>
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={handleCloseAnchor}>
+                <span className='inner-div-user'>
+                  <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> 2FA security</span>
+                  <span className='pl-3 sub-head-menu'>Setup 2FA for more security</span>
+                </span>
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={handleCloseAnchor}>
+                <span className='inner-div-user'>
+                  <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Settings</span>
+                  <span className='pl-3 sub-head-menu'>View additional settings</span>
+                </span>
+              </MenuItem>
+              <Divider />
+           
+            </Menu>
+
+
+
+
+
+
 
           </Box>
         </Toolbar>

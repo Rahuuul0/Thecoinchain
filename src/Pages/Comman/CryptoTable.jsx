@@ -14,10 +14,22 @@ import TimeImg from '../../../public/assets/images/icons/time-ic.svg'
 import CloseIcon from '@mui/icons-material/Close';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import { useEffect, useState } from "react"
+import { useRecoilState } from 'recoil';
+import {homePageAtom} from "../../_state/users";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
+
 
 const CryptoTable = () => {
 
     const [value, setValue] = React.useState('1');
+
+    const [page, setPage] = React.useState(1);
+    const handleChanges = (event, value) => {
+      setPage(value);
+    };
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -26,13 +38,23 @@ const CryptoTable = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    
+    // Table Json Data call 
+    const sethomeData = useRecoilState(homePageAtom);
 
+    const coinData = sethomeData[0][0].data; 
+
+    useEffect(()=> {
+        console.log(sethomeData[0][0].data,'gfddsfdfdfsfs')
+      },[])
 
     return (
         <>
+    
             <Box className='crypto-list' sx={{ py: 2 }}>
                 <Box className='crypto-list-table'>
                     <TableContainer>
+                    <Stack spacing={2}>
                         <Table sx={{ minWidth: 650 }}>
                             <TableHead>
                                 <TableRow hover >
@@ -55,242 +77,45 @@ const CryptoTable = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
+                            {coinData.map((item) =>{
+                                return(
                                 <TableRow hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
-                                    <TableCell>1</TableCell>
+                                    <TableCell>{item.cmc_rank}</TableCell>
                                     <TableCell onClick={handleOpen}>
                                         <div className="crypto-name">
-                                            <img src={BTC} alt='BTC' width="33px" />
-                                            Bitcoin <span className="currency_name">BTC</span>
+                                            <img src={item.img} alt='BTC' width="33px" />
+                                            {item.name} <span className="currency_name">{item.symbol}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell align='right'>$12,345</TableCell>
+                                    <TableCell align='right'>$ {Math.round((item.quote.USD.price + Number.EPSILON) * 100) / 100}</TableCell>
                                     <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
+                                        <span className='up'>{Math.round((item.quote.USD.percent_change_24h + Number.EPSILON) * 100) / 100}%</span>
                                     </TableCell>
                                     <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
+                                        <span className='up'>{Math.round((item.quote.USD.percent_change_7d + Number.EPSILON) * 100) / 100}%</span>
                                     </TableCell>
                                     <TableCell align='right'>
-                                        $100,000,000,000
+                                    ${Math.round((item.quote.USD.market_cap + Number.EPSILON) * 100) / 100}
                                     </TableCell>
                                     <TableCell align='right'>
-                                        $100,000,000,000
+                                    {Math.round((item.quote.USD.volume_24h + Number.EPSILON) * 100) / 100}
                                     </TableCell>
                                     <TableCell align='right'>
                                         <img src={ChartUp} alt='chart' height="33px" />
                                     </TableCell>
                                 </TableRow>
-                                <TableRow hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
-                                    <TableCell>2</TableCell>
-                                    <TableCell onClick={handleOpen}>
-                                        <div className="crypto-name">
-                                            <img src={BTC} alt='BTC' width="33px" />
-                                            Bitcoin <span className="currency_name">BTC</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell align='right'>$12,345</TableCell>
-
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <img src={ChartUp} alt='chart' height="33px" />
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
-                                    <TableCell>3</TableCell>
-                                    <TableCell onClick={handleOpen}>
-                                        <div className="crypto-name">
-                                            <img src={BTC} alt='BTC' width="33px" />
-                                            Bitcoin <span className="currency_name">BTC</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell align='right'>$12,345</TableCell>
-
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <img src={ChartUp} alt='chart' height="33px" />
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
-                                    <TableCell>4</TableCell>
-                                    <TableCell onClick={handleOpen}>
-                                        <div className="crypto-name">
-                                            <img src={BTC} alt='BTC' width="33px" />
-                                            Bitcoin <span className="currency_name">BTC</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell align='right'>$12,345</TableCell>
-
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <img src={ChartUp} alt='chart' height="33px" />
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
-                                    <TableCell>5</TableCell>
-                                    <TableCell onClick={handleOpen}>
-                                        <div className="crypto-name">
-                                            <img src={BTC} alt='BTC' width="33px" />
-                                            Bitcoin <span className="currency_name">BTC</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell align='right'>$12,345</TableCell>
-
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <img src={ChartUp} alt='chart' height="33px" />
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
-                                    <TableCell>6</TableCell>
-                                    <TableCell onClick={handleOpen}>
-                                        <div className="crypto-name">
-                                            <img src={BTC} alt='BTC' width="33px" />
-                                            Bitcoin <span className="currency_name">BTC</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell align='right'>$12,345</TableCell>
-
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <img src={ChartUp} alt='chart' height="33px" />
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
-                                    <TableCell>7</TableCell>
-                                    <TableCell onClick={handleOpen}>
-                                        <div className="crypto-name">
-                                            <img src={BTC} alt='BTC' width="33px" />
-                                            Bitcoin <span className="currency_name">BTC</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell align='right'>$12,345</TableCell>
-
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <span className='down'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <img src={ChartDown} alt='chart' height="33px" />
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
-                                    <TableCell>8</TableCell>
-                                    <TableCell onClick={handleOpen}>
-                                        <div className="crypto-name">
-                                            <img src={BTC} alt='BTC' width="33px" />
-                                            Bitcoin <span className="currency_name">BTC</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell align='right'>$12,345</TableCell>
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <img src={ChartUp} alt='chart' height="33px" />
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
-                                    <TableCell>9</TableCell>
-                                    <TableCell onClick={handleOpen}>
-                                        <div className="crypto-name">
-                                            <img src={BTC} alt='BTC' width="33px" />
-                                            Bitcoin <span className="currency_name">BTC</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell align='right'>$12,345</TableCell>
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <span className='up'>+1.41%</span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        $100,000,000,000
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <img src={ChartUp} alt='chart' height="33px" />
-                                    </TableCell>
-                                </TableRow>
+                                )
+                            })}
+                               
                             </TableBody>
                         </Table>
+                        </Stack>
+                        <span >Page: {page}  </span>
+                       <Pagination  style={{ float: 'right' }} count={5} page={page} onChange={handleChanges} />
+                      
                     </TableContainer>
                 </Box>
-            </Box >
+            </Box>
 
             {/* Modal */}
             <Modal
@@ -334,24 +159,7 @@ const CryptoTable = () => {
                                         <Tab label="1d" value="4" />
                                     </TabList>
                                 </Box>
-                                {/* <TabPanel value="1" sx={{ p: 0 }}>
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            className='btn btn-primary'
-                                            disabled={isSubmitting}>
-                                            Login
-                                            </Button>
-                                            </TabPanel>
-                                    <TabPanel value="2" sx={{ p: 0 }}>
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            className='btn btn-primary'
-                                            disabled={isSubmitting}>
-                                            Login
-                                            </Button>
-                                        </TabPanel> */}
+                              
                             </TabContext>
                             <Box className="value-with-date">
                                 <Box className="value-with-date-col">
@@ -383,6 +191,7 @@ const CryptoTable = () => {
                     </Button>
                 </Box>
             </Modal>
+        
         </>
     )
 }

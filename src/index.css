@@ -28,7 +28,9 @@
     --color-grey: rgba(119, 126, 144, 1);
     --secondary-color: #777E90;
 }
-
+.color-dark{
+    color: #23262F;
+}
 :focus {
     outline: none !important;
 }
@@ -46,7 +48,7 @@ body .modal-dialog * {
     align-items: center;
     padding: 0px 24px;
     gap: 12px;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 90px !important;
     font-family: var(--secondary-font) !important;
     font-weight: 700;
@@ -57,6 +59,11 @@ body .modal-dialog * {
 #root .btn.MuiButton-sizeSmall,
 .modal-dialog .btn.MuiButton-sizeSmall {
     padding: 4px 15px;
+}
+
+#root .btn.btn-table.MuiButton-sizeSmall,
+.modal-dialog .btn.btn-table.MuiButton-sizeSmall {
+    border-radius: 4px !important;
 }
 
 #root .btn-primary,
@@ -78,11 +85,15 @@ body .modal-dialog * {
 }
 
 #root .btn-success {
-    background-color: #58BD7D;
+    background-color: #58BD7D !important;
 }
 
 #root .btn-error {
     background-color: #FF6838;
+}
+
+#root .gold-color {
+    color: #FFD700;
 }
 
 .btn-round {
@@ -127,6 +138,7 @@ html body {
     color: var(--color_dark);
     margin: 0;
     padding: 0;
+    background-color: #FCFCFD;
 }
 
 html body,
@@ -156,7 +168,7 @@ div * {
     font-family: var(--primary-font) !important;
 }
 
-.secondary-font {
+#root .secondary-font {
     font-family: var(--secondary-font) !important;
 }
 
@@ -542,7 +554,8 @@ main.auth-wrapper {
     margin-top: -24px;
 }
 
-.auth-checkbox .MuiButtonBase-root.Mui-checked {
+.auth-checkbox .MuiButtonBase-root.Mui-checked,
+.MuiFormControlLabel-root .MuiCheckbox-root.Mui-checked {
     color: var(--primary-color);
 }
 
@@ -686,17 +699,20 @@ input[type=number] {
     border: 1px solid #E6E8EC;
     border-radius: 90px;
 }
-.rounded-input .MuiInputBase-root{
+
+.rounded-input .MuiInputBase-root {
     padding: 11.5px 5px 11.5px 16px;
     border: 2px solid #E6E8EC;
     border-radius: 40px
 }
-.rounded-input button{
+
+.rounded-input button {
     background-color: var(--primary-color);
     color: #fff;
     width: 32px;
     height: 32px;
 }
+
 #root .border-rounded.btn-green-outlined {
     border-radius: 90px !important;
 }
@@ -728,7 +744,7 @@ input[type=number] {
     font-family: var(--secondary-font) !important;
 }
 
-.orange-btn {
+ #root .orange-btn {
     background-color: #FF6838 !important;
     color: #fff !important;
 }
@@ -736,6 +752,7 @@ input[type=number] {
 .gridBox {
     padding: 50px 30px 50px 30px !important;
     border-radius: 32px;
+    transition: 0.3s;
 }
 
 .gridBox:hover {
@@ -776,7 +793,7 @@ input[type=number] {
 /* Market page */
 .market-hero {
     background-color: #DECBE9;
-    padding: 100px 0;
+    padding: 0;
     /* background-image: url("../public/assets/images/market-hero.svg"); */
     background-size: contain;
     background-repeat: no-repeat;
@@ -786,6 +803,7 @@ input[type=number] {
     min-height: 490px;
     align-items: center;
     display: flex;
+    overflow: hidden;
 }
 
 .flex-between-box .MuiGrid-root {
@@ -820,11 +838,13 @@ input[type=number] {
     z-index: -1;
 } */
 }
-.market-hero .MuiContainer-root{
+
+.market-hero .MuiContainer-root {
     display: table;
     min-height: 690px;
 }
-.market-hero  .MuiGrid-root.MuiGrid-container{
+
+.market-hero .MuiGrid-root.MuiGrid-container {
     display: table-cell;
     vertical-align: middle;
     height: 100%;
@@ -837,7 +857,7 @@ input[type=number] {
 }
 
 .market-hero-img-wrapper {
-    position: absolute;  
+    position: absolute;
     top: 50%;
     right: 0;
     transform: translate(0px, -50%);
@@ -846,12 +866,14 @@ input[type=number] {
 .market-crypto-card-wrapper {
     position: relative;
     z-index: 1;
+    background: #FCFCFD;
+    padding-bottom: 70px;
 }
 
 .market-crypto-card-wrapper::after {
     content: "";
     width: 100%;
-    height: 50%;
+    height: 40%;
     background-color: #DECBE9;
     z-index: -1;
     position: absolute;
@@ -869,7 +891,6 @@ input[type=number] {
     /* margin-top: -100px; */
     position: relative;
     z-index: 1;
-    margin-bottom: 70px;
 }
 
 
@@ -898,6 +919,7 @@ input[type=number] {
     color: #777E91;
     font-weight: 600;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .market-crypto-name .currency-name .status-badge {
@@ -1078,7 +1100,7 @@ input[type=number] {
 
 .center-breadcrum ol {
     justify-content: center;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .center-breadcrum .MuiBreadcrumbs-li a {
@@ -1100,14 +1122,36 @@ input[type=number] {
 
 /* learn cypto detail ends */
 /* Contact page */
-.topic-que .label-text.MuiTypography-root{
-    transform: translate(0, -1.5px) scale(0.75);
+.topic-que .label-text.MuiTypography-root {
+    transform: none;
     left: 0px;
     position: absolute;
     left: 0px;
     top: 0px;
     transform-origin: top left;
 }
+
+.topic-que .MuiFormControl-root label {
+    transform: none !important;
+}
+
+/* Homepage Ends */
+#root .topic-que .MuiSelect-select {
+    padding: 10.5px 5px 10.5px 16px !important;
+    border: 2px solid #E6E8EC !important;
+    border-radius: 12px !important;
+    font-size: 14px !important;
+}
+
+#root .topic-que fieldset {
+    border: 0px !important;
+}
+
+#root .topic-que .MuiSelect-select p {
+    font-size: 14px !important;
+}
+
+
 .float-right {
     position: absolute !important;
     top: 15px;
@@ -1164,18 +1208,22 @@ input[type=number] {
 #root .button-img .btn img {
     padding-right: 5px;
 }
-.topic-que .topic-select-radio .MuiTypography-root{
+
+.topic-que .topic-select-radio .MuiTypography-root {
     top: -30px !important;
 }
 
-.topic-que .MuiInputBase-root ,.topic-que .MuiStack-root{
+.topic-que .MuiInputBase-root,
+.topic-que .MuiStack-root {
     width: 100%;
     background-color: #fff;
     margin-top: 35px;
 }
-.topic-que .MuiBox-root{
+
+.topic-que .MuiBox-root {
     position: relative;
 }
+
 .newdesignbox img {
     width: 100%;
 }
@@ -1204,6 +1252,7 @@ input[type=number] {
 .learn-n-earn-head {
     text-align: center;
     margin-bottom: 60px;
+    padding: 0 30%;
 }
 
 .learn-n-earn h2 {
@@ -1296,7 +1345,7 @@ input[type=number] {
 
 .crypto-list-table table tr th,
 .crypto-list-table table tr td {
-    border-color: #E6E8EC;
+    border-color: #F4F5F6;
 }
 
 .crypto-list-table table tr {
@@ -1311,7 +1360,7 @@ input[type=number] {
     top: 0;
     width: 40px;
     height: 100%;
-    background-color: #E6E8EC;
+    background-color: #F4F5F6;
     opacity: 0;
     z-index: -1;
 }
@@ -1344,7 +1393,7 @@ input[type=number] {
 
 .crypto-list-table table tr:hover th,
 .crypto-list-table table tr:hover td {
-    background-color: #E6E8EC;
+    background-color: #F4F5F6;
 }
 
 .crypto-list-table table tr:hover td:first-child {
@@ -1377,7 +1426,7 @@ input[type=number] {
 
 /* Prediction Dashboard */
 .prediction-dashboard-wrapper h4 {
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
     font-weight: 700;
     margin-bottom: 32px;
 }
@@ -1391,7 +1440,7 @@ input[type=number] {
     background: #F4F5F6;
 }
 
-.market-prediction-faq h5.large-caption {
+#root .market-prediction-faq h5.large-caption {
     font-size: 24px;
     color: var(--secondary-color);
     font-weight: 600;
@@ -1514,8 +1563,12 @@ input[type=number] {
     align-items: center;
 }
 
+.subscription-wrapper-head small a {
+    color: #353945 !important;
+}
+
 .subscription-wrapper-head h2 {
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
 }
 
 
@@ -1533,7 +1586,7 @@ input[type=number] {
 }
 
 .crypto-trader-head h2 {
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
     letter-spacing: -0.02em;
     margin-bottom: 20px;
 }
@@ -1613,7 +1666,7 @@ input[type=number] {
 }
 
 .subscription-steps-col-details h5 {
-    font-size: 24px;
+    font-size: 24px !important;
     font-weight: 600;
 }
 
@@ -1637,7 +1690,7 @@ input[type=number] {
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 3px 3px 0px 0px;
     font-weight: 700;
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
     padding: 8px;
 }
 
@@ -1647,7 +1700,7 @@ input[type=number] {
 
 .subscription-plan-card .subscription-plan-body .plan-price {
     font-weight: 700;
-    font-family: var(--secondary-font);
+    font-family: var(--secondary-font) !important;
     margin-bottom: 48px;
 }
 
@@ -1656,6 +1709,10 @@ input[type=number] {
     font-size: 24px;
     font-family: 'Poppins';
     color: #6C757D;
+}
+
+.subscription-plan-card .subscription-plan-body p {
+    font-size: 14px !important;
 }
 
 .subscription-plan .subscription-plan-cta {
@@ -1789,31 +1846,37 @@ input[type=number] {
 }
 
 /* profile section */
-.left-icon {
-    position: relative;
-    padding-left: 30px;
+p.left-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px !important;
+    font-weight: 700;
+    font-family: var(--secondary-font) !important;
 }
 
-.left-icon img {
-    padding-right: 10px;
-    position: absolute;
-    top: 2px;
-    left: 0px;
+p.left-icon img {
+    width: 24px;
+    height: auto;
+    max-height: 24px;
+    max-width: 24px;
 }
 
 .border-rounded fieldset {
     border-radius: 90px !important;
     border: 0px;
 }
-.white-input-box .MuiInputBase-root.MuiInput-root{
+
+.white-input-box .MuiInputBase-root.MuiInput-root {
     background-color: #ffffff;
 }
+
 /* .update-profile input {
     background-color: #fff !important;
     border-radius: 12px;
     height: 48px;
     padding: 0px 15px !important;
-} */
+}
 
 /* profile section ends */
 .modal-subscribed .modal-modal-description {
@@ -1884,8 +1947,8 @@ input[type=number] {
 }
 
 .notification-icon {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border: 2px solid #E6E8EC;
     color: var(--secondary-color);
     border-radius: 100px;
@@ -2005,10 +2068,78 @@ input[type=number] {
     padding: 0px 15px !important
 }
 
-/* Homepage Ends */
+.short-subhead {
+    padding: 0px 300px;
+}
 
+.small-btn {
+    height: 20px;
+    min-width: 50px !important;
+    font-size: 12px !important;
+}
 
+.bottom-border {
+    position: relative;
+}
 
+.bottom-border:before {
+    content: "";
+    background-color: #E6E8EC;
+    width: 166px;
+    height: 2px;
+    position: absolute;
+    display: block;
+    bottom: 0px;
+}
+
+.black-label.MuiFormControl-root label {
+    color: #353945;
+    transform: none;
+}
+
+.ipad-visible {
+    display: none;
+}
+
+.copied-adorement .MuiInputAdornment-root p {
+    color: #ffffff;
+    text-transform: uppercase;
+    background-color: #23262F;
+    font-weight: 700;
+    font-size: 12px !important;
+    padding: 4px 9px;
+    border-radius: 4px;
+}
+
+/* account */
+.update-profile .MuiFormControl-root label {
+    color: #353945;
+    transform: none;
+}
+
+.update-profile .MuiFormControl-root label.Mui-focused {
+    color: #353945;
+    transform: none;
+}
+
+.for-mobile {
+    display: none;
+}
+/* 2fa page */
+
+.fa span{
+    color: #58BD7D;
+}
+.fa-heading-box h3{
+    font-family: var(--secondary-font) !important;
+}
+.email-icon{
+    position: relative;
+    top: 6px;
+}
+.fa-disabled span{
+    color: #FF6838;
+}
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
 
@@ -2042,7 +2173,8 @@ input[type=number] {
         right: -24%;
     }
 
-    #root .price-prediction h2 {
+    #root .price-prediction h2,
+    #root .subscription-wrapper-head h2 {
         font-size: 40px;
     }
 
@@ -2053,11 +2185,159 @@ input[type=number] {
     .learn-n-earn {
         padding: 112px 0;
     }
+
+    .market-hero .MuiContainer-root {
+        min-height: 571px;
+    }
+
+    .market-crypto-card-wrapper::after {
+        height: 45%;
+    }
+
+    .market-prediction-faq-items {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .subscription-steps-inner {
+        gap: 64px;
+    }
+
+    .notification-list-wrapper {
+        grid-template-columns: 1fr 230px;
+    }
+
+    .session-history .subscription-steps-inner {
+        gap: 48px;
+    }
+
+    /* homepage */
+    .ipad-none {
+        display: none !important;
+    }
+
+    .slider-icon svg {
+        width: 14px !important;
+        position: relative;
+        top: 3px;
+        left: 0px;
+    }
+
+    .slider-icon {
+        border: 2px solid transparent !important;
+        padding: 0px 9px;
+    }
+
+    .slider-icon.active-slider-icon {
+        border: 2px solid #E6E8EC !important;
+        padding: 0px 9px;
+        border-radius: 50px;
+    }
+
+    .scrolling-tab {
+        gap: 8px;
+        padding: 5px 0;
+        overflow-y: hidden;
+        width: 100%;
+        justify-content: unset;
+        align-items: center;
+        flex-wrap: unset !important;
+    }
+
+    .ipad-visible {
+        display: block !important;
+    }
 }
 
-@media (max-width: 991.98px) {}
+@media (max-width: 991.98px) {
+    .market-hero-img-wrapper {
+        right: -50%;
+    }
+
+    .subscription-steps-inner {
+        gap: 32px;
+    }
+
+    .subscription-steps-col-details {
+        padding: 40px 24px;
+    }
+
+    .notification-date {
+        align-items: flex-start;
+    }
+
+    .notification-list-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .notification-list-wrapper .notification-filter {
+        order: 1;
+    }
+
+    .notification-list-wrapper .notification-list {
+        order: 2;
+    }
+
+    .deposit-transfer-card {
+        flex-wrap: wrap;
+        min-width: 222px;
+    }
+
+    .deposit-transfer {
+        padding: 20px 0;
+        overflow-x: auto;
+    }
+
+    .deposit-transfer-img,
+    .deposit-transfer-img img {
+        width: 100%;
+        max-height: 370px;
+        object-fit: contain;
+    }
+
+    .session-history .subscription-steps-inner {
+        grid-template-columns: 1fr;
+    }
+}
 
 @media (max-width: 767.98px) {
+    .for-mobile {
+        display: block;
+    }
+
+    .for-desktop {
+        display: none;
+    }
+
+    .dropdown-mobile .MuiSelect-select,
+    .MuiPopover-root .MuiList-root .MuiMenuItem-root {
+        font-size: 14px !important;
+        font-weight: 500;
+    }
+
+    .learn-earn-dropdown {
+        margin-top: 32px;
+        margin-bottom: 48px;
+    }
+
+    .dropdown-mobile.notification-filter h5 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #FCFCFD;
+        border: 1px solid #E6E8EC;
+        border-radius: 12px;
+        padding: 12px;
+        font-size: 14px !important;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .subscription-steps {
+        border-top: 1px solid #eee;
+        padding-top: 0;
+        padding-bottom: 34px;
+    }
+
     .auth-header {
         background-color: #fff;
         flex-wrap: wrap;
@@ -2080,13 +2360,386 @@ input[type=number] {
     #root .auth-wrapper h3 {
         font-size: 32px;
     }
+
+    /* homepage */
+    .filter-btn,
+    .learn-cypto-tab .MuiTabs-flexContainer {
+        gap: 8px;
+        padding: 5px 0;
+        overflow-y: hidden;
+        width: 100%;
+        justify-content: unset;
+        align-items: center;
+        flex-wrap: unset;
+    }
+
+    .hero-heading {
+        font-size: 48px !important;
+    }
+
+    .become-crypto h2 {
+        text-align: left;
+    }
+
+    .hero-heading {
+        font-size: 48px !important;
+    }
+
+    .m-width-100 {
+        max-width: 100%;
+        min-width: 100% !important;
+    }
+
+    .flow-reverse-mobile {
+        flex-flow: column-reverse !important;
+    }
+
+    .mobile-flex {
+        display: flex;
+        align-items: start;
+    }
+
+    .mobile-flex img {
+        padding-right: 20px;
+    }
+
+    .mobile-flex img {
+        padding-right: 20px;
+    }
+
+    #root h2.stay-heading {
+        font-size: 48px !important;
+    }
+
+    .grid-bit {
+        margin: 0px !important;
+        width: 100% !important;
+    }
+
+    .mobile-text-center {
+        text-align: center !important;
+    }
+
+    .mobile-none {
+        display: none !important;
+    }
+
+    .flex-between-box .MuiGrid-root {
+        margin-bottom: 30px !important;
+    }
+
+    .mobile-font-40 {
+        font-size: 40px !important;
+    }
+
+    .market-hero-img-wrapper {
+        position: inherit;
+        transform: none;
+    }
+
+    #root h1 {
+        font-size: 40px;
+    }
+
+    #root h2 {
+        font-size: 32px;
+    }
+
+    .market-hero h1 {
+        margin-bottom: 16px;
+    }
+
+    #root .body-large {
+        font-size: 16px;
+    }
+
+    .market-hero {
+        padding: 64px 0;
+    }
+
+    .market-hero,
+    .market-hero .MuiContainer-root {
+        min-height: unset;
+    }
+
+    .market-crypto-graph {
+        overflow-x: auto;
+    }
+
+    #root .price-prediction h2 {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    #root .price-prediction p {
+        font-size: 14px;
+    }
+
+    #root .learn-n-earn h2 {
+        font-size: 40px;
+    }
+
+    .learn-n-earn,
+    .price-prediction {
+        padding-top: 64px;
+    }
+
+    .learn-n-earn-head {
+        padding: 0 25%;
+    }
+
+    .learn-n-earn-cards {
+        flex-wrap: wrap;
+    }
+
+    .learn-n-earn-card {
+        width: 100%;
+        flex: 100%;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .market-crypto-card-wrapper {
+        padding-bottom: 16px;
+    }
+
+    #root .prediction-dashboard-wrapper h4 {
+        font-weight: 600;
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+
+    #root .market-prediction-faq h5.large-caption {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .subscription-wrapper-head {
+        flex-wrap: wrap;
+        padding: 32px 0;
+    }
+
+    .subscription-steps {
+        background-color: #FCFCFD;
+    }
+
+    .subscription-steps-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .subscription-steps-col {
+        display: none;
+    }
+
+    .subscription-steps-col-details {
+        padding: 0;
+        padding-bottom: 40px;
+    }
+
+    .card-inner-head {
+        padding: 32px 0;
+    }
+
+    .subscription-plan {
+        margin-top: 0;
+    }
+
+    .subscription-plan-card .plan-title {
+        font-size: 24px !important;
+        font-weight: 600;
+    }
+
+    .become-a-crypto-trader-cards {
+        grid-template-columns: 1fr;
+        margin-bottom: 48px;
+    }
+
+    .become-a-crypto-trader {
+        padding: 64px 0;
+    }
+
+    .crypto-trader-head {
+        text-align: left;
+        margin-bottom: 48px;
+    }
+
+    .become-a-crypto-trader-card {
+        padding: 81px 24px;
+    }
+
+    .amount-for {
+        flex-wrap: wrap;
+        gap: 36px;
+        margin-top: 0;
+    }
+
+    .payment-amount,
+    .payment-for,
+    .payment-method {
+        flex: 100%;
+    }
+
+    .card-inner-head {
+        gap: 20px;
+    }
+
+    .card-inner-head .large-caption.invest-smarter {
+        text-align: right;
+    }
+
+    .notification-wrapper {
+        padding: 0;
+        background-color: #FCFCFD;
+    }
+
+    .notification-list-card {
+        padding: 0;
+    }
+
+    /* cypto page */
+    #root h2.mobile-f-48 {
+        font-size: 48px !important;
+    }
+
+    .crypto-box {
+        padding: 0px;
+        box-shadow: none;
+        background-color: transparent;
+        text-align: center !important;
+    }
+
+    #root Button {
+        text-transform: capitalize;
+    }
+
+    .padding-0-mobile {
+        padding: 0px !important;
+    }
+
+    .mobile-w-100 {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    /*contact page  */
+    .contact-search {
+        border: 2px solid #E6E8EC;
+        width: 100% !important;
+        border-radius: 90px !important;
+    }
+
+    .button-img img {
+        display: none;
+    }
+
+    #root .topic-que .MuiSelect-select p {
+        text-overflow: ellipsis;
+        max-width: 90%;
+        overflow: hidden;
+    }
+
+    #root .button-img .btn {
+        padding: 17px 39px 12px 36px !important;
+    }
+
+    /* account-profile */
+    .account-main .subscription-steps-col {
+        display: block !important;
+    }
+
+    .bredcrum-div .subscription-wrapper-head {
+        display: block;
+    }
+
+    .center-breadcrum ol {
+        justify-content: start;
+    }
+
+    /* refferals */
+    #root .mobile-body-large {
+        font-size: 24px;
+    }
+    /* Subscriptions */
+    .subs-div.MuiStack-root{
+        display: block;
+    }
+    .subs-div.MuiStack-root button{
+        width: 100%;
+        min-width: 100%;
+        margin: 0px 0px 20px 0px;
+    }
 }
 
-@media (max-width: 575.98px) {}
+@media (max-width: 680.98px) {
+    .market-prediction-faq-items {
+        grid-template-columns: repeat(1, 1fr);
+    }
 
-@media (max-width: 480.98px) {}
+}
+
+@media (max-width: 575.98px) {
+
+    .learn-n-earn-head {
+        padding: 0 8%;
+    }
+
+    .modal-dialog {
+        width: calc(98% - 64px);
+        max-width: 100%;
+    }
+
+    .become-a-crypto-trader .btn {
+        width: 100%;
+    }
+
+    .notification-wrapper .notification-wrapper-head {
+        flex-wrap: wrap;
+    }
+
+    .notification-wrapper .notification-wrapper-head h4 {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480.98px) {
+    .learn-n-earn-head {
+        padding: 0;
+    }
+
+    .subscription-plan-cta {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .subscription-plan-cta .btn {
+        width: 100%;
+    }
+
+    .modal-subscribed-cta {
+        flex-wrap: wrap;
+    }
+
+    .notification-head-cta {
+        width: 100%;
+    }
+
+    .notification-wrapper .modal-subscribed-cta {
+        flex-wrap: nowrap;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .notification-wrapper .modal-subscribed-cta .btn {
+        width: auto;
+    }
+
+    .modal-subscribed-cta .btn {
+        width: 100%;
+    }
+}
 
 @media (max-width: 320.98px) {
+
     .auth-wrapper-form {
         padding: 40px 16px 16px;
         width: calc(100% - 32px);
@@ -2108,28 +2761,4 @@ input[type=number] {
     .auth-otp>div input {
         padding: 20px 10px;
     }
-}
-.short-subhead{
-    padding: 0px 300px;
-}
-.small-btn{    
-    height: 20px;
-    min-width: 50px !important;
-    font-size: 12px !important;
-}
-.bottom-border{
-    position: relative;
-}
-.bottom-border:before{
-    content: "";
-    background-color: #E6E8EC;
-    width: 166px;
-    height: 2px;
-    position: absolute;
-    display: block;
-    bottom: 0px;
-}
-.black-label.MuiFormControl-root label {
-    color: #353945;
-    transform: none;
 }

@@ -14,12 +14,10 @@ const PredictMarket = () => {
             <ThemeProvider theme={theme}>
                 <Box component="main" className='market-wrapper' sx={{ mt: 8 }}>
                     <MarketHero />
+                    <MarketCard />
                     <Box className='market-inner'>
                         <Container maxWidth="lg">
-
-                            <MarketCard />
                             <CryptoTable />
-
                             <Box className='price-prediction'>
                                 <Typography component="h2" variant='h2'>
                                     Cryptocurrency Price Predictions
@@ -28,9 +26,7 @@ const PredictMarket = () => {
                                     Please <Link href="#" style={{ color: '#FFD166' }}>Subscribe</Link> now to gain complete access to the most precise short and long-term predictions of cryptocurrency prices.
                                 </Typography>
                             </Box>
-
                             <LearnNEarn />
-
                         </Container>
                     </Box>
                 </Box >

@@ -168,41 +168,53 @@ function Header(props) {
             ))}
           </Box>
           <Box className='end-flex' sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
-            <Button id="demo-positioned-button"
-              aria-controls={openB ? 'demo-positioned-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={openB ? 'true' : undefined}
-              onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
+          <Button id="currency-positioned-button"
+                  aria-controls={open ? 'currency-positioned-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
               EN/USD
             </Button>
             <Menu
               className='dropdown-menu en-dropdown'
-              id="demo-positioned-menu"
-              aria-labelledby="demo-positioned-button"
+              id="currency-positioned-menu"
+              aria-labelledby="currency-positioned-button"
               anchorEl={anchorElB}
               open={openB}
               sx={{ borderRadius: '12px' }}
               onClose={handleCloseB}
             >
-              <Box>
-                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                  <Grid item xs={6} sm={6} md={6}>
-                    <Typography variant='h5' component='h5' className='small-caption language-box' >Language</Typography>
-                    <FormControl>
-                      <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+              <Box className='menu-box'>
+                <Grid container >
+                  <Grid item xs={6} sm={6} md={6} sx={{ borderRight: '1px solid #E6E8EC' }}>
+                    <FormControl  className='language-dropdown'>
+                      <FormLabel className='small-caption language-box'  id="demo-radio-buttons-group-label">Language</FormLabel>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
                         defaultValue="English"
                         name="radio-buttons-group"
                       >
-                        <FormControlLabel value="English" control={<Radio />} label="English" />
-                        <FormControlLabel value="Chinese" control={<Radio />} label="Chinese" />
-                        <FormControlLabel value="Japanese" control={<Radio />} label="Japanese" />
+                        <FormControlLabel className='radio-option' value="english" control={<Radio />} label="English" />
+                        <FormControlLabel className='radio-option' value="chinese" control={<Radio />} label="Chinese" />
+                        <FormControlLabel className='radio-option' value="japanese" control={<Radio />} label="Japanese" />
                       </RadioGroup>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={6} sm={6} md={6}>
-                    xs=2
+                  <Grid item xs={6} sm={6} md={6} className='right-box'>
+                    <FormControl className='language-dropdown'>
+                      <FormLabel id="currency-label" className='small-caption language-box' >Currency</FormLabel>
+                      <RadioGroup
+                        aria-labelledby="currency-label"
+                        defaultValue="USD"
+                        name="radio-buttons-group"
+                      >
+                        <FormControlLabel className='radio-option' value="usd" control={<Radio />} label="USD" />
+                        <FormControlLabel className='radio-option' value="aud" control={<Radio />} label="AUD" />
+                        <FormControlLabel className='radio-option' value="eur" control={<Radio />} label="EUR" />
+                        <FormControlLabel className='radio-option' value="jpy" control={<Radio />} label="JPY" />
+                        <FormControlLabel className='radio-option' value="btc" control={<Radio />} label="BTC" />
+                      </RadioGroup>
+                    </FormControl>
                   </Grid>
                 </Grid>
               </Box>

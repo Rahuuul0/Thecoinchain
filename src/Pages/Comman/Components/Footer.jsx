@@ -23,7 +23,7 @@ const Footer = () => {
           <Grid container sx={{ justifyContent: 'space-between' }}>
             <Grid item xs={12} sm={12} md={2} paddingTop={4} paddingBottom={4} >
               <Typography
-              > <img className='logo-cg' src={Darklogo} /> <img className='logo-cg' src={Darklogo} />
+              > <img className='logo-cg' src={Darklogo} />
               </Typography>
             </Grid>
             <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC', }} paddingLeft={5} paddingRight={5} paddingTop={4} paddingBottom={4} >

@@ -1,13 +1,7 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Stack, InputAdornment, IconButton, TextField } from '@mui/material';
-import User from '../../../public/assets/images/user.svg';
-import Share from '../../../public/assets/images/share-square.svg';
-import Session from '../../../public/assets/images/session.svg';
-import Api from '../../../public/assets/images/api.svg';
-import FA from '../../../public/assets/images/fa.svg';
-import Lockbtn from '../../../public/assets/images/lockbtn.svg';
+import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, InputAdornment, IconButton, TextField } from '@mui/material';
 import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
 import ScanImg from '../../../public/assets/images/scan-img.png';
 import { useNavigate } from 'react-router-dom';
@@ -61,7 +55,7 @@ const TwoFaDisable = () => {
                             <Box className='subscription-steps-inner'>
                                 <Sidebar />
                                 <Box className='subscription-steps-col-details'>
-                                    <Box className="step-one">
+                                    <Box className="">
                                         <Box className='fa-heading-box'>
                                             <Box sx={{ paddingBottom: { xs: '20px', md: '5px' } }}>
                                                 <Typography component="h3" variant='h3' className='fa-disabled secondary-font' paddingY={3} sx={{ fontWeight: '600', }} >2FA <span >Disabled</span></Typography>
@@ -121,7 +115,7 @@ const TwoFaDisable = () => {
                                     </Grid>
 
                                     <Typography textAlign='right' paddingY={3}>
-                                        <Button className='btn btn-success btn-primary mobile-w-100' sx={{ margin: '0 auto' }} >Enable 2FA</Button>
+                                        <Button className='btn btn-success btn-primary mobile-w-100' sx={{ margin: '0 auto' }} onClick={() => { navigate("../2fa-enable") }}>Enable 2FA</Button>
                                     </Typography>
                                 </Box>
                             </Box>

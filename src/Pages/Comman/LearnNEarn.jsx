@@ -6,8 +6,11 @@ import Learn02 from '../../../public/assets/images/learn02.png'
 import Learn03 from '../../../public/assets/images/learn03.png'
 import LoadingImg from '../../../public/assets/images/icons/loading.svg'
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+import { useNavigate } from 'react-router-dom';
 
 const LearnNEarn = () => {
+
+    const navigate = useNavigate();
 
     const [learnEarn, setLearnEarn] = useState('');
 
@@ -112,6 +115,7 @@ const LearnNEarn = () => {
                     </Box>
                 </Box>
                 <Button
+                    onClick={() => { navigate("../learn-cypto") }}
                     sx={{ mt: 10, mx: 'auto' }}
                     variant="outlined"
                     className='btn btn-outlined-secondary'>

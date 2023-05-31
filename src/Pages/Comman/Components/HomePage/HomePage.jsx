@@ -58,7 +58,7 @@ const Home = () => {
               <Typography paddingBottom={2} >
                 <Button variant="contained" className="btn btn-primary " sx={{ borderRadius: '90px', }} onClick={() => { navigate("./market") }}>Get started now</Button>
               </Typography>
-              <IconButton aria-label="ArrowCircleDown" variant="outlined" color="secondary-color ipad-none" padding={0}>
+              <IconButton aria-label="ArrowCircleDown" variant="outlined" color="secondary-color ipad-none" padding={0} >
                 <ArrowCircleDownSharp />
               </IconButton>
             </Grid>
@@ -160,7 +160,7 @@ const Home = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={4} md={4} textAlign='right' className='mobile-none'>
-              <Button className='btn btn-outlined-secondary' variant="outlined" sx={{ borderRadius: '90px', marginLeft: 'auto' }} onClick={() => { navigate("./learn-cypto") }}>View more</Button>
+              <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ borderRadius: '90px', ml: { lg: 'auto' } }} onClick={() => { navigate("./learn-cypto") }}>View more</Button>
             </Grid>
           </Grid>
 
@@ -615,20 +615,20 @@ const Home = () => {
                   Coming soon...
                 </Typography>
 
-                <Stack direction="row" spacing={2} sx={{ borderBottom: '1px solid #E6E8EC', paddingBottom: '20px' ,paddingTop: '20px' }} >
-                   <img src={GoogleIcon}/>
-                   <Box>
-                    <Typography variant='' component='div'  className='body-caption secondary-color'>Download from</Typography>
+                <Stack direction="row" spacing={2} sx={{ borderBottom: '1px solid #E6E8EC', paddingBottom: '20px', paddingTop: '20px' }} >
+                  <img src={GoogleIcon} />
+                  <Box>
+                    <Typography variant='' component='div' className='body-caption secondary-color'>Download from</Typography>
                     <Typography variant='' component='div' className='body-large '>Google Play</Typography>
-                   </Box>
+                  </Box>
                 </Stack>
 
-                <Stack direction="row" spacing={2} sx={{ borderBottom: '1px solid #E6E8EC', paddingBottom: '20px' ,paddingTop: '20px' }} >
-                   <img src={Appleicon}/>
-                   <Box>
-                    <Typography variant='' component='div'  className='body-caption secondary-color'>Download from</Typography>
+                <Stack direction="row" spacing={2} sx={{ borderBottom: '1px solid #E6E8EC', paddingBottom: '20px', paddingTop: '20px' }} >
+                  <img src={Appleicon} />
+                  <Box>
+                    <Typography variant='' component='div' className='body-caption secondary-color'>Download from</Typography>
                     <Typography variant='' component='div' className='body-large '>Appstore</Typography>
-                   </Box>
+                  </Box>
                 </Stack>
 
                 <Stack direction="row" spacing={2} sx={{ paddingBottom: '20px', paddingTop: '20px' }} >

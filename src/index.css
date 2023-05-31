@@ -238,17 +238,19 @@ img,
 }
 
 .customer-panel .app-nav {
-    background: rgba(22, 23, 23, 0.8);
+    box-shadow: none;
+    border-bottom: 1px solid #E6E8EC;
 }
 
-.app-nav button.MuiButtonBase-root{
+.app-nav button.MuiButtonBase-root {
     font-family: var(--secondary-font) !important;
     text-transform: capitalize;
     font-weight: 700;
     font-size: 16px;
     margin-left: 15px;
 }
-.navbtn{
+
+.navbtn {
     font-family: var(--secondary-font) !important;
     text-transform: capitalize;
     font-weight: 700;
@@ -256,10 +258,12 @@ img,
     margin-left: 15px;
     margin-right: 15px;
 }
-.green-bg-badge .MuiBadge-badge{
+
+.green-bg-badge .MuiBadge-badge {
     background-color: #58BD7D;
 }
-.end-flex{
+
+.end-flex {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
@@ -269,9 +273,11 @@ img,
     width: 24px;
     margin-right: 10px;
 }
-.app-nav button.MuiButtonBase-root.icon-avatar-img img{
+
+.app-nav button.MuiButtonBase-root.icon-avatar-img img {
     width: 40px !important;
 }
+
 #root .app-nav .btn {
     display: inline-block;
     min-width: 80px;
@@ -678,86 +684,105 @@ input[type=number] {
 /* Number feild arrows hidden ----X */
 /* 15-05-2023 */
 /* Header Starts */
-.gallery-menu-icon{
+.gallery-menu-icon {
     padding-right: 10px;
 }
-.dropdown-menu .MuiPaper-root{
+
+.dropdown-menu .MuiPaper-root {
     border-radius: 12px;
     box-shadow: 0px 16px 64px rgba(15, 15, 15, 0.1);
     top: 350px;
 }
+
 .dropdown-menu .MuiPaper-root li {
     font-size: 14px;
     color: #353945;
     padding: 12px 20px;
 }
+
 .customer-panel .app-nav {
     background: #FCFCFD;
 }
-.en-dropdown .MuiPaper-root{
-    padding: 15px;   
+
+.en-dropdown .MuiPaper-root {
+    padding: 15px;
     max-width: 365px;
     width: 100%;
 }
-.en-dropdown h5{
+
+.en-dropdown h5 {
     font-size: 12px !important;
 
 }
-.inner-div-user{
+
+.inner-div-user {
     display: flex;
     flex-direction: column;
 }
-.inner-div-user .pl-3{
+
+.inner-div-user .pl-3 {
     padding-left: 30px;
 }
-.inner-div-user .img-div-dropdown img{
+
+.inner-div-user .img-div-dropdown img {
     position: relative;
     top: 6px;
     width: 20px;
     margin-right: 6px;
 }
-.inner-div-user .head-menu{
+
+.inner-div-user .head-menu {
     font-size: 14px !important;
 }
-.inner-div-user .sub-head-menu{
+
+.inner-div-user .sub-head-menu {
     font-size: 10px !important;
 }
-.language-dropdown.MuiFormControl-root label{
+
+.language-dropdown.MuiFormControl-root label {
     transform: none;
     text-transform: unset !important;
     margin-bottom: 20px;
 }
+
 .language-dropdown.MuiFormControl-root label.radio-option {
     margin: 5px 0px;
     border-bottom: 1px solid #E6E8EC;
-    width: 100%;  
+    width: 100%;
     padding: 10px 0px 10px 0;
     margin: 0;
 }
-.language-dropdown.MuiFormControl-root label.radio-option:last-child{
+
+.language-dropdown.MuiFormControl-root label.radio-option:last-child {
     border: none;
 }
-.language-dropdown.MuiFormControl-root label span.MuiTypography-root{
+
+.language-dropdown.MuiFormControl-root label span.MuiTypography-root {
     transform: none;
     font-size: 14px !important;
     text-transform: unset !important;
     color: #777E90 !important;
     font-family: var(--secondary-font) !important;
 }
+
 .app-nav button.MuiButtonBase-root {
     color: var(--secondary-color);
 }
-.language-dropdown{
+
+.language-dropdown {
     width: 100%;
     padding: 15px 15px 0px 15px !important;
 }
-.language-dropdown span svg{
+
+.language-dropdown span svg {
     width: 8px !important;
     height: 8px !important;
 }
- .menu-box{
+
+.menu-box {
     padding: 5px !important;
 }
+
 #root .app-nav .btn {
     height: 46px;
     color: #23262F;
@@ -1811,6 +1836,20 @@ video {
     border-top: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0px 0px 3px 3px;
     padding: 9px 16px 8px;
+    text-align: center;
+    justify-content: center;
+}
+
+.account-main .step-one {
+    box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
+    padding-bottom: 32px;
+}
+
+#root .subscription-plan .subscription-plan-cta p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
 }
 
 .card-inner-head {
@@ -1831,7 +1870,6 @@ video {
     font-weight: 500;
     color: #23262F;
 }
-
 
 .amount-for {
     background: #F4F5F6;
@@ -1948,6 +1986,11 @@ p.left-icon {
     font-size: 14px !important;
     font-weight: 700;
     font-family: var(--secondary-font) !important;
+    cursor: pointer;
+}
+
+p.left-icon span {
+    display: flex;
 }
 
 p.left-icon img {

@@ -22,14 +22,14 @@ import Subscription from "./Subscription";
 import Profile from "./Profile";
 import Notifications from "./Notifications";
 import SessionHistory from "./SessionHistory";
-import SubsPage from "./SubsPage";
 import Referrals from "./Referrals";
 import ChangePassword from "./ChangeAccountPassword";
-import FaEnable from "./TwoFaEnable";
+import TwoFaEnable from "./TwoFaEnable";
 import PrivacyPolicy from "./PrivacyPolicy";
-import FaDisable from "./TwoFaDisable";
+import TwoFaDisable from "./TwoFaDisable";
 import Disclaimer from "./Disclaimer";
 import TermsOfUse from "./TermsOfUse";
+import ForecastSubscriptions from "./ForecastSubscriptions";
 
 import { authAtom } from '../../_state';
 
@@ -61,10 +61,10 @@ const Customer = () => {
           <Route path={`/subscribed-predict-market`} exact element={<SubscribedPredictMarkert />} />
           <Route path={`/prediction-dashboard`} exact element={<PredictionDashboard />} />
           <Route path={`/notifications`} exact element={<Notifications />} />
-          <Route path={`/subspage`} exact element={<SubsPage />} />
           <Route path={`/privacy-policy`} exact element={<PrivacyPolicy />} />
           <Route path={`/disclaimer`} exact element={<Disclaimer />} />
           <Route path={`/terms-of-use`} exact element={<TermsOfUse />} />
+          <Route path={`subscription`} exact element={<Subscription />} />
         </Route>
 
         {/* For Without Header Footer  pages */}
@@ -83,10 +83,10 @@ const Customer = () => {
           <Route path="change-account-password" element={<ChangePassword />} />
           <Route path="profile" element={<Profile />} />
           <Route path={`referrals`} element={<Referrals />} />
-          <Route path={`2fa-enable`} element={<FaEnable />} />
-          <Route path={`2fa-disable`} element={<FaDisable />} />
+          <Route path={`2fa-enable`} element={<TwoFaEnable />} />
+          <Route path={`2fa-disable`} element={<TwoFaDisable />} />
           <Route path={`session-and-history`} element={<SessionHistory />} />
-          <Route path={`subscription`} exact element={<Subscription />} />
+          <Route path={`forecast-subscription`} exact element={<ForecastSubscriptions />} />
         </Route>
       </Routes>
     </div>

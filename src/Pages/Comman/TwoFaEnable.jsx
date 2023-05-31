@@ -1,13 +1,7 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Stack, InputAdornment, IconButton, TextField } from '@mui/material';
-import User from '../../../public/assets/images/user.svg';
-import Share from '../../../public/assets/images/share-square.svg';
-import Session from '../../../public/assets/images/session.svg';
-import Api from '../../../public/assets/images/api.svg';
-import FA from '../../../public/assets/images/fa.svg';
-import Lockbtn from '../../../public/assets/images/lockbtn.svg';
+import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, InputAdornment, IconButton, TextField } from '@mui/material';
 import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from './Components/Sidebar';
@@ -64,7 +58,7 @@ const TwoFaEnable = () => {
                                     <Sidebar />
                                 </Box>
                                 <Box className='subscription-steps-col-details'>
-                                    <Box className="step-one">
+                                    <Box className="">
                                         <Box className='fa-heading-box'>
                                             <Box sx={{ paddingBottom: { xs: '20px', md: '5px' } }}>
                                                 <Typography component="h3" variant='h3' className='fa secondary-font' paddingY={3} sx={{ fontWeight: '600', }} >2FA <span >Enabled</span></Typography>
@@ -132,7 +126,7 @@ const TwoFaEnable = () => {
                                     </Grid>
 
                                     <Typography textAlign='right' paddingY={3}>
-                                        <Button className='btn orange-btn btn-primary mobile-w-100' >Disable 2FA</Button>
+                                        <Button className='btn orange-btn btn-primary mobile-w-100' onClick={() => { navigate("../2fa-disable") }}>Disable 2FA</Button>
                                     </Typography>
                                 </Box>
                             </Box>

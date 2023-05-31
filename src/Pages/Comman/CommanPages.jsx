@@ -29,9 +29,15 @@ import TwoFaDisable from "./TwoFaDisable";
 import Disclaimer from "./Disclaimer";
 import TermsOfUse from "./TermsOfUse";
 import ForecastSubscriptions from "./ForecastSubscriptions";
+<<<<<<< HEAD
 import GuidesAnalysis from "./GuidesAnalysis";
+=======
+import Community from "./Community";
+>>>>>>> 3c673a3b24ccdfabe8f8b12e44eeaad5c858d61c
 
 import { authAtom } from '../../_state';
+import NewsPromotions from "./NewsPromotions";
+import Academy from "./Academy";
 
 const Customer = () => {
   const auth = useRecoilValue(authAtom);
@@ -66,6 +72,9 @@ const Customer = () => {
           <Route path={`/terms-of-use`} exact element={<TermsOfUse />} />
           <Route path={`subscription`} exact element={<Subscription />} />
           <Route path={`guides-analysis`} exact element={<GuidesAnalysis />} />
+          <Route path={`community`} exact element={<Community />} />
+          <Route path={`news-promotions`} exact element={<NewsPromotions />} />
+          <Route path={`academy`} exact element={<Academy />} />
         </Route>
 
         {/* For Without Header Footer  pages */}

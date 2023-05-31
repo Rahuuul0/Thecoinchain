@@ -39,10 +39,10 @@ const Footer = () => {
             <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC', }} paddingLeft={5} paddingRight={5} paddingTop={4} paddingBottom={4} >
               <Box className="quick-links">
                 <Stack spacing={2}>
-                  <Link href="#">Price Forecast</Link>
+                  <Link href="#" onClick={() => { navigate("./prediction-dashboard") }}>Price Forecast</Link>
                   <Link href="#">Guides & Analysis</Link>
-                  <Link href="#">Academy</Link>
-                  <Link href="#">News & Promotions</Link>
+                  <Link href="#" onClick={() => { navigate("./academy") }}>Academy</Link>
+                  <Link href="#" onClick={() => { navigate("./news-promotions") }}>News & Promotions</Link>
                   <Link href="#" onClick={() => { navigate("./subscription") }}>Subscriptions</Link>
                 </Stack>
               </Box>

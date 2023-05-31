@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Typography, Grid, Box, Stack, Button, Link, Breadcrumbs, } from '@mui/material';
-import VideoImg from "../../../public/assets/images/coinguru-video.svg";
+import VideoImg from "../../../public/assets/images/learn01.png";
 import Avatar from "../../../public/assets/images/avatar.svg";
 import GridImage from "../../../public/assets/images/grid.svg";
 import { NavigateNext, ArrowDropDown } from '@mui/icons-material';
@@ -55,7 +55,6 @@ const LearnCyptoDetail = () => {
         <Box paddingY={10}>
           <Box>
             <Box paddingBottom={10}>
-              {/* <img src={VideoImg}/> */}
               <video poster={VideoImg} width="100%" height="100%" controls>
                 <source src="https://video-previews.elements.envatousercontent.com/files/238b3f62-6818-42d5-b664-0cbaf2f1623d/video_preview_h264.mp4" type="video/mp4" />
                 Your browser does not support the video tag.

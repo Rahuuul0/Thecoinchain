@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, Grid, Container, Typography, Toolbar, Box, CssBaseline, Button, IconButton, Stack, Tab } from '@mui/material';
+import { Grid, Container, Typography, Box, Button, IconButton, Stack, Tab } from '@mui/material';
 import { ArrowCircleDownSharp, KeyboardArrowRight, East, West } from '@mui/icons-material';
 import HeroImage from "../../../../../public/assets/images/banner.svg";
 import Btc from "../../../../../public/assets/images/btc.svg";

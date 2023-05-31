@@ -1,8 +1,5 @@
-import { Container, Typography, Tab, Grid, Box, Stack, Button, MenuItem, OutlinedInput, FormControl, Select } from '@mui/material'
+import { Container, Typography, Grid, Box, Stack, Button, MenuItem, OutlinedInput, FormControl, Select } from '@mui/material'
 import React from 'react';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
 import VideoImg from "../../../public/assets/images/coinguru-video.svg";
 import Blog1 from "../../../public/assets/images/blog-1.svg";
 import Avatar from "../../../public/assets/images/avatar.svg";

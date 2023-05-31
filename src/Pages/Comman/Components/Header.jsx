@@ -19,15 +19,6 @@ import CoinGuru from '../../../../public/assets/images/logo.svg';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
-import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined } from '@mui/icons-material/';
-import ShareIcon from '../../../../public/assets/images/share-square.svg';
-import UserIcon from '../../../../public/assets/images/user.svg';
-import UserAvatar from '../../../../public/assets/images/avatarUser.svg';  
-import LockIcon from '../../../../public/assets/images/lockbtn.svg'; 
-import BrightnessIcon from '../../../../public/assets/images/brightness.svg'; 
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import { WallpaperOutlined } from '@mui/icons-material/';
-import connectline from '../../../../public/assets/images/connect-line.svg'
 
 
 const drawerWidth = 240;
@@ -67,9 +58,6 @@ function Header(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
-      {/* <Typography variant="h6" sx={{ my: 2 }} onClick={() => { navigate('/') }}>
-        <img src={CoinGuru} alt='Coin Guru' />
-      </Typography> */}
       <Divider />
       <List>
         {navItems.map((item, i) => {

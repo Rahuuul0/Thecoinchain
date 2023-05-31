@@ -1,7 +1,7 @@
-import React, { useEffect }from 'react'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React, { useEffect } from 'react'
+import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Modal } from '@mui/material'
+import { Box, Container, Grid, Typography, Button } from '@mui/material'
 import CryptoTable from './CryptoTable';
 import FAQ01 from '../../../public/assets/images/faq-01.svg'
 import FAQ02 from '../../../public/assets/images/faq-02.svg'
@@ -12,7 +12,7 @@ import FAQ06 from '../../../public/assets/images/faq-06.svg'
 
 const PredictionDashboard = () => {
 
-    useEffect(()=>{window.scrollTo({top:0,left:0,behavior:"smooth"})});
+    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
     return (
         <>
             <ThemeProvider theme={theme}>

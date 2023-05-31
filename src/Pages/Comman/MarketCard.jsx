@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Container, Grid, Typography, Button, FormControl, MenuItem } from '@mui/material';
+import { Box, Container, Typography, Button, FormControl, MenuItem } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
 import GraphUp from '../../../public/assets/images/chart-up.svg';
 import GraphDown from '../../../public/assets/images/chart-down.svg';
 import BtcIc from '../../../public/assets/images/icons/btc-ic.svg';

@@ -1,15 +1,14 @@
 import * as React from 'react';
 
-import { Box, Grid, Container, Typography, Link, Stack, TextField, Button, InputAdornment, IconButton } from '@mui/material';
+import { Box, Grid, Container, Typography, Link, Stack, TextField, InputAdornment, IconButton } from '@mui/material';
 
-import Logo from "../../../../public/assets/images/logo-light.svg";
 import Darklogo from "../../../../public/assets/images/cg.svg";
 import BehanceIcon from "../../../../public/assets/images/icons/behance.svg";
 import FacebookIcon from "../../../../public/assets/images/icons/facebook.svg";
 import InstagramIcon from "../../../../public/assets/images/icons/instagram.svg";
 import DribbbleIcon from "../../../../public/assets/images/icons/dribbble.svg";
 import TwitterIcon from "../../../../public/assets/images/icons/twitter.svg";
-import { Twitter, Instagram, EmailOutlined, East, ArrowForward, ArrowRightAlt } from '@mui/icons-material';
+import { ArrowRightAlt } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 

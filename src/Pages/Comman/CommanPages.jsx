@@ -1,6 +1,5 @@
 import { Route, Routes, Navigate, Outlet } from "react-router-dom";
 import { useRecoilState, useSetRecoilState, useResetRecoilState, useRecoilValue } from 'recoil';
-
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import HeaderWithLogin from "./Components/HeaderWithLogin";

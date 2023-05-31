@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
                 <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ pt: 14 }}>
                     <Container>
 
-                        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                        <Grid container spacing={{ xs: 2, md: 2 }}>
                             <Grid item xs={12} sm={6} md={6} >
                                 <Box className='guide-box'>
                                     <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>

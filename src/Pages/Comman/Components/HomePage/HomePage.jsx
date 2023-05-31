@@ -67,7 +67,7 @@ const Home = () => {
                 we bring clarity to the volatile world of crypto!
               </Typography>
               <Typography paddingBottom={2} >
-                <Button variant="contained" className="btn btn-primary " sx={{ borderRadius: '90px', }}>Get started now</Button>
+                <Button variant="contained" className="btn btn-primary " sx={{ borderRadius: '90px', }} onClick={() => { navigate("./market") }}>Get started now</Button>
               </Typography>
               <IconButton aria-label="ArrowCircleDown" variant="outlined" color="secondary-color ipad-none" padding={0}>
                 <ArrowCircleDownSharp />
@@ -166,7 +166,7 @@ const Home = () => {
 
                     {/* 1st box end */}
 
-                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} rowSpacing={{xs: 3}} className='flex-between-box' marginBottom={3} >
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} rowSpacing={{ xs: 3 }} className='flex-between-box' marginBottom={3} >
                       <Grid item xs={6} paddingRight={3} >
                         <Stack spacing={2} justifyContent='space-between'>
                           <Typography fontSize={16} className='primary-font'>
@@ -255,7 +255,7 @@ const Home = () => {
       {/* learn cypto star*/}
 
       <Container>
-        <Box sx={{ display: { xs: 'block', md: 'flex' } }}  justifyContent='space-between'>
+        <Box sx={{ display: { xs: 'block', md: 'flex' } }} justifyContent='space-between'>
           <Typography component='h2' variant='h2' className='secondary-font mobile-font-40' paddingBottom={2}>Market trend</Typography>
           <Typography className='' variant='p' component='p' sx={{ display: { xs: 'block', md: 'none' } }}><span className='gold-color'>Subscribe</span> to gain complete access to the most precise short and long-term predictions of cryptocurrency prices.</Typography>
           <Button className='btn btn-outlined-secondary mobile-none' onClick={()=>{navigate('/market')}}>View More</Button>
@@ -306,7 +306,7 @@ const Home = () => {
                     <Typography className='body-caption secondary-color' paddingBottom={3}>
                       We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                     </Typography>
-                    <Button className='btn btn-outlined-secondary' sx={{ margin: '0 auto' }}>Learn now</Button>
+                    <Button className='btn btn-outlined-secondary' sx={{ margin: '0 auto' }} onClick={() => { navigate("./learn-cypto") }}>Learn now</Button>
                   </Box>
                 </Grid>
               </Grid>

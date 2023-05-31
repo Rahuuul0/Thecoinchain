@@ -14,6 +14,7 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import CloseIcon from '@mui/icons-material/Close';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import { useNavigate } from 'react-router-dom';
 
 const plans = [
     {
@@ -37,6 +38,8 @@ const plans = [
 ]
 
 const Subscription = () => {
+
+    const navigate = useNavigate();
 
     const [open, setOpen] = useState(false);
 
@@ -356,7 +359,7 @@ const Subscription = () => {
                                         We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                                     </Typography>
 
-                                    <Button variant='outlined' className='btn- btn-outlined-secondary'>Buy crypto</Button>
+                                    <Button variant='outlined' className='btn btn-outlined-secondary'>Buy crypto</Button>
                                 </Box>
                                 <Box className='become-a-crypto-trader-card'>
                                     <Box className='crypto-trader-img'>
@@ -369,7 +372,7 @@ const Subscription = () => {
                                         We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                                     </Typography>
 
-                                    <Button variant='outlined' className='btn- btn-outlined-secondary'>Trade now</Button>
+                                    <Button variant='outlined' className='btn btn-outlined-secondary'>Trade now</Button>
                                 </Box>
                                 <Box className='become-a-crypto-trader-card'>
                                     <Box className='crypto-trader-img'>
@@ -385,7 +388,7 @@ const Subscription = () => {
                                     <Button variant='outlined' className='btn btn-outlined-secondary'>Learn now</Button>
                                 </Box>
                             </Box>
-                            <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }}>Contact Us</Button>
+                            <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={() => { navigate("./contact") }}>Contact Us</Button>
                         </Container>
                     </Box>
                 </Box >

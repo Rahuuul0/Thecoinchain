@@ -64,11 +64,6 @@ const ChangePassword = () => {
                             <img src={LogoLight} alt='Coin Guru' className='desktop' />
                             <img src={LogoDark} alt='Coin Guru' className='ipad' />
                         </Box>
-                        <Box className='dont-have-acc' >
-                            <Typography component="p" variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
-                                Already have an account? <Link onClick={() => { navigate("/login"); }}>Login</Link>
-                            </Typography>
-                        </Box>
                     </Box>
                     <Box className='auth-wrapper-inner'>
                         <Box className='auth-wrapper-bg'>

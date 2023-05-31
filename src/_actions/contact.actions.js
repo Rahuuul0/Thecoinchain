@@ -11,7 +11,6 @@ const useContactActions = () => {
   const setContactError = useSetRecoilState(contact_AddAtom);
 
   const add = (data) => {
-    console.log(data,'data')
     return fetchWrapper.post(`${Apis.Contact}`, data)
       .then(res => {
         if (res.statusCode === 200) {

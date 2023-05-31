@@ -32,10 +32,10 @@ import Disclaimer from "./Disclaimer";
 import TermsOfUse from "./TermsOfUse";
 
 import {authAtom} from '../../_state';
-import LearnCypto from  "./LearnCypto"
-import LearnCyptoDetail from  "./LearnCyptoDetail"
-import Contact from  "./Contact"
-import Referrals from "./Referrals";
+// import LearnCypto from  "./LearnCypto"
+// import LearnCyptoDetail from  "./LearnCyptoDetail"
+// import Contact from  "./Contact"
+// import Referrals from "./Referrals";
 
 const Customer = () => {
   const auth = useRecoilValue(authAtom); 
@@ -59,7 +59,7 @@ const Customer = () => {
             <Route path={`/`} exact element={<Home />} /> 
             <Route path={`/learn-cypto`} element={<LearnCypto />} />
             <Route path={`/learn-cypto-detail`} element={<LearnCyptoDetail />} />
-            <Route path={`/contact`} element={<Contact />} />       
+            <Route path={`/contact-us`} element={<Contact />} />       
             <Route path={`/market`} exact element={<Market />} />
             <Route path={`/predict-market`} exact element={<PredictMarket />} />
             <Route path={`/subscribed-predict-market`} exact element={<SubscribedPredictMarkert />} />

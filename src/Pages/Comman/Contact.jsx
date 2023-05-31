@@ -130,9 +130,8 @@ const Contact = () => {
 }, [contactError])
 
   const handleFormSubmit = (data) =>{
-    console.log(data,'data')
     setIsSubmitting(true)
-    setUserError(false)
+    setContactError(false)
     return useContactAddActions.add(data);
   }
 

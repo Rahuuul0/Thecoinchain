@@ -1,6 +1,9 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate, Outlet } from "react-router-dom";
+import { useRecoilState, useSetRecoilState, useResetRecoilState, useRecoilValue } from 'recoil';
+
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
+import HeaderWithLogin from "./Components/HeaderWithLogin";
 import LogIn from "./LogIn";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
@@ -21,45 +24,70 @@ import Notifications from "./Notifications";
 import SessionHistory from "./SessionHistory";
 import SubsPage from "./SubsPage";
 import Referrals from "./Referrals";
-import ChangePassword from "./ChangePassword";
-import FaEnable from "./FaEnable";
+import ChangePassword from "./ChangeAccountPassword";
+import FaEnable from "./TwoFaEnable";
 import PrivacyPolicy from "./PrivacyPolicy";
-import FaDisable from "./FaDisable";
+import FaDisable from "./TwoFaDisable";
 import Disclaimer from "./Disclaimer";
 import TermsOfUse from "./TermsOfUse";
 
+import { authAtom } from '../../_state';
 
 const Customer = () => {
+  const auth = useRecoilValue(authAtom);
+
+  const PrivateOutletWithLogin = () => {
+    return auth !== null ? <><HeaderWithLogin /><Outlet /><Footer /></> : <Navigate to="/login" />;
+  }
+
+  const PrivateOutlet = () => {
+    return <>{auth !== null ? <HeaderWithLogin /> : <Header />}<Outlet /><Footer /></>;
+  }
+
+  const WithoutHeaderFooter = () => {
+    return <Outlet />;
+  }
+
   return (
     <div className="customer-panel">
       <Routes>
-        <Route path={`/`} exact element={<><Header /> <Home /> <Footer /></>} />
-        <Route path={`/login`} element={<LogIn />} />
-        <Route path={`/forgot-password`} element={<ForgotPassword />} />
-        <Route path={`/reset-password`} element={<ResetPassword />} />
-        <Route path={`/change-password`} element={<ChangePassword />} />
-        <Route path={`/create-account`} element={<CreateAccount />} />
-        <Route path={`/scan-to-login`} element={<ScanToLogin />} />
-        <Route path={`/confirm-account`} element={<AccountConfirm />} />
-        <Route path={`/learn-cypto`} element={<LearnCypto />} />
-        <Route path={`/learn-cypto-detail`} element={<LearnCyptoDetail />} />
-        <Route path={`/contact`} element={<Contact />} />
-        <Route path={`/`} exact element={<Home />} />
-        <Route path={`/market`} exact element={<Market />} />
-        <Route path={`/predict-market`} exact element={<PredictMarket />} />
-        <Route path={`/subscribed-predict-market`} exact element={<SubscribedPredictMarkert />} />
-        <Route path={`/prediction-dashboard`} exact element={<><Header /> <PredictionDashboard />  <Footer /></>} />
-        <Route path={`/subscription`} exact element={<Subscription />} />
-        <Route path={`/profile`} exact element={<Profile />} />
-        <Route path={`/notifications`} exact element={<Notifications />} />
-        <Route path={`/session-and-history`} exact element={<SessionHistory />} />
-        <Route path={`/subspage`} exact element={<SubsPage />} />
-        <Route path={`/referrals`} exact element={<Referrals />} />
-        <Route path={`/fa-enable`} exact element={<FaEnable />} />
-        <Route path={`/fa-disable`} exact element={<FaDisable />} />
-        <Route path={`/privacy-policy`} exact element={<PrivacyPolicy />} />
-        <Route path={`/disclaimer`} exact element={<Disclaimer />} />
-        <Route path={`/terms-of-use`} exact element={<TermsOfUse />} />
+        <Route path="/" element={<PrivateOutlet />}>
+          <Route path={`/`} exact element={<Home />} />
+          <Route path={`/learn-cypto`} element={<LearnCypto />} />
+          <Route path={`/learn-cypto-detail`} element={<LearnCyptoDetail />} />
+          <Route path={`/contact`} element={<Contact />} />
+          <Route path={`/market`} exact element={<Market />} />
+          <Route path={`/predict-market`} exact element={<PredictMarket />} />
+          <Route path={`/subscribed-predict-market`} exact element={<SubscribedPredictMarkert />} />
+          <Route path={`/prediction-dashboard`} exact element={<PredictionDashboard />} />
+          <Route path={`/notifications`} exact element={<Notifications />} />
+          <Route path={`/subspage`} exact element={<SubsPage />} />
+          <Route path={`/privacy-policy`} exact element={<PrivacyPolicy />} />
+          <Route path={`/disclaimer`} exact element={<Disclaimer />} />
+          <Route path={`/terms-of-use`} exact element={<TermsOfUse />} />
+        </Route>
+
+        {/* For Without Header Footer  pages */}
+        <Route path="/" element={<WithoutHeaderFooter />}>
+          <Route path={`/login`} element={<LogIn />} />
+          <Route path={`/forgot-password`} element={<ForgotPassword />} />
+          <Route path={`/reset-password`} element={<ResetPassword />} />
+          <Route path={`/create-account`} element={<CreateAccount />} />
+          <Route path={`/scan-to-login`} element={<ScanToLogin />} />
+          <Route path={`/confirm-account`} element={<AccountConfirm />} />
+        </Route>
+
+        {/* For account pages */}
+        <Route path="/account" element={<PrivateOutletWithLogin />}>
+          <Route path="" element={<Profile />} />
+          <Route path="change-account-password" element={<ChangePassword />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path={`referrals`} element={<Referrals />} />
+          <Route path={`2fa-enable`} element={<FaEnable />} />
+          <Route path={`2fa-disable`} element={<FaDisable />} />
+          <Route path={`session-and-history`} element={<SessionHistory />} />
+          <Route path={`subscription`} exact element={<Subscription />} />
+        </Route>
       </Routes>
     </div>
   );

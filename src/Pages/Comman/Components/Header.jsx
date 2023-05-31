@@ -1,11 +1,25 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { ListItem, List, ListItemButton, ListItemIcon, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid } from '@mui/material/';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
-import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer, InputAdornment } from '@mui/material';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
+<<<<<<< HEAD
 import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined } from '@mui/icons-material/';
 import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
@@ -13,6 +27,11 @@ import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import LockIcon from '../../../../public/assets/images/lockbtn.svg'; 
 import BrightnessIcon from '../../../../public/assets/images/brightness.svg'; 
 import AccountCircle from '@mui/icons-material/AccountCircle';
+=======
+import { WallpaperOutlined } from '@mui/icons-material/';
+import connectline from '../../../../public/assets/images/connect-line.svg'
+
+>>>>>>> 0c8e7df8e5cff506850abe86332a391427c81d47
 
 const drawerWidth = 240;
 
@@ -38,24 +57,6 @@ function Header(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const [anchorElB, setAnchorElB] = React.useState(null);
-  const openB = Boolean(anchorElB);
-  const handleClickB = (event) => {
-    setAnchorElB(event.currentTarget);
-  };
-  const handleCloseB = () => {
-    setAnchorElB(null);
-  };
-
-  const [anchorElAnchor, setAnchorElAnchor] = React.useState(null);
-  const openAnchor = Boolean(anchorElAnchor);
-  const handleClickAnchor = (event) => {
-    setAnchorElAnchor(event.currentTarget);
-  };
-  const handleCloseAnchor = () => {
-    setAnchorElAnchor(null);
   };
 
   const navigate = useNavigate();
@@ -172,31 +173,13 @@ function Header(props) {
                 {item.page}
               </Button>
             ))}
-
-
-            {/* <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
-              <SearchIcon />
-            </Button> */}
-
-
-
           </Box>
 
-          <Box className='end-flex' sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
-
-
-
-            {/* <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
-              <SearchIcon />
-            </Button> */}
-
-            <Button id="demo-positioned-button"
-              aria-controls={openB ? 'demo-positioned-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={openB ? 'true' : undefined}
-              onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
+          <Box sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
+            <Button className='btn' sx={{ color: '#23262F' }}>
               EN/USD
             </Button>
+<<<<<<< HEAD
             <Menu
               className='dropdown-menu en-dropdown'
               id="demo-positioned-menu"
@@ -355,6 +338,14 @@ function Header(props) {
 
 
 
+=======
+            <Button onClick={() => { navigate('/create-account') }} variant="contained" className='btn btn-primary' sx={{ color: '#fff' }}>
+              Sign up
+            </Button>
+            <Button onClick={() => { navigate('/login') }} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+              Login
+            </Button>
+>>>>>>> 0c8e7df8e5cff506850abe86332a391427c81d47
           </Box>
         </Toolbar>
       </AppBar>

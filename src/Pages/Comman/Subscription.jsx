@@ -3,7 +3,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
 import { Box, Container, Grid, Typography, Button, Modal, Link, TextField, FormControlLabel, Checkbox } from '@mui/material';
 import CryptoTrader01 from '../../../public/assets/images/crypto-trader-01.svg';
-import CryptoTrader02 from '../../../public/assets/images/crypto-trader-02.svg';
+import CryptoTrader02 from '../../../public/assets/images/market.svg';
 import CryptoTrader03 from '../../../public/assets/images/crypto-trader-03.svg';
 import BtcImg from '../../../public/assets/images/icons/btc-ic.svg';
 import WalletIc from '../../../public/assets/images/icons/wallet.svg';

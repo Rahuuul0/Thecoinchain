@@ -2,11 +2,11 @@ import * as React from 'react';
 import { Grid, Container, Typography, Box, Button, IconButton, Stack, Tab } from '@mui/material';
 import { ArrowCircleDownSharp, KeyboardArrowRight, East, West } from '@mui/icons-material';
 import HeroImage from "../../../../../public/assets/images/banner.svg";
-import Btc from "../../../../../public/assets/images/btc.svg";
+import Btc from "../../../../../public/assets/images/icons/btc-ic.svg";
 import Leveragedv3 from "../../../../../public/assets/images/leveragedv3.svg";
 import Leveraged from "../../../../../public/assets/images/leveraged.svg";
 import Leveragedv2 from "../../../../../public/assets/images/leveragedv2.svg";
-import BuyCypto from "../../../../../public/assets/images/buyCypto.svg";
+import BuyCypto from "../../../../../public/assets/images/crypto-trader-01.svg";
 import Market from "../../../../../public/assets/images/market.svg";
 import LearnCypto from "../../../../../public/assets/images/learn-cypto.svg";
 import Appleicon from "../../../../../public/assets/images/apple.svg";
@@ -254,7 +254,7 @@ const Home = () => {
                 </Grid>
               </TabPanel>
               <TabPanel value="2">
-                  <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
+                <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
                   <Grid item xs={6} >
                     <img src={Leveragedv3} />
                     <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>
@@ -332,7 +332,7 @@ const Home = () => {
                 </Grid>
               </TabPanel>
               <TabPanel value="3">
-                  <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
+                <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
                   <Grid item xs={6} >
                     <img src={Leveragedv3} />
                     <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>
@@ -410,7 +410,7 @@ const Home = () => {
                 </Grid>
               </TabPanel>
               <TabPanel value="4">
-                  <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
+                <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
                   <Grid item xs={6} >
                     <img src={Leveragedv3} />
                     <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>

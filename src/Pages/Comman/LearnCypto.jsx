@@ -1,6 +1,6 @@
 import { Container, Typography, Grid, Box, Stack, Button, MenuItem, OutlinedInput, FormControl, Select } from '@mui/material'
 import React from 'react';
-import VideoImg from "../../../public/assets/images/coinguru-video.svg";
+import VideoImg from "../../../public/assets/images/learn01.png";
 import Blog1 from "../../../public/assets/images/blog-1.svg";
 import Avatar from "../../../public/assets/images/avatar.svg";
 import GridImage from "../../../public/assets/images/grid.svg";

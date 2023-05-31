@@ -19,6 +19,7 @@ function Header(props) {
     {
       page: 'Community',
       icon: '',
+      link: '/community',
     },
     {
       page: 'Prediction',
@@ -131,7 +132,7 @@ function Header(props) {
                   aria-controls={open ? 'demo-positioned-menu' : undefined}
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
+                  onClick={() => { navigate("./academy") }}
                 >
                   Academy
                 </Button>
@@ -142,7 +143,7 @@ function Header(props) {
                   anchorEl={anchorEl}
                   open={open}
                   sx={{ borderRadius: '12px' }}
-                  onClose={handleClose}                 
+                  onClose={handleClose}
                 >
                   <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
                   <MenuItem onClick={handleClose}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
@@ -161,10 +162,10 @@ function Header(props) {
           </Box>
           <Box className='end-flex' sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
             <Button id="currency-positioned-button"
-                  aria-controls={open ? 'currency-positioned-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
+              aria-controls={open ? 'currency-positioned-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
               EN/USD
             </Button>
             <Menu
@@ -179,8 +180,8 @@ function Header(props) {
               <Box className='menu-box'>
                 <Grid container >
                   <Grid item xs={6} sm={6} md={6} sx={{ borderRight: '1px solid #E6E8EC' }}>
-                    <FormControl  className='language-dropdown'>
-                      <FormLabel className='small-caption language-box'  id="demo-radio-buttons-group-label">Language</FormLabel>
+                    <FormControl className='language-dropdown'>
+                      <FormLabel className='small-caption language-box' id="demo-radio-buttons-group-label">Language</FormLabel>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
                         defaultValue="English"

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
-import {Box, Grid,FormControl ,FormLabel ,RadioGroup ,Radio,FormControlLabel , } from '@mui/material/';
+import { Box, Grid, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, } from '@mui/material/';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -29,7 +29,7 @@ function Header(props) {
     {
       page: 'Community',
       icon: '',
-      // link: '/community',
+      link: '/community',
     },
     {
       page: 'Prediction',
@@ -142,10 +142,10 @@ function Header(props) {
                   anchorEl={anchorEl}
                   open={open}
                   sx={{ borderRadius: '12px' }}
-                  onClose={handleClose}                 
+                  onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
-                  <MenuItem onClick={handleClose}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
+                  <MenuItem onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
+                  <MenuItem onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
                 </Menu>
               </li>
             </ul>
@@ -164,11 +164,11 @@ function Header(props) {
             {/* <Button className='btn' sx={{ color: '#23262F' }}>
               EN/USD
             </Button> */}
-  <Button id="currency-positioned-button"
-                  aria-controls={open ? 'currency-positioned-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
+            <Button id="currency-positioned-button"
+              aria-controls={open ? 'currency-positioned-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
               EN/USD
             </Button>
             <Menu
@@ -183,8 +183,8 @@ function Header(props) {
               <Box className='menu-box'>
                 <Grid container >
                   <Grid item xs={6} sm={6} md={6} sx={{ borderRight: '1px solid #E6E8EC' }}>
-                    <FormControl  className='language-dropdown'>
-                      <FormLabel className='small-caption language-box'  id="demo-radio-buttons-group-label">Language</FormLabel>
+                    <FormControl className='language-dropdown'>
+                      <FormLabel className='small-caption language-box' id="demo-radio-buttons-group-label">Language</FormLabel>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
                         defaultValue="English"

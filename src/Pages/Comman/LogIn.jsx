@@ -15,7 +15,8 @@ import { useRecoilState } from 'recoil';
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import IconButton from "@mui/material/IconButton";
+import {KeyboardArrowLeft} from '@mui/icons-material/';
+import IconButton from "@mui/material/IconButton"; 
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -35,8 +36,8 @@ const LogIn = () => {
 
     const handlePhone = (newPhone) => {
         setPhone(newPhone)
-      }
-    
+    }
+
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -80,7 +81,7 @@ const LogIn = () => {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     //yup validation
-    const formOptions = { resolver: yupResolver(value==1?validationSchema:validationSchemaMobile) };
+    const formOptions = { resolver: yupResolver(value == 1 ? validationSchema : validationSchemaMobile) };
     // get functions to build form with useForm() hook
     const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
     const { errors } = formState;
@@ -95,7 +96,7 @@ const LogIn = () => {
     const handleFormSubmit = () => {
         setIsSubmitting(true)
         setUserError(false)
-        if(value==1) {
+        if (value == 1) {
             userActions.login(formData)
         }
         else {
@@ -115,11 +116,11 @@ const LogIn = () => {
                         }}
                     >
                         <Box className='auth-header-logo' >
-                            <img src={LogoLight} alt='Coin Guru' className='desktop' />
-                            <img src={LogoDark} alt='Coin Guru' className='ipad' />
+                            <Link onClick={() => { navigate('/') }}><img src={LogoLight} alt='Coin Guru' className='desktop' /></Link>
+                            <Link onClick={() => { navigate('/') }}><img src={LogoDark} alt='Coin Guru' className='ipad' /></Link>
                         </Box>
                         <Box className='dont-have-acc' >
-                            <Typography component="p" variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
+                            <Typography component="p" position='relative' zIndex='2' variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
                                 Don’t have an account? <Link onClick={() => { navigate("/create-account"); }}>Sign up for free</Link>
                             </Typography>
                         </Box>
@@ -128,7 +129,12 @@ const LogIn = () => {
                         <Box className='auth-wrapper-bg'>
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
-                        <Box className='auth-wrapper-form' >
+                        <Box className='auth-wrapper-form' position='relative'>
+                            <Box position='absolute' sx={{ top: '90px' }}>
+                                <IconButton aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
+                                    <KeyboardArrowLeft />
+                                </IconButton>
+                            </Box>
                             <Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
                                     Sign in to CoinGuru
@@ -244,21 +250,21 @@ const LogIn = () => {
                                                 </TabPanel>
                                                 <TabPanel value="2" sx={{ p: 0 }}>
 
-                                                        <MuiTelInput
-                                                            label="Number"
-                                                            className="form-control"
-                                                            variant="standard"
-                                                            required
-                                                            margin="normal"
-                                                           
-                                                             placeholder='Number'
-                                                             autoComplete="off"
-                                                             size="small"
-                                                             autoFocus
-                                                             {...register("number")}
-                                                             value={phone} 
-                                                             onChange={handlePhone} 
-                                                             />
+                                                    <MuiTelInput
+                                                        label="Number"
+                                                        className="form-control"
+                                                        variant="standard"
+                                                        required
+                                                        margin="normal"
+
+                                                        placeholder='Number'
+                                                        autoComplete="off"
+                                                        size="small"
+                                                        autoFocus
+                                                        {...register("number")}
+                                                        value={phone}
+                                                        onChange={handlePhone}
+                                                    />
                                                     <div style={{ color: "red" }}>{errors.number?.message}
                                                     </div>
 
@@ -305,9 +311,9 @@ const LogIn = () => {
                                                         type="submit"
                                                         variant="contained"
                                                         className='btn btn-primary'
-                                                        >
+                                                    >
                                                         Login
-                                                    </Button>                                                
+                                                    </Button>
                                                 </TabPanel>
                                             </TabContext>
                                         </Box>

@@ -253,9 +253,240 @@ const Home = () => {
                   </Grid>
                 </Grid>
               </TabPanel>
-              <TabPanel value="2">Bitcoin</TabPanel>
-              <TabPanel value="3">Blockchain</TabPanel>
-              <TabPanel value="4">Tutorial</TabPanel>
+              <TabPanel value="2">
+                  <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
+                  <Grid item xs={6} >
+                    <img src={Leveragedv3} />
+                    <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>
+                      <Box>
+                        <Typography variant='h3' component="div" fontSize={32} fontWeight={700} className='secondary-font'>
+                          Leveraged tokens now available
+                        </Typography>
+                        <Typography fontSize={16} component="div" paddingTop={2} paddingBottom={2} className='secondary-color primary-font'>Good things come in 3s. Get 3x Leveraged tokens now.</Typography>
+                      </Box>
+                      <Button variant="outline" className='btn btn-outline' endIcon={<KeyboardArrowRight />} sx={{ border: '1px solid #E6E8EC', height: '50px', whiteSpace: 'nowrap' }}>Learn more</Button>
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3}>
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className='primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <img src={Leveraged} />
+                      </Grid>
+                    </Grid>
+
+                    {/* 1st box end */}
+
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} rowSpacing={{ xs: 3 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3} >
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className='primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <img src={Leveragedv2} />
+                      </Grid>
+                    </Grid>
+
+                    {/* 2nd box end */}
+
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3}>
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className=' primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <img src={Leveraged} />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </TabPanel>
+              <TabPanel value="3">
+                  <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
+                  <Grid item xs={6} >
+                    <img src={Leveragedv3} />
+                    <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>
+                      <Box>
+                        <Typography variant='h3' component="div" fontSize={32} fontWeight={700} className='secondary-font'>
+                          Leveraged tokens now available
+                        </Typography>
+                        <Typography fontSize={16} component="div" paddingTop={2} paddingBottom={2} className='secondary-color primary-font'>Good things come in 3s. Get 3x Leveraged tokens now.</Typography>
+                      </Box>
+                      <Button variant="outline" className='btn btn-outline' endIcon={<KeyboardArrowRight />} sx={{ border: '1px solid #E6E8EC', height: '50px', whiteSpace: 'nowrap' }}>Learn more</Button>
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3}>
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className='primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <img src={Leveraged} />
+                      </Grid>
+                    </Grid>
+
+                    {/* 1st box end */}
+
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} rowSpacing={{ xs: 3 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3} >
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className='primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <img src={Leveragedv2} />
+                      </Grid>
+                    </Grid>
+
+                    {/* 2nd box end */}
+
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3}>
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className=' primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <img src={Leveraged} />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </TabPanel>
+              <TabPanel value="4">
+                  <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
+                  <Grid item xs={6} >
+                    <img src={Leveragedv3} />
+                    <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>
+                      <Box>
+                        <Typography variant='h3' component="div" fontSize={32} fontWeight={700} className='secondary-font'>
+                          Leveraged tokens now available
+                        </Typography>
+                        <Typography fontSize={16} component="div" paddingTop={2} paddingBottom={2} className='secondary-color primary-font'>Good things come in 3s. Get 3x Leveraged tokens now.</Typography>
+                      </Box>
+                      <Button variant="outline" className='btn btn-outline' endIcon={<KeyboardArrowRight />} sx={{ border: '1px solid #E6E8EC', height: '50px', whiteSpace: 'nowrap' }}>Learn more</Button>
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3}>
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className='primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <img src={Leveraged} />
+                      </Grid>
+                    </Grid>
+
+                    {/* 1st box end */}
+
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} rowSpacing={{ xs: 3 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3} >
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className='primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <img src={Leveragedv2} />
+                      </Grid>
+                    </Grid>
+
+                    {/* 2nd box end */}
+
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3}>
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className=' primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <img src={Leveraged} />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </TabPanel>
             </TabContext>
 
 
@@ -300,7 +531,7 @@ const Home = () => {
       {/* learn cypto star*/}
 
       <Container>
-        <Box sx={{ display: { xs: 'block', md: 'flex' } }} justifyContent='space-between'>
+        <Box sx={{ display: { xs: 'block', md: 'flex' } }} justifyContent='space-between' alignItems='center'>
           <Typography component='h2' variant='h2' className='secondary-font mobile-font-40' paddingBottom={2}>Market trend</Typography>
           <Typography className='' variant='p' component='p' sx={{ display: { xs: 'block', md: 'none' } }}><span className='gold-color'>Subscribe</span> to gain complete access to the most precise short and long-term predictions of cryptocurrency prices.</Typography>
           <Button className='btn btn-outlined-secondary mobile-none'>View More</Button>
@@ -452,7 +683,7 @@ const Home = () => {
             Power up your crypto game with our data-driven predictions!
           </Typography>
         </Box>
-        <Grid className='scrolling-tab' container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        <Grid className='scrolling-tab' paddingBottom={18} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           <Grid item xs={6} sm={6} md={3} >
             <Box textAlign='center' className='howworks-box contact-line '>
               <img src={Market} width={96} />

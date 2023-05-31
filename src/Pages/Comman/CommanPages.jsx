@@ -29,6 +29,7 @@ import TwoFaDisable from "./TwoFaDisable";
 import Disclaimer from "./Disclaimer";
 import TermsOfUse from "./TermsOfUse";
 import ForecastSubscriptions from "./ForecastSubscriptions";
+import GuidesAnalysis from "./GuidesAnalysis";
 
 import { authAtom } from '../../_state';
 
@@ -64,6 +65,7 @@ const Customer = () => {
           <Route path={`/disclaimer`} exact element={<Disclaimer />} />
           <Route path={`/terms-of-use`} exact element={<TermsOfUse />} />
           <Route path={`subscription`} exact element={<Subscription />} />
+          <Route path={`guides-analysis`} exact element={<GuidesAnalysis />} />
         </Route>
 
         {/* For Without Header Footer  pages */}

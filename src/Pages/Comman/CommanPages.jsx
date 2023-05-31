@@ -32,10 +32,10 @@ import Disclaimer from "./Disclaimer";
 import TermsOfUse from "./TermsOfUse";
 
 import {authAtom} from '../../_state';
-// import LearnCypto from  "./LearnCypto"
-// import LearnCyptoDetail from  "./LearnCyptoDetail"
-// import Contact from  "./Contact"
-// import Referrals from "./Referrals";
+import LearnCypto from  "./LearnCypto"
+import LearnCyptoDetail from  "./LearnCyptoDetail"
+import Contact from  "./Contact"
+import Referrals from "./Referrals";
 
 const Customer = () => {
   const auth = useRecoilValue(authAtom); 

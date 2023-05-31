@@ -164,7 +164,7 @@ function Header(props) {
             {/* <Button className='btn' sx={{ color: '#23262F' }}>
               EN/USD
             </Button> */}
-  <Button id="currency-positioned-button"
+            <Button id="currency-positioned-button"
                   aria-controls={open ? 'currency-positioned-menu' : undefined}
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}

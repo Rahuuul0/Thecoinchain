@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
-import {  ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
 import { Checkbox, Container, Box, TextField, Typography, Link, Button, FormControlLabel } from '@mui/material'
 import { useForm } from "react-hook-form";
@@ -17,7 +17,7 @@ import AuthBg from '../../../public/assets/images/auth-bg.svg';
 import AppleIcon from '@mui/icons-material/Apple';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useAlertActions } from '../../_actions/alert.actions';
-
+import {KeyboardArrowLeft} from '@mui/icons-material/';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import GoogleAuth from "./GoogleAuth.jsx";
 
@@ -31,7 +31,7 @@ const CreateAccount = () => {
             .email()
             .trim()
             .required("Email Address is required"),
-        mobile: Yup.string().required("Mobile Number is required").matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, {message: "Please enter valid number.", excludeEmptyString: false}),
+        mobile: Yup.string().required("Mobile Number is required").matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, { message: "Please enter valid number.", excludeEmptyString: false }),
         password: Yup.string()
             .trim()
             .required("Password is required")
@@ -78,11 +78,11 @@ const CreateAccount = () => {
     };
 
     const submitForm = () => {
-        if(agreement) {
+        if (agreement) {
             const token = captchaRef.current.getValue();
             if (token) {
                 captchaRef.current.reset();
-               return userActions.create(formData);
+                return userActions.create(formData);
             }
             else {
                 alertActions.error("reCAPTCHA is mandatory")
@@ -91,8 +91,8 @@ const CreateAccount = () => {
         else {
             alertActions.error("You must agree with the Terms and Conditions")
         }
-    } 
-    const [ agreement, setAgreement ] = useState(false);
+    }
+    const [agreement, setAgreement] = useState(false);
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -106,11 +106,12 @@ const CreateAccount = () => {
                         }}
                     >
                         <Box className='auth-header-logo' >
-                            <img src={LogoLight} alt='Coin Guru' className='desktop' />
-                            <img src={LogoDark} alt='Coin Guru' className='ipad' />
+                            <Link onClick={() => { navigate('/') }}> <img src={LogoLight} alt='Coin Guru' className='desktop' /></Link>
+                            <Link onClick={() => { navigate('/') }}> <img src={LogoDark} alt='Coin Guru' className='ipad' /></Link>
                         </Box>
-                        <Box className='dont-have-acc' >
-                            <Typography component="p" variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
+                        
+                        <Box className='dont-have-acc'>
+                            <Typography component="p"  position='relative' zIndex='2'  variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
                                 Already have an account? <Link onClick={() => { navigate("/login"); }}>Login</Link>
                             </Typography>
                         </Box>
@@ -119,7 +120,12 @@ const CreateAccount = () => {
                         <Box className='auth-wrapper-bg'>
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
-                        <Box className='auth-wrapper-form' >
+                        <Box className='auth-wrapper-form' position='relative'>
+                        <Box position='absolute' sx={{top: '90px'}}>
+                            <IconButton aria-label="delete"  className='btn-primary btn' variant="outlined" sx={{padding: '4px 4px !important', margin: '0px !important'}}>
+                                <KeyboardArrowLeft />
+                            </IconButton>
+                        </Box>
                             <Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
                                     Sign up
@@ -254,7 +260,7 @@ const CreateAccount = () => {
                                         <div style={{ color: "red" }}> {errors.confirm_password?.message}
                                         </div>
 
-                                        <FormControlLabel className='auth-checkbox' control={<Checkbox onChange={()=>{setAgreement(!agreement)}} />} label="By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." />
+                                        <FormControlLabel className='auth-checkbox' control={<Checkbox onChange={() => { setAgreement(!agreement) }} />} label="By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." />
                                         <ReCAPTCHA
                                             style={{ margin: "10px auto", display: "flex", justifyContent: "center" }}
                                             theme="light"
@@ -263,11 +269,11 @@ const CreateAccount = () => {
                                             onChange={handleChange}
                                             asyncScriptOnLoad={asyncScriptOnLoad}
                                         />
-                                        <Button 
-                                        type="submit" 
-                                        variant="contained" 
-                                        disabled={isSubmitting}
-                                        className='btn btn-primary'>
+                                        <Button
+                                            type="submit"
+                                            variant="contained"
+                                            disabled={isSubmitting}
+                                            className='btn btn-primary'>
                                             Sign up
                                         </Button>
                                     </Box>

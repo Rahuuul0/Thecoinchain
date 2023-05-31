@@ -19,6 +19,7 @@ import { useRecoilState } from 'recoil';
 import {homePageAtom} from "../../_state/users";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import HttpsIcon from '@mui/icons-material/Https';
 
 function paginator(items, current_page, per_page_items) {
     let page = current_page || 1,
@@ -94,19 +95,17 @@ const CryptoTable = (props) => {
                                     <TableCell>#</TableCell>
                                     <TableCell>Name</TableCell>
                                     <TableCell align='right'>Price</TableCell>
+                                    <TableCell align='right'>24h Change </TableCell>
+                                    {props?.isIt? 
+                                    <>
+                                    <TableCell align='right'>1h %</TableCell>
                                     <TableCell align='right'>24h %</TableCell>
                                     <TableCell align='right'>7d %</TableCell>
-                                    <TableCell align='right'>
-                                        <span style={{ display: 'inline-flex', gap: '8px' }}>
-                                            Marketcap <img src={MarketcapIc} alt='' />
-                                        </span>
-                                    </TableCell>
-                                    <TableCell align='right'>
-                                        <span style={{ display: 'inline-flex', gap: '8px' }}>
-                                            Volume (24h) <img src={VolumeIc} alt='' />
-                                        </span>
-                                    </TableCell>
+                                    <TableCell align='right'>30d %</TableCell>
+                                    </>
+                                    :''}
                                     <TableCell align='right'>Chart</TableCell>
+                                    {props?.isIt? '':<TableCell align='right'>Predict</TableCell>}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -125,18 +124,43 @@ const CryptoTable = (props) => {
                                     <TableCell align='right'>
                                         <span className='up'>{Math.round((item.quote.USD.percent_change_24h + Number.EPSILON) * 100) / 100}%</span>
                                     </TableCell>
-                                    <TableCell align='right'>
-                                        <span className='up'>{Math.round((item.quote.USD.percent_change_7d + Number.EPSILON) * 100) / 100}%</span>
+                                    {props?.isIt?
+                                        <>
+                                       <TableCell align='right'>
+                                        {/* <span className='up'>{Math.round((item.quote.USD.percent_change_1h + Number.EPSILON) * 100) / 100}%</span> */}
+                                        <HttpsIcon/>
                                     </TableCell>
                                     <TableCell align='right'>
-                                    ${Math.round((item.quote.USD.market_cap + Number.EPSILON) * 100) / 100}
+                                        {/* <span className='up'>{Math.round((item.quote.USD.percent_change_24h + Number.EPSILON) * 100) / 100}%</span> */}
+                                        <HttpsIcon/>
                                     </TableCell>
                                     <TableCell align='right'>
-                                    {Math.round((item.quote.USD.volume_24h + Number.EPSILON) * 100) / 100}
+                                        {/* <span className='up'>{Math.round((item.quote.USD.percent_change_7d + Number.EPSILON) * 100) / 100}%</span> */}
+                                        <HttpsIcon/>
                                     </TableCell>
+                                    <TableCell align='right'>
+                                        {/* <span className='up'>{Math.round((item.quote.USD.percent_change_30d + Number.EPSILON) * 100) / 100}%</span> */}
+                                        <HttpsIcon/>
+                                    </TableCell> </>
+                                     :'' }
+                                 
                                     <TableCell align='right'>
                                         <img src={ChartUp} alt='chart' height="33px" />
                                     </TableCell>
+
+                                    {props?.isIt? '':
+                                    <TableCell align='right'>
+                                    <Button
+                                        variant="outlined"
+                                        className='btn btn-outlined-secondary'>
+                                        Predict
+                                    </Button>
+                                    </TableCell>
+                                    }
+                                  
+
+
+                                  
                                 </TableRow>
                                 )
                             })}

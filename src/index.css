@@ -721,13 +721,14 @@ input[type=number] {
 }
 
 .inner-div-user .pl-3 {
-    padding-left: 26px;
+    padding-left: 30px;
 }
 
 .inner-div-user .img-div-dropdown img {
     position: relative;
     top: 6px;
     width: 20px;
+    margin-right: 6px;
 }
 
 .inner-div-user .head-menu {
@@ -738,8 +739,48 @@ input[type=number] {
     font-size: 10px !important;
 }
 
+.language-dropdown.MuiFormControl-root label {
+    transform: none;
+    text-transform: unset !important;
+    margin-bottom: 20px;
+}
+
+.language-dropdown.MuiFormControl-root label.radio-option {
+    margin: 5px 0px;
+    border-bottom: 1px solid #E6E8EC;
+    width: 100%;
+    padding: 10px 0px 10px 0;
+    margin: 0;
+}
+
+.language-dropdown.MuiFormControl-root label.radio-option:last-child {
+    border: none;
+}
+
+.language-dropdown.MuiFormControl-root label span.MuiTypography-root {
+    transform: none;
+    font-size: 14px !important;
+    text-transform: unset !important;
+    color: #777E90 !important;
+    font-family: var(--secondary-font) !important;
+}
+
 .app-nav button.MuiButtonBase-root {
     color: var(--secondary-color);
+}
+
+.language-dropdown {
+    width: 100%;
+    padding: 15px 15px 0px 15px !important;
+}
+
+.language-dropdown span svg {
+    width: 8px !important;
+    height: 8px !important;
+}
+
+.menu-box {
+    padding: 5px !important;
 }
 
 #root .app-nav .btn {

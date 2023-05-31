@@ -252,7 +252,7 @@ const Home = () => {
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                      <Box className='cypto-video'>
+                        <Box className='cypto-video'>
                           <video poster={Learn01} width="100%" height="100%" controls>
                             <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
                             Your browser does not support the video tag.
@@ -314,7 +314,7 @@ const Home = () => {
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                      <Box className='cypto-video'>
+                        <Box className='cypto-video'>
                           <video poster={Learn01} width="100%" height="100%" controls>
                             <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
                             Your browser does not support the video tag.
@@ -376,7 +376,7 @@ const Home = () => {
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                      <Box className='cypto-video'>
+                        <Box className='cypto-video'>
                           <video poster={Learn01} width="100%" height="100%" controls>
                             <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
                             Your browser does not support the video tag.
@@ -423,7 +423,7 @@ const Home = () => {
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                      <Box className='cypto-video'>
+                        <Box className='cypto-video'>
                           <video poster={Learn01} width="100%" height="100%" controls>
                             <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
                             Your browser does not support the video tag.

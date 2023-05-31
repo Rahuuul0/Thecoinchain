@@ -2311,7 +2311,6 @@ video[poster] {
 .extra-wrapper p {
     margin-bottom: 24px;
 }
-<<<<<<< HEAD
 .borderRounded{
     border-radius: 90%;
 }
@@ -2320,7 +2319,6 @@ video[poster] {
     padding: 19px;
     border-radius: 10px;
 }
-=======
 
 /* Community */
 .community-wrapper-inner {
@@ -2369,7 +2367,6 @@ video[poster] {
 }
 
 
->>>>>>> 3c673a3b24ccdfabe8f8b12e44eeaad5c858d61c
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
 

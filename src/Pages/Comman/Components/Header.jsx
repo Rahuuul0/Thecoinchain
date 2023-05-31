@@ -19,7 +19,6 @@ import CoinGuru from '../../../../public/assets/images/logo.svg';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
-<<<<<<< HEAD
 import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined } from '@mui/icons-material/';
 import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
@@ -27,11 +26,9 @@ import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import LockIcon from '../../../../public/assets/images/lockbtn.svg'; 
 import BrightnessIcon from '../../../../public/assets/images/brightness.svg'; 
 import AccountCircle from '@mui/icons-material/AccountCircle';
-=======
 import { WallpaperOutlined } from '@mui/icons-material/';
 import connectline from '../../../../public/assets/images/connect-line.svg'
 
->>>>>>> 0c8e7df8e5cff506850abe86332a391427c81d47
 
 const drawerWidth = 240;
 
@@ -179,173 +176,12 @@ function Header(props) {
             <Button className='btn' sx={{ color: '#23262F' }}>
               EN/USD
             </Button>
-<<<<<<< HEAD
-            <Menu
-              className='dropdown-menu en-dropdown'
-              id="demo-positioned-menu"
-              aria-labelledby="demo-positioned-button"
-              anchorEl={anchorElB}
-              open={openB}
-              sx={{ borderRadius: '12px' }}
-              onClose={handleCloseB}
-            >
-              <Box className='menu-box'>
-
-                <Grid container>
-                  <Grid item xs={6} sm={6} md={6} sx={{borderRight: '1px solid #E6E8EC'}}>
-                    <FormControl className='language-dropdown'>
-                      <FormLabel id="demo-radio-buttons-group-label"  className='small-caption language-box' >Language</FormLabel>
-                      <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="English"
-                        name="radio-buttons-group"
-                      >
-                        <FormControlLabel className='radio-option' value="english" control={<Radio />} label="English" />
-                        <FormControlLabel className='radio-option' value="chinese" control={<Radio />} label="Chinese" />
-                        <FormControlLabel className='radio-option' value="japanese" control={<Radio />} label="Japanese" />
-                      </RadioGroup>
-                    </FormControl>
-                  </Grid>
-                  <Grid item xs={6} sm={6} md={6} className='right-box'>
-                  <FormControl className='language-dropdown'>
-                      <FormLabel id="currency-label"  className='small-caption language-box' >Currency</FormLabel>
-                  <RadioGroup
-                        aria-labelledby="currency-label"
-                        defaultValue="USD"
-                        name="radio-buttons-group"
-                      >
-                        <FormControlLabel className='radio-option' value="usd" control={<Radio />} label="USD" />
-                        <FormControlLabel className='radio-option' value="aud" control={<Radio />} label="AUD" />
-                        <FormControlLabel className='radio-option' value="eur" control={<Radio />} label="EUR" />
-                        <FormControlLabel className='radio-option' value="jpy" control={<Radio />} label="JPY" />
-                        <FormControlLabel className='radio-option' value="btc" control={<Radio />} label="BTC" />
-                      </RadioGroup>
-                      </FormControl>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Menu>
-            <IconButton aria-label="flash" color="primary">
-              <FlashOnOutlined />
-            </IconButton>
-            <Badge badgeContent={2} className="green-bg-badge navbtn">
-              <NotificationsNone color="action" />
-            </Badge>
-
-            <Button variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
-              Account
-            </Button>
-
-            <IconButton aria-label="sunny" color="primary">
-              <WbSunnyOutlined />
-            </IconButton>
-            <IconButton onClick={handleClickAnchor}
-              size="small"
-              sx={{ ml: 2 }}
-              aria-controls={openAnchor ? 'account-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img' aria-label="flash" color="primary">
-              <img src={UserAvatar} />
-            </IconButton >
-
-
-
-
-
-
-            <Menu
-              anchorEl={anchorElAnchor}
-              id="account-menu"
-              open={openAnchor}
-              onClose={handleCloseAnchor}
-              onClick={handleCloseAnchor}
-              PaperProps={{
-                elevation: 0,
-                sx: {
-                  overflow: 'visible',
-                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                  mt: 1.5,
-                  '& .MuiAvatar-root': {
-                    width: 32,
-                    height: 32,
-                    ml: -0.5,
-                    mr: 1,
-                  },
-                  '&:before': {
-                    content: '""',
-                    display: 'block',
-                    position: 'absolute',
-                    top: 0,
-                    right: 14,
-                    width: 10,
-                    height: 10,
-                    bgcolor: 'background.paper',
-                    transform: 'translateY(-50%) rotate(45deg)',
-                    zIndex: 0,
-                  },
-                },
-              }}
-              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            >
-              <MenuItem onClick={handleCloseAnchor}>
-                <span className='inner-div-user'>
-                  <span className='img-div-dropdown head-menu'><img src={UserIcon} /> Profile</span>
-                  <span className='pl-3 sub-head-menu'>Important account details</span>
-                </span>
-              </MenuItem>
-              <Divider />
-              <MenuItem onClick={handleCloseAnchor}>
-                <span className='inner-div-user'>
-                  <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Referrals</span>
-                  <span className='pl-3 sub-head-menu'>Invite your friends and earn rewards</span>
-                </span>
-              </MenuItem>
-              <Divider />
-              <MenuItem onClick={handleCloseAnchor}>
-                <span className='inner-div-user'>
-                  <span className='img-div-dropdown head-menu'><img src={LockIcon} /> 2FA security</span>
-                  <span className='pl-3 sub-head-menu'>Setup 2FA for more security</span>
-                </span>
-              </MenuItem>
-              <Divider />
-              <MenuItem onClick={handleCloseAnchor}>
-                <span className='inner-div-user'>
-                  <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Settings</span>
-                  <span className='pl-3 sub-head-menu'>View additional settings</span>
-                </span>
-              </MenuItem>
-              <Divider /> 
-              <MenuItem onClick={handleCloseAnchor}>
-                <span className='inner-div-user'>
-                  <span className='img-div-dropdown head-menu'><img src={BrightnessIcon} /> Dark mode</span>
-                  <span className='pl-3 sub-head-menu'>Switch dark/light mode</span>
-                  <span></span>
-                </span>
-              </MenuItem>
-              <Divider />
-              <MenuItem onClick={handleCloseAnchor}>
-                <span className='inner-div-user'>
-                  <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Log out</span>
-                </span>
-              </MenuItem>
-           
-            </Menu>
-
-
-
-
-
-
-
-=======
             <Button onClick={() => { navigate('/create-account') }} variant="contained" className='btn btn-primary' sx={{ color: '#fff' }}>
               Sign up
             </Button>
             <Button onClick={() => { navigate('/login') }} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
               Login
             </Button>
->>>>>>> 0c8e7df8e5cff506850abe86332a391427c81d47
           </Box>
         </Toolbar>
       </AppBar>

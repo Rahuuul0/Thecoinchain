@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
-import { Box, Container, Grid, Typography, Button, Modal, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
+import { Box, Container, Typography, Button, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LoadMoreIc from '../../../public/assets/images/icons/cale-ic.svg'
 import DepositImg from '../../../public/assets/images/deposit.svg'

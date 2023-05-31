@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { ListItem, List, ListItemButton, ListItemIcon, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid } from '@mui/material/';
+import { ListItem, List, ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid } from '@mui/material/';
 import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
-import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer, InputAdornment } from '@mui/material';
+import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
 import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined } from '@mui/icons-material/';
 import ShareIcon from '../../../../public/assets/images/share-square.svg';

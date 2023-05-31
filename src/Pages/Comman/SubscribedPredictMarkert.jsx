@@ -1,8 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button } from '@mui/material'
-import { Link } from 'react-router-dom';
+import { theme } from "../../_common/app.constants";
+import { Box, Container } from '@mui/material';
 import LearnNEarn from './LearnNEarn';
 import CryptoTable from './CryptoTable';
 import MarketCard from './MarketCard';

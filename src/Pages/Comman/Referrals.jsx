@@ -1,30 +1,10 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Stack, InputAdornment, TextField, } from '@mui/material';
+import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, InputAdornment, TextField, } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
 import Sidebar from './Components/Sidebar';
 
-const plans = [
-    {
-        title: '7 days Plan',
-        price: '$15 ',
-        days: '7 days',
-        extra: 'Get all crypto price predictions & Trade with Machine Learning',
-    },
-    {
-        title: '1 month Plan',
-        price: '$40 ',
-        days: '1 month',
-        extra: 'Get all crypto price predictions & Trade with Machine Learning',
-    },
-    {
-        title: '1 year Plan',
-        price: '$250 ',
-        days: '1 year',
-        extra: 'Get all crypto price predictions & Trade with Machine Learning',
-    }
-]
 function handleClick(event) {
     event.preventDefault();
     console.info('You clicked a breadcrumb.');

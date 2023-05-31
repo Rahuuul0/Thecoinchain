@@ -28,7 +28,7 @@ import { useEffect } from "react"
 import Marquee from "react-fast-marquee";
 import CryptoTable from '../../CryptoTable';
 import { useNavigate } from 'react-router-dom';
-
+import Learn01 from '../../../../../public/assets/images/learn01.png'
 
 const Home = () => {
   const navigate = useNavigate();
@@ -205,7 +205,12 @@ const Home = () => {
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <img src={Leveraged} />
+                        <Box className='cypto-video'>
+                          <video poster={Learn01} width="100%" height="100%" controls>
+                            <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        </Box>
                       </Grid>
                     </Grid>
 
@@ -247,14 +252,19 @@ const Home = () => {
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <img src={Leveraged} />
+                      <Box className='cypto-video'>
+                          <video poster={Learn01} width="100%" height="100%" controls>
+                            <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        </Box>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </TabPanel>
               <TabPanel value="2">
-                  <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
+                <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
                   <Grid item xs={6} >
                     <img src={Leveragedv3} />
                     <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>
@@ -304,7 +314,12 @@ const Home = () => {
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <img src={Leveragedv2} />
+                      <Box className='cypto-video'>
+                          <video poster={Learn01} width="100%" height="100%" controls>
+                            <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        </Box>
                       </Grid>
                     </Grid>
 
@@ -332,7 +347,7 @@ const Home = () => {
                 </Grid>
               </TabPanel>
               <TabPanel value="3">
-                  <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
+                <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
                   <Grid item xs={6} >
                     <img src={Leveragedv3} />
                     <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>
@@ -361,7 +376,12 @@ const Home = () => {
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <img src={Leveraged} />
+                      <Box className='cypto-video'>
+                          <video poster={Learn01} width="100%" height="100%" controls>
+                            <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        </Box>
                       </Grid>
                     </Grid>
 
@@ -403,14 +423,19 @@ const Home = () => {
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <img src={Leveraged} />
+                      <Box className='cypto-video'>
+                          <video poster={Learn01} width="100%" height="100%" controls>
+                            <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        </Box>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </TabPanel>
               <TabPanel value="4">
-                  <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
+                <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
                   <Grid item xs={6} >
                     <img src={Leveragedv3} />
                     <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>
@@ -504,6 +529,7 @@ const Home = () => {
                     </Typography>
                   </Grid>
                   <Grid item xs={12} md={6} >
+
                     <img width='100%' src={Leveraged} />
                     <Typography fontSize={16} paddingY={2} fontWeight={700} className='body-large primary-font'>
                       Leveraged tokens now available

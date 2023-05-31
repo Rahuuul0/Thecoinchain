@@ -909,7 +909,10 @@ input[type=number] {
     text-transform: capitalize;
 }
 
-
+.learn-cypto-tab  .cypto-video {
+    width: 264px;
+    height: 264px;
+}
 /* Homepage Ends */
 
 

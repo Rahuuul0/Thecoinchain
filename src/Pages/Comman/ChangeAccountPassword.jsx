@@ -1,13 +1,7 @@
 import React from 'react'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Modal, Link, Breadcrumbs, Stack, TextField, OutlinedInput, MenuItem, IconButton, InputAdornment } from '@mui/material';
-import User from '../../../public/assets/images/user.svg';
-import Share from '../../../public/assets/images/share-square.svg';
-import Session from '../../../public/assets/images/session.svg';
-import Api from '../../../public/assets/images/api.svg';
-import FA from '../../../public/assets/images/fa.svg';
-import Lockbtn from '../../../public/assets/images/lockbtn.svg';
+import { Box, Container, Typography, Button, Link, Breadcrumbs, TextField, IconButton, InputAdornment } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
 import { useNavigate } from 'react-router-dom';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';

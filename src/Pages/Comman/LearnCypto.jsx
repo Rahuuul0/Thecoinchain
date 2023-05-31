@@ -72,8 +72,8 @@ const LearnCypto = () => {
           <Typography textAlign='center' className='secondary-color body-large'>A creative agency that lead and inspire</Typography>
           <Box>
             <Stack direction='row' spacing={3} justifyContent='center' paddingTop={3} paddingBottom={10}>
-              <Button variant='contained' className='btn btn-primary'>Learn Now </Button>
-              <Button variant='outlined' className='btn btn-outlined-secondary'>Video Tutorial </Button>
+              <Button variant='contained' className='btn btn-primary' onClick={() => { navigate("../learn-cypto-detail") }}>Learn Now </Button>
+              <Button variant='outlined' className='btn btn-outlined-secondary' onClick={() => { navigate("../learn-cypto-detail") }}>Video Tutorial </Button>
             </Stack>
             {/* <img src={VideoImg}/>   */}
             <video poster={VideoImg} width="100%" height="100%" controls>

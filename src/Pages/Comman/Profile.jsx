@@ -1,14 +1,8 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Stack, Select, OutlinedInput, MenuItem, Switch, TextField } from '@mui/material';
-import User from '../../../public/assets/images/user.svg';
-import Share from '../../../public/assets/images/share-square.svg';
-import Session from '../../../public/assets/images/session.svg';
-import Api from '../../../public/assets/images/api.svg';
-import FA from '../../../public/assets/images/fa.svg';
-import Lockbtn from '../../../public/assets/images/lockbtn.svg';
-import {  NavigateNext } from '@mui/icons-material/';
+import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Select, OutlinedInput, MenuItem, Switch, TextField } from '@mui/material';
+import { NavigateNext } from '@mui/icons-material/';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
@@ -46,22 +40,22 @@ const Profile = () => {
     //yup validation
     const validationSchema = Yup.object().shape({
         name: Yup.string()
-        .trim()
-        .required("Name is required"),
+            .trim()
+            .required("Name is required"),
         email: Yup.string()
             .email()
             .trim()
             .required("Email Address is required"),
         mobile: Yup.string()
             .trim()
-            .required("Mobile is required")        
+            .required("Mobile is required")
     });
-     
+
     const formOptions = { resolver: yupResolver(validationSchema) };
     // get functions to build form with useForm() hook
     const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
-    const { errors, isSubmitting } = formState;       
-   
+    const { errors, isSubmitting } = formState;
+
 
     const [personName, setPersonName] = React.useState([]);
     const handleChange = (event, newValue) => {
@@ -97,7 +91,7 @@ const Profile = () => {
     const [value, setValue] = React.useState('1');
 
     const submitFunction = () => {
-        profileUpdate.updateUser(localStorage.getItem("id"),formData)
+        profileUpdate.updateUser(localStorage.getItem("id"), formData)
     }
     const formData = watch();
     return (
@@ -127,17 +121,17 @@ const Profile = () => {
                     <Box className='subscription-steps account-main'>
                         <Container maxWidth="lg">
                             <Box className='subscription-steps-inner'>
-                                <Sidebar/>
+                                <Sidebar />
                                 <Box className='subscription-steps-col-details'>
                                     <Box className="step-one">
                                         <Box className=''>
                                             <Grid container  >
-                                                <Grid item xs={12} sm={8} md={8}  sx={{ paddingBottom : {xs: '20px' , md: '5px'}}}>
+                                                <Grid item xs={12} sm={8} md={8} sx={{ paddingBottom: { xs: '20px', md: '5px' } }}>
                                                     <Box>
                                                         <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} >Breanne Schinner</Typography>
                                                         <Typography component="p" variant='body2' className='secondary-color' sx={{ fontSize: '14px', color: '#777E90' }}>hello@coinguru.org</Typography>
                                                         <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>VIP</Button>
-                                        
+
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={12} sm={4} md={4}>
@@ -177,7 +171,7 @@ const Profile = () => {
                                                     </Box>
                                                 </Grid>
                                             </Grid>
-                                           </Box>
+                                        </Box>
                                         <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
                                             <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} paddingY={5}  >Features</Typography>
                                         </Box>
@@ -204,77 +198,77 @@ const Profile = () => {
                                             Stay informed, stay profitable
                                         </Typography>
                                     </Box>
-                                    <Box  
+                                    <Box
                                         noValidate
                                         component="form"
                                         onSubmit={handleSubmit(submitFunction)}
                                     >
-                                    <Box   className="update-profile" sx={{ backgroundColor: '#F1F2F4', }} padding={5}>
-                                        <Typography component="h5" variant='body1' className='large-caption'>
-                                            Update your profile
+                                        <Box className="update-profile" sx={{ backgroundColor: '#F1F2F4', }} padding={5}>
+                                            <Typography component="h5" variant='body1' className='large-caption'>
+                                                Update your profile
+                                            </Typography>
+                                            <Box className='' paddingY={1} >
+                                                <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Name</Typography>
+                                                <TextField
+                                                    className="form-control"
+                                                    InputLabelProps={{
+                                                        shrink: true,
+                                                    }}
+                                                    variant="standard"
+                                                    margin="normal"
+                                                    required
+                                                    fullWidth
+                                                    id="name"
+                                                    name="name"
+                                                    autoComplete="off"
+                                                    backgroundColor='#fff'
+                                                    autoFocus
+                                                    {...register("name")}
+                                                />
+                                                <div style={{ color: "red" }}>{errors.name?.message}</div>
+                                            </Box>
+                                            <Box className='' paddingY={1}>
+                                                <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Email</Typography>
+                                                <TextField
+                                                    label="Email"
+                                                    className="form-control white-input-box"
+                                                    InputLabelProps={{
+                                                        shrink: true,
+                                                    }}
+                                                    variant="standard"
+                                                    margin="normal"
+                                                    required
+                                                    fullWidth
+                                                    id="email"
+                                                    name="email"
+                                                    autoComplete="off"
+                                                    {...register("email")}
+                                                />
+                                                <div style={{ color: "red" }}>{errors.email?.message}</div>
+                                            </Box>
+                                            <Box className=''>
+                                                <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Mobile</Typography>
+                                                <TextField
+                                                    className="form-control"
+                                                    InputLabelProps={{
+                                                        shrink: true,
+                                                    }}
+                                                    variant="outlined"
+                                                    margin="normal"
+                                                    required
+                                                    fullWidth
+                                                    id="mobile"
+                                                    placeholder='Mobile'
+                                                    name="mobile"
+                                                    autoComplete="off"
+                                                    {...register("mobile")}
+                                                />
+                                                <div style={{ color: "red" }}>{errors.mobile?.message}</div>
+                                            </Box>
+                                        </Box>
+                                        <Typography textAlign='right' paddingY={3}>
+                                            <Button type="submit" className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>
                                         </Typography>
-                                        <Box className='' paddingY={1} >
-                                            <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Name</Typography>
-                                            <TextField                                                
-                                                className="form-control"
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                variant="standard"
-                                                margin="normal"
-                                                required
-                                                fullWidth
-                                                id="name"                                                
-                                                name="name"
-                                                autoComplete="off"
-                                                backgroundColor='#fff'                                           
-                                                autoFocus
-                                                {...register("name")}
-                                            />
-                                             <div style={{ color: "red" }}>{errors.name?.message}</div>
-                                        </Box>
-                                        <Box className=''  paddingY={1}>
-                                            <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Email</Typography>
-                                            <TextField
-                                                label="Email"
-                                                className="form-control white-input-box"
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                variant="standard"
-                                                margin="normal"
-                                                required
-                                                fullWidth
-                                                id="email"                                              
-                                                name="email"
-                                                autoComplete="off"                                           
-                                                {...register("email")}
-                                            />
-                                              <div style={{ color: "red" }}>{errors.email?.message}</div>
-                                        </Box>
-                                        <Box className=''>
-                                            <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Mobile</Typography>
-                                            <TextField                                               
-                                                className="form-control"
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                variant="outlined"
-                                                margin="normal"
-                                                required
-                                                fullWidth
-                                                id="mobile"
-                                                placeholder='Mobile'
-                                                name="mobile"
-                                                autoComplete="off"                                           
-                                               {...register("mobile")}
-                                            />
-                                            <div style={{ color: "red" }}>{errors.mobile?.message}</div>
-                                        </Box>
-                                    </Box>
-                                    <Typography textAlign='right' paddingY={3}>
-                                        <Button type="submit" className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>
-                                    </Typography>
                                     </Box>
                                 </Box>
                             </Box>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Modal, Link, Breadcrumbs, Stack, Select, OutlinedInput, MenuItem, Switch, TextField } from '@mui/material';
+import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Stack, Select, OutlinedInput, MenuItem, Switch, TextField } from '@mui/material';
 import User from '../../../public/assets/images/user.svg';
 import Share from '../../../public/assets/images/share-square.svg';
 import Session from '../../../public/assets/images/session.svg';
@@ -13,6 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions"
+import Sidebar from './Components/Sidebar';
 
 function handleClick(event) {
     event.preventDefault();
@@ -126,20 +127,7 @@ const Profile = () => {
                     <Box className='subscription-steps account-main'>
                         <Container maxWidth="lg">
                             <Box className='subscription-steps-inner'>
-                                <Box className='subscription-steps-col'>
-                                    <Stack spacing={2}>
-                                        <Box sx={{ borderBottom: '1px solid #E6E8EC' }} paddingBottom={2}>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4} fontWeight={700}><span><img src={User} /> </span>Profile</Typography>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Share} /> </span>Referrals</Typography>
-                                            <Typography className='left-icon secondary-color' paddingBottom={2}><span><img src={Api} /> </span>API keys</Typography>
-                                        </Box>
-                                        <Box paddingTop={2}>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Session} /> </span>Sessions & login history</Typography>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={FA} /> </span>2FA</Typography>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Lockbtn} /> </span>Change password</Typography>
-                                        </Box>
-                                    </Stack>
-                                </Box>
+                                <Sidebar/>
                                 <Box className='subscription-steps-col-details'>
                                     <Box className="step-one">
                                         <Box className=''>

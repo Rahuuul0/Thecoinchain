@@ -20,16 +20,28 @@ import {homePageAtom} from "../../_state/users";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
+function paginator(items, current_page, per_page_items) {
+    let page = current_page || 1,
+      per_page = per_page_items,
+      offset = (page - 1) * per_page,
+      paginatedItems = items.slice(offset).slice(0, per_page_items),
+      total_pages = Math.ceil(items.length / per_page);
+    console.log("Anzahl: " + items.lgenth);
+  
+    return {
+      page: page,
+      per_page: per_page,
+      pre_page: page - 1 ? page - 1 : null,
+      next_page: total_pages > page ? page + 1 : null,
+      total: items.length,
+      total_pages: total_pages,
+      data: paginatedItems
+    };
+  }
 
-
-const CryptoTable = () => {
+const CryptoTable = (props) => {
 
     const [value, setValue] = React.useState('1');
-
-    const [page, setPage] = React.useState(1);
-    const handleChanges = (event, value) => {
-      setPage(value);
-    };
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -47,6 +59,27 @@ const CryptoTable = () => {
     useEffect(()=> {
         console.log(sethomeData[0][0].data,'gfddsfdfdfsfs')
       },[])
+
+
+      const count = Math.ceil(coinData.length / 4);
+      const [page, setPage] = React.useState(1);
+      const handleChanges = (event, value) => {
+        setPage(paginator(coinData, value, 3).page);
+      };
+      const [checked, setChecked] = React.useState([]);
+      const handleOnChanges = (e, index) => {
+        let prev = checked;
+        let itemIndex = prev.indexOf(index);
+        if (itemIndex !== -1) {
+          prev.splice(itemIndex, 1);
+        } else {
+          prev.push(index);
+        }
+        setChecked([...prev]);
+      };
+      console.log(checked);
+
+
 
     return (
         <>
@@ -77,9 +110,10 @@ const CryptoTable = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {coinData.map((item) =>{
+                            {paginator(coinData, page, 5).data.map((item,index) =>{
                                 return(
-                                <TableRow hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
+                                <TableRow   divider={index < coinData.length - 1} hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
+                              
                                     <TableCell>{item.cmc_rank}</TableCell>
                                     <TableCell onClick={handleOpen}>
                                         <div className="crypto-name">
@@ -110,8 +144,13 @@ const CryptoTable = () => {
                             </TableBody>
                         </Table>
                         </Stack>
-                        <span >Page: {page}  </span>
-                       <Pagination  style={{ float: 'right' }} count={5} page={page} onChange={handleChanges} />
+                        {props?.isIt? <Pagination sx={{float:'right'}}
+                        count={count}
+                        page={page}
+                        onChange={handleChanges}
+                        color="success"
+                    />:""}
+                      
                       
                     </TableContainer>
                 </Box>

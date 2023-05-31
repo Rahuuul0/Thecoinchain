@@ -22,7 +22,7 @@ const Market = () => {
                     <Box className='market-inner'>
                         <Container maxWidth="lg">
 
-                            <CryptoTable />
+                            <CryptoTable isIt={true} />
 
                             <Box className='price-prediction'>
                                 <Typography component="h2" variant='h2'>

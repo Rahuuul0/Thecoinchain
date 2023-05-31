@@ -16,7 +16,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
-
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import galleryImage from '../../../../public/assets/images/gallery.svg';
+import { WallpaperOutlined } from '@mui/icons-material/';
 import connectline from '../../../../public/assets/images/connect-line.svg'
 
 
@@ -25,11 +28,6 @@ const drawerWidth = 240;
 function Header(props) {
 
   const navItems = [
-    {
-      page: 'Academy',
-      icon: '',
-      // link: '/academy',
-    },
     {
       page: 'Community',
       icon: '',
@@ -42,6 +40,14 @@ function Header(props) {
     },
   ]
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const navigate = useNavigate();
   const { window } = props;
@@ -114,9 +120,42 @@ function Header(props) {
           >
             <img src={CoinGuru} alt='Coin Guru' />
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'left', } }}>
-
+          <Box className='' sx={{ display: { xs: 'none', sm: 'flex', flex: 2, textAlign: 'left', } }}>
+            <ul className='navItem'>
+              <li >
+                <Button
+                  id="demo-positioned-button"
+                  aria-controls={open ? 'demo-positioned-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                >
+                  Academy
+                </Button>
+                <Menu
+                  className='dropdown-menu'
+                  id="demo-positioned-menu"
+                  aria-labelledby="demo-positioned-button"
+                  anchorEl={anchorEl}
+                  open={open}
+                  sx={{ borderRadius: '12px' }}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                >
+                  <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
+                  <MenuItem onClick={handleClose}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
+                </Menu>
+              </li>
+            </ul>
             {navItems.map((item, i) => (
+
               <Button onClick={() => { navigate(item.link) }} key={i} sx={{ color: '#fff' }}>
                 {item.icon &&
                   <img src={item.icon} alt={item.page} />
@@ -124,34 +163,18 @@ function Header(props) {
                 {item.page}
               </Button>
             ))}
-
-            {/* <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
-              <SearchIcon />
-            </Button> */}
-
-
-
           </Box>
 
           <Box sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
-
-
-
-            {/* <Button onClick={() => { navigate('/login') }} sx={{ color: '#fff' }}>
-              <SearchIcon />
-            </Button> */}
-
             <Button className='btn' sx={{ color: '#23262F' }}>
               EN/USD
             </Button>
-
-            <Button  onClick={() => { navigate('/create-account') }}  variant="contained" className='btn btn-primary'  sx={{ color: '#fff' }}>
+            <Button onClick={() => { navigate('/create-account') }} variant="contained" className='btn btn-primary' sx={{ color: '#fff' }}>
               Sign up
             </Button>
-            <Button onClick={() => { navigate('/login') }} variant="outline" className='btn btn-outline'  sx={{ color: '#23262F' , backgroundColor: '#ffffff00', border: '1px solid' }}>
+            <Button onClick={() => { navigate('/login') }} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
               Login
             </Button>
-
           </Box>
         </Toolbar>
       </AppBar>

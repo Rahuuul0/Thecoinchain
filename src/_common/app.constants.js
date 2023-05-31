@@ -14,7 +14,7 @@ export const Labels = {
     Replce_Text: "XXXX",
     Success_Status_Code: 200,
     Error_Status_Code: 500,
-    
+    Local_Storage_User: 'user',        
 }
 
 export const RoutesName = {
@@ -22,6 +22,7 @@ export const RoutesName = {
     Home: '/home',
     login: '/login',
     Change_Password: '/create-password',
+    Logout:'/logout'
 }
 
 export const Apis = {

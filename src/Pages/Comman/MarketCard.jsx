@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Box, Container, Grid, Typography, Button, FormControl, MenuItem } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -10,8 +10,20 @@ import GraphDown from '../../../public/assets/images/chart-down.svg';
 import BtcIc from '../../../public/assets/images/icons/btc-ic.svg';
 import AtcIc from '../../../public/assets/images/icons/atc-ic.svg';
 import EthIc from '../../../public/assets/images/icons/eth-ic.svg';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import {homePageAtom} from "../../_state/users"
 
 const MarketCard = () => {
+
+    const navigate = useNavigate();
+    // Json data call
+    const sethomeData = useRecoilState(homePageAtom);
+    const coinData = sethomeData[0][0].data; 
+
+  useEffect(()=> {
+    console.log(sethomeData[0][0].data,'gfddsfdfdfsfs')
+  },[])
 
     const [value, setValue] = useState('1');
 
@@ -79,6 +91,7 @@ const MarketCard = () => {
                                 </Box>
                             </Box>
                         </Box>
+
                         <Box className='market-crypto-tabs for-desktop'>
                             <TabContext value={value}>
                                 <Box>
@@ -91,28 +104,10 @@ const MarketCard = () => {
                                         <Tab label="POW" value="6" />
                                     </TabList>
                                 </Box>
-                                {/* <TabPanel value="1" sx={{ p: 0 }}>
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            className='btn btn-primary'
-                                            disabled={isSubmitting}>
-                                            Login
-                                            </Button>
-                                            </TabPanel>
-                                    <TabPanel value="2" sx={{ p: 0 }}>
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            className='btn btn-primary'
-                                            disabled={isSubmitting}>
-                                            Login
-                                            </Button>
-                                        </TabPanel> */}
                             </TabContext>
                             <Button
                                 variant="outlined"
-                                className='btn btn-outlined-secondary'>
+                                className='btn btn-outlined-secondary' onClick={() => { navigate("../predict-market") }}>
                                 Predict
                             </Button>
                         </Box>

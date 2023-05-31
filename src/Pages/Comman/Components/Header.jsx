@@ -19,7 +19,7 @@ import CoinGuru from '../../../../public/assets/images/logo.svg';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
-
+import {KeyboardArrowDown} from '@mui/icons-material/';
 
 const drawerWidth = 240;
 
@@ -123,7 +123,7 @@ function Header(props) {
           >
             <img src={CoinGuru} alt='Coin Guru' />
           </Typography>
-          <Box className='' sx={{ display: { xs: 'none', sm: 'flex', flex: 2, textAlign: 'left', } }}>
+          <Box className='' sx={{ display: { xs: 'none', sm: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>
               <li >
                 <Button
@@ -132,6 +132,7 @@ function Header(props) {
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
                   onClick={handleClick}
+                  endIcon={<KeyboardArrowDown />}
                 >
                   Academy
                 </Button>
@@ -160,7 +161,7 @@ function Header(props) {
             ))}
           </Box>
 
-          <Box sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
+          <Box sx={{ display: { xs: 'none', sm: 'flex', flex: 2, textAlign: 'right' } }} justifyContent='end'>
             {/* <Button className='btn' sx={{ color: '#23262F' }}>
               EN/USD
             </Button> */}
@@ -168,7 +169,8 @@ function Header(props) {
                   aria-controls={open ? 'currency-positioned-menu' : undefined}
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
+                  onClick={handleClickB} className='btn' sx={{ color: '#23262F' }} 
+                  endIcon={<KeyboardArrowDown />}>
               EN/USD
             </Button>
             <Menu
@@ -179,6 +181,7 @@ function Header(props) {
               open={openB}
               sx={{ borderRadius: '12px' }}
               onClose={handleCloseB}
+              endIcon={<KeyboardArrowDown />}
             >
               <Box className='menu-box'>
                 <Grid container >

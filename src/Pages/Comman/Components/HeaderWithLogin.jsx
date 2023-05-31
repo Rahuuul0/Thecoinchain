@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
-import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined } from '@mui/icons-material/';
+import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown } from '@mui/icons-material/';
 import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
@@ -67,10 +67,10 @@ function Header(props) {
       <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
 
       <Divider />
-      <List>
+      <List alignItems='center' className='itemnavitem'>
         {navItems.map((item, i) => {
           return (
-            <ListItem key={i} disablePadding>
+            <ListItem key={i} disablePadding alignItems='center'>
               <ListItemButton sx={{ textAlign: 'center' }}>
                 {item.icon &&
                   <img src={item.icon} alt={item.page} />
@@ -80,7 +80,7 @@ function Header(props) {
             </ListItem>
           )
         })}
-        <ListItem disablePadding>
+        <ListItem disablePadding alignItems='center'>
           <ListItemButton sx={{ textAlign: 'center' }}>
             <ListItemText primary="" onClick={() => { navigate(item.link) }}>
               Search
@@ -123,7 +123,7 @@ function Header(props) {
           >
             <img src={CoinGuru} alt='Coin Guru' />
           </Typography>
-          <Box className='' sx={{ display: { xs: 'none', sm: 'flex', flex: 2, textAlign: 'left', } }}>
+          <Box className='' sx={{ display: { xs: 'none', sm: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>
               <li >
                 <Button
@@ -132,6 +132,7 @@ function Header(props) {
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
                   onClick={handleClick}
+                  endIcon={<KeyboardArrowDown />}
                 >
                   Academy
                 </Button>
@@ -164,6 +165,7 @@ function Header(props) {
                   aria-controls={open ? 'currency-positioned-menu' : undefined}
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
+                  endIcon={<KeyboardArrowDown />}
                   onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
               EN/USD
             </Button>

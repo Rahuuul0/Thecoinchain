@@ -386,7 +386,18 @@ main.auth-wrapper {
     width: calc(100% - 160px);
     padding: 80px;
 }
-
+nav .MuiButtonBase-root{
+    padding: 6px 20px;
+    height: 46px;
+}
+#root nav .btn{    
+    display: inherit !important;
+}
+nav .MuiButtonBase-root:hover{
+    text-decoration: none;
+    background-color: rgba(25, 118, 210, 0.04);
+    border-radius: 90px;
+}
 .auth-header-logo img.ipad {
     display: none;
 }

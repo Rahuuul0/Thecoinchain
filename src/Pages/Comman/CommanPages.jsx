@@ -29,11 +29,8 @@ import TwoFaDisable from "./TwoFaDisable";
 import Disclaimer from "./Disclaimer";
 import TermsOfUse from "./TermsOfUse";
 import ForecastSubscriptions from "./ForecastSubscriptions";
-<<<<<<< HEAD
 import GuidesAnalysis from "./GuidesAnalysis";
-=======
 import Community from "./Community";
->>>>>>> 3c673a3b24ccdfabe8f8b12e44eeaad5c858d61c
 
 import { authAtom } from '../../_state';
 import NewsPromotions from "./NewsPromotions";

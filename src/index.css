@@ -1845,6 +1845,25 @@ video {
     padding-bottom: 32px;
 }
 
+.account-main .card-inner-head {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#root .account-main .card-inner-head h2,
+#root .account-main .card-inner-head h2 span {
+    font-size: 40px;
+    font-family: var(--secondary-font) !important;
+}
+
+#root .account-main .card-inner-head h2 span {
+    color: #FF6838;
+}
+
+.account-main .subscription-plan {
+    margin-top: 16px;
+}
+
 #root .subscription-plan .subscription-plan-cta p {
     font-size: 14px;
     font-weight: 400;

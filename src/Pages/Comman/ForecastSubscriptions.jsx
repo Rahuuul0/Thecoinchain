@@ -1,20 +1,10 @@
 import React, { useState } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Typography, Button, Link, Breadcrumbs, Stack, TextField, Grid, FormControlLabel, Checkbox } from '@mui/material';
+import { Box, Container, Typography, Button, Link, Breadcrumbs, Stack } from '@mui/material';
 import SubsImage from '../../../public/assets/images/subs.svg';
 import { NavigateNext } from '@mui/icons-material/';
 import Sidebar from './Components/Sidebar';
-import CryptoTrader01 from '../../../public/assets/images/crypto-trader-01.svg'
-import CryptoTrader02 from '../../../public/assets/images/crypto-trader-02.svg'
-import CryptoTrader03 from '../../../public/assets/images/crypto-trader-03.svg'
-import BtcImg from '../../../public/assets/images/icons/btc-ic.svg'
-import WalletIc from '../../../public/assets/images/icons/wallet.svg'
-import VisaIc from '../../../public/assets/images/icons/visa.svg'
-import MasterIc from '../../../public/assets/images/icons/master.svg'
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 
 const plans = [
@@ -139,8 +129,11 @@ const ForecastSubscriptions = () => {
 
                                     <Box className="step-one">
                                         <Box className="card-inner-head">
-                                            <Typography component="h5" variant='body1' className='large-caption'>
-                                                Select Package
+                                            <Typography component="h2" variant='h2'>
+                                                <span>Forecast </span> Subscriptions
+                                            </Typography>
+                                            <Typography component="p" variant='body2' className='small-caption'>
+                                                By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content. To regain full access to the content, a new subscription is required.
                                             </Typography>
                                         </Box>
                                         <Box className='subscription-plan'>

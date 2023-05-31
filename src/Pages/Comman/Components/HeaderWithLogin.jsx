@@ -142,15 +142,7 @@ function Header(props) {
                   anchorEl={anchorEl}
                   open={open}
                   sx={{ borderRadius: '12px' }}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
+                  onClose={handleClose}                 
                 >
                   <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
                   <MenuItem onClick={handleClose}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
@@ -168,7 +160,7 @@ function Header(props) {
             ))}
           </Box>
           <Box className='end-flex' sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
-          <Button id="currency-positioned-button"
+            <Button id="currency-positioned-button"
                   aria-controls={open ? 'currency-positioned-menu' : undefined}
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}

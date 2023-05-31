@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
+import {Box, Grid,FormControl ,FormLabel ,RadioGroup ,Radio,FormControlLabel , } from '@mui/material/';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -45,6 +45,14 @@ function Header(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const [anchorElB, setAnchorElB] = React.useState(null);
+  const openB = Boolean(anchorElB);
+  const handleClickB = (event) => {
+    setAnchorElB(event.currentTarget);
+  };
+  const handleCloseB = () => {
+    setAnchorElB(null);
   };
 
   const navigate = useNavigate();
@@ -134,15 +142,7 @@ function Header(props) {
                   anchorEl={anchorEl}
                   open={open}
                   sx={{ borderRadius: '12px' }}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
+                  onClose={handleClose}                 
                 >
                   <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
                   <MenuItem onClick={handleClose}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
@@ -161,9 +161,61 @@ function Header(props) {
           </Box>
 
           <Box sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
-            <Button className='btn' sx={{ color: '#23262F' }}>
+            {/* <Button className='btn' sx={{ color: '#23262F' }}>
+              EN/USD
+            </Button> */}
+  <Button id="currency-positioned-button"
+                  aria-controls={open ? 'currency-positioned-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
               EN/USD
             </Button>
+            <Menu
+              className='dropdown-menu en-dropdown'
+              id="currency-positioned-menu"
+              aria-labelledby="currency-positioned-button"
+              anchorEl={anchorElB}
+              open={openB}
+              sx={{ borderRadius: '12px' }}
+              onClose={handleCloseB}
+            >
+              <Box className='menu-box'>
+                <Grid container >
+                  <Grid item xs={6} sm={6} md={6} sx={{ borderRight: '1px solid #E6E8EC' }}>
+                    <FormControl  className='language-dropdown'>
+                      <FormLabel className='small-caption language-box'  id="demo-radio-buttons-group-label">Language</FormLabel>
+                      <RadioGroup
+                        aria-labelledby="demo-radio-buttons-group-label"
+                        defaultValue="English"
+                        name="radio-buttons-group"
+                      >
+                        <FormControlLabel className='radio-option' value="english" control={<Radio />} label="English" />
+                        <FormControlLabel className='radio-option' value="chinese" control={<Radio />} label="Chinese" />
+                        <FormControlLabel className='radio-option' value="japanese" control={<Radio />} label="Japanese" />
+                      </RadioGroup>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={6} sm={6} md={6} className='right-box'>
+                    <FormControl className='language-dropdown'>
+                      <FormLabel id="currency-label" className='small-caption language-box' >Currency</FormLabel>
+                      <RadioGroup
+                        aria-labelledby="currency-label"
+                        defaultValue="USD"
+                        name="radio-buttons-group"
+                      >
+                        <FormControlLabel className='radio-option' value="usd" control={<Radio />} label="USD" />
+                        <FormControlLabel className='radio-option' value="aud" control={<Radio />} label="AUD" />
+                        <FormControlLabel className='radio-option' value="eur" control={<Radio />} label="EUR" />
+                        <FormControlLabel className='radio-option' value="jpy" control={<Radio />} label="JPY" />
+                        <FormControlLabel className='radio-option' value="btc" control={<Radio />} label="BTC" />
+                      </RadioGroup>
+                    </FormControl>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Menu>
+
             <Button onClick={() => { navigate('/create-account') }} variant="contained" className='btn btn-primary' sx={{ color: '#fff' }}>
               Sign up
             </Button>

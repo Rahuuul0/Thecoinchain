@@ -393,7 +393,6 @@ nav .MuiButtonBase-root:hover{
     text-decoration: none;
     background-color: rgba(25, 118, 210, 0.04);
     border-radius: 90px;
-
 }
 .auth-header-logo img.ipad {
   display: none;
@@ -724,6 +723,10 @@ input[type="number"] {
 .inner-div-user {
   display: flex;
   flex-direction: column;
+}
+.inner-div-outer{
+    display: flex;
+    flex-direction: row;
 }
 
 .inner-div-user .pl-3 {

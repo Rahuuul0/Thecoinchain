@@ -144,7 +144,6 @@ const CreateAccount = () => {
                                 >
                                     <Box className='auth-form' >
                                         <TextField
-                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             label="Email"
                                             className="form-control"
                                             type="email"
@@ -162,6 +161,7 @@ const CreateAccount = () => {
                                             size="small"
                                             autoFocus
                                             {...register("email")}
+                                            onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         />
                                         <div style={{ color: "red" }}>{errors.email?.message}
                                         </div>
@@ -187,7 +187,6 @@ const CreateAccount = () => {
                                         <div style={{ color: "red" }}>{errors.mobile?.message}
                                         </div>
                                         <TextField
-                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             margin="normal"
                                             required
                                             type={showPassword ? "text" : "password"}
@@ -214,10 +213,10 @@ const CreateAccount = () => {
                                                 ),
                                             }}
                                             {...register("password")}
+                                            onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         /><div style={{ color: "red" }}> {errors.password?.message}
                                         </div>
                                         <TextField
-                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             margin="normal"
                                             required
                                             InputLabelProps={{
@@ -244,6 +243,7 @@ const CreateAccount = () => {
                                                 ),
                                             }}
                                             {...register("confirm_password")}
+                                            onChange={(e) => reset({ ...formData, confirm_password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         />
                                         <div style={{ color: "red" }}> {errors.confirm_password?.message}
                                         </div>

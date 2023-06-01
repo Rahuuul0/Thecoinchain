@@ -2073,6 +2073,9 @@ p.left-icon img {
     padding-top: 11px;
     padding-bottom: 11px;
   }
+  .img-btn:last-child{
+    border: none;
+  }
   .first-img-btn{
     padding-top: 0px !important;
   }

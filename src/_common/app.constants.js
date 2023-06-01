@@ -30,6 +30,7 @@ export const Apis = {
     Forgot_Password_Verify:"verify-forgot-password-otp",
     Home: '/home',
     Login: 'login',
+    Social_Media_Login: 'social-media-login',   
     Reset_Password: 'reset-password',
     Create:'createAccount',
     GetOtp:'get-otp',

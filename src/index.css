@@ -1125,7 +1125,7 @@ input[type=number] {
 
 .contact-line:before {
     /* content: "O------------O"; */
-    content: url('http://localhost:3000/connect-line.svg');
+    content: url('./../public/assets/images/connect-line.svg');
     position: absolute;
     left: 76%;
     top: 10%;

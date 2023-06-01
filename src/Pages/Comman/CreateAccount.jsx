@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
@@ -45,15 +45,13 @@ const CreateAccount = () => {
                 [Yup.ref("password"), null],
                 "Passwords must match."
             ),
+            agree: Yup.bool().oneOf([true], "You must accept the terms and conditions")       
     });
 
     //password eye IconButton
-    const [showPassword, setShowPassword] = React.useState(false);
-
+    const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-
-    const [showCnfrmPassword, setShowCnfrmPassword] = React.useState(false);
+    const [showCnfrmPassword, setShowCnfrmPassword] = useState(false);
 
     const handleClickShowCnfrmPassword = () => setShowCnfrmPassword((show) => !show);
 
@@ -64,11 +62,7 @@ const CreateAccount = () => {
     const { errors, isSubmitting } = formState;
 
     const formData = watch();
-
     const SITE_KEY = process.env.REACT_APP_reCAPTCHA_SITE_KEY;
-    const SECRET_KEY = process.env.REACT_APP_reCAPTCHA_SECRET_KEY;
-
-
     const handleChange = value => {
         console.log("Captcha value:", value);
     };
@@ -78,21 +72,16 @@ const CreateAccount = () => {
     };
 
     const submitForm = () => {
-        if (agreement) {
-            const token = captchaRef.current.getValue();
-            if (token) {
-                captchaRef.current.reset();
-                return userActions.create(formData);
-            }
-            else {
-                alertActions.error("reCAPTCHA is mandatory")
-            }
+        const token = captchaRef.current.getValue();
+        if (token) {
+            captchaRef.current.reset();
+            return userActions.create(formData);
         }
         else {
-            alertActions.error("You must agree with the Terms and Conditions")
+            alertActions.error("reCAPTCHA is mandatory")
         }
+        
     }
-    const [agreement, setAgreement] = useState(false);
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -136,7 +125,6 @@ const CreateAccount = () => {
                                     </Typography>
                                     <Box component="div" className='open-id-btn-wrapper' >
                                         <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}>
-
                                             <GoogleAuth />
                                         </GoogleOAuthProvider>
                                         <Button variant="contained" className='btn btn-secondary' startIcon={<AppleIcon />}>
@@ -260,7 +248,13 @@ const CreateAccount = () => {
                                         <div style={{ color: "red" }}> {errors.confirm_password?.message}
                                         </div>
 
-                                        <FormControlLabel className='auth-checkbox' control={<Checkbox onChange={() => { setAgreement(!agreement) }} />} label="By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." />
+                                        <FormControlLabel                                         
+                                        className='auth-checkbox' 
+                                        control={<Checkbox {...register("agree")}  />} 
+                                        label="* By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." 
+                                        />
+                                          <div style={{ color: "red" }}> {errors.agree?.message}
+                                        </div>
                                         <ReCAPTCHA
                                             style={{ margin: "10px auto", display: "flex", justifyContent: "center" }}
                                             theme="light"

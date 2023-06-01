@@ -32,9 +32,9 @@ const AccountConfirm = () => {
     if (radioOption == "by_email") {
       userActions.getOtp();
       setSwitchOption(false);
-    }
-    else {
-      // code for 
+    }else {
+      userActions.getOtp();
+      setSwitchOption(false);
     }
   }
   const handleOtpSubmit = async () => {
@@ -44,6 +44,9 @@ const AccountConfirm = () => {
   const { register, handleSubmit, formState, reset, watch } = useForm();
   const { errors, isSubmitting } = formState;
   const alertActions = useAlertActions();
+
+  console.log(switchOption,'switchOption')
+
   return (
     <>
       <ThemeProvider theme={theme}>

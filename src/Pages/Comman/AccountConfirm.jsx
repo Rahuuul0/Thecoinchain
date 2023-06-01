@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useCallback,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../_common/app.constants";
@@ -33,6 +33,20 @@ const AccountConfirm = () => {
   const { handleSubmit } = useForm();
   const alertActions = useAlertActions();
   const Soption = useRecoilValue(switchAtom);
+
+  const [timer, setTimer] = useState(60);    
+  const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
+  
+  useEffect(() => {
+    timer > 0 && setTimeout(timeOutCallback, 1000);
+  }, [timer, timeOutCallback]);
+
+  const resetTimer = function () {
+    if (!timer) {
+      setTimer(60);
+    }
+  };
+  
 
   const onSubmitFun = async () => {
     if (radioOption == "by_email") {
@@ -170,9 +184,9 @@ const AccountConfirm = () => {
                     <Box component="div" display={"flex"} justifyContent={"center"} className="auth-form auth-otp">
                       <OTPInput id="otp1" autoFocus type='number' variant="filled" value={OTP} onChange={setOTP} OTPLength={4} otpType="number" disabled={false} />
                     </Box>
-                    <Box component="div" className='auth-otp-cta' >
-                      <Button onClick={() => { userActions.getOtp() }} variant="outlined" className='btn btn-outlined-secondary'>
-                        Resend Code
+                    <Box component="div" className='auth-otp-cta' >                      
+                      <Button style={styles.textLogin} onClick={() => { userActions.getOtp(); resetTimer() }} variant="outlined" className='btn btn-outlined-secondary'>
+                        Resend Code ({timer})
                       </Button>
                       <Button type="submit" variant="contained" className='btn btn-primary' >
                         Continue

@@ -28,7 +28,7 @@ const CreateAccount = () => {
     const captchaRef = useRef(null)
     const validationSchema = Yup.object().shape({
         email: Yup.string()
-            .email()
+            .email("Email must be a valid email")
             .trim()
             .required("Email Address is required"),
         mobile: Yup.string().required("Mobile Number is required").matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, { message: "Please enter valid number.", excludeEmptyString: false }),

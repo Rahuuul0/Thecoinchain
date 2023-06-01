@@ -197,7 +197,7 @@ const ForecastSubscriptions = () => {
                                         <Typography variant='p' component='div' sx={{ color: '#777E90', fontSize: '14px' }}>Your subscription and recurring payment has been canceled.</Typography>
                                         <Stack className='subs-div' direction='row' spacing={3} paddingY={4} justifyContent='center'>
                                             <Button className='btn btn-outlined-secondary' >Home</Button>
-                                            <Button onClick={() => { navigate("/subscription#"); }} className='btn btn-dark' >Resubscribe</Button>
+                                            <Button onClick={() => { navigate("/subscription"); }} className='btn btn-dark' >Resubscribe</Button>
                                         </Stack>
                                     </Box>
                                         </Accordion>

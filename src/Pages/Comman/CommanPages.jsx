@@ -38,13 +38,12 @@ import Academy from "./Academy";
 
 const Customer = () => {
   const auth = useRecoilValue(authAtom);
-
   const PrivateOutletWithLogin = () => {
-    return auth !== null ? <><HeaderWithLogin /><Outlet /><Footer /></> : <Navigate to="/login" />;
+    return auth? <><HeaderWithLogin /><Outlet /><Footer /></> : <Navigate to="/login" />;
   }
 
   const PrivateOutlet = () => {
-    return <>{auth !== null ? <HeaderWithLogin /> : <Header />}<Outlet /><Footer /></>;
+    return <>{auth? <HeaderWithLogin /> : <Header />}<Outlet /><Footer /></>;
   }
 
   const WithoutHeaderFooter = () => {

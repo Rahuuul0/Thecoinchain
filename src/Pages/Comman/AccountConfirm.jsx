@@ -32,18 +32,22 @@ const AccountConfirm = () => {
     if (radioOption == "by_email") {
       userActions.getOtp();
       setSwitchOption(false);
-    }
-    else {
-      // code for 
+    }else {
+      userActions.getOtp();
+      setSwitchOption(false);
     }
   }
   const handleOtpSubmit = async () => {
-    // await userActions.
+    // await userActions.    
   }
+
   const [OTP, setOTP] = useState("");
   const { register, handleSubmit, formState, reset, watch } = useForm();
   const { errors, isSubmitting } = formState;
   const alertActions = useAlertActions();
+
+  console.log(switchOption,'switchOption')
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -164,9 +168,7 @@ const AccountConfirm = () => {
                   </Box>
                   <Box noValidate onSubmit={handleOtpSubmit} component="form" sx={{ mt: "24px" }}>
                     <Box component="div" display={"flex"} justifyContent={"center"} className="auth-form auth-otp">
-
                       <OTPInput id="otp1" autoFocus type='number' variant="filled" value={OTP} onChange={setOTP} OTPLength={4} otpType="number" disabled={false} />
-
                     </Box>
                     <Box component="div" className='auth-otp-cta' >
                       <Button onClick={() => { userActions.getOtp() }} variant="outlined" className='btn btn-outlined-secondary'>

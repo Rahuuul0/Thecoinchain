@@ -393,6 +393,7 @@ nav .MuiButtonBase-root{
 #root nav .btn{    
     display: inherit !important;
 }
+
 nav .MuiButtonBase-root:hover{
     text-decoration: none;
     background-color: rgba(25, 118, 210, 0.04);
@@ -2042,14 +2043,40 @@ p.left-icon img {
 .white-input-box .MuiInputBase-root.MuiInput-root {
     background-color: #ffffff;
 }
-
-/* .update-profile input {
+/* 
+ .update-profile input {
     background-color: #fff !important;
     border-radius: 12px;
     height: 48px;
     padding: 0px 15px !important;
-}
+}  */
 
+.img-btn img{
+    width:30px; 
+  }
+  .img-btn > input{
+    display:none
+  }
+  .img-btn > img{
+    cursor:pointer;
+    border:0px solid transparent;
+    position: relative;
+    top: 3px;
+  }
+   
+  .img-btn{
+    font-size: 14px !important;
+    text-transform: unset !important;
+    color: #777E90 !important;
+    font-family: var(--secondary-font) !important;
+    border-bottom: 1px solid #E6E8EC;
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+  .first-img-btn{
+    padding-top: 0px !important;
+  }
+   
 /* profile section ends */
 .modal-subscribed .modal-modal-description {
     text-align: center;

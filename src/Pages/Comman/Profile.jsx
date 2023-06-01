@@ -207,10 +207,10 @@ const Profile = () => {
                                             <Typography component="h5" variant='body1' className='large-caption'>
                                                 Update your profile
                                             </Typography>
-                                            <Box className='' paddingY={1} >
-                                                <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Name</Typography>
-                                                <TextField
-                                                    className="form-control"
+                                            <Box className='' paddingY={0} >
+                                                 <TextField
+                                                 label="Name"
+                                                    className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
                                                     }}
@@ -227,8 +227,7 @@ const Profile = () => {
                                                 />
                                                 <div style={{ color: "red" }}>{errors.name?.message}</div>
                                             </Box>
-                                            <Box className='' paddingY={1}>
-                                                <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Email</Typography>
+                                            <Box className='input-bg' paddingY={0}>
                                                 <TextField
                                                     label="Email"
                                                     className="form-control white-input-box"
@@ -241,24 +240,25 @@ const Profile = () => {
                                                     fullWidth
                                                     id="email"
                                                     name="email"
+                                                    backgroundColor='#fff'
                                                     autoComplete="off"
                                                     {...register("email")}
                                                 />
                                                 <div style={{ color: "red" }}>{errors.email?.message}</div>
                                             </Box>
                                             <Box className=''>
-                                                <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Mobile</Typography>
                                                 <TextField
-                                                    className="form-control"
+                                                  label="Mobile"
+                                                    className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
                                                     }}
-                                                    variant="outlined"
+                                                    variant="standard"
                                                     margin="normal"
                                                     required
                                                     fullWidth
                                                     id="mobile"
-                                                    placeholder='Mobile'
+                                                    // placeholder='Mobile'
                                                     name="mobile"
                                                     autoComplete="off"
                                                     {...register("mobile")}

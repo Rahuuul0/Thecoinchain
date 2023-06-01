@@ -34,7 +34,7 @@ const AccountConfirm = () => {
   const alertActions = useAlertActions();
   const [Soption, setSoption] = useRecoilState(switchAtom);
 
-  const [timer, setTimer] = useState(10);    
+  const [timer, setTimer] = useState(60);    
   const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
   
   useEffect(() => {
@@ -43,7 +43,7 @@ const AccountConfirm = () => {
   
   const resetTimer = function () {
     if (!timer) {
-      setTimer(10);
+      setTimer(60);
     }
   };  
 

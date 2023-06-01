@@ -23,36 +23,35 @@ import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useAlertActions } from '../../_actions/alert.actions';
 import { switchAtom } from '../../_state';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 const AccountConfirm = () => {
   const navigate = useNavigate();
   const userActions = useUserActions();
-  const [radioOption, setRadioOption] = useState("by_email");
+  const [radioOption, setRadioOption] = useState("email");
   const [OTP, setOTP] = useState("");
   const { handleSubmit } = useForm();
   const alertActions = useAlertActions();
-  const Soption = useRecoilValue(switchAtom);
+  const [Soption, setSoption] = useRecoilState(switchAtom);
 
-  const [timer, setTimer] = useState(60);    
+  const [timer, setTimer] = useState(10);    
   const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
   
   useEffect(() => {
     timer > 0 && setTimeout(timeOutCallback, 1000);
   }, [timer, timeOutCallback]);
-
+  
   const resetTimer = function () {
     if (!timer) {
-      setTimer(60);
+      setTimer(10);
     }
-  };
-  
+  };  
 
   const onSubmitFun = async () => {
-    if (radioOption == "by_email") {
+    if (radioOption === "email") {
       userActions.getOtp();     
     }else {
-      userActions.getOtp();      
+      userActions.getOtpPhone({phone:localStorage.getItem("phone")});      
     }
   }
   const handleOtpSubmit = async () => {
@@ -62,6 +61,8 @@ const AccountConfirm = () => {
       userActions.verifyRegisterOtp(OTP) 
     }   
   }
+
+  console.log(Soption,'radioOption')
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -101,7 +102,7 @@ const AccountConfirm = () => {
               <img src={AuthBg} alt="Auth bg" />
             </Box>
             <Box component="div" className="auth-wrapper-form">
-              {Soption ? (
+              {Soption===true ? (
                 <Box component="div" className="auth-wrapper-form-inner">
                   <Typography component="h3" variant="h3">
                     Let’s confirm it’s really you
@@ -135,13 +136,13 @@ const AccountConfirm = () => {
                           }}
                         >
                           <FormControlLabel
-                            value="by_mobile"
+                            value="phone"
                             control={<Radio />}
                             label={`Get the code by text message (SM) at ${localStorage.getItem("phone")}`}
                           />
                           <Box component="div" className="devider" />
                           <FormControlLabel
-                            value="by_email"
+                            value="email"
                             control={<Radio />}
                             label={`Get the code by email at ${localStorage.getItem("email")}`}
                           />
@@ -175,7 +176,7 @@ const AccountConfirm = () => {
                         marginBottom: "20px",
                       }}
                     >
-                      {radioOption !== "by_email"
+                      {Soption !== "email"
                         ? `We have sent the code by text message (SM) at ${localStorage.getItem("phone")}`
                         : `We have sent the code by email at ${localStorage.getItem("email")}`}
                     </Typography>
@@ -185,9 +186,16 @@ const AccountConfirm = () => {
                       <OTPInput id="otp1" autoFocus type='number' variant="filled" value={OTP} onChange={setOTP} OTPLength={4} otpType="number" disabled={false} />
                     </Box>
                     <Box component="div" className='auth-otp-cta' >                      
-                      <Button style={styles.textLogin} onClick={() => { userActions.getOtp(); resetTimer() }} variant="outlined" className='btn btn-outlined-secondary'>
+                      {timer>1 &&
+                      <Button disabled style={{"background": "#ccc"}} variant="outlined" className='btn btn-outlined-secondary'>
                         Resend Code ({timer})
                       </Button>
+                      }
+                      {timer<1 &&
+                      <Button  onClick={() => { (Soption === "email")? userActions.getOtp():userActions.getOtpPhone(localStorage.getItem("phone")); resetTimer() }} variant="outlined" className='btn btn-outlined-secondary'>
+                        Resend Code 
+                      </Button>
+                      }
                       <Button type="submit" variant="contained" className='btn btn-primary' >
                         Continue
                       </Button>

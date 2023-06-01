@@ -18,11 +18,11 @@ const useUserActions = () => {
         return fetchWrapper.post(Apis.Login, { email, password })
             .then(res => {
                 if (res.statusCode === 200) {
-                    let {data,access_token} = res;                      
-                    localStorage.setItem("user",JSON.stringify({...data,access_token}))     
-                    setAuth({...data,access_token});   
+                    let {data,access_token,login_attempt} = res;                      
+                    localStorage.setItem("user",JSON.stringify({...data,access_token,login_attempt}))     
+                    setAuth({...data,access_token,login_attempt}); 
+                    (login_attempt<=0)?navigate("/account/profile"):navigate("/"); 
                     setUserError(true)
-                    (data.login_attempt>0)?navigate("/account/profile"):navigate("/"); 
                     alertActions.success(Labels.Login_Success);
                 } else {
                     alertActions.error(res.msg);
@@ -39,11 +39,11 @@ const useUserActions = () => {
         return fetchWrapper.post(Apis.Social_Media_Login, authData)
             .then(res => {
                 if (res.statusCode === 200) {    
-                    let {data,access_token} = res;               
-                    localStorage.setItem("user",JSON.stringify({...data,access_token}))     
-                    setAuth({...data,access_token});    
+                    let {data,access_token,login_attempt} = res;               
+                    localStorage.setItem("user",JSON.stringify({...data,access_token,login_attempt}))     
+                    setAuth({...data,access_token,login_attempt});    
                     alertActions.success(Labels.Login_Success);
-                    (data.login_attempt>0)?navigate("/account/profile"):navigate("/");                 
+                    (login_attempt<=0)?navigate("/account/profile"):navigate("/");              
                 } else {
                     alertActions.error(res.msg);
                 }
@@ -130,13 +130,13 @@ const useUserActions = () => {
         return fetchWrapper.post(Apis.GetOtp, { email })
             .then(res => {
                 if (res.statusCode === 200) {
-                    setSoption(false)
+                    setSoption('email')
                     alertActions.success("We have sent you the code");
                 } else {
                     alertActions.error(Labels.Error);
                 }
             }).catch((err)=>{console.log(err);});
-    }
+    }    
 
     const verifyRegisterOtp = async (otp) => {
         return fetchWrapper.post(Apis.VerifyRegisterOtp, { otp })
@@ -206,6 +206,18 @@ const useUserActions = () => {
         navigate('/');
     }
 
+    const getOtpPhone = async (phone) => {        
+        return fetchWrapper.post(Apis.Get_Otp_Phone, { phone })
+             .then(res => {
+                 if (res.statusCode === 200) {
+                     setSoption('phone')
+                     alertActions.success("We have sent you the code");
+                 } else {
+                     alertActions.error(Labels.Error);
+                 }
+             }).catch((err)=>{console.log(err);});
+     }
+
     return {
         login,
         loginMobile,
@@ -221,7 +233,8 @@ const useUserActions = () => {
         googleAuth,
         googleLogin,
         loginAuth,
-        logout
+        logout,
+        getOtpPhone
     }
 
 }

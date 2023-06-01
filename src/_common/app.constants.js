@@ -35,6 +35,7 @@ export const Apis = {
     GetOtp:'get-otp',
     VerifyRegisterOtp:'verify-user',
     Change_Password: 'change-password',
+    Contact: 'contact-us',
     Update_User: 'update-user'
 }
 

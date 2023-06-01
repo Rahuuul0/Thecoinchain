@@ -2072,6 +2072,7 @@ p.left-icon img {
     border-bottom: 1px solid #E6E8EC;
     padding-top: 11px;
     padding-bottom: 11px;
+    align-items: center;
   }
   .img-btn:last-child{
     border: none;

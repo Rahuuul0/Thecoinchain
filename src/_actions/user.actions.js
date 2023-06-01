@@ -12,7 +12,7 @@ const useUserActions = () => {
     const alertActions = useAlertActions();
     const [Soption, setSoption] = useRecoilState(switchAtom);
     const setUserError = useSetRecoilState(userErrorAtom);
-    const setAuth = useSetRecoilState(authAtom);
+    const [auth,setAuth] = useRecoilState(authAtom);
     
     const login = async ({email, password}) => {
         return fetchWrapper.post(Apis.Login, { email, password })
@@ -21,9 +21,9 @@ const useUserActions = () => {
                     let {data,access_token} = res;                      
                     localStorage.setItem("user",JSON.stringify({...data,access_token}))     
                     setAuth({...data,access_token});   
-                    setUserError(true)
-                    (data.login_attempt>0)?navigate("/account/profile"):navigate("/"); 
+                    setUserError(true);
                     alertActions.success(Labels.Login_Success);
+                    (data.login_attempt>0)?navigate("/account/profile"):navigate("/"); 
                 } else {
                     alertActions.error(res.msg);
                 }
@@ -117,6 +117,7 @@ const useUserActions = () => {
                     alertActions.success("Please select an option");
                     localStorage.setItem("email", res.data.email)
                     localStorage.setItem("phone", res.data.phone)
+                    setSoption(true);
                     navigate("/confirm-account")
                 } else {
                     alertActions.error(Labels.Error);
@@ -129,7 +130,8 @@ const useUserActions = () => {
         return fetchWrapper.post(Apis.GetOtp, { email })
             .then(res => {
                 if (res.statusCode === 200) {
-                    alertActions.success("We have sent you the code ");
+                    setSoption(false)
+                    alertActions.success("We have sent you the code");
                 } else {
                     alertActions.error(Labels.Error);
                 }
@@ -181,11 +183,16 @@ const useUserActions = () => {
                
     }
 
-    const updateUser =(id,{name,email, mobile})=>{
-        const phone = mobile;
-      return fetchWrapper.post(`${Apis.Update_User}?id=${id}`,{name,email,phone})
+    const updateUser =({name,email, phone})=>{      
+      return fetchWrapper.post(`${Apis.Update_User}`,{name,email,phone})
       .then(res=>{
-        if(res.statusCode === 200){
+        if(res.statusCode === 200){  
+            let {data} = res;               
+            localStorage.setItem("user",JSON.stringify({...auth,...data})) 
+            setAuth((currentState) => ({
+                ...currentState,
+                ...res.data,
+              }));
             alertActions.success('Update User is Successfully' )
         } else{
             alertActions.error("error");

@@ -22,7 +22,7 @@ const ChangePassword = () => {
     // form validation rules 
     const validationSchema = Yup.object().shape({
         old_password: Yup.string()
-        .required("Old Password is required"),
+            .required("Old Password is required"),
         new_password: Yup.string()
             .required("New Password is required")
             .min(8, "New Password must be at least 8 characters.")
@@ -49,9 +49,9 @@ const ChangePassword = () => {
     // get functions to build form with useForm() hook
     const { register, handleSubmit, formState } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
-  return (
-    <>
-        <ThemeProvider theme={theme}>
+    return (
+        <>
+            <ThemeProvider theme={theme}>
                 <Container component="main" className='auth-wrapper' maxWidth="fluid">
                     <Box className='auth-header'
                         sx={{
@@ -61,15 +61,20 @@ const ChangePassword = () => {
                         }}
                     >
                         <Box className='auth-header-logo' >
-                            <img src={LogoLight} alt='Coin Guru' className='desktop' />
-                            <img src={LogoDark} alt='Coin Guru' className='ipad' />
+                            <Link onClick={() => { navigate('/') }}><img src={LogoLight} alt='Coin Guru' className='desktop' /></Link>
+                            <Link onClick={() => { navigate('/') }}><img src={LogoDark} alt='Coin Guru' className='ipad' /></Link>
                         </Box>
                     </Box>
                     <Box className='auth-wrapper-inner'>
                         <Box className='auth-wrapper-bg'>
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
-                        <Box className='auth-wrapper-form' >
+                        <Box className='auth-wrapper-form' position='relative'>
+                            <Box position='absolute' sx={{ top: '90px' }}>
+                                <IconButton aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
+                                    <KeyboardArrowLeft />
+                                </IconButton>
+                            </Box>
                             <Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
                                     Change Password
@@ -134,7 +139,7 @@ const ChangePassword = () => {
                                                     </InputAdornment>
                                                 )
                                             }}
-                                        
+
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.new_password?.message}</div>
                                         <TextField
@@ -182,8 +187,8 @@ const ChangePassword = () => {
                     </Box>
                 </Container>
             </ThemeProvider>
-    </>
-  )
+        </>
+    )
 }
 
 export default ChangePassword;

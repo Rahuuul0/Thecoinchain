@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Grid, Typography, Button, Modal, Link, TextField, FormControlLabel, Checkbox } from '@mui/material'
@@ -14,7 +14,10 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import CloseIcon from '@mui/icons-material/Close';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import { useNavigate } from 'react-router-dom';
+import {subscriptionActions} from '../../_actions/subscription.actions';
+
+
+
 
 const plans = [
     {
@@ -40,12 +43,20 @@ const plans = [
 const Subscription = () => {
 
     const navigate = useNavigate();
-
+    const subscribed = subscriptionActions()    
     const [open, setOpen] = useState(false);
+    const [subscriptionData, setSubscriptionData] = useState([]);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    // Subscription action get function   API data call 
+    useEffect(()=>{
+       const    response = subscribed.subscription()
+       response.then((res)=>{setSubscriptionData(res)})
+
+    },[])
+        
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -99,14 +110,14 @@ const Subscription = () => {
                                             </Typography>
                                         </Box>
                                         <Box className='subscription-plan'>
-                                            {plans.map((plan) => (
+                                            {plans.map((plan,i) => (
                                                 <Box className="subscription-plan-card">
                                                     <Typography component="h4" variant='h4' className='plan-title'>
                                                         {plan.title}
                                                     </Typography>
                                                     <Box className="subscription-plan-body">
                                                         <Typography component="h4" variant='h4' className='plan-price'>
-                                                            {plan.price} <span className='plan-days'>/ {plan.days}</span>
+                                                            {subscriptionData[subscriptionData.length-(i+1)]?.subscription_price}  <span className='plan-days'>/ {subscriptionData[subscriptionData.length-(i+1)]?.duration} days</span>
                                                         </Typography>
 
                                                         <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>

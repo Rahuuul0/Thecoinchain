@@ -9,6 +9,8 @@ import AuthBg from '../../../public/assets/images/auth-bg.svg';
 import Lock from '../../../public/assets/images/icons/lock.svg';
 import ScanImg from '../../../public/assets/images/scan-img.png';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { KeyboardArrowLeft } from '@mui/icons-material/';
+import IconButton from "@mui/material/IconButton";
 
 const ScanToLogin = () => {
     const navigate = useNavigate();
@@ -24,11 +26,11 @@ const ScanToLogin = () => {
                         }}
                     >
                         <Box className='auth-header-logo' >
-                            <img src={LogoLight} alt='Coin Guru' className='desktop' />
-                            <img src={LogoDark} alt='Coin Guru' className='ipad' />
+                            <Link onClick={() => { navigate('/') }}> <img src={LogoLight} alt='Coin Guru' className='desktop' /></Link>
+                            <Link onClick={() => { navigate('/') }}> <img src={LogoDark} alt='Coin Guru' className='ipad' /></Link>
                         </Box>
                         <Box className='dont-have-acc' >
-                            <Typography component="p" variant="body2" onClick={() => { navigate("/create-account"); }} sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
+                            <Typography component="p" position='relative' zIndex='2' variant="body2" onClick={() => { navigate("/create-account"); }} sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
                                 Don’t have an account? <Link>Sign up for free</Link>
                             </Typography>
                         </Box>
@@ -37,7 +39,12 @@ const ScanToLogin = () => {
                         <Box className='auth-wrapper-bg'>
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
-                        <Box className='auth-wrapper-form' >
+                        <Box className='auth-wrapper-form' position='relative'>
+                            <Box position='absolute' sx={{ top: '90px' }}>
+                                <IconButton aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
+                                    <KeyboardArrowLeft />
+                                </IconButton>
+                            </Box>
                             <Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
                                     Sign in to CoinGuru

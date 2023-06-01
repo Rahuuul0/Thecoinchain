@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { ListItem, List, ListItemButton, ListItemIcon, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid } from '@mui/material/';
+import { ListItem, List, ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid } from '@mui/material/';
 import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
-import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer, InputAdornment } from '@mui/material';
+import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
-import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined } from '@mui/icons-material/';
+import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown } from '@mui/icons-material/';
 import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
-import UserAvatar from '../../../../public/assets/images/avatarUser.svg';  
+import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import { useUserActions } from "../../../_actions/user.actions";
 const drawerWidth = 240;
 
@@ -18,7 +18,8 @@ function Header(props) {
   const navItems = [
     {
       page: 'Community',
-      icon: '',     
+      icon: '',
+      link: '/community',
     },
     {
       page: 'Prediction',
@@ -65,12 +66,12 @@ function Header(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
-      
+
       <Divider />
-      <List>
+      <List alignItems='center' className='itemnavitem'>
         {navItems.map((item, i) => {
           return (
-            <ListItem key={i} disablePadding>
+            <ListItem key={i} disablePadding alignItems='center'>
               <ListItemButton sx={{ textAlign: 'center' }}>
                 {item.icon &&
                   <img src={item.icon} alt={item.page} />
@@ -80,7 +81,7 @@ function Header(props) {
             </ListItem>
           )
         })}
-        <ListItem disablePadding>
+        <ListItem disablePadding alignItems='center'>
           <ListItemButton sx={{ textAlign: 'center' }}>
             <ListItemText primary="" onClick={() => { navigate(item.link) }}>
               Search
@@ -123,7 +124,7 @@ function Header(props) {
           >
             <img src={CoinGuru} alt='Coin Guru' />
           </Typography>
-          <Box className='' sx={{ display: { xs: 'none', sm: 'flex', flex: 2, textAlign: 'left', } }}>
+          <Box className='' sx={{ display: { xs: 'none', sm: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>
               <li >
                 <Button
@@ -132,6 +133,7 @@ function Header(props) {
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
                   onClick={handleClick}
+                  endIcon={<KeyboardArrowDown />}
                 >
                   Academy
                 </Button>
@@ -143,14 +145,6 @@ function Header(props) {
                   open={open}
                   sx={{ borderRadius: '12px' }}
                   onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
                 >
                   <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
                   <MenuItem onClick={handleClose}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
@@ -168,41 +162,54 @@ function Header(props) {
             ))}
           </Box>
           <Box className='end-flex' sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
-            <Button id="demo-positioned-button"
-              aria-controls={openB ? 'demo-positioned-menu' : undefined}
+            <Button id="currency-positioned-button"
+              aria-controls={open ? 'currency-positioned-menu' : undefined}
               aria-haspopup="true"
-              aria-expanded={openB ? 'true' : undefined}
+              aria-expanded={open ? 'true' : undefined}
+              endIcon={<KeyboardArrowDown />}
               onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
               EN/USD
             </Button>
             <Menu
               className='dropdown-menu en-dropdown'
-              id="demo-positioned-menu"
-              aria-labelledby="demo-positioned-button"
+              id="currency-positioned-menu"
+              aria-labelledby="currency-positioned-button"
               anchorEl={anchorElB}
               open={openB}
               sx={{ borderRadius: '12px' }}
               onClose={handleCloseB}
             >
-              <Box>
-                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                  <Grid item xs={6} sm={6} md={6}>
-                    <Typography variant='h5' component='h5' className='small-caption language-box' >Language</Typography>
-                    <FormControl>
-                      <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
+              <Box className='menu-box'>
+                <Grid container >
+                  <Grid item xs={6} sm={6} md={6} sx={{ borderRight: '1px solid #E6E8EC' }}>
+                    <FormControl className='language-dropdown'>
+                      <FormLabel className='small-caption language-box' id="demo-radio-buttons-group-label">Language</FormLabel>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="female"
+                        defaultValue="English"
                         name="radio-buttons-group"
                       >
-                        <FormControlLabel value="female" control={<Radio />} label="Female" />
-                        <FormControlLabel value="male" control={<Radio />} label="Male" />
-                        <FormControlLabel value="other" control={<Radio />} label="Other" />
+                        <FormControlLabel className='radio-option' value="english" control={<Radio />} label="English" />
+                        <FormControlLabel className='radio-option' value="chinese" control={<Radio />} label="Chinese" />
+                        <FormControlLabel className='radio-option' value="japanese" control={<Radio />} label="Japanese" />
                       </RadioGroup>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={6} sm={6} md={6}>
-                    xs=2
+                  <Grid item xs={6} sm={6} md={6} className='right-box'>
+                    <FormControl className='language-dropdown'>
+                      <FormLabel id="currency-label" className='small-caption language-box' >Currency</FormLabel>
+                      <RadioGroup
+                        aria-labelledby="currency-label"
+                        defaultValue="USD"
+                        name="radio-buttons-group"
+                      >
+                        <FormControlLabel className='radio-option' value="usd" control={<Radio />} label="USD" />
+                        <FormControlLabel className='radio-option' value="aud" control={<Radio />} label="AUD" />
+                        <FormControlLabel className='radio-option' value="eur" control={<Radio />} label="EUR" />
+                        <FormControlLabel className='radio-option' value="jpy" control={<Radio />} label="JPY" />
+                        <FormControlLabel className='radio-option' value="btc" control={<Radio />} label="BTC" />
+                      </RadioGroup>
+                    </FormControl>
                   </Grid>
                 </Grid>
               </Box>
@@ -213,7 +220,7 @@ function Header(props) {
             <Badge badgeContent={2} className="green-bg-badge navbtn">
               <NotificationsNone color="action" />
             </Badge>
-            <Button onClick={e=>navigate('/account') } variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+            <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
               Account
             </Button>
             <IconButton aria-label="sunny" color="primary">
@@ -262,41 +269,41 @@ function Header(props) {
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-              <MenuItem onClick={e=>navigate('/account/profile') }>
-                <span onClick className='inner-div-user'>
+              <MenuItem onClick={() => navigate('/account/profile')}>
+                <span className='inner-div-user'>
                   <span className='img-div-dropdown head-menu'><img src={UserIcon} /> Profile</span>
                   <span className='pl-3 sub-head-menu'>Important account details</span>
                 </span>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={handleCloseAnchor}>
+              <MenuItem onClick={() => navigate('/account/referrals')}>
                 <span className='inner-div-user'>
                   <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Referrals</span>
                   <span className='pl-3 sub-head-menu'>Invite your friends and earn rewards</span>
                 </span>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={handleCloseAnchor}>
+              <MenuItem onClick={() => navigate('/account/2fa-enable')}>
                 <span className='inner-div-user'>
                   <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> 2FA security</span>
                   <span className='pl-3 sub-head-menu'>Setup 2FA for more security</span>
                 </span>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={handleCloseAnchor}>
+              <MenuItem onClick={() => navigate('/account/session-and-history')}>
                 <span className='inner-div-user'>
                   <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Settings</span>
                   <span className='pl-3 sub-head-menu'>View additional settings</span>
                 </span>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={()=>userActions.logout()}>
+              <MenuItem onClick={() => userActions.logout()}>
                 <span className='inner-div-user'>
-                  <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Logout</span>                  
+                  <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Logout</span>
                 </span>
               </MenuItem>
               <Divider />
-           
+
             </Menu>
           </Box>
         </Toolbar>

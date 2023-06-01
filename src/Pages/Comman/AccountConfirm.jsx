@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../_common/app.constants";
 import { useUserActions } from "../../_actions/user.actions";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 
 import {
-  Checkbox,
   Container,
   Box,
-  TextField,
   Typography,
   Link,
   Button,
@@ -19,10 +15,8 @@ import {
   FormControl,
   RadioGroup,
   Radio,
-  FormLabel,
 } from "@mui/material";
 import OTPInput, { ResendOTP } from "otp-input-react";
-import IconButton from "@mui/material/IconButton";
 import LogoLight from "../../../public/assets/images/logo-light.svg";
 import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from "../../../public/assets/images/auth-bg.svg";
@@ -38,18 +32,22 @@ const AccountConfirm = () => {
     if (radioOption == "by_email") {
       userActions.getOtp();
       setSwitchOption(false);
-    }
-    else {
-      // code for 
+    }else {
+      userActions.getOtp();
+      setSwitchOption(false);
     }
   }
   const handleOtpSubmit = async () => {
-    // await userActions.
+    // await userActions.    
   }
+
   const [OTP, setOTP] = useState("");
   const { register, handleSubmit, formState, reset, watch } = useForm();
   const { errors, isSubmitting } = formState;
   const alertActions = useAlertActions();
+
+  console.log(switchOption,'switchOption')
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -170,9 +168,7 @@ const AccountConfirm = () => {
                   </Box>
                   <Box noValidate onSubmit={handleOtpSubmit} component="form" sx={{ mt: "24px" }}>
                     <Box component="div" display={"flex"} justifyContent={"center"} className="auth-form auth-otp">
-
                       <OTPInput id="otp1" autoFocus type='number' variant="filled" value={OTP} onChange={setOTP} OTPLength={4} otpType="number" disabled={false} />
-
                     </Box>
                     <Box component="div" className='auth-otp-cta' >
                       <Button onClick={() => { userActions.getOtp() }} variant="outlined" className='btn btn-outlined-secondary'>

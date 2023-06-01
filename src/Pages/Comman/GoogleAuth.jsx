@@ -1,24 +1,20 @@
 
-import React, { useState, useEffect } from 'react';
-import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import React, { useState } from 'react';
+import { useGoogleLogin } from '@react-oauth/google';
 import {  Button } from '@mui/material'
-import axios from 'axios';
 import GoogleIcon from '@mui/icons-material/Google';
 import { useUserActions } from "../../_actions/user.actions"
 
-function GoogleAuth(props) {
-    const [ user, setUser ] = useState([]);
+function GoogleAuth() {    
     const userActions = useUserActions();
-
     const login = useGoogleLogin({
         ux_mode:"redirect",
-        onSuccess: (codeResponse) => {setUser(codeResponse)
+        onSuccess: (codeResponse) => {
             userActions.googleAuth(codeResponse)},
         onError: (error) => console.log('Login Failed:', error),
     });
-
     return ( 
-                <Button onClick={() => {login()}} variant="contained" className='btn btn-primary'  startIcon={<GoogleIcon />}>Google</Button>
+        <Button onClick={() => {login()}} variant="contained" className='btn btn-primary'  startIcon={<GoogleIcon />}>Google</Button>
     );
 }
 

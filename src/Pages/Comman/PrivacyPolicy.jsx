@@ -1,16 +1,8 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Stack, InputAdornment, IconButton, TextField } from '@mui/material';
-import User from '../../../public/assets/images/user.svg';
-import Share from '../../../public/assets/images/share-square.svg';
-import Session from '../../../public/assets/images/session.svg';
-import Api from '../../../public/assets/images/api.svg';
-import FA from '../../../public/assets/images/fa.svg';
-import Lockbtn from '../../../public/assets/images/lockbtn.svg';
-import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
-import ScanImg from '../../../public/assets/images/scan-img.png';
-
+import { Box, Container, Typography, Link, Breadcrumbs } from '@mui/material';
+import { NavigateNext } from '@mui/icons-material/';
 
 function handleClick(event) {
     event.preventDefault();

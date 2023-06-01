@@ -1,21 +1,6 @@
-import {
-  Container,
-  Typography,
-  Tab,
-  Grid,
-  Box,
-  Stack,
-  Button,
-  MenuItem,
-  OutlinedInput,
-  FormControl,
-  Select,
-} from "@mui/material";
-import React, { useEffect } from "react";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
-import VideoImg from "../../../public/assets/images/coinguru-video.svg";
+import { Container, Typography, Grid, Box, Stack, Button, MenuItem, OutlinedInput, FormControl, Select } from '@mui/material'
+import React from 'react';
+import VideoImg from "../../../public/assets/images/learn01.png";
 import Blog1 from "../../../public/assets/images/blog-1.svg";
 import Avatar from "../../../public/assets/images/avatar.svg";
 import GridImage from "../../../public/assets/images/grid.svg";
@@ -28,7 +13,6 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { tutorialAtom } from "../../_state";
 import { blogAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
-import ReactPlayer from "react-player";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -124,25 +108,10 @@ const LearnCypto = () => {
             A creative agency that lead and inspire
           </Typography>
           <Box>
-            <Stack
-              direction="row"
-              spacing={3}
-              justifyContent="center"
-              paddingTop={3}
-              paddingBottom={10}
-            >
-              <Button variant="contained" className="btn btn-primary">
-                Learn Now{" "}
-              </Button>
-              <Button variant="outlined" className="btn btn-outlined-secondary">
-                Video Tutorial{" "}
-              </Button>
-            </Stack>
-            {/* <img src={VideoImg}/>   */}
-            {/* <video poster={VideoImg} width="100%" height="100%" controls>
-              <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video> */}
+            <Stack direction='row' spacing={3} justifyContent='center' paddingTop={3} paddingBottom={10}>
+              <Button variant='contained' className='btn btn-primary' onClick={() => { navigate("../learn-cypto-detail") }}>Learn Now </Button>
+              <Button variant='outlined' className='btn btn-outlined-secondary' onClick={() => { navigate("../learn-cypto-detail") }}>Video Tutorial </Button>
+            </Stack>            
             <ReactPlayer
               url={videoUrl}
               controls={true}
@@ -155,9 +124,6 @@ const LearnCypto = () => {
           </Box>
         </Box>
       </Container>
-
-      {/* video section ends */}
-
       {/* Our Blog section */}
       <Container maxWidth="fluid" sx={{ backgroundColor: "#F4F5F6" }}>
         <Container>

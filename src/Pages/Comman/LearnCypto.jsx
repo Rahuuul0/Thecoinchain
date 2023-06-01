@@ -69,13 +69,12 @@ const LearnCypto = () => {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
   const [tutorials, setTutorials] = React.useState(tutorialsData);
+  const [visibleVideos, setVisibleVideos] = React.useState(4);
 
   const [videoUrl, setVideoUrl] = React.useState(
     "https://www.youtube.com/watch?v=ysz5S6PUM-U"
   );
   const [videoStatus, setVideoStatus] = React.useState(false);
-
-  console.log(blogsData, "11111111111");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -90,14 +89,62 @@ const LearnCypto = () => {
 
   const tutorialAction = useTutorialActions();
 
-  React.useEffect(() => {}, []);
-
   const scrollToVideo = (e, videoLink) => {
     e.current.scrollIntoView({
       behavior: "smooth",
     });
     setVideoUrl(videoLink);
   };
+
+  const handleLoadMore = () => {
+    setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 4);
+  };
+
+  const aboutCryptoComponent = tutorials.slice(0, visibleVideos).map((item) => {
+    return (
+      <Grid item xs={12} md={6} xl={4}>
+        <Box
+          className="about-crypto"
+          onclick={() => {
+            navigate("../learn-cypto-detail");
+          }}
+        >
+          <Button
+            textTransform="uppercase"
+            className="orange-btn float-img small-btn"
+          >
+            New
+          </Button>
+
+          <Box
+            className="avatar-rounded"
+            onClick={() => scrollToVideo(scrollRef, item.video_link)}
+            sx={{ cursor: "pointer" }}
+          >
+            <img src={GridImage} />
+          </Box>
+          <Stack direction="row" justifyContent="space-between" paddingTop={3}>
+            <Box display="flex">
+              <img src={Avatar} />
+              <Box sx={{ paddingLeft: "15px" }}>
+                <Typography fontWeight="500">{item.title}</Typography>
+                <Typography
+                  className="small-caption secondary-color"
+                  fontWeight="500"
+                >
+                  <span>First Name</span> <span>Last Name</span>
+                </Typography>
+              </Box>
+            </Box>
+
+            <Box>
+              <Button className="btn btn-green-outlined">Popular</Button>
+            </Box>
+          </Stack>
+        </Box>
+      </Grid>
+    );
+  });
 
   return (
     <>
@@ -408,57 +455,7 @@ const LearnCypto = () => {
           </Box>
 
           <Grid container spacing={6} rowSpacing={6}>
-            {tutorials.map((item, key) => {
-              return (
-                <Grid item xs={12} md={6} xl={4}>
-                  <Box
-                    className="about-crypto"
-                    onclick={() => {
-                      navigate("../learn-cypto-detail");
-                    }}
-                  >
-                    <Button
-                      textTransform="uppercase"
-                      className="orange-btn float-img small-btn"
-                    >
-                      New
-                    </Button>
-
-                    <Box
-                      className="avatar-rounded"
-                      onClick={() => scrollToVideo(scrollRef, item.video_link)}
-                      sx={{ cursor: "pointer" }}
-                    >
-                      <img src={GridImage} />
-                    </Box>
-                    <Stack
-                      direction="row"
-                      justifyContent="space-between"
-                      paddingTop={3}
-                    >
-                      <Box display="flex">
-                        <img src={Avatar} />
-                        <Box sx={{ paddingLeft: "15px" }}>
-                          <Typography fontWeight="500">{item.title}</Typography>
-                          <Typography
-                            className="small-caption secondary-color"
-                            fontWeight="500"
-                          >
-                            <span>First Name</span> <span>Last Name</span>
-                          </Typography>
-                        </Box>
-                      </Box>
-
-                      <Box>
-                        <Button className="btn btn-green-outlined">
-                          Popular
-                        </Button>
-                      </Box>
-                    </Stack>
-                  </Box>
-                </Grid>
-              );
-            })}
+            {aboutCryptoComponent}
           </Grid>
           <Box paddingTop={8} paddingBottom={15}>
             <Button
@@ -466,6 +463,7 @@ const LearnCypto = () => {
               className="btn btn-outlined-secondary"
               varient="outlined"
               endIcon={<ArrowDropDown />}
+              onClick={handleLoadMore}
             >
               Learn More
             </Button>

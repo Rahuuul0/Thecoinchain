@@ -163,8 +163,8 @@ const useUserActions = () => {
     }
 
     const changePassword = async ({old_password, new_password}) => {
-        const email = localStorage.getItem("email")
-        return fetchWrapper.post(Apis.Reset_Password, { old_password, new_password })
+        // const email = localStorage.getItem("email")
+        return fetchWrapper.post(Apis.Change_Password, { old_password, new_password })
             .then(res => {
              if (res.statusCode === 200) {
                 alertActions.success('Password Reset Successfully');

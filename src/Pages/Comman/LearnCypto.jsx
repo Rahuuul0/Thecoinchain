@@ -24,8 +24,9 @@ import { useTheme } from "@mui/material/styles";
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { tutorialAtom } from "../../_state";
+import { blogAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import ReactPlayer from "react-player";
 
@@ -64,11 +65,21 @@ function getStyles(name, personName, theme) {
 
 const LearnCypto = () => {
   const navigate = useNavigate();
-
+  const scrollRef = React.useRef();
+  const [blogsData, setBlogsData] = useRecoilState(blogAtom);
   const [value, setValue] = React.useState("1");
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
+  const [tutorialsData, setTutorialsData] = React.useState([]);
+
+  const [videoUrl, setVideoUrl] = React.useState(
+    "https://www.youtube.com/watch?v=ysz5S6PUM-U"
+  );
+  const [videoStatus, setVideoStatus] = React.useState(false);
   const tutorials = useRecoilValue(tutorialAtom);
+
+  console.log(blogsData, "11111111111");
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     const {
@@ -83,9 +94,18 @@ const LearnCypto = () => {
   const tutorialAction = useTutorialActions();
 
   useEffect(() => {
-    console.log(tutorials);
+    setTutorialsData(tutorials);
     tutorialAction.tutorialData();
+    tutorialAction.blogData();
+    console.log(tutorials, "tutorial data");
   }, []);
+
+  const scrollToVideo = (e, videoLink) => {
+    e.current.scrollIntoView({
+      behavior: "smooth",
+    });
+    setVideoUrl(videoLink);
+  };
 
   return (
     <>
@@ -99,11 +119,15 @@ const LearnCypto = () => {
           >
             Blockchain & Crypto
           </Typography>
+          {blogsData.map((item) => {
+            return <div>asdfasdf</div>;
+          })}
           <Typography textAlign="center" className="secondary-color body-large">
             A creative agency that lead and inspire
           </Typography>
           <Box>
             <Stack
+              ref={scrollRef}
               direction="row"
               spacing={3}
               justifyContent="center"
@@ -123,7 +147,7 @@ const LearnCypto = () => {
               Your browser does not support the video tag.
             </video> */}
             <ReactPlayer
-              url="https://www.youtube.com/watch?v=ysz5S6PUM-U"
+              url={videoUrl}
               controls={true}
               light={true}
               playing={true}
@@ -390,49 +414,57 @@ const LearnCypto = () => {
           </Box>
 
           <Grid container spacing={6} rowSpacing={6}>
-            <Grid item xs={12} md={6} xl={4}>
-              <Box
-                className="about-crypto"
-                onclick={() => {
-                  navigate("../learn-cypto-detail");
-                }}
-              >
-                <Button
-                  textTransform="uppercase"
-                  className="orange-btn float-img small-btn"
-                >
-                  New
-                </Button>
+            {tutorialsData.map((item, key) => {
+              return (
+                <Grid item xs={12} md={6} xl={4}>
+                  <Box
+                    className="about-crypto"
+                    onclick={() => {
+                      navigate("../learn-cypto-detail");
+                    }}
+                  >
+                    <Button
+                      textTransform="uppercase"
+                      className="orange-btn float-img small-btn"
+                    >
+                      New
+                    </Button>
 
-                <Box className="avatar-rounded">
-                  <img src={GridImage} />
-                </Box>
-                <Stack
-                  direction="row"
-                  justifyContent="space-between"
-                  paddingTop={3}
-                >
-                  <Box display="flex">
-                    <img src={Avatar} />
-                    <Box sx={{ paddingLeft: "15px" }}>
-                      <Typography fontWeight="500">
-                        Top 7 NFT usecase
-                      </Typography>
-                      <Typography
-                        className="small-caption secondary-color"
-                        fontWeight="500"
-                      >
-                        <span>First Name</span> <span>Last Name</span>
-                      </Typography>
+                    <Box
+                      className="avatar-rounded"
+                      onClick={() => scrollToVideo(scrollRef, item.video_link)}
+                      sx={{ cursor: "pointer" }}
+                    >
+                      <img src={GridImage} />
                     </Box>
-                  </Box>
+                    <Stack
+                      direction="row"
+                      justifyContent="space-between"
+                      paddingTop={3}
+                    >
+                      <Box display="flex">
+                        <img src={Avatar} />
+                        <Box sx={{ paddingLeft: "15px" }}>
+                          <Typography fontWeight="500">{item.title}</Typography>
+                          <Typography
+                            className="small-caption secondary-color"
+                            fontWeight="500"
+                          >
+                            <span>First Name</span> <span>Last Name</span>
+                          </Typography>
+                        </Box>
+                      </Box>
 
-                  <Box>
-                    <Button className="btn btn-green-outlined">Popular</Button>
+                      <Box>
+                        <Button className="btn btn-green-outlined">
+                          Popular
+                        </Button>
+                      </Box>
+                    </Stack>
                   </Box>
-                </Stack>
-              </Box>
-            </Grid>
+                </Grid>
+              );
+            })}
 
             <Grid item xs={12} md={6} xl={4}>
               <Box

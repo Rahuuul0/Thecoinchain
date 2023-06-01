@@ -204,7 +204,7 @@ function Header(props) {
                      <Typography className='small-caption language-box' id="lang-label" sx={{fontSize:'12px !important'}} paddingBottom={4}>Language</Typography>
                       <Box class="img-btn first-img-btn">
                         <input type="radio" name="country-flags" checked />
-                        <img width='30' src="https://cdn.countryflags.com/thumbs/sri-lanka/flag-800.png" alt="Sri Lanka Flag" /> English
+                        <img width='30' src={USA} alt="Sri Lanka Flag" /> English
                       </Box>
 
                       <Box class="img-btn">

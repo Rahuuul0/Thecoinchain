@@ -2060,11 +2060,11 @@ p.left-icon img {
   .img-btn > img{
     cursor:pointer;
     border:0px solid transparent;
-    position: relative;
-    top: 3px;
+   margin-right: 8px;
   }
    
   .img-btn{
+    display: flex;
     font-size: 14px !important;
     text-transform: unset !important;
     color: #777E90 !important;

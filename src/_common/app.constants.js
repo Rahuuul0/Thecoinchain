@@ -35,8 +35,8 @@ export const Apis = {
   VerifyRegisterOtp: "verify-user",
   Change_Password: "change-password",
   Update_User: "update-user",
-  tutorial_list: "tutorial-list",
-  blog_list: "blog-list",
+  Tutorial_Videos: "tutorial-list",
+  Blog_List: "blog-list",
 };
 
 export const theme = createTheme({

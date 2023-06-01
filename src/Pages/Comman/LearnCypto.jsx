@@ -119,15 +119,12 @@ const LearnCypto = () => {
           >
             Blockchain & Crypto
           </Typography>
-          {blogsData.map((item) => {
-            return <div>asdfasdf</div>;
-          })}
+
           <Typography textAlign="center" className="secondary-color body-large">
             A creative agency that lead and inspire
           </Typography>
           <Box>
             <Stack
-              ref={scrollRef}
               direction="row"
               spacing={3}
               justifyContent="center"

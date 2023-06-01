@@ -11,7 +11,7 @@ const useTutorialActions = () => {
   const tutorialData = () => {
     console.log(tutorialAtom, "data api");
     return fetchWrapper
-      .get(Apis.tutorial_list)
+      .get(Apis.Tutorial_Videos)
       .then((res) => {
         console.log(res, "api response");
         if (res.statusCode === 200) {
@@ -26,7 +26,7 @@ const useTutorialActions = () => {
   const blogData = () => {
     console.log(tutorialAtom, "data api");
     return fetchWrapper
-      .get(Apis.blog_list)
+      .get(Apis.Blog_List)
       .then((res) => {
         console.log(res, "api response");
         if (res.statusCode === Labels.Success_Status_Code) {

@@ -117,7 +117,7 @@ const Contact = () => {
   });
 
   //yup validation
-  const formOptions = { resolver: yupResolver(value == 1 ? validationSchema : validationSchemaMobile) };
+  const formOptions = { resolver: yupResolver(validationSchema) };
   // get functions to build form with useForm() hook
   const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
   const { errors } = formState;

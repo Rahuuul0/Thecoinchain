@@ -5,8 +5,8 @@ const tutorialAtom = atom({
   default: [
     {
       id: 1,
-      title: "Triple-buffered fault-tolerant framework",
-      description: "0x6e5de53e2cd2fb88c0a83883af4b08229afd2a5c",
+      title: "Triple buffered fault tolerant framework",
+      description: "Description for the tutorial post here",
       video_link: "https://www.youtube.com/watch?v=tA9dzPJ3PJQ&pp=ygUGY3J5b3Rw",
       image_link: "http://dummyimage.com/192x100.png/ff4444/ffffff",
     },

@@ -14,8 +14,12 @@ const useTutorialActions = () => {
       .get(Apis.Tutorial_Video)
       .then((res) => {
         console.log(res, "api response");
-        if (res.statusCode === 200) {
-          setTutorialData(res.data);
+        if (res.statusCode === Labels.Success_Status_Code) {
+          setTutorialData((currentState) => ({
+            ...currentState,
+            ...res.data,
+          }));
+          return res.data;
         }
       })
       .catch((err) => {

@@ -13,13 +13,37 @@ const useUserActions = () => {
     const [Soption, setSoption] = useRecoilState(switchAtom);
     const setUserError = useSetRecoilState(userErrorAtom);
     const setAuth = useSetRecoilState(authAtom);
+    
     const login = async ({email, password}) => {
         return fetchWrapper.post(Apis.Login, { email, password })
             .then(res => {
                 if (res.statusCode === 200) {
-               
-                    alertActions.success("Logged In Successfully");
-                    navigate("/")
+                    let {data,access_token} = res;                      
+                    localStorage.setItem("user",JSON.stringify({...data,access_token}))     
+                    setAuth({...data,access_token});   
+                    setUserError(true)
+                    (data.login_attempt>0)?navigate("/account/profile"):navigate("/"); 
+                    alertActions.success(Labels.Login_Success);
+                } else {
+                    alertActions.error(res.msg);
+                }
+            }).catch((err)=>{console.warn(err)})
+    }
+
+    const loginAuth = async (data) => {
+        let authData = {}
+        authData.type = 'google';
+        authData.name = data.name;
+        authData.google_id = data.id;
+        authData.email = data.email;
+        return fetchWrapper.post(Apis.Social_Media_Login, authData)
+            .then(res => {
+                if (res.statusCode === 200) {    
+                    let {data,access_token} = res;               
+                    localStorage.setItem("user",JSON.stringify({...data,access_token}))     
+                    setAuth({...data,access_token});    
+                    alertActions.success(Labels.Login_Success);
+                    (data.login_attempt>0)?navigate("/account/profile"):navigate("/");                 
                 } else {
                     alertActions.error(res.msg);
                 }
@@ -34,15 +58,9 @@ const useUserActions = () => {
                     Accept: 'application/json'
                 }
             })
-            .then((res) => {
-                let authData = {}
-                authData.type = 'google';
-                authData.name = res.data.name;
-                authData.google_id = res.data.id;
-                authData.email = res.data.email;
-                 createAuth(authData);
-            })
-            
+            .then((res) => {                
+                loginAuth(res.data);
+            })            
             .catch((err) => console.log(err));
     }
 
@@ -54,15 +72,9 @@ const useUserActions = () => {
                     Accept: 'application/json'
                 }
             })
-            .then((res) => {
-                let loginData = {}
-                loginData.type = 'google';
-                loginData.google_id = res.data.id;
-                loginData.email = res.data.email;
-                console.log(loginData,'loginData');
-                loginAuth(loginData);
+            .then((res) => {                     
+                loginAuth(res.data);
             })
-
             .catch((err) => console.log(err));
     }
        
@@ -83,25 +95,22 @@ const useUserActions = () => {
 
         }
 
-        const forgotPasswordVerify = async(otp) => {
-            return fetchWrapper.post(Apis.Forgot_Password_Verify, { otp })
-            .then(res => {
-             if (res.statusCode === 200) {
-                 alertActions.success(Labels.Success);
-                 navigate("/reset-password")
-             } else {
-                 alertActions.error(Labels.Error);
-             }
-         }).catch((err)=>{console.warn(err)})
- 
-         }
-
+    const forgotPasswordVerify = async(otp) => {
+        return fetchWrapper.post(Apis.Forgot_Password_Verify, { otp })
+        .then(res => {
+            if (res.statusCode === 200) {
+                alertActions.success(Labels.Success);
+                navigate("/reset-password")
+            } else {
+                alertActions.error(Labels.Error);
+            }
+        }).catch((err)=>{console.warn(err)})
+    }
 
     const create = async ({email, mobile, password, confirm_password }) => {
         const phone = mobile;
         const type = "website";
         const name = "Unknown Name";
-
         return fetchWrapper.post(Apis.Create,{email, phone, password, confirm_password ,type, name } )
             .then(res => {
                 if (res.statusCode === 200) {
@@ -113,30 +122,7 @@ const useUserActions = () => {
                     alertActions.error(Labels.Error);
                 }
             }).catch((err) => { console.log(err); });
-    }
-
-    const createAuth = async (data) => {
-        console.warn(data)
-        let authData = {}
-        authData.type = data.type;
-        authData.name = data.name;
-        authData.google_id = data.google_id;
-        authData.email = data.email;
-        authData.password = "Admin@123";
-        authData.phone = '1235485695'
-        return fetchWrapper.post(Apis.Create, authData)
-            .then(res => {
-                if (res.statusCode === 200) {
-                    alertActions.success("Please select an option");
-                    localStorage.setItem("email", res.data.email)
-                    localStorage.setItem("phone", res.data.phone)
-                    localStorage.setItem("user",res.data)     
-                    navigate("/")
-                } else {
-                    alertActions.error(Labels.Error);
-                }
-            }).catch((err) => { console.log(err); });
-    }
+    }    
     
     const getOtp = async () => {
        const  email = localStorage.getItem("email")
@@ -149,6 +135,7 @@ const useUserActions = () => {
                 }
             }).catch((err)=>{console.log(err);});
     }
+
     const verifyRegisterOtp = async (otp) => {
         return fetchWrapper.post(Apis.VerifyRegisterOtp, { otp })
             .then(res => {
@@ -160,7 +147,6 @@ const useUserActions = () => {
                 }
             }).catch((err)=>{console.log(err);});
     }
-
        
     const resetPassword = async ({ password}) => {
         const email = localStorage.getItem("email")
@@ -178,7 +164,7 @@ const useUserActions = () => {
 
     const changePassword = async ({old_password, new_password}) => {
         const email = localStorage.getItem("email")
-        return fetchWrapper.post(Apis.Reset_Password, { old_password, new_password })
+        return fetchWrapper.post(Apis.Change_Password, { old_password, new_password })
             .then(res => {
              if (res.statusCode === 200) {
                 alertActions.success('Password Reset Successfully');
@@ -194,6 +180,7 @@ const useUserActions = () => {
                 navigate('/login');
                
     }
+
     const updateUser =(id,{name,email, mobile})=>{
         const phone = mobile;
       return fetchWrapper.post(`${Apis.Update_User}?id=${id}`,{name,email,phone})

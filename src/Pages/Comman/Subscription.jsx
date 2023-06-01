@@ -49,6 +49,7 @@ const Subscription = () => {
 
     
     const [open, setOpen] = useState(false);
+    const [payData, setpayData] = useState(0);
     const [subscriptionData, setSubscriptionData] = useState([]);
 
     const handleOpen = () => setOpen(true);
@@ -151,7 +152,7 @@ const Subscription = () => {
                                                                 </Typography>
                                                             </Box>
                                                             <Box className="subscription-plan-cta">
-                                                                <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={toggleAcordion} >Continue</Button>
+                                                                <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={()=>{setpayData(subscriptionData.length-(i+1));toggleAcordion()}} >Continue</Button>
                                                             </Box>
                                                         </Box>
                                                     ))}
@@ -193,9 +194,9 @@ const Subscription = () => {
 
                                         </Box>
                                         <Box className='payment-info'>
-                                            {subscriptionData.map((item)=>{
-                                                return(
-                                            <Box className='amount-for'>
+                                            {subscriptionData.map((item,i)=>{
+                                                return(<>
+                                            {payData==i? <Box  className='amount-for'>
                                                 <Box className='payment-amount'>
                                                     <span className='wallet-ic'>
                                                         <img src={WalletIc} alt='wallet' width="20px" />
@@ -214,8 +215,8 @@ const Subscription = () => {
                                                         {item.subscription_price}
                                                     </Typography>
                                                 </Box>
-                                            </Box>
-                                                )
+                                            </Box>:""}
+                                                </>)
 
                                             } ) }
                                           
@@ -336,15 +337,16 @@ const Subscription = () => {
 
                                         </Box>
                                         <Box className='payment-info'>
-
-                                            <Box className='amount-for'>
+                                            {subscriptionData.map((item,i)=>{
+                                                return(<>
+                                            {payData==i? <Box  className='amount-for'>
                                                 <Box className='payment-amount'>
                                                     <span className='wallet-ic'>
                                                         <img src={WalletIc} alt='wallet' width="20px" />
                                                     </span>
                                                     <Typography component="small" variant='body2'>
                                                         <span className='label'>Amount</span>
-                                                        $15.00
+                                                       {item.subscription_price}
                                                     </Typography>
                                                 </Box>
                                                 <Box className='payment-for'>
@@ -353,7 +355,7 @@ const Subscription = () => {
                                                     </span>
                                                     <Typography component="small" variant='body2'>
                                                         <span className='label'>Amount</span>
-                                                        $15.00
+                                                        {item.subscription_price}
                                                     </Typography>
                                                 </Box>
                                                 <Box className='payment-method'>
@@ -365,8 +367,10 @@ const Subscription = () => {
                                                         Credit Card
                                                     </Typography>
                                                 </Box>
-                                            </Box>
+                                            </Box>:""}
+                                                </>)
 
+                                            } ) }
                                             <Box className='credit-card-head'>
                                                 <Typography component="p" variant='body1'>
                                                     You are about to Stay ahead of the crowd - with our predictive analysis of the crypto market!

@@ -156,7 +156,7 @@ const ForecastSubscriptions = () => {
                                             id="panel1bh-header"
                                             >
                                             <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                                             Plan details
+                                             Plan Details
                                             </Typography>
                                             </AccordionSummary>
                                             <AccordionDetails>

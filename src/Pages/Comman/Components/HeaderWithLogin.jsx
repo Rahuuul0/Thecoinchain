@@ -182,7 +182,7 @@ function Header(props) {
               <Box className='menu-box'>
                 <Grid container >
                   <Grid item xs={6} sm={6} md={6} sx={{ borderRight: '1px solid #E6E8EC' }}>
-                    <FormControl className='language-dropdown'>
+                    {/* <FormControl className='language-dropdown'>
                       <FormLabel className='small-caption language-box' id="demo-radio-buttons-group-label">Language</FormLabel>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
@@ -193,7 +193,24 @@ function Header(props) {
                         <FormControlLabel className='radio-option' value="chinese" control={<Radio />} label="Chinese" />
                         <FormControlLabel className='radio-option' value="japanese" control={<Radio />} label="Japanese" />
                       </RadioGroup>
-                    </FormControl>
+                    </FormControl> */}
+                      <Box className='language-dropdown'>
+                     <Typography className='small-caption language-box' id="lang-label" sx={{fontSize:'12px !important'}} paddingBottom={4}>Language</Typography>
+                      <Box class="img-btn first-img-btn">
+                        <input type="radio" name="country-flags" checked />
+                        <img width='30' src="https://cdn.countryflags.com/thumbs/sri-lanka/flag-800.png" alt="Sri Lanka Flag" /> English
+                      </Box>
+
+                      <Box class="img-btn">
+                        <input type="radio" name="country-flags" />
+                        <img width='30' src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-800.png" alt="America Flag" /> Chinese
+                      </Box>
+
+                      <Box class="img-btn">
+                        <input type="radio" name="country-flags" />
+                        <img width='30' src="https://cdn.countryflags.com/thumbs/india/flag-400.png" alt="India Flag" /> Japanese
+                      </Box>
+                    </Box>
                   </Grid>
                   <Grid item xs={6} sm={6} md={6} className='right-box'>
                     <FormControl className='language-dropdown'>

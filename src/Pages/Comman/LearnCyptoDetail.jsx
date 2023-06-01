@@ -71,7 +71,7 @@ const LearnCyptoDetail = () => {
             </Box>
           </Box>
           <Box>
-            <Box paddingBottom={10}>
+            <Box paddingBottom={10} textAlign='center'>
               <img src={VideoImg} />
             </Box>
             <Box className='smallwidth'>

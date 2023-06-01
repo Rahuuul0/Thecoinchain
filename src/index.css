@@ -2311,6 +2311,14 @@ video[poster] {
 .extra-wrapper p {
     margin-bottom: 24px;
 }
+.borderRounded{
+    border-radius: 90%;
+}
+.guide-box{
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+    padding: 19px;
+    border-radius: 10px;
+}
 
 /* Community */
 .community-wrapper-inner {

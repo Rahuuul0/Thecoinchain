@@ -21,9 +21,9 @@ const useUserActions = () => {
                     let {data,access_token} = res;                      
                     localStorage.setItem("user",JSON.stringify({...data,access_token}))     
                     setAuth({...data,access_token});   
-                    setUserError(true);
-                    alertActions.success(Labels.Login_Success);
+                    setUserError(true)
                     (data.login_attempt>0)?navigate("/account/profile"):navigate("/"); 
+                    alertActions.success(Labels.Login_Success);
                 } else {
                     alertActions.error(res.msg);
                 }
@@ -164,8 +164,7 @@ const useUserActions = () => {
          }).catch((err)=>{console.warn(err)})
     }
 
-    const changePassword = async ({old_password, new_password}) => {
-        // const email = localStorage.getItem("email")
+    const changePassword = async ({old_password, new_password}) => {       
         return fetchWrapper.post(Apis.Change_Password, { old_password, new_password })
             .then(res => {
              if (res.statusCode === 200) {
@@ -178,9 +177,8 @@ const useUserActions = () => {
     }
 
     const createPassword = ({ newPassword, confirmPassword }) => {
-                alertActions.success('New Password Created Successfully');
-                navigate('/login');
-               
+        alertActions.success('New Password Created Successfully');
+        navigate('/login');               
     }
 
     const updateUser =({name,email, phone})=>{      

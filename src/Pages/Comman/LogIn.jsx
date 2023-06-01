@@ -1,4 +1,5 @@
-import React from 'react'
+import { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
@@ -6,29 +7,37 @@ import { Container, Box, TextField, Typography, Link, Button, InputAdornment } f
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions"
 import { yupResolver } from "@hookform/resolvers/yup";
+import { MuiTelInput } from 'mui-tel-input'
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { useAlertActions } from '../../_actions/alert.actions';
+import { userErrorAtom } from '../../_state';
+import { useRecoilState } from 'recoil';
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import IconButton from "@mui/material/IconButton";
+import {KeyboardArrowLeft} from '@mui/icons-material/';
+import IconButton from "@mui/material/IconButton"; 
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { useAlertActions } from '../../_actions/alert.actions';
 import LogoLight from '../../../public/assets/images/logo-light.svg'
 import LogoDark from '../../../public/assets/images/logo.svg'
 import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import Lock from '../../../public/assets/images/icons/lock.svg'
-import { MuiTelInput } from 'mui-tel-input'
+import GoogleLogin from "./GoogleLogin.jsx";
+import AppleIcon from '@mui/icons-material/Apple';
 const LogIn = () => {
 
-    const [value, setValue] = React.useState('1');
-    const [phone, setPhone] = React.useState('')
+    const [value, setValue] = useState('1');
+    const [phone, setPhone] = useState('')
+    const [userError, setUserError] = useRecoilState(userErrorAtom);
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const handlePhone = (newPhone) => {
         setPhone(newPhone)
-      }
-    
+    }
+
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -72,14 +81,22 @@ const LogIn = () => {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     //yup validation
-    const formOptions = { resolver: yupResolver(value==1?validationSchema:validationSchemaMobile) };
+    const formOptions = { resolver: yupResolver(value == 1 ? validationSchema : validationSchemaMobile) };
     // get functions to build form with useForm() hook
     const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
-    const { errors, isSubmitting } = formState;
+    const { errors } = formState;
+
+
+    useEffect(() => {
+        if (userError)
+            setIsSubmitting(false)
+    }, [userError])
 
     const formData = watch();
     const handleFormSubmit = () => {
-        if(value==1) {
+        setIsSubmitting(true)
+        setUserError(false)
+        if (value == 1) {
             userActions.login(formData)
         }
         else {
@@ -99,11 +116,11 @@ const LogIn = () => {
                         }}
                     >
                         <Box className='auth-header-logo' >
-                            <img src={LogoLight} alt='Coin Guru' className='desktop' />
-                            <img src={LogoDark} alt='Coin Guru' className='ipad' />
+                            <Link onClick={() => { navigate('/') }}><img src={LogoLight} alt='Coin Guru' className='desktop' /></Link>
+                            <Link onClick={() => { navigate('/') }}><img src={LogoDark} alt='Coin Guru' className='ipad' /></Link>
                         </Box>
                         <Box className='dont-have-acc' >
-                            <Typography component="p" variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
+                            <Typography component="p" position='relative' zIndex='2' variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
                                 Don’t have an account? <Link onClick={() => { navigate("/create-account"); }}>Sign up for free</Link>
                             </Typography>
                         </Box>
@@ -112,7 +129,12 @@ const LogIn = () => {
                         <Box className='auth-wrapper-bg'>
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
-                        <Box className='auth-wrapper-form' >
+                        <Box className='auth-wrapper-form' position='relative'>
+                            <Box position='absolute' sx={{ top: '90px' }}>
+                                <IconButton aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
+                                    <KeyboardArrowLeft />
+                                </IconButton>
+                            </Box>
                             <Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
                                     Sign in to CoinGuru
@@ -124,6 +146,20 @@ const LogIn = () => {
                                     <Box className='ensure-link' >
                                         <img src={Lock} alt='lock' />
                                         <span>https://</span> accounts.coinguru.org/login
+                                    </Box>
+                                </Box>
+                                <Box className='open-id' >
+                                    <Typography component="small" variant="body2" sx={{ textAlign: 'center', color: '#777E91', display: 'block', marginBottom: '20px' }}>
+                                        Use Your OpenID to Sign In
+                                    </Typography>
+                                    <Box component="div" className='open-id-btn-wrapper' >
+                                        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}>
+
+                                            <GoogleLogin />
+                                        </GoogleOAuthProvider>
+                                        <Button variant="contained" className='btn btn-secondary' startIcon={<AppleIcon />}>
+                                            Apple
+                                        </Button>
                                     </Box>
                                 </Box>
                                 <Box className='devider' />
@@ -214,21 +250,21 @@ const LogIn = () => {
                                                 </TabPanel>
                                                 <TabPanel value="2" sx={{ p: 0 }}>
 
-                                                        <MuiTelInput
-                                                            label="Number"
-                                                            className="form-control"
-                                                            variant="standard"
-                                                            required
-                                                            margin="normal"
-                                                           
-                                                             placeholder='Number'
-                                                             autoComplete="off"
-                                                             size="small"
-                                                             autoFocus
-                                                             {...register("number")}
-                                                             value={phone} 
-                                                             onChange={handlePhone} 
-                                                             />
+                                                    <MuiTelInput
+                                                        label="Number"
+                                                        className="form-control"
+                                                        variant="standard"
+                                                        required
+                                                        margin="normal"
+
+                                                        placeholder='Number'
+                                                        autoComplete="off"
+                                                        size="small"
+                                                        autoFocus
+                                                        {...register("number")}
+                                                        value={phone}
+                                                        onChange={handlePhone}
+                                                    />
                                                     <div style={{ color: "red" }}>{errors.number?.message}
                                                     </div>
 
@@ -275,9 +311,9 @@ const LogIn = () => {
                                                         type="submit"
                                                         variant="contained"
                                                         className='btn btn-primary'
-                                                        >
+                                                    >
                                                         Login
-                                                    </Button>                                                
+                                                    </Button>
                                                 </TabPanel>
                                             </TabContext>
                                         </Box>

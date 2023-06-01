@@ -13,6 +13,7 @@ import { Container, Box, TextField, Typography, Link, Button, InputAdornment } f
 import LogoLight from '../../../public/assets/images/logo-light.svg';
 import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
+import {KeyboardArrowLeft} from '@mui/icons-material/';
 
 const ResetPassword = () => {
     const navigate = useNavigate();
@@ -57,11 +58,11 @@ const ResetPassword = () => {
                         }}
                     >
                         <Box className='auth-header-logo' >
-                            <img src={LogoLight} alt='Coin Guru' className='desktop' />
-                            <img src={LogoDark} alt='Coin Guru' className='ipad' />
+                            <Link onClick={() => { navigate('/') }}><img src={LogoLight} alt='Coin Guru' className='desktop' /></Link>
+                            <Link onClick={() => { navigate('/') }}><img src={LogoDark} alt='Coin Guru' className='ipad' /></Link>
                         </Box>
                         <Box className='dont-have-acc' >
-                            <Typography component="p" variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
+                            <Typography component="p" variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }} position='relative' zIndex='2'>
                                 Already have an account? <Link onClick={() => { navigate("/login"); }}>Login</Link>
                             </Typography>
                         </Box>
@@ -70,7 +71,12 @@ const ResetPassword = () => {
                         <Box className='auth-wrapper-bg'>
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
-                        <Box className='auth-wrapper-form' >
+                        <Box className='auth-wrapper-form'  position='relative'>
+                        <Box position='absolute' sx={{top: '90px'}}>
+                            <IconButton aria-label="delete"  className='btn-primary btn' variant="outlined" sx={{padding: '4px 4px !important', margin: '0px !important'}}>
+                                <KeyboardArrowLeft />
+                            </IconButton>
+                        </Box>
                             <Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
                                     New Password

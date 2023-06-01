@@ -35,7 +35,7 @@ const Search = styled('div')(({ theme }) => ({
   maxWidth: '350px',
   fontSize: '14px',
   [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
+    marginLeft: theme.spacing(0),
     width: 'auto',
   },
 }));
@@ -52,7 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       border: '2px solid #E6E8EC',
       borderRadius: '90px',
       '&:focus': {
-        width: '20ch',
+        width: '300px',
       },
     },
   },
@@ -61,8 +61,8 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
   position: 'absolute',
-  top: '9%',
-  right: '5%',
+  top: '0%',
+  right: '1%',
   pointerEvents: 'none',
   display: 'flex',
   alignItems: 'center',
@@ -117,7 +117,7 @@ const Contact = () => {
       <Container>
         <Box paddingTop={5} paddingBottom={10}>
           <Grid container sx={{ alignItems: 'center' }}>
-            <Grid item xs={12} sm={6} md={6} paddingRight={8}>
+            <Grid item xs={12} sm={6} md={6} paddingRight={5} className='padding-0-mobile'>
               <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} >Save your time with Stacks</Typography>
               <Typography variant='h1' component="div" className='hero-heading primary-color'>
                 How can we help
@@ -127,7 +127,7 @@ const Contact = () => {
               </Typography>
               <Typography component="div" paddingBottom={2} >
 
-                <Search>
+                <Search className='contact-search'>
 
                   <StyledInputBase
                     className='primary-font'
@@ -135,8 +135,10 @@ const Contact = () => {
                     inputProps={{ 'aria-label': 'search' }}
                   />
 
-                  <SearchIconWrapper className='search-icon'>
-                    <ArrowRightAlt />
+                  <SearchIconWrapper className='padding-0-mobile'>
+                    <Box className='search-icon'>
+                      <ArrowRightAlt />
+                    </Box>
                   </SearchIconWrapper>
                 </Search>
               </Typography>
@@ -307,8 +309,8 @@ const Contact = () => {
       <Container maxWidth='fluid' sx={{ backgroundColor: '#F8F8F9' }}>
         <Container className='smallwidth'>
           <Box paddingY={10} className="topic-que">
-            <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' className='small-caption primary-font secondary-color'>Select a topic</Typography>
+            <Box paddingBottom={2} className='topic-select-radio'>
+              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>Select a topic</Typography>
 
               <Stack direction='row' spacing={3} className='button-img' >
                 <Button className='btn' variant="outlined" > <span><img src={GenralIcon} /></span> General</Button>
@@ -316,7 +318,7 @@ const Contact = () => {
               </Stack>
             </Box>
             <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='small-caption primary-font secondary-color'>What is your issue about?</Typography>
+              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>What is your issue about?</Typography>
               <Select
                 multiple
                 displayEmpty
@@ -350,8 +352,8 @@ const Contact = () => {
 
             <Box paddingBottom={2}>
               <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4'  
-              sx={{fontSize: '12px',  transform: ' translate(0, -1.5px) scale(0.75)',   fontFamily: 'var(--primary-font) !important' ,    fontWeight: '700',     textTransform: 'uppercase'}}
-     className='small-caption primary-font secondary-color'>What is your issue about?</Typography>
+             sx={{fontSize: '12px',  transform: ' translate(0, -1.5px) scale(0.75)',   fontFamily: 'var(--primary-font) !important' ,    fontWeight: '700',     textTransform: 'uppercase'}}
+     className='small-caption primary-font secondary-color  label-text '>What is your issue about?</Typography>
               <Select
                 multiple
                 displayEmpty
@@ -385,8 +387,8 @@ const Contact = () => {
 
             <Box paddingBottom={2}>
               <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4'  
-              sx={{fontSize: '12px',  transform: ' translate(0, -1.5px) scale(0.75)',   fontFamily: 'var(--primary-font) !important' ,    fontWeight: '700',     textTransform: 'uppercase'}}
-     className='small-caption primary-font secondary-color'>Email address</Typography>
+             sx={{fontSize: '12px',  transform: ' translate(0, -1.5px) scale(0.75)',   fontFamily: 'var(--primary-font) !important' ,    fontWeight: '700',     textTransform: 'uppercase'}}
+     className='small-caption primary-font secondary-color  label-text '>Email address</Typography>
               <Select
               label='email'
                 multiple

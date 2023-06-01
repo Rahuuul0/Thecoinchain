@@ -1,9 +1,8 @@
 import React from 'react';
-import { Box, Container, Typography, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from '@mui/material';
+import { Box, Typography, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
 import BTC from '../../../public/assets/images/icons/btc-ic.svg'
 import VolumeIc from '../../../public/assets/images/icons/volume-ic.svg'
 import MarketcapIc from '../../../public/assets/images/icons/dollar.svg'

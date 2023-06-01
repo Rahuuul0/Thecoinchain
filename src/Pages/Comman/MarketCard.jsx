@@ -1,21 +1,30 @@
-import React from 'react'
-import { Box, Container, Grid, Typography, Button } from '@mui/material'
+import React, { useState } from 'react';
+import { Box, Container, Typography, Button, FormControl, MenuItem } from '@mui/material';
 import Tab from '@mui/material/Tab';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import GraphUp from '../../../public/assets/images/chart-up.svg'
-import GraphDown from '../../../public/assets/images/chart-down.svg'
-import BtcIc from '../../../public/assets/images/icons/btc-ic.svg'
-import AtcIc from '../../../public/assets/images/icons/atc-ic.svg'
-import EthIc from '../../../public/assets/images/icons/eth-ic.svg'
+import GraphUp from '../../../public/assets/images/chart-up.svg';
+import GraphDown from '../../../public/assets/images/chart-down.svg';
+import BtcIc from '../../../public/assets/images/icons/btc-ic.svg';
+import AtcIc from '../../../public/assets/images/icons/atc-ic.svg';
+import EthIc from '../../../public/assets/images/icons/eth-ic.svg';
+import { useNavigate } from 'react-router-dom';
 
 const MarketCard = () => {
 
-    const [value, setValue] = React.useState('1');
+    const navigate = useNavigate();
+    const [value, setValue] = useState('1');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+    };
+
+
+    const [tablefilter, setTablefilter] = useState('');
+
+    const handleChangeTablefilter = (event) => {
+        setTablefilter(event.target.value);
     };
 
 
@@ -71,7 +80,7 @@ const MarketCard = () => {
                                 </Box>
                             </Box>
                         </Box>
-                        <Box className='market-crypto-tabs'>
+                        <Box className='market-crypto-tabs for-desktop'>
                             <TabContext value={value}>
                                 <Box>
                                     <TabList onChange={handleChange} aria-label="Login Tabs">
@@ -104,9 +113,32 @@ const MarketCard = () => {
                             </TabContext>
                             <Button
                                 variant="outlined"
-                                className='btn btn-outlined-secondary'>
+                                className='btn btn-outlined-secondary' onClick={() => { navigate("../predict-market") }}>
                                 Predict
                             </Button>
+                        </Box>
+                        <Box className='market-crypto-tabs for-mobile dropdown-mobile'>
+                            <FormControl sx={{ m: 0, minWidth: 120, width: '100%' }}>
+                                <Select
+                                    value={tablefilter}
+                                    onChange={handleChangeTablefilter}
+                                    displayEmpty
+                                    inputProps={{ 'aria-label': 'Without label' }}
+                                >
+                                    <MenuItem value={10}>Cryptocurrencies</MenuItem>
+                                    <MenuItem value={20}>DeFi</MenuItem>
+                                    <MenuItem value={30}>Innovation</MenuItem>
+                                    <MenuItem value={40}>POS</MenuItem>
+                                    <MenuItem value={50}>NFT</MenuItem>
+                                    <MenuItem value={60}>POW</MenuItem>
+                                    <MenuItem value={70}>Predict</MenuItem>
+                                </Select>
+                            </FormControl>
+                            {/* <Button
+                                variant="outlined"
+                                className='btn btn-outlined-secondary'>
+                                Predict
+                            </Button> */}
                         </Box>
                     </Box>
                 </Container>

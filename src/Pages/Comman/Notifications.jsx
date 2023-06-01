@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
-import { Box, Container, Grid, Typography, Button, Modal, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
+import { Box, Container, Typography, Button, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LoadMoreIc from '../../../public/assets/images/icons/cale-ic.svg'
 import DepositImg from '../../../public/assets/images/deposit.svg'
 import TransferImg from '../../../public/assets/images/transfer.svg'
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 
 const Notifications = () => {
@@ -130,7 +131,7 @@ const Notifications = () => {
 
                                         <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>
                                     </Box>
-                                    <Box className='notification-filter'>
+                                    <Box className='notification-filter for-desktop'>
                                         <Typography component="h5" variant='h5'>
                                             Filters
                                         </Typography>
@@ -145,6 +146,28 @@ const Notifications = () => {
                                         <Box className='notification-filter-cta'>
                                             <Button size='small' variant="outlined" className='btn btn-outlined-secondary'>Select all</Button>
                                             <Button size='small' variant="outlined" className='btn btn-outlined-secondary'>Unselect all</Button>
+                                        </Box>
+                                    </Box>
+
+                                    <Box className='notification-filter for-mobile dropdown-mobile'>
+                                        <Typography component="h5" variant='h5'>
+                                            Filters
+                                            <span className='dropdown-icon'>
+                                                <KeyboardArrowDownIcon />
+                                            </span>
+                                        </Typography>
+                                        <Box className="dropdown-div">
+                                            <FormGroup>
+                                                <FormControlLabel control={<Checkbox defaultChecked />} label="Crypto Prediction" />
+                                                <FormControlLabel control={<Checkbox />} label="Community" />
+                                                <FormControlLabel control={<Checkbox />} label="Academy" />
+                                                <FormControlLabel control={<Checkbox />} label="News" />
+                                            </FormGroup>
+
+                                            <Box className='notification-filter-cta'>
+                                                <Button size='small' variant="outlined" className='btn btn-outlined-secondary'>Select all</Button>
+                                                <Button size='small' variant="outlined" className='btn btn-outlined-secondary'>Unselect all</Button>
+                                            </Box>
                                         </Box>
                                     </Box>
                                 </Box>

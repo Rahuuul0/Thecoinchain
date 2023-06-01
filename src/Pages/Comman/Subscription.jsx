@@ -215,8 +215,8 @@ const Subscription = () => {
                                                     autoComplete="off"
                                                     size="small"
                                                 />
-                                                <Grid container spacing={4}>
-                                                    <Grid item md={6}>
+                                                <Grid container columnSpacing={{ xs: 1, sm: 2, md: 4 }} rowSpacing={1} sx={{ flexGrow: 2 }}>
+                                                    <Grid item xs={6}>
                                                         <TextField
                                                             label="EXPIRATION DATE"
                                                             className="form-control"
@@ -235,7 +235,7 @@ const Subscription = () => {
                                                             size="small"
                                                         />
                                                     </Grid>
-                                                    <Grid item md={6}>
+                                                    <Grid item xs={6}>
                                                         <TextField
                                                             label="CSV"
                                                             className="form-control"
@@ -366,11 +366,11 @@ const Subscription = () => {
                                     <Typography component="p" variant='body1' sx={{ fontWeight: '500' }}>
                                         Buy & Sell Crypto
                                     </Typography>
-                                    <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#777E90', my: 2 }}>
+                                    <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90', my: 2 }}>
                                         We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                                     </Typography>
 
-                                    <Button variant='outlined' className='btn- btn-outlined-secondary'>Buy crypto</Button>
+                                    <Button variant='outlined' className='btn btn-outlined-secondary'>Buy crypto</Button>
                                 </Box>
                                 <Box className='become-a-crypto-trader-card'>
                                     <Box className='crypto-trader-img'>
@@ -379,11 +379,11 @@ const Subscription = () => {
                                     <Typography component="p" variant='body1' sx={{ fontWeight: '500' }}>
                                         Trade Assets
                                     </Typography>
-                                    <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#777E90', my: 2 }}>
+                                    <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90', my: 2 }}>
                                         We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                                     </Typography>
 
-                                    <Button variant='outlined' className='btn- btn-outlined-secondary'>Trade now</Button>
+                                    <Button variant='outlined' className='btn btn-outlined-secondary'>Trade now</Button>
                                 </Box>
                                 <Box className='become-a-crypto-trader-card'>
                                     <Box className='crypto-trader-img'>
@@ -392,24 +392,23 @@ const Subscription = () => {
                                     <Typography component="p" variant='body1' sx={{ fontWeight: '500' }}>
                                         Earn Rewards for Trading
                                     </Typography>
-                                    <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#777E90', my: 2 }}>
+                                    <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90', my: 2 }}>
                                         We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                                     </Typography>
 
-                                    <Button variant='outlined' className='btn- btn-outlined-secondary'>Learn now</Button>
+                                    <Button variant='outlined' className='btn btn-outlined-secondary'>Learn now</Button>
                                 </Box>
                             </Box>
-                            <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }}>Contact Us</Button>
+                            <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={() => { navigate("./contact") }}>Contact Us</Button>
                         </Container>
                     </Box>
                 </Box >
-            </ThemeProvider>
+            </ThemeProvider >
             {/* Modal */}
-            <Modal
+            < Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
             >
                 <Box className="modal-dialog modal-subscribed">
                     <Button onClick={handleClose} variant='outlined' className='btn btn-outlined-secondary btn-round btn-close'><CloseIcon /></Button>
@@ -441,7 +440,7 @@ const Subscription = () => {
                         </Button>
                     </Box>
                 </Box>
-            </Modal>
+            </Modal >
         </>
     )
 }

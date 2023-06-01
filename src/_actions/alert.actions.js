@@ -6,11 +6,11 @@ const useAlertActions = () => {
     const setAlert = useSetRecoilState(alertAtom); 
     return {
         success: message =>{
-                enqueueSnackbar(message, { variant:"success",autoHideDuration:3000 });  
+                enqueueSnackbar(message, { variant:"success",autoHideDuration:500 });  
                 setAlert({ open:true  })
             },
         error: message => {
-            enqueueSnackbar(message, { variant:"error",autoHideDuration:5000 });  
+            enqueueSnackbar(message, { variant:"error",autoHideDuration:1000 });  
             setAlert({ open:true })
         }
     }

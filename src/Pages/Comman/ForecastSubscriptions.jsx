@@ -156,8 +156,7 @@ const ForecastSubscriptions = () => {
                                             id="panel1bh-header"
                                             >
                                             <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                                                
-                                             Plan
+                                             Plan details
                                             </Typography>
                                             </AccordionSummary>
                                             <AccordionDetails>
@@ -191,7 +190,7 @@ const ForecastSubscriptions = () => {
                                             aria-controls="panel2bh-content"
                                             id="panel2bh-header"
                                             >
-                                            <Typography sx={{ width: '33%', flexShrink: 0 }}>1 month Plan</Typography>
+                                            <Typography sx={{ width: '33%', flexShrink: 0 }}>Resubscribe</Typography>
                                             </AccordionSummary>
                                             <Box textAlign='center'>
                                         <img src={SubsImage} />
@@ -201,53 +200,16 @@ const ForecastSubscriptions = () => {
                                             <Button onClick={() => { navigate("/subscription#"); }} className='btn btn-dark' >Resubscribe</Button>
                                         </Stack>
                                     </Box>
-
-                                            <AccordionDetails>
-                                          
-                                            </AccordionDetails>
                                         </Accordion>
-                                            {/* {plans.map((plan) => (
-                                                <Box className="subscription-plan-card">
-                                                    <Typography component="h4" variant='h4' className='plan-title'>
-                                                        {plan.title}
-                                                    </Typography>
-                                                    <Box className="subscription-plan-body">
-                                                        <Typography component="h4" variant='h4' className='plan-price'>
-                                                            {plan.price} <span className='plan-days'>/ {plan.days}</span>
-                                                        </Typography>
-
-                                                        <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
-                                                            {plan.extra}
-                                                        </Typography>
-                                                    </Box>
-                                                    <Box className="subscription-plan-cta">
-                                                        <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
-                                                            {plan.cta}
-                                                        </Typography>
-
-                                                    </Box>
-                                                </Box>
-                                            ))} */}
+                    
                                         </Box>
                                         <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
                                             By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content once your plan finishes. To regain full access to the content, a new subscription is required.
                                         </Typography>
                                         <Box className="subscription-plan-cta">
-                                            <Button variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribed</Button>
+                                            <Button onClick={() => { navigate("/"); }} variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribed</Button>
                                         </Box>
                                     </Box>
-
-                                    {/* <Box textAlign='center'>
-                                        <img src={SubsImage} />
-                                        <Typography variant='p' component='div' sx={{ color: '#777E90', fontSize: '14px' }}>Your subscription and recurring payment has been canceled.</Typography>
-                                        <Stack className='subs-div' direction='row' spacing={3} paddingY={4} justifyContent='center'>
-                                            <Button className='btn btn-outlined-secondary' >Home</Button>
-                                            <Button onClick={() => { navigate("/subscription#"); }} className='btn btn-dark' >Resubscribe</Button>
-                                        </Stack>
-                                    </Box> */}
-
-
-
                                 </Box>
                             </Box>
                         </Container>

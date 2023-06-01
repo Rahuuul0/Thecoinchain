@@ -7,8 +7,11 @@ import LearnNEarn from './LearnNEarn';
 import CryptoTable from './CryptoTable';
 import MarketCard from './MarketCard';
 import MarketHero from './MarketHero';
+import { useEffect } from "react"
 
 const Market = () => {
+
+    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
 
     return (
         <>
@@ -19,7 +22,7 @@ const Market = () => {
                     <Box className='market-inner'>
                         <Container maxWidth="lg">
 
-                            <CryptoTable />
+                            <CryptoTable isIt={true} />
 
                             <Box className='price-prediction'>
                                 <Typography component="h2" variant='h2'>
@@ -34,7 +37,7 @@ const Market = () => {
 
                         </Container>
                     </Box>
-                </Box >
+                </Box>
             </ThemeProvider>
         </>
     )

@@ -1,22 +1,16 @@
 import React from 'react'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Modal, Link, Breadcrumbs, Stack, Select, OutlinedInput, MenuItem, Switch, Row } from '@mui/material';
-import User from '../../../public/assets/images/user.svg';
-import Share from '../../../public/assets/images/share-square.svg';
-import Session from '../../../public/assets/images/session.svg';
-import Api from '../../../public/assets/images/api.svg';
-import FA from '../../../public/assets/images/fa.svg';
-import Lockbtn from '../../../public/assets/images/lockbtn.svg';
-import { KeyboardArrowRightIcon, NavigateNext } from '@mui/icons-material/';
+import { Box, Container, Typography, Button, Link, Breadcrumbs } from '@mui/material';
+import { NavigateNext } from '@mui/icons-material/';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import USAflag from '../../../public/assets/images/icons/usa.svg';
+import Sidebar from './Components/Sidebar';
 
 const SessionHistory = () => {
 
@@ -69,16 +63,7 @@ const SessionHistory = () => {
                     <Box className='subscription-steps account-main'>
                         <Container maxWidth="lg">
                             <Box className='subscription-steps-inner '>
-                                <Box className='subscription-steps-col'>
-                                    <Stack spacing={2}>
-                                        <Typography className='left-icon secondary-color'><span><img src={User} /> </span>Profile</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={Share} /> </span>Referrals</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={Api} /> </span>API keys</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={Session} /> </span>Sessions & login history</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={FA} /> </span>2FA</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={Lockbtn} /> </span>Change password</Typography>
-                                    </Stack>
-                                </Box>
+                                <Sidebar />
                                 <Box className='subscription-steps-col-details'>
                                     <Box className='active-session'>
                                         <Typography component="h5" variant='h5'>
@@ -86,7 +71,7 @@ const SessionHistory = () => {
                                         </Typography>
                                         <Box className='session-list' marginBottom={5}>
                                             <TableContainer>
-                                                <Table   sx={{ minWidth : {xs: '250px' , md: '650px'}}} aria-label="simple table">
+                                                <Table sx={{ minWidth: { xs: '250px', md: '650px' } }} aria-label="simple table">
                                                     <TableHead>
                                                         <TableRow>
                                                             <TableCell>
@@ -156,7 +141,7 @@ const SessionHistory = () => {
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                            <Button variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto' , marginY : {xs: '40px ' , md: '40px'}}}>Log out all other devices</Button>
+                                            <Button variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto', marginY: { xs: '40px ', md: '40px' } }}>Log out all other devices</Button>
                                         </Box>
                                     </Box>
 
@@ -166,7 +151,7 @@ const SessionHistory = () => {
                                         </Typography>
                                         <Box className='session-list'>
                                             <TableContainer>
-                                                <Table sx={{minWidth : {xs: '250px' , md: '650px'}}} aria-label="simple table">
+                                                <Table sx={{ minWidth: { xs: '250px', md: '650px' } }} aria-label="simple table">
                                                     <TableHead>
                                                         <TableRow>
                                                             <TableCell>

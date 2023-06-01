@@ -1,9 +1,6 @@
-import { Container, Typography, Tab, Grid, Box, Stack, Button, MenuItem, OutlinedInput, FormControl, Select } from '@mui/material'
+import { Container, Typography, Grid, Box, Stack, Button, MenuItem, OutlinedInput, FormControl, Select } from '@mui/material'
 import React from 'react';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import VideoImg from "../../../public/assets/images/coinguru-video.svg";
+import VideoImg from "../../../public/assets/images/learn01.png";
 import Blog1 from "../../../public/assets/images/blog-1.svg";
 import Avatar from "../../../public/assets/images/avatar.svg";
 import GridImage from "../../../public/assets/images/grid.svg";
@@ -72,8 +69,8 @@ const LearnCypto = () => {
           <Typography textAlign='center' className='secondary-color body-large'>A creative agency that lead and inspire</Typography>
           <Box>
             <Stack direction='row' spacing={3} justifyContent='center' paddingTop={3} paddingBottom={10}>
-              <Button variant='contained' className='btn btn-primary'>Learn Now </Button>
-              <Button variant='outlined' className='btn btn-outlined-secondary'>Video Tutorial </Button>
+              <Button variant='contained' className='btn btn-primary' onClick={() => { navigate("../learn-cypto-detail") }}>Learn Now </Button>
+              <Button variant='outlined' className='btn btn-outlined-secondary' onClick={() => { navigate("../learn-cypto-detail") }}>Video Tutorial </Button>
             </Stack>
             {/* <img src={VideoImg}/>   */}
             <video poster={VideoImg} width="100%" height="100%" controls>

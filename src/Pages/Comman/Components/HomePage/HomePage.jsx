@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { Link, Grid, Container, Typography, Toolbar, Box, CssBaseline, Button, IconButton, Stack, Tab } from '@mui/material';
+import { Grid, Container, Typography, Box, Button, IconButton, Stack, Tab } from '@mui/material';
 import { ArrowCircleDownSharp, KeyboardArrowRight, East, West } from '@mui/icons-material';
 import HeroImage from "../../../../../public/assets/images/banner.svg";
-import Btc from "../../../../../public/assets/images/btc.svg";
+import Btc from "../../../../../public/assets/images/icons/btc-ic.svg";
 import Leveragedv3 from "../../../../../public/assets/images/leveragedv3.svg";
 import Leveraged from "../../../../../public/assets/images/leveraged.svg";
 import Leveragedv2 from "../../../../../public/assets/images/leveragedv2.svg";
-import BuyCypto from "../../../../../public/assets/images/buyCypto.svg";
+import BuyCypto from "../../../../../public/assets/images/crypto-trader-01.svg";
 import Market from "../../../../../public/assets/images/market.svg";
 import LearnCypto from "../../../../../public/assets/images/learn-cypto.svg";
 import Appleicon from "../../../../../public/assets/images/apple.svg";
@@ -28,7 +28,7 @@ import { useEffect } from "react"
 import Marquee from "react-fast-marquee";
 import CryptoTable from '../../CryptoTable';
 import { useNavigate } from 'react-router-dom';
-
+import Learn01 from '../../../../../public/assets/images/learn01.png'
 
 const Home = () => {
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ const Home = () => {
               <Typography paddingBottom={2} >
                 <Button variant="contained" className="btn btn-primary " sx={{ borderRadius: '90px', }} onClick={() => { navigate("./market") }}>Get started now</Button>
               </Typography>
-              <IconButton aria-label="ArrowCircleDown" variant="outlined" color="secondary-color ipad-none" padding={0}>
+              <IconButton aria-label="ArrowCircleDown" variant="outlined" color="secondary-color ipad-none" padding={0} >
                 <ArrowCircleDownSharp />
               </IconButton>
             </Grid>
@@ -160,7 +160,7 @@ const Home = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={4} md={4} textAlign='right' className='mobile-none'>
-              <Button variant="outlined" sx={{ borderRadius: '90px' }} onClick={() => { navigate("./learn-cypto") }}>View more</Button>
+              <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ borderRadius: '90px', ml: { lg: 'auto' } }} onClick={() => { navigate("./learn-cypto") }}>View more</Button>
             </Grid>
           </Grid>
 
@@ -176,6 +176,265 @@ const Home = () => {
                 </TabList>
               </Box>
               <TabPanel value="1" sx={{ paddingRight: '0', paddingLeft: '0' }} >
+                <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
+                  <Grid item xs={6} >
+                    <img src={Leveragedv3} />
+                    <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>
+                      <Box>
+                        <Typography variant='h3' component="div" fontSize={32} fontWeight={700} className='secondary-font'>
+                          Leveraged tokens now available
+                        </Typography>
+                        <Typography fontSize={16} component="div" paddingTop={2} paddingBottom={2} className='secondary-color primary-font'>Good things come in 3s. Get 3x Leveraged tokens now.</Typography>
+                      </Box>
+                      <Button variant="outline" className='btn btn-outline' endIcon={<KeyboardArrowRight />} sx={{ border: '1px solid #E6E8EC', height: '50px', whiteSpace: 'nowrap' }}>Learn more</Button>
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3}>
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className='primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Box className='cypto-video'>
+                          <video poster={Learn01} width="100%" height="100%" controls>
+                            <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        </Box>
+                      </Grid>
+                    </Grid>
+
+                    {/* 1st box end */}
+
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} rowSpacing={{ xs: 3 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3} >
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className='primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <img src={Leveragedv2} />
+                      </Grid>
+                    </Grid>
+
+                    {/* 2nd box end */}
+
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3}>
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className=' primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Box className='cypto-video'>
+                          <video poster={Learn01} width="100%" height="100%" controls>
+                            <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </TabPanel>
+              <TabPanel value="2">
+                <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
+                  <Grid item xs={6} >
+                    <img src={Leveragedv3} />
+                    <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>
+                      <Box>
+                        <Typography variant='h3' component="div" fontSize={32} fontWeight={700} className='secondary-font'>
+                          Leveraged tokens now available
+                        </Typography>
+                        <Typography fontSize={16} component="div" paddingTop={2} paddingBottom={2} className='secondary-color primary-font'>Good things come in 3s. Get 3x Leveraged tokens now.</Typography>
+                      </Box>
+                      <Button variant="outline" className='btn btn-outline' endIcon={<KeyboardArrowRight />} sx={{ border: '1px solid #E6E8EC', height: '50px', whiteSpace: 'nowrap' }}>Learn more</Button>
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3}>
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className='primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <img src={Leveraged} />
+                      </Grid>
+                    </Grid>
+
+                    {/* 1st box end */}
+
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} rowSpacing={{ xs: 3 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3} >
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className='primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Box className='cypto-video'>
+                          <video poster={Learn01} width="100%" height="100%" controls>
+                            <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        </Box>
+                      </Grid>
+                    </Grid>
+
+                    {/* 2nd box end */}
+
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3}>
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className=' primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <img src={Leveraged} />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </TabPanel>
+              <TabPanel value="3">
+                <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
+                  <Grid item xs={6} >
+                    <img src={Leveragedv3} />
+                    <Stack direction="row" spacing={2} justifyContent='space-between' paddingTop={3}>
+                      <Box>
+                        <Typography variant='h3' component="div" fontSize={32} fontWeight={700} className='secondary-font'>
+                          Leveraged tokens now available
+                        </Typography>
+                        <Typography fontSize={16} component="div" paddingTop={2} paddingBottom={2} className='secondary-color primary-font'>Good things come in 3s. Get 3x Leveraged tokens now.</Typography>
+                      </Box>
+                      <Button variant="outline" className='btn btn-outline' endIcon={<KeyboardArrowRight />} sx={{ border: '1px solid #E6E8EC', height: '50px', whiteSpace: 'nowrap' }}>Learn more</Button>
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3}>
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className='primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Box className='cypto-video'>
+                          <video poster={Learn01} width="100%" height="100%" controls>
+                            <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        </Box>
+                      </Grid>
+                    </Grid>
+
+                    {/* 1st box end */}
+
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} rowSpacing={{ xs: 3 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3} >
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className='primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <img src={Leveragedv2} />
+                      </Grid>
+                    </Grid>
+
+                    {/* 2nd box end */}
+
+                    <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='flex-between-box' marginBottom={3} >
+                      <Grid item xs={6} paddingRight={3}>
+                        <Stack spacing={2} justifyContent='space-between'>
+                          <Typography fontSize={16} className=' primary-font'>
+                            Leveraged tokens now available
+                          </Typography>
+                          <Typography sx={{ fontSize: "14px !important" }} className='secondary-color primary-font'>
+                            Good things come in 3s. Get 3x Leveraged tokens now.
+                          </Typography>
+                        </Stack>
+                        <Typography sx={{ fontSize: "14px !important" }} fontWeight={400} className='secondary-color primary-font'>
+                          Jun 1, 2021
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Box className='cypto-video'>
+                          <video poster={Learn01} width="100%" height="100%" controls>
+                            <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </TabPanel>
+              <TabPanel value="4">
                 <Grid container columnSpacing={{ xs: 1, sm: 4 }} className='ipad-none'>
                   <Grid item xs={6} >
                     <img src={Leveragedv3} />
@@ -253,9 +512,6 @@ const Home = () => {
                   </Grid>
                 </Grid>
               </TabPanel>
-              <TabPanel value="2">Bitcoin</TabPanel>
-              <TabPanel value="3">Blockchain</TabPanel>
-              <TabPanel value="4">Tutorial</TabPanel>
             </TabContext>
 
 
@@ -273,6 +529,7 @@ const Home = () => {
                     </Typography>
                   </Grid>
                   <Grid item xs={12} md={6} >
+
                     <img width='100%' src={Leveraged} />
                     <Typography fontSize={16} paddingY={2} fontWeight={700} className='body-large primary-font'>
                       Leveraged tokens now available
@@ -300,7 +557,7 @@ const Home = () => {
       {/* learn cypto star*/}
 
       <Container>
-        <Box sx={{ display: { xs: 'block', md: 'flex' } }} justifyContent='space-between'>
+        <Box sx={{ display: { xs: 'block', md: 'flex' } }} justifyContent='space-between' alignItems='center'>
           <Typography component='h2' variant='h2' className='secondary-font mobile-font-40' paddingBottom={2}>Market trend</Typography>
           <Typography className='' variant='p' component='p' sx={{ display: { xs: 'block', md: 'none' } }}><span className='gold-color'>Subscribe</span> to gain complete access to the most precise short and long-term predictions of cryptocurrency prices.</Typography>
           <Button className='btn btn-outlined-secondary mobile-none'>View More</Button>
@@ -384,20 +641,20 @@ const Home = () => {
                   Coming soon...
                 </Typography>
 
-                <Stack direction="row" spacing={2} sx={{ borderBottom: '1px solid #E6E8EC', paddingBottom: '20px' ,paddingTop: '20px' }} >
-                   <img src={GoogleIcon}/>
-                   <Box>
-                    <Typography variant='' component='div'  className='body-caption secondary-color'>Download from</Typography>
+                <Stack direction="row" spacing={2} sx={{ borderBottom: '1px solid #E6E8EC', paddingBottom: '20px', paddingTop: '20px' }} >
+                  <img src={GoogleIcon} />
+                  <Box>
+                    <Typography variant='' component='div' className='body-caption secondary-color'>Download from</Typography>
                     <Typography variant='' component='div' className='body-large '>Google Play</Typography>
-                   </Box>
+                  </Box>
                 </Stack>
 
-                <Stack direction="row" spacing={2} sx={{ borderBottom: '1px solid #E6E8EC', paddingBottom: '20px' ,paddingTop: '20px' }} >
-                   <img src={Appleicon}/>
-                   <Box>
-                    <Typography variant='' component='div'  className='body-caption secondary-color'>Download from</Typography>
+                <Stack direction="row" spacing={2} sx={{ borderBottom: '1px solid #E6E8EC', paddingBottom: '20px', paddingTop: '20px' }} >
+                  <img src={Appleicon} />
+                  <Box>
+                    <Typography variant='' component='div' className='body-caption secondary-color'>Download from</Typography>
                     <Typography variant='' component='div' className='body-large '>Appstore</Typography>
-                   </Box>
+                  </Box>
                 </Stack>
 
                 <Stack direction="row" spacing={2} sx={{ paddingBottom: '20px', paddingTop: '20px' }} >
@@ -452,7 +709,7 @@ const Home = () => {
             Power up your crypto game with our data-driven predictions!
           </Typography>
         </Box>
-        <Grid className='scrolling-tab' container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        <Grid className='scrolling-tab' paddingBottom={18} container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           <Grid item xs={6} sm={6} md={3} >
             <Box textAlign='center' className='howworks-box contact-line '>
               <img src={Market} width={96} />

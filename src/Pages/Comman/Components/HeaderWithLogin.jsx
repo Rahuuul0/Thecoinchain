@@ -12,6 +12,8 @@ import UserIcon from '../../../../public/assets/images/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import { useUserActions } from "../../../_actions/user.actions";
 import USA from '../../../../public/assets/images/icons/usa.svg';
+import japan from '../../../../public/assets/images/icons/japan.svg';
+import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 const drawerWidth = 240;
 
 function Header(props) {
@@ -195,8 +197,8 @@ function Header(props) {
                         <FormControlLabel className='radio-option' value="japanese" control={<Radio />} label="Japanese" />
                       </RadioGroup>
                     </FormControl> */}
-                      <Box className='language-dropdown'>
-                     <Typography className='small-caption language-box' id="lang-label" sx={{fontSize:'12px !important'}} paddingBottom={4}>Language</Typography>
+                    <Box className='language-dropdown'>
+                      <Typography className='small-caption language-box' id="lang-label" sx={{ fontSize: '12px !important' }} paddingBottom={4}>Language</Typography>
                       <Box class="img-btn first-img-btn">
                         <input type="radio" name="country-flags" checked />
                         <img width='30' src={USA} alt="Sri Lanka Flag" /> English
@@ -204,12 +206,12 @@ function Header(props) {
 
                       <Box class="img-btn">
                         <input type="radio" name="country-flags" />
-                        <img width='30' src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-800.png" alt="America Flag" /> Chinese
+                        <img width='30' src={Chaina} alt="America Flag" /> Chinese
                       </Box>
 
                       <Box class="img-btn">
                         <input type="radio" name="country-flags" />
-                        <img width='30' src="https://cdn.countryflags.com/thumbs/india/flag-400.png" alt="India Flag" /> Japanese
+                        <img width='30' src={japan} alt="India Flag" /> Japanese
                       </Box>
                     </Box>
                   </Grid>

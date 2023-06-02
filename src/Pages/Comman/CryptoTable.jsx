@@ -31,6 +31,10 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import HttpsIcon from "@mui/icons-material/Https";
 import { useLocation } from "react-router-dom";
+import { Line, Chart } from "react-chartjs-2";
+import { Chart as ChartJS, registerables } from "chart.js";
+
+ChartJS.register(...registerables);
 
 function paginator(items, current_page, per_page_items) {
   let page = current_page || 1,
@@ -60,8 +64,39 @@ const CryptoTable = (props) => {
   };
 
   const [open, setOpen] = React.useState(false);
+  const [chartData, setChartData] = React.useState({});
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [chartOpen, setChartOpen] = React.useState(false);
+  const handleChartOpen = (id) => {
+    setChartOpen(true);
+    setChartData(coinData[id]);
+    console.log(id, 55555555555555);
+  };
+  const handleChartClose = () => setChartOpen(false);
+  const data = {
+    labels: ["1h", "24h", "7d", "30d"],
+    datasets: [
+      {
+        data: [33, 53, 85, 41],
+        fill: false,
+        backgroundColor: "rgba(75,192,192,0.2)",
+        borderColor: "#54BB7A",
+      },
+      //   {
+      //     label: "Second dataset",
+      //     data: [33, 25, 35, 51, 54, 76],
+      //     fill: false,
+      //     borderColor: "#742774",
+      //   },
+    ],
+  };
+
+  const myData = () => {
+    console.log(chartData.quote.USD.price);
+  };
 
   // Table Json Data call
   const sethomeData = useRecoilState(homePageAtom);
@@ -69,7 +104,7 @@ const CryptoTable = (props) => {
   const coinData = sethomeData[0][0].data;
 
   useEffect(() => {
-    console.log(sethomeData[0][0].data, "gfddsfdfdfsfs");
+    console.log(sethomeData[0][0].data, "1111111111111");
   }, []);
 
   const count = Math.ceil(coinData.length / 4);
@@ -111,7 +146,11 @@ const CryptoTable = (props) => {
                         <TableCell align="right">30d %</TableCell>
                       </>
                     ) : (
-                      ""
+                      <>
+                        <TableCell align="right">7d %</TableCell>
+                        <TableCell align="right">Marketcap</TableCell>
+                        <TableCell align="right">Volume(24h)</TableCell>
+                      </>
                     )}
                     <TableCell align="right">Chart</TableCell>
                     {props?.isIt ? (
@@ -163,23 +202,20 @@ const CryptoTable = (props) => {
                         !props?.isIt ? (
                           <>
                             <TableCell align="right">
-                              {/* <span className='up'>{Math.round((item.quote.USD.percent_change_1h + Number.EPSILON) * 100) / 100}%</span> */}
                               <HttpsIcon />
                             </TableCell>
                             <TableCell align="right">
-                              {/* <span className='up'>{Math.round((item.quote.USD.percent_change_24h + Number.EPSILON) * 100) / 100}%</span> */}
                               <HttpsIcon />
                             </TableCell>
                             <TableCell align="right">
-                              {/* <span className='up'>{Math.round((item.quote.USD.percent_change_7d + Number.EPSILON) * 100) / 100}%</span> */}
                               <HttpsIcon />
                             </TableCell>
                             <TableCell align="right">
-                              {/* <span className='up'>{Math.round((item.quote.USD.percent_change_30d + Number.EPSILON) * 100) / 100}%</span> */}
                               <HttpsIcon />
                             </TableCell>{" "}
                           </>
-                        ) : (
+                        ) : location.pathname === "/prediction-dashboard" &&
+                          props?.isIt ? (
                           <>
                             <TableCell align="right">
                               {/* <span className='up'>{Math.round((item.quote.USD.percent_change_1h + Number.EPSILON) * 100) / 100}%</span> */}
@@ -227,10 +263,47 @@ const CryptoTable = (props) => {
                               </span>
                             </TableCell>
                           </>
+                        ) : (
+                          <>
+                            <TableCell align="right">
+                              <span
+                                className={
+                                  priceChange.percent_change_7d < 0
+                                    ? "down"
+                                    : "up"
+                                }
+                              >
+                                {priceChange.percent_change_7d}
+                              </span>
+                            </TableCell>
+                            <TableCell align="right">
+                              <span
+                                className={
+                                  priceChange.market_cap < 0 ? "down" : "up"
+                                }
+                              >
+                                {priceChange.market_cap}
+                              </span>
+                            </TableCell>
+                            <TableCell align="right">
+                              <span
+                                className={
+                                  priceChange.volume_24h < 0 ? "down" : "up"
+                                }
+                              >
+                                {priceChange.volume_24h}
+                              </span>
+                            </TableCell>
+                          </>
                         )}
 
                         <TableCell align="right">
-                          <img src={ChartUp} alt="chart" height="33px" />
+                          <img
+                            src={ChartUp}
+                            alt="chart"
+                            height="33px"
+                            onClick={() => handleChartOpen(item.id)}
+                          />
                         </TableCell>
 
                         {props?.isIt ? (
@@ -252,7 +325,7 @@ const CryptoTable = (props) => {
                 </TableBody>
               </Table>
             </Stack>
-            {props?.isIt ? (
+            {location.pathname === "/prediction-dashboard" ? (
               <Pagination
                 sx={{ float: "right" }}
                 count={count}
@@ -396,6 +469,68 @@ const CryptoTable = (props) => {
             </Box>
           </Box>
           <Button fullWidth variant="contained" className="btn btn-primary">
+            Back
+          </Button>
+        </Box>
+      </Modal>
+
+      {/* chartModal */}
+      <Modal
+        open={chartOpen}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="modal-dialog modal-crypto-table">
+          <Button
+            onClick={handleChartClose}
+            variant="outlined"
+            className="btn btn-outlined-secondary btn-round btn-close"
+          >
+            <CloseIcon />
+          </Button>
+          <Box className="modal-head">
+            <Typography
+              id="modal-modal-title"
+              className="modal-modal-title"
+              variant="h6"
+              component="h2"
+            >
+              <NavigateBeforeIcon /> BTC
+            </Typography>
+          </Box>
+          <Box
+            id="modal-modal-description"
+            className="modal-modal-description"
+            sx={{ mt: 2, p: 2 }}
+          >
+            <Typography className="crypto-fullname" variant="h5" component="h5">
+              BTC/USDT <span className="badge">1x</span>
+            </Typography>
+            <Typography
+              className="crypto-fullname-small"
+              variant="body2"
+              component="small"
+              sx={{ color: "#777E91", fontWeight: "600" }}
+            >
+              {chartData.name}
+            </Typography>
+            <Box className="value-details">
+              <Button
+                variant="outlined"
+                className="btn btn-outlined-secondary btn-round btn-close"
+              >
+                <KeyboardArrowDownIcon />
+              </Button>
+            </Box>
+            <Line data={data} />
+          </Box>
+          <Button
+            onClick={myData}
+            fullWidth
+            variant="contained"
+            className="btn btn-primary"
+          >
             Back
           </Button>
         </Box>

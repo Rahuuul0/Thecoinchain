@@ -28,7 +28,12 @@
   --color-grey: rgba(119, 126, 144, 1);
   --secondary-color: #777e90;
 }
-
+.color-dark{
+  color: #23262f;
+}
+.font-500{
+  font-weight: 500;
+}
 :focus {
   outline: none !important;
 }
@@ -531,6 +536,9 @@ nav .MuiButtonBase-root:hover{
 
 .MuiFormControl-root label.Mui-focused + .MuiInputBase-root {
   border-color: var(--primary-color);
+}
+.refferal-form .MuiFormControl-root label.Mui-focused + .MuiInputBase-root {
+  border-color: #58bd7d;
 }
 
 .MuiFormControl-root .MuiInputBase-root input {
@@ -1262,7 +1270,9 @@ input[type="number"] {
 .topic-que .MuiFormControl-root label {
   transform: none !important;
 }
-
+.faq-accordian .Mui-expanded .faq-count{
+  color: #3772FF;
+}
 /* Homepage Ends */
 #root .topic-que .MuiSelect-select {
   padding: 10.5px 5px 10.5px 16px !important;
@@ -2233,10 +2243,22 @@ p.left-icon img {
 
 /* Refferal page css */
 
-.main-box .usdt {
+.green-span span {
   color: #58bd7d;
 }
-
+.faenable-box span{
+  color: #58bd7d;
+}
+.fa-disabled span{
+  color: #FF6838;
+}
+.email-icon svg{
+  top: 7px;
+  position: relative;
+}
+.change-password-box{
+  padding: 40px 90px;
+}
 .main-box .center-box .input-link {
   font-size: 12px !important;
   font-weight: 700;
@@ -2374,6 +2396,10 @@ video[poster] {
 .community-details {
   width: 100%;
 }
+.crypto-list-table table tr th:last-child{
+  
+  padding-right: 28px;
+}
 
 .community-details .community-details-head {
   display: flex;
@@ -2387,6 +2413,9 @@ video[poster] {
 
 .react-player__preview {
   border-radius: 16px;
+}
+.MuiFormControl-root .MuiFormLabel-asterisk{
+  display: none;
 }
 
 /* Media Queries  */

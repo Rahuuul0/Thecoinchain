@@ -233,14 +233,14 @@ const CryptoTable = (props) => {
                           <img src={ChartUp} alt="chart" height="33px" />
                         </TableCell>
 
-                        {location.pathname === "/prediction-dashboard" &&
-                        props?.isIt ? (
+                        {props?.isIt ? (
                           ""
                         ) : (
                           <TableCell align="right">
                             <Button
                               variant="outlined"
                               className="btn btn-outlined-secondary"
+                              sx={{ marginLeft: "auto" }}
                             >
                               Predict
                             </Button>
@@ -252,7 +252,7 @@ const CryptoTable = (props) => {
                 </TableBody>
               </Table>
             </Stack>
-            {location.pathname === "/prediction-dashboard" && props?.isIt ? (
+            {props?.isIt ? (
               <Pagination
                 sx={{ float: "right" }}
                 count={count}

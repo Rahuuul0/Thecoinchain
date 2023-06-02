@@ -241,9 +241,10 @@ const Profile = () => {
                       </Typography>
                     </Box>
                     <Box>
-                      <Box display="flex" paddingY={3}>
+                      <Box display="flex" paddingY={2.5}>
                         <span>
                           <Typography
+                            paddingTop={1}
                             component="p"
                             variant="body2"
                             fontWeight={500}
@@ -305,7 +306,7 @@ const Profile = () => {
                           {...register("name")}
                         />
                         <div style={{ color: "red" }}>
-                          {errors.user_name?.message}
+                          {errors.name?.message}
                         </div>
                       </Box>
                       <Box className="input-bg" paddingY={0}>
@@ -344,10 +345,10 @@ const Profile = () => {
                           // placeholder='Mobile'
                           name="mobile"
                           autoComplete="off"
-                          {...register("phone")}
+                          {...register("mobile")}
                         />
                         <div style={{ color: "red" }}>
-                          {errors.phone?.message}
+                          {errors.mobile?.message}
                         </div>
                       </Box>
                     </Box>

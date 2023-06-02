@@ -131,7 +131,7 @@ const ForgotPassword = () => {
                                             Continue
                                         </Button>
                                         <Typography onClick={() => { navigate('/login') }} component="p" variant="body2" sx={{ fontSize: '14px', textAlign: 'center', fontWeight: '700', marginTop: '24px' }}>
-                                            <Link onClick={() => { navigate('/login') }} >    Nevermind, I got it  </Link>
+                                            <Link onClick={() => { navigate('/login') }} sx={{color:'#23262F !important'}}>    Nevermind, I got it  </Link>
                                         </Typography>
                                     </Box>
 

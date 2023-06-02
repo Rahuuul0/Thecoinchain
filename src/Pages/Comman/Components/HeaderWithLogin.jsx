@@ -328,7 +328,6 @@ function Header(props) {
                   <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Logout</span>
                 </span>
               </MenuItem>
-              <Divider />
 
             </Menu>
           </Box>

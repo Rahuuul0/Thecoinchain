@@ -61,7 +61,7 @@ const TwoFaEnable = () => {
                                     <Box className="">
                                         <Box className='fa-heading-box'>
                                             <Box sx={{ paddingBottom: { xs: '20px', md: '5px' } }}>
-                                                <Typography component="h3" variant='h3' className='fa secondary-font' paddingY={3} sx={{ fontWeight: '600', }} >2FA <span >Enabled</span></Typography>
+                                                <Typography component="h3" variant='h3' className='secondary-font faenable-box' paddingY={3} sx={{ fontWeight: '600', }} >2FA <span >Enabled</span></Typography>
                                                 <Typography component="p" variant='body2' className='secondary-color small-caption  '>If you want to turn off 2FA, input your account password and the six-digit code provided by the Google Authenticator app below, then click <span className='color-dark' fontWeight={500} color='#23262F'>"Disable 2FA"</span>.</Typography>
                                             </Box>
                                         </Box>

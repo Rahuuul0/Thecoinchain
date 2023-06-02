@@ -229,7 +229,6 @@ const Profile = () => {
                                                     name="name"
                                                     autoComplete="off"
                                                     backgroundColor='#fff'
-                                                    autoFocus
                                                     {...register("user_name")}
                                                 />
                                                 <div style={{ color: "red" }}>{errors.user_name?.message}</div>

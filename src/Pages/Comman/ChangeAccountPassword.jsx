@@ -83,7 +83,7 @@ const ChangeAccountPassword = () => {
                         <Container maxWidth="lg">
                             <Box className='subscription-steps-inner '>
                                 <Sidebar />
-                                <Box className='subscription-steps-col-details'>
+                                <Box className='subscription-steps-col-details change-password-box'>
                                     <Box className='active-session'>
                                         <Typography component="h5" variant='h5'>
                                             Change password

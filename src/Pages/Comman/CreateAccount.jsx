@@ -82,6 +82,9 @@ const CreateAccount = () => {
         }
         
     }
+
+
+    
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -250,9 +253,10 @@ const CreateAccount = () => {
 
                                         <FormControlLabel                                         
                                         className='auth-checkbox' 
+                                        display='flex'
                                         control={<Checkbox {...register("agree")}  />} 
-                                        label="* By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." 
-                                        />
+                                        label='* By signing up I agree that I’m 18 <b> years</b> of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent.'
+                                            />
                                           <div style={{ color: "red" }}> {errors.agree?.message}
                                         </div>
                                         <ReCAPTCHA

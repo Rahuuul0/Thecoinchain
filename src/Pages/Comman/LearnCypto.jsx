@@ -10,7 +10,8 @@ import {
   FormControl,
   Select,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import * as React from "react";
+import VideoImg from "../../../public/assets/images/learn01.png";
 import Blog1 from "../../../public/assets/images/blog-1.svg";
 import Avatar from "../../../public/assets/images/avatar.svg";
 import GridImage from "../../../public/assets/images/grid.svg";
@@ -24,6 +25,11 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { tutorialAtom } from "../../_state";
 import { blogAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
+import SwipeableViews from "react-swipeable-views";
+import AppBar from "@mui/material/AppBar";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { TabContext, TabPanel } from "@mui/lab/";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -58,10 +64,24 @@ function getStyles(name, personName, theme) {
   };
 }
 
+function a11yProps(index) {
+  return {
+    id: `full-width-tab-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
+  };
+}
 const LearnCypto = () => {
+  const [valueTab, setValueTab] = React.useState(0);
+
+  const handleChangeTab = (event, newValue) => {
+    setValueTab(newValue);
+  };
+
+  const handleChangeIndex = (index) => {
+    setValueTab(index);
+  };
   const navigate = useNavigate();
   const scrollRef = React.useRef();
-  const tutorialAction = useTutorialActions();
   const blogsData = useRecoilValue(blogAtom);
   const tutorialsData = useRecoilValue(tutorialAtom);
 
@@ -89,6 +109,8 @@ const LearnCypto = () => {
     );
   };
 
+  const tutorialAction = useTutorialActions();
+
   const scrollToVideo = (e, videoLink) => {
     e.current.scrollIntoView({
       behavior: "smooth",
@@ -96,9 +118,9 @@ const LearnCypto = () => {
     setVideoUrl(videoLink);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     tutorialAction.blogData();
-  }, []);
+  }, [blogsData]);
 
   const handleLoadMore = () => {
     setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 4);
@@ -229,69 +251,216 @@ const LearnCypto = () => {
                   Stacks is a production-ready library of stackable content
                   blocks built in React Native.
                 </Typography>
-                <Stack
-                  direction="row"
-                  className="filter-btn"
-                  spacing="2"
-                  paddingTop={5}
-                >
-                  <Button variant="contained" className="btn btn-secondary">
-                    Bitcoin{" "}
-                  </Button>
-                  <Button>Blockchain</Button>
-                  <Button>Tutorials</Button>
-                </Stack>
               </Grid>
             </Grid>
           </Box>
-
-          {blogsData.slice(0, 3).map((item) => {
-            return (
-              <Box paddingBottom={3}>
+        </Container>
+        <Container>
+          <Box className="right-tab">
+            <TabContext value={valueTab}>
+              <AppBar position="static">
                 <Grid container>
-                  <Grid item xs={12} sm={5} md={5}>
-                    <Box
-                      className="blog-box"
-                      display="flex"
-                      flexDirection="column"
-                      justifyContent="space-between"
+                  <Grid className="" xs={12} sm={5} md={5}></Grid>
+                  <Grid className="" xs={12} sm={7} md={7}>
+                    <Tabs
+                      value={valueTab}
+                      onChange={handleChangeTab}
+                      indicatorColor="secondary"
+                      textColor="inherit"
+                      aria-label="full width tabs example"
                     >
-                      <Box height="50">
-                        <Button
-                          textTransform="uppercase"
-                          sx={{ marginBottom: "50px" }}
-                          className="orange-btn small-btn"
-                        >
-                          beginner
-                        </Button>
-                      </Box>
-                      <Box className="" paddingBottom={5}>
-                        <Typography
-                          variant="h4"
-                          fontWeight="700"
-                          className="secondary-font"
-                          paddingBottom={2}
-                        >
-                          {item.title}
-                        </Typography>
-                        <Typography paddingBottom={5}>Ethereum</Typography>
-                        <Typography className="body-caption secondary-color">
-                          A fully-featured landing page kit, including design
-                          files, and beautiful 3D illustrations editable.
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <ArrowRightAlt />
-                      </Box>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12} sm={7} md={7}>
-                    <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                      <Tab label="Bitcoin" {...a11yProps(0)} />
+                      <Tab label="Blockchain" {...a11yProps(1)} />
+                      <Tab label="Tutorials" {...a11yProps(2)} />
+                    </Tabs>
                   </Grid>
                 </Grid>
-              </Box>
-            );
-          })}
+              </AppBar>
+              <SwipeableViews
+                axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+                index={valueTab}
+                onChangeIndex={handleChangeIndex}
+              >
+                <TabPanel value={valueTab} index={0} dir={theme.direction}>
+                  <Box>
+                    {blogsData
+                      .filter((blog) => {
+                        return blog.category === "2D Design";
+                      })
+                      .slice(0, 3)
+                      .map((item) => {
+                        return (
+                          <Box paddingBottom={3}>
+                            <Grid container>
+                              <Grid item xs={12} sm={5} md={5}>
+                                <Box
+                                  className="blog-box"
+                                  display="flex"
+                                  flexDirection="column"
+                                  justifyContent="space-between"
+                                >
+                                  <Box height="50">
+                                    <Button
+                                      textTransform="uppercase"
+                                      sx={{ marginBottom: "50px" }}
+                                      className="orange-btn small-btn"
+                                    >
+                                      New
+                                    </Button>
+                                  </Box>
+                                  <Box className="" paddingBottom={5}>
+                                    <Typography
+                                      variant="h4"
+                                      fontWeight="700"
+                                      className="secondary-font"
+                                      paddingBottom={2}
+                                    >
+                                      A Beginner's Guide to TradingView
+                                    </Typography>
+                                    <Typography paddingBottom={5}>
+                                      Ethereum
+                                    </Typography>
+                                    <Typography className="body-caption secondary-color">
+                                      A fully-featured landing page kit,
+                                      including design files, and beautiful 3D
+                                      illustrations editable.
+                                    </Typography>
+                                  </Box>
+                                  <Box>
+                                    <ArrowRightAlt />
+                                  </Box>
+                                </Box>
+                              </Grid>
+                              <Grid item xs={12} sm={7} md={7}>
+                                <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                              </Grid>
+                            </Grid>
+                          </Box>
+                        );
+                      })}
+                  </Box>
+                </TabPanel>
+                <TabPanel value={valueTab} index={1} dir={theme.direction}>
+                  <Box>
+                    {blogsData
+                      .filter((blog) => {
+                        return blog.category === "3D Design";
+                      })
+                      .slice(0, 3)
+                      .map((item) => {
+                        return (
+                          <Box paddingBottom={3}>
+                            <Grid container>
+                              <Grid item xs={12} sm={5} md={5}>
+                                <Box
+                                  className="blog-box"
+                                  display="flex"
+                                  flexDirection="column"
+                                  justifyContent="space-between"
+                                >
+                                  <Box height="50">
+                                    <Button
+                                      textTransform="uppercase"
+                                      sx={{ marginBottom: "50px" }}
+                                      className="orange-btn small-btn"
+                                    >
+                                      New
+                                    </Button>
+                                  </Box>
+                                  <Box className="" paddingBottom={5}>
+                                    <Typography
+                                      variant="h4"
+                                      fontWeight="700"
+                                      className="secondary-font"
+                                      paddingBottom={2}
+                                    >
+                                      A Beginner's Guide to TradingView
+                                    </Typography>
+                                    <Typography paddingBottom={5}>
+                                      Ethereum
+                                    </Typography>
+                                    <Typography className="body-caption secondary-color">
+                                      A fully-featured landing page kit,
+                                      including design files, and beautiful 3D
+                                      illustrations editable.
+                                    </Typography>
+                                  </Box>
+                                  <Box>
+                                    <ArrowRightAlt />
+                                  </Box>
+                                </Box>
+                              </Grid>
+                              <Grid item xs={12} sm={7} md={7}>
+                                <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                              </Grid>
+                            </Grid>
+                          </Box>
+                        );
+                      })}
+                  </Box>
+                </TabPanel>
+                <TabPanel value={valueTab} index={2} dir={theme.direction}>
+                  <Box>
+                    {blogsData
+                      .filter((blog) => {
+                        return blog.category === "User experience";
+                      })
+                      .slice(0, 3)
+                      .map((item) => {
+                        return (
+                          <Box paddingBottom={3}>
+                            <Grid container>
+                              <Grid item xs={12} sm={5} md={5}>
+                                <Box
+                                  className="blog-box"
+                                  display="flex"
+                                  flexDirection="column"
+                                  justifyContent="space-between"
+                                >
+                                  <Box height="50">
+                                    <Button
+                                      textTransform="uppercase"
+                                      sx={{ marginBottom: "50px" }}
+                                      className="orange-btn small-btn"
+                                    >
+                                      New
+                                    </Button>
+                                  </Box>
+                                  <Box className="" paddingBottom={5}>
+                                    <Typography
+                                      variant="h4"
+                                      fontWeight="700"
+                                      className="secondary-font"
+                                      paddingBottom={2}
+                                    >
+                                      A Beginner's Guide to TradingView
+                                    </Typography>
+                                    <Typography paddingBottom={5}>
+                                      Ethereum
+                                    </Typography>
+                                    <Typography className="body-caption secondary-color">
+                                      A fully-featured landing page kit,
+                                      including design files, and beautiful 3D
+                                      illustrations editable.
+                                    </Typography>
+                                  </Box>
+                                  <Box>
+                                    <ArrowRightAlt />
+                                  </Box>
+                                </Box>
+                              </Grid>
+                              <Grid item xs={12} sm={7} md={7}>
+                                <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                              </Grid>
+                            </Grid>
+                          </Box>
+                        );
+                      })}
+                  </Box>
+                </TabPanel>
+              </SwipeableViews>
+            </TabContext>
+          </Box>
         </Container>
       </Container>
       {/* blog ends */}

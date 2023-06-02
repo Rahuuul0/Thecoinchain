@@ -388,10 +388,14 @@ nav .MuiButtonBase-root {
 #root nav .btn {
   display: inherit !important;
 }
-nav .MuiButtonBase-root:hover {
-  text-decoration: none;
-  background-color: rgba(25, 118, 210, 0.04);
-  border-radius: 90px;
+
+nav .MuiButtonBase-root:hover{
+    text-decoration: none;
+    background-color: rgba(25, 118, 210, 0.04);
+    border-radius: 90px;
+}
+.app-nav button.MuiButtonBase-root.btnicon:hover{
+  background-color: transparent;
 }
 .auth-header-logo img.ipad {
   display: none;
@@ -722,6 +726,10 @@ input[type="number"] {
 .inner-div-user {
   display: flex;
   flex-direction: column;
+}
+.inner-div-outer{
+    display: flex;
+    flex-direction: row;
 }
 
 .inner-div-user .pl-3 {
@@ -1069,10 +1077,14 @@ input[type="number"] {
   border: none;
 }
 
+
 .MuiTabs-root .MuiTabs-indicator {
   display: none;
 }
-
+#root .css-hip9hq-MuiPaper-root-MuiAppBar-root, .MuiTabs-root .MuiTabs-scroller .css-hip9hq-MuiPaper-root-MuiAppBar-root{
+  background-color: transparent ;
+  box-shadow: none;
+}
 .MuiTabs-root button.MuiTab-root {
   border-radius: 50px;
   text-transform: initial;
@@ -2028,14 +2040,44 @@ p.left-icon img {
 .white-input-box .MuiInputBase-root.MuiInput-root {
   background-color: #ffffff;
 }
-
-/* .update-profile input {
+/* 
+ .update-profile input {
     background-color: #fff !important;
     border-radius: 12px;
     height: 48px;
     padding: 0px 15px !important;
-}
+}  */
 
+.img-btn img{
+    width:30px; 
+  }
+  .img-btn > input{
+    display:none
+  }
+  .img-btn > img{
+    cursor:pointer;
+    border:0px solid transparent;
+   margin-right: 8px;
+  }
+   
+  .img-btn{
+    display: flex;
+    font-size: 14px !important;
+    text-transform: unset !important;
+    color: #777E90 !important;
+    font-family: var(--secondary-font) !important;
+    border-bottom: 1px solid #E6E8EC;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    align-items: center;
+  }
+  .img-btn:last-child{
+    border: none;
+  }
+  .first-img-btn{
+    padding-top: 0px !important;
+  }
+   
 /* profile section ends */
 .modal-subscribed .modal-modal-description {
   text-align: center;

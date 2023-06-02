@@ -49,7 +49,7 @@ const LogIn = () => {
 
     const validationSchema = Yup.object().shape({
         email: Yup.string()
-            .email()
+            .email("Email must be a valid email")
             .trim()
             .required("Email Address is required"),
         password: Yup.string()

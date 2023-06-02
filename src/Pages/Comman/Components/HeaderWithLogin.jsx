@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { ListItem, List, ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid } from '@mui/material/';
+import { ListItem, List, ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid, Switch  } from '@mui/material/';
 import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
@@ -11,6 +11,9 @@ import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import { useUserActions } from "../../../_actions/user.actions";
+import USA from '../../../../public/assets/images/icons/usa.svg';
+import japan from '../../../../public/assets/images/icons/japan.svg';
+import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 const drawerWidth = 240;
 
 function Header(props) {
@@ -36,6 +39,7 @@ function Header(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
   const [anchorElB, setAnchorElB] = React.useState(null);
   const openB = Boolean(anchorElB);
@@ -182,7 +186,7 @@ function Header(props) {
               <Box className='menu-box'>
                 <Grid container >
                   <Grid item xs={6} sm={6} md={6} sx={{ borderRight: '1px solid #E6E8EC' }}>
-                    <FormControl className='language-dropdown'>
+                    {/* <FormControl className='language-dropdown'>
                       <FormLabel className='small-caption language-box' id="demo-radio-buttons-group-label">Language</FormLabel>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
@@ -193,7 +197,24 @@ function Header(props) {
                         <FormControlLabel className='radio-option' value="chinese" control={<Radio />} label="Chinese" />
                         <FormControlLabel className='radio-option' value="japanese" control={<Radio />} label="Japanese" />
                       </RadioGroup>
-                    </FormControl>
+                    </FormControl> */}
+                    <Box className='language-dropdown'>
+                      <Typography className='small-caption language-box' id="lang-label" sx={{ fontSize: '12px !important' }} paddingBottom={4}>Language</Typography>
+                      <Box class="img-btn first-img-btn">
+                        <input type="radio" name="country-flags" checked />
+                        <img width='30' src={USA} alt="Sri Lanka Flag" /> English
+                      </Box>
+
+                      <Box class="img-btn">
+                        <input type="radio" name="country-flags" />
+                        <img width='30' src={Chaina} alt="America Flag" /> Chinese
+                      </Box>
+
+                      <Box class="img-btn">
+                        <input type="radio" name="country-flags" />
+                        <img width='30' src={japan} alt="India Flag" /> Japanese
+                      </Box>
+                    </Box>
                   </Grid>
                   <Grid item xs={6} sm={6} md={6} className='right-box'>
                     <FormControl className='language-dropdown'>
@@ -223,7 +244,7 @@ function Header(props) {
             <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
               Account
             </Button>
-            <IconButton aria-label="sunny" color="primary">
+            <IconButton aria-label="sunny" color="primary " >
               <WbSunnyOutlined />
             </IconButton>
             <IconButton onClick={handleClickAnchor}
@@ -231,7 +252,7 @@ function Header(props) {
               sx={{ ml: 2 }}
               aria-controls={openAnchor ? 'account-menu' : undefined}
               aria-haspopup="true"
-              aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img' aria-label="flash" color="primary">
+              aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img btnicon' aria-label="flash" color="primary">
               <img src={UserAvatar} />
             </IconButton >
             <Menu
@@ -240,6 +261,7 @@ function Header(props) {
               open={openAnchor}
               onClose={handleCloseAnchor}
               onClick={handleCloseAnchor}
+              
               PaperProps={{
                 elevation: 0,
                 sx: {
@@ -291,9 +313,13 @@ function Header(props) {
               </MenuItem>
               <Divider />
               <MenuItem onClick={() => navigate('/account/session-and-history')}>
-                <span className='inner-div-user'>
+                <span className='inner-div-outer'>
+                  <span className='inner-div-user'>
                   <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Settings</span>
                   <span className='pl-3 sub-head-menu'>View additional settings</span>
+                  </span>
+               
+                  <span>  <Switch {...label} defaultChecked /></span>
                 </span>
               </MenuItem>
               <Divider />

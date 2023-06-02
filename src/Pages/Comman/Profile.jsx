@@ -214,9 +214,9 @@ const Profile = () => {
                                             <Typography component="h5" variant='body1' className='large-caption'>
                                                 Update your profile
                                             </Typography>
-                                            <Box className='' paddingY={1} >
-                                                <TextField
-                                                     label="Name"
+                                            <Box className='' paddingY={0} >
+                                                 <TextField
+                                                 label="Name"
                                                     className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
@@ -229,11 +229,12 @@ const Profile = () => {
                                                     name="name"
                                                     autoComplete="off"
                                                     backgroundColor='#fff'
-                                                    {...register("user_name")}
+                                                    // autoFocus
+                                                    {...register("name")}
                                                 />
                                                 <div style={{ color: "red" }}>{errors.user_name?.message}</div>
                                             </Box>
-                                            <Box className='' paddingY={1}>
+                                            <Box className='input-bg' paddingY={0}>
                                                 <TextField
                                                     label="Email"
                                                     className="form-control white-input-box"
@@ -246,14 +247,15 @@ const Profile = () => {
                                                     fullWidth
                                                     id="email"
                                                     name="email"
+                                                    backgroundColor='#fff'
                                                     autoComplete="off"
                                                     {...register("email")}
                                                 />
                                                 <div style={{ color: "red" }}>{errors.email?.message}</div>
                                             </Box>
-                                            <Box className='' paddingY={1}>
+                                            <Box className=''>
                                                 <TextField
-                                                    label="Mobile"
+                                                  label="Mobile"
                                                     className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
@@ -263,6 +265,7 @@ const Profile = () => {
                                                     required
                                                     fullWidth
                                                     id="mobile"
+                                                    // placeholder='Mobile'
                                                     name="mobile"
                                                     autoComplete="off"
                                                     {...register("phone")}

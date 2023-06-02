@@ -63,13 +63,16 @@ const Subscription = () => {
     },[])
  
     //  Accordion  function call
+    const [expandFirst, setExpandFirst] = React.useState(true);
     const [expand, setExpand] = React.useState(false);
-    const [confim, setConfim] = React.useState(false);
+    const [confirm, setconfirm] = React.useState(false);
     const toggleAcordion = () => {
       setExpand((prev) => true);
+      setExpandFirst((prev) => false);
     };
-    const ConfimAcordion = () => {
-        setConfim((prev) => true);
+    const confirmAcordion = () => {
+      setExpand((prev) => false);
+      setconfirm((prev) => true);
       };
         
     return (
@@ -93,8 +96,9 @@ const Subscription = () => {
                             <Box className='subscription-steps-inner'>
                                 <Box className='subscription-steps-col'>
                                     <Box className='subscription-step completed-step'>
+                                       
                                         <Box component="span" className='number-circle'>
-                                            1
+                                        <Button>1</Button>
                                         </Box>
                                         <Typography component="p" variant='body2'>
                                             Select Package
@@ -102,7 +106,7 @@ const Subscription = () => {
                                     </Box>
                                     <Box className='subscription-step current-step'>
                                         <Box component="span" className='number-circle'>
-                                            2
+                                        <Button>2</Button>
                                         </Box>
                                         <Typography component="p" variant='body2'>
                                             Payment info
@@ -110,7 +114,7 @@ const Subscription = () => {
                                     </Box>
                                     <Box className='subscription-step'>
                                         <Box component="span" className='number-circle'>
-                                            3
+                                        <Button>3</Button>
                                         </Box>
                                         <Typography component="p" variant='body2'>
                                             Confirm order
@@ -125,12 +129,8 @@ const Subscription = () => {
                                             </Typography>
                                         </Box>
 
-                                        <Accordion>
-                                            <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1a-content"
-                                            id="panel1a-header"
-                                            >
+                                       {expandFirst&& <Accordion  expanded={expandFirst}>
+                                            <AccordionSummary>
                                             <Typography>Plan Details</Typography>
                                             </AccordionSummary>
                                             <AccordionDetails>
@@ -169,15 +169,11 @@ const Subscription = () => {
 
                                             </Typography>
                                             </AccordionDetails>
-                                        </Accordion>
+                                        </Accordion>}
                                                                 
                                     </Box>
-                                    <Accordion expanded={expand}>
-                                        <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-                                        >
+                                   {expand&& <Accordion expanded={expand}>
+                                        <AccordionSummary>
                                         <Typography>Payment info</Typography>
                                         </AccordionSummary>
                                         <AccordionDetails>
@@ -307,21 +303,17 @@ const Subscription = () => {
                                                 </Grid>
                                                 <FormControlLabel className='save-card' control={<Checkbox defaultChecked />} label="Save Card" />
                                                 <Box className="subscription-plan-cta">
-                                                    <Button variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} onClick={ConfimAcordion}>Continue</Button>
+                                                    <Button variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} onClick={confirmAcordion}>Continue</Button>
                                                 </Box>
                                             </Box>
                                         </Box>
                                         </Box>
                                         </Typography>
                                         </AccordionDetails>
-                                    </Accordion>
+                                    </Accordion>}
 
-                                    <Accordion expanded={confim} >
-                                        <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-                                        >
+                                    {confirm &&<Accordion expanded={confirm} >
+                                        <AccordionSummary>
                                         <Typography>Confirm order</Typography>
                                         </AccordionSummary>
                                         <AccordionDetails>
@@ -415,7 +407,7 @@ const Subscription = () => {
                                         </Box>
                                         </Typography>
                                         </AccordionDetails>
-                                    </Accordion>
+                                    </Accordion>}
                                   
                                 </Box>
                             </Box>

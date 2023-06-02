@@ -1,19 +1,55 @@
 import * as React from 'react';
 
 import { Box, Grid, Container, Typography, Link, Stack, TextField, InputAdornment, IconButton } from '@mui/material';
-
+import { ArrowRightAlt } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { useState, useEffect } from 'react';
+import { useFooterActions } from '../../../_actions';
+import * as Yup from "yup";
 import Darklogo from "../../../../public/assets/images/cg.svg";
 import BehanceIcon from "../../../../public/assets/images/icons/behance.svg";
 import FacebookIcon from "../../../../public/assets/images/icons/facebook.svg";
 import InstagramIcon from "../../../../public/assets/images/icons/instagram.svg";
 import DribbbleIcon from "../../../../public/assets/images/icons/dribbble.svg";
 import TwitterIcon from "../../../../public/assets/images/icons/twitter.svg";
-import { ArrowRightAlt } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { FooterAddAtom } from '../../../_state';
 
 
 const Footer = () => {
+  const useFooterAddActions = useFooterActions()
   const navigate = useNavigate();
+  const [addAtomError, setAddError] = useRecoilState(FooterAddAtom);
+
+    // form validation rules 
+    const validationSchema = Yup.object().shape({
+      email: Yup.string()
+        .email("Email must be a valid email")
+        .trim(),
+      });
+  
+    //yup validation
+    const formOptions = { resolver: yupResolver(validationSchema) };
+    // get functions to build form with useForm() hook
+    const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
+    const { errors } = formState;
+    const [isSubmitting, setIsSubmitting] = useState(false);
+  
+    const formData = watch();
+  
+    useEffect(() => {
+      if (addAtomError)
+          setIsSubmitting(false)
+  }, [addAtomError])
+  
+    const handleFormSubmit = (data) =>{
+      console.log(data,'data')
+      setIsSubmitting(true)
+      setAddError(false)
+      return useFooterAddActions.add(data);
+    }
 
   return (<>
     <footer className="footer" style={{ backgroundColor: '#FCFCFD', color: '#fff' }}>
@@ -48,6 +84,12 @@ const Footer = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={3} paddingLeft={5} paddingTop={4} paddingBottom={4} >
+            <Box
+          noValidate
+          component="form"
+          sx={{ mt: '24px' }}
+          onSubmit={handleSubmit(handleFormSubmit)}
+                                >
               <Typography
                 variant='h6'
 
@@ -82,19 +124,24 @@ const Footer = () => {
                 name="email"
                 autoComplete="off"
                 size="small"
+                {...register("email")}
+                onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
 
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton variant="outlined"  >
+                      <IconButton 
+                      type='submit'
+                      disabled={isSubmitting}
+                      variant="outlined"  >
                         <ArrowRightAlt />
                       </IconButton>
                     </InputAdornment>
                   ),
                 }}
               />
-
-
+              <div style={{ color: "red" }}>{errors.email?.message}</div>
+            </Box>
             </Grid>
 
           </Grid>

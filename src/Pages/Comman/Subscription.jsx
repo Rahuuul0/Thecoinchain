@@ -131,7 +131,7 @@ const Subscription = () => {
                                             aria-controls="panel1a-content"
                                             id="panel1a-header"
                                             >
-                                            <Typography>Plan Datails</Typography>
+                                            <Typography>Plan Details</Typography>
                                             </AccordionSummary>
                                             <AccordionDetails>
                                             <Typography>

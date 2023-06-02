@@ -117,6 +117,7 @@ const useUserActions = () => {
                     alertActions.success("Please select an option");
                     localStorage.setItem("email", res.data.email)
                     localStorage.setItem("phone", res.data.phone)
+                    setSoption(true);
                     navigate("/confirm-account")
                 } else {
                     alertActions.error(Labels.Error);
@@ -129,7 +130,8 @@ const useUserActions = () => {
         return fetchWrapper.post(Apis.GetOtp, { email })
             .then(res => {
                 if (res.statusCode === 200) {
-                    alertActions.success("We have sent you the code ");
+                    setSoption(false)
+                    alertActions.success("We have sent you the code");
                 } else {
                     alertActions.error(Labels.Error);
                 }
@@ -185,7 +187,13 @@ const useUserActions = () => {
         const phone = mobile;
       return fetchWrapper.post(`${Apis.Update_User}?id=${id}`,{name,email,phone})
       .then(res=>{
-        if(res.statusCode === 200){
+        if(res.statusCode === 200){  
+            let {data} = res;               
+            localStorage.setItem("user",JSON.stringify({...auth,...data})) 
+            setAuth((currentState) => ({
+                ...currentState,
+                ...res.data,
+              }));
             alertActions.success('Update User is Successfully' )
         } else{
             alertActions.error("error");

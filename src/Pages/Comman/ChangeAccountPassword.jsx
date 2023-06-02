@@ -1,16 +1,14 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Typography, Button, Link, Breadcrumbs, TextField, IconButton, InputAdornment } from '@mui/material';
+import { Box, Container, Typography, Button,  Breadcrumbs, TextField, IconButton, InputAdornment } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import Sidebar from './Components/Sidebar';
 
 const ChangeAccountPassword = () => {
-
-    const navigate = useNavigate();
-
+    const navigate = useNavigate();    
     const breadcrumbs = [
         <Link underline="hover" key="1" color="inherit" href="/">
             Home
@@ -19,7 +17,6 @@ const ChangeAccountPassword = () => {
             Change password
         </Typography>,
     ];
-
     return (
         <>
             <ThemeProvider theme={theme}>

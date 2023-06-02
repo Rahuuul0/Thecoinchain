@@ -1,4 +1,4 @@
-import React from 'react'
+import {useEffect,useState} from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Select, OutlinedInput, MenuItem, Switch, TextField } from '@mui/material';
@@ -8,6 +8,9 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions"
 import Sidebar from './Components/Sidebar';
+
+import { authAtom } from '../../_state';
+import { useRecoilValue } from 'recoil';
 
 function handleClick(event) {
     event.preventDefault();
@@ -36,17 +39,18 @@ function getStyles(name, personName, theme) {
 const Profile = () => {
     const profileUpdate = useUserActions();
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
+    const auth = useRecoilValue(authAtom);
 
     //yup validation
     const validationSchema = Yup.object().shape({
-        name: Yup.string()
+        user_name: Yup.string()
             .trim()
             .required("Name is required"),
         email: Yup.string()
             .email()
             .trim()
             .required("Email Address is required"),
-        mobile: Yup.string()
+        phone: Yup.string()
             .trim()
             .required("Mobile is required")
     });
@@ -55,9 +59,9 @@ const Profile = () => {
     // get functions to build form with useForm() hook
     const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
+    const formData = watch();
 
-
-    const [personName, setPersonName] = React.useState([]);
+    const [personName, setPersonName] = useState([]);
     const handleChange = (event, newValue) => {
         setValue(newValue);
         const {
@@ -88,12 +92,17 @@ const Profile = () => {
         'Usa',
         'Usa',
     ];
-    const [value, setValue] = React.useState('1');
+    const [value, setValue] = useState('1');
 
     const submitFunction = () => {
-        profileUpdate.updateUser(localStorage.getItem("id"), formData)
+        profileUpdate.updateUser({...formData,"name":formData.user_name})
     }
-    const formData = watch();
+
+    useEffect(()=> {
+        reset({...auth})
+    },[auth])
+
+   
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -103,7 +112,6 @@ const Profile = () => {
                             <Typography component="h2" variant='h2'>
                                 Profile info
                             </Typography>
-
                             <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
                                 <Box  >
                                     <Breadcrumbs
@@ -128,10 +136,9 @@ const Profile = () => {
                                             <Grid container  >
                                                 <Grid item xs={12} sm={8} md={8} sx={{ paddingBottom: { xs: '20px', md: '5px' } }}>
                                                     <Box>
-                                                        <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} >Breanne Schinner</Typography>
-                                                        <Typography component="p" variant='body2' className='secondary-color' sx={{ fontSize: '14px', color: '#777E90' }}>hello@coinguru.org</Typography>
+                                                        <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} >{auth.user_name?auth.user_name:auth.email.split('@')[0]}</Typography>
+                                                        <Typography component="p" variant='body2' className='secondary-color' sx={{ fontSize: '14px', color: '#777E90' }}>{auth.email}</Typography>
                                                         <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>VIP</Button>
-
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={12} sm={4} md={4}>
@@ -208,9 +215,9 @@ const Profile = () => {
                                                 Update your profile
                                             </Typography>
                                             <Box className='' paddingY={1} >
-                                                <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Name</Typography>
                                                 <TextField
-                                                    className="form-control"
+                                                     label="Name"
+                                                    className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
                                                     }}
@@ -223,12 +230,11 @@ const Profile = () => {
                                                     autoComplete="off"
                                                     backgroundColor='#fff'
                                                     autoFocus
-                                                    {...register("name")}
+                                                    {...register("user_name")}
                                                 />
-                                                <div style={{ color: "red" }}>{errors.name?.message}</div>
+                                                <div style={{ color: "red" }}>{errors.user_name?.message}</div>
                                             </Box>
                                             <Box className='' paddingY={1}>
-                                                <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Email</Typography>
                                                 <TextField
                                                     label="Email"
                                                     className="form-control white-input-box"
@@ -246,25 +252,24 @@ const Profile = () => {
                                                 />
                                                 <div style={{ color: "red" }}>{errors.email?.message}</div>
                                             </Box>
-                                            <Box className=''>
-                                                <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Mobile</Typography>
+                                            <Box className='' paddingY={1}>
                                                 <TextField
-                                                    className="form-control"
+                                                    label="Mobile"
+                                                    className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
                                                     }}
-                                                    variant="outlined"
+                                                    variant="standard"
                                                     margin="normal"
                                                     required
                                                     fullWidth
                                                     id="mobile"
-                                                    placeholder='Mobile'
                                                     name="mobile"
                                                     autoComplete="off"
-                                                    {...register("mobile")}
+                                                    {...register("phone")}
                                                 />
-                                                <div style={{ color: "red" }}>{errors.mobile?.message}</div>
-                                            </Box>
+                                                <div style={{ color: "red" }}>{errors.phone?.message}</div>
+                                            </Box>                                            
                                         </Box>
                                         <Typography textAlign='right' paddingY={3}>
                                             <Button type="submit" className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>

@@ -22,28 +22,32 @@ import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useAlertActions } from '../../_actions/alert.actions';
+import { switchAtom } from '../../_state';
+import { useRecoilValue } from 'recoil';
 
 const AccountConfirm = () => {
   const navigate = useNavigate();
   const userActions = useUserActions();
   const [radioOption, setRadioOption] = useState("by_email");
-  const [switchOption, setSwitchOption] = useState(true);
+  const [OTP, setOTP] = useState("");
+  const { handleSubmit } = useForm();
+  const alertActions = useAlertActions();
+  const Soption = useRecoilValue(switchAtom);
+
   const onSubmitFun = async () => {
     if (radioOption == "by_email") {
-      userActions.getOtp();
-      setSwitchOption(false);
-    }
-    else {
-      // code for 
+      userActions.getOtp();     
+    }else {
+      userActions.getOtp();      
     }
   }
   const handleOtpSubmit = async () => {
-    // await userActions.
+    if (OTP.length !== 4) { 
+      alertActions.error("Fill OTP First"); } 
+    else { 
+      userActions.verifyRegisterOtp(OTP) 
+    }   
   }
-  const [OTP, setOTP] = useState("");
-  const { register, handleSubmit, formState, reset, watch } = useForm();
-  const { errors, isSubmitting } = formState;
-  const alertActions = useAlertActions();
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -83,7 +87,7 @@ const AccountConfirm = () => {
               <img src={AuthBg} alt="Auth bg" />
             </Box>
             <Box component="div" className="auth-wrapper-form">
-              {switchOption ? (
+              {Soption ? (
                 <Box component="div" className="auth-wrapper-form-inner">
                   <Typography component="h3" variant="h3">
                     Let’s confirm it’s really you
@@ -162,17 +166,15 @@ const AccountConfirm = () => {
                         : `We have sent the code by email at ${localStorage.getItem("email")}`}
                     </Typography>
                   </Box>
-                  <Box noValidate onSubmit={handleOtpSubmit} component="form" sx={{ mt: "24px" }}>
+                  <Box noValidate onSubmit={handleSubmit(handleOtpSubmit)} component="form" sx={{ mt: "24px" }}>
                     <Box component="div" display={"flex"} justifyContent={"center"} className="auth-form auth-otp">
-
                       <OTPInput id="otp1" autoFocus type='number' variant="filled" value={OTP} onChange={setOTP} OTPLength={4} otpType="number" disabled={false} />
-
                     </Box>
                     <Box component="div" className='auth-otp-cta' >
                       <Button onClick={() => { userActions.getOtp() }} variant="outlined" className='btn btn-outlined-secondary'>
                         Resend Code
                       </Button>
-                      <Button type="button" variant="contained" className='btn btn-primary' onClick={() => { if (OTP.length !== 4) { alertActions.error("Fill OTP First"); } else { userActions.verifyRegisterOtp(OTP) } }}>
+                      <Button type="submit" variant="contained" className='btn btn-primary' >
                         Continue
                       </Button>
 

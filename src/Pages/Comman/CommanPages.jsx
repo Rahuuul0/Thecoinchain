@@ -29,6 +29,7 @@ import TwoFaDisable from "./TwoFaDisable";
 import Disclaimer from "./Disclaimer";
 import TermsOfUse from "./TermsOfUse";
 import ForecastSubscriptions from "./ForecastSubscriptions";
+import GuidesAnalysis from "./GuidesAnalysis";
 import Community from "./Community";
 
 import { authAtom } from '../../_state';
@@ -37,13 +38,12 @@ import Academy from "./Academy";
 
 const Customer = () => {
   const auth = useRecoilValue(authAtom);
-
   const PrivateOutletWithLogin = () => {
-    return auth !== null ? <><HeaderWithLogin /><Outlet /><Footer /></> : <Navigate to="/login" />;
+    return auth? <><HeaderWithLogin /><Outlet /><Footer /></> : <Navigate to="/login" />;
   }
 
   const PrivateOutlet = () => {
-    return <>{auth !== null ? <HeaderWithLogin /> : <Header />}<Outlet /><Footer /></>;
+    return <>{auth? <HeaderWithLogin /> : <Header />}<Outlet /><Footer /></>;
   }
 
   const WithoutHeaderFooter = () => {
@@ -67,6 +67,7 @@ const Customer = () => {
           <Route path={`/disclaimer`} exact element={<Disclaimer />} />
           <Route path={`/terms-of-use`} exact element={<TermsOfUse />} />
           <Route path={`subscription`} exact element={<Subscription />} />
+          <Route path={`guides-analysis`} exact element={<GuidesAnalysis />} />
           <Route path={`community`} exact element={<Community />} />
           <Route path={`news-promotions`} exact element={<NewsPromotions />} />
           <Route path={`academy`} exact element={<Academy />} />

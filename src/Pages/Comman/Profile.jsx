@@ -176,9 +176,9 @@ const Profile = () => {
                                             <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} paddingY={5}  >Features</Typography>
                                         </Box>
                                         <Box>
-                                            <Box display='flex' paddingY={3}>
+                                            <Box display='flex' paddingY={2.5}>
                                                 <span >
-                                                    <Typography component="p" variant='body2' fontWeight={500} >VIP - Your annual plan will be expired on 15/2/2025</Typography>
+                                                    <Typography paddingTop={1} component="p" variant='body2' fontWeight={500} >VIP - Your annual plan will be expired on 15/2/2025</Typography>
                                                 </span>
                                                 <span >
                                                     <Switch {...label} defaultChecked />

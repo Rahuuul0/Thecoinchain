@@ -2410,6 +2410,9 @@ video[poster] {
 .react-player__preview {
   border-radius: 16px;
 }
+.MuiFormControl-root .MuiFormLabel-asterisk{
+  display: none;
+}
 
 /* Media Queries  */
 @media (max-width: 1399.98px) {

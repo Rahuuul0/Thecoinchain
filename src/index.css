@@ -394,6 +394,9 @@ nav .MuiButtonBase-root:hover{
     background-color: rgba(25, 118, 210, 0.04);
     border-radius: 90px;
 }
+.app-nav button.MuiButtonBase-root.btnicon:hover{
+  background-color: transparent;
+}
 .auth-header-logo img.ipad {
   display: none;
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { ListItem, List, ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid } from '@mui/material/';
+import { ListItem, List, ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid, Switch  } from '@mui/material/';
 import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
@@ -39,6 +39,7 @@ function Header(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
   const [anchorElB, setAnchorElB] = React.useState(null);
   const openB = Boolean(anchorElB);
@@ -243,7 +244,7 @@ function Header(props) {
             <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
               Account
             </Button>
-            <IconButton aria-label="sunny" color="primary">
+            <IconButton aria-label="sunny" color="primary " >
               <WbSunnyOutlined />
             </IconButton>
             <IconButton onClick={handleClickAnchor}
@@ -251,7 +252,7 @@ function Header(props) {
               sx={{ ml: 2 }}
               aria-controls={openAnchor ? 'account-menu' : undefined}
               aria-haspopup="true"
-              aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img' aria-label="flash" color="primary">
+              aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img btnicon' aria-label="flash" color="primary">
               <img src={UserAvatar} />
             </IconButton >
             <Menu
@@ -260,6 +261,7 @@ function Header(props) {
               open={openAnchor}
               onClose={handleCloseAnchor}
               onClick={handleCloseAnchor}
+              
               PaperProps={{
                 elevation: 0,
                 sx: {
@@ -311,9 +313,13 @@ function Header(props) {
               </MenuItem>
               <Divider />
               <MenuItem onClick={() => navigate('/account/session-and-history')}>
-                <span className='inner-div-user'>
+                <span className='inner-div-outer'>
+                  <span className='inner-div-user'>
                   <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Settings</span>
                   <span className='pl-3 sub-head-menu'>View additional settings</span>
+                  </span>
+               
+                  <span>  <Switch {...label} defaultChecked /></span>
                 </span>
               </MenuItem>
               <Divider />

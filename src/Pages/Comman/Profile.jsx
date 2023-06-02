@@ -1,14 +1,17 @@
+import React from 'react'
 import {useEffect,useState} from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Select, OutlinedInput, MenuItem, Switch, TextField } from '@mui/material';
+import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Select, OutlinedInput, MenuItem, Switch, TextField,InputAdornment } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions"
 import Sidebar from './Components/Sidebar';
-
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import IconButton from "@mui/material/IconButton";
 import { authAtom } from '../../_state';
 import { useRecoilValue } from 'recoil';
 
@@ -52,7 +55,16 @@ const Profile = () => {
             .required("Email Address is required"),
         phone: Yup.string()
             .trim()
-            .required("Mobile is required")
+            .required("Mobile is required"),
+        password: Yup.string()
+            .required(" Password Required")
+            .min(8, " Password must be at least 8 characters.")
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/,
+                "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
+            ),
+        confirmpassword: Yup.string().required('Confirm Password is required')
+            .oneOf([Yup.ref('password'), null], 'Passwords must match')
     });
 
     const formOptions = { resolver: yupResolver(validationSchema) };
@@ -60,6 +72,13 @@ const Profile = () => {
     const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
     const formData = watch();
+
+     //password eye IconButton
+     const [showPassword, setShowPassword] = React.useState(false);
+     const [showPassword2, setShowPassword2] = React.useState(false);
+ 
+     const handleClickShowPassword = () => setShowPassword((show) => !show);
+     const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
 
     const [personName, setPersonName] = useState([]);
     const handleChange = (event, newValue) => {
@@ -81,21 +100,23 @@ const Profile = () => {
         </Typography>,
     ];
     const names = [
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
+        'Australia',
+        'Argentina',
+        'Canada',
+        'Belgium',
+        'China',
+        'India',
+        'Ghana',
+        'France',
+        'Iraq',
+        'USA',
     ];
     const [value, setValue] = useState('1');
 
     const submitFunction = () => {
         profileUpdate.updateUser({...formData,"name":formData.user_name})
+        // profileUpdate.resetPassword({...formData,"name":formData.password})
+
     }
 
     useEffect(()=> {
@@ -236,6 +257,7 @@ const Profile = () => {
                                             </Box>
                                             <Box className='' paddingY={1}>
                                                 <TextField
+                                                    disabled
                                                     label="Email"
                                                     className="form-control white-input-box"
                                                     InputLabelProps={{
@@ -254,6 +276,7 @@ const Profile = () => {
                                             </Box>
                                             <Box className='' paddingY={1}>
                                                 <TextField
+                                                    // disabled
                                                     label="Mobile"
                                                     className="form-control white-input-box"
                                                     InputLabelProps={{
@@ -269,7 +292,70 @@ const Profile = () => {
                                                     {...register("phone")}
                                                 />
                                                 <div style={{ color: "red" }}>{errors.phone?.message}</div>
-                                            </Box>                                            
+                                            </Box>  
+                                           
+                                            <Box className='' paddingY={1}>
+                                            <TextField
+                                            label="Password"
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            margin="normal"
+                                            required
+                                            variant="standard"
+                                            fullWidth
+                                            id="password"
+                                            placeholder='Password'
+                                            type={showPassword ? "text" : "password"}
+                                            name="password"
+                                            autoComplete="current-password"
+                                            size="small"
+                                           
+                                            {...register('password')}
+                                            className={`form-control white-input-box ${errors.password ? 'is-invalid' : ''}`}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton onClick={handleClickShowPassword}>
+                                                            {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />
+                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.password?.message}</div>
+                                            </Box>    
+                                            <Box className='' paddingY={1}>
+                                            <TextField
+                                            label="Confirm Password"
+                                            margin="normal" 
+                                            required
+                                            fullWidth
+                                            id="confirm_password"
+                                            placeholder='Confirm Password'
+                                            type={showPassword2 ? "text" : "password"}
+                                            name="confirm_password"
+                                            autoComplete="confirm-password"
+                                            size="small"
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            variant="standard"
+                                            {...register('confirmpassword')}
+                                            className={`form-control white-input-box ${errors.confirmpassword ? 'is-invalid' : ''}`}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton onClick={handleClickShowPassword2}>
+                                                            {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        
+                                        />
+                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirmpassword?.message}</div>
+                                            </Box>                                                                                           
                                         </Box>
                                         <Typography textAlign='right' paddingY={3}>
                                             <Button type="submit" className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>

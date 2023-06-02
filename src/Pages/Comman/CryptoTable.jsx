@@ -153,11 +153,6 @@ const CryptoTable = (props) => {
                       </>
                     )}
                     <TableCell align="right">Chart</TableCell>
-                    {props?.isIt ? (
-                      ""
-                    ) : (
-                      <TableCell align="right">Predict</TableCell>
-                    )}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -306,7 +301,7 @@ const CryptoTable = (props) => {
                           />
                         </TableCell>
 
-                        {props?.isIt ? (
+                        {/* {location.pathname === "/prediction-dashboard" ? (
                           ""
                         ) : (
                           <TableCell align="right">
@@ -318,7 +313,7 @@ const CryptoTable = (props) => {
                               Predict
                             </Button>
                           </TableCell>
-                        )}
+                        )} */}
                       </TableRow>
                     );
                   })}

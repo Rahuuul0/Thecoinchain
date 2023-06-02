@@ -30,7 +30,7 @@ import CryptoTable from '../../CryptoTable';
 import Learn01 from '../../../../../public/assets/images/learn01.png'
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from 'recoil';
-import {homePageAtom} from "../../../../_state/users";
+import { homePageAtom } from "../../../../_state/users";
 
 
 const Home = () => {
@@ -47,15 +47,15 @@ const Home = () => {
   const handleChange2 = (event, newValue2) => {
     setValue2(newValue2);
   };
- // Json Data call
-  const coinData = sethomeData[0][0].data; 
+  // Json Data call
+  const coinData = sethomeData[0][0].data;
 
-  useEffect(()=> {
-    console.log(sethomeData[0][0].data,'gfddsfdfdfsfs')
-  },[])
+  useEffect(() => {
+    console.log(sethomeData[0][0].data, 'gfddsfdfdfsfs')
+  }, [])
 
-  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
-  
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) },[]);
+
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}>
@@ -76,7 +76,7 @@ const Home = () => {
                 <Button variant="contained" className="btn btn-primary " sx={{ borderRadius: '90px', }} onClick={() => { navigate("./market") }}>Get started now</Button>
               </Typography>
               <IconButton aria-label="ArrowCircleDown" variant="outlined" color="secondary-color ipad-none" padding={0}  >
-                <ArrowCircleDownSharp onClick={() => { window.scrollTo({ top: 2100, left: 0, behavior: "smooth" }) }}  />
+                <ArrowCircleDownSharp onClick={() => { window.scrollTo({ top: 2100, left: 0, behavior: "smooth" }) }} />
               </IconButton>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
@@ -89,27 +89,27 @@ const Home = () => {
       <Container>
         <Box>
           <Grid container spacing={4} sx={{ alignItems: 'center' }} className='grid-bit' backgroundColor='#F4F5F6' padding={3} borderRadius={6}>
-          {coinData.map((item, index)=> {
-              if(index < 4){
-                return(
-                <Grid item xs={12} sm={3} md={3} className='gridBox'>
-              <img src={item.img}  alt='BTC' width="33px"  />
-              <Stack direction="row" spacing={2} alignItems='center' paddingTop={1} paddingBottom={1}>
-                <Typography className='top-head' sx={{fontSize:'12px !important'}}>
-                  {item.symbol}/USDT
-                </Typography>
-                <Button variant="contained" className='orange-btn' sx={{ borderRadius: '90px', }}>{Math.round((item.quote.USD.percent_change_1h + Number.EPSILON) * 100) / 100}%</Button>
-              </Stack>
-              <Typography variant='h4' component='div' sx={{fontSize:'20px !important'}} fontWeight={600} paddingBottom={1} className='primary-font'>
-              {Math.round((item.quote.USD.price + Number.EPSILON) * 100) / 100}
-              </Typography>
-              <Typography variant='h6' component='div' sx={{fontSize:'12px !important'}} fontWeight={400} className='primary-font'>
-              {Math.round((item.quote.USD.price + Number.EPSILON) * 100) / 10000000}
-              </Typography>
-            </Grid>
-              )
+            {coinData.map((item, index) => {
+              if (index < 4) {
+                return (
+                  <Grid item xs={12} sm={3} md={3} className='gridBox'>
+                    <img src={item.img} alt='BTC' width="33px" />
+                    <Stack direction="row" spacing={2} alignItems='center' paddingTop={1} paddingBottom={1}>
+                      <Typography className='top-head' sx={{ fontSize: '12px !important' }}>
+                        {item.symbol}/USDT
+                      </Typography>
+                      <Button variant="contained" className='orange-btn' sx={{ borderRadius: '90px', }}>{Math.round((item.quote.USD.percent_change_1h + Number.EPSILON) * 100) / 100}%</Button>
+                    </Stack>
+                    <Typography variant='h4' component='div' sx={{ fontSize: '20px !important' }} fontWeight={600} paddingBottom={1} className='primary-font'>
+                      {Math.round((item.quote.USD.price + Number.EPSILON) * 100) / 100}
+                    </Typography>
+                    <Typography variant='h6' component='div' sx={{ fontSize: '12px !important' }} fontWeight={400} className='primary-font'>
+                      {Math.round((item.quote.USD.price + Number.EPSILON) * 100) / 10000000}
+                    </Typography>
+                  </Grid>
+                )
               }
-              
+
             })}
 
           </Grid>
@@ -527,7 +527,7 @@ const Home = () => {
         <Box sx={{ display: { xs: 'block', md: 'flex' } }} justifyContent='space-between' alignItems='center'>
           <Typography component='h2' variant='h2' className='secondary-font mobile-font-40' paddingBottom={2}>Market trend</Typography>
           <Typography className='' variant='p' component='p' sx={{ display: { xs: 'block', md: 'none' } }}><span className='gold-color'>Subscribe</span> to gain complete access to the most precise short and long-term predictions of cryptocurrency prices.</Typography>
-          <Button className='btn btn-outlined-secondary mobile-none' onClick={()=>{navigate('/market')}}>View More</Button>
+          <Button className='btn btn-outlined-secondary mobile-none' onClick={() => { navigate('/market') }}>View More</Button>
         </Box>
         <Box>
           <TabContext value={value2}>
@@ -542,6 +542,7 @@ const Home = () => {
                 <Tab label="Storage" value="7" />
               </TabList>
             </Box>
+            
             {/* <TabPanel value="1" sx={{ paddingRight: '0', paddingLeft: '0' }} >
                first
               </TabPanel>
@@ -566,7 +567,7 @@ const Home = () => {
           </TabContext>
         </Box>
         {/* <CryptoTable /> */}
-       
+
         <CryptoTable isIt={false} />
       </Container>
 
@@ -609,7 +610,7 @@ const Home = () => {
                 </Grid>
               </Grid>
             </Box>
-            <Button sx={{ margin: '0 auto', }} variant='contained' className='btn btn-primary m-width-100' onClick={() => {navigate('/contact')}}>Contact Us</Button>
+            <Button sx={{ margin: '0 auto', }} variant='contained' className='btn btn-primary m-width-100' onClick={() => { navigate('/contact') }}>Contact Us</Button>
           </Box>
         </Container>
       </Container>

@@ -1077,10 +1077,14 @@ input[type="number"] {
   border: none;
 }
 
+
 .MuiTabs-root .MuiTabs-indicator {
   display: none;
 }
-
+#root .css-hip9hq-MuiPaper-root-MuiAppBar-root, .MuiTabs-root .MuiTabs-scroller .css-hip9hq-MuiPaper-root-MuiAppBar-root{
+  background-color: transparent ;
+  box-shadow: none;
+}
 .MuiTabs-root button.MuiTab-root {
   border-radius: 50px;
   text-transform: initial;

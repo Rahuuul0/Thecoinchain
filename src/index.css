@@ -2396,6 +2396,10 @@ video[poster] {
 .community-details {
   width: 100%;
 }
+.crypto-list-table table tr th:last-child{
+  
+  padding-right: 28px;
+}
 
 .community-details .community-details-head {
   display: flex;

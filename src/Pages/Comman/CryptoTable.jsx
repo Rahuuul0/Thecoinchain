@@ -151,7 +151,7 @@ const CryptoTable = (props) => {
                                     <TableCell align='right'>
                                     <Button
                                         variant="outlined"
-                                        className='btn btn-outlined-secondary'>
+                                        className='btn btn-outlined-secondary' sx={{marginLeft: 'auto'}}>
                                         Predict
                                     </Button>
                                     </TableCell>

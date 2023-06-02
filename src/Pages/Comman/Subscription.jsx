@@ -98,7 +98,7 @@ const Subscription = () => {
                                     <Box className='subscription-step completed-step'>
                                        
                                         <Box component="span" className='number-circle'>
-                                        <Button>1</Button>
+                                        <Button >1</Button>
                                         </Box>
                                         <Typography component="p" variant='body2'>
                                             Select Package
@@ -106,7 +106,7 @@ const Subscription = () => {
                                     </Box>
                                     <Box className='subscription-step current-step'>
                                         <Box component="span" className='number-circle'>
-                                        <Button>2</Button>
+                                        <Button onClick={() =>{toggleAcordion()}}>2</Button>
                                         </Box>
                                         <Typography component="p" variant='body2'>
                                             Payment info
@@ -114,7 +114,7 @@ const Subscription = () => {
                                     </Box>
                                     <Box className='subscription-step'>
                                         <Box component="span" className='number-circle'>
-                                        <Button>3</Button>
+                                        <Button onClick={confirmAcordion}>3</Button>
                                         </Box>
                                         <Typography component="p" variant='body2'>
                                             Confirm order

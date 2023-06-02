@@ -718,7 +718,6 @@ const Home = () => {
         <Marquee>
           <Box paddingTop={8} paddingBottom={8}>
             <Stack direction="row" spacing={8}>
-
               <img className='margin10' src={BusinessSlider} />
               <img src={Finance} />
               <img src={Investing} />

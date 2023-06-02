@@ -28,13 +28,13 @@ const useTutorialActions = () => {
   };
 
   const blogData = () => {
-    console.log(tutorialAtom, "data api");
     return fetchWrapper
       .get(Apis.Blog_List)
       .then((res) => {
         console.log(res, "api response");
         if (res.statusCode === Labels.Success_Status_Code) {
           setBlogData(res.data);
+          return res.data;
         }
       })
       .catch((err) => {

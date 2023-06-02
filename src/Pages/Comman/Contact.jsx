@@ -444,7 +444,6 @@ const Contact = () => {
                 name="email"
                 autoComplete="off"
                 size="small"
-                autoFocus
                 {...register("ct_cu_email")}
                 onChange={(e) => reset({ ...formData, ct_cu_email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
               />

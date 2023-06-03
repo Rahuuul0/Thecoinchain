@@ -11,7 +11,6 @@ const useFooterActions = () => {
   const setFooterError = useSetRecoilState(FooterAddAtom);
 
   const add = (data) => {
-    console.log(data,'data111111',data.email)
     return fetchWrapper.post(`${Apis.Footer}`, data)
       .then(res => {
         if (res.statusCode === 200) {

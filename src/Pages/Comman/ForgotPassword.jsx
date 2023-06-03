@@ -11,12 +11,14 @@ import { useAlertActions } from '../../_actions/alert.actions';
 import { switchAtom } from '../../_state/users';
 import { useUserActions } from "../../_actions/user.actions";
 import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
+import { RoutesName } from '../../_common/app.constants';
 import IconButton from "@mui/material/IconButton";
 import LogoLight from '../../../public/assets/images/logo-light.svg';
 import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import OTPInput from "otp-input-react";
+import {KeyboardArrowLeft} from '@mui/icons-material/';
 
 
 const ForgotPassword = () => {
@@ -79,6 +81,11 @@ const ForgotPassword = () => {
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
                         <Box className='auth-wrapper-form' >
+                        <Box position='absolute' sx={{top: '90px'}}>
+                            <IconButton onClick={()=>{navigate('/login')}} aria-label="delete"  className='btn-primary btn' variant="outlined" sx={{padding: '4px 4px !important', margin: '0px !important'}}>
+                                <KeyboardArrowLeft />
+                            </IconButton>
+                        </Box>
                             {Soption ? <Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
                                     Forgot password

@@ -6,6 +6,9 @@ import { Checkbox, Container, Box, TextField, Typography, Link, Button, FormCont
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAlertActions } from '../../_actions/alert.actions';
+import {KeyboardArrowLeft} from '@mui/icons-material/';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
@@ -16,9 +19,7 @@ import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
 import AppleIcon from '@mui/icons-material/Apple';
 import ReCAPTCHA from "react-google-recaptcha";
-import { useAlertActions } from '../../_actions/alert.actions';
-import {KeyboardArrowLeft} from '@mui/icons-material/';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+
 import GoogleAuth from "./GoogleAuth.jsx";
 
 const CreateAccount = () => {
@@ -114,7 +115,7 @@ const CreateAccount = () => {
                         </Box>
                         <Box className='auth-wrapper-form' position='relative'>
                         <Box position='absolute' sx={{top: '90px'}}>
-                            <IconButton aria-label="delete"  className='btn-primary btn' variant="outlined" sx={{padding: '4px 4px !important', margin: '0px !important'}}>
+                            <IconButton onClick={()=>{navigate("/")}} aria-label="delete"  className='btn-primary btn' variant="outlined" sx={{padding: '4px 4px !important', margin: '0px !important'}}>
                                 <KeyboardArrowLeft />
                             </IconButton>
                         </Box>

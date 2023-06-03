@@ -571,7 +571,7 @@ const Home = () => {
         <CryptoTable isIt={false} />
       </Container>
 
-      <Container maxWidth='fluid' className='' sx={{ backgroundColor: '#F4F5F6' }} >
+      <Container maxWidth='fluid' className='' sx={{ backgroundColor: '#F4F5F6',   paddingTop: { md: '80px', sm: '20px' },}} >
         <Container>
           <Box paddingTop={5} paddingBottom={15} className='become-crypto' >
             <Typography variant='h2' component="h2" className='secondary-font font-40' textAlign='center' sx={{ fontWeight: '700' }}>Become a crypto <br />trader in seconds</Typography>
@@ -619,7 +619,7 @@ const Home = () => {
 
       {/* Informed decision starts*/}
       <Container >
-        <Box paddingTop={10} paddingBottom={10}>
+        <Box  paddingBottom={10}  sx={{ paddingTop: { md: '80px', sm: '20px'} }}>
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} className='flow-reverse-mobile'>
             <Grid item xs={12} sm={6}>
               <Box paddingBottom={5}>

@@ -256,7 +256,7 @@ const LogIn = () => {
                                                         variant="standard"
                                                         required
                                                         margin="normal"
-
+                                                        fullWidth
                                                         placeholder='Number'
                                                         autoComplete="off"
                                                         size="small"

@@ -15,6 +15,7 @@ import { TabContext, TabPanel } from "@mui/lab/";
 
 
 const NewsPromotions = (props) => {
+
     function a11yProps(index) {
         return {
             id: `full-width-tab-${index}`,
@@ -25,6 +26,12 @@ const NewsPromotions = (props) => {
         return {
             id: `full-width-tab2-${index2}`,
             "aria-controls": `full-width-tabpanel-${index2}`,
+        };
+    }
+    function a11yProps(index3) {
+        return {
+            id: `full-width-tab3-${index3}`,
+            "aria-controls": `full-width-tabpanel-${index3}`,
         };
     }
     const [valueTab, setValueTab] = React.useState(0);
@@ -43,6 +50,14 @@ const NewsPromotions = (props) => {
         setValueTab2(newValue2);
     };
     const handleChangeIndexTab = (index2) => {
+        setValueTab2(index2);
+    };
+    const [valueTab3, setValueTab3] = React.useState(0);
+
+    const handleChangeTab3 = (event, newValue2) => {
+        setValueTab2(newValue2);
+    };
+    const handleChangeIndexTab3= (index2) => {
         setValueTab2(index2);
     };
     return (
@@ -379,7 +394,296 @@ const NewsPromotions = (props) => {
                                         </TabPanel>
                                         <TabPanel value={valueTab} index={1} dir={theme.direction}>
                                             <Box paddingBottom={3}>
+                                            <Box>
+                                                <Box paddingBottom={3}>
+                                                    <Grid container>
+                                                        <Grid item xs={12} sm={5} md={5}>
+                                                            <Typography variant='h2' component='h2' className='secondary-font' >Analytics</Typography>
+                                                            <Typography variant='p' component='p' paddingTop={4} paddingBottom={4}>New to crypto? Not for long — start with these guides and explainers</Typography>
 
+                                                        </Grid>
+                                                        <Grid item xs={12} sm={7} md={7}>
+                                                        </Grid>
+                                                    </Grid>
+
+                                                    <TabContext value={valueTab3}>
+                                                        <AppBar position="static">
+
+                                                            <Tabs
+                                                                value={valueTab3}
+                                                                onChange={handleChangeTab3}
+                                                                indicatorColor="secondary"
+                                                                textColor="inherit"
+                                                                aria-label="full width tabs example"
+                                                            >
+                                                                <Tab label="Cryptocurrency" {...a11yProps(0)} />
+                                                                <Tab label="Blockchain" {...a11yProps(1)} />
+                                                                <Tab label="Trading" {...a11yProps(3)} />
+                                                                <Tab label="All" {...a11yProps(4)} />
+
+                                                            </Tabs>
+                                                        </AppBar>
+                                                        <SwipeableViews
+                                                            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+                                                            index={valueTab3}
+                                                            onChangeIndex={handleChangeIndexTab}
+                                                        >
+                                                            <TabPanel value={valueTab3} index3={0} dir={theme.direction}>
+
+                                                                <Box paddingBottom={3}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
+                                                                                    >
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                    >
+                                                                                        A Beginner's Guide to TradingView
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                        Ethereum
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                        A fully-featured landing page kit,
+                                                                                        including design files, and beautiful 3D
+                                                                                        illustrations editable.
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
+                                                                            </Box>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+
+                                                            </TabPanel>
+                                                            <TabPanel value={valueTab3} index3={1} dir={theme.direction}>
+
+                                                                <Box paddingBottom={3}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
+                                                                                    >
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                    >
+                                                                                        A Beginner's Guide to TradingView
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                        Ethereum
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                        A fully-featured landing page kit,
+                                                                                        including design files, and beautiful 3D
+                                                                                        illustrations editable.
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
+                                                                            </Box>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+
+                                                            </TabPanel>
+                                                            <TabPanel value={valueTab3} index3={2} dir={theme.direction}>
+
+                                                                <Box paddingBottom={3}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
+                                                                                    >
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                    >
+                                                                                        A Beginner's Guide to TradingView
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                        Ethereum
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                        A fully-featured landing page kit,
+                                                                                        including design files, and beautiful 3D
+                                                                                        illustrations editable.
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
+                                                                            </Box>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+
+                                                            </TabPanel>
+                                                            <TabPanel value={valueTab3} index3={3} dir={theme.direction}>
+
+                                                                <Box paddingBottom={3}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
+                                                                                    >
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                    >
+                                                                                        A Beginner's Guide to TradingView
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                        Ethereum
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                        A fully-featured landing page kit,
+                                                                                        including design files, and beautiful 3D
+                                                                                        illustrations editable.
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
+                                                                            </Box>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+
+                                                            </TabPanel>
+                                                            <TabPanel value={valueTab3} index3={4} dir={theme.direction}>
+
+                                                                <Box paddingBottom={3}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
+                                                                                    >
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                    >
+                                                                                        A Beginner's Guide to TradingView
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                        Ethereum
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                        A fully-featured landing page kit,
+                                                                                        including design files, and beautiful 3D
+                                                                                        illustrations editable.
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
+                                                                            </Box>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+
+                                                            </TabPanel>
+
+                                                        </SwipeableViews>
+                                                    </TabContext>
+
+                                                </Box>
+                                            </Box>
                                             </Box>
                                         </TabPanel>
 

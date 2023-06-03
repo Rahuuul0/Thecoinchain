@@ -2,15 +2,10 @@ import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Typography, Link, Grid, Stack, Button, } from '@mui/material';
-import { ChatOutlined, } from '@mui/icons-material/';
-import Leveragedv3 from "../../../public/assets/images/leveragedv3.svg";
-import Leveraged from "../../../public/assets/images/leveraged.svg";
-import Leveragedv2 from "../../../public/assets/images/leveragedv2.svg";
-import Learn01 from '../../../public/assets/images/learn01.png';
 import Blog1 from "../../../public/assets/images/blog-1.svg";
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
-import { Search, ArrowRightAlt, ArrowDropDown } from "@mui/icons-material";
+import {  ArrowRightAlt,  } from "@mui/icons-material";
 import SwipeableViews from "react-swipeable-views";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";

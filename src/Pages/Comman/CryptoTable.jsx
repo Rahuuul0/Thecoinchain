@@ -56,10 +56,6 @@ const CryptoTable = (props) => {
 
     const coinData = sethomeData[0][0].data; 
 
-    useEffect(()=> {
-        console.log(sethomeData[0][0].data,'gfddsfdfdfsfs')
-      },[])
-
 
       const count = Math.ceil(coinData.length / 4);
       const [page, setPage] = React.useState(1);

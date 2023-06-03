@@ -38,7 +38,12 @@ export const Apis = {
     Subscription_Plan: 'subscription-plan',
     Tutorial_Video: "tutorial-list",
     Contact: 'contact-us',
-    Update_User: 'update-user'
+    Update_User: 'update-user',
+    Categories_Data: 'categories',
+    Category_Data: 'category',
+    Latest_Listings: 'latest-listings',
+
+
 }
 
 export const theme = createTheme({

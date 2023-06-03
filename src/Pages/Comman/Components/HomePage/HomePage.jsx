@@ -24,34 +24,51 @@ import Globe from "../../../../../public/assets/images/globe.svg";
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { useEffect } from "react"
+import { useEffect,useState } from "react"
 import Marquee from "react-fast-marquee";
 import CryptoTable from '../../CryptoTable';
 import Learn01 from '../../../../../public/assets/images/learn01.png'
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from 'recoil';
 import {homePageAtom} from "../../../../_state/users";
+import {useHomeActions} from "../../../../_actions/homePage.action"
 
 
 const Home = () => {
-
+  const homeActions = useHomeActions()
   const navigate = useNavigate();
   const sethomeData = useRecoilState(homePageAtom);
 
   const [value, setValue] = React.useState('1');
-
+  const [count,setCount]=useState(0)
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
  // Json Data call
   const coinData = sethomeData[0][0].data; 
-
-  useEffect(()=> {
-    console.log(sethomeData[0][0].data,'gfddsfdfdfsfs')
+ 
+  useEffect(()=>{
+     homeActions.categoriesData()
+    homeActions.categoryData()
   },[])
 
-  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount(count+1);
+      homeActions.latestListing()
+      }   
+    , 5000);
+    return () => clearInterval(interval);
+  }, [count]);
+
   
+
+ 
+
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
+    
+
+
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}>

@@ -109,6 +109,7 @@ const Contact = () => {
   // form validation rules 
   const validationSchema = Yup.object().shape({
     ct_cu_email: Yup.string()
+      .email("Email must be a valid email")
       .trim()
       .required('Email is required'),
     ct_cu_subject: Yup.string()
@@ -116,7 +117,7 @@ const Contact = () => {
   });
 
   //yup validation
-  const formOptions = { resolver: yupResolver(value == 1 ? validationSchema : validationSchemaMobile) };
+  const formOptions = { resolver: yupResolver(validationSchema) };
   // get functions to build form with useForm() hook
   const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
   const { errors } = formState;
@@ -444,7 +445,6 @@ const Contact = () => {
                 name="email"
                 autoComplete="off"
                 size="small"
-                autoFocus
                 {...register("ct_cu_email")}
                 onChange={(e) => reset({ ...formData, ct_cu_email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
               />

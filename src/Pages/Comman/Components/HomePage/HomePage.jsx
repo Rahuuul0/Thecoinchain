@@ -32,11 +32,14 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from 'recoil';
 import {homePageAtom} from "../../../../_state/users";
 import {useHomeActions} from "../../../../_actions/homePage.action"
-
+import {homeAtom} from "../../../../_state/home";
 
 const Home = () => {
   const homeActions = useHomeActions()
+
+  const homedata = useRecoilState(homeAtom)
   const navigate = useNavigate();
+
   const sethomeData = useRecoilState(homePageAtom);
 
   const [value, setValue] = React.useState('1');
@@ -46,24 +49,27 @@ const Home = () => {
   };
  // Json Data call
   const coinData = sethomeData[0][0].data; 
- 
+  
+  const [dataValue, setdataValue] = useState();
+
+  console.log(dataValue,'fgdfgdfgdfg');
+
   useEffect(()=>{
      homeActions.categoriesData()
     homeActions.categoryData()
+
   },[])
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCount(count+1);
-      homeActions.latestListing()
+      setdataValue( homeActions.latestListing() )
       }   
     , 5000);
     return () => clearInterval(interval);
+   
   }, [count]);
 
-  
-
- 
 
   useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
     

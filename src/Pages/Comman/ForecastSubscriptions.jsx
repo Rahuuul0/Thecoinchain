@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Typography, Button, Link, Breadcrumbs, Stack } from '@mui/material';
@@ -107,7 +107,11 @@ const ForecastSubscriptions = () => {
     const handleChanges = (panel) => (event, isExpanded) => {
       setExpanded(isExpanded ? panel : false);
     };
-  
+
+    // Accordion  function call
+    const [expandFirst, setExpandFirst] = React.useState(true);
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) },[expandFirst]);
+        
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -140,18 +144,18 @@ const ForecastSubscriptions = () => {
                                 <Box className='subscription-steps-col-details'>
 
                                     <Box className="step-one">
-                                        <Box className="card-inner-head">
+                                        {expandFirst&&<Box className="card-inner-head">
                                             <Typography component="h2" variant='h2'>
                                                 <span>Forecast </span> Subscriptions
                                             </Typography>
                                             <Typography component="p" variant='body2' className='small-caption'>
                                                 By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content. To regain full access to the content, a new subscription is required.
                                             </Typography>
-                                        </Box>
+                                        </Box>}
                                         <Box className='subscription-plan'>
-                                        <Accordion expanded={expanded === 'panel1'} onChange={handleChanges('panel1')}>
+                                        {expandFirst&& <Accordion  expanded={expandFirst}>
                                             <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
+                                            // expandIcon={<ExpandMoreIcon />}
                                             aria-controls="panel1bh-content"
                                             id="panel1bh-header"
                                             >
@@ -182,32 +186,22 @@ const ForecastSubscriptions = () => {
                                                     </Box>
                                                 </Box>
                                             ))}
-                                            </AccordionDetails>
-                                        </Accordion>
-                                        <Accordion expanded={expanded === 'panel2'} onChange={handleChanges('panel2')}>
-                                            <AccordionSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel2bh-content"
-                                            id="panel2bh-header"
-                                            >
-                                            <Typography sx={{ width: '33%', flexShrink: 0 }}>Resubscribe</Typography>
-                                            </AccordionSummary>
-                                            <Box textAlign='center'>
-                                        <img src={SubsImage} />
-                                        <Typography variant='p' component='div' sx={{ color: '#777E90', fontSize: '14px' }}>Your subscription and recurring payment has been canceled.</Typography>
-                                        <Stack className='subs-div' direction='row' spacing={3} paddingY={4} justifyContent='center'>
-                                            <Button className='btn btn-outlined-secondary' >Home</Button>
-                                            <Button onClick={() => { navigate("/subscription#"); }} className='btn btn-dark' >Resubscribe</Button>
-                                        </Stack>
-                                    </Box>
-                                        </Accordion>
-                    
-                                        </Box>
-                                        <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
+                                               <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
                                             By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content once your plan finishes. To regain full access to the content, a new subscription is required.
                                         </Typography>
                                         <Box className="subscription-plan-cta">
-                                            <Button onClick={() => { navigate("/"); }} variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribed</Button>
+                                            <Button onClick={() => { setExpandFirst(false)}} variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribe</Button>
+                                        </Box>
+                                            </AccordionDetails>
+                                        </Accordion>   }
+                                           {!expandFirst&& <Box textAlign='center'>
+                                        <img src={SubsImage} />
+                                        <Typography variant='p' component='div' sx={{ color: '#777E90', fontSize: '14px' }}>Your subscription and recurring payment has been canceled.</Typography>
+                                        <Stack className='subs-div' direction='row' spacing={3} paddingY={4} justifyContent='center'>
+                                            <Button onClick={() => { navigate("/"); }} className='btn btn-outlined-secondary' >Home</Button>
+                                            <Button onClick={() => { navigate("/subscription"); }} className='btn btn-dark' >Resubscribe</Button>
+                                        </Stack>
+                                    </Box>   }           
                                         </Box>
                                     </Box>
                                 </Box>
@@ -215,7 +209,7 @@ const ForecastSubscriptions = () => {
                         </Container>
                     </Box>
 
-                </Box >
+                </Box>
             </ThemeProvider>
             
         </>

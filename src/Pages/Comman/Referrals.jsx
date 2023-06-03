@@ -99,21 +99,21 @@ const Referrals = () => {
                                             <Typography component="h6" variant="h6" className="body-caption" paddingBottom={1}>
                                                 Total rewards
                                             </Typography>
-                                            <Typography component="h3" variant="h3" className="secondary-font" fontWeight={700} paddingBottom={2}>
+                                            <Typography component="h3" variant="h3" className="secondary-font green-span" fontWeight={700} paddingBottom={2}>
                                                 1,056.00  <span className='green-color' >USDT</span>
                                             </Typography>
                                             <Typography component="p" variant="p" className="secondary-color small-caption " paddingBottom={3}  >
                                                 You're earning 20% of the subscription plan your<br />
                                                 referrals pay. Learn more
                                             </Typography>
-                                            <Box className="center-box" padding={3} marginY={2} sx={{ backgroundColor: '#F1F2F4', borderRadius: '10px' }}>
+                                            <Box className="center-box refferal-form" padding={3} marginY={2} sx={{ backgroundColor: '#F1F2F4', borderRadius: '10px' }}>
                                                 <Typography component="h6" variant="h6" paddingBottom={0} fontWeight={600} className="body-large mobile-body-large">
                                                     Invite friends to earn 20%
                                                 </Typography>
                                                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                                                     <Grid item xs={12} sm={6}>
                                                         <TextField
-                                                            label="REFERRALS LINK"
+                                                            label="REFERRAL LINK"
                                                             className="black-label form-control white-input-box"
                                                             InputLabelProps={{
                                                                 shrink: true,
@@ -132,7 +132,7 @@ const Referrals = () => {
                                                     </Grid>
                                                     <Grid item xs={12} sm={6}>
                                                         <TextField
-                                                            label="REFERRALS CODE"
+                                                            label="REFERRAL CODE"
                                                             InputProps={{
                                                                 endAdornment: <InputAdornment position="end">Copied</InputAdornment>,
                                                             }}

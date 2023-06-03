@@ -11,6 +11,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {subscriptionActions} from '../../_actions';
 
 const plans = [
     {
@@ -60,6 +61,7 @@ function getStyles(name, personName, theme) {
 const ForecastSubscriptions = () => {
 
     const navigate = useNavigate();
+    const subscribed = subscriptionActions() 
 
     const [open, setOpen] = useState(false);
 
@@ -107,6 +109,12 @@ const ForecastSubscriptions = () => {
     const handleChanges = (panel) => (event, isExpanded) => {
       setExpanded(isExpanded ? panel : false);
     };
+
+    useEffect(()=>{
+        const    response = subscribed.subscription()
+        response.then((res)=>{setSubscriptionData(res)})
+ 
+     },[])
   
     return (
         <>

@@ -3,10 +3,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, InputAdornment, TextField, } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
-import { useNavigate  } from "react-router-dom";
 import Sidebar from './Components/Sidebar';
-import {KeyboardArrowLeft} from '@mui/icons-material/';
-import IconButton from "@mui/material/IconButton";
 
 function handleClick(event) {
     event.preventDefault();
@@ -31,7 +28,6 @@ function getStyles(name, personName, theme) {
     };
 }
 const Referrals = () => {
-    const navigate = useNavigate();
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 
@@ -71,11 +67,6 @@ const Referrals = () => {
         <>
             <ThemeProvider theme={theme}>
                 <Box component="main" className='subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
-                <Box position='absolute' sx={{top: '90px'}}>
-                            <IconButton onClick={()=>{navigate('/account')}} aria-label="delete"  className='btn-primary btn' variant="outlined" sx={{padding: '4px 4px !important', margin: '0px !important'}}>
-                                <KeyboardArrowLeft />
-                            </IconButton>
-                        </Box>
                     <Container maxWidth="lg">
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>

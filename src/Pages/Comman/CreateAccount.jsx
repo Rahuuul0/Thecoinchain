@@ -28,7 +28,7 @@ const CreateAccount = () => {
     const captchaRef = useRef(null)
     const validationSchema = Yup.object().shape({
         email: Yup.string()
-            .email()
+            .email("Email must be a valid email")
             .trim()
             .required("Email Address is required"),
         mobile: Yup.string().required("Mobile Number is required").matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, { message: "Please enter valid number.", excludeEmptyString: false }),
@@ -82,6 +82,9 @@ const CreateAccount = () => {
         }
         
     }
+
+
+    
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -144,7 +147,6 @@ const CreateAccount = () => {
                                 >
                                     <Box className='auth-form' >
                                         <TextField
-                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             label="Email"
                                             className="form-control"
                                             type="email"
@@ -162,6 +164,7 @@ const CreateAccount = () => {
                                             size="small"
                                             autoFocus
                                             {...register("email")}
+                                            onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         />
                                         <div style={{ color: "red" }}>{errors.email?.message}
                                         </div>
@@ -187,7 +190,6 @@ const CreateAccount = () => {
                                         <div style={{ color: "red" }}>{errors.mobile?.message}
                                         </div>
                                         <TextField
-                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             margin="normal"
                                             required
                                             type={showPassword ? "text" : "password"}
@@ -214,10 +216,10 @@ const CreateAccount = () => {
                                                 ),
                                             }}
                                             {...register("password")}
+                                            onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         /><div style={{ color: "red" }}> {errors.password?.message}
                                         </div>
                                         <TextField
-                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             margin="normal"
                                             required
                                             InputLabelProps={{
@@ -244,15 +246,17 @@ const CreateAccount = () => {
                                                 ),
                                             }}
                                             {...register("confirm_password")}
+                                            onChange={(e) => reset({ ...formData, confirm_password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         />
                                         <div style={{ color: "red" }}> {errors.confirm_password?.message}
                                         </div>
 
                                         <FormControlLabel                                         
                                         className='auth-checkbox' 
+                                        display='flex'
                                         control={<Checkbox {...register("agree")}  />} 
-                                        label="* By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." 
-                                        />
+                                        label='* By signing up I agree that I’m 18 <b> years</b> of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent.'
+                                            />
                                           <div style={{ color: "red" }}> {errors.agree?.message}
                                         </div>
                                         <ReCAPTCHA

@@ -2417,6 +2417,13 @@ video[poster] {
 .MuiFormControl-root .MuiFormLabel-asterisk{
   display: none;
 }
+.center-tab.primary-tabs.MuiTabs-root button.MuiTab-root.Mui-selected{
+  background-color: #3772FF;
+}
+.primary-tabs.MuiTabs-root button.MuiTab-root{
+  background-color: #00000000;
+  border: 1px solid #E6E8EC;
+}
 
 /* Media Queries  */
 @media (max-width: 1399.98px) {

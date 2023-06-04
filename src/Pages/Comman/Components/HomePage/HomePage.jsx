@@ -50,7 +50,7 @@ const Home = () => {
  // Json Data call
   const coinData = sethomeData[0][0].data; 
   
-  const [dataValue, setdataValue] = useState();
+  const [dataValue, setdataValue] = useState([]);
 
   console.log(dataValue,'fgdfgdfgdfg');
 
@@ -61,17 +61,38 @@ const Home = () => {
   },[])
 
   useEffect(() => {
+    const myFun =  async ()=>{
+      const ress = await homeActions.latestListing();
+      if(ress) {
+        setdataValue( ress )
+      }
+      console.warn("changed")
+    }
+    myFun();
+
     const interval = setInterval(() => {
       setCount(count+1);
-      setdataValue( homeActions.latestListing() )
+      myFun();
       }   
-    , 5000);
+    , 3000);
     return () => clearInterval(interval);
    
-  }, [count]);
+  },[dataValue]);
 
 
-  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
+
+  // useEffect(()=>{
+  //   const myFun =  async ()=>{
+  //     const ress = await homeActions.latestListing();
+  //     setdataValue( ress )
+  //     console.warn( ress,"f11111111111111111111")
+
+  //   }
+  //   myFun();
+  // },[]); 
+  
+  
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) },[]);
     
 
 
@@ -108,7 +129,7 @@ const Home = () => {
       <Container>
         <Box>
           <Grid container spacing={4} sx={{ alignItems: 'center' }} className='grid-bit' backgroundColor='#F4F5F6' padding={3} borderRadius={6}>
-          {coinData.map((item, index)=> {
+          {dataValue?.map((item, index)=> {
               if(index < 4){
                 return(
                 <Grid item xs={12} sm={3} md={3} className='gridBox'>

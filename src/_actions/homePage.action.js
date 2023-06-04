@@ -36,11 +36,10 @@ const categoryData = async () => {
 }
 
 const latestListing = async () => {
-
-    return fetchWrapper.get(Apis.Latest_Listings)
+   return  fetchWrapper.get(Apis.Latest_Listings)
         .then(res => {
          if (res.statusCode === 200) {
-          console.log(res, '')
+          return res.data.data
          } else {
              alertActions.error(Labels.Error);
          }

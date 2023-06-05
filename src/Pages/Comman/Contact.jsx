@@ -19,6 +19,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { styled, alpha } from '@mui/material/styles';
+import Autocomplete from '@mui/material/Autocomplete';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -108,12 +109,15 @@ const Contact = () => {
 
   // form validation rules 
   const validationSchema = Yup.object().shape({
-    ct_cu_email: Yup.string()
+    email: Yup.string()
       .email("Email must be a valid email")
       .trim()
       .required('Email is required'),
-    ct_cu_subject: Yup.string()
+    subject: Yup.string()
       .trim()
+      .required('Subject is required'),
+    question: Yup.string()
+      .required('Question is required')
   });
 
   //yup validation
@@ -362,70 +366,20 @@ const Contact = () => {
             </Box>
             <Box paddingBottom={2}>
               <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>What is your issue about?</Typography>
-              <Select
-                multiple
-                displayEmpty
-                value={personName}
-                onChange={handleChange}
-                input={<OutlinedInput />}
-                renderValue={(selected) => {
-                  if (selected.length === 0) {
-                    return <p className='margin-0'>Have a question about CoinGuru prediction?</p>;
-                  }
-
-                  return selected.join(', ');
-                }}
-                MenuProps={MenuProps}
-                inputProps={{ 'aria-label': 'Without label' }}
-              >
-                <MenuItem disabled value="">
-                  Have a question about CoinGuru prediction?
-                </MenuItem>
-                {names.map((name) => (
-                  <MenuItem
-                    key={name}
-                    value={name}
-                    style={getStyles(name, personName, theme)}
-                  >
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </Box>
-
-            <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4'
-                sx={{ fontSize: '12px', transform: ' translate(0, -1.5px) scale(0.75)', fontFamily: 'var(--primary-font) !important', fontWeight: '700', textTransform: 'uppercase' }}
-                className='small-caption primary-font secondary-color'>What is your issue about?</Typography>
-              <Select
-                multiple
-                displayEmpty
-                value={personName}
-                onChange={handleChange}
-                input={<OutlinedInput />}
-                renderValue={(selected) => {
-                  if (selected.length === 0) {
-                    return <p className='margin-0'>Transactions and spending</p>;
-                  }
-
-                  return selected.join(', ');
-                }}
-                MenuProps={MenuProps}
-                inputProps={{ 'aria-label': 'Without label' }}
-              >
-                <MenuItem disabled value="">
-                  Transactions and spending
-                </MenuItem>
-                {names.map((name) => (
-                  <MenuItem
-                    key={name}
-                    value={name}
-                    style={getStyles(name, personName, theme)}
-                  >
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
+              <Grid item xs={12}>
+            <Autocomplete
+                required
+                disablePortal
+                fullWidth
+                id="combo-box-demo"
+                size="small"
+                value={formData?.question}
+                options= {names}
+                onChange={(e, props) => reset({ ...formData, question: props?.name })}
+                renderInput={(params) => <TextField {...register('question')}  required {...params} InputLabelProps={{ shrink: true }} />}
+            />
+            <div style={{ color: "red" }}>{errors.question?.message}</div>
+        </Grid>
             </Box>
 
             <Box paddingBottom={2}>
@@ -445,10 +399,10 @@ const Contact = () => {
                 name="email"
                 autoComplete="off"
                 size="small"
-                {...register("ct_cu_email")}
-                onChange={(e) => reset({ ...formData, ct_cu_email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                {...register("email")}
+                onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
               />
-              <div style={{ color: "red" }}>{errors.ct_cu_email?.message}</div>
+              <div style={{ color: "red" }}>{errors.email?.message}</div>
             </Box>
 
             <Box paddingBottom={2}>
@@ -466,10 +420,10 @@ const Contact = () => {
                 placeholder='Subject'
                 name="subject"
                 autoComplete="off"
-                {...register("ct_cu_subject")}
-                onChange={(e) => reset({ ...formData, ct_cu_subject: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                {...register("subject")}
+                onChange={(e) => reset({ ...formData, subject: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
               />
-               <div style={{ color: "red" }}>{errors.ct_cu_subject?.message}</div>
+               <div style={{ color: "red" }}>{errors.subject?.message}</div>
             </Box>
             <Box paddingTop='2'>
               <TextField
@@ -484,7 +438,7 @@ const Contact = () => {
                 multiline
                 rows={4}
                 fullWidth
-                {...register("ct_cu_msg")}
+                {...register("msg")}
               />
             </Box>
             <Box paddingTop='2'>

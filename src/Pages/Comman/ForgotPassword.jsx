@@ -112,6 +112,7 @@ const ForgotPassword = () => {
                                             name="email"
                                             autoComplete="email"
                                             size="small"
+                                            autoFocus
                                             className="form-control"
                                             InputLabelProps={{
                                                 shrink: true,

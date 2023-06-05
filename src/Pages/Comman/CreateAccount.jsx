@@ -205,7 +205,6 @@ const CreateAccount = () => {
                                             name="password"
                                             autoComplete="off"
                                             size="small"
-                                            autoFocus
                                             className="form-control"
                                             InputProps={{
                                                 endAdornment: (
@@ -235,7 +234,6 @@ const CreateAccount = () => {
                                             name="confirm_password"
                                             autoComplete="off"
                                             size="small"
-                                            autoFocus
                                             className="form-control"
                                             InputProps={{
                                                 endAdornment: (

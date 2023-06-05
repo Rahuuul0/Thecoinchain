@@ -1,11 +1,11 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Typography, Link, Grid, Stack, Button, } from '@mui/material';
+import { Box, Container, Typography, Grid, Button, } from '@mui/material';
 import Blog1 from "../../../public/assets/images/blog-1.svg";
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
-import {  ArrowRightAlt,  } from "@mui/icons-material";
+import { ArrowRightAlt, } from "@mui/icons-material";
 import SwipeableViews from "react-swipeable-views";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
@@ -27,7 +27,7 @@ const GuidesAnalysis = (props) => {
             "aria-controls": `full-width-tabpanel-${index2}`,
         };
     }
-    
+
     function a11yProps(index3) {
         return {
             id: `full-width-tab3-${index3}`,
@@ -54,17 +54,17 @@ const GuidesAnalysis = (props) => {
     };
     const [valueTab3, setValueTab3] = React.useState(0);
 
-    const handleChangeTab3 = (event, newValue2) => {
-        setValueTab2(newValue2);
+    const handleChangeTab3 = (event, newValue3) => {
+        setValueTab3(newValue3);
     };
-    const handleChangeIndexTab3= (index2) => {
-        setValueTab2(index2);
+    const handleChangeIndexTab3 = (index3) => {
+        setValueTab3(index3);
     };
     return (
         <>
             <ThemeProvider theme={theme}>
                 <Container sx={{ pt: 14 }}>
-                    <Box paddingBottom={15}>
+                    <Box paddingBottom={10}>
                         <Typography
                             variant="h1"
                             className="secondary-font"
@@ -100,9 +100,9 @@ const GuidesAnalysis = (props) => {
                                         index={valueTab}
                                         onChangeIndex={handleChangeIndex}
                                     >
-                                        <TabPanel value={valueTab} index={0} dir={theme.direction}>
+                                        <TabPanel value={valueTab} index={0} dir={theme.direction} sx={{padding: '0px'}}>
                                             <Box>
-                                                <Box paddingBottom={3}>
+                                                <Box padding={0}>
                                                     <Grid container>
                                                         <Grid item xs={12} sm={5} md={5}>
                                                             <Typography variant='h2' component='h2' className='secondary-font' >Guides</Typography>
@@ -135,9 +135,9 @@ const GuidesAnalysis = (props) => {
                                                             index={valueTab2}
                                                             onChangeIndex={handleChangeIndexTab}
                                                         >
-                                                            <TabPanel value={valueTab2} index2={0} dir={theme.direction}>
+                                                            <TabPanel value={valueTab2} index2={0} dir={theme.direction}  sx={{padding: '0px'}}>
 
-                                                                <Box paddingBottom={3}>
+                                                                <Box padding={0}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
@@ -185,9 +185,9 @@ const GuidesAnalysis = (props) => {
                                                                 </Box>
 
                                                             </TabPanel>
-                                                            <TabPanel value={valueTab2} index2={1} dir={theme.direction}>
+                                                            <TabPanel value={valueTab2} index2={1} dir={theme.direction}  sx={{padding: '0px'}}>
 
-                                                                <Box paddingBottom={3}>
+                                                                <Box padding={0}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
@@ -235,9 +235,9 @@ const GuidesAnalysis = (props) => {
                                                                 </Box>
 
                                                             </TabPanel>
-                                                            <TabPanel value={valueTab2} index2={2} dir={theme.direction}>
+                                                            <TabPanel value={valueTab2} index2={2} dir={theme.direction}  sx={{padding: '0px'}}>
 
-                                                                <Box paddingBottom={3}>
+                                                                <Box padding={0}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
@@ -285,9 +285,9 @@ const GuidesAnalysis = (props) => {
                                                                 </Box>
 
                                                             </TabPanel>
-                                                            <TabPanel value={valueTab2} index2={3} dir={theme.direction}>
+                                                            <TabPanel value={valueTab2} index2={3} dir={theme.direction}  sx={{padding: '0px'}}>
 
-                                                                <Box paddingBottom={3}>
+                                                                <Box padding={0}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
@@ -335,9 +335,9 @@ const GuidesAnalysis = (props) => {
                                                                 </Box>
 
                                                             </TabPanel>
-                                                            <TabPanel value={valueTab2} index2={4} dir={theme.direction}>
+                                                            <TabPanel value={valueTab2} index2={4} dir={theme.direction}  sx={{padding: '0px'}}>
 
-                                                                <Box paddingBottom={3}>
+                                                                <Box padding={0}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
@@ -393,11 +393,8 @@ const GuidesAnalysis = (props) => {
                                             </Box>
                                         </TabPanel>
                                         <TabPanel value={valueTab} index={1} dir={theme.direction}>
-                                            <Box paddingBottom={3}>
 
-                                            <Box paddingBottom={3}>
-                                            <Box>
-                                                <Box paddingBottom={3}>
+                                                <Box padding={0}>
                                                     <Grid container>
                                                         <Grid item xs={12} sm={5} md={5}>
                                                             <Typography variant='h2' component='h2' className='secondary-font' >Analytics</Typography>
@@ -428,11 +425,11 @@ const GuidesAnalysis = (props) => {
                                                         <SwipeableViews
                                                             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                                                             index={valueTab3}
-                                                            onChangeIndex={handleChangeIndexTab}
+                                                            onChangeIndex={handleChangeIndexTab3}
                                                         >
-                                                            <TabPanel value={valueTab3} index3={0} dir={theme.direction}>
+                                                            <TabPanel value={valueTab3} index3={0} dir={theme.direction} sx={{ padding: '0px !important' }}>
 
-                                                                <Box paddingBottom={3}>
+                                                                <Box sx={{ padding: '0px !important' }}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
@@ -480,9 +477,9 @@ const GuidesAnalysis = (props) => {
                                                                 </Box>
 
                                                             </TabPanel>
-                                                            <TabPanel value={valueTab3} index3={1} dir={theme.direction}>
+                                                            <TabPanel value={valueTab3} index3={1} dir={theme.direction} sx={{ padding: '0px !important' }}>
 
-                                                                <Box paddingBottom={3}>
+                                                                <Box padding={0}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
@@ -530,9 +527,9 @@ const GuidesAnalysis = (props) => {
                                                                 </Box>
 
                                                             </TabPanel>
-                                                            <TabPanel value={valueTab3} index3={2} dir={theme.direction}>
+                                                            <TabPanel value={valueTab3} index3={2} dir={theme.direction} sx={{padding: '0'}}>
 
-                                                                <Box paddingBottom={3}>
+                                                                <Box padding={0}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
@@ -580,9 +577,9 @@ const GuidesAnalysis = (props) => {
                                                                 </Box>
 
                                                             </TabPanel>
-                                                            <TabPanel value={valueTab3} index3={3} dir={theme.direction}>
+                                                            <TabPanel value={valueTab3} index3={3} dir={theme.direction} sx={{padding: '0'}}>
 
-                                                                <Box paddingBottom={3}>
+                                                                <Box padding={0}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
@@ -632,7 +629,7 @@ const GuidesAnalysis = (props) => {
                                                             </TabPanel>
                                                             <TabPanel value={valueTab3} index3={4} dir={theme.direction}>
 
-                                                                <Box paddingBottom={3}>
+                                                                <Box padding={0}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
@@ -685,10 +682,6 @@ const GuidesAnalysis = (props) => {
                                                     </TabContext>
 
                                                 </Box>
-                                            </Box>
-                                            </Box>
-
-                                            </Box>
                                         </TabPanel>
 
                                     </SwipeableViews>

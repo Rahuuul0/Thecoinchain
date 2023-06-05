@@ -39,8 +39,6 @@ const NewsPromotions = (props) => {
     const handleChangeTab = (event, newValue) => {
         setValueTab(newValue);
     };
-
-
     const handleChangeIndex = (index) => {
         setValueTab(index);
     };
@@ -54,11 +52,11 @@ const NewsPromotions = (props) => {
     };
     const [valueTab3, setValueTab3] = React.useState(0);
 
-    const handleChangeTab3 = (event, newValue2) => {
-        setValueTab2(newValue2);
+    const handleChangeTab3 = (event, newValue3) => {
+        setValueTab3(newValue3);
     };
-    const handleChangeIndexTab3= (index2) => {
-        setValueTab2(index2);
+    const handleChangeIndexTab3= (index3) => {
+        setValueTab3(index3);
     };
     return (
         <>
@@ -90,8 +88,8 @@ const NewsPromotions = (props) => {
                                             className='center-tab primary-tabs'
                                             aria-label="full width tabs example"
                                         >
-                                            <Tab label="Guide" {...a11yProps(0)} />
-                                            <Tab label="Analytics" {...a11yProps(1)} />
+                                            <Tab label="News" {...a11yProps(0)} />
+                                            <Tab label="Promotion" {...a11yProps(1)} />
 
                                         </Tabs>
                                     </AppBar>
@@ -398,7 +396,7 @@ const NewsPromotions = (props) => {
                                                 <Box paddingBottom={3}>
                                                     <Grid container>
                                                         <Grid item xs={12} sm={5} md={5}>
-                                                            <Typography variant='h2' component='h2' className='secondary-font' >Analytics</Typography>
+                                                            <Typography variant='h2' component='h2' className='secondary-font' >Promotions</Typography>
                                                             <Typography variant='p' component='p' paddingTop={4} paddingBottom={4}>New to crypto? Not for long — start with these guides and explainers</Typography>
 
                                                         </Grid>
@@ -426,7 +424,7 @@ const NewsPromotions = (props) => {
                                                         <SwipeableViews
                                                             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                                                             index={valueTab3}
-                                                            onChangeIndex={handleChangeIndexTab}
+                                                            onChangeIndex={handleChangeIndexTab3}
                                                         >
                                                             <TabPanel value={valueTab3} index3={0} dir={theme.direction}>
 

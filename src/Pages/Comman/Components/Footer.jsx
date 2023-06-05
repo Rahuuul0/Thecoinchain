@@ -76,7 +76,7 @@ const Footer = () => {
               <Box className="quick-links">
                 <Stack spacing={2}>
                   <Link href="#" onClick={() => { navigate("./prediction-dashboard") }}>Price Forecast</Link>
-                  <Link href="#">Guides & Analysis</Link>
+                  <Link href="#" onClick={() => { navigate("./guides-analysis") }}>Guides & Analysis</Link>
                   <Link href="#" onClick={() => { navigate("./academy") }}>Academy</Link>
                   <Link href="#" onClick={() => { navigate("./news-promotions") }}>News & Promotions</Link>
                   <Link href="#" onClick={() => { navigate("./subscription") }}>Subscriptions</Link>

@@ -12,17 +12,17 @@ const useUserActions = () => {
     const alertActions = useAlertActions();
     const [Soption, setSoption] = useRecoilState(switchAtom);
     const setUserError = useSetRecoilState(userErrorAtom);
-    const setAuth = useSetRecoilState(authAtom);
+    const [auth,setAuth] = useRecoilState(authAtom);
     
     const login = async ({email, password}) => {
         return fetchWrapper.post(Apis.Login, { email, password })
             .then(res => {
                 if (res.statusCode === 200) {
-                    let {data,access_token} = res;                      
-                    localStorage.setItem("user",JSON.stringify({...data,access_token}))     
-                    setAuth({...data,access_token});   
+                    let {data,access_token,login_attempt} = res;                      
+                    localStorage.setItem("user",JSON.stringify({...data,access_token,login_attempt}))     
+                    setAuth({...data,access_token,login_attempt}); 
+                    (login_attempt<=0)?navigate("/account/profile"):navigate("/"); 
                     setUserError(true)
-                    (data.login_attempt>0)?navigate("/account/profile"):navigate("/"); 
                     alertActions.success(Labels.Login_Success);
                 } else {
                     alertActions.error(res.msg);
@@ -39,11 +39,11 @@ const useUserActions = () => {
         return fetchWrapper.post(Apis.Social_Media_Login, authData)
             .then(res => {
                 if (res.statusCode === 200) {    
-                    let {data,access_token} = res;               
-                    localStorage.setItem("user",JSON.stringify({...data,access_token}))     
-                    setAuth({...data,access_token});    
+                    let {data,access_token,login_attempt} = res;               
+                    localStorage.setItem("user",JSON.stringify({...data,access_token,login_attempt}))     
+                    setAuth({...data,access_token,login_attempt});    
                     alertActions.success(Labels.Login_Success);
-                    (data.login_attempt>0)?navigate("/account/profile"):navigate("/");                 
+                    (login_attempt<=0)?navigate("/account/profile"):navigate("/");              
                 } else {
                     alertActions.error(res.msg);
                 }
@@ -130,13 +130,13 @@ const useUserActions = () => {
         return fetchWrapper.post(Apis.GetOtp, { email })
             .then(res => {
                 if (res.statusCode === 200) {
-                    setSoption(false)
+                    setSoption('email')
                     alertActions.success("We have sent you the code");
                 } else {
                     alertActions.error(Labels.Error);
                 }
             }).catch((err)=>{console.log(err);});
-    }
+    }    
 
     const verifyRegisterOtp = async (otp) => {
         return fetchWrapper.post(Apis.VerifyRegisterOtp, { otp })
@@ -164,8 +164,7 @@ const useUserActions = () => {
          }).catch((err)=>{console.warn(err)})
     }
 
-    const changePassword = async ({old_password, new_password}) => {
-        const email = localStorage.getItem("email")
+    const changePassword = async ({old_password, new_password}) => {       
         return fetchWrapper.post(Apis.Change_Password, { old_password, new_password })
             .then(res => {
              if (res.statusCode === 200) {
@@ -178,14 +177,12 @@ const useUserActions = () => {
     }
 
     const createPassword = ({ newPassword, confirmPassword }) => {
-                alertActions.success('New Password Created Successfully');
-                navigate('/login');
-               
+        alertActions.success('New Password Created Successfully');
+        navigate('/login');               
     }
 
-    const updateUser =(id,{name,email, mobile})=>{
-        const phone = mobile;
-      return fetchWrapper.post(`${Apis.Update_User}?id=${id}`,{name,email,phone})
+    const updateUser =({name,email, phone})=>{      
+      return fetchWrapper.post(`${Apis.Update_User}`,{name,email,phone})
       .then(res=>{
         if(res.statusCode === 200){  
             let {data} = res;               
@@ -209,6 +206,18 @@ const useUserActions = () => {
         navigate('/');
     }
 
+    const getOtpPhone = async (phone) => {        
+        return fetchWrapper.post(Apis.Get_Otp_Phone, { phone })
+             .then(res => {
+                 if (res.statusCode === 200) {
+                     setSoption('phone')
+                     alertActions.success("We have sent you the code");
+                 } else {
+                     alertActions.error(Labels.Error);
+                 }
+             }).catch((err)=>{console.log(err);});
+     }
+
     return {
         login,
         loginMobile,
@@ -224,7 +233,8 @@ const useUserActions = () => {
         googleAuth,
         googleLogin,
         loginAuth,
-        logout
+        logout,
+        getOtpPhone
     }
 
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Box, Grid, Container, Typography, Link, Stack, TextField, InputAdornment, IconButton } from '@mui/material';
+import { Box, Grid, Container, Typography, Link, Stack, TextField, InputAdornment, IconButton, Button } from '@mui/material';
 
 import Darklogo from "../../../../public/assets/images/cg.svg";
 import BehanceIcon from "../../../../public/assets/images/icons/behance.svg";
@@ -21,9 +21,9 @@ const Footer = () => {
         <Box paddingTop={5}>
           <Grid container sx={{ justifyContent: 'space-between' }}>
             <Grid item xs={12} sm={12} md={2} paddingTop={4} paddingBottom={4} >
-              <Typography
+              <Button onClick={() => { navigate("/"); }}
               > <img className='logo-cg' src={Darklogo} />
-              </Typography>
+              </Button>
             </Grid>
             <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC', }} paddingLeft={5} paddingRight={5} paddingTop={4} paddingBottom={4} >
               <Box className="quick-links">

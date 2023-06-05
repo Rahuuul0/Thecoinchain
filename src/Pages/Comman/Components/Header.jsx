@@ -20,6 +20,10 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
 import { KeyboardArrowDown } from '@mui/icons-material/';
+import USA from '../../../../public/assets/images/icons/usa.svg';
+import japan from '../../../../public/assets/images/icons/japan.svg';
+import Chaina from '../../../../public/assets/images/icons/chaina.svg';
+import { Label } from 'recharts';
 
 const drawerWidth = 240;
 
@@ -186,18 +190,35 @@ function Header(props) {
               <Box className='menu-box'>
                 <Grid container >
                   <Grid item xs={6} sm={6} md={6} sx={{ borderRight: '1px solid #E6E8EC' }}>
-                    <FormControl className='language-dropdown'>
+                    {/* <FormControl className='language-dropdown'>
                       <FormLabel className='small-caption language-box' id="demo-radio-buttons-group-label">Language</FormLabel>
                       <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
                         defaultValue="English"
                         name="radio-buttons-group"
                       >
-                        <FormControlLabel className='radio-option' value="english" control={<Radio />} label="English" />
+                        <FormControlLabel className='radio-option' value="english" control={<Radio />} label="English" > <img src={USA} /> </FormControlLabel>
                         <FormControlLabel className='radio-option' value="chinese" control={<Radio />} label="Chinese" />
                         <FormControlLabel className='radio-option' value="japanese" control={<Radio />} label="Japanese" />
                       </RadioGroup>
-                    </FormControl>
+                    </FormControl> */}
+                     <Box className='language-dropdown'>
+                      <Typography className='small-caption language-box' id="lang-label" sx={{ fontSize: '12px !important' }} paddingBottom={4}>Language</Typography>
+                      <Box class="img-btn first-img-btn">
+                        <input type="radio" name="country-flags" checked />
+                        <img width='30' src={USA} alt="Sri Lanka Flag" /> English
+                      </Box>
+
+                      <Box class="img-btn">
+                        <input type="radio" name="country-flags" />
+                        <img width='30' src={Chaina} alt="America Flag" /> Chinese
+                      </Box>
+
+                      <Box class="img-btn">
+                        <input type="radio" name="country-flags" />
+                        <img width='30' src={japan} alt="India Flag" /> Japanese
+                      </Box>
+                    </Box>
                   </Grid>
                   <Grid item xs={6} sm={6} md={6} className='right-box'>
                     <FormControl className='language-dropdown'>
@@ -214,6 +235,8 @@ function Header(props) {
                         <FormControlLabel className='radio-option' value="btc" control={<Radio />} label="BTC" />
                       </RadioGroup>
                     </FormControl>
+
+                   
                   </Grid>
                 </Grid>
               </Box>

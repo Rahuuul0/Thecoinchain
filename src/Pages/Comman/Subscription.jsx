@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from 'react'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Grid, Typography, Button, Modal, Link, TextField, FormControlLabel, Checkbox } from '@mui/material'
 import CryptoTrader01 from '../../../public/assets/images/crypto-trader-01.svg'
@@ -12,9 +12,8 @@ import MasterIc from '../../../public/assets/images/icons/master.svg'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import CloseIcon from '@mui/icons-material/Close';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import {subscriptionActions} from '../../_actions/subscription.actions';
+import { useNavigate } from 'react-router-dom';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -44,10 +43,8 @@ const plans = [
 ]
 
 const Subscription = () => {
-
-    const subscribed = subscriptionActions()
-
-    
+    const navigate = useNavigate();
+    const subscribed = subscriptionActions()    
     const [open, setOpen] = useState(false);
     const [payData, setpayData] = useState(0);
     const [subscriptionData, setSubscriptionData] = useState([]);
@@ -59,7 +56,6 @@ const Subscription = () => {
     useEffect(()=>{
        const    response = subscribed.subscription()
        response.then((res)=>{setSubscriptionData(res)})
-
     },[])
  
     //  Accordion  function call

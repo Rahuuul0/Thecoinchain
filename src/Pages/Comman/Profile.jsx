@@ -1,29 +1,19 @@
-import { useEffect, useState } from "react";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "../../_common/app.constants";
-import {
-  Box,
-  Container,
-  Grid,
-  Typography,
-  Button,
-  Link,
-  Breadcrumbs,
-  Select,
-  OutlinedInput,
-  MenuItem,
-  Switch,
-  TextField,
-} from "@mui/material";
-import { NavigateNext } from "@mui/icons-material/";
+import React from 'react'
+import {useEffect,useState} from 'react'
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from "../../_common/app.constants"
+import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Select, OutlinedInput, MenuItem, Switch, TextField,InputAdornment } from '@mui/material';
+import { NavigateNext } from '@mui/icons-material/';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
-import { useUserActions } from "../../_actions/user.actions";
-import Sidebar from "./Components/Sidebar";
-
-import { authAtom } from "../../_state";
-import { useRecoilValue } from "recoil";
+import { useUserActions } from "../../_actions/user.actions"
+import Sidebar from './Components/Sidebar';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import IconButton from "@mui/material/IconButton";
+import { authAtom } from '../../_state';
+import { useRecoilValue } from 'recoil';
 
 function handleClick(event) {
   event.preventDefault();
@@ -54,12 +44,28 @@ const Profile = () => {
   const label = { inputProps: { "aria-label": "Switch demo" } };
   const auth = useRecoilValue(authAtom);
 
-  //yup validation
-  const validationSchema = Yup.object().shape({
-    user_name: Yup.string().trim().required("Name is required"),
-    email: Yup.string().email().trim().required("Email Address is required"),
-    phone: Yup.string().trim().required("Mobile is required"),
-  });
+    //yup validation
+    const validationSchema = Yup.object().shape({
+        user_name: Yup.string()
+            .trim()
+            .required("Name is required"),
+        email: Yup.string()
+            .email()
+            .trim()
+            .required("Email Address is required"),
+        phone: Yup.string()
+            .trim()
+            .required("Mobile is required"),
+        password: Yup.string()
+            .required(" Password Required")
+            .min(8, " Password must be at least 8 characters.")
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/,
+                "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
+            ),
+        confirmpassword: Yup.string().required('Confirm Password is required')
+            .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    });
 
   const formOptions = { resolver: yupResolver(validationSchema) };
   // get functions to build form with useForm() hook
@@ -68,308 +74,302 @@ const Profile = () => {
   const { errors, isSubmitting } = formState;
   const formData = watch();
 
-  const [personName, setPersonName] = useState([]);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
-  const breadcrumbs = [
-    <Link
-      underline="hover"
-      key="1"
-      color="inherit"
-      href="/"
-      onClick={handleClick}
-    >
-      Home
-    </Link>,
-    <Typography key="3" color="text.primary">
-      Profile info
-    </Typography>,
-  ];
-  const names = [
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-  ];
-  const [value, setValue] = useState("1");
+     //password eye IconButton
+     const [showPassword, setShowPassword] = React.useState(false);
+     const [showPassword2, setShowPassword2] = React.useState(false);
+ 
+     const handleClickShowPassword = () => setShowPassword((show) => !show);
+     const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
 
-  const submitFunction = () => {
-    profileUpdate.updateUser({ ...formData, name: formData.user_name });
-  };
+    const [personName, setPersonName] = useState([]);
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+        const {
+            target: { value },
+        } = event;
+        setPersonName(
+            // On autofill we get a stringified value.
+            typeof value === 'string' ? value.split(',') : value,
+        );
+    };
+    const breadcrumbs = [
+        <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
+            Home
+        </Link>,
+        <Typography key="3" color="text.primary">
+            Profile info
+        </Typography>,
+    ];
+    const names = [
+        'Australia',
+        'Argentina',
+        'Canada',
+        'Belgium',
+        'China',
+        'India',
+        'Ghana',
+        'France',
+        'Iraq',
+        'USA',
+    ];
+    const [value, setValue] = useState('1');
 
-  useEffect(() => {
-    reset({ ...auth });
-  }, [auth]);
+    const submitFunction = () => {
+        profileUpdate.updateUser({...formData,"name":formData.user_name})
+        // profileUpdate.resetPassword({...formData,"name":formData.password})
 
-  return (
-    <>
-      <ThemeProvider theme={theme}>
-        <Box
-          component="main"
-          className="subscription-wrapper bredcrum-div"
-          sx={{ mt: 8 }}
-        >
-          <Container maxWidth="lg">
-            <Box className="subscription-wrapper-head">
-              <Typography component="h2" variant="h2">
-                Profile info
-              </Typography>
-              <Box className="" sx={{ color: "#777E90", fontWeight: "500" }}>
-                <Box>
-                  <Breadcrumbs
-                    separator={<NavigateNext fontSize="small" />}
-                    aria-label="breadcrumb"
-                    className="center-breadcrum"
-                  >
-                    {breadcrumbs}
-                  </Breadcrumbs>
-                </Box>
-              </Box>
-            </Box>
-          </Container>
-          <Box className="subscription-steps account-main">
-            <Container maxWidth="lg">
-              <Box className="subscription-steps-inner">
-                <Sidebar />
-                <Box className="subscription-steps-col-details">
-                  <Box className="step-one">
-                    <Box className="">
-                      <Grid container>
-                        <Grid
-                          item
-                          xs={12}
-                          sm={8}
-                          md={8}
-                          sx={{ paddingBottom: { xs: "20px", md: "5px" } }}
-                        >
-                          <Box>
-                            <Typography
-                              component="h5"
-                              variant="h5"
-                              className=""
-                              sx={{ fontWeight: "600" }}
-                            >
-                              {auth.user_name
-                                ? auth.user_name
-                                : auth.email.split("@")[0]}
+    }
+
+    useEffect(()=> {
+        reset({...auth})
+    },[auth])
+
+   
+    return (
+        <>
+            <ThemeProvider theme={theme}>
+                <Box component="main" className='subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
+                    <Container maxWidth="lg">
+                        <Box className='subscription-wrapper-head'>
+                            <Typography component="h2" variant='h2'>
+                                Profile info
                             </Typography>
-                            <Typography
-                              component="p"
-                              variant="body2"
-                              className="secondary-color"
-                              sx={{ fontSize: "14px", color: "#777E90" }}
-                            >
-                              {auth.email}
-                            </Typography>
-                            <Button
-                              className="btn btn-outlined-secondary border-rounded"
-                              sx={{
-                                color: "#58BD7D !important",
-                                marginTop: "30px",
-                                marginBottom: "20px",
-                                borderRadius: "90px !important",
-                              }}
-                            >
-                              VIP
-                            </Button>
-                          </Box>
-                        </Grid>
-                        <Grid item xs={12} sm={4} md={4}>
-                          <Box>
-                            <Select
-                              multiple
-                              displayEmpty
-                              fullWidth
-                              sx={{
-                                backgroundColor: "#F4F5F6",
-                                borderRadius: "60px",
-                              }}
-                              className="border-rounded"
-                              value={personName}
-                              onChange={handleChange}
-                              input={<OutlinedInput />}
-                              renderValue={(selected) => {
-                                if (selected.length === 0) {
-                                  return <p className="margin-0">USA</p>;
-                                }
+                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
+                                <Box  >
+                                    <Breadcrumbs
+                                        separator={<NavigateNext fontSize="small" />}
+                                        aria-label="breadcrumb"
+                                        className='center-breadcrum'
+                                    >
+                                        {breadcrumbs}
+                                    </Breadcrumbs>
 
-                                return selected.join(", ");
-                              }}
-                              MenuProps={MenuProps}
-                              inputProps={{ "aria-label": "Without label" }}
-                            >
-                              <MenuItem disabled value="">
-                                USA
-                              </MenuItem>
-                              {names.map((name) => (
-                                <MenuItem
-                                  key={name}
-                                  value={name}
-                                  style={getStyles(name, personName, theme)}
-                                >
-                                  {name}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </Box>
-                        </Grid>
-                      </Grid>
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Container>
+                    <Box className='subscription-steps account-main'>
+                        <Container maxWidth="lg">
+                            <Box className='subscription-steps-inner'>
+                                <Sidebar />
+                                <Box className='subscription-steps-col-details'>
+                                    <Box className="step-one">
+                                        <Box className=''>
+                                            <Grid container  >
+                                                <Grid item xs={12} sm={8} md={8} sx={{ paddingBottom: { xs: '20px', md: '5px' } }}>
+                                                    <Box>
+                                                        <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} >{auth.user_name?auth.user_name:auth.email.split('@')[0]}</Typography>
+                                                        <Typography component="p" variant='body2' className='secondary-color' sx={{ fontSize: '14px', color: '#777E90' }}>{auth.email}</Typography>
+                                                        <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>VIP</Button>
+                                                    </Box>
+                                                </Grid>
+                                                <Grid item xs={12} sm={4} md={4}>
+                                                    <Box>
+                                                        <Select
+                                                            multiple
+                                                            displayEmpty
+                                                            fullWidth
+                                                            sx={{ backgroundColor: '#F4F5F6', borderRadius: '60px' }}
+                                                            className='border-rounded'
+                                                            value={personName}
+                                                            onChange={handleChange}
+                                                            input={<OutlinedInput />}
+                                                            renderValue={(selected) => {
+                                                                if (selected.length === 0) {
+                                                                    return <p className='margin-0'>USA</p>;
+                                                                }
+
+                                                                return selected.join(', ');
+                                                            }}
+                                                            MenuProps={MenuProps}
+                                                            inputProps={{ 'aria-label': 'Without label' }}
+                                                        >
+                                                            <MenuItem disabled value="">
+                                                                USA
+                                                            </MenuItem>
+                                                            {names.map((name) => (
+                                                                <MenuItem
+                                                                    key={name}
+                                                                    value={name}
+                                                                    style={getStyles(name, personName, theme)}
+                                                                >
+                                                                    {name}
+                                                                </MenuItem>
+                                                            ))}
+                                                        </Select>
+                                                    </Box>
+                                                </Grid>
+                                            </Grid>
+                                        </Box>
+                                        <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
+                                            <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} paddingY={5}  >Features</Typography>
+                                        </Box>
+                                        <Box>
+                                            <Box display='flex' paddingY={3}>
+                                                <span >
+                                                    <Typography component="p" variant='body2' fontWeight={500} >VIP - Your annual plan will be expired on 15/2/2025</Typography>
+                                                </span>
+                                                <span >
+                                                    <Switch {...label} defaultChecked />
+                                                </span>
+                                            </Box>
+                                        </Box>
+                                        <Typography component="p" variant='body2' paddingBottom={3} >
+                                            Get all crypto price predictions
+                                        </Typography>
+                                        <Typography component="p" variant='body2' paddingBottom={3} >
+                                            15 min, 1 hour, 4 hour, 1 day time frames available
+                                        </Typography>
+                                        <Typography component="p" variant='body2' paddingBottom={3} >
+                                            Trade with Machine Learning
+                                        </Typography>
+                                        <Typography component="p" variant='body2' paddingBottom={3} >
+                                            Stay informed, stay profitable
+                                        </Typography>
+                                    </Box>
+                                    <Box
+                                        noValidate
+                                        component="form"
+                                        onSubmit={handleSubmit(submitFunction)}
+                                    >
+                                        <Box className="update-profile" sx={{ backgroundColor: '#F1F2F4', }} padding={5}>
+                                            <Typography component="h5" variant='body1' className='large-caption'>
+                                                Update your profile
+                                            </Typography>
+                                            <Box className='' paddingY={1} >
+                                                <TextField
+                                                     label="Name"
+                                                    className="form-control white-input-box"
+                                                    InputLabelProps={{
+                                                        shrink: true,
+                                                    }}
+                                                    variant="standard"
+                                                    margin="normal"
+                                                    required
+                                                    fullWidth
+                                                    id="name"
+                                                    name="name"
+                                                    autoComplete="off"
+                                                    backgroundColor='#fff'
+                                                    autoFocus
+                                                    {...register("user_name")}
+                                                />
+                                                <div className="invalid-feedback" style={{ color: "red" }}>{errors.user_name?.message}</div>
+                                            </Box>
+                                            <Box className='' paddingY={1}>
+                                                <TextField
+                                                    disabled
+                                                    label="Email"
+                                                    className="form-control white-input-box"
+                                                    InputLabelProps={{
+                                                        shrink: true,
+                                                    }}
+                                                    variant="standard"
+                                                    margin="normal"
+                                                    required
+                                                    fullWidth
+                                                    id="email"
+                                                    name="email"
+                                                    autoComplete="off"
+                                                    {...register("email")}
+                                                />
+                                                <div className="invalid-feedback" style={{ color: "red" }}>{errors.email?.message}</div>
+                                            </Box>
+                                            <Box className='' paddingY={1}>
+                                                <TextField
+                                                    // disabled
+                                                    label="Mobile"
+                                                    className="form-control white-input-box"
+                                                    InputLabelProps={{
+                                                        shrink: true,
+                                                    }}
+                                                    variant="standard"
+                                                    margin="normal"
+                                                    required
+                                                    fullWidth
+                                                    id="mobile"
+                                                    name="mobile"
+                                                    autoComplete="off"
+                                                    {...register("phone")}
+                                                />
+                                                <div className="invalid-feedback" style={{ color: "red" }}>{errors.phone?.message}</div>
+                                            </Box>  
+                                           
+                                            <Box className='' paddingY={1}>
+                                            <TextField
+                                            label="Password"
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            margin="normal"
+                                            required
+                                            variant="standard"
+                                            fullWidth
+                                            id="password"
+                                            placeholder='Password'
+                                            type={showPassword ? "text" : "password"}
+                                            name="password"
+                                            autoComplete="current-password"
+                                            size="small"
+                                           
+                                            {...register('password')}
+                                            className={`form-control white-input-box ${errors.password ? 'is-invalid' : ''}`}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton onClick={handleClickShowPassword}>
+                                                            {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />
+                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.password?.message}</div>
+                                            </Box>    
+                                            <Box className='' paddingY={1}>
+                                            <TextField
+                                            label="Confirm Password"
+                                            margin="normal" 
+                                            required
+                                            fullWidth
+                                            id="confirm_password"
+                                            placeholder='Confirm Password'
+                                            type={showPassword2 ? "text" : "password"}
+                                            name="confirm_password"
+                                            autoComplete="confirm-password"
+                                            size="small"
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            variant="standard"
+                                            {...register('confirmpassword')}
+                                            className={`form-control white-input-box ${errors.confirmpassword ? 'is-invalid' : ''}`}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton onClick={handleClickShowPassword2}>
+                                                            {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        
+                                        />
+                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirmpassword?.message}</div>
+                                            </Box>                                                                                           
+                                        </Box>
+                                        <Typography textAlign='right' paddingY={3}>
+                                            <Button type="submit" className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                            </Box>
+                        </Container>
                     </Box>
-                    <Box sx={{ borderBottom: "1px solid #E6E8EC" }}>
-                      <Typography
-                        component="h5"
-                        variant="h5"
-                        className=""
-                        sx={{ fontWeight: "600" }}
-                        paddingY={5}
-                      >
-                        Features
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Box display="flex" paddingY={2.5}>
-                        <span>
-                          <Typography
-                            paddingTop={1}
-                            component="p"
-                            variant="body2"
-                            fontWeight={500}
-                          >
-                            VIP - Your annual plan will be expired on 15/2/2025
-                          </Typography>
-                        </span>
-                        <span>
-                          <Switch {...label} defaultChecked />
-                        </span>
-                      </Box>
-                    </Box>
-                    <Typography component="p" variant="body2" paddingBottom={3}>
-                      Get all crypto price predictions
-                    </Typography>
-                    <Typography component="p" variant="body2" paddingBottom={3}>
-                      15 min, 1 hour, 4 hour, 1 day time frames available
-                    </Typography>
-                    <Typography component="p" variant="body2" paddingBottom={3}>
-                      Trade with Machine Learning
-                    </Typography>
-                    <Typography component="p" variant="body2" paddingBottom={3}>
-                      Stay informed, stay profitable
-                    </Typography>
-                  </Box>
-                  <Box
-                    noValidate
-                    component="form"
-                    onSubmit={handleSubmit(submitFunction)}
-                  >
-                    <Box
-                      className="update-profile"
-                      sx={{ backgroundColor: "#F1F2F4" }}
-                      padding={5}
-                    >
-                      <Typography
-                        component="h5"
-                        variant="body1"
-                        className="large-caption"
-                      >
-                        Update your profile
-                      </Typography>
-                      <Box className="" paddingY={0}>
-                        <TextField
-                          label="Name"
-                          className="form-control white-input-box"
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          variant="standard"
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="name"
-                          name="name"
-                          autoComplete="off"
-                          backgroundColor="#fff"
-                          // autoFocus
-                          {...register("name")}
-                        />
-                        <div style={{ color: "red" }}>
-                          {errors.name?.message}
-                        </div>
-                      </Box>
-                      <Box className="input-bg" paddingY={0}>
-                        <TextField
-                          label="Email"
-                          className="form-control white-input-box"
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          variant="standard"
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="email"
-                          name="email"
-                          backgroundColor="#fff"
-                          autoComplete="off"
-                          {...register("email")}
-                        />
-                        <div style={{ color: "red" }}>
-                          {errors.email?.message}
-                        </div>
-                      </Box>
-                      <Box className="">
-                        <TextField
-                          label="Mobile"
-                          className="form-control white-input-box"
-                          InputLabelProps={{
-                            shrink: true,
-                          }}
-                          variant="standard"
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="mobile"
-                          // placeholder='Mobile'
-                          name="mobile"
-                          autoComplete="off"
-                          {...register("mobile")}
-                        />
-                        <div style={{ color: "red" }}>
-                          {errors.mobile?.message}
-                        </div>
-                      </Box>
-                    </Box>
-                    <Typography textAlign="right" paddingY={3}>
-                      <Button
-                        type="submit"
-                        className="btn btn-primary"
-                        sx={{ marginLeft: "auto" }}
-                      >
-                        Save Settings
-                      </Button>
-                    </Typography>
-                  </Box>
                 </Box>
-              </Box>
-            </Container>
-          </Box>
-        </Box>
-      </ThemeProvider>
-    </>
-  );
+            </ThemeProvider> </>
+);
+  
 };
 
 export default Profile;

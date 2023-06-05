@@ -182,7 +182,8 @@ const useUserActions = () => {
     }
 
     const updateUser =({name,email, phone})=>{      
-      return fetchWrapper.post(`${Apis.Update_User}`,{name,email,phone})
+        const password = localStorage.getItem("password")
+      return fetchWrapper.post(`${Apis.Update_User}`,{name,email,phone,password})
       .then(res=>{
         if(res.statusCode === 200){  
             let {data} = res;               

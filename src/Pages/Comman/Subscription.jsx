@@ -489,6 +489,9 @@ const Subscription = () => {
                             fullWidth
                             variant="outlined"
                             className='btn btn-outlined-secondary'
+                            onClick={()=>{
+                                navigate("/")
+                            }}
                         >
                             Home
                         </Button>
@@ -496,6 +499,9 @@ const Subscription = () => {
                             fullWidth
                             variant="contained"
                             className='btn btn-primary'
+                            onClick={()=>{
+                                navigate("/prediction-dashboard")
+                            }}
                         >
                             Dashboard
                         </Button>

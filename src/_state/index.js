@@ -4,3 +4,6 @@ export * from "./users";
 export * from "./tutorial";
 export * from "./contact";
 export * from "./footeremail";
+export * from './contact';
+export * from './home';
+

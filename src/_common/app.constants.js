@@ -40,7 +40,12 @@ export const Apis = {
     Tutorial_Video: "tutorial-list",
     Contact: 'contact-us',
     Update_User: 'update-user',
-    Footer: 'news-latter'
+    Footer: 'news-latter',
+    Categories_Data: 'categories',
+    Category_Data: 'category',
+    Latest_Listings: 'latest-listings',
+
+
 }
 
 export const theme = createTheme({

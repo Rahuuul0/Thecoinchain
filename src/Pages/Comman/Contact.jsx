@@ -117,7 +117,9 @@ const Contact = () => {
       .trim()
       .required('Subject is required'),
     question: Yup.string()
-      .required('Question is required')
+      .required('Question is required'),
+    msg:Yup.string()
+    .max(250)
   });
 
   //yup validation
@@ -437,9 +439,11 @@ const Contact = () => {
                 }}
                 multiline
                 rows={4}
+                maxlength={10}
                 fullWidth
                 {...register("msg")}
               />
+               <div style={{ color: "red" }}>{errors.msg?.message}</div>
             </Box>
             <Box paddingTop='2'>
               <Typography textAlign='end' sx={{ paddingTop: "40px" }}>

@@ -42,22 +42,22 @@ const Disclaimer = () => {
                         </Box>
                     </Box>
                     <Typography variant='body2' component="p">
-                        Crypto-Rating.com makes no warranties whatsoever regarding reliability, accuracy or completeness of any text or graphical information available on the website. Any reference you place on this information remains strictly at your own risk. Price Predictions, Forecasts, Texts provided by Crypto-Rating.com is for information purposes only.
+                       Coinguru.org makes no warranties whatsoever regarding reliability, accuracy or completeness of any text or graphical information available on the website. Any reference you place on this information remains strictly at your own risk. Price Predictions, Forecasts, Texts provided byCoinguru.org is for information purposes only.
                     </Typography>
                     <Typography variant='body2' component="p">
-                        Crypto-Rating.com bears no liability for any loss or damage arising from loss of data or profits in direct or indirect connection with the use of this website.
+                       Coinguru.org bears no liability for any loss or damage arising from loss of data or profits in direct or indirect connection with the use of this website.
                     </Typography>
                     <Typography variant='body2' component="p">
-                        Crypto-Rating.com declines responsibility for the content of the site visitors’ reviews, commentaries, questions and other personal notes of any kind. Site visitors are made responsible for any content they publish on Crypto-Rating.com.
+                       Coinguru.org declines responsibility for the content of the site visitors’ reviews, commentaries, questions and other personal notes of any kind. Site visitors are made responsible for any content they publish on Coinguru.org.
                     </Typography>
                     <Typography variant='body2' component="p">
-                        Crypto-Rating.com provides an opportunity of linking to other websites which are not in any way related to Crypto-Rating.com and are not subject to control by Crypto-Rating.com. We bear no responsibility for nature and content of these sites. Provision of any third party links on Crypto-Rating.com does not imply concurrence with the third party ideas, methods, strategies and all the other content.
+                       Coinguru.org provides an opportunity of linking to other websites which are not in any way related to Coinguru.org and are not subject to control by Coinguru.org. We bear no responsibility for nature and content of these sites. Provision of any third party links on Coinguru.org does not imply concurrence with the third party ideas, methods, strategies and all the other content.
                     </Typography>
                     <Typography variant='body2' component="p">
-                        Crypto-Rating.com undertakes every effort to keep the site running smoothly and with no interruptions. However, Crypto-Rating.com bears no responsibility for the website being temporarily unavailable due to outer technical issues.
+                       Coinguru.org undertakes every effort to keep the site running smoothly and with no interruptions. However, Coinguru.org bears no responsibility for the website being temporarily unavailable due to outer technical issues.
                     </Typography>
                     <Typography variant='body2' component="p">
-                        You agree not to reproduce, retransmit, disseminate, sell, distribute, publish, broadcast, circulate or commercially exploit the information available on Crypto-Rating.com in any manner without the express written consent of Crypto-Rating.com, nor to use the information available on the site for any unlawful purpose.
+                        You agree not to reproduce, retransmit, disseminate, sell, distribute, publish, broadcast, circulate or commercially exploit the information available on Coinguru.org in any manner without the express written consent of Coinguru.org, nor to use the information available on the site for any unlawful purpose.
                     </Typography>
                     <Typography variant='body2' component="p">
                         Full access to Predictions/Forecasts for all cryptocurrencies is offered through a paid subscription. By subscribing with the 10$ monthly charge, the user receives full access to the Predictions/Forecasts.
@@ -78,10 +78,10 @@ const Disclaimer = () => {
                         Each account on our website can have only one active subscription at a time. Buying a new subscription while having an active one stops the active subscription. Each subscription requires its own user account.
                     </Typography>
                     <Typography variant='body2' component="p">
-                        Information that is contained in the Predictions/Forecasts only reflects the point of view of the website, which is formed based on use of unique technologies with AI, developed by our team of professionals. The Predictions/Forecasts are not a call to action and are not guaranteed to come true, it is the website's take on the market. Crypto-Rating.com does not bear any responsibility for how the information on the website is used or for the actions of the users. The payment is charged for access to the information. By giving access to the information, we do not promise and do not hold responsibility for the satisfaction/dissatisfaction with the information of the user. All payments are non-refundable. We only answer questions concerning website activity through the contact us form.
+                        Information that is contained in the Predictions/Forecasts only reflects the point of view of the website, which is formed based on use of unique technologies with AI, developed by our team of professionals. The Predictions/Forecasts are not a call to action and are not guaranteed to come true, it is the website's take on the market. Coinguru.org does not bear any responsibility for how the information on the website is used or for the actions of the users. The payment is charged for access to the information. By giving access to the information, we do not promise and do not hold responsibility for the satisfaction/dissatisfaction with the information of the user. All payments are non-refundable. We only answer questions concerning website activity through the contact us form.
                     </Typography>
                     <Typography variant='body2' component="p">
-                        You agree not to reproduce, retransmit, disseminate, sell, distribute, publish, broadcast, circulate or commercially exploit the information available on Crypto-Rating.com in any manner without the express written consent of Crypto-Rating.com, nor to use the information available on the site for any unlawful purpose.
+                        You agree not to reproduce, retransmit, disseminate, sell, distribute, publish, broadcast, circulate or commercially exploit the information available on Coinguru.org in any manner without the express written consent of Coinguru.org, nor to use the information available on the site for any unlawful purpose.
                     </Typography>
 
                 </Container>

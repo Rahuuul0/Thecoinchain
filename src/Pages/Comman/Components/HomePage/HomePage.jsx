@@ -52,8 +52,6 @@ const Home = () => {
   
   const [dataValue, setdataValue] = useState([]);
 
-  console.log(dataValue,'fgdfgdfgdfg');
-
   useEffect(()=>{
      homeActions.categoriesData()
     homeActions.categoryData()
@@ -77,7 +75,7 @@ const Home = () => {
     // , 3000);
     // return () => clearInterval(interval);
    
-  },[dataValue]);
+  },[]);
   
   
   useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) },[]);

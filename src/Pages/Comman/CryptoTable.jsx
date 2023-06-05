@@ -33,6 +33,7 @@ import HttpsIcon from "@mui/icons-material/Https";
 import { useLocation } from "react-router-dom";
 import { Line, Chart } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
+import {useHomeActions} from "../../_actions/homePage.action";
 
 ChartJS.register(...registerables);
 
@@ -56,6 +57,9 @@ function paginator(items, current_page, per_page_items) {
 }
 
 const CryptoTable = (props) => {
+
+  const homeActions = useHomeActions()
+
   const [value, setValue] = React.useState("1");
   const location = useLocation();
 
@@ -72,9 +76,35 @@ const CryptoTable = (props) => {
   const [chartOpen, setChartOpen] = React.useState(false);
   const handleChartOpen = (id) => {
     setChartOpen(true);
-    setChartData(coinData[id]);
+    setChartData(dataValue[id]);
     console.log(id, 55555555555555);
   };
+
+//  Latest Listing API call 
+  const [dataValue, setdataValue] = useState([]);
+  console.log(dataValue,'fgdfgdfgdfg');
+  useEffect(() => {
+    const myFun =  async ()=>{
+      const ress = await homeActions.latestListing();
+      if(ress) {
+        setdataValue( ress )
+      }
+      console.warn("changed",ress)
+    }
+    myFun();
+
+    // const interval = setInterval(() => {
+    //   setCount(count+1);
+    //   myFun();
+    //   }   
+    // , 3000);
+    // return () => clearInterval(interval);
+   
+  },[]);
+  
+
+
+
   const handleChartClose = () => setChartOpen(false);
   const data = {
     labels: ["1h", "24h", "7d", "30d"],
@@ -101,16 +131,16 @@ const CryptoTable = (props) => {
   // Table Json Data call
   const sethomeData = useRecoilState(homePageAtom);
 
-  const coinData = sethomeData[0][0].data;
+  // const coinData = sethomeData[0][0].data;
 
-  useEffect(() => {
-    console.log(sethomeData[0][0].data, );
-  }, []);
+  // useEffect(() => {
+  //   console.log(sethomeData[0][0].data, );
+  // }, []);
 
-  const count = Math.ceil(coinData.length / 4);
+  const count = Math.ceil(dataValue.length / 4);
   const [page, setPage] = React.useState(1);
   const handleChanges = (event, value) => {
-    setPage(paginator(coinData, value, 3).page);
+    setPage(paginator(dataValue, value, 3).page);
   };
   const [checked, setChecked] = React.useState([]);
   const handleOnChanges = (e, index) => {
@@ -156,11 +186,11 @@ const CryptoTable = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {paginator(coinData, page, 5).data.map((item, index) => {
+                  {paginator(dataValue, page, 5).data.map((item, index) => {
                     let priceChange = item.quote.USD;
                     return (
                       <TableRow
-                        divider={index < coinData.length - 1}
+                        divider={index < dataValue.length - 1}
                         hover
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },

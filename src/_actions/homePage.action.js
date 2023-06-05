@@ -9,7 +9,7 @@ const useHomeActions = () => {
   const fetchWrapper = useFetchWrapper();
   const alertActions = useAlertActions();
   const setHomePageData = useSetRecoilState(homePageAtom);
-  // const   sethome = useSetRecoilState(homeAtom);
+  const   sethome = useSetRecoilState(homeAtom);
 
   const categoriesData = async () => {
       
@@ -42,7 +42,7 @@ const latestListing = async () => {
           return res.data.data
          } else {
              alertActions.error(Labels.Error);
-         }
+         } 
      }).catch((err)=>{console.warn(err)})
 }
 

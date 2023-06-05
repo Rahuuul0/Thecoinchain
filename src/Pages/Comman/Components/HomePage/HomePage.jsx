@@ -66,30 +66,18 @@ const Home = () => {
       if(ress) {
         setdataValue( ress )
       }
-      console.warn("changed")
+      console.warn("changed",ress)
     }
     myFun();
 
-    const interval = setInterval(() => {
-      setCount(count+1);
-      myFun();
-      }   
-    , 3000);
-    return () => clearInterval(interval);
+    // const interval = setInterval(() => {
+    //   setCount(count+1);
+    //   myFun();
+    //   }   
+    // , 3000);
+    // return () => clearInterval(interval);
    
   },[dataValue]);
-
-
-
-  // useEffect(()=>{
-  //   const myFun =  async ()=>{
-  //     const ress = await homeActions.latestListing();
-  //     setdataValue( ress )
-  //     console.warn( ress,"f11111111111111111111")
-
-  //   }
-  //   myFun();
-  // },[]); 
   
   
   useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) },[]);

@@ -141,7 +141,6 @@ const ResetPassword = () => {
                                                     </InputAdornment>
                                                 )
                                             }}
-                                            autoFocus
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirmpassword?.message}</div>
 

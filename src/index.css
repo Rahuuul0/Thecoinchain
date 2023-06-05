@@ -102,7 +102,9 @@ body .modal-dialog * {
 .btn-round {
   border-radius: 100px !important;
 }
-
+.rounded-radius .btn{
+  border-radius: 90px ;
+}
 button.btn-close {
   width: 40px;
   height: 40px;
@@ -405,12 +407,33 @@ nav .MuiButtonBase-root:hover{
 .auth-header-logo img.ipad {
   display: none;
 }
-
+.inner-div-menu {
+  display: flex;
+  justify-content: space-between;
+}
+.notification-menu .MuiList-root{
+  width: 316px;
+}
+.outer-div-menu{
+  width: 100%;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+.outer-div-menu svg{
+  color: #58bd7d;
+}
+.inner-div-menu .head-menu{
+  font-size: 12px;
+}
+.inner-div-menu .sub-head-menu{
+  display: inline-flex;
+}
 .auth-header .dont-have-acc p {
   font-size: 14px !important;
   font-weight: 700;
   font-family: var(--secondary-font) !important;
 }
+
 
 .auth-wrapper-inner {
   display: flex;

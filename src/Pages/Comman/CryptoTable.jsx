@@ -10,6 +10,7 @@ import {
   TableHead,
   TableRow,
   Button,
+  Fade,
 } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -30,10 +31,11 @@ import { homePageAtom } from "../../_state/users";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import HttpsIcon from "@mui/icons-material/Https";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Line, Chart } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
 import {useHomeActions} from "../../_actions/homePage.action";
+import { TabPanel } from "@mui/lab";
 
 ChartJS.register(...registerables);
 
@@ -43,7 +45,7 @@ function paginator(items, current_page, per_page_items) {
     offset = (page - 1) * per_page,
     paginatedItems = items.slice(offset).slice(0, per_page_items),
     total_pages = Math.ceil(items.length / per_page);
-  console.log("Anzahl: " + items.lgenth);
+  // console.log("Anzahl: " + items.lgenth);
 
   return {
     page: page,
@@ -59,30 +61,45 @@ function paginator(items, current_page, per_page_items) {
 const CryptoTable = (props) => {
 
   const homeActions = useHomeActions()
-
+  const navigate = useNavigate();
   const [value, setValue] = React.useState("1");
   const location = useLocation();
+  const [isHovered, setHover] = useState(false);
+  const [hoverIndex, setHoverIndex] = useState();
+  const [open, setOpen] = React.useState(false);
+  const [chartData, setChartData] = React.useState("");
+  const [chartOpen, setChartOpen] = React.useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  
+  const handleMouseOver = (index) => {
+    setHover(true);
+    setHoverIndex(index);
+  };
 
-  const [open, setOpen] = React.useState(false);
-  const [chartData, setChartData] = React.useState({});
+  const handleMouseLeave = () => {
+    setHover(false);
+    setHoverIndex("");
+  };
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = (id) => {
+    setOpen(true);
+    setChartData(coinData.filter((item) => item.id === id));
+  };
+  const handleClose = () => {
+    setOpen(false);
+    setChartData("");
+  };
 
-  const [chartOpen, setChartOpen] = React.useState(false);
   const handleChartOpen = (id) => {
     setChartOpen(true);
-    setChartData(dataValue[id]);
-    console.log(id, 55555555555555);
+    setChartData(coinData.filter((item) => item.id === id));
   };
 
 //  Latest Listing API call 
-  const [dataValue, setdataValue] = useState([]);
-  console.log(dataValue,'fgdfgdfgdfg');
+  const [coinData, setdataValue] = useState([]);
   useEffect(() => {
     const myFun =  async ()=>{
       const ress = await homeActions.latestListing();
@@ -92,7 +109,8 @@ const CryptoTable = (props) => {
       console.warn("changed",ress)
     }
     myFun();
-
+    
+    /* Enable when code goes to live, But Don't remove this code */
     // const interval = setInterval(() => {
     //   setCount(count+1);
     //   myFun();
@@ -106,41 +124,53 @@ const CryptoTable = (props) => {
 
 
   const handleChartClose = () => setChartOpen(false);
+
+ 
+  
   const data = {
-    labels: ["1h", "24h", "7d", "30d"],
+    labels: [
+      "1h",
+      "24h",
+      "7d",
+      "30d",
+      "1h",
+      "24h",
+      "7d",
+      "30d",
+      "1h",
+      "24h",
+      "7d",
+      "30d",
+      "1h",
+      "24h",
+      "7d",
+      "30d",
+      "1h",
+      "24h",
+      "7d",
+      "30d",
+    ],
     datasets: [
       {
-        data: [33, 53, 85, 41],
+        data: [
+          1, 2, 3, 5, 7, 10, 20, 15, 23, 27, 20, 15, 30, 35, 40, 41, 33, 45, 50,
+          58, 52, 55, 51, 50,
+        ],
         fill: false,
         backgroundColor: "rgba(75,192,192,0.2)",
         borderColor: "#54BB7A",
       },
-      //   {
-      //     label: "Second dataset",
-      //     data: [33, 25, 35, 51, 54, 76],
-      //     fill: false,
-      //     borderColor: "#742774",
-      //   },
     ],
-  };
-
-  const myData = () => {
-    console.log(chartData.quote.USD.price);
   };
 
   // Table Json Data call
   const sethomeData = useRecoilState(homePageAtom);
+  
 
-  // const coinData = sethomeData[0][0].data;
-
-  // useEffect(() => {
-  //   console.log(sethomeData[0][0].data, );
-  // }, []);
-
-  const count = Math.ceil(dataValue.length / 4);
+  const count = Math.ceil(coinData.length / 4);
   const [page, setPage] = React.useState(1);
   const handleChanges = (event, value) => {
-    setPage(paginator(dataValue, value, 3).page);
+    setPage(paginator(coinData, value, 3).page);
   };
   const [checked, setChecked] = React.useState([]);
   const handleOnChanges = (e, index) => {
@@ -153,7 +183,6 @@ const CryptoTable = (props) => {
     }
     setChecked([...prev]);
   };
-  console.log(checked);
 
   return (
     <>
@@ -186,18 +215,22 @@ const CryptoTable = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {paginator(dataValue, page, 5).data.map((item, index) => {
+                  {paginator(coinData, page, 5).data.map((item, index) => {
                     let priceChange = item.quote.USD;
                     return (
                       <TableRow
-                        divider={index < dataValue.length - 1}
+                        key={index}
+                        divider={index < coinData.length - 1}
                         hover
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
                       >
                         <TableCell>{item.cmc_rank}</TableCell>
-                        <TableCell onClick={handleOpen}>
+                        <TableCell
+                          onClick={() => handleOpen(item.id)}
+                          sx={{ cursor: "pointer" }}
+                        >
                           <div className="crypto-name">
                             <img src={item.img} alt="BTC" width="33px" />
                             {item.name}{" "}
@@ -322,28 +355,49 @@ const CryptoTable = (props) => {
                           </>
                         )}
 
-                        <TableCell align="right">
-                          <img
-                            src={ChartUp}
-                            alt="chart"
-                            height="33px"
-                            onClick={() => handleChartOpen(item.id)}
-                          />
-                        </TableCell>
-
-                        {/* {location.pathname === "/prediction-dashboard" ? (
-                          ""
-                        ) : (
-                          <TableCell align="right">
-                            <Button
-                              variant="outlined"
-                              className="btn btn-outlined-secondary"
-                              sx={{ marginLeft: "auto" }}
-                            >
-                              Predict
-                            </Button>
+                        {props.isIt ? (
+                          <TableCell align="right" sx={{ cursor: "pointer" }}>
+                            <img
+                              src={ChartUp}
+                              alt="chart"
+                              height="33px"
+                              onClick={() => handleChartOpen(item.id)}
+                            />
                           </TableCell>
-                        )} */}
+                        ) : (
+                          <TableCell
+                            align="right"
+                            onMouseOver={() => handleMouseOver(index)}
+                            onMouseLeave={handleMouseLeave}
+                          >
+                            <Fade in={!(isHovered && index === hoverIndex)}>
+                              <img
+                                src={ChartUp}
+                                alt="chart"
+                                height="33px"
+                                onClick={() => handleChartOpen(item.id)}
+                              />
+                            </Fade>
+                            {
+                              <Fade in={isHovered && index === hoverIndex}>
+                                <Button
+                                  variant="contained"
+                                  className="btn btn-primary"
+                                  sx={{
+                                    borderRadius: "90px",
+                                    position: "absolute",
+                                    top: "15px",
+                                    right: "5px",
+                                    margin: "auto",
+                                  }}
+                                  onClick={() => navigate("/subscription")}
+                                >
+                                  Subscribe
+                                </Button>
+                              </Fade>
+                            }
+                          </TableCell>
+                        )}
                       </TableRow>
                     );
                   })}
@@ -404,7 +458,7 @@ const CryptoTable = (props) => {
               component="small"
               sx={{ color: "#777E91", fontWeight: "600" }}
             >
-              Bitcoin
+              {chartData[0]?.name}
             </Typography>
             <Box className="value-details">
               <Button
@@ -414,7 +468,7 @@ const CryptoTable = (props) => {
                 <KeyboardArrowDownIcon />
               </Button>
               <Typography className="crypto-value" variant="h5" component="h5">
-                36,641.20
+                {chartData[0]?.quote.USD.price}
               </Typography>
               <Typography
                 className="crypto-fullname-small"
@@ -435,65 +489,232 @@ const CryptoTable = (props) => {
 
               <TabContext value={value}>
                 <Box>
-                  <TabList onChange={handleChange} aria-label="Login Tabs">
-                    <Tab label="15m" value="1" />
-                    <Tab label="1h" value="2" />
-                    <Tab label="4h" value="3" />
-                    <Tab label="1d" value="4" />
-                  </TabList>
+                  {props.isIt ? (
+                    <TabList onChange={handleChange} aria-label="Login Tabs">
+                      <Tab label="15m" value="1" />
+                      <Tab label="1h" value="2" />
+                      <Tab label="4h" value="3" />
+                      <Tab label="1d" value="4" />
+                    </TabList>
+                  ) : (
+                    <TabList aria-label="Login Tabs">
+                      <Tab label="15m" value="1" />
+                      <Tab label={<HttpsIcon />}></Tab>
+                      <Tab label={<HttpsIcon />}></Tab>
+                      <Tab label={<HttpsIcon />}></Tab>
+                    </TabList>
+                  )}
                 </Box>
+
+                <TabPanel value="1">
+                  <Box className="value-with-date">
+                    <Box className="value-with-date-col">
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{
+                          color: "#777E91",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "5px",
+                        }}
+                      >
+                        <img src={TimeImg} alt="chart" height="16px" />{" "}
+                        <span>15/10/23</span> 07:45
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{ color: "#00C076", fontWeight: "500" }}
+                      >
+                        520.80 <span>+1.25%</span>
+                      </Typography>
+                    </Box>
+                    <Box className="value-with-date-col">
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{
+                          color: "#777E91",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "5px",
+                        }}
+                      >
+                        <img src={TimeImg} alt="chart" height="16px" />{" "}
+                        <span>15/10/23</span> 07:45
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{ color: "#141416", fontWeight: "500" }}
+                      >
+                        37162.00 <span>+1.25%</span>
+                      </Typography>
+                    </Box>
+                  </Box>
+                </TabPanel>
+                <TabPanel value="2">
+                  <Box className="value-with-date">
+                    <Box className="value-with-date-col">
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{
+                          color: "#777E91",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "5px",
+                        }}
+                      >
+                        <img src={TimeImg} alt="chart" height="16px" />{" "}
+                        <span>15/10/23</span> 07:45
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{ color: "#00C076", fontWeight: "500" }}
+                      >
+                        520.80 <span>+1.25%</span>
+                      </Typography>
+                    </Box>
+                    <Box className="value-with-date-col">
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{
+                          color: "#777E91",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "5px",
+                        }}
+                      >
+                        <img src={TimeImg} alt="chart" height="16px" />{" "}
+                        <span>15/10/23</span> 07:45
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{ color: "#141416", fontWeight: "500" }}
+                      >
+                        37162.00 <span>+1.25%</span>
+                      </Typography>
+                    </Box>
+                  </Box>
+                </TabPanel>
+                <TabPanel value="3">
+                  <Box className="value-with-date">
+                    <Box className="value-with-date-col">
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{
+                          color: "#777E91",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "5px",
+                        }}
+                      >
+                        <img src={TimeImg} alt="chart" height="16px" />{" "}
+                        <span>15/10/23</span> 07:45
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{ color: "#00C076", fontWeight: "500" }}
+                      >
+                        520.80 <span>+1.25%</span>
+                      </Typography>
+                    </Box>
+                    <Box className="value-with-date-col">
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{
+                          color: "#777E91",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "5px",
+                        }}
+                      >
+                        <img src={TimeImg} alt="chart" height="16px" />{" "}
+                        <span>15/10/23</span> 07:45
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{ color: "#141416", fontWeight: "500" }}
+                      >
+                        37162.00 <span>+1.25%</span>
+                      </Typography>
+                    </Box>
+                  </Box>
+                </TabPanel>
+                <TabPanel value="4">
+                  <Box className="value-with-date">
+                    <Box className="value-with-date-col">
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{
+                          color: "#777E91",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "5px",
+                        }}
+                      >
+                        <img src={TimeImg} alt="chart" height="16px" />{" "}
+                        <span>15/10/23</span> 07:45
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{ color: "#00C076", fontWeight: "500" }}
+                      >
+                        520.80 <span>+1.25%</span>
+                      </Typography>
+                    </Box>
+                    <Box className="value-with-date-col">
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{
+                          color: "#777E91",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "5px",
+                        }}
+                      >
+                        <img src={TimeImg} alt="chart" height="16px" />{" "}
+                        <span>15/10/23</span> 07:45
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        component="small"
+                        sx={{ color: "#141416", fontWeight: "500" }}
+                      >
+                        37162.00 <span>+1.25%</span>
+                      </Typography>
+                    </Box>
+                  </Box>
+                </TabPanel>
               </TabContext>
-              <Box className="value-with-date">
-                <Box className="value-with-date-col">
-                  <Typography
-                    variant="body2"
-                    component="small"
-                    sx={{
-                      color: "#777E91",
-                      fontWeight: "400",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "5px",
-                    }}
-                  >
-                    <img src={TimeImg} alt="chart" height="16px" />{" "}
-                    <span>15/10/23</span> 07:45
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    component="small"
-                    sx={{ color: "#00C076", fontWeight: "500" }}
-                  >
-                    520.80 <span>+1.25%</span>
-                  </Typography>
-                </Box>
-                <Box className="value-with-date-col">
-                  <Typography
-                    variant="body2"
-                    component="small"
-                    sx={{
-                      color: "#777E91",
-                      fontWeight: "400",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "5px",
-                    }}
-                  >
-                    <img src={TimeImg} alt="chart" height="16px" />{" "}
-                    <span>15/10/23</span> 07:45
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    component="small"
-                    sx={{ color: "#141416", fontWeight: "500" }}
-                  >
-                    37162.00 <span>+1.25%</span>
-                  </Typography>
-                </Box>
-              </Box>
             </Box>
           </Box>
-          <Button fullWidth variant="contained" className="btn btn-primary">
+          <Button
+            fullWidth
+            variant="contained"
+            className="btn btn-primary"
+            onClick={e=>navigate('-1')}
+          >
             Back
           </Button>
         </Box>
@@ -540,6 +761,9 @@ const CryptoTable = (props) => {
             >
               {chartData.name}
             </Typography>
+            <Typography className="crypto-value" variant="h5" component="h5">
+              {chartData[0]?.quote.USD.price}
+            </Typography>
             <Box className="value-details">
               <Button
                 variant="outlined"
@@ -551,10 +775,10 @@ const CryptoTable = (props) => {
             <Line data={data} />
           </Box>
           <Button
-            onClick={myData}
             fullWidth
             variant="contained"
             className="btn btn-primary"
+            onClick={e=>navigate('-1')}
           >
             Back
           </Button>

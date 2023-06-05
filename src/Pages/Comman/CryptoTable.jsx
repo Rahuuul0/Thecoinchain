@@ -34,7 +34,7 @@ import HttpsIcon from "@mui/icons-material/Https";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Line, Chart } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
-import {useHomeActions} from "../../_actions/homePage.action";
+import {useHomeActions} from "../../_actions/homePage.actions";
 import { TabPanel } from "@mui/lab";
 
 ChartJS.register(...registerables);
@@ -69,6 +69,7 @@ const CryptoTable = (props) => {
   const [open, setOpen] = React.useState(false);
   const [chartData, setChartData] = React.useState("");
   const [chartOpen, setChartOpen] = React.useState(false);
+  const [coinData, setdataValue] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -98,8 +99,7 @@ const CryptoTable = (props) => {
     setChartData(coinData.filter((item) => item.id === id));
   };
 
-//  Latest Listing API call 
-  const [coinData, setdataValue] = useState([]);
+//  Latest Listing API call   
   useEffect(() => {
     const myFun =  async ()=>{
       const ress = await homeActions.latestListing();
@@ -119,13 +119,8 @@ const CryptoTable = (props) => {
     // return () => clearInterval(interval);
    
   },[]);
-  
-
-
 
   const handleChartClose = () => setChartOpen(false);
-
- 
   
   const data = {
     labels: [

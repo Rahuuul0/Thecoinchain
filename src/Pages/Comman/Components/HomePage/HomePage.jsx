@@ -31,7 +31,7 @@ import Learn01 from '../../../../../public/assets/images/learn01.png'
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from 'recoil';
 import {homePageAtom} from "../../../../_state/users";
-import {useHomeActions} from "../../../../_actions/homePage.action"
+import {useHomeActions} from "../../../../_actions"
 import {homeAtom} from "../../../../_state/home";
 
 const Home = () => {

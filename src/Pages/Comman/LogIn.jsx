@@ -134,7 +134,7 @@ const LogIn = () => {
                         </Box>
                         <Box className='auth-wrapper-form' position='relative'>
                             <Box position='absolute' sx={{ top: '90px' }}>
-                                <IconButton aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
+                                <IconButton onClick={()=>{navigate('/')}} aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
                                     <KeyboardArrowLeft />
                                 </IconButton>
                             </Box>

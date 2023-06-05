@@ -14,6 +14,7 @@ import { useUserActions } from "../../../_actions/user.actions";
 import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 const drawerWidth = 240;
 
 function Header(props) {
@@ -241,6 +242,9 @@ function Header(props) {
             <Badge badgeContent={2} className="green-bg-badge navbtn">
               <NotificationsNone color="action" />
             </Badge>
+            <IconButton onClick={e => navigate('/subscription#')} aria-label="flash" color="primary">
+              <ShoppingCartOutlinedIcon />
+            </IconButton>
             <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
               Account
             </Button>

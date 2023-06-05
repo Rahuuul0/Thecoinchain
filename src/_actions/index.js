@@ -4,6 +4,7 @@ export * from './contact.actions';
 export * from './homePage.actions';
 export * from './footer.actions';
 export * from './subscription.actions';
+export * from './coin.actions';
 
 
 

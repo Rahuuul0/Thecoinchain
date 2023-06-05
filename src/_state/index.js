@@ -6,3 +6,4 @@ export * from './contact';
 export * from './home';
 export * from "./contact";
 export * from "./footeremail";
+export * from "./coins";

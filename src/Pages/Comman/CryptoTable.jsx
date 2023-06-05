@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Typography,
@@ -15,28 +14,24 @@ import {
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
-import BTC from "../../../public/assets/images/icons/btc-ic.svg";
-import VolumeIc from "../../../public/assets/images/icons/volume-ic.svg";
-import MarketcapIc from "../../../public/assets/images/icons/dollar.svg";
 import ChartUp from "../../../public/assets/images/chart-up.svg";
-import ChartDown from "../../../public/assets/images/chart-down.svg";
 import DollarImg from "../../../public/assets/images/icons/dollar.svg";
 import TimeImg from "../../../public/assets/images/icons/time-ic.svg";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { homePageAtom } from "../../_state/users";
+import { useRecoilValue } from "recoil";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import HttpsIcon from "@mui/icons-material/Https";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Line, Chart } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
-import {useHomeActions} from "../../_actions/homePage.actions";
-import { TabPanel } from "@mui/lab";
+import {useCoinActions} from "../../_actions";
+import { coinsAtom } from "../../_state";
 
+import { TabPanel } from "@mui/lab";
 ChartJS.register(...registerables);
 
 function paginator(items, current_page, per_page_items) {
@@ -45,8 +40,6 @@ function paginator(items, current_page, per_page_items) {
     offset = (page - 1) * per_page,
     paginatedItems = items.slice(offset).slice(0, per_page_items),
     total_pages = Math.ceil(items.length / per_page);
-  // console.log("Anzahl: " + items.lgenth);
-
   return {
     page: page,
     per_page: per_page,
@@ -59,17 +52,19 @@ function paginator(items, current_page, per_page_items) {
 }
 
 const CryptoTable = (props) => {
-
-  const homeActions = useHomeActions()
+  const coinActions = useCoinActions();
+  const coinsList = useRecoilValue(coinsAtom);
   const navigate = useNavigate();
-  const [value, setValue] = React.useState("1");
+  const [value, setValue] = useState("1");
   const location = useLocation();
   const [isHovered, setHover] = useState(false);
   const [hoverIndex, setHoverIndex] = useState();
-  const [open, setOpen] = React.useState(false);
-  const [chartData, setChartData] = React.useState("");
-  const [chartOpen, setChartOpen] = React.useState(false);
-  const [coinData, setdataValue] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [chartData, setChartData] = useState("");
+  const [chartOpen, setChartOpen] = useState(false);
+  const handleChartClose = () => setChartOpen(false);
+  const count = Math.ceil(coinsList.length / 4);
+  const [page, setPage] = useState(1);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -87,7 +82,7 @@ const CryptoTable = (props) => {
 
   const handleOpen = (id) => {
     setOpen(true);
-    setChartData(coinData.filter((item) => item.id === id));
+    setChartData(coinsList.filter((item) => item.id === id));
   };
   const handleClose = () => {
     setOpen(false);
@@ -96,31 +91,24 @@ const CryptoTable = (props) => {
 
   const handleChartOpen = (id) => {
     setChartOpen(true);
-    setChartData(coinData.filter((item) => item.id === id));
+    setChartData(coinsList.filter((item) => item.id === id));
   };
 
-//  Latest Listing API call   
+  //  Latest Listing API call   
   useEffect(() => {
     const myFun =  async ()=>{
-      const ress = await homeActions.latestListing();
-      if(ress) {
-        setdataValue( ress )
-      }
-      console.warn("changed",ress)
+      const ress = await coinActions.latestListing();
     }
-    myFun();
-    
+    myFun();    
     /* Enable when code goes to live, But Don't remove this code */
     // const interval = setInterval(() => {
     //   setCount(count+1);
     //   myFun();
     //   }   
     // , 3000);
-    // return () => clearInterval(interval);
-   
+    // return () => clearInterval(interval);   
   },[]);
 
-  const handleChartClose = () => setChartOpen(false);
   
   const data = {
     labels: [
@@ -156,28 +144,12 @@ const CryptoTable = (props) => {
         borderColor: "#54BB7A",
       },
     ],
-  };
+  };  
 
-  // Table Json Data call
-  const sethomeData = useRecoilState(homePageAtom);
-  
-
-  const count = Math.ceil(coinData.length / 4);
-  const [page, setPage] = React.useState(1);
   const handleChanges = (event, value) => {
-    setPage(paginator(coinData, value, 3).page);
+    setPage(paginator(coinsList, value, 3).page);
   };
-  const [checked, setChecked] = React.useState([]);
-  const handleOnChanges = (e, index) => {
-    let prev = checked;
-    let itemIndex = prev.indexOf(index);
-    if (itemIndex !== -1) {
-      prev.splice(itemIndex, 1);
-    } else {
-      prev.push(index);
-    }
-    setChecked([...prev]);
-  };
+  
 
   return (
     <>
@@ -210,12 +182,12 @@ const CryptoTable = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {paginator(coinData, page, 5).data.map((item, index) => {
+                  {paginator(coinsList, page, 50).data.map((item, index) => {
                     let priceChange = item.quote.USD;
                     return (
                       <TableRow
                         key={index}
-                        divider={index < coinData.length - 1}
+                        divider={index < coinsList.length - 1}
                         hover
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
@@ -227,7 +199,7 @@ const CryptoTable = (props) => {
                           sx={{ cursor: "pointer" }}
                         >
                           <div className="crypto-name">
-                            <img src={item.img} alt="BTC" width="33px" />
+                            <img src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`} alt={item.symbol} width="33px" />
                             {item.name}{" "}
                             <span className="currency_name">{item.symbol}</span>
                           </div>
@@ -335,7 +307,7 @@ const CryptoTable = (props) => {
                                   priceChange.market_cap < 0 ? "down" : "up"
                                 }
                               >
-                                {priceChange.market_cap}
+                                ${priceChange.market_cap}
                               </span>
                             </TableCell>
                             <TableCell align="right">
@@ -344,7 +316,7 @@ const CryptoTable = (props) => {
                                   priceChange.volume_24h < 0 ? "down" : "up"
                                 }
                               >
-                                {priceChange.volume_24h}
+                                ${priceChange.volume_24h}
                               </span>
                             </TableCell>
                           </>
@@ -353,7 +325,7 @@ const CryptoTable = (props) => {
                         {props.isIt ? (
                           <TableCell align="right" sx={{ cursor: "pointer" }}>
                             <img
-                              src={ChartUp}
+                              src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
                               alt="chart"
                               height="33px"
                               onClick={() => handleChartOpen(item.id)}
@@ -367,7 +339,7 @@ const CryptoTable = (props) => {
                           >
                             <Fade in={!(isHovered && index === hoverIndex)}>
                               <img
-                                src={ChartUp}
+                                src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
                                 alt="chart"
                                 height="33px"
                                 onClick={() => handleChartOpen(item.id)}

@@ -15,9 +15,15 @@ import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import {notificationAtom} from '../../../_state/notifications';
+import { useRecoilValue } from "recoil";
 const drawerWidth = 240;
 
 function Header(props) {
+
+  const notifications = useRecoilValue(notificationAtom)
+
+  console.log(notifications,'dfgdfgdfgjdfgdfgdfj');
   const userActions = useUserActions();
   const navItems = [
     {
@@ -109,7 +115,7 @@ function Header(props) {
               Search
             </ListItemText>
           </ListItemButton>
-        </ListItem>
+        </ListItem>notifications
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: 'center' }}>
             <ListItemText primary="" onClick={() => { navigate(item.link) }}>
@@ -264,7 +270,7 @@ function Header(props) {
               aria-haspopup="true"
               aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-avatar-img btnicon' aria-label="flash" color="primary">
               <NotificationsNone color="action" />
-            </IconButton >
+            </IconButton>
             <Menu
               anchorEl={anchorElAnchorbtn}
               id=""
@@ -303,69 +309,29 @@ function Header(props) {
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
               <Box padding={2}>
-
                 <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
-                <MenuItem  sx={{padding:'0'}}>
-                  <span className='outer-div-menu'>
-                    <span className='inner-div-menu'>
-                      <span className='head-menu'>ASDF</span>
-                      <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                    </span>
-                    <Typography className='secondary-color' sx={{fontSize:'10px'}}>2021-03-10 20:19:15</Typography>
-                  </span>
-                </MenuItem>
-                <Divider/>
-                <MenuItem  sx={{padding:'0'}}>
-                  <span className='outer-div-menu'>
-                    <span className='inner-div-menu'>
-                      <span className='head-menu'>ASDF</span>
-                      <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                    </span>
-                    <Typography className='secondary-color' sx={{fontSize:'10px'}}>2021-03-10 20:19:15</Typography>
-                  </span>
-                </MenuItem>
-                <Divider/>
-                <MenuItem  sx={{padding:'0'}}>
-                  <span className='outer-div-menu'>
-                    <span className='inner-div-menu'>
-                      <span className='head-menu'>ASDF</span>
-                      <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                    </span>
-                    <Typography className='secondary-color' sx={{fontSize:'10px'}}>2021-03-10 20:19:15</Typography>
-                  </span>
-                </MenuItem>
-                <Divider/>
-                <MenuItem  sx={{padding:'0'}}>
-                  <span className='outer-div-menu'>
-                    <span className='inner-div-menu'>
-                      <span className='head-menu'>ASDF</span>
-                      <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                    </span>
-                    <Typography className='secondary-color' sx={{fontSize:'10px'}}>2021-03-10 20:19:15</Typography>
-                  </span>
-                </MenuItem>
-                <Divider/>
-                <MenuItem  sx={{padding:'0'}}>
-                  <span className='outer-div-menu'>
-                    <span className='inner-div-menu'>
-                      <span className='head-menu'>ASDF</span>
-                      <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                    </span>
-                    <Typography className='secondary-color' sx={{fontSize:'10px'}}>2021-03-10 20:19:15</Typography>
-                  </span>
-                </MenuItem>
-                <Divider/>
-                <MenuItem  sx={{padding:'0'}}>
-                  <span className='outer-div-menu'>
-                    <span className='inner-div-menu'>
-                      <span className='head-menu'>ASDF</span>
-                      <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                    </span>
-                    <Typography className='secondary-color' sx={{fontSize:'10px'}}>2021-03-10 20:19:15</Typography>
-                  </span>
-                </MenuItem>
+
+                {notifications.map((item) =>{
+                  return(
+                    <>
+                    
+                    <MenuItem  sx={{padding:'0'}}>
+                     <span className='outer-div-menu'>
+                      <span className='inner-div-menu'>
+                        <span className='head-menu'>{item.name}</span>
+                        <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                      </span>
+                      <Typography className='secondary-color' sx={{fontSize:'10px'}}>{item.create}</Typography>
+                     </span>
+                   </MenuItem>
+                   <Divider/>
+                  </>
+                  )
+                })}
+
+              
                 <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex' , justifyContent: 'space-between'}} >
-                  <Button variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
+                  <Button onClick={() =>{navigate('/notifications')}} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
                     View all
                   </Button>
                   <Button  variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
@@ -391,7 +357,7 @@ function Header(props) {
               aria-haspopup="true"
               aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img btnicon' aria-label="flash" color="primary">
               <img src={UserAvatar} />
-            </IconButton >
+            </IconButton>
             <Menu
               anchorEl={anchorElAnchor}
               id="account-menu"

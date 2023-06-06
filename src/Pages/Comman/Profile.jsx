@@ -16,8 +16,7 @@ import IconButton from "@mui/material/IconButton";
 import { MuiTelInput } from 'mui-tel-input'
 import { authAtom } from '../../_state';
 import { useRecoilValue } from 'recoil';
-
-import { LoginAtom} from '../../_state/users';
+import {userAtom} from '../../_state/users';
 
 function handleClick(event) {
   event.preventDefault();
@@ -45,12 +44,12 @@ function getStyles(name, personName, theme) {
 }
 const Profile = (props) => {
 
-const [Soption2, setSoption2] = useRecoilState(LoginAtom);
-  const profileUpdate = useUserActions();
-  const [phone, setPhone] = useState('')
-  const label = { inputProps: { "aria-label": "Switch demo" } };
-  const auth = useRecoilValue(authAtom);
-    const validationSchema = Yup.object().shape({
+const [Subscribe, setSubscribe] = useRecoilState(userAtom);
+const profileUpdate = useUserActions();
+const [phone, setPhone] = useState('')
+const label = { inputProps: { "aria-label": "Switch demo" } };
+const auth = useRecoilValue(authAtom);
+const validationSchema = Yup.object().shape({
         user_name: Yup.string()
             .trim()
             .required("Name is required"),
@@ -135,7 +134,6 @@ const [Soption2, setSoption2] = useRecoilState(LoginAtom);
         reset({...auth})
     },[auth])
 
-   
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -171,7 +169,7 @@ const [Soption2, setSoption2] = useRecoilState(LoginAtom);
                                                     <Box>
                                                         <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} >{auth.user_name?auth.user_name:auth.email.split('@')[0]}</Typography>
                                                         <Typography component="p" variant='body2' className='secondary-color' sx={{ fontSize: '14px', color: '#777E90' }}>{auth.email}</Typography>
-                                                        <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>VIP</Button>
+                                                        <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>{Subscribe?.isSubscribed?'VIP':'FREE' }</Button>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={12} sm={4} md={4}>
@@ -212,7 +210,8 @@ const [Soption2, setSoption2] = useRecoilState(LoginAtom);
                                                 </Grid>
                                             </Grid>
                                         </Box>
-                                        <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
+
+                                       {Subscribe?.isSubscribed && <> <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
                                             <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} paddingY={5}  >Features</Typography>
                                         </Box>
                                         <Box>
@@ -237,7 +236,9 @@ const [Soption2, setSoption2] = useRecoilState(LoginAtom);
                                         <Typography component="p" variant='body2' paddingBottom={3} >
                                             Stay informed, stay profitable
                                         </Typography>
+                                      </> }
                                     </Box>
+
                                     <Box
                                         noValidate
                                         component="form"
@@ -308,7 +309,7 @@ const [Soption2, setSoption2] = useRecoilState(LoginAtom);
                                                 />
                                                 <div className="invalid-feedback" style={{ color: "red" }}>{errors.phone?.message}</div>
                                             </Box>  
-                                       {Soption2  && <><Box className='' paddingY={1}>
+                                       {auth.login_attempt===0  && <><Box className='' paddingY={1}>
                                             <TextField
                                             label="Password"
                                             InputLabelProps={{

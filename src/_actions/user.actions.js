@@ -19,9 +19,9 @@ const useUserActions = () => {
             .then(res => {
                 if (res.statusCode === 200) {
                     let {data,access_token,login_attempt} = res;                      
-                    localStorage.setItem("user",JSON.stringify({...data,access_token,login_attempt}))     
-                    setAuth({...data,access_token,login_attempt}); 
-                    (login_attempt===0)?navigate("/account/profile"):navigate("/"); 
+                    localStorage.setItem("user",JSON.stringify({...data,access_token,login_attempt,isSubscribed:true}))     
+                    setAuth({...data,access_token,login_attempt,isSubscribed:true}); 
+                    (login_attempt ===0)?navigate("/account/profile"):navigate("/"); 
                     setUserError(true)
                     alertActions.success(Labels.Login_Success);
                 } else {
@@ -40,8 +40,8 @@ const useUserActions = () => {
             .then(res => {
                 if (res.statusCode === 200) {    
                     let {data,access_token,login_attempt} = res;               
-                    localStorage.setItem("user",JSON.stringify({...data,access_token,login_attempt}))     
-                    setAuth({...data,access_token,login_attempt});    
+                    localStorage.setItem("user",JSON.stringify({...data,access_token,login_attempt,isSubscribed:true}))     
+                    setAuth({...data,access_token,login_attempt,isSubscribed:true});    
                     alertActions.success(Labels.Login_Success);
                     (login_attempt===0)?navigate("/account/profile"):navigate("/");              
                 } else {

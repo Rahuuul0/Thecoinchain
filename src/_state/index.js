@@ -4,4 +4,5 @@ export * from "./users";
 export * from "./tutorial";
 export * from './contact';
 export * from './home';
+export * from './loginhistory';
 

@@ -42,6 +42,7 @@ export const Apis = {
     Categories_Data: 'categories',
     Category_Data: 'category',
     Latest_Listings: 'latest-listings',
+    User_Login_History: 'user-login-history'
 
 
 }

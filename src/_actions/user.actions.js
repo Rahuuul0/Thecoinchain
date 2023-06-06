@@ -21,7 +21,7 @@ const useUserActions = () => {
                     let {data,access_token,login_attempt} = res;                      
                     localStorage.setItem("user",JSON.stringify({...data,access_token,login_attempt}))     
                     setAuth({...data,access_token,login_attempt}); 
-                    (login_attempt<=0)?navigate("/account/profile"):navigate("/"); 
+                    (login_attempt===0)?navigate("/account/profile"):navigate("/"); 
                     setUserError(true)
                     alertActions.success(Labels.Login_Success);
                 } else {
@@ -43,7 +43,7 @@ const useUserActions = () => {
                     localStorage.setItem("user",JSON.stringify({...data,access_token,login_attempt}))     
                     setAuth({...data,access_token,login_attempt});    
                     alertActions.success(Labels.Login_Success);
-                    (login_attempt<=0)?navigate("/account/profile"):navigate("/");              
+                    (login_attempt===0)?navigate("/account/profile"):navigate("/");              
                 } else {
                     alertActions.error(res.msg);
                 }

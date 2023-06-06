@@ -27,11 +27,13 @@ import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import Lock from '../../../public/assets/images/icons/lock.svg'
 import GoogleLogin from "./GoogleLogin.jsx";
 import AppleIcon from '@mui/icons-material/Apple';
+import { LoginAtom} from '../../_state/';
 
 const LogIn = () => {
 
     const [value, setValue] = useState('1');
     
+    const [Soption2, setSoption2] = useRecoilState(LoginAtom);
     const [userError, setUserError] = useRecoilState(userErrorAtom);
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -310,7 +312,7 @@ const LogIn = () => {
                                                         </Link>
                                                     </Box>
 
-                                                    <Button
+                                                    <Button  onClick={()=>{setSoption2(true)}}
                                                         type="submit"
                                                         variant="contained"
                                                         className='btn btn-primary'

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRecoilState} from 'recoil';
 import {useEffect,useState} from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
@@ -12,8 +13,11 @@ import Sidebar from './Components/Sidebar';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from "@mui/material/IconButton";
+import { MuiTelInput } from 'mui-tel-input'
 import { authAtom } from '../../_state';
 import { useRecoilValue } from 'recoil';
+
+import { LoginAtom} from '../../_state/users';
 
 function handleClick(event) {
   event.preventDefault();
@@ -39,12 +43,13 @@ function getStyles(name, personName, theme) {
         : theme.typography.fontWeightMedium,
   };
 }
-const Profile = () => {
+const Profile = (props) => {
+
+const [Soption2, setSoption2] = useRecoilState(LoginAtom);
   const profileUpdate = useUserActions();
+  const [phone, setPhone] = useState('')
   const label = { inputProps: { "aria-label": "Switch demo" } };
   const auth = useRecoilValue(authAtom);
-
-    //yup validation
     const validationSchema = Yup.object().shape({
         user_name: Yup.string()
             .trim()
@@ -82,6 +87,12 @@ const Profile = () => {
      const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
 
     const [personName, setPersonName] = useState([]);
+
+      // Mobile contry code 
+      const handlePhone = (newPhone) => {
+          setPhone(newPhone)
+      }
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
         const {
@@ -275,8 +286,10 @@ const Profile = () => {
                                                 />
                                                 <div className="invalid-feedback" style={{ color: "red" }}>{errors.email?.message}</div>
                                             </Box>
+
+
                                             <Box className='' paddingY={1}>
-                                                <TextField
+                                                    <MuiTelInput
                                                     // disabled
                                                     label="Mobile"
                                                     className="form-control white-input-box"
@@ -288,14 +301,14 @@ const Profile = () => {
                                                     required
                                                     fullWidth
                                                     id="mobile"
-                                                    name="mobile"
                                                     autoComplete="off"
                                                     {...register("phone")}
+                                                    value={phone}
+                                                    onChange={handlePhone}
                                                 />
                                                 <div className="invalid-feedback" style={{ color: "red" }}>{errors.phone?.message}</div>
                                             </Box>  
-                                           
-                                            <Box className='' paddingY={1}>
+                                       {Soption2  && <><Box className='' paddingY={1}>
                                             <TextField
                                             label="Password"
                                             InputLabelProps={{
@@ -325,7 +338,8 @@ const Profile = () => {
                                             }}
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.password?.message}</div>
-                                            </Box>    
+                                            </Box>   
+
                                             <Box className='' paddingY={1}>
                                             <TextField
                                             label="Confirm Password"
@@ -356,7 +370,9 @@ const Profile = () => {
                                         
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirmpassword?.message}</div>
-                                            </Box>                                                                                           
+                                            </Box> 
+                                            </>
+                                       }
                                         </Box>
                                         <Typography textAlign='right' paddingY={3}>
                                             <Button type="submit" className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>

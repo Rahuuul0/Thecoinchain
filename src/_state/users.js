@@ -23,6 +23,10 @@ const switchAtom = atom({
     key: 'switchAtom',
     default: true,   
 });
+const LoginAtom = atom({
+  key: 'LoginAtom',
+  default: false,   
+});
 
 const homePageAtom = atom({
     key: 'homePageAtom',
@@ -512,5 +516,6 @@ export {
     userAtom,
     userErrorAtom,
     switchAtom,
+    LoginAtom,
     homePageAtom,
 };

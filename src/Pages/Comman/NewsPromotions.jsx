@@ -147,7 +147,7 @@ const NewsPromotions = (props) => {
                                                             onChangeIndex={handleChangeIndexTab}
                                                         >
                                                             <TabPanel value={valueTab2} index2={0} dir={theme.direction}>
-
+                                                            
                                                                 <Box paddingBottom={3}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
@@ -194,8 +194,8 @@ const NewsPromotions = (props) => {
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
-
                                                             </TabPanel>
+                                                                
                                                             <TabPanel value={valueTab2} index2={1} dir={theme.direction}>
 
                                                                 <Box paddingBottom={3}>

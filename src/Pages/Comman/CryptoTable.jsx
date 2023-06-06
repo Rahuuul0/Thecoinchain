@@ -29,7 +29,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Line, Chart } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
 import { useCoinActions } from "../../_actions";
-import { coinsAtom } from "../../_state";
+import { coinsAtom, userAtom } from "../../_state";
 
 import { TabPanel } from "@mui/lab";
 ChartJS.register(...registerables);
@@ -54,6 +54,7 @@ function paginator(items, current_page, per_page_items) {
 const CryptoTable = (props) => {
   const coinActions = useCoinActions();
   const coinsList = useRecoilValue(coinsAtom);
+  const userDetail = useRecoilValue(userAtom);
   const navigate = useNavigate();
   const [value, setValue] = useState("1");
   const location = useLocation();
@@ -226,7 +227,7 @@ const CryptoTable = (props) => {
                           </span>
                         </TableCell>
                         {location.pathname === "/prediction-dashboard" &&
-                        !props?.isIt ? (
+                        !userDetail?.isSubscribed ? (
                           <>
                             <TableCell align="right">
                               <HttpsIcon />
@@ -242,7 +243,7 @@ const CryptoTable = (props) => {
                             </TableCell>{" "}
                           </>
                         ) : location.pathname === "/prediction-dashboard" &&
-                          props?.isIt ? (
+                          userDetail?.isSubscribed ? (
                           <>
                             <TableCell align="right">
                               {/* <span className='up'>{Math.round((item.quote.USD.percent_change_1h + Number.EPSILON) * 100) / 100}%</span> */}
@@ -324,7 +325,7 @@ const CryptoTable = (props) => {
                           </>
                         )}
 
-                        {props.isIt ? (
+                        {userDetail?.isSubscribed ? (
                           <TableCell align="right" sx={{ cursor: "pointer" }}>
                             <img
                               src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
@@ -470,7 +471,7 @@ const CryptoTable = (props) => {
 
               <TabContext value={value}>
                 <Box>
-                  {props.isIt ? (
+                  {userDetail?.isSubscribed ? (
                     <TabList onChange={handleChange} aria-label="Login Tabs">
                       <Tab label="15m" value="1" />
                       <Tab label="1h" value="2" />

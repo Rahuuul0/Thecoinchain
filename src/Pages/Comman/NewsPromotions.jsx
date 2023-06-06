@@ -21,6 +21,8 @@ const NewsPromotions = (props) => {
     const newsListGetActions = newsListActions();
     const coinsList = useRecoilValue(newsListAtom);
 
+     console.log(coinsList,'coinsList')
+
        // Subscription action get function   API data call 
        useEffect(()=>{
         const    response = newsListGetActions.get()

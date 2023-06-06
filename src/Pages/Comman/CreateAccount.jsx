@@ -6,6 +6,9 @@ import { Checkbox, Container, Box, TextField, Typography, Link, Button, FormCont
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAlertActions } from '../../_actions/alert.actions';
+import {KeyboardArrowLeft} from '@mui/icons-material/';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
@@ -16,9 +19,7 @@ import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
 import AppleIcon from '@mui/icons-material/Apple';
 import ReCAPTCHA from "react-google-recaptcha";
-import { useAlertActions } from '../../_actions/alert.actions';
-import {KeyboardArrowLeft} from '@mui/icons-material/';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+
 import GoogleAuth from "./GoogleAuth.jsx";
 
 const CreateAccount = () => {
@@ -28,7 +29,7 @@ const CreateAccount = () => {
     const captchaRef = useRef(null)
     const validationSchema = Yup.object().shape({
         email: Yup.string()
-            .email()
+            .email("Email must be a valid email")
             .trim()
             .required("Email Address is required"),
         mobile: Yup.string().required("Mobile Number is required").matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, { message: "Please enter valid number.", excludeEmptyString: false }),
@@ -82,6 +83,9 @@ const CreateAccount = () => {
         }
         
     }
+
+
+    
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -111,7 +115,7 @@ const CreateAccount = () => {
                         </Box>
                         <Box className='auth-wrapper-form' position='relative'>
                         <Box position='absolute' sx={{top: '90px'}}>
-                            <IconButton aria-label="delete"  className='btn-primary btn' variant="outlined" sx={{padding: '4px 4px !important', margin: '0px !important'}}>
+                            <IconButton onClick={()=>{navigate("/")}} aria-label="delete"  className='btn-primary btn' variant="outlined" sx={{padding: '4px 4px !important', margin: '0px !important'}}>
                                 <KeyboardArrowLeft />
                             </IconButton>
                         </Box>
@@ -144,7 +148,6 @@ const CreateAccount = () => {
                                 >
                                     <Box className='auth-form' >
                                         <TextField
-                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             label="Email"
                                             className="form-control"
                                             type="email"
@@ -162,6 +165,7 @@ const CreateAccount = () => {
                                             size="small"
                                             autoFocus
                                             {...register("email")}
+                                            onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         />
                                         <div style={{ color: "red" }}>{errors.email?.message}
                                         </div>
@@ -187,7 +191,6 @@ const CreateAccount = () => {
                                         <div style={{ color: "red" }}>{errors.mobile?.message}
                                         </div>
                                         <TextField
-                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             margin="normal"
                                             required
                                             type={showPassword ? "text" : "password"}
@@ -202,7 +205,6 @@ const CreateAccount = () => {
                                             name="password"
                                             autoComplete="off"
                                             size="small"
-                                            autoFocus
                                             className="form-control"
                                             InputProps={{
                                                 endAdornment: (
@@ -214,10 +216,10 @@ const CreateAccount = () => {
                                                 ),
                                             }}
                                             {...register("password")}
+                                            onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         /><div style={{ color: "red" }}> {errors.password?.message}
                                         </div>
                                         <TextField
-                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             margin="normal"
                                             required
                                             InputLabelProps={{
@@ -232,7 +234,6 @@ const CreateAccount = () => {
                                             name="confirm_password"
                                             autoComplete="off"
                                             size="small"
-                                            autoFocus
                                             className="form-control"
                                             InputProps={{
                                                 endAdornment: (
@@ -244,15 +245,17 @@ const CreateAccount = () => {
                                                 ),
                                             }}
                                             {...register("confirm_password")}
+                                            onChange={(e) => reset({ ...formData, confirm_password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         />
                                         <div style={{ color: "red" }}> {errors.confirm_password?.message}
                                         </div>
 
                                         <FormControlLabel                                         
                                         className='auth-checkbox' 
+                                        display='flex'
                                         control={<Checkbox {...register("agree")}  />} 
-                                        label="* By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." 
-                                        />
+                                        label='* By signing up I agree that I’m 18 <b> years</b> of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent.'
+                                            />
                                           <div style={{ color: "red" }}> {errors.agree?.message}
                                         </div>
                                         <ReCAPTCHA

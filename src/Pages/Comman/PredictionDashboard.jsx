@@ -76,10 +76,10 @@ const PredictionDashboard = () => {
                             </Box>
                         </Box>
                     </Box>
-                </Box >
-            </ThemeProvider>
-        </>
-    )
-}
+          </Box>
+      </ThemeProvider>
+    </>
+  );
+};
 
-export default PredictionDashboard
+export default PredictionDashboard;

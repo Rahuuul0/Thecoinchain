@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Typography, Button, Link, Breadcrumbs, Stack } from '@mui/material';
@@ -11,6 +11,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {subscriptionActions} from '../../_actions';
 
 const plans = [
     {
@@ -60,6 +61,8 @@ function getStyles(name, personName, theme) {
 const ForecastSubscriptions = () => {
 
     const navigate = useNavigate();
+    const subscribed = subscriptionActions();
+    const [subscriptionData, setSubscriptionData] = useState([]);
 
     const [open, setOpen] = useState(false);
 
@@ -107,6 +110,12 @@ const ForecastSubscriptions = () => {
     const handleChanges = (panel) => (event, isExpanded) => {
       setExpanded(isExpanded ? panel : false);
     };
+
+        // Subscription action get function   API data call 
+        useEffect(()=>{
+            const    response = subscribed.subscription()
+            response.then((res)=>{setSubscriptionData(res)})
+         },[])
   
     return (
         <>

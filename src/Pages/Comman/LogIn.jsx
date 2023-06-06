@@ -27,13 +27,16 @@ import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import Lock from '../../../public/assets/images/icons/lock.svg'
 import GoogleLogin from "./GoogleLogin.jsx";
 import AppleIcon from '@mui/icons-material/Apple';
+
 const LogIn = () => {
 
     const [value, setValue] = useState('1');
-    const [phone, setPhone] = useState('')
+    
     const [userError, setUserError] = useRecoilState(userErrorAtom);
     const [isSubmitting, setIsSubmitting] = useState(false)
 
+    // Mobile contry code 
+    const [phone, setPhone] = useState('')
     const handlePhone = (newPhone) => {
         setPhone(newPhone)
     }
@@ -49,7 +52,7 @@ const LogIn = () => {
 
     const validationSchema = Yup.object().shape({
         email: Yup.string()
-            .email()
+            .email("Email must be a valid email")
             .trim()
             .required("Email Address is required"),
         password: Yup.string()
@@ -131,7 +134,7 @@ const LogIn = () => {
                         </Box>
                         <Box className='auth-wrapper-form' position='relative'>
                             <Box position='absolute' sx={{ top: '90px' }}>
-                                <IconButton aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
+                                <IconButton onClick={()=>{navigate('/')}} aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
                                     <KeyboardArrowLeft />
                                 </IconButton>
                             </Box>
@@ -256,7 +259,7 @@ const LogIn = () => {
                                                         variant="standard"
                                                         required
                                                         margin="normal"
-
+                                                        fullWidth
                                                         placeholder='Number'
                                                         autoComplete="off"
                                                         size="small"

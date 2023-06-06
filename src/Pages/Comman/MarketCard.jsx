@@ -1,5 +1,6 @@
-import React, { useState,useEffect } from 'react';
-import { Box, Container, Grid, Typography, Button, FormControl, MenuItem } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Container, Typography, Button, FormControl, MenuItem ,Stack} from '@mui/material';
+
 import Tab from '@mui/material/Tab';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TabContext from '@mui/lab/TabContext';
@@ -10,34 +11,25 @@ import BtcIc from '../../../public/assets/images/icons/btc-ic.svg';
 import AtcIc from '../../../public/assets/images/icons/atc-ic.svg';
 import EthIc from '../../../public/assets/images/icons/eth-ic.svg';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import {homePageAtom} from "../../_state/users"
-
+import { useRecoilValue } from 'recoil';
+import {useCoinActions} from "../../_actions"
+import {coinCategoryAtom,selectedCategoryAtom} from "../../_state";
 const MarketCard = () => {
-
     const navigate = useNavigate();
-    // Json data call
-    const sethomeData = useRecoilState(homePageAtom);
-    const coinData = sethomeData[0][0].data; 
-
-  useEffect(()=> {
-    console.log(sethomeData[0][0].data,'gfddsfdfdfsfs')
-  },[])
-
     const [value, setValue] = useState('1');
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
+    const coinActions = useCoinActions()
+    const categoryList = useRecoilValue(coinCategoryAtom);
+    const selectedCat = useRecoilValue(selectedCategoryAtom);    
 
     const [tablefilter, setTablefilter] = useState('');
-
     const handleChangeTablefilter = (event) => {
         setTablefilter(event.target.value);
     };
 
-
+    const getFirstLetters = (str) => {
+        const firstLetters = str.replace("Portfolio", "");
+        return firstLetters;
+    }
     return (
         <>
             <Box className='market-crypto-card-wrapper'>
@@ -90,19 +82,28 @@ const MarketCard = () => {
                                 </Box>
                             </Box>
                         </Box>
-
                         <Box className='market-crypto-tabs for-desktop'>
                             <TabContext value={value}>
-                                <Box>
-                                    <TabList onChange={handleChange} aria-label="Login Tabs">
-                                        <Tab label="Cryptocurrencies" value="1" />
-                                        <Tab label="DeFi" value="2" />
-                                        <Tab label="Innovation" value="3" />
-                                        <Tab label="POS" value="4" />
-                                        <Tab label="NFT" value="5" />
-                                        <Tab label="POW" value="6" />
-                                    </TabList>
-                                </Box>
+                            <Stack direction='row' className='filter-btn' spacing='2' paddingTop={5}>
+                                {(selectedCat===0)?
+                                    <Button variant='contained' className='btn btn-secondary' onClick={e=>coinActions.latestListing() }>All</Button>
+                                :
+                                    <Button  className='btn' onClick={e=>coinActions.latestListing() }>All</Button>
+                                }
+                                {categoryList.length && 
+                                    categoryList.map((item,index)=>{
+                                    if(index < 4){
+                                        if(selectedCat!==0 && selectedCat===item.id){
+                                        return(<Button variant='contained' className='btn btn-secondary' key={index} onClick={e=>coinActions.coinListbByCategoty(item.id) } title={item.name}>{getFirstLetters(item.name)}</Button>)
+                                        }else{
+                                        return(<Button  className='btn' onClick={e=>coinActions.coinListbByCategoty(item.id) } title={item.name}>{getFirstLetters(item.name)}</Button>)
+                                        }
+                                    }else{
+                                        return '';
+                                    }              
+                                    })
+                                }         
+                                </Stack>
                             </TabContext>
                             <Button
                                 variant="outlined"
@@ -126,7 +127,12 @@ const MarketCard = () => {
                                     <MenuItem value={60}>POW</MenuItem>
                                     <MenuItem value={70}>Predict</MenuItem>
                                 </Select>
-                            </FormControl>                           
+                            </FormControl>
+                            {/* <Button
+                                variant="outlined"
+                                className='btn btn-outlined-secondary'>
+                                Predict
+                            </Button> */}
                         </Box>
                     </Box>
                 </Container>

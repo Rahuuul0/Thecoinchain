@@ -1,63 +1,87 @@
 import React from 'react'
+import {useEffect,useState} from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Select, OutlinedInput, MenuItem, Switch, TextField } from '@mui/material';
+import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Select, OutlinedInput, MenuItem, Switch, TextField,InputAdornment } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions"
 import Sidebar from './Components/Sidebar';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import IconButton from "@mui/material/IconButton";
+import { authAtom } from '../../_state';
+import { useRecoilValue } from 'recoil';
 
 function handleClick(event) {
-    event.preventDefault();
-    console.info('You clicked a breadcrumb.');
+  event.preventDefault();
+  console.info("You clicked a breadcrumb.");
 }
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
     },
+  },
 };
 
 function getStyles(name, personName, theme) {
-    return {
-        fontWeight:
-            personName.indexOf(name) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
-    };
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
 }
 const Profile = () => {
-    const profileUpdate = useUserActions();
-    const label = { inputProps: { 'aria-label': 'Switch demo' } };
+  const profileUpdate = useUserActions();
+  const label = { inputProps: { "aria-label": "Switch demo" } };
+  const auth = useRecoilValue(authAtom);
 
     //yup validation
     const validationSchema = Yup.object().shape({
-        name: Yup.string()
+        user_name: Yup.string()
             .trim()
             .required("Name is required"),
         email: Yup.string()
             .email()
             .trim()
             .required("Email Address is required"),
-        mobile: Yup.string()
+        phone: Yup.string()
             .trim()
-            .required("Mobile is required")
+            .required("Mobile is required"),
+        password: Yup.string()
+            .required(" Password Required")
+            .min(8, " Password must be at least 8 characters.")
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/,
+                "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
+            ),
+        confirmpassword: Yup.string().required('Confirm Password is required')
+            .oneOf([Yup.ref('password'), null], 'Passwords must match')
     });
 
-    const formOptions = { resolver: yupResolver(validationSchema) };
-    // get functions to build form with useForm() hook
-    const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
-    const { errors, isSubmitting } = formState;
+  const formOptions = { resolver: yupResolver(validationSchema) };
+  // get functions to build form with useForm() hook
+  const { register, handleSubmit, formState, reset, watch } =
+    useForm(formOptions);
+  const { errors, isSubmitting } = formState;
+  const formData = watch();
 
+     //password eye IconButton
+     const [showPassword, setShowPassword] = React.useState(false);
+     const [showPassword2, setShowPassword2] = React.useState(false);
+ 
+     const handleClickShowPassword = () => setShowPassword((show) => !show);
+     const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
 
-    const [personName, setPersonName] = React.useState([]);
+    const [personName, setPersonName] = useState([]);
     const handleChange = (event, newValue) => {
         setValue(newValue);
         const {
@@ -77,23 +101,30 @@ const Profile = () => {
         </Typography>,
     ];
     const names = [
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
+        'Australia',
+        'Argentina',
+        'Canada',
+        'Belgium',
+        'China',
+        'India',
+        'Ghana',
+        'France',
+        'Iraq',
+        'USA',
     ];
-    const [value, setValue] = React.useState('1');
+    const [value, setValue] = useState('1');
 
     const submitFunction = () => {
-        profileUpdate.updateUser(localStorage.getItem("id"), formData)
+        profileUpdate.updateUser({...formData,"name":formData.user_name})
+        // profileUpdate.resetPassword({...formData,"name":formData.password})
+
     }
-    const formData = watch();
+
+    useEffect(()=> {
+        reset({...auth})
+    },[auth])
+
+   
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -103,7 +134,6 @@ const Profile = () => {
                             <Typography component="h2" variant='h2'>
                                 Profile info
                             </Typography>
-
                             <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
                                 <Box  >
                                     <Breadcrumbs
@@ -128,10 +158,9 @@ const Profile = () => {
                                             <Grid container  >
                                                 <Grid item xs={12} sm={8} md={8} sx={{ paddingBottom: { xs: '20px', md: '5px' } }}>
                                                     <Box>
-                                                        <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} >Breanne Schinner</Typography>
-                                                        <Typography component="p" variant='body2' className='secondary-color' sx={{ fontSize: '14px', color: '#777E90' }}>hello@coinguru.org</Typography>
+                                                        <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} >{auth.user_name?auth.user_name:auth.email.split('@')[0]}</Typography>
+                                                        <Typography component="p" variant='body2' className='secondary-color' sx={{ fontSize: '14px', color: '#777E90' }}>{auth.email}</Typography>
                                                         <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>VIP</Button>
-
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={12} sm={4} md={4}>
@@ -208,9 +237,9 @@ const Profile = () => {
                                                 Update your profile
                                             </Typography>
                                             <Box className='' paddingY={1} >
-                                                <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Name</Typography>
                                                 <TextField
-                                                    className="form-control"
+                                                     label="Name"
+                                                    className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
                                                     }}
@@ -223,13 +252,13 @@ const Profile = () => {
                                                     autoComplete="off"
                                                     backgroundColor='#fff'
                                                     autoFocus
-                                                    {...register("name")}
+                                                    {...register("user_name")}
                                                 />
-                                                <div style={{ color: "red" }}>{errors.name?.message}</div>
+                                                <div className="invalid-feedback" style={{ color: "red" }}>{errors.user_name?.message}</div>
                                             </Box>
                                             <Box className='' paddingY={1}>
-                                                <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Email</Typography>
                                                 <TextField
+                                                    disabled
                                                     label="Email"
                                                     className="form-control white-input-box"
                                                     InputLabelProps={{
@@ -244,27 +273,90 @@ const Profile = () => {
                                                     autoComplete="off"
                                                     {...register("email")}
                                                 />
-                                                <div style={{ color: "red" }}>{errors.email?.message}</div>
+                                                <div className="invalid-feedback" style={{ color: "red" }}>{errors.email?.message}</div>
                                             </Box>
-                                            <Box className=''>
-                                                <Typography textTransform='uppercase' fontWeight='700' className='small-caption primary-font secondary-color'>Mobile</Typography>
+                                            <Box className='' paddingY={1}>
                                                 <TextField
-                                                    className="form-control"
+                                                    // disabled
+                                                    label="Mobile"
+                                                    className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
                                                     }}
-                                                    variant="outlined"
+                                                    variant="standard"
                                                     margin="normal"
                                                     required
                                                     fullWidth
                                                     id="mobile"
-                                                    placeholder='Mobile'
                                                     name="mobile"
                                                     autoComplete="off"
-                                                    {...register("mobile")}
+                                                    {...register("phone")}
                                                 />
-                                                <div style={{ color: "red" }}>{errors.mobile?.message}</div>
-                                            </Box>
+                                                <div className="invalid-feedback" style={{ color: "red" }}>{errors.phone?.message}</div>
+                                            </Box>  
+                                           
+                                            <Box className='' paddingY={1}>
+                                            <TextField
+                                            label="Password"
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            margin="normal"
+                                            required
+                                            variant="standard"
+                                            fullWidth
+                                            id="password"
+                                            placeholder='Password'
+                                            type={showPassword ? "text" : "password"}
+                                            name="password"
+                                            autoComplete="current-password"
+                                            size="small"
+                                           
+                                            {...register('password')}
+                                            className={`form-control white-input-box ${errors.password ? 'is-invalid' : ''}`}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton onClick={handleClickShowPassword}>
+                                                            {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />
+                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.password?.message}</div>
+                                            </Box>    
+                                            <Box className='' paddingY={1}>
+                                            <TextField
+                                            label="Confirm Password"
+                                            margin="normal" 
+                                            required
+                                            fullWidth
+                                            id="confirm_password"
+                                            placeholder='Confirm Password'
+                                            type={showPassword2 ? "text" : "password"}
+                                            name="confirm_password"
+                                            autoComplete="confirm-password"
+                                            size="small"
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            variant="standard"
+                                            {...register('confirmpassword')}
+                                            className={`form-control white-input-box ${errors.confirmpassword ? 'is-invalid' : ''}`}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <IconButton onClick={handleClickShowPassword2}>
+                                                            {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        
+                                        />
+                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirmpassword?.message}</div>
+                                            </Box>                                                                                           
                                         </Box>
                                         <Typography textAlign='right' paddingY={3}>
                                             <Button type="submit" className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>
@@ -274,11 +366,10 @@ const Profile = () => {
                             </Box>
                         </Container>
                     </Box>
-
                 </Box>
-            </ThemeProvider>
-        </>
-    )
-}
+            </ThemeProvider> </>
+);
+  
+};
 
-export default Profile
+export default Profile;

@@ -10,6 +10,7 @@ export const Labels = {
   Password_Change_Success: "Your password has been change successfully",
   Logout_Success: "Logout successfully",
   Verified: "Verified Successfully ",
+  Footer_Email: "Thank you for subscribe ",
   Replce_Text: "XXXX",
   Success_Status_Code: 200,
   Error_Status_Code: 500,
@@ -39,7 +40,11 @@ export const Apis = {
     Tutorial_Video: "tutorial-list",
     Contact: 'contact-us',
     Update_User: 'update-user',
-    FAQ: 'faq-list'
+    FAQ: 'faq-list',
+    Categories_Data: 'categories',
+    Category_Data: 'category',
+    Latest_Listings: 'latest-listings',
+    Footer: 'news-latter'
 }
 
 export const theme = createTheme({

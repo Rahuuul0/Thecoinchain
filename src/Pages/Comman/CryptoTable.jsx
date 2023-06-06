@@ -170,14 +170,21 @@ const CryptoTable = (props) => {
                         <TableCell align="right">7d %</TableCell>
                         <TableCell align="right">30d %</TableCell>
                       </>
-                    ) : (
+                    ) : location.pathname === "/market" ? (
                       <>
                         <TableCell align="right">7d %</TableCell>
                         <TableCell align="right">Marketcap</TableCell>
                         <TableCell align="right">Volume(24h)</TableCell>
                       </>
+                    ) : (
+                      ""
                     )}
                     <TableCell align="right">Chart</TableCell>
+                    {location.pathname === "/" ? (
+                      <TableCell align="right">Predict</TableCell>
+                    ) : (
+                      ""
+                    )}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -291,7 +298,7 @@ const CryptoTable = (props) => {
                               </span>
                             </TableCell>
                           </>
-                        ) : (
+                        ) : location.pathname === "/market" ? (
                           <>
                             <TableCell align="right">
                               <span
@@ -323,6 +330,8 @@ const CryptoTable = (props) => {
                               </span>
                             </TableCell>
                           </>
+                        ) : (
+                          ""
                         )}
 
                         {userDetail?.isSubscribed ? (
@@ -340,7 +349,7 @@ const CryptoTable = (props) => {
                               onClick={() => handleChartOpen(item.id)}
                             />
                           </TableCell>
-                        ) : (
+                        ) : location.pathname !== "/" ? (
                           <TableCell
                             align="right"
                             onMouseOver={() => handleMouseOver(index)}
@@ -379,6 +388,38 @@ const CryptoTable = (props) => {
                               </Fade>
                             }
                           </TableCell>
+                        ) : (
+                          ""
+                        )}
+                        {location.pathname === "/" ? (
+                          <>
+                            <TableCell align="right" sx={{ cursor: "pointer" }}>
+                              <img
+                                src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
+                                alt="chart"
+                                height="33px"
+                                style={{
+                                  filter:
+                                    priceChange.percent_change_24h < 0
+                                      ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
+                                      : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
+                                }}
+                              />
+                            </TableCell>
+                            <TableCell align="right" sx={{ cursor: "pointer" }}>
+                              <Button
+                                variant="outlined"
+                                sx={{
+                                  borderRadius: "90px",
+                                  margin: "auto",
+                                }}
+                              >
+                                Predict
+                              </Button>
+                            </TableCell>
+                          </>
+                        ) : (
+                          ""
                         )}
                       </TableRow>
                     );

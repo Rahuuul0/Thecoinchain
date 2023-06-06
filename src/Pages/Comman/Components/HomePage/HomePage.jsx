@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Grid, Container, Typography, Box, Button, IconButton, Stack, Tab } from '@mui/material';
 import { ArrowCircleDownSharp, KeyboardArrowRight, East, West } from '@mui/icons-material';
 import HeroImage from "../../../../../public/assets/images/banner.svg";
-import Btc from "../../../../../public/assets/images/icons/btc-ic.svg";
 import Leveragedv3 from "../../../../../public/assets/images/leveragedv3.svg";
 import Leveraged from "../../../../../public/assets/images/leveraged.svg";
 import Leveragedv2 from "../../../../../public/assets/images/leveragedv2.svg";
@@ -24,64 +23,37 @@ import Globe from "../../../../../public/assets/images/globe.svg";
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { useEffect,useState } from "react"
+import { useEffect } from "react"
 import Marquee from "react-fast-marquee";
 import CryptoTable from '../../CryptoTable';
 import Learn01 from '../../../../../public/assets/images/learn01.png'
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from 'recoil';
-import {homePageAtom} from "../../../../_state/users";
-import {useHomeActions} from "../../../../_actions/homePage.action"
-import {homeAtom} from "../../../../_state/home";
+import { useRecoilValue } from 'recoil';
+import {useCoinActions} from "../../../../_actions"
+import {coinsAtom,coinCategoryAtom,selectedCategoryAtom} from "../../../../_state";
 
 const Home = () => {
-  const homeActions = useHomeActions()
-
-  const homedata = useRecoilState(homeAtom)
+  const coinActions = useCoinActions()
   const navigate = useNavigate();
-
-  const sethomeData = useRecoilState(homePageAtom);
-
   const [value, setValue] = React.useState('1');
-  const [count,setCount]=useState(0)
+  const coinsList = useRecoilValue(coinsAtom);
+  const categoryList = useRecoilValue(coinCategoryAtom);
+  const selectedCat = useRecoilValue(selectedCategoryAtom);
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
- // Json Data call
-  const coinData = sethomeData[0][0].data; 
-  
-  const [dataValue, setdataValue] = useState([]);
-
-  useEffect(()=>{
-     homeActions.categoriesData()
-    homeActions.categoryData()
-
-  },[])
-
-  useEffect(() => {
-    const myFun =  async ()=>{
-      const ress = await homeActions.latestListing();
-      if(ress) {
-        setdataValue( ress )
-      }
-      console.warn("changed",ress)
-    }
-    myFun();
-
-    // const interval = setInterval(() => {
-    //   setCount(count+1);
-    //   myFun();
-    //   }   
-    // , 3000);
-    // return () => clearInterval(interval);
-   
-  },[]);
-  
+  };  
   
   useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) },[]);
-    
-
-
+  const getFirstLetters = (str) => {
+    const firstLetters = str.replace("Portfolio", "");
+      // .split(' ')
+      // .map(word => word.charAt(0))
+      // .join('');
+  
+    return firstLetters;
+  }
+  
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}>
@@ -115,11 +87,11 @@ const Home = () => {
       <Container>
         <Box>
           <Grid container spacing={4} sx={{ alignItems: 'center' }} className='grid-bit' backgroundColor='#F4F5F6' padding={3} borderRadius={6}>
-          {dataValue?.map((item, index)=> {
+          {coinsList?.map((item, index)=> {
               if(index < 4){
                 return(
                 <Grid item xs={12} sm={3} md={3} className='gridBox'>
-              <img src={item.img}  alt='BTC' width="33px"  />
+              <img src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}  alt={item.symbol} width="33px"  />
               <Stack direction="row" spacing={2} alignItems='center' paddingTop={1} paddingBottom={1}>
                 <Typography className='top-head' sx={{fontSize:'12px !important'}}>
                   {item.symbol}/USDT
@@ -553,18 +525,29 @@ const Home = () => {
           <Button className='btn btn-outlined-secondary mobile-none' onClick={()=>{navigate('/market')}}>View More</Button>
         </Box>
         <Stack direction='row' className='filter-btn' spacing='2' paddingTop={5}>
-          <Button variant="contained" className='btn btn-secondary' >All </Button>
-          <Button>DeFi</Button>
-          <Button>Innovation</Button>
-          <Button>POS</Button>
-          <Button>NFT</Button>
-          <Button>POW</Button>
-          <Button>Storage</Button>
+          {(selectedCat===0)?
+            <Button variant='contained' className='btn btn-secondary' onClick={e=>coinActions.latestListing() }>All</Button>
+          :
+            <Button  className='btn' onClick={e=>coinActions.latestListing() }>All</Button>
+          }
+          {categoryList.length && 
+            categoryList.map((item,index)=>{
+              if(index < 4){
+                if(selectedCat!==0 && selectedCat===item.id){
+                  return(<Button variant='contained' className='btn btn-secondary' key={index} onClick={e=>coinActions.coinListbByCategoty(item.id) } title={item.name}>{getFirstLetters(item.name)}</Button>)
+                }else{
+                  return(<Button  className='btn' onClick={e=>coinActions.coinListbByCategoty(item.id) } title={item.name}>{getFirstLetters(item.name)}</Button>)
+                }
+              }else{
+                return '';
+              }              
+            })
+          }         
         </Stack>
         <CryptoTable isIt={false} />
       </Container>
 
-      <Container maxWidth='fluid' className='' sx={{ backgroundColor: '#F4F5F6' }} >
+      <Container maxWidth='fluid' className='' sx={{ backgroundColor: '#F4F5F6',   paddingTop: { md: '80px', sm: '20px' },}} >
         <Container>
           <Box paddingTop={5} paddingBottom={15} className='become-crypto' >
             <Typography variant='h2' component="h2" className='secondary-font font-40' textAlign='center' sx={{ fontWeight: '700' }}>Become a crypto <br />trader in seconds</Typography>
@@ -612,7 +595,7 @@ const Home = () => {
 
       {/* Informed decision starts*/}
       <Container >
-        <Box paddingTop={10} paddingBottom={10}>
+        <Box  paddingBottom={10}  sx={{ paddingTop: { md: '80px', sm: '20px'} }}>
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} className='flow-reverse-mobile'>
             <Grid item xs={12} sm={6}>
               <Box paddingBottom={5}>

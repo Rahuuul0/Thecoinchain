@@ -2,7 +2,7 @@ import {  useSetRecoilState } from 'recoil';
 import { useFetchWrapper } from '../_helpers';
 import { useAlertActions } from './alert.actions';
 import { Labels, Apis, RoutesName } from '../_common/app.constants'
-import { homePageAtom } from '../_state/';
+import { homePageAtom } from '../_state';
 import {homeAtom} from '../_state/home';
 
 const useHomeActions = () => {
@@ -21,9 +21,9 @@ const useHomeActions = () => {
              alertActions.error(Labels.Error);
          }
      }).catch((err)=>{console.warn(err)})
-}
+  }
 
-const categoryData = async () => {
+  const categoryData = async () => {
   
     return fetchWrapper.post(Apis.Category_Data,)
         .then(res => {
@@ -33,9 +33,9 @@ const categoryData = async () => {
              alertActions.error(Labels.Error);
          }
      }).catch((err)=>{console.warn(err)})
-}
+  }
 
-const latestListing = async () => {
+  const latestListing = async () => {
    return  fetchWrapper.get(Apis.Latest_Listings)
         .then(res => {
          if (res.statusCode === 200) {
@@ -44,14 +44,11 @@ const latestListing = async () => {
              alertActions.error(Labels.Error);
          } 
      }).catch((err)=>{console.warn(err)})
-}
-
-
+  }
   return {
     categoriesData,
     categoryData,
-    latestListing,
-
+    latestListing
   }
 
 }

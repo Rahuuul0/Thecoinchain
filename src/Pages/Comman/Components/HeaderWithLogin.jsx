@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { ListItem, List, ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid, Switch  } from '@mui/material/';
+import { ListItem, List, ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid, Switch } from '@mui/material/';
 import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
-import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown } from '@mui/icons-material/';
+import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
 import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
@@ -14,6 +14,7 @@ import { useUserActions } from "../../../_actions/user.actions";
 import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 const drawerWidth = 240;
 
 function Header(props) {
@@ -57,6 +58,23 @@ function Header(props) {
   };
   const handleCloseAnchor = () => {
     setAnchorElAnchor(null);
+  };
+
+  const [anchorElAnchorbtn, setAnchorElAnchorbtn] = React.useState(null);
+  const openAnchorbtn = Boolean(anchorElAnchorbtn);
+  const handleClickAnchorbtn = (event) => {
+    setAnchorElAnchorbtn(event.currentTarget);
+  };
+  const handleCloseAnchorbtn = () => {
+    setAnchorElAnchorbtn(null);
+  };
+  const [anchorElNoti, setAnchorElNoti] = React.useState(null);
+  const openAnchorNoti = Boolean(anchorElNoti);
+  const handleClickAnchorNoti = (event) => {
+    setAnchorElNoti(event.currentTarget);
+  };
+  const handleCloseAnchorNoti = () => {
+    setAnchorElNoti(null);
   };
 
   const navigate = useNavigate();
@@ -238,15 +256,134 @@ function Header(props) {
             <IconButton aria-label="flash" color="primary">
               <FlashOnOutlined />
             </IconButton>
-            <Badge badgeContent={2} className="green-bg-badge navbtn">
+
+            <IconButton onClick={handleClickAnchorbtn}
+              size="small"
+              sx={{ ml: 2 }}
+              aria-controls={openAnchorbtn ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-avatar-img btnicon' aria-label="flash" color="primary">
               <NotificationsNone color="action" />
-            </Badge>
+            </IconButton >
+            <Menu
+              anchorEl={anchorElAnchorbtn}
+              id=""
+              className='notification-menu'
+              open={openAnchorbtn}
+              onClose={handleCloseAnchorbtn}
+              onClick={handleCloseAnchorbtn}
+
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                  mt: 1.5,
+                  '& .MuiAvatar-root': {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  '&:before': {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+              <Box padding={2}>
+
+                <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
+                <MenuItem  sx={{padding:'0'}}>
+                  <span className='outer-div-menu'>
+                    <span className='inner-div-menu'>
+                      <span className='head-menu'>ASDF</span>
+                      <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                    </span>
+                    <Typography className='secondary-color' sx={{fontSize:'10px'}}>2021-03-10 20:19:15</Typography>
+                  </span>
+                </MenuItem>
+                <Divider/>
+                <MenuItem  sx={{padding:'0'}}>
+                  <span className='outer-div-menu'>
+                    <span className='inner-div-menu'>
+                      <span className='head-menu'>ASDF</span>
+                      <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                    </span>
+                    <Typography className='secondary-color' sx={{fontSize:'10px'}}>2021-03-10 20:19:15</Typography>
+                  </span>
+                </MenuItem>
+                <Divider/>
+                <MenuItem  sx={{padding:'0'}}>
+                  <span className='outer-div-menu'>
+                    <span className='inner-div-menu'>
+                      <span className='head-menu'>ASDF</span>
+                      <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                    </span>
+                    <Typography className='secondary-color' sx={{fontSize:'10px'}}>2021-03-10 20:19:15</Typography>
+                  </span>
+                </MenuItem>
+                <Divider/>
+                <MenuItem  sx={{padding:'0'}}>
+                  <span className='outer-div-menu'>
+                    <span className='inner-div-menu'>
+                      <span className='head-menu'>ASDF</span>
+                      <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                    </span>
+                    <Typography className='secondary-color' sx={{fontSize:'10px'}}>2021-03-10 20:19:15</Typography>
+                  </span>
+                </MenuItem>
+                <Divider/>
+                <MenuItem  sx={{padding:'0'}}>
+                  <span className='outer-div-menu'>
+                    <span className='inner-div-menu'>
+                      <span className='head-menu'>ASDF</span>
+                      <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                    </span>
+                    <Typography className='secondary-color' sx={{fontSize:'10px'}}>2021-03-10 20:19:15</Typography>
+                  </span>
+                </MenuItem>
+                <Divider/>
+                <MenuItem  sx={{padding:'0'}}>
+                  <span className='outer-div-menu'>
+                    <span className='inner-div-menu'>
+                      <span className='head-menu'>ASDF</span>
+                      <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                    </span>
+                    <Typography className='secondary-color' sx={{fontSize:'10px'}}>2021-03-10 20:19:15</Typography>
+                  </span>
+                </MenuItem>
+                <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex' , justifyContent: 'space-between'}} >
+                  <Button variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
+                    View all
+                  </Button>
+                  <Button  variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                    Clear all
+                  </Button>
+                </Box>
+                
+              </Box>
+
+            </Menu>
+
             <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
               Account
             </Button>
             <IconButton aria-label="sunny" color="primary " >
               <WbSunnyOutlined />
             </IconButton>
+
             <IconButton onClick={handleClickAnchor}
               size="small"
               sx={{ ml: 2 }}
@@ -261,7 +398,7 @@ function Header(props) {
               open={openAnchor}
               onClose={handleCloseAnchor}
               onClick={handleCloseAnchor}
-              
+
               PaperProps={{
                 elevation: 0,
                 sx: {
@@ -315,10 +452,10 @@ function Header(props) {
               <MenuItem onClick={() => navigate('/account/session-and-history')}>
                 <span className='inner-div-outer'>
                   <span className='inner-div-user'>
-                  <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Settings</span>
-                  <span className='pl-3 sub-head-menu'>View additional settings</span>
+                    <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Settings</span>
+                    <span className='pl-3 sub-head-menu'>View additional settings</span>
                   </span>
-               
+
                   <span>  <Switch {...label} defaultChecked /></span>
                 </span>
               </MenuItem>

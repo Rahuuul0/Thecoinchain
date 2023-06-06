@@ -10,7 +10,7 @@ import {
   FormControl,
   Select,
 } from "@mui/material";
-import * as React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Blog1 from "../../../public/assets/images/blog-1.svg";
 import Avatar from "../../../public/assets/images/avatar.svg";
 import GridImage from "../../../public/assets/images/grid.svg";
@@ -63,25 +63,26 @@ function getStyles(name, personName, theme) {
 
 const LearnCypto = () => {
   const navigate = useNavigate();
-  const scrollRef = React.useRef();
+  const scrollRef = useRef();
+  const tutorialAction = useTutorialActions();
   const blogsData = useRecoilValue(blogAtom);
   const tutorialsData = useRecoilValue(tutorialAtom);
-
-  const [value, setValue] = React.useState("1");
+  const displayVideo = tutorialsData[0]?.video_link;
+  const [value, setValue] = useState("1");
+  const [tutorialTab, setTutorialTab] = useState("1");
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
-  const [tutorials, setTutorials] = React.useState(tutorialsData);
+  const [personName, setPersonName] = useState([]);
+  const [visibleVideos, setVisibleVideos] = useState(6);
+  const [videoUrl, setVideoUrl] = useState("");
 
-  const [visibleVideos, setVisibleVideos] = React.useState(4);
-
-  const [videoUrl, setVideoUrl] = React.useState(
-    "https://www.youtube.com/watch?v=ysz5S6PUM-U"
-  );
-
-  // console.log(blogsData, 2222222222);
+  console.log(blogsData, 2222222222);
 
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const handleChangeTutorialTab = (event, newValue) => {
+    setTutorialTab(newValue);
   };
 
   const handleChange = (event, newValue) => {
@@ -95,8 +96,6 @@ const LearnCypto = () => {
     );
   };
 
-  const tutorialAction = useTutorialActions();
-
   const scrollToVideo = (e, videoLink) => {
     e.current.scrollIntoView({
       behavior: "smooth",
@@ -104,59 +103,18 @@ const LearnCypto = () => {
     setVideoUrl(videoLink);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     tutorialAction.blogData();
-  }, [blogsData]);
+    tutorialAction.tutorialData();
+  }, []);
+
+  useEffect(() => {
+    setVideoUrl(displayVideo);
+  }, [displayVideo]);
 
   const handleLoadMore = () => {
-    setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 4);
+    setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
   };
-
-  const aboutCryptoComponent = tutorials.slice(0, visibleVideos).map((item) => {
-    return (
-      <Grid item xs={12} md={6} xl={4}>
-        <Box
-          className="about-crypto"
-          onclick={() => {
-            navigate("../learn-cypto-detail");
-          }}
-        >
-          <Button
-            textTransform="uppercase"
-            className="orange-btn float-img small-btn"
-          >
-            New
-          </Button>
-
-          <Box
-            className="avatar-rounded"
-            onClick={() => scrollToVideo(scrollRef, item.video_link)}
-            sx={{ cursor: "pointer" }}
-          >
-            <img src={GridImage} />
-          </Box>
-          <Stack direction="row" justifyContent="space-between" paddingTop={3}>
-            <Box display="flex">
-              <img src={Avatar} />
-              <Box sx={{ paddingLeft: "15px" }}>
-                <Typography fontWeight="500">{item.title}</Typography>
-                <Typography
-                  className="small-caption secondary-color"
-                  fontWeight="500"
-                >
-                  <span>First Name</span> <span>Last Name</span>
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box>
-              <Button className="btn btn-green-outlined">Popular</Button>
-            </Box>
-          </Stack>
-        </Box>
-      </Grid>
-    );
-  });
 
   return (
     <>
@@ -209,7 +167,6 @@ const LearnCypto = () => {
               playing={true}
               width="100%"
               height="640px"
-              // style={{ border: "1px solid black" }}
             />
           </Box>
         </Box>
@@ -248,24 +205,13 @@ const LearnCypto = () => {
                 <Grid container>
                   <Grid className="" xs={12} sm={5} md={5}></Grid>
                   <Grid className="" xs={12} sm={7} md={7}>
-                    {/* <Tab
-                      value={valueTab}
-                      onChange={handleChangeTab}
-                      indicatorColor="secondary"
-                      textColor="inherit"
-                      aria-label="full width tabs example"
-                    >
-                      <Tab label="Bitcoin" {...a11yProps(0)} />
-                      <Tab label="Blockchain" {...a11yProps(1)} />
-                      <Tab label="Tutorials" {...a11yProps(2)} />
-                    </Tab> */}
                     <TabList
                       onChange={handleChangeTab}
                       aria-label="lab API tabs example"
                     >
-                      <Tab label="Item One" value="1" />
-                      <Tab label="Item Two" value="2" />
-                      <Tab label="Item Three" value="3" />
+                      <Tab label="2D Design" value="1" />
+                      <Tab label="3D Design" value="2" />
+                      <Tab label="User Experience" value="3" />
                     </TabList>
                   </Grid>
                 </Grid>
@@ -305,15 +251,13 @@ const LearnCypto = () => {
                                     className="secondary-font"
                                     paddingBottom={2}
                                   >
-                                    A Beginner's Guide to TradingView
+                                    {item.title}
                                   </Typography>
                                   <Typography paddingBottom={5}>
                                     Ethereum
                                   </Typography>
                                   <Typography className="body-caption secondary-color">
-                                    A fully-featured landing page kit, including
-                                    design files, and beautiful 3D illustrations
-                                    editable.
+                                    {item.blog_description}
                                   </Typography>
                                 </Box>
                                 <Box>
@@ -455,98 +399,158 @@ const LearnCypto = () => {
       {/* blog ends */}
 
       <Container>
-        <Box paddingY={7}>
-          <Box>
-            <Stack
-              display="flex"
-              flexDirection="row"
-              justifyContent="space-between"
-              paddingY={5}
-              sx={{ borderBottom: "1px solid #E6E8EC" }}
-            >
-              <Typography className="body-large" fontWeight={600}>
-                Search anything about crypto
-              </Typography>
-              <Button className="search-icon">
-                <Search />
-              </Button>
-            </Stack>
-          </Box>
-          <Box
-            sx={{ display: { xs: "block", md: "flex" } }}
-            flexDirection="row"
-            justifyContent="space-between"
-            paddingTop={3}
-            paddingBottom={8}
-          >
-            <Box>
-              <FormControl
-                className="mobile-w-100"
-                sx={{ m: 1, width: 300, mt: 3 }}
-              >
-                <Select
-                  multiple
-                  displayEmpty
-                  value={personName}
-                  onChange={handleChange}
-                  input={<OutlinedInput />}
-                  renderValue={(selected) => {
-                    if (selected.length === 0) {
-                      return <p className="margin-0">Recently Added</p>;
-                    }
-
-                    return selected.join(", ");
-                  }}
-                  MenuProps={MenuProps}
-                  inputProps={{ "aria-label": "Without label" }}
-                >
-                  <MenuItem disabled value="">
-                    Recently Added
-                  </MenuItem>
-                  {names.map((name) => (
-                    <MenuItem
-                      key={name}
-                      value={name}
-                      style={getStyles(name, personName, theme)}
-                    >
-                      {name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Box>
+        <TabContext value={tutorialTab}>
+          <Box paddingY={7}>
             <Box>
               <Stack
-                direction="row"
-                className="filter-btn"
-                spacing="2"
-                paddingTop={5}
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+                paddingY={5}
+                sx={{ borderBottom: "1px solid #E6E8EC" }}
               >
-                <Button variant="contained" className="btn btn-secondary">
-                  Tutorials{" "}
+                <Typography className="body-large" fontWeight={600}>
+                  Search anything about crypto
+                </Typography>
+                <Button className="search-icon">
+                  <Search />
                 </Button>
-                <Button>Usecase</Button>
-                <Button>Trading</Button>
-                <Button>Wallet</Button>
               </Stack>
             </Box>
-          </Box>
 
-          <Grid container spacing={6} rowSpacing={6}>
-            {aboutCryptoComponent}
-          </Grid>
-          <Box paddingTop={8} paddingBottom={15}>
-            <Button
-              sx={{ margin: "0 auto" }}
-              className="btn btn-outlined-secondary"
-              varient="outlined"
-              endIcon={<ArrowDropDown />}
-              onClick={handleLoadMore}
+            <Box
+              sx={{ display: { xs: "block", md: "flex" } }}
+              flexDirection="row"
+              justifyContent="space-between"
+              paddingTop={3}
+              paddingBottom={8}
             >
-              Learn More
-            </Button>
+              <Box>
+                <FormControl
+                  className="mobile-w-100"
+                  sx={{ m: 1, width: 300, mt: 3 }}
+                >
+                  <Select
+                    multiple
+                    displayEmpty
+                    value={personName}
+                    onChange={handleChange}
+                    input={<OutlinedInput />}
+                    renderValue={(selected) => {
+                      if (selected.length === 0) {
+                        return <p className="margin-0">Recently Added</p>;
+                      }
+
+                      return selected.join(", ");
+                    }}
+                    MenuProps={MenuProps}
+                    inputProps={{ "aria-label": "Without label" }}
+                  >
+                    <MenuItem disabled value="">
+                      Recently Added
+                    </MenuItem>
+                    {names.map((name) => (
+                      <MenuItem
+                        key={name}
+                        value={name}
+                        style={getStyles(name, personName, theme)}
+                      >
+                        {name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box>
+                <Stack
+                  direction="row"
+                  className="filter-btn"
+                  spacing="2"
+                  paddingTop={5}
+                >
+                  <TabList
+                    onChange={handleChangeTutorialTab}
+                    aria-label="lab API tabs example"
+                  >
+                    <Tab label="Tutorials" value="1" />
+                    <Tab label="Usecase" value="2" />
+                    <Tab label="Trading" value="3" />
+                    <Tab label="Wallet" value="4" />
+                  </TabList>
+                </Stack>
+              </Box>
+            </Box>
+
+            <Grid container spacing={6} rowSpacing={6}>
+              {tutorialsData?.slice(0, visibleVideos).map((item) => {
+                return (
+                  <Grid item xs={12} md={6} xl={4}>
+                    <Box
+                      className="about-crypto"
+                      onclick={() => {
+                        navigate("../learn-cypto-detail");
+                      }}
+                    >
+                      <Button
+                        textTransform="uppercase"
+                        className="orange-btn float-img small-btn"
+                      >
+                        New
+                      </Button>
+
+                      <Box
+                        className="avatar-rounded"
+                        onClick={() =>
+                          scrollToVideo(scrollRef, item.video_link)
+                        }
+                        sx={{ cursor: "pointer" }}
+                      >
+                        <img src={GridImage} />
+                      </Box>
+                      <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        paddingTop={3}
+                      >
+                        <Box display="flex">
+                          <img src={Avatar} />
+                          <Box sx={{ paddingLeft: "15px" }}>
+                            <Typography fontWeight="500">
+                              {item.title}
+                            </Typography>
+                            <Typography
+                              className="small-caption secondary-color"
+                              fontWeight="500"
+                            >
+                              <span>First Name</span> <span>Last Name</span>
+                            </Typography>
+                          </Box>
+                        </Box>
+
+                        <Box>
+                          <Button className="btn btn-green-outlined">
+                            Popular
+                          </Button>
+                        </Box>
+                      </Stack>
+                    </Box>
+                  </Grid>
+                );
+              })}
+            </Grid>
+            <Box paddingTop={8} paddingBottom={15}>
+              <Button
+                sx={{ margin: "0 auto" }}
+                className="btn btn-outlined-secondary"
+                varient="outlined"
+                endIcon={<ArrowDropDown />}
+                onClick={handleLoadMore}
+              >
+                Learn More
+              </Button>
+            </Box>
           </Box>
-        </Box>
+        </TabContext>
       </Container>
 
       {/* section starts */}

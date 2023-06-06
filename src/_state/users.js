@@ -11,7 +11,7 @@ const usersAtom = atom({
 
 const userAtom = atom({
     key: 'user',
-    default: {},   
+    default: {isSubscribed:false},   
 });
 
 const userErrorAtom = atom({

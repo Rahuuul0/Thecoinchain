@@ -24,6 +24,7 @@ const switchAtom = atom({
     default: true,   
 });
 
+
 const homePageAtom = atom({
     key: 'homePageAtom',
     default: [

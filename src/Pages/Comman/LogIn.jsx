@@ -28,6 +28,7 @@ import Lock from '../../../public/assets/images/icons/lock.svg'
 import GoogleLogin from "./GoogleLogin.jsx";
 import AppleIcon from '@mui/icons-material/Apple';
 
+
 const LogIn = () => {
 
     const [value, setValue] = useState('1');
@@ -310,7 +311,7 @@ const LogIn = () => {
                                                         </Link>
                                                     </Box>
 
-                                                    <Button
+                                                    <Button 
                                                         type="submit"
                                                         variant="contained"
                                                         className='btn btn-primary'

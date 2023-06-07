@@ -4,6 +4,7 @@ export * from "./users";
 export * from "./tutorial";
 export * from './faq';
 export * from './home';
+export * from './loginhistory';
 export * from "./contact";
 export * from "./footeremail";
 export * from "./coins";

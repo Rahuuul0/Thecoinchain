@@ -2447,7 +2447,9 @@ video[poster] {
   background-color: #00000000;
   border: 1px solid #E6E8EC;
 }
-
+.icon-btn{
+  padding: 6px 5px !important;
+}
 /* Media Queries  */
 @media (max-width: 1399.98px) {
 }

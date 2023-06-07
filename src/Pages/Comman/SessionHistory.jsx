@@ -1,8 +1,11 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
+import { useEffect, useState } from 'react';
 import { Box, Container, Typography, Button, Link, Breadcrumbs } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
+import {userLoginHistoryActions} from '../../_actions';
+import { useNavigate } from "react-router-dom";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,6 +16,10 @@ import USAflag from '../../../public/assets/images/icons/usa.svg';
 import Sidebar from './Components/Sidebar';
 
 const SessionHistory = () => {
+
+    const userHistoryAction = userLoginHistoryActions();
+    const [historyData, setHistoryData] = useState([]);
+    const navigate = useNavigate();
 
     const breadcrumbs = [
         <Link underline="hover" key="1" color="inherit" href="/">
@@ -37,6 +44,14 @@ const SessionHistory = () => {
             cta: "NO",
         }
     ];
+
+        // Subscription action get function   API data call 
+    useEffect(()=>{
+        const    response = userHistoryAction.getAll()
+        response.then((res)=>{setHistoryData([...res])})
+        
+     },[])
+
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -92,6 +107,33 @@ const SessionHistory = () => {
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
+                                                    {historyData.map((item, i) => {
+                                                    return (
+                                                        <TableRow
+                                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                         >
+                                                            <TableCell>
+                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
+                                                                   {item.created_at}
+                                                                </Typography>
+                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
+                                                                    10:46:09
+                                                                </Typography>
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
+                                                                    Macbook Pro
+                                                                </Typography>
+                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
+                                                                    Mac OS Bigsur
+                                                                </Typography>
+                                                            </TableCell>
+                                                            <TableCell align="right">
+                                                                <Button size='small' variant='contained' className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
+                                                            </TableCell>
+                                                        </TableRow>
+                                                            )
+                                                        })}
                                                         <TableRow
                                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                                         >
@@ -115,29 +157,7 @@ const SessionHistory = () => {
                                                                 <Button size='small' variant='contained' className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
                                                             </TableCell>
                                                         </TableRow>
-                                                        <TableRow
-                                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                        >
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    2021-06-16
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    10:46:09
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    Macbook Pro
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    Mac OS Bigsur
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell align="right">
-                                                                <Button size='small' variant='contained' className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
-                                                            </TableCell>
-                                                        </TableRow>
+                                                        
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
@@ -150,6 +170,7 @@ const SessionHistory = () => {
                                             Login history
                                         </Typography>
                                         <Box className='session-list'>
+                                       
                                             <TableContainer>
                                                 <Table sx={{ minWidth: { xs: '250px', md: '650px' } }} aria-label="simple table">
                                                     <TableHead>
@@ -162,6 +183,7 @@ const SessionHistory = () => {
                                                             <TableCell>
                                                                 <Typography component="small" variant='body2' className='' sx={{ fontWeight: '600' }}>
                                                                     IP address
+                                                                    
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell align="right">
@@ -172,14 +194,14 @@ const SessionHistory = () => {
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
-                                                        {yesNo.map((v, i) => {
+                                                        {historyData.map((v, i) => {
                                                             return (
                                                                 <TableRow
                                                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                                                 >
                                                                     <TableCell>
                                                                         <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                            {v.date}
+                                                                            {v.created_at}
                                                                         </Typography>
                                                                         <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
                                                                             {v.time}
@@ -187,7 +209,7 @@ const SessionHistory = () => {
                                                                     </TableCell>
                                                                     <TableCell>
                                                                         <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                            {v.ip}
+                                                                            {v.ip_address}
                                                                         </Typography>
                                                                     </TableCell>
                                                                     <TableCell align="right">
@@ -200,7 +222,7 @@ const SessionHistory = () => {
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                            <Button variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto' }}>Contact us</Button>
+                                            <Button onClick={() => { navigate('/') }} variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto' }}>Contact us</Button>
                                         </Box>
                                     </Box>
                                 </Box>

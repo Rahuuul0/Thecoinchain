@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Box, Container, Typography, Button, Link, Breadcrumbs } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
 import {userLoginHistoryActions} from '../../_actions';
+import { useNavigate } from "react-router-dom";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -18,6 +19,7 @@ const SessionHistory = () => {
 
     const userHistoryAction = userLoginHistoryActions();
     const [historyData, setHistoryData] = useState([]);
+    const navigate = useNavigate();
 
     const breadcrumbs = [
         <Link underline="hover" key="1" color="inherit" href="/">
@@ -220,7 +222,7 @@ const SessionHistory = () => {
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                            <Button variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto' }}>Contact us</Button>
+                                            <Button onClick={() => { navigate('/') }} variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto' }}>Contact us</Button>
                                         </Box>
                                     </Box>
                                 </Box>

@@ -3,6 +3,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, InputAdornment, TextField, } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
+import { useNavigate } from "react-router-dom";
 import Sidebar from './Components/Sidebar';
 
 function handleClick(event) {
@@ -28,6 +29,7 @@ function getStyles(name, personName, theme) {
     };
 }
 const Referrals = () => {
+    const navigate = useNavigate();
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 
@@ -154,7 +156,12 @@ const Referrals = () => {
                                                     </Grid>
                                                 </Grid>
                                             </Box>
-                                            <Button variant="outlined" sx={{ marginY: '30px' }} className="referrals-btn btn btn-outlined-secondary">My dashboard</Button>
+                                            <Button onClick={() => { navigate('/') }}  
+                                            variant="outlined" 
+                                            sx={{ marginY: '30px' }} 
+                                            className="referrals-btn btn btn-outlined-secondary">
+                                                My dashboard
+                                            </Button>
                                         </Box>
                                     </Box>
                                 </Box>

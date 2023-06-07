@@ -20,7 +20,7 @@ const Sidebar = (props) => {
           <Typography onClick={() => { navigate('/account/profile') }} className='left-icon secondary-color' paddingBottom={4} fontWeight={700}><span><img src={UserIcon} /> </span>Profile</Typography>
           <Typography onClick={() => { navigate('/account/referrals') }} className='left-icon secondary-color' paddingBottom={4}><span><img src={ShareIcon} /> </span>Referrals</Typography>
           {/* <Typography className='left-icon secondary-color' paddingBottom={2}><span><img src={SubscriptionIcon} /> </span>API keys</Typography> */}
-          <Typography onClick={() => { navigate('/account/forecast-subscription') }} className='left-icon secondary-color' paddingBottom={2}><span><img src={SubscriptionIcon} /> </span>Subsciption</Typography>
+          <Typography onClick={() => { navigate('/account/forecast-subscription') }} className='left-icon secondary-color' paddingBottom={2}><span><img src={SubscriptionIcon} /> </span>API keys</Typography>
         </Box>
         <Box paddingTop={2}>
           <Typography onClick={() => { navigate('/account/session-and-history') }} className='left-icon secondary-color' paddingBottom={4}><span><img src={SessionIcon} /> </span>Sessions & login history</Typography>

@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react'
 import { ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../_common/app.constants";
-import { Box, Container, Grid, Typography, Button, Modal, Link, TextField, FormControlLabel, Checkbox } from '@mui/material';
-import CryptoTrader01 from '../../../public/assets/images/crypto-trader-01.svg';
-import CryptoTrader02 from '../../../public/assets/images/market.svg';
-import CryptoTrader03 from '../../../public/assets/images/crypto-trader-03.svg';
-import BtcImg from '../../../public/assets/images/icons/btc-ic.svg';
-import WalletIc from '../../../public/assets/images/icons/wallet.svg';
-import VisaIc from '../../../public/assets/images/icons/visa.svg';
-import MasterIc from '../../../public/assets/images/icons/master.svg';
+import { theme } from "../../_common/app.constants"
+import { Box, Container, Grid, Typography, Button, Modal, Link, TextField, FormControlLabel, Checkbox } from '@mui/material'
+import CryptoTrader01 from '../../../public/assets/images/crypto-trader-01.svg'
+import CryptoTrader02 from '../../../public/assets/images/crypto-trader-02.svg'
+import CryptoTrader03 from '../../../public/assets/images/crypto-trader-03.svg'
+import BtcImg from '../../../public/assets/images/icons/btc-ic.svg'
+import WalletIc from '../../../public/assets/images/icons/wallet.svg'
+import VisaIc from '../../../public/assets/images/icons/visa.svg'
+import MasterIc from '../../../public/assets/images/icons/master.svg'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import CloseIcon from '@mui/icons-material/Close';
+import {subscriptionActions} from '../../_actions/subscription.actions';
 import { useNavigate } from 'react-router-dom';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+
 
 const plans = [
     {
@@ -36,14 +43,34 @@ const plans = [
 ]
 
 const Subscription = () => {
-
     const navigate = useNavigate();
-
+    const subscribed = subscriptionActions()    
     const [open, setOpen] = useState(false);
+    const [payData, setpayData] = useState(0);
+    const [subscriptionData, setSubscriptionData] = useState([]);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    // Subscription action get function   API data call 
+    useEffect(()=>{
+       const    response = subscribed.subscription()
+       response.then((res)=>{setSubscriptionData(res)})
+    },[])
+ 
+    //  Accordion  function call
+    const [expandFirst, setExpandFirst] = React.useState(true);
+    const [expand, setExpand] = React.useState(false);
+    const [confirm, setconfirm] = React.useState(false);
+    const toggleAcordion = () => {
+      setExpand((prev) => true);
+      setExpandFirst((prev) => false);
+    };
+    const confirmAcordion = () => {
+      setExpand((prev) => false);
+      setconfirm((prev) => true);
+      };
+        
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -65,8 +92,9 @@ const Subscription = () => {
                             <Box className='subscription-steps-inner'>
                                 <Box className='subscription-steps-col'>
                                     <Box className='subscription-step completed-step'>
+                                       
                                         <Box component="span" className='number-circle'>
-                                            1
+                                        <Button >1</Button>
                                         </Box>
                                         <Typography component="p" variant='body2'>
                                             Select Package
@@ -74,7 +102,7 @@ const Subscription = () => {
                                     </Box>
                                     <Box className='subscription-step current-step'>
                                         <Box component="span" className='number-circle'>
-                                            2
+                                        <Button onClick={() =>{toggleAcordion()}}>2</Button>
                                         </Box>
                                         <Typography component="p" variant='body2'>
                                             Payment info
@@ -82,7 +110,7 @@ const Subscription = () => {
                                     </Box>
                                     <Box className='subscription-step'>
                                         <Box component="span" className='number-circle'>
-                                            3
+                                        <Button onClick={confirmAcordion}>3</Button>
                                         </Box>
                                         <Typography component="p" variant='body2'>
                                             Confirm order
@@ -96,38 +124,58 @@ const Subscription = () => {
                                                 Select Package
                                             </Typography>
                                         </Box>
-                                        <Box className='subscription-plan'>
-                                            {plans.map((plan) => (
-                                                <Box className="subscription-plan-card">
-                                                    <Typography component="h4" variant='h4' className='plan-title'>
-                                                        {plan.title}
-                                                    </Typography>
-                                                    <Box className="subscription-plan-body">
-                                                        <Typography component="h4" variant='h4' className='plan-price'>
-                                                            {plan.price} <span className='plan-days'>/ {plan.days}</span>
-                                                        </Typography>
 
-                                                        <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
-                                                            {plan.extra}
-                                                        </Typography>
-                                                    </Box>
-                                                    <Box className="subscription-plan-cta">
-                                                        <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }}>Continue</Button>
-                                                    </Box>
+                                       {expandFirst&& <Accordion  expanded={expandFirst}>
+                                            <AccordionSummary>
+                                            <Typography>Plan Details</Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                            <Typography>
+            
+                                                `<Box className='subscription-plan'>
+                                                    {plans.map((plan,i) => (
+                                                        <Box className="subscription-plan-card">
+                                                            <Typography component="h4" variant='h4' className='plan-title'>
+                                                                {plan.title}
+                                                            </Typography>
+                                                            <Box className="subscription-plan-body">
+                                                                <Typography component="h4" variant='h4' className='plan-price'>
+                                                                    {subscriptionData[subscriptionData.length-(i+1)]?.subscription_price}  <span className='plan-days'>/ {subscriptionData[subscriptionData.length-(i+1)]?.duration} days</span>
+                                                                </Typography>
+
+                                                                <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
+                                                                    {plan.extra}
+                                                                </Typography>
+                                                            </Box>
+                                                            <Box className="subscription-plan-cta">
+                                                                <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={()=>{setpayData(subscriptionData.length-(i+1));toggleAcordion()}} >Continue</Button>
+                                                            </Box>
+                                                        </Box>
+                                                    ))}
                                                 </Box>
-                                            ))}
-                                        </Box>
-                                        <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
-                                            The subscription can be canceled at any moment through the payment system or by using the "unsubscribe" button in the Subscription section. In the case of technical issues, you can submit your inquiries
-                                        </Typography>
-                                        <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
-                                            using the contact us form. By subscribing you accept our Disclaimer.
-                                        </Typography>
-                                        <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D', mt: '32px' }}>
-                                            Each account on our website can have only one active subscription at a time. Buying a new subscription while having an active one stops the active subscription. Each subscription requires its own user.
-                                        </Typography>
+                                                <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
+                                                    The subscription can be canceled at any moment through the payment system or by using the "unsubscribe" button in the Subscription section. In the case of technical issues, you can submit your inquiries
+                                                </Typography>
+                                                <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
+                                                    using the contact us form. By subscribing you accept our Disclaimer.
+                                                </Typography>
+                                                <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D', mt: '32px' }}>
+                                                    Each account on our website can have only one active subscription at a time. Buying a new subscription while having an active one stops the active subscription. Each subscription requires its own user.
+                                                </Typography>
+
+                                            </Typography>
+                                            </AccordionDetails>
+                                        </Accordion>}
+                                                                
                                     </Box>
-                                    <Box className="step-two">
+                                   {expand&& <Accordion expanded={expand}>
+                                        <AccordionSummary>
+                                        <Typography>Payment info</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                        <Typography>
+
+                                        <Box className="step-two">
                                         <Box className="card-inner-head">
                                             <Typography component="h5" variant='body1' className='large-caption'>
                                                 <KeyboardBackspaceIcon /> Payment info
@@ -138,14 +186,16 @@ const Subscription = () => {
 
                                         </Box>
                                         <Box className='payment-info'>
-                                            <Box className='amount-for'>
+                                            {subscriptionData.map((item,i)=>{
+                                                return(<>
+                                            {payData==i? <Box  className='amount-for'>
                                                 <Box className='payment-amount'>
                                                     <span className='wallet-ic'>
                                                         <img src={WalletIc} alt='wallet' width="20px" />
                                                     </span>
                                                     <Typography component="small" variant='body2'>
                                                         <span className='label'>Amount</span>
-                                                        $15.00
+                                                       {item.subscription_price}
                                                     </Typography>
                                                 </Box>
                                                 <Box className='payment-for'>
@@ -154,10 +204,15 @@ const Subscription = () => {
                                                     </span>
                                                     <Typography component="small" variant='body2'>
                                                         <span className='label'>Amount</span>
-                                                        $15.00
+                                                        {item.subscription_price}
                                                     </Typography>
                                                 </Box>
-                                            </Box>
+                                            </Box>:""}
+                                                </>)
+
+                                            } ) }
+                                          
+
                                             <Box className='credit-card-head'>
                                                 <Typography component="h5" variant='body1' className='large-caption' sx={{ fontWeight: '600' }}>
                                                     Credit Card
@@ -244,12 +299,22 @@ const Subscription = () => {
                                                 </Grid>
                                                 <FormControlLabel className='save-card' control={<Checkbox defaultChecked />} label="Save Card" />
                                                 <Box className="subscription-plan-cta">
-                                                    <Button variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }}>Continue</Button>
+                                                    <Button variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} onClick={confirmAcordion}>Continue</Button>
                                                 </Box>
                                             </Box>
                                         </Box>
-                                    </Box>
-                                    <Box className="step-three">
+                                        </Box>
+                                        </Typography>
+                                        </AccordionDetails>
+                                    </Accordion>}
+
+                                    {confirm &&<Accordion expanded={confirm} >
+                                        <AccordionSummary>
+                                        <Typography>Confirm order</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
+                                        <Typography>
+                                        <Box className="step-three">
                                         <Box className="card-inner-head">
                                             <Typography component="h5" variant='body1' className='large-caption'>
                                                 <KeyboardBackspaceIcon /> Confirm order
@@ -260,14 +325,16 @@ const Subscription = () => {
 
                                         </Box>
                                         <Box className='payment-info'>
-                                            <Box className='amount-for'>
+                                            {subscriptionData.map((item,i)=>{
+                                                return(<>
+                                            {payData==i? <Box  className='amount-for'>
                                                 <Box className='payment-amount'>
                                                     <span className='wallet-ic'>
                                                         <img src={WalletIc} alt='wallet' width="20px" />
                                                     </span>
                                                     <Typography component="small" variant='body2'>
                                                         <span className='label'>Amount</span>
-                                                        $15.00
+                                                       {item.subscription_price}
                                                     </Typography>
                                                 </Box>
                                                 <Box className='payment-for'>
@@ -276,7 +343,7 @@ const Subscription = () => {
                                                     </span>
                                                     <Typography component="small" variant='body2'>
                                                         <span className='label'>Amount</span>
-                                                        $15.00
+                                                        {item.subscription_price}
                                                     </Typography>
                                                 </Box>
                                                 <Box className='payment-method'>
@@ -288,7 +355,10 @@ const Subscription = () => {
                                                         Credit Card
                                                     </Typography>
                                                 </Box>
-                                            </Box>
+                                            </Box>:""}
+                                                </>)
+
+                                            } ) }
                                             <Box className='credit-card-head'>
                                                 <Typography component="p" variant='body1'>
                                                     You are about to Stay ahead of the crowd - with our predictive analysis of the crypto market!
@@ -330,7 +400,11 @@ const Subscription = () => {
                                                 </Box>
                                             </Box>
                                         </Box>
-                                    </Box>
+                                        </Box>
+                                        </Typography>
+                                        </AccordionDetails>
+                                    </Accordion>}
+                                  
                                 </Box>
                             </Box>
                         </Container>

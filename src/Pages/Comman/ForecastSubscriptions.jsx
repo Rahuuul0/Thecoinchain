@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Typography, Button, Link, Breadcrumbs, Stack } from '@mui/material';
@@ -6,6 +6,11 @@ import SubsImage from '../../../public/assets/images/subs.svg';
 import { NavigateNext } from '@mui/icons-material/';
 import Sidebar from './Components/Sidebar';
 import { useNavigate } from 'react-router-dom';
+
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const plans = [
     {
@@ -96,6 +101,17 @@ const ForecastSubscriptions = () => {
         'Usa',
     ];
     const [value, setValue] = React.useState('1');
+    
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleChanges = (panel) => (event, isExpanded) => {
+      setExpanded(isExpanded ? panel : false);
+    };
+
+    // Accordion  function call
+    const [expandFirst, setExpandFirst] = React.useState(true);
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) },[expandFirst]);
+        
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -128,15 +144,26 @@ const ForecastSubscriptions = () => {
                                 <Box className='subscription-steps-col-details'>
 
                                     <Box className="step-one">
-                                        <Box className="card-inner-head">
+                                        {expandFirst&&<Box className="card-inner-head">
                                             <Typography component="h2" variant='h2'>
                                                 <span>Forecast </span> Subscriptions
                                             </Typography>
                                             <Typography component="p" variant='body2' className='small-caption'>
                                                 By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content. To regain full access to the content, a new subscription is required.
                                             </Typography>
-                                        </Box>
+                                        </Box>}
                                         <Box className='subscription-plan'>
+                                        {expandFirst&& <Accordion  expanded={expandFirst}>
+                                            <AccordionSummary
+                                            // expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel1bh-content"
+                                            id="panel1bh-header"
+                                            >
+                                            <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                                             Plan Details
+                                            </Typography>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
                                             {plans.map((plan) => (
                                                 <Box className="subscription-plan-card">
                                                     <Typography component="h4" variant='h4' className='plan-title'>
@@ -159,33 +186,32 @@ const ForecastSubscriptions = () => {
                                                     </Box>
                                                 </Box>
                                             ))}
-                                        </Box>
-                                        <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
+                                               <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
                                             By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content once your plan finishes. To regain full access to the content, a new subscription is required.
                                         </Typography>
                                         <Box className="subscription-plan-cta">
-                                            <Button variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribed</Button>
+                                            <Button onClick={() => { setExpandFirst(false)}} variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribe</Button>
                                         </Box>
-                                    </Box>
-
-                                    <Box textAlign='center'>
+                                            </AccordionDetails>
+                                        </Accordion>   }
+                                           {!expandFirst&& <Box textAlign='center'>
                                         <img src={SubsImage} />
                                         <Typography variant='p' component='div' sx={{ color: '#777E90', fontSize: '14px' }}>Your subscription and recurring payment has been canceled.</Typography>
                                         <Stack className='subs-div' direction='row' spacing={3} paddingY={4} justifyContent='center'>
-                                            <Button className='btn btn-outlined-secondary' >Home</Button>
-                                            <Button className='btn btn-dark' >Resubscribe</Button>
+                                            <Button onClick={() => { navigate("/"); }} className='btn btn-outlined-secondary' >Home</Button>
+                                            <Button onClick={() => { navigate("/subscription"); }} className='btn btn-dark' >Resubscribe</Button>
                                         </Stack>
+                                    </Box>   }           
+                                        </Box>
                                     </Box>
-
-
-
                                 </Box>
                             </Box>
                         </Container>
                     </Box>
 
-                </Box >
+                </Box>
             </ThemeProvider>
+            
         </>
     )
 }

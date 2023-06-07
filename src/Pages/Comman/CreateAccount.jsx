@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
@@ -28,7 +28,7 @@ const CreateAccount = () => {
     const captchaRef = useRef(null)
     const validationSchema = Yup.object().shape({
         email: Yup.string()
-            .email()
+            .email("Email must be a valid email")
             .trim()
             .required("Email Address is required"),
         mobile: Yup.string().required("Mobile Number is required").matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, { message: "Please enter valid number.", excludeEmptyString: false }),
@@ -45,15 +45,13 @@ const CreateAccount = () => {
                 [Yup.ref("password"), null],
                 "Passwords must match."
             ),
+            agree: Yup.bool().oneOf([true], "You must accept the terms and conditions")       
     });
 
     //password eye IconButton
-    const [showPassword, setShowPassword] = React.useState(false);
-
+    const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-
-    const [showCnfrmPassword, setShowCnfrmPassword] = React.useState(false);
+    const [showCnfrmPassword, setShowCnfrmPassword] = useState(false);
 
     const handleClickShowCnfrmPassword = () => setShowCnfrmPassword((show) => !show);
 
@@ -64,11 +62,7 @@ const CreateAccount = () => {
     const { errors, isSubmitting } = formState;
 
     const formData = watch();
-
     const SITE_KEY = process.env.REACT_APP_reCAPTCHA_SITE_KEY;
-    const SECRET_KEY = process.env.REACT_APP_reCAPTCHA_SECRET_KEY;
-
-
     const handleChange = value => {
         console.log("Captcha value:", value);
     };
@@ -78,21 +72,19 @@ const CreateAccount = () => {
     };
 
     const submitForm = () => {
-        if (agreement) {
-            const token = captchaRef.current.getValue();
-            if (token) {
-                captchaRef.current.reset();
-                return userActions.create(formData);
-            }
-            else {
-                alertActions.error("reCAPTCHA is mandatory")
-            }
+        const token = captchaRef.current.getValue();
+        if (token) {
+            captchaRef.current.reset();
+            return userActions.create(formData);
         }
         else {
-            alertActions.error("You must agree with the Terms and Conditions")
+            alertActions.error("reCAPTCHA is mandatory")
         }
+        
     }
-    const [agreement, setAgreement] = useState(false);
+
+
+    
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -136,7 +128,6 @@ const CreateAccount = () => {
                                     </Typography>
                                     <Box component="div" className='open-id-btn-wrapper' >
                                         <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}>
-
                                             <GoogleAuth />
                                         </GoogleOAuthProvider>
                                         <Button variant="contained" className='btn btn-secondary' startIcon={<AppleIcon />}>
@@ -156,7 +147,6 @@ const CreateAccount = () => {
                                 >
                                     <Box className='auth-form' >
                                         <TextField
-                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             label="Email"
                                             className="form-control"
                                             type="email"
@@ -174,6 +164,7 @@ const CreateAccount = () => {
                                             size="small"
                                             autoFocus
                                             {...register("email")}
+                                            onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         />
                                         <div style={{ color: "red" }}>{errors.email?.message}
                                         </div>
@@ -199,7 +190,6 @@ const CreateAccount = () => {
                                         <div style={{ color: "red" }}>{errors.mobile?.message}
                                         </div>
                                         <TextField
-                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             margin="normal"
                                             required
                                             type={showPassword ? "text" : "password"}
@@ -226,10 +216,10 @@ const CreateAccount = () => {
                                                 ),
                                             }}
                                             {...register("password")}
+                                            onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         /><div style={{ color: "red" }}> {errors.password?.message}
                                         </div>
                                         <TextField
-                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                             margin="normal"
                                             required
                                             InputLabelProps={{
@@ -256,11 +246,19 @@ const CreateAccount = () => {
                                                 ),
                                             }}
                                             {...register("confirm_password")}
+                                            onChange={(e) => reset({ ...formData, confirm_password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         />
                                         <div style={{ color: "red" }}> {errors.confirm_password?.message}
                                         </div>
 
-                                        <FormControlLabel className='auth-checkbox' control={<Checkbox onChange={() => { setAgreement(!agreement) }} />} label="By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent." />
+                                        <FormControlLabel                                         
+                                        className='auth-checkbox' 
+                                        display='flex'
+                                        control={<Checkbox {...register("agree")}  />} 
+                                        label='* By signing up I agree that I’m 18 <b> years</b> of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent.'
+                                            />
+                                          <div style={{ color: "red" }}> {errors.agree?.message}
+                                        </div>
                                         <ReCAPTCHA
                                             style={{ margin: "10px auto", display: "flex", justifyContent: "center" }}
                                             theme="light"

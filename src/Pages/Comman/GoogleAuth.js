@@ -33,7 +33,7 @@ function GoogleAuth(props) {
         [ user ]
     );
     return ( 
-                <Button onClick={() => login()} variant="contained" className='btn btn-primary'  startIcon={<GoogleIcon />}>Google</Button>
+        <Button onClick={() => login()} variant="contained" className='btn btn-primary'  startIcon={<GoogleIcon />}>Google1</Button>
     );
 }
 

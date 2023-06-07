@@ -1,6 +1,6 @@
 import { useFetchWrapper } from "../_helpers";
 import { tutorialAtom, blogAtom } from "../_state";
-import { Labels, Apis } from "../_common/app.constants";
+import { Apis } from "../_common/app.constants";
 import { useSetRecoilState } from "recoil";
 
 const useTutorialActions = () => {
@@ -9,17 +9,11 @@ const useTutorialActions = () => {
   const setBlogData = useSetRecoilState(blogAtom);
 
   const tutorialData = () => {
-    console.log(tutorialAtom, "data api");
     return fetchWrapper
       .get(Apis.Tutorial_Video)
       .then((res) => {
-        console.log(res, "api response");
-        if (res.statusCode === Labels.Success_Status_Code) {
-          setTutorialData((currentState) => ({
-            ...currentState,
-            ...res.data,
-          }));
-          return res.data;
+        if (res.statusCode === 200) {
+          setTutorialData(res.data);
         }
       })
       .catch((err) => {
@@ -31,10 +25,8 @@ const useTutorialActions = () => {
     return fetchWrapper
       .get(Apis.Blog_List)
       .then((res) => {
-        console.log(res, "api response");
-        if (res.statusCode === Labels.Success_Status_Code) {
+        if (res.statusCode === 200) {
           setBlogData(res.data);
-          return res.data;
         }
       })
       .catch((err) => {

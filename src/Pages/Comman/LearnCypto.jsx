@@ -57,12 +57,15 @@ const LearnCypto = () => {
   const blogsData = useRecoilValue(blogAtom);
   const tutorialsData = useRecoilValue(tutorialAtom);
   const displayVideo = tutorialsData[0]?.video_link;
+  const displayImage = tutorialsData[0]?.image_link;
+
   const [value, setValue] = useState("1");
   const [tutorialTab, setTutorialTab] = useState("1");
   const theme = useTheme();
   const [personName, setPersonName] = useState([]);
   const [visibleVideos, setVisibleVideos] = useState(6);
   const [videoUrl, setVideoUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   console.log(blogsData, 2222222222);
 
@@ -85,11 +88,12 @@ const LearnCypto = () => {
     );
   };
 
-  const scrollToVideo = (e, videoLink) => {
+  const scrollToVideo = (e, videoLink, imageLink) => {
     e.current.scrollIntoView({
       behavior: "smooth",
     });
     setVideoUrl(videoLink);
+    setImageUrl(imageLink);
   };
 
   useEffect(() => {
@@ -99,6 +103,7 @@ const LearnCypto = () => {
 
   useEffect(() => {
     setVideoUrl(displayVideo);
+    setImageUrl(displayImage);
   }, [displayVideo]);
 
   const handleLoadMore = () => {
@@ -152,7 +157,7 @@ const LearnCypto = () => {
             <ReactPlayer
               url={videoUrl}
               controls={true}
-              light={true}
+              light={imageUrl}
               playing={true}
               width="100%"
               height="640px"
@@ -490,11 +495,18 @@ const LearnCypto = () => {
                       <Box
                         className="avatar-rounded"
                         onClick={() =>
-                          scrollToVideo(scrollRef, item.video_link)
+                          scrollToVideo(
+                            scrollRef,
+                            item.video_link,
+                            item.image_link
+                          )
                         }
                         sx={{ cursor: "pointer" }}
                       >
-                        <img src={GridImage} />
+                        <img
+                          className="tutorial-preview"
+                          src={item.image_link}
+                        />
                       </Box>
                       <Stack
                         direction="row"

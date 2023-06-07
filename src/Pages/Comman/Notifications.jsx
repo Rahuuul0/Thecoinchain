@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
 import { Box, Container, Typography, Button, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
@@ -8,24 +8,29 @@ import DepositImg from '../../../public/assets/images/deposit.svg'
 import TransferImg from '../../../public/assets/images/transfer.svg'
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import {notificationAtom} from '../../_state/';
+import {notificationAtom} from '../../_state/notifications';
 import { useRecoilValue } from "recoil";
 
 
 const Notifications = () => {
 
-    const notifications = useRecoilValue(notificationAtom)
+    const notifications = useRecoilValue(notificationAtom);
 
-  const [select, setselect]  = useState(false)
+    const [select, setSelect] = useState();
+
   
-    const handleClick =() =>{
-        setselect(true)
-    }
-    const handleClick1 =() =>{
-        setselect(false)
-    }
+    const handleSelectAll =() =>{
+        setSelect(select);
+   
   
-    console.log(notifications,'narendra');
+    }
+    const handleUnselectAll =() =>{
+        setSelect(select);
+    
+    }
+ 
+ console.log(select,'dfdvdfdsfdsfds')
+  
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -48,6 +53,8 @@ const Notifications = () => {
                                 <Box className="devider" />
                                 <Box className='notification-list-wrapper'>
                                     <Box className='notification-list'>
+
+
                                         {notifications.map((item) =>{
                                             return(
                                                 <Box className='notification-list-itm'>
@@ -82,19 +89,26 @@ const Notifications = () => {
                                         </Typography>
 
                                         <FormGroup>
-                                            <FormControlLabel control={<Checkbox  checked={select}  />} label="Crypto Prediction" />
-                                            <FormControlLabel control={<Checkbox checked={select} />} label="Community" />
-                                            <FormControlLabel control={<Checkbox  checked={select} />} label="Academy" />
-                                            <FormControlLabel control={<Checkbox  checked={select}/>} label="News" />
+                                            <FormControlLabel control={<Checkbox   />}    Checked={select}   label="Crypto Prediction" />
+                                            <FormControlLabel control={<Checkbox />}    Checked={select} label="Community" />
+                                            <FormControlLabel control={<Checkbox  />}   Checked={select} label="Academy" />
+                                            <FormControlLabel control={<Checkbox />}   Checked={select} label="News" />
                                         </FormGroup>
 
                                         <Box className='notification-filter-cta'>
-                                            <Button onClick={handleClick}
-                                       
-                                             size='small' variant="outlined" 
-                                             className='btn btn-outlined-secondary'
+                                            <Button 
+                                                onClick={handleSelectAll}
+                                                isChecked={select}
+                                                size='small' variant="outlined" 
+                                                className='btn btn-outlined-secondary'
                                              >Select all</Button>
-                                            <Button  onClick={handleClick1} size='small' variant="outlined" className='btn btn-outlined-secondary'>Unselect all</Button>
+                                            <Button 
+                                                onClick={handleUnselectAll}
+                                                isChecked={!select}
+                                                size='small' variant="outlined"
+                                                className='btn btn-outlined-secondary'>
+                                                Unselect all
+                                              </Button>
                                         </Box>
                                     </Box>
 

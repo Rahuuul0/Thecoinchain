@@ -1,4 +1,4 @@
-import { Container, Typography, Grid, Box, Stack, Button, Tab, Accordion, AccordionSummary, TextFielInputBased, AccordionDetails, Select, OutlinedInput, MenuItem } from '@mui/material'
+import { Container, Typography, Grid, Box, Stack, Button, Tab, Accordion, AccordionSummary, TextField, AccordionDetails } from '@mui/material'
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
@@ -118,7 +118,8 @@ const Contact = () => {
       .required('Subject is required'),
     question: Yup.string()
       .required('Question is required'),
-    msg:Yup.string()
+    msg: Yup.string()
+    .required('Message is required')
     .max(250)
   });
 

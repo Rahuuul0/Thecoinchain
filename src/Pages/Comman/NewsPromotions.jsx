@@ -132,10 +132,11 @@ const NewsPromotions = (props) => {
                                                                 textColor="inherit"
                                                                 aria-label="full width tabs example"
                                                             >
-                                                                <Tab label="Cryptocurrency" {...a11yProps(0)} />
+                                                                <Tab label="All" {...a11yProps(0)} />
                                                                 <Tab label="Blockchain" {...a11yProps(1)} />
                                                                 <Tab label="Trading" {...a11yProps(3)} />
-                                                                <Tab label="All" {...a11yProps(4)} />
+                                                                <Tab label="Cryptocurrency" {...a11yProps(4)} />
+                                                                
 
                                                             </Tabs>
                                                         </AppBar>
@@ -145,7 +146,9 @@ const NewsPromotions = (props) => {
                                                             onChangeIndex={handleChangeIndexTab}
                                                         >
                                                             <TabPanel value={valueTab2} index2={0} dir={theme.direction}>
-                                                            {newsList.map((item)=> {
+                                                            {newsList 
+                                                            .slice(0, 3)
+                                                            .map((item)=> {
                                                              return(
                                                                 <Box paddingBottom={3}>
                                                                     <Grid container>
@@ -172,10 +175,10 @@ const NewsPromotions = (props) => {
                                                                                         className="secondary-font"
                                                                                         paddingBottom={2}
                                                                                     >
-                                                                                        {item.category}
+                                                                                    {item.name}
                                                                                     </Typography>
                                                                                     <Typography paddingBottom={5}>
-                                                                                        {item.name}
+                                                                                    {item.category}
                                                                                     </Typography>
                                                                                     <Typography className="body-caption secondary-color">
                                                                                       {item.description} 
@@ -196,7 +199,12 @@ const NewsPromotions = (props) => {
                                                               </TabPanel>
                                                           
                                                             <TabPanel value={valueTab2} index2={1} dir={theme.direction}>
-                                                            {newsList.map((item)=> {
+                                                            {newsList
+                                                              .filter((blog) => {
+                                                                return blog.category === "Blogchain";
+                                                              })
+                                                            .slice(0, 3)
+                                                            .map((item)=> {
                                                              return(
                                                                 <Box paddingBottom={3}>
                                                                     <Grid container>
@@ -223,10 +231,10 @@ const NewsPromotions = (props) => {
                                                                                         className="secondary-font"
                                                                                         paddingBottom={2}
                                                                                     >
-                                                                                    {item.category}
+                                                                                    {item.name}
                                                                                     </Typography>
                                                                                     <Typography paddingBottom={5}>
-                                                                                      {item.name}
+                                                                                    {item.category}
                                                                                     </Typography>
                                                                                     <Typography className="body-caption secondary-color">
                                                                                     {item.description} 
@@ -246,7 +254,13 @@ const NewsPromotions = (props) => {
                                                                 })}
                                                             </TabPanel>
                                                             <TabPanel value={valueTab2} index2={2} dir={theme.direction}>
-
+                                                            {newsList
+                                                            .filter((blog) => {
+                                                                return blog.category === "Trading";
+                                                              })
+                                                            .slice(0, 3)
+                                                            .map((item)=> {
+                                                             return(
                                                                 <Box paddingBottom={3}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
@@ -272,15 +286,13 @@ const NewsPromotions = (props) => {
                                                                                         className="secondary-font"
                                                                                         paddingBottom={2}
                                                                                     >
-                                                                                        A Beginner's Guide to TradingView
+                                                                                     {item.name}
                                                                                     </Typography>
                                                                                     <Typography paddingBottom={5}>
-                                                                                        Ethereum
+                                                                                    {item.category}
                                                                                     </Typography>
                                                                                     <Typography className="body-caption secondary-color">
-                                                                                        A fully-featured landing page kit,
-                                                                                        including design files, and beautiful 3D
-                                                                                        illustrations editable.
+                                                                                    {item.description}
                                                                                     </Typography>
                                                                                 </Box>
                                                                                 <Box>
@@ -293,10 +305,17 @@ const NewsPromotions = (props) => {
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
-
+                                                                )
+                                                            })}
                                                             </TabPanel>
                                                             <TabPanel value={valueTab2} index2={3} dir={theme.direction}>
-
+                                                            {newsList
+                                                            .filter((blog) => {
+                                                                return blog.category === "Cryptocurrency";
+                                                              })
+                                                            .slice(0, 3)
+                                                            .map((item)=> {
+                                                             return(
                                                                 <Box paddingBottom={3}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
@@ -322,15 +341,13 @@ const NewsPromotions = (props) => {
                                                                                         className="secondary-font"
                                                                                         paddingBottom={2}
                                                                                     >
-                                                                                        A Beginner's Guide to TradingView
+                                                                                     {item.name}
                                                                                     </Typography>
                                                                                     <Typography paddingBottom={5}>
-                                                                                        Ethereum
+                                                                                    {item.category}
                                                                                     </Typography>
                                                                                     <Typography className="body-caption secondary-color">
-                                                                                        A fully-featured landing page kit,
-                                                                                        including design files, and beautiful 3D
-                                                                                        illustrations editable.
+                                                                                    {item.description}
                                                                                     </Typography>
                                                                                 </Box>
                                                                                 <Box>
@@ -343,7 +360,8 @@ const NewsPromotions = (props) => {
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
-
+                                                                )
+                                                            })}
                                                             </TabPanel>
                                                             <TabPanel value={valueTab2} index2={4} dir={theme.direction}>
 

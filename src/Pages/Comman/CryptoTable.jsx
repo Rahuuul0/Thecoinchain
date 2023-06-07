@@ -28,8 +28,8 @@ import HttpsIcon from "@mui/icons-material/Https";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Line, Chart } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
-import {useCoinActions} from "../../_actions";
-import { coinsAtom } from "../../_state";
+import { useCoinActions } from "../../_actions";
+import { coinsAtom, userAtom } from "../../_state";
 
 import { TabPanel } from "@mui/lab";
 ChartJS.register(...registerables);
@@ -54,6 +54,7 @@ function paginator(items, current_page, per_page_items) {
 const CryptoTable = (props) => {
   const coinActions = useCoinActions();
   const coinsList = useRecoilValue(coinsAtom);
+  const userDetail = useRecoilValue(userAtom);
   const navigate = useNavigate();
   const [value, setValue] = useState("1");
   const location = useLocation();
@@ -69,7 +70,7 @@ const CryptoTable = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  
+
   const handleMouseOver = (index) => {
     setHover(true);
     setHoverIndex(index);
@@ -94,22 +95,21 @@ const CryptoTable = (props) => {
     setChartData(coinsList.filter((item) => item.id === id));
   };
 
-  //  Latest Listing API call   
+  //  Latest Listing API call
   useEffect(() => {
-    const myFun =  async ()=>{
+    const myFun = async () => {
       const ress = await coinActions.latestListing();
-    }
-    myFun();    
+    };
+    myFun();
     /* Enable when code goes to live, But Don't remove this code */
     // const interval = setInterval(() => {
     //   setCount(count+1);
     //   myFun();
-    //   }   
+    //   }
     // , 3000);
-    // return () => clearInterval(interval);   
-  },[]);
+    // return () => clearInterval(interval);
+  }, []);
 
-  
   const data = {
     labels: [
       "1h",
@@ -144,12 +144,11 @@ const CryptoTable = (props) => {
         borderColor: "#54BB7A",
       },
     ],
-  };  
+  };
 
   const handleChanges = (event, value) => {
     setPage(paginator(coinsList, value, 3).page);
   };
-  
 
   return (
     <>
@@ -171,14 +170,21 @@ const CryptoTable = (props) => {
                         <TableCell align="right">7d %</TableCell>
                         <TableCell align="right">30d %</TableCell>
                       </>
-                    ) : (
+                    ) : location.pathname === "/market" ? (
                       <>
                         <TableCell align="right">7d %</TableCell>
                         <TableCell align="right">Marketcap</TableCell>
                         <TableCell align="right">Volume(24h)</TableCell>
                       </>
+                    ) : (
+                      ""
                     )}
                     <TableCell align="right">Chart</TableCell>
+                    {location.pathname === "/" ? (
+                      <TableCell align="right">Predict</TableCell>
+                    ) : (
+                      ""
+                    )}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -199,7 +205,11 @@ const CryptoTable = (props) => {
                           sx={{ cursor: "pointer" }}
                         >
                           <div className="crypto-name">
-                            <img src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`} alt={item.symbol} width="33px" />
+                            <img
+                              src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}
+                              alt={item.symbol}
+                              width="33px"
+                            />
                             {item.name}{" "}
                             <span className="currency_name">{item.symbol}</span>
                           </div>
@@ -224,7 +234,7 @@ const CryptoTable = (props) => {
                           </span>
                         </TableCell>
                         {location.pathname === "/prediction-dashboard" &&
-                        !props?.isIt ? (
+                        !userDetail?.isSubscribed ? (
                           <>
                             <TableCell align="right">
                               <HttpsIcon />
@@ -240,7 +250,7 @@ const CryptoTable = (props) => {
                             </TableCell>{" "}
                           </>
                         ) : location.pathname === "/prediction-dashboard" &&
-                          props?.isIt ? (
+                          userDetail?.isSubscribed ? (
                           <>
                             <TableCell align="right">
                               {/* <span className='up'>{Math.round((item.quote.USD.percent_change_1h + Number.EPSILON) * 100) / 100}%</span> */}
@@ -288,7 +298,7 @@ const CryptoTable = (props) => {
                               </span>
                             </TableCell>
                           </>
-                        ) : (
+                        ) : location.pathname === "/market" ? (
                           <>
                             <TableCell align="right">
                               <span
@@ -320,18 +330,26 @@ const CryptoTable = (props) => {
                               </span>
                             </TableCell>
                           </>
+                        ) : (
+                          ""
                         )}
 
-                        {props.isIt ? (
+                        {userDetail?.isSubscribed ? (
                           <TableCell align="right" sx={{ cursor: "pointer" }}>
                             <img
                               src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
                               alt="chart"
                               height="33px"
+                              style={{
+                                filter:
+                                  priceChange.percent_change_24h < 0
+                                    ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
+                                    : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
+                              }}
                               onClick={() => handleChartOpen(item.id)}
                             />
                           </TableCell>
-                        ) : (
+                        ) : location.pathname !== "/" ? (
                           <TableCell
                             align="right"
                             onMouseOver={() => handleMouseOver(index)}
@@ -342,6 +360,12 @@ const CryptoTable = (props) => {
                                 src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
                                 alt="chart"
                                 height="33px"
+                                style={{
+                                  filter:
+                                    priceChange.percent_change_24h < 0
+                                      ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
+                                      : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
+                                }}
                                 onClick={() => handleChartOpen(item.id)}
                               />
                             </Fade>
@@ -364,6 +388,38 @@ const CryptoTable = (props) => {
                               </Fade>
                             }
                           </TableCell>
+                        ) : (
+                          ""
+                        )}
+                        {location.pathname === "/" ? (
+                          <>
+                            <TableCell align="right" sx={{ cursor: "pointer" }}>
+                              <img
+                                src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
+                                alt="chart"
+                                height="33px"
+                                style={{
+                                  filter:
+                                    priceChange.percent_change_24h < 0
+                                      ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
+                                      : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
+                                }}
+                              />
+                            </TableCell>
+                            <TableCell align="right" sx={{ cursor: "pointer" }}>
+                              <Button
+                                variant="outlined"
+                                sx={{
+                                  borderRadius: "90px",
+                                  margin: "auto",
+                                }}
+                              >
+                                Predict
+                              </Button>
+                            </TableCell>
+                          </>
+                        ) : (
+                          ""
                         )}
                       </TableRow>
                     );
@@ -456,7 +512,7 @@ const CryptoTable = (props) => {
 
               <TabContext value={value}>
                 <Box>
-                  {props.isIt ? (
+                  {userDetail?.isSubscribed ? (
                     <TabList onChange={handleChange} aria-label="Login Tabs">
                       <Tab label="15m" value="1" />
                       <Tab label="1h" value="2" />
@@ -680,7 +736,7 @@ const CryptoTable = (props) => {
             fullWidth
             variant="contained"
             className="btn btn-primary"
-            onClick={e=>navigate('-1')}
+            onClick={(e) => navigate("-1")}
           >
             Back
           </Button>
@@ -745,7 +801,7 @@ const CryptoTable = (props) => {
             fullWidth
             variant="contained"
             className="btn btn-primary"
-            onClick={e=>navigate('-1')}
+            onClick={(e) => navigate("-1")}
           >
             Back
           </Button>

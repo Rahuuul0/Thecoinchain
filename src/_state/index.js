@@ -8,3 +8,4 @@ export * from "./contact";
 export * from "./footeremail";
 export * from "./coins";
 export * from "./guides";
+export * from "./newslist";

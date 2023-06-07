@@ -8,6 +8,7 @@ export * from './subscription.actions';
 export * from './coin.actions';
 export * from './footer.actions';
 export * from './guidesanalysis';
+export * from './newslist.actions';
 
 
 

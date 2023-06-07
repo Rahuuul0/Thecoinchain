@@ -46,7 +46,8 @@ export const Apis = {
   Footer: "news-latter",
   Blog_List: "blog-list",
   Create_Payment_Intent:'user-subscription',
-  Guides_analysis: 'guide-list'
+  Guides_analysis: 'guide-list',
+  News_list: 'news-list'
 };
 
 export const theme = createTheme({

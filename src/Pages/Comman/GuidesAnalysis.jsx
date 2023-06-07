@@ -1,20 +1,33 @@
-import React from 'react'
+import React from 'react';
+import { useState ,useEffect} from 'react';
 import { ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../_common/app.constants"
+import { theme } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, } from '@mui/material';
+import { guidesAnalysisActions } from "../../_actions";
+import { guidesAtom } from "../../_state";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { ArrowRightAlt, } from "@mui/icons-material";
+import { TabContext, TabPanel } from "@mui/lab/";
 import Blog1 from "../../../public/assets/images/blog-1.svg";
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
-import { ArrowRightAlt, } from "@mui/icons-material";
 import SwipeableViews from "react-swipeable-views";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { TabContext, TabPanel } from "@mui/lab/";
-
-
 
 const GuidesAnalysis = (props) => {
+    
+    const guidesActions = guidesAnalysisActions();
+    const guides = useRecoilValue(guidesAtom);
+
+
+       // Subscription action get function   API data call 
+       useEffect(()=>{
+        const response = guidesActions.get()
+        response.then((res)=>{(res)})
+     },[])
+
     function a11yProps(index) {
         return {
             id: `full-width-tab-${index}`,
@@ -123,11 +136,11 @@ const GuidesAnalysis = (props) => {
                                                                 textColor="inherit"
                                                                 aria-label="full width tabs example"
                                                             >
-                                                                <Tab label="Cryptocurrency" {...a11yProps(0)} />
+                                                                <Tab label="All" {...a11yProps(0)} />
                                                                 <Tab label="Blockchain" {...a11yProps(1)} />
                                                                 <Tab label="Trading" {...a11yProps(3)} />
-                                                                <Tab label="All" {...a11yProps(4)} />
-
+                                                                <Tab label="Cryptocurrency" {...a11yProps(4)} />
+                                                               
                                                             </Tabs>
                                                         </AppBar>
                                                         <SwipeableViews
@@ -136,7 +149,10 @@ const GuidesAnalysis = (props) => {
                                                             onChangeIndex={handleChangeIndexTab}
                                                         >
                                                             <TabPanel value={valueTab2} index2={0} dir={theme.direction}  sx={{padding: '0px'}}>
-
+                                                            {guides
+                                                            .slice(0, 3)
+                                                            .map((items)=> {
+                                                              return(
                                                                 <Box padding={0}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
@@ -162,15 +178,13 @@ const GuidesAnalysis = (props) => {
                                                                                         className="secondary-font"
                                                                                         paddingBottom={2}
                                                                                     >
-                                                                                        A Beginner's Guide to TradingView
+                                                                                    {items.title}
                                                                                     </Typography>
                                                                                     <Typography paddingBottom={5}>
-                                                                                        Ethereum
+                                                                                    {items.category}
                                                                                     </Typography>
                                                                                     <Typography className="body-caption secondary-color">
-                                                                                        A fully-featured landing page kit,
-                                                                                        including design files, and beautiful 3D
-                                                                                        illustrations editable.
+                                                                                     {items.description}
                                                                                     </Typography>
                                                                                 </Box>
                                                                                 <Box>
@@ -183,10 +197,17 @@ const GuidesAnalysis = (props) => {
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
-
+                                                                 )
+                                                                })}
                                                             </TabPanel>
                                                             <TabPanel value={valueTab2} index2={1} dir={theme.direction}  sx={{padding: '0px'}}>
-
+                                                            {guides
+                                                                .filter((blog) => {
+                                                                return blog.category === "Blogchain";
+                                                                })
+                                                                .slice(0, 3)
+                                                                .map((items) => {
+                                                                return (
                                                                 <Box padding={0}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
@@ -212,15 +233,13 @@ const GuidesAnalysis = (props) => {
                                                                                         className="secondary-font"
                                                                                         paddingBottom={2}
                                                                                     >
-                                                                                        A Beginner's Guide to TradingView
+                                                                                     {items.title}
                                                                                     </Typography>
                                                                                     <Typography paddingBottom={5}>
-                                                                                        Ethereum
+                                                                                    {items.category}
                                                                                     </Typography>
                                                                                     <Typography className="body-caption secondary-color">
-                                                                                        A fully-featured landing page kit,
-                                                                                        including design files, and beautiful 3D
-                                                                                        illustrations editable.
+                                                                                    {items.description}
                                                                                     </Typography>
                                                                                 </Box>
                                                                                 <Box>
@@ -233,10 +252,17 @@ const GuidesAnalysis = (props) => {
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
-
+                                                                )
+                                                            })}
                                                             </TabPanel>
                                                             <TabPanel value={valueTab2} index2={2} dir={theme.direction}  sx={{padding: '0px'}}>
-
+                                                            {guides
+                                                                .filter((blog) => {
+                                                                return blog.category === "Trading";
+                                                                })
+                                                                .slice(0, 3)
+                                                                .map((items) => {
+                                                                return (
                                                                 <Box padding={0}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
@@ -262,15 +288,13 @@ const GuidesAnalysis = (props) => {
                                                                                         className="secondary-font"
                                                                                         paddingBottom={2}
                                                                                     >
-                                                                                        A Beginner's Guide to TradingView
+                                                                                     {items.title}
                                                                                     </Typography>
                                                                                     <Typography paddingBottom={5}>
-                                                                                        Ethereum
+                                                                                    {items.category}
                                                                                     </Typography>
                                                                                     <Typography className="body-caption secondary-color">
-                                                                                        A fully-featured landing page kit,
-                                                                                        including design files, and beautiful 3D
-                                                                                        illustrations editable.
+                                                                                    {items.description}
                                                                                     </Typography>
                                                                                 </Box>
                                                                                 <Box>
@@ -283,10 +307,17 @@ const GuidesAnalysis = (props) => {
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
-
+                                                                   )
+                                                                })}
                                                             </TabPanel>
                                                             <TabPanel value={valueTab2} index2={3} dir={theme.direction}  sx={{padding: '0px'}}>
-
+                                                            {guides
+                                                                .filter((blog) => {
+                                                                return blog.category === "Cryptocurrency";
+                                                                })
+                                                                .slice(0, 3)
+                                                                .map((items) => {
+                                                                return (
                                                                 <Box padding={0}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
@@ -312,15 +343,13 @@ const GuidesAnalysis = (props) => {
                                                                                         className="secondary-font"
                                                                                         paddingBottom={2}
                                                                                     >
-                                                                                        A Beginner's Guide to TradingView
+                                                                                     {items.title}
                                                                                     </Typography>
                                                                                     <Typography paddingBottom={5}>
-                                                                                        Ethereum
+                                                                                    {items.category}
                                                                                     </Typography>
                                                                                     <Typography className="body-caption secondary-color">
-                                                                                        A fully-featured landing page kit,
-                                                                                        including design files, and beautiful 3D
-                                                                                        illustrations editable.
+                                                                                    {items.description}
                                                                                     </Typography>
                                                                                 </Box>
                                                                                 <Box>
@@ -333,7 +362,8 @@ const GuidesAnalysis = (props) => {
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
-
+                                                                  )
+                                                                })}
                                                             </TabPanel>
                                                             <TabPanel value={valueTab2} index2={4} dir={theme.direction}  sx={{padding: '0px'}}>
 

@@ -46,33 +46,18 @@ const useCoinActions = () => {
     setSelectedCategory(0);
     categoryList.length <= 0 ? categoriesList() : "";
     return fetchWrapper
-      .get(Apis.Latest_Listings)
+      .get(`${Apis.Latest_Listings}?page_name=page_name`)
+
       .then((res) => {
         if (res.statusCode === 200) {
           let coinArr = [];
-          for (const key in res.data.data) {
-            let slug = "";
-            let firstItem = [];
-            if (key === "BTC") {
-              slug = "bitcoin";
+          for (let key in res.data) {
+            let firstItem = "";
+            firstItem = res.data[key];
+
+            if (!Array.isArray(res.data[key])) {
+              coinArr.push(firstItem);
             }
-            if (key === "BTH") {
-              slug = "bithereum";
-            }
-            if (key === "ETH") {
-              slug = "ethereum";
-            }
-            if (key === "LINK") {
-              slug = "chainlink";
-            }
-            if (key === "XRP") {
-              slug = "xrp";
-            }
-            firstItem = res.data.data[key].filter((data) => {
-              return data.slug === slug;
-            });
-            console.log(firstItem, "firstItem");
-            if (firstItem.length === 1) coinArr.push(firstItem[0]);
           }
 
           setCoinList(coinArr);

@@ -28,7 +28,7 @@ import HttpsIcon from "@mui/icons-material/Https";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Line, Chart } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
-import {useCoinActions} from "../../_actions";
+import { useCoinActions } from "../../_actions";
 import { coinsAtom } from "../../_state";
 
 import { TabPanel } from "@mui/lab";
@@ -69,7 +69,7 @@ const CryptoTable = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  
+
   const handleMouseOver = (index) => {
     setHover(true);
     setHoverIndex(index);
@@ -94,22 +94,21 @@ const CryptoTable = (props) => {
     setChartData(coinsList.filter((item) => item.id === id));
   };
 
-  //  Latest Listing API call   
+  //  Latest Listing API call
   useEffect(() => {
-    const myFun =  async ()=>{
+    const myFun = async () => {
       const ress = await coinActions.latestListing();
-    }
-    myFun();    
+    };
+    myFun();
     /* Enable when code goes to live, But Don't remove this code */
     // const interval = setInterval(() => {
     //   setCount(count+1);
     //   myFun();
-    //   }   
+    //   }
     // , 3000);
-    // return () => clearInterval(interval);   
-  },[]);
+    // return () => clearInterval(interval);
+  }, []);
 
-  
   const data = {
     labels: [
       "1h",
@@ -144,12 +143,11 @@ const CryptoTable = (props) => {
         borderColor: "#54BB7A",
       },
     ],
-  };  
+  };
 
   const handleChanges = (event, value) => {
     setPage(paginator(coinsList, value, 3).page);
   };
-  
 
   return (
     <>
@@ -193,13 +191,17 @@ const CryptoTable = (props) => {
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
                       >
-                        <TableCell>{item.cmc_rank}</TableCell>
+                        <TableCell>{index + 1}</TableCell>
                         <TableCell
                           onClick={() => handleOpen(item.id)}
                           sx={{ cursor: "pointer" }}
                         >
                           <div className="crypto-name">
-                            <img src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`} alt={item.symbol} width="33px" />
+                            <img
+                              src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}
+                              alt={item.symbol}
+                              width="33px"
+                            />
                             {item.name}{" "}
                             <span className="currency_name">{item.symbol}</span>
                           </div>
@@ -680,7 +682,7 @@ const CryptoTable = (props) => {
             fullWidth
             variant="contained"
             className="btn btn-primary"
-            onClick={e=>navigate('-1')}
+            onClick={(e) => navigate("-1")}
           >
             Back
           </Button>
@@ -745,7 +747,7 @@ const CryptoTable = (props) => {
             fullWidth
             variant="contained"
             className="btn btn-primary"
-            onClick={e=>navigate('-1')}
+            onClick={(e) => navigate("-1")}
           >
             Back
           </Button>

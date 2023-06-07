@@ -24,11 +24,11 @@ import Globe from "../../../../../public/assets/images/globe.svg";
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { useEffect } from "react"
+import { useEffect } from "react";
 import Marquee from "react-fast-marquee";
 import CryptoTable from '../../CryptoTable';
 import { useNavigate } from 'react-router-dom';
-import Learn01 from '../../../../../public/assets/images/learn01.png'
+import Learn01 from '../../../../../public/assets/images/learn01.png';
 
 const Home = () => {
   const navigate = useNavigate();

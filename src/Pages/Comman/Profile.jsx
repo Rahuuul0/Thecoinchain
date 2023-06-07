@@ -61,7 +61,7 @@ const validationSchema = Yup.object().shape({
             .trim()
             .required("Mobile is required"),
         password: Yup.string()
-            .required(" Password Required")
+            .required(" Password is required")
             .min(8, " Password must be at least 8 characters.")
             .matches(
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/,
@@ -250,7 +250,7 @@ const validationSchema = Yup.object().shape({
                                             </Typography>
                                             <Box className='' paddingY={1} >
                                                 <TextField
-                                                     label="Name"
+                                                     label="Name *"
                                                     className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
@@ -271,7 +271,7 @@ const validationSchema = Yup.object().shape({
                                             <Box className='' paddingY={1}>
                                                 <TextField
                                                     disabled
-                                                    label="Email"
+                                                    label="Email *"
                                                     className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
@@ -291,8 +291,7 @@ const validationSchema = Yup.object().shape({
 
                                             <Box className='' paddingY={1}>
                                                     <MuiTelInput
-                                                    // disabled
-                                                    label="Mobile"
+                                                    label="Mobile *"
                                                     className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
@@ -309,14 +308,14 @@ const validationSchema = Yup.object().shape({
                                                 />
                                                 <div className="invalid-feedback" style={{ color: "red" }}>{errors.phone?.message}</div>
                                             </Box>  
-                                       {auth.login_attempt===0  && <><Box className='' paddingY={1}>
+                                       {auth.login_attempt!==0  && <><Box className='' paddingY={1}>
                                             <TextField
-                                            label="Password"
+                                            required
+                                            label="Password *"
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
                                             margin="normal"
-                                            required
                                             variant="standard"
                                             fullWidth
                                             id="password"
@@ -325,7 +324,6 @@ const validationSchema = Yup.object().shape({
                                             name="password"
                                             autoComplete="current-password"
                                             size="small"
-                                           
                                             {...register('password')}
                                             className={`form-control white-input-box ${errors.password ? 'is-invalid' : ''}`}
                                             InputProps={{
@@ -343,9 +341,9 @@ const validationSchema = Yup.object().shape({
 
                                             <Box className='' paddingY={1}>
                                             <TextField
-                                            label="Confirm Password"
+                                              required
+                                            label="Confirm Password *"
                                             margin="normal" 
-                                            required
                                             fullWidth
                                             id="confirm_password"
                                             placeholder='Confirm Password'

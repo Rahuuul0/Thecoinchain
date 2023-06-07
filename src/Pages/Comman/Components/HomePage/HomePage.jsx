@@ -233,6 +233,7 @@ const Home = () => {
                 className="btn btn-outlined-secondary"
                 sx={{ borderRadius: "90px", ml: { lg: "auto" } }}
                 onClick={() => {
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
                   navigate("./learn-cypto");
                 }}
               >
@@ -1029,6 +1030,11 @@ const Home = () => {
                       sx={{ margin: "0 auto" }}
                       onClick={() => {
                         navigate("./learn-cypto");
+                        window.scrollTo({
+                          top: 2550,
+                          left: 0,
+                          behavior: "smooth",
+                        });
                       }}
                     >
                       Learn now

@@ -39,18 +39,7 @@ const MenuProps = {
   },
 };
 
-const names = [
-  "Recent 1",
-  "Recent 2",
-  "Recent 3",
-  "Recent 4",
-  "Recent 5",
-  "Recent 6",
-  "Recent 7",
-  "Recent 8",
-  "Recent 9",
-  "Recent 10",
-];
+const names = ["Most Popular", "A-Z", "Z-A"];
 
 function getStyles(name, personName, theme) {
   return {

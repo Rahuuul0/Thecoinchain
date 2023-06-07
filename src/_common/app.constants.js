@@ -43,7 +43,8 @@ export const Apis = {
     Categories_Data: 'categories',
     Category_Data: 'category',
     Latest_Listings: 'latest-listings',
-    Footer: 'news-latter'
+    Footer: 'news-latter',
+    Create_Payment_Intent:'user-subscription'
 }
 
 export const theme = createTheme({

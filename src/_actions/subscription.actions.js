@@ -24,11 +24,27 @@ const subscriptionActions = () => {
                 }
             }).catch((err)=>{console.warn(err)})
     }
+
+    const createPaymentIntent =  (data) => {
+        return fetchWrapper.post(Apis.Create_Payment_Intent,data)
+            .then(res => {
+                if (res.statusCode === 200) {
+                    const dataa = res.data;
+                    return dataa;
+                } else {
+                    console.log(res.msg,'res.msg')
+                   // alertActions.error(res.msg);
+                }
+            }).catch((err)=>{console.warn(err)})
+    }
        
     return{
-        subscription
+        subscription,
+        createPaymentIntent
     }
 }
+
+
 
 export{ subscriptionActions }
 

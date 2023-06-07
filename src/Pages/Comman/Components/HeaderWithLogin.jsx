@@ -14,6 +14,7 @@ import { useUserActions } from "../../../_actions/user.actions";
 import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 const drawerWidth = 240;
 
 function Header(props) {

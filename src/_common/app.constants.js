@@ -10,6 +10,7 @@ export const Labels = {
   Password_Change_Success: "Your password has been change successfully",
   Logout_Success: "Logout successfully",
   Verified: "Verified Successfully ",
+  Footer_Email: "Thank you for subscribe ",
   Replce_Text: "XXXX",
   Success_Status_Code: 200,
   Error_Status_Code: 500,
@@ -25,23 +26,25 @@ export const RoutesName = {
 };
 
 export const Apis = {
-  Forgot_Password: "forgot-password",
-  Forgot_Password_Verify: "verify-forgot-password-otp",
-  Home: "/home",
-  Login: "login",
-  Social_Media_Login: "social-media-login",
-  Reset_Password: "reset-password",
-  Create: "createAccount",
-  GetOtp: "get-otp",
-  VerifyRegisterOtp: "verify-user",
-  Change_Password: "change-password",
-  Subscription_Plan: "subscription-plan",
-  Tutorial_Video: "tutorial-list",
-  Contact: "contact-us",
-  Update_User: "update-user",
-  Blog_List: "blog-list",
-  Get_Otp_Phone: 'get-otp-phone'   
-};
+    Forgot_Password: "forgot-password",
+    Forgot_Password_Verify:"verify-forgot-password-otp",
+    Home: '/home',
+    Login: 'login',
+    Social_Media_Login: 'social-media-login',   
+    Reset_Password: 'reset-password',
+    Create:'createAccount',
+    GetOtp:'get-otp',
+    VerifyRegisterOtp:'verify-user',
+    Change_Password: 'change-password',
+    Subscription_Plan: 'subscription-plan',
+    Tutorial_Video: "tutorial-list",
+    Contact: 'contact-us',
+    Update_User: 'update-user',
+    Categories_Data: 'categories',
+    Category_Data: 'category',
+    Latest_Listings: 'latest-listings',
+    Footer: 'news-latter'
+}
 
 export const theme = createTheme({
   typography: {

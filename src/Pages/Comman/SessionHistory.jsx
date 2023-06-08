@@ -14,6 +14,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import USAflag from '../../../public/assets/images/icons/usa.svg';
 import Sidebar from './Components/Sidebar';
+import ReactCountryFlag from "react-country-flag"
 
 const SessionHistory = () => {
 
@@ -129,35 +130,16 @@ const SessionHistory = () => {
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell align="right">
-                                                                <Button size='small' variant='contained' className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> {item.country_code} </Button>
+                                                                <Button 
+                                                                size='small' 
+                                                                variant='contained' 
+                                                                className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}> 
+                                                                <ReactCountryFlag countryCode={item.country_code} />{item.country_code}
+                                                                </Button>
                                                             </TableCell>
                                                         </TableRow>
                                                             )
-                                                        })}
-                                                        <TableRow
-                                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                        >
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    2021-06-16
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    10:46:09
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    Macbook Pro
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    Mac OS Bigsur
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell align="right">
-                                                                <Button size='small' variant='contained' className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
-                                                            </TableCell>
-                                                        </TableRow>
-                                                        
+                                                        })}  
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>

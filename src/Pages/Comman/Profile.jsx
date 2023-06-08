@@ -6,6 +6,7 @@ import { theme } from "../../_common/app.constants"
 import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, Select, OutlinedInput, MenuItem, Switch, TextField,InputAdornment } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions"
@@ -45,6 +46,7 @@ function getStyles(name, personName, theme) {
 const Profile = (props) => {
 
 const [Subscribe, setSubscribe] = useRecoilState(userAtom);
+const navigate = useNavigate();
 const profileUpdate = useUserActions();
 const [phone, setPhone] = useState('')
 const label = { inputProps: { "aria-label": "Switch demo" } };
@@ -58,8 +60,10 @@ const validationSchema = Yup.object().shape({
             .trim()
             .required("Email Address is required"),
         phone: Yup.string()
+            .max(15,"Phone must be at most 15 characters")
             .trim()
-            .required("Mobile is required"),
+            .required( "Mobile is required"),
+           
         password: Yup.string()
             .required(" Password is required")
             .min(8, " Password must be at least 8 characters.")
@@ -127,7 +131,7 @@ const validationSchema = Yup.object().shape({
     const submitFunction = () => {
         profileUpdate.updateUser({...formData,"name":formData.user_name})
         // profileUpdate.resetPassword({...formData,"name":formData.password})
-
+        navigate("/")
     }
 
     useEffect(()=> {
@@ -298,8 +302,10 @@ const validationSchema = Yup.object().shape({
                                                     }}
                                                     variant="standard"
                                                     margin="normal"
+                                                    
                                                     required
                                                     fullWidth
+                                                     max={10}   
                                                     id="mobile"
                                                     autoComplete="off"
                                                     {...register("phone")}
@@ -308,7 +314,7 @@ const validationSchema = Yup.object().shape({
                                                 />
                                                 <div className="invalid-feedback" style={{ color: "red" }}>{errors.phone?.message}</div>
                                             </Box>  
-                                       {auth.login_attempt===0  && <><Box className='' paddingY={1}>
+                                       {auth.login_attempt !==0  && <><Box className='' paddingY={1}>
                                             <TextField
                                             required
                                             label="Password *"
@@ -374,7 +380,7 @@ const validationSchema = Yup.object().shape({
                                        }
                                         </Box>
                                         <Typography textAlign='right' paddingY={3}>
-                                            <Button type="submit" className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>
+                                            <Button    type="submit" className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>
                                         </Typography>
                                     </Box>
                                 </Box>

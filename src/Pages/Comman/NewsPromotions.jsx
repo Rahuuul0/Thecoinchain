@@ -1,20 +1,31 @@
 import React from 'react'
+import { useEffect} from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Typography, Link, Grid, Stack, Button, } from '@mui/material';
+import { Box, Container, Typography, Grid, Button} from '@mui/material';
+import {  ArrowRightAlt,  } from "@mui/icons-material";
+import { TabContext, TabPanel } from "@mui/lab/";
+import { newsListActions } from '../../_actions'
+import { newsListAtom } from "../../_state";
+import { useRecoilValue } from "recoil";
 import Blog1 from "../../../public/assets/images/blog-1.svg";
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
-import {  ArrowRightAlt,  } from "@mui/icons-material";
 import SwipeableViews from "react-swipeable-views";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { TabContext, TabPanel } from "@mui/lab/";
-
-
 
 const NewsPromotions = (props) => {
+
+    const newsListGetActions = newsListActions();
+    const newsList = useRecoilValue(newsListAtom);
+
+       // Subscription action get function   API data call 
+       useEffect(()=>{
+        const    response = newsListGetActions.get()
+        response.then((res)=>{(res)})
+     },[])
 
     function a11yProps(index) {
         return {
@@ -121,10 +132,11 @@ const NewsPromotions = (props) => {
                                                                 textColor="inherit"
                                                                 aria-label="full width tabs example"
                                                             >
-                                                                <Tab label="Cryptocurrency" {...a11yProps(0)} />
+                                                                <Tab label="All" {...a11yProps(0)} />
                                                                 <Tab label="Blockchain" {...a11yProps(1)} />
                                                                 <Tab label="Trading" {...a11yProps(3)} />
-                                                                <Tab label="All" {...a11yProps(4)} />
+                                                                <Tab label="Cryptocurrency" {...a11yProps(4)} />
+                                                                
 
                                                             </Tabs>
                                                         </AppBar>
@@ -134,7 +146,10 @@ const NewsPromotions = (props) => {
                                                             onChangeIndex={handleChangeIndexTab}
                                                         >
                                                             <TabPanel value={valueTab2} index2={0} dir={theme.direction}>
-
+                                                            {newsList 
+                                                            .slice(0, 3)
+                                                            .map((item)=> {
+                                                             return(
                                                                 <Box paddingBottom={3}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
@@ -160,15 +175,13 @@ const NewsPromotions = (props) => {
                                                                                         className="secondary-font"
                                                                                         paddingBottom={2}
                                                                                     >
-                                                                                        A Beginner's Guide to TradingView
+                                                                                    {item.name}
                                                                                     </Typography>
                                                                                     <Typography paddingBottom={5}>
-                                                                                        Ethereum
+                                                                                    {item.category}
                                                                                     </Typography>
                                                                                     <Typography className="body-caption secondary-color">
-                                                                                        A fully-featured landing page kit,
-                                                                                        including design files, and beautiful 3D
-                                                                                        illustrations editable.
+                                                                                      {item.description} 
                                                                                     </Typography>
                                                                                 </Box>
                                                                                 <Box>
@@ -181,10 +194,18 @@ const NewsPromotions = (props) => {
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
-
-                                                            </TabPanel>
+                                                                  )
+                                                                })}
+                                                              </TabPanel>
+                                                          
                                                             <TabPanel value={valueTab2} index2={1} dir={theme.direction}>
-
+                                                            {newsList
+                                                              .filter((blog) => {
+                                                                return blog.category === "Blogchain";
+                                                              })
+                                                            .slice(0, 3)
+                                                            .map((item)=> {
+                                                             return(
                                                                 <Box paddingBottom={3}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
@@ -210,15 +231,13 @@ const NewsPromotions = (props) => {
                                                                                         className="secondary-font"
                                                                                         paddingBottom={2}
                                                                                     >
-                                                                                        A Beginner's Guide to TradingView
+                                                                                    {item.name}
                                                                                     </Typography>
                                                                                     <Typography paddingBottom={5}>
-                                                                                        Ethereum
+                                                                                    {item.category}
                                                                                     </Typography>
                                                                                     <Typography className="body-caption secondary-color">
-                                                                                        A fully-featured landing page kit,
-                                                                                        including design files, and beautiful 3D
-                                                                                        illustrations editable.
+                                                                                    {item.description} 
                                                                                     </Typography>
                                                                                 </Box>
                                                                                 <Box>
@@ -231,10 +250,17 @@ const NewsPromotions = (props) => {
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
-
+                                                                 )
+                                                                })}
                                                             </TabPanel>
                                                             <TabPanel value={valueTab2} index2={2} dir={theme.direction}>
-
+                                                            {newsList
+                                                            .filter((blog) => {
+                                                                return blog.category === "Trading";
+                                                              })
+                                                            .slice(0, 3)
+                                                            .map((item)=> {
+                                                             return(
                                                                 <Box paddingBottom={3}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
@@ -260,15 +286,13 @@ const NewsPromotions = (props) => {
                                                                                         className="secondary-font"
                                                                                         paddingBottom={2}
                                                                                     >
-                                                                                        A Beginner's Guide to TradingView
+                                                                                     {item.name}
                                                                                     </Typography>
                                                                                     <Typography paddingBottom={5}>
-                                                                                        Ethereum
+                                                                                    {item.category}
                                                                                     </Typography>
                                                                                     <Typography className="body-caption secondary-color">
-                                                                                        A fully-featured landing page kit,
-                                                                                        including design files, and beautiful 3D
-                                                                                        illustrations editable.
+                                                                                    {item.description}
                                                                                     </Typography>
                                                                                 </Box>
                                                                                 <Box>
@@ -281,10 +305,17 @@ const NewsPromotions = (props) => {
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
-
+                                                                )
+                                                            })}
                                                             </TabPanel>
                                                             <TabPanel value={valueTab2} index2={3} dir={theme.direction}>
-
+                                                            {newsList
+                                                            .filter((blog) => {
+                                                                return blog.category === "Cryptocurrency";
+                                                              })
+                                                            .slice(0, 3)
+                                                            .map((item)=> {
+                                                             return(
                                                                 <Box paddingBottom={3}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
@@ -310,15 +341,13 @@ const NewsPromotions = (props) => {
                                                                                         className="secondary-font"
                                                                                         paddingBottom={2}
                                                                                     >
-                                                                                        A Beginner's Guide to TradingView
+                                                                                     {item.name}
                                                                                     </Typography>
                                                                                     <Typography paddingBottom={5}>
-                                                                                        Ethereum
+                                                                                    {item.category}
                                                                                     </Typography>
                                                                                     <Typography className="body-caption secondary-color">
-                                                                                        A fully-featured landing page kit,
-                                                                                        including design files, and beautiful 3D
-                                                                                        illustrations editable.
+                                                                                    {item.description}
                                                                                     </Typography>
                                                                                 </Box>
                                                                                 <Box>
@@ -331,7 +360,8 @@ const NewsPromotions = (props) => {
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
-
+                                                                )
+                                                            })}
                                                             </TabPanel>
                                                             <TabPanel value={valueTab2} index2={4} dir={theme.direction}>
 

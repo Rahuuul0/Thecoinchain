@@ -11,7 +11,7 @@ const coinsErrorAtom = atom({
 
 const selectedCategoryAtom = atom({
     key: 'categoryName',
-    default: 0,  /* 0 for all */
+    default: 0  /* 0 for all */
 });
 
 const coinCategoryAtom = atom({

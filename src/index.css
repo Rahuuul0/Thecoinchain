@@ -2447,7 +2447,35 @@ video[poster] {
   background-color: #00000000;
   border: 1px solid #E6E8EC;
 }
-
+.icon-btn{
+  padding: 6px 5px !important;
+}
+.coming-out-box {
+  background-image: url(http://dly1vyq5d0op3.cloudfront.net/banner.svg);
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
+  display: table;
+  width: 100%;
+  overflow-x: hidden;
+}
+body{
+  overflow-x: hidden;
+}
+.coming-in-box {
+  position: relative;
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+}
+.coming-out-box:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255 255 255 / 61%);
+  position: absolute;
+  z-index: 0;
+}
 /* Media Queries  */
 @media (max-width: 1399.98px) {
 }

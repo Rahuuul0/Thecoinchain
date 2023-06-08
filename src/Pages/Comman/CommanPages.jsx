@@ -1,5 +1,10 @@
 import { Route, Routes, Navigate, Outlet } from "react-router-dom";
-import { useRecoilState, useSetRecoilState, useResetRecoilState, useRecoilValue } from 'recoil';
+import {
+  useRecoilState,
+  useSetRecoilState,
+  useResetRecoilState,
+  useRecoilValue,
+} from "recoil";
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import HeaderWithLogin from "./Components/HeaderWithLogin";
@@ -10,9 +15,9 @@ import CreateAccount from "./CreateAccount";
 import Home from "./Components/HomePage/HomePage";
 import ScanToLogin from "./ScanToLogin";
 import AccountConfirm from "./AccountConfirm";
-import LearnCypto from "./LearnCypto"
-import LearnCyptoDetail from "./LearnCyptoDetail"
-import Contact from "./Contact"
+import LearnCypto from "./LearnCypto";
+import LearnCyptoDetail from "./LearnCyptoDetail";
+import Contact from "./Contact";
 import Market from "./Market";
 import PredictMarket from "./PredictMarket";
 import SubscribedPredictMarkert from "./SubscribedPredictMarkert";
@@ -32,23 +37,38 @@ import ForecastSubscriptions from "./ForecastSubscriptions";
 import GuidesAnalysis from "./GuidesAnalysis";
 import Community from "./Community";
 
-import { authAtom } from '../../_state';
+import { authAtom } from "../../_state";
 import NewsPromotions from "./NewsPromotions";
 import Academy from "./Academy";
+import SubscriptionPayment from "./SubscriptionPayment";
 
 const Customer = () => {
   const auth = useRecoilValue(authAtom);
   const PrivateOutletWithLogin = () => {
-    return auth? <><HeaderWithLogin /><Outlet /><Footer /></> : <Navigate to="/login" />;
-  }
+    return auth ? (
+      <>
+        <HeaderWithLogin />
+        <Outlet />
+        <Footer />
+      </>
+    ) : (
+      <Navigate to="/login" />
+    );
+  };
 
   const PrivateOutlet = () => {
-    return <>{auth? <HeaderWithLogin /> : <Header />}<Outlet /><Footer /></>;
-  }
+    return (
+      <>
+        {auth ? <HeaderWithLogin /> : <Header />}
+        <Outlet />
+        <Footer />
+      </>
+    );
+  };
 
   const WithoutHeaderFooter = () => {
     return <Outlet />;
-  }
+  };
 
   return (
     <div className="customer-panel">
@@ -60,8 +80,16 @@ const Customer = () => {
           <Route path={`/contact`} element={<Contact />} />
           <Route path={`/market`} exact element={<Market />} />
           <Route path={`/predict-market`} exact element={<PredictMarket />} />
-          <Route path={`/subscribed-predict-market`} exact element={<SubscribedPredictMarkert />} />
-          <Route path={`/prediction-dashboard`} exact element={<PredictionDashboard />} />
+          <Route
+            path={`/subscribed-predict-market`}
+            exact
+            element={<SubscribedPredictMarkert />}
+          />
+          <Route
+            path={`/prediction-dashboard`}
+            exact
+            element={<PredictionDashboard />}
+          />
           <Route path={`/notifications`} exact element={<Notifications />} />
           <Route path={`/privacy-policy`} exact element={<PrivacyPolicy />} />
           <Route path={`/disclaimer`} exact element={<Disclaimer />} />
@@ -71,6 +99,11 @@ const Customer = () => {
           <Route path={`community`} exact element={<Community />} />
           <Route path={`news-promotions`} exact element={<NewsPromotions />} />
           <Route path={`academy`} exact element={<Academy />} />
+          <Route
+            path={`/subscription-payment`}
+            exact
+            element={<SubscriptionPayment />}
+          />
         </Route>
 
         {/* For Without Header Footer  pages */}
@@ -92,7 +125,11 @@ const Customer = () => {
           <Route path={`2fa-enable`} element={<TwoFaEnable />} />
           <Route path={`2fa-disable`} element={<TwoFaDisable />} />
           <Route path={`session-and-history`} element={<SessionHistory />} />
-          <Route path={`forecast-subscription`} exact element={<ForecastSubscriptions />} />
+          <Route
+            path={`forecast-subscription`}
+            exact
+            element={<ForecastSubscriptions />}
+          />
         </Route>
       </Routes>
     </div>

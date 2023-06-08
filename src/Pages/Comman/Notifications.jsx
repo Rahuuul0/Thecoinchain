@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
 import { Box, Container, Typography, Button, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
@@ -8,9 +8,29 @@ import DepositImg from '../../../public/assets/images/deposit.svg'
 import TransferImg from '../../../public/assets/images/transfer.svg'
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import {notificationAtom} from '../../_state/notifications';
+import { useRecoilValue } from "recoil";
 
 
 const Notifications = () => {
+
+    const notifications = useRecoilValue(notificationAtom);
+
+    const [select, setSelect] = useState();
+
+  
+    const handleSelectAll =() =>{
+        setSelect(select);
+   
+  
+    }
+    const handleUnselectAll =() =>{
+        setSelect(select);
+    
+    }
+ 
+ console.log(select,'dfdvdfdsfdsfds')
+  
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -33,101 +53,33 @@ const Notifications = () => {
                                 <Box className="devider" />
                                 <Box className='notification-list-wrapper'>
                                     <Box className='notification-list'>
-                                        <Box className='notification-list-itm'>
-                                            <Box className='notification-icon'>
-                                                <BoltOutlinedIcon />
-                                            </Box>
-                                            <Box className='notification-title'>
-                                                <Typography component="p" variant='body'>
-                                                    BTC Price Alert
-                                                </Typography>
-                                                <Typography component="small" variant='body2'>
-                                                    ASDF
-                                                </Typography>
-                                            </Box>
-                                            <Box className='notification-date'>
-                                                <Typography component="small" variant='body2'>
-                                                    <span className='n-date'>2021-03-10</span> <span className='n-time'>20:19:15</span>
-                                                </Typography>
-                                                <span className='notification-circle'></span>
-                                            </Box>
-                                        </Box>
-                                        <Box className='notification-list-itm'>
-                                            <Box className='notification-icon'>
-                                                <BoltOutlinedIcon />
-                                            </Box>
-                                            <Box className='notification-title'>
-                                                <Typography component="p" variant='body'>
-                                                    BTC Price Alert
-                                                </Typography>
-                                                <Typography component="small" variant='body2'>
-                                                    ASDF
-                                                </Typography>
-                                            </Box>
-                                            <Box className='notification-date'>
-                                                <Typography component="small" variant='body2'>
-                                                    <span className='n-date'>2021-03-10</span> <span className='n-time'>20:19:15</span>
-                                                </Typography>
-                                                <span className='notification-circle'></span>
-                                            </Box>
-                                        </Box>
-                                        <Box className='notification-list-itm'>
-                                            <Box className='notification-icon'>
-                                                <BoltOutlinedIcon />
-                                            </Box>
-                                            <Box className='notification-title'>
-                                                <Typography component="p" variant='body'>
-                                                    BTC Price Alert
-                                                </Typography>
-                                                <Typography component="small" variant='body2'>
-                                                    ASDF
-                                                </Typography>
-                                            </Box>
-                                            <Box className='notification-date'>
-                                                <Typography component="small" variant='body2'>
-                                                    <span className='n-date'>2021-03-10</span> <span className='n-time'>20:19:15</span>
-                                                </Typography>
-                                                <span className='notification-circle'></span>
-                                            </Box>
-                                        </Box>
-                                        <Box className='notification-list-itm'>
-                                            <Box className='notification-icon'>
-                                                <BoltOutlinedIcon />
-                                            </Box>
-                                            <Box className='notification-title'>
-                                                <Typography component="p" variant='body'>
-                                                    BTC Price Alert
-                                                </Typography>
-                                                <Typography component="small" variant='body2'>
-                                                    ASDF
-                                                </Typography>
-                                            </Box>
-                                            <Box className='notification-date'>
-                                                <Typography component="small" variant='body2'>
-                                                    <span className='n-date'>2021-03-10</span> <span className='n-time'>20:19:15</span>
-                                                </Typography>
-                                                <span className='notification-circle'></span>
-                                            </Box>
-                                        </Box>
-                                        <Box className='notification-list-itm'>
-                                            <Box className='notification-icon'>
-                                                <BoltOutlinedIcon />
-                                            </Box>
-                                            <Box className='notification-title'>
-                                                <Typography component="p" variant='body'>
-                                                    BTC Price Alert
-                                                </Typography>
-                                                <Typography component="small" variant='body2'>
-                                                    ASDF
-                                                </Typography>
-                                            </Box>
-                                            <Box className='notification-date'>
-                                                <Typography component="small" variant='body2'>
-                                                    <span className='n-date'>2021-03-10</span> <span className='n-time'>20:19:15</span>
-                                                </Typography>
-                                                <span className='notification-circle'></span>
-                                            </Box>
-                                        </Box>
+
+
+                                        {notifications.map((item) =>{
+                                            return(
+                                                <Box className='notification-list-itm'>
+                                                    <Box className='notification-icon'>
+                                                        <BoltOutlinedIcon />
+                                                    </Box>
+                                                    <Box className='notification-title'>
+                                                        <Typography component="p" variant='body'>
+                                                           {item.tittle}
+                                                        </Typography>
+                                                        <Typography component="small" variant='body2'>
+                                                            {item.name}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box className='notification-date'>
+                                                        <Typography component="small" variant='body2'>
+                                                            <span className='n-date'> {item.create} </span>
+                                                        </Typography>
+                                                        <span className='notification-circle'></span>
+                                                    </Box>
+                                                </Box>
+
+                                            )
+                                        })}
+                                       
 
                                         <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>
                                     </Box>
@@ -137,39 +89,29 @@ const Notifications = () => {
                                         </Typography>
 
                                         <FormGroup>
-                                            <FormControlLabel control={<Checkbox defaultChecked />} label="Crypto Prediction" />
-                                            <FormControlLabel control={<Checkbox />} label="Community" />
-                                            <FormControlLabel control={<Checkbox />} label="Academy" />
-                                            <FormControlLabel control={<Checkbox />} label="News" />
+                                            <FormControlLabel control={<Checkbox   />}    Checked={select}   label="Crypto Prediction" />
+                                            <FormControlLabel control={<Checkbox />}    Checked={select} label="Community" />
+                                            <FormControlLabel control={<Checkbox  />}   Checked={select} label="Academy" />
+                                            <FormControlLabel control={<Checkbox />}   Checked={select} label="News" />
                                         </FormGroup>
 
                                         <Box className='notification-filter-cta'>
-                                            <Button size='small' variant="outlined" className='btn btn-outlined-secondary'>Select all</Button>
-                                            <Button size='small' variant="outlined" className='btn btn-outlined-secondary'>Unselect all</Button>
+                                            <Button 
+                                                onClick={handleSelectAll}
+                                                isChecked={select}
+                                                size='small' variant="outlined" 
+                                                className='btn btn-outlined-secondary'
+                                             >Select all</Button>
+                                            <Button 
+                                                onClick={handleUnselectAll}
+                                                isChecked={!select}
+                                                size='small' variant="outlined"
+                                                className='btn btn-outlined-secondary'>
+                                                Unselect all
+                                              </Button>
                                         </Box>
                                     </Box>
 
-                                    <Box className='notification-filter for-mobile dropdown-mobile'>
-                                        <Typography component="h5" variant='h5'>
-                                            Filters
-                                            <span className='dropdown-icon'>
-                                                <KeyboardArrowDownIcon />
-                                            </span>
-                                        </Typography>
-                                        <Box className="dropdown-div">
-                                            <FormGroup>
-                                                <FormControlLabel control={<Checkbox defaultChecked />} label="Crypto Prediction" />
-                                                <FormControlLabel control={<Checkbox />} label="Community" />
-                                                <FormControlLabel control={<Checkbox />} label="Academy" />
-                                                <FormControlLabel control={<Checkbox />} label="News" />
-                                            </FormGroup>
-
-                                            <Box className='notification-filter-cta'>
-                                                <Button size='small' variant="outlined" className='btn btn-outlined-secondary'>Select all</Button>
-                                                <Button size='small' variant="outlined" className='btn btn-outlined-secondary'>Unselect all</Button>
-                                            </Box>
-                                        </Box>
-                                    </Box>
                                 </Box>
                             </Box>
                             <Box className='deposit-transfer'>

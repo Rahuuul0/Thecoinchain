@@ -19,7 +19,7 @@ const useContactActions = () => {
         } else {
           alertActions.error(res.msg);
         }
-      })
+      }).catch((err)=>{console.warn(err)})
   };
 
   return {

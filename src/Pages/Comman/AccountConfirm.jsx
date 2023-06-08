@@ -196,7 +196,11 @@ const AccountConfirm = () => {
                         Resend Code 
                       </Button>
                       }
-                      <Button type="submit" variant="contained" className='btn btn-primary' >
+                      <Button
+                        onClick={() => {
+                        navigate("/");
+                      }}
+                       type="submit" variant="contained" className='btn btn-primary'  >
                         Continue
                       </Button>
 

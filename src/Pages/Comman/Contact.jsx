@@ -379,7 +379,7 @@ const Contact = () => {
                 value={formData?.question}
                 options= {names}
                 onChange={(e, props) => reset({ ...formData, question: props?.name })}
-                renderInput={(params) => <TextField {...register('question')}  required {...params} InputLabelProps={{ shrink: true }} />}
+                renderInput={(params) => <TextField autoFocus {...register('question')}  required {...params} InputLabelProps={{ shrink: true }} />}
             />
             <div style={{ color: "red" }}>{errors.question?.message}</div>
         </Grid>

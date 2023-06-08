@@ -1861,7 +1861,6 @@ video {
   border-color: #58bd7d;
 }
 
-
 .subscription-steps-col-details {
   background: #fcfcfd;
   box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
@@ -3196,4 +3195,8 @@ body {
   .auth-otp>div input {
     padding: 20px 10px;
   }
+}
+
+div.MuiBackdrop-root {
+  background-color: rgba(0, 0, 0, 0.8);
 }

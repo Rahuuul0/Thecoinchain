@@ -141,7 +141,7 @@ const CheckoutForm = () => {
         event.error ? setCheckoutError(event.error.message) : setCheckoutError();
     };
 
-    const styled = (confirm.step === 2) ? { "height": '100%', "opacity": "1" } : { "height": '0px', "opacity": "0" }
+    const styled = (confirm.step === 2) ? { "height": '100%', "opacity": "1" } : { "height": '0px', "opacity": "0", "display": "none" }
     return (
         <Box className='subscription-steps-inner'>
             <Backdrop
@@ -170,7 +170,7 @@ const CheckoutForm = () => {
                 </Box>
                 <Box className={`subscription-step ${confirm.step === 3 ? "current-step" : ''}`}>
                     <Box component="span" className='number-circle'>
-                        <Box onClick={() => setConfirm({ ...confirm, "step": 3 })}>{confirm.step === 3 ? "3" : <CheckIcon />}</Box>
+                        <Box onClick={() => setConfirm({ ...confirm, "step": 3 })}>3</Box>
                     </Box>
                     <Typography component="p" variant='body2'>
                         Confirm order
@@ -219,73 +219,71 @@ const CheckoutForm = () => {
                     }
 
                     {/* Step Two */}
-                    {confirm.step === 2 &&
-                        <Box className="step-two" style={styled}>
-                            <Box className="card-inner-head">
-                                <Typography component="h5" variant='body1' className='large-caption'>
-                                    <KeyboardBackspaceIcon /> Payment info
-                                </Typography>
-                                <Typography component="h5" variant='body1' className='large-caption invest-smarter'>
-                                    Invest smarter, not harder. <img src={BtcImg} alt='BTC' width="24px" />
-                                </Typography>
-                            </Box>
-                            <Box className='payment-info'>
-                                <Box className='amount-for'>
-                                    <Box className='payment-amount'>
-                                        <span className='wallet-ic'>
-                                            <img src={WalletIc} alt='wallet' width="20px" />
-                                        </span>
-                                        <Typography component="small" variant='body2'>
-                                            <span className='label'>Plan</span>
-                                            {confirm.plan.subscription_name}
-
-                                        </Typography>
-                                    </Box>
-                                    <Box className='payment-for'>
-                                        <span className='wallet-ic'>
-                                            <img src={WalletIc} alt='wallet' width="20px" />
-                                        </span>
-                                        <Typography component="small" variant='body2'>
-                                            <span className='label'>Amount</span>
-                                            ${confirm.plan?.subscription_price || 0}
-                                        </Typography>
-                                    </Box>
-                                </Box>
-                                <Box className='credit-card-head'>
-                                    <Typography component="h5" variant='body1' className='large-caption' sx={{ fontWeight: '600' }}>
-                                        Credit Card
-                                    </Typography>
-                                    <Box className='card-type'>
-                                        <img src={VisaIc} alt='Visa' height="12px" />
-                                        <img src={MasterIc} alt='Master' height="12px" />
-                                    </Box>
-                                </Box>
-                                <div className='checkout-form'>
-
-                                    {/* <>{checkoutError}</> */}
-                                    <label>
-                                        <span>Card number</span>
-                                        <CardNumberElement options={options} onChange={handleCardDetailsChange} />
-                                    </label>
-                                    <label>
-                                        <span>Expiration date</span>
-
-                                        <CardExpiryElement options={options} onChange={handleCardDetailsChange} />
-                                    </label>
-                                    <label>
-                                        <span>CVC</span>
-                                        <CardCvcElement options={options} onChange={handleCardDetailsChange} />
-                                    </label>
-                                    <div className='form-error'>{checkoutError}</div>
-                                    {/* {!checkoutError && <CheckoutError>{checkoutError}</CheckoutError>} */}
-                                    <Box className="subscription-plan-cta">
-                                        <Button variant='outlined' className='btn btn-outlined-secondary' onClick={e => setConfirm({ ...confirm, step: 1 })}>Cancel</Button>
-                                        <Button onClick={e => setConfirm({ ...confirm, step: 3 })} variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} >Continue</Button>
-                                    </Box>
-                                </div>
-                            </Box>
+                    <Box className="step-two" style={styled}>
+                        <Box className="card-inner-head">
+                            <Typography component="h5" variant='body1' className='large-caption'>
+                                <KeyboardBackspaceIcon /> Payment info
+                            </Typography>
+                            <Typography component="h5" variant='body1' className='large-caption invest-smarter'>
+                                Invest smarter, not harder. <img src={BtcImg} alt='BTC' width="24px" />
+                            </Typography>
                         </Box>
-                    }
+                        <Box className='payment-info'>
+                            <Box className='amount-for'>
+                                <Box className='payment-amount'>
+                                    <span className='wallet-ic'>
+                                        <img src={WalletIc} alt='wallet' width="20px" />
+                                    </span>
+                                    <Typography component="small" variant='body2'>
+                                        <span className='label'>Plan</span>
+                                        {confirm.plan.subscription_name}
+
+                                    </Typography>
+                                </Box>
+                                <Box className='payment-for'>
+                                    <span className='wallet-ic'>
+                                        <img src={WalletIc} alt='wallet' width="20px" />
+                                    </span>
+                                    <Typography component="small" variant='body2'>
+                                        <span className='label'>Amount</span>
+                                        ${confirm.plan?.subscription_price || 0}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                            <Box className='credit-card-head'>
+                                <Typography component="h5" variant='body1' className='large-caption' sx={{ fontWeight: '600' }}>
+                                    Credit Card
+                                </Typography>
+                                <Box className='card-type'>
+                                    <img src={VisaIc} alt='Visa' height="12px" />
+                                    <img src={MasterIc} alt='Master' height="12px" />
+                                </Box>
+                            </Box>
+                            <div className='checkout-form'>
+
+                                {/* <>{checkoutError}</> */}
+                                <label>
+                                    <span>Card number</span>
+                                    <CardNumberElement options={options} onChange={handleCardDetailsChange} />
+                                </label>
+                                <label>
+                                    <span>Expiration date</span>
+
+                                    <CardExpiryElement options={options} onChange={handleCardDetailsChange} />
+                                </label>
+                                <label>
+                                    <span>CVC</span>
+                                    <CardCvcElement options={options} onChange={handleCardDetailsChange} />
+                                </label>
+                                <div className='form-error'>{checkoutError}</div>
+                                {/* {!checkoutError && <CheckoutError>{checkoutError}</CheckoutError>} */}
+                                <Box className="subscription-plan-cta">
+                                    <Button variant='outlined' className='btn btn-outlined-secondary' onClick={e => setConfirm({ ...confirm, step: 1 })}>Cancel</Button>
+                                    <Button onClick={e => setConfirm({ ...confirm, step: 3 })} variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} >Continue</Button>
+                                </Box>
+                            </div>
+                        </Box>
+                    </Box>
                     {/* Step Three */}
                     {confirm.step === 3 &&
                         <Box className="step-three">

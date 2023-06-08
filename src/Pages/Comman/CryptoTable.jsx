@@ -29,7 +29,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Line, Chart } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
 import { useCoinActions } from "../../_actions";
-import { coinsAtom, userAtom } from "../../_state";
+import { coinsAtom, userAtom, selectedCategoryAtom } from "../../_state";
 
 import { TabPanel } from "@mui/lab";
 ChartJS.register(...registerables);
@@ -63,10 +63,10 @@ const CryptoTable = (props) => {
   const [open, setOpen] = useState(false);
   const [chartData, setChartData] = useState("");
   const [chartOpen, setChartOpen] = useState(false);
-  const handleChartClose = () => setChartOpen(false);
   const count = Math.ceil(coinsList.length / 4);
   const [page, setPage] = useState(1);
   const [intervalCount, setIntervalCount] = useState(0);
+  const selectedCat = useRecoilValue(selectedCategoryAtom);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -95,22 +95,39 @@ const CryptoTable = (props) => {
     setChartData(coinsList.filter((item) => item.id === id));
   };
 
+  const handleChartClose = (id) => {
+    setChartOpen(false);
+    setChartData("");
+  };
+
   //  Latest Listing API call
   useEffect(() => {
-    if (!userDetail.isSubscribed) myFun();
-    else if (userDetail.isSubscribed && location.pathname === "/") myFun();
+    if (!userDetail.isSubscribed) getLastestListing();
+    else if (userDetail.isSubscribed && location.pathname === "/")
+      getLastestListing();
   }, []);
 
-  const myFun = async () => {
+  const getLastestListing = async () => {
     let page = "";
-    {
+    if (userDetail.isSubscribed) {
       location.pathname === "/prediction-dashboard"
-        ? (page = "page_name=prediction_page")
+        ? (page = `page_name=prediction_page&subscribed_user=${userDetail.isSubscribed}`)
+        : location.pathname === "/market"
+        ? (page = `page_name=market_page`)
+        : "";
+    } else {
+      location.pathname === "/prediction-dashboard"
+        ? (page = `page_name=prediction_page&subscribed_user=${userDetail.isSubscribed}`)
         : location.pathname === "/market"
         ? (page = "page_name=market_page")
         : "";
     }
+
     const ress = await coinActions.latestListing(page);
+  };
+
+  const getLatestCategory = async () => {
+    const ress = await coinActions.coinListbByCategoty(props.selectedCat);
   };
 
   useEffect(() => {
@@ -120,12 +137,25 @@ const CryptoTable = (props) => {
       userDetail.isSubscribed
     ) {
       const interval = setInterval(() => {
-        setIntervalCount(count + 1);
-        myFun();
-      }, 3000);
+        setIntervalCount(intervalCount + 1);
+        props.selectedCat
+          ? props.selectedCat === 0
+            ? getLastestListing()
+            : getLatestCategory(selectedCat)
+          : getLastestListing();
+      }, 10000);
       return () => clearInterval(interval);
     }
-  }, [intervalCount]);
+  }, [intervalCount, selectedCat]);
+
+  useEffect(() => {
+    if (
+      location.pathname === "/prediction-dashboard" &&
+      userDetail.isSubscribed
+    ) {
+      getLastestListing();
+    }
+  }, []);
 
   const data = {
     labels: [
@@ -232,7 +262,7 @@ const CryptoTable = (props) => {
                           </div>
                         </TableCell>
                         <TableCell align="right">
-                          $ {item.price.toFixed(4)}
+                          $ {item.price?.toFixed(4)}
                         </TableCell>
                         <TableCell align="right">
                           <span
@@ -347,7 +377,8 @@ const CryptoTable = (props) => {
                           ""
                         )}
 
-                        {userDetail?.isSubscribed ? (
+                        {userDetail?.isSubscribed &&
+                        location.pathname !== "/" ? (
                           <TableCell align="right" sx={{ cursor: "pointer" }}>
                             <img
                               src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
@@ -362,7 +393,8 @@ const CryptoTable = (props) => {
                               onClick={() => handleChartOpen(item.id)}
                             />
                           </TableCell>
-                        ) : location.pathname !== "/" ? (
+                        ) : !userDetail.isSubscribed &&
+                          location.pathname !== "/" ? (
                           <TableCell
                             align="right"
                             onMouseOver={() => handleMouseOver(index)}
@@ -394,7 +426,14 @@ const CryptoTable = (props) => {
                                     right: "5px",
                                     margin: "auto",
                                   }}
-                                  onClick={() => navigate("/subscription")}
+                                  onClick={() => {
+                                    navigate("/subscription"),
+                                      window.scrollTo({
+                                        top: 0,
+                                        left: 0,
+                                        behavior: "smooth",
+                                      });
+                                  }}
                                 >
                                   Subscribe
                                 </Button>
@@ -406,7 +445,7 @@ const CryptoTable = (props) => {
                         )}
                         {location.pathname === "/" ? (
                           <>
-                            <TableCell align="right" sx={{ cursor: "pointer" }}>
+                            <TableCell align="right">
                               <img
                                 src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
                                 alt="chart"
@@ -424,8 +463,9 @@ const CryptoTable = (props) => {
                                 variant="outlined"
                                 sx={{
                                   borderRadius: "90px",
-                                  margin: "auto",
+                                  marginLeft: "auto",
                                 }}
+                                className="btn-outlined-secondary btn"
                               >
                                 Predict
                               </Button>
@@ -486,7 +526,8 @@ const CryptoTable = (props) => {
             sx={{ mt: 2, p: 2 }}
           >
             <Typography className="crypto-fullname" variant="h5" component="h5">
-              BTC/USDT <span className="badge">1x</span>
+              {chartData[0]?.symbol}
+              {/* <span className="badge">1x</span> */}
             </Typography>
             <Typography
               className="crypto-fullname-small"
@@ -504,7 +545,7 @@ const CryptoTable = (props) => {
                 <KeyboardArrowDownIcon />
               </Button>
               <Typography className="crypto-value" variant="h5" component="h5">
-                {chartData[0]?.quote.USD.price}
+                {chartData[0]?.price}
               </Typography>
               <Typography
                 className="crypto-fullname-small"
@@ -749,7 +790,7 @@ const CryptoTable = (props) => {
             fullWidth
             variant="contained"
             className="btn btn-primary"
-            onClick={(e) => navigate("-1")}
+            onClick={handleClose}
           >
             Back
           </Button>
@@ -787,7 +828,8 @@ const CryptoTable = (props) => {
             sx={{ mt: 2, p: 2 }}
           >
             <Typography className="crypto-fullname" variant="h5" component="h5">
-              BTC/USDT <span className="badge">1x</span>
+              {chartData[0]?.symbol}
+              {/* <span className="badge">1x</span> */}
             </Typography>
             <Typography
               className="crypto-fullname-small"
@@ -798,7 +840,7 @@ const CryptoTable = (props) => {
               {chartData.name}
             </Typography>
             <Typography className="crypto-value" variant="h5" component="h5">
-              {chartData[0]?.quote.USD.price}
+              {chartData[0]?.price}
             </Typography>
             <Box className="value-details">
               <Button
@@ -814,7 +856,7 @@ const CryptoTable = (props) => {
             fullWidth
             variant="contained"
             className="btn btn-primary"
-            onClick={(e) => navigate("-1")}
+            onClick={handleChartClose}
           >
             Back
           </Button>

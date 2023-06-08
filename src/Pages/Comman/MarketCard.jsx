@@ -35,6 +35,7 @@ const MarketCard = () => {
   const selectedCat = useRecoilValue(selectedCategoryAtom);
 
   const [tablefilter, setTablefilter] = useState("");
+  const [selectedCatId, setSelectedCatId] = useState(0);
   const handleChangeTablefilter = (event) => {
     setTablefilter(event.target.value);
   };
@@ -120,14 +121,18 @@ const MarketCard = () => {
                     <Button
                       variant="contained"
                       className="btn btn-secondary"
-                      onClick={(e) => coinActions.latestListing()}
+                      onClick={(e) => {
+                        coinActions.latestListing();
+                      }}
                     >
                       All
                     </Button>
                   ) : (
                     <Button
                       className="btn"
-                      onClick={(e) => coinActions.latestListing()}
+                      onClick={(e) => {
+                        coinActions.latestListing();
+                      }}
                     >
                       All
                     </Button>
@@ -141,9 +146,9 @@ const MarketCard = () => {
                               variant="contained"
                               className="btn btn-secondary"
                               key={index}
-                              onClick={(e) =>
-                                coinActions.coinListbByCategoty(item.id)
-                              }
+                              onClick={(e) => {
+                                coinActions.coinListbByCategoty(item.id);
+                              }}
                               title={item.name}
                             >
                               {getFirstLetters(item.name)}
@@ -153,9 +158,9 @@ const MarketCard = () => {
                           return (
                             <Button
                               className="btn"
-                              onClick={(e) =>
-                                coinActions.coinListbByCategoty(item.id)
-                              }
+                              onClick={(e) => {
+                                coinActions.coinListbByCategoty(item.id);
+                              }}
                               title={item.name}
                             >
                               {getFirstLetters(item.name)}

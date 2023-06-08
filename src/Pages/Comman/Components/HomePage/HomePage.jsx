@@ -48,6 +48,7 @@ import {
   coinCategoryAtom,
   selectedCategoryAtom,
   tutorialAtom,
+  userAtom,
 } from "../../../../_state";
 import ReactPlayer from "react-player";
 
@@ -60,7 +61,8 @@ const Home = () => {
   const coinsList = useRecoilValue(coinsAtom);
   const categoryList = useRecoilValue(coinCategoryAtom);
   const selectedCat = useRecoilValue(selectedCategoryAtom);
-
+  const [intervalCount, setIntervalCount] = useState(0);
+  const userDetail = useRecoilValue(userAtom);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -171,7 +173,7 @@ const Home = () => {
                         className="orange-btn"
                         sx={{ borderRadius: "90px" }}
                       >
-                        {item.percent_change_24h.toFixed(2)}%
+                        {item.percent_change_24h?.toFixed(2)}%
                       </Button>
                     </Stack>
                     <Typography
@@ -182,7 +184,7 @@ const Home = () => {
                       paddingBottom={1}
                       className="primary-font"
                     >
-                      {item.price.toFixed(2)}
+                      {item.price?.toFixed(2)}
                     </Typography>
                     <Typography
                       variant="h6"
@@ -885,14 +887,18 @@ const Home = () => {
             <Button
               variant="contained"
               className="btn btn-secondary"
-              onClick={(e) => coinActions.latestListing()}
+              onClick={(e) => {
+                coinActions.latestListing();
+              }}
             >
               All
             </Button>
           ) : (
             <Button
               className="btn"
-              onClick={(e) => coinActions.latestListing()}
+              onClick={(e) => {
+                coinActions.latestListing();
+              }}
             >
               All
             </Button>
@@ -906,7 +912,9 @@ const Home = () => {
                       variant="contained"
                       className="btn btn-secondary"
                       key={index}
-                      onClick={(e) => coinActions.coinListbByCategoty(item.id)}
+                      onClick={(e) => {
+                        coinActions.coinListbByCategoty(item.id);
+                      }}
                       title={item.name}
                     >
                       {getFirstLetters(item.name)}
@@ -916,7 +924,9 @@ const Home = () => {
                   return (
                     <Button
                       className="btn"
-                      onClick={(e) => coinActions.coinListbByCategoty(item.id)}
+                      onClick={(e) => {
+                        coinActions.coinListbByCategoty(item.id);
+                      }}
                       title={item.name}
                     >
                       {getFirstLetters(item.name)}

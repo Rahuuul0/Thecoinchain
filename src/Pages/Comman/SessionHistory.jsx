@@ -222,7 +222,7 @@ const SessionHistory = () => {
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                            <Button onClick={() => { navigate('/') }} variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto' }}>Contact us</Button>
+                                            <Button onClick={() => { navigate('/contact') }} variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto' }}>Contact us</Button>
                                         </Box>
                                     </Box>
                                 </Box>

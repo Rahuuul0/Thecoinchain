@@ -129,7 +129,7 @@ const SessionHistory = () => {
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell align="right">
-                                                                <Button size='small' variant='contained' className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
+                                                                <Button size='small' variant='contained' className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> {item.country_code} </Button>
                                                             </TableCell>
                                                         </TableRow>
                                                             )

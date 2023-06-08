@@ -1,12 +1,12 @@
-import React from 'react'
-import { useEffect} from 'react'
+import React from 'react';
+import { useEffect} from 'react';
 import { ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../_common/app.constants"
+import { theme } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button} from '@mui/material';
 import {  ArrowRightAlt,  } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
-import { newsListActions } from '../../_actions'
-import { newsListAtom } from "../../_state";
+import { newsListActions, promotionsActions } from '../../_actions';
+import { newsListAtom, promotionAtom } from "../../_state";
 import { useRecoilValue } from "recoil";
 import Blog1 from "../../../public/assets/images/blog-1.svg";
 import DarkLogo from "../../../public/assets/images/logo.svg";
@@ -19,13 +19,23 @@ import Tab from "@mui/material/Tab";
 const NewsPromotions = (props) => {
 
     const newsListGetActions = newsListActions();
+    const promotionsGetActions = promotionsActions();
     const newsList = useRecoilValue(newsListAtom);
+    const promotionList = useRecoilValue(promotionAtom)
 
        // Subscription action get function   API data call 
        useEffect(()=>{
-        const    response = newsListGetActions.get()
+        const response = newsListGetActions.get()
         response.then((res)=>{(res)})
      },[])
+
+        // Subscription action get function   API data call 
+        useEffect(()=>{
+        const response = promotionsGetActions.get()
+        response.then((res)=>{(res)})
+        },[])
+
+         console.log(promotionList,'promotionList')
 
     function a11yProps(index) {
         return {

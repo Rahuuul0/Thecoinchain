@@ -9,6 +9,7 @@ export * from './coin.actions';
 export * from './footer.actions';
 export * from './guidesanalysis';
 export * from './newslist.actions';
+export * from './promotions.action';
 
 
 

@@ -47,6 +47,12 @@ function Header(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    navigate('/academy-about-crypto')
+  };
+
+  const handle = () => {
+    setAnchorEl(null);
+    navigate('/master-course')
   };
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
@@ -177,7 +183,7 @@ function Header(props) {
                   onClose={handleClose}
                 >
                   <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
-                  <MenuItem onClick={handleClose}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
+                  <MenuItem onClick={handle}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
                 </Menu>
               </li>
             </ul>

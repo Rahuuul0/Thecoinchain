@@ -24,6 +24,7 @@ import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import { Label } from 'recharts';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 const drawerWidth = 240;
 
@@ -49,6 +50,12 @@ function Header(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    navigate('/academy-about-crypto')
+  };
+
+  const handle = () => {
+    setAnchorEl(null);
+    navigate('/master-course')
   };
   const [anchorElB, setAnchorElB] = React.useState(null);
   const openB = Boolean(anchorElB);
@@ -149,8 +156,8 @@ function Header(props) {
                   sx={{ borderRadius: '12px' }}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
-                  <MenuItem onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
+                  <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
+                  <MenuItem onClick={handle}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
                 </Menu>
               </li>
             </ul>
@@ -177,6 +184,9 @@ function Header(props) {
               endIcon={<KeyboardArrowDown />}>
               EN/USD
             </Button>
+            <IconButton className='icon-btn' onClick={e => navigate('/subscription#')} aria-label="flash" color="primary">
+              <ShoppingCartOutlinedIcon />
+            </IconButton>
             <Menu
               className='dropdown-menu en-dropdown'
               id="currency-positioned-menu"

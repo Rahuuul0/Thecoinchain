@@ -142,13 +142,33 @@ const Home = () => {
                       <Typography className='top-head' sx={{ fontSize: '12px !important' }}>
                         {item.symbol}/USDT
                       </Typography>
-                      <Button variant="contained" className='orange-btn' sx={{ borderRadius: '90px', }}>{Math.round((item.quote.USD.percent_change_1h + Number.EPSILON) * 100) / 100}%</Button>
+                      <Button
+                        variant="contained"
+                        className="orange-btn"
+                        sx={{ borderRadius: "90px" }}
+                      >
+                        {item.percent_change_24h.toFixed(2)}%
+                      </Button>
                     </Stack>
-                    <Typography variant='h4' component='div' sx={{ fontSize: '20px !important' }} fontWeight={600} paddingBottom={1} className='primary-font'>
-                      {Math.round((item.quote.USD.price + Number.EPSILON) * 100) / 100}
+                    <Typography
+                      variant="h4"
+                      component="div"
+                      sx={{ fontSize: "20px !important" }}
+                      fontWeight={600}
+                      paddingBottom={1}
+                      className="primary-font"
+                    >
+                      {item.price.toFixed(2)}
                     </Typography>
-                    <Typography variant='h6' component='div' sx={{ fontSize: '12px !important' }} fontWeight={400} className='primary-font'>
-                      {Math.round((item.quote.USD.price + Number.EPSILON) * 100) / 10000000}
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      sx={{ fontSize: "12px !important" }}
+                      fontWeight={400}
+                      className="primary-font"
+                    >
+                      {Math.round((item.price + Number.EPSILON) * 100) /
+                        10000000}
                     </Typography>
                   </Grid>
                 )

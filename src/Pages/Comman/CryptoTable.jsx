@@ -66,7 +66,7 @@ const CryptoTable = (props) => {
   const handleChartClose = () => setChartOpen(false);
   const count = Math.ceil(coinsList.length / 4);
   const [page, setPage] = useState(1);
-
+  const [intervalCount, setIntervalCount] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -97,18 +97,35 @@ const CryptoTable = (props) => {
 
   //  Latest Listing API call
   useEffect(() => {
-    const myFun = async () => {
-      const ress = await coinActions.latestListing();
-    };
-    myFun();
-    /* Enable when code goes to live, But Don't remove this code */
-    // const interval = setInterval(() => {
-    //   setCount(count+1);
-    //   myFun();
-    //   }
-    // , 3000);
-    // return () => clearInterval(interval);
+    if (!userDetail.isSubscribed) myFun();
+    else if (userDetail.isSubscribed && location.pathname === "/") myFun();
   }, []);
+
+  const myFun = async () => {
+    let page = "";
+    {
+      location.pathname === "/prediction-dashboard"
+        ? (page = "page_name=prediction_page")
+        : location.pathname === "/market"
+        ? (page = "page_name=market_page")
+        : "";
+    }
+    const ress = await coinActions.latestListing(page);
+  };
+
+  useEffect(() => {
+    if (
+      (location.pathname === "/market" ||
+        location.pathname === "/prediction-dashboard") &&
+      userDetail.isSubscribed
+    ) {
+      const interval = setInterval(() => {
+        setIntervalCount(count + 1);
+        myFun();
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [intervalCount]);
 
   const data = {
     labels: [
@@ -189,7 +206,7 @@ const CryptoTable = (props) => {
                 </TableHead>
                 <TableBody>
                   {paginator(coinsList, page, 50).data.map((item, index) => {
-                    let priceChange = item.quote.USD;
+                    let priceChange = item;
                     return (
                       <TableRow
                         key={index}
@@ -199,7 +216,7 @@ const CryptoTable = (props) => {
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
                       >
-                        <TableCell>{item.cmc_rank}</TableCell>
+                        <TableCell>{index + 1}</TableCell>
                         <TableCell
                           onClick={() => handleOpen(item.id)}
                           sx={{ cursor: "pointer" }}
@@ -215,20 +232,16 @@ const CryptoTable = (props) => {
                           </div>
                         </TableCell>
                         <TableCell align="right">
-                          $ {item.quote.USD.price.toFixed(4)}
+                          $ {item.price.toFixed(4)}
                         </TableCell>
                         <TableCell align="right">
                           <span
                             className={
-                              item.quote.USD.percent_change_24h < 0
-                                ? "down"
-                                : "up"
+                              item.percent_change_24h < 0 ? "down" : "up"
                             }
                           >
                             {Math.round(
-                              (item.quote.USD.percent_change_24h +
-                                Number.EPSILON) *
-                                100
+                              (item.percent_change_24h + Number.EPSILON) * 100
                             ) / 100}
                             %
                           </span>

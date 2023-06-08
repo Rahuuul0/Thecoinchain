@@ -13,21 +13,11 @@ import CheckoutPayment from './Components/CheckoutPayment';
 
 const Subscription = () => {
     const navigate = useNavigate();
-    const subscribed = subscriptionActions()    
+    
     const [open, setOpen] = useState(false);
-    const [payData, setpayData] = useState(0);
-    const [subscriptionData, setSubscriptionData] = useState([]);
 
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
-    // Subscription action get function   API data call 
-    useEffect(()=>{
-       const    response = subscribed.subscription()
-       response.then((res)=>{setSubscriptionData(res)})
-    },[])
- 
-  
+    const handleClose = () => setOpen(false);    
    
     const toggleAcordion = () => {
       setExpand((prev) => true);
@@ -84,15 +74,8 @@ const Subscription = () => {
                                         </Typography>
                                     </Box>
                                 </Box>
-                                <Box className='subscription-steps-col-details'>
-                                    <Box className="step-one">
-                                        <Box className="card-inner-head">
-                                            <Typography component="h5" variant='body1' className='large-caption'>
-                                                Subcription Details
-                                            </Typography>
-                                        </Box>                                        
-                                        <CheckoutPayment />                                                                
-                                    </Box>                                                                  
+                                <Box className='subscription-steps-col-details'>                                                                    
+                                    <CheckoutPayment />                                       
                                 </Box>
                             </Box>
                         </Container>

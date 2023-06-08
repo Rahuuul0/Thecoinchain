@@ -171,7 +171,7 @@ const Home = () => {
                         className="orange-btn"
                         sx={{ borderRadius: "90px" }}
                       >
-                        {item.quote.USD.percent_change_1h.toFixed(2)}%
+                        {item.percent_change_24h.toFixed(2)}%
                       </Button>
                     </Stack>
                     <Typography
@@ -182,7 +182,7 @@ const Home = () => {
                       paddingBottom={1}
                       className="primary-font"
                     >
-                      {item.quote.USD.price.toFixed(2)}
+                      {item.price.toFixed(2)}
                     </Typography>
                     <Typography
                       variant="h6"
@@ -191,9 +191,8 @@ const Home = () => {
                       fontWeight={400}
                       className="primary-font"
                     >
-                      {Math.round(
-                        (item.quote.USD.price + Number.EPSILON) * 100
-                      ) / 10000000}
+                      {Math.round((item.price + Number.EPSILON) * 100) /
+                        10000000}
                     </Typography>
                   </Grid>
                 );

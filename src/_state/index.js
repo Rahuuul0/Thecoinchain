@@ -11,3 +11,4 @@ export * from "./coins";
 export * from "./guides";
 export * from "./newslist";
 export * from "./notifications";
+export * from "./analytic";

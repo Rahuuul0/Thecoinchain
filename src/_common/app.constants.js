@@ -48,7 +48,8 @@ export const Apis = {
   Create_Payment_Intent:'user-subscription',
   Guides_analysis: 'guide-list',
   News_list: 'news-list',
-  User_Login_History: 'user-login-history'
+  User_Login_History: 'user-login-history',
+  Analytics: 'analytics-list',
 };
 
 export const theme = createTheme({

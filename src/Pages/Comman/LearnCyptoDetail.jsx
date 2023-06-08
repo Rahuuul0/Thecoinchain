@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Container,
   Typography,
@@ -49,14 +49,11 @@ const LearnCyptoDetail = () => {
       Bitcoin
     </Typography>,
   ];
-  const scrollRef = React.useRef();
+  const scrollRef = useRef();
   const tutorialsData = useRecoilValue(tutorialAtom);
-
-  const [videoUrl, setVideoUrl] = React.useState(
-    "https://www.youtube.com/watch?v=ysz5S6PUM-U"
-  );
-  const [tutorials, setTutorials] = React.useState(tutorialsData);
-  const [visibleVideos, setVisibleVideos] = useState(3);
+  const displayVideo = tutorialsData[0]?.video_link;
+  const [videoUrl, setVideoUrl] = useState("");
+  const [visibleVideos, setVisibleVideos] = useState(6);
   const tutorialAction = useTutorialActions();
 
   const scrollToVideo = (e, videoLink) => {
@@ -67,51 +64,21 @@ const LearnCyptoDetail = () => {
   };
 
   const handleLoadMore = () => {
-    setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 4);
+    setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
   };
 
-  const videoComponents = tutorials.slice(0, visibleVideos).map((item) => {
-    return (
-      <Grid item xs={12} sm={4} md={4}>
-        <Box className="about-crypto">
-          <Button
-            textTransform="uppercase"
-            className="orange-btn float-img small-btn"
-          >
-            New
-          </Button>
+  useEffect(() => {
+    tutorialAction.tutorialData();
+  }, []);
 
-          <Box
-            className="avatar-rounded"
-            onClick={() => scrollToVideo(scrollRef, item.video_link)}
-            sx={{ cursor: "pointer" }}
-          >
-            <img src={GridImage} />
-          </Box>
-          <Stack direction="row" justifyContent="space-between" paddingTop={3}>
-            <Box display="flex">
-              <img src={Avatar} />
-              <Box sx={{ paddingLeft: "15px" }}>
-                <Typography fontWeight="500">Top 7 NFT usecase</Typography>
-                <Typography className="small secondary-color" fontWeight="500">
-                  <span>First Name</span> <span>Last Name</span>
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box>
-              <Button className="btn btn-green-outlined">Popular</Button>
-            </Box>
-          </Stack>
-        </Box>
-      </Grid>
-    );
-  });
+  useEffect(() => {
+    setVideoUrl(displayVideo);
+  }, [displayVideo]);
 
   return (
     <>
       <Container sx={{ pt: 10 }}>
-        <Box>
+        <Box ref={scrollRef}>
           <Typography
             paddingTop={5}
             paddingBottom={5}
@@ -138,7 +105,7 @@ const LearnCyptoDetail = () => {
       <Container>
         <Box paddingY={10}>
           <Box>
-            <Box paddingBottom={10} ref={scrollRef}>
+            <Box paddingBottom={10}>
               <ReactPlayer
                 url={videoUrl}
                 controls={true}
@@ -300,19 +267,60 @@ const LearnCyptoDetail = () => {
               </Typography>
             </Box>
           </Box>
-          <Box>
-            <Stack direction="row" spacing={3} justifyContent="center">
-              <img src={Share} />
-              <img src={Love} />
-            </Stack>
-          </Box>
         </Box>
       </Container>
 
       <Container>
         <Box paddingY={7}>
           <Grid container spacing={6} rowSpacing={6}>
-            {videoComponents}
+            {tutorialsData?.slice(0, visibleVideos).map((item) => {
+              return (
+                <Grid item xs={12} sm={4} md={4}>
+                  <Box className="about-crypto">
+                    <Button
+                      textTransform="uppercase"
+                      className="orange-btn float-img small-btn"
+                    >
+                      New
+                    </Button>
+
+                    <Box
+                      className="avatar-rounded"
+                      onClick={() => scrollToVideo(scrollRef, item.video_link)}
+                      sx={{ cursor: "pointer" }}
+                    >
+                      <img src={GridImage} />
+                    </Box>
+                    <Stack
+                      direction="row"
+                      justifyContent="space-between"
+                      paddingTop={3}
+                    >
+                      <Box display="flex">
+                        <img src={Avatar} />
+                        <Box sx={{ paddingLeft: "15px" }}>
+                          <Typography fontWeight="500">
+                            Top 7 NFT usecase
+                          </Typography>
+                          <Typography
+                            className="small secondary-color"
+                            fontWeight="500"
+                          >
+                            <span>First Name</span> <span>Last Name</span>
+                          </Typography>
+                        </Box>
+                      </Box>
+
+                      <Box>
+                        <Button className="btn btn-green-outlined">
+                          Popular
+                        </Button>
+                      </Box>
+                    </Stack>
+                  </Box>
+                </Grid>
+              );
+            })}
           </Grid>
           <Typography textAlign="center" paddingTop={10}>
             <Button

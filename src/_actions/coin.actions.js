@@ -42,11 +42,11 @@ const useCoinActions = () => {
       });
   };
 
-  const latestListing = async () => {
+  const latestListing = async (page) => {
     setSelectedCategory(0);
     categoryList.length <= 0 ? categoriesList() : "";
     return fetchWrapper
-      .get(`${Apis.Latest_Listings}?page_name=page_name`)
+      .get(`${Apis.Latest_Listings}?${page}`)
 
       .then((res) => {
         if (res.statusCode === 200) {

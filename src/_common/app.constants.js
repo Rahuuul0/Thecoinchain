@@ -49,6 +49,7 @@ export const Apis = {
   Guides_analysis: "guide-list",
   News_list: "news-list",
   Subscribed_User: "subscribed-user",
+  User_Login_History: 'user-login-history'
 };
 
 export const theme = createTheme({

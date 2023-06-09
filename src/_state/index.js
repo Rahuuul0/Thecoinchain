@@ -12,3 +12,4 @@ export * from "./guides";
 export * from "./newslist";
 export * from "./notifications";
 export * from "./Promotions";
+export * from "./analytic";

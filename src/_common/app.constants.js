@@ -51,6 +51,7 @@ export const Apis = {
   Subscribed_User: "subscribed-user",
   User_Login_History: 'user-login-history',
   Promotions: 'promotions-list',
+  Analytics: 'analytics-list',
 };
 
 export const theme = createTheme({

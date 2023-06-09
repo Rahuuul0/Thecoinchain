@@ -11,43 +11,37 @@ const subscriptionActions = () => {
   const alertActions = useAlertActions();
   const [auth, setAuth] = useRecoilState(authAtom);
 
-  const subscription = () => {
-    return fetchWrapper
-      .get(Apis.Subscription_Plan)
-      .then((res) => {
-        if (res.statusCode === 200) {
-          const dataa = res.data;
-          return dataa;
-          // alertActions.success("Logged In Successfully");
-          // navigate("/")
-        } else {
-          // alertActions.error(res.msg);
-        }
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
-  };
+    const subscription =  () => {
+        return fetchWrapper.get(Apis.Subscription_Plan )
+            .then(res => {
+                if (res.statusCode === 200) {
+                    const dataa = res.data;
+               return dataa
+                    // alertActions.success("Logged In Successfully");
+                    // navigate("/")
+                } else {
+                    // alertActions.error(res.msg);
+                }
+            }).catch((err)=>{console.warn(err)})
+    }
 
-  const getSecretKey = async (dataid) => {
-    return fetchWrapper
-      .post(Apis.Subscription_Plan, { price_id: dataid })
-      .then((res) => {
-        if (res.statusCode === 200) {
-          console.log("Price Id is sent");
-        } else {
-          alertActions.error(Labels.Error);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    const createPaymentIntent =  (data) => {
+        return fetchWrapper.post(Apis.Create_Payment_Intent,data)
+            .then(res => {
+                if (res.statusCode === 200) {
+                    const dataa = res.data;
+                    return dataa;
+                } else {
+                    console.log(res.msg,'res.msg')
+                   // alertActions.error(res.msg);
+                }
+            }).catch((err)=>{console.warn(err)})
+    }
+       
+    return{
+        subscription,
+        createPaymentIntent
+    }
+}
 
-  return {
-    subscription,
-    getSecretKey,
-  };
-};
-
-export { subscriptionActions };
+export{ subscriptionActions }

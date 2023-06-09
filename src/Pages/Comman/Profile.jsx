@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRecoilState} from 'recoil';
 import {useEffect,useState} from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
@@ -12,8 +13,10 @@ import Sidebar from './Components/Sidebar';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from "@mui/material/IconButton";
+import { MuiTelInput } from 'mui-tel-input'
 import { authAtom } from '../../_state';
 import { useRecoilValue } from 'recoil';
+import {userAtom} from '../../_state/users';
 
 function handleClick(event) {
   event.preventDefault();
@@ -39,13 +42,14 @@ function getStyles(name, personName, theme) {
         : theme.typography.fontWeightMedium,
   };
 }
-const Profile = () => {
-  const profileUpdate = useUserActions();
-  const label = { inputProps: { "aria-label": "Switch demo" } };
-  const auth = useRecoilValue(authAtom);
+const Profile = (props) => {
 
-    //yup validation
-    const validationSchema = Yup.object().shape({
+const [Subscribe, setSubscribe] = useRecoilState(userAtom);
+const profileUpdate = useUserActions();
+const [phone, setPhone] = useState('')
+const label = { inputProps: { "aria-label": "Switch demo" } };
+const auth = useRecoilValue(authAtom);
+const validationSchema = Yup.object().shape({
         user_name: Yup.string()
             .trim()
             .required("Name is required"),
@@ -57,7 +61,7 @@ const Profile = () => {
             .trim()
             .required("Mobile is required"),
         password: Yup.string()
-            .required(" Password Required")
+            .required(" Password is required")
             .min(8, " Password must be at least 8 characters.")
             .matches(
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$/,
@@ -82,6 +86,12 @@ const Profile = () => {
      const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
 
     const [personName, setPersonName] = useState([]);
+
+      // Mobile contry code 
+      const handlePhone = (newPhone) => {
+          setPhone(newPhone)
+      }
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
         const {
@@ -124,7 +134,6 @@ const Profile = () => {
         reset({...auth})
     },[auth])
 
-   
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -160,7 +169,7 @@ const Profile = () => {
                                                     <Box>
                                                         <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} >{auth.user_name?auth.user_name:auth.email.split('@')[0]}</Typography>
                                                         <Typography component="p" variant='body2' className='secondary-color' sx={{ fontSize: '14px', color: '#777E90' }}>{auth.email}</Typography>
-                                                        <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>VIP</Button>
+                                                        <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>{Subscribe?.isSubscribed?'VIP':'FREE' }</Button>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={12} sm={4} md={4}>
@@ -201,7 +210,8 @@ const Profile = () => {
                                                 </Grid>
                                             </Grid>
                                         </Box>
-                                        <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
+
+                                       {Subscribe?.isSubscribed && <> <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
                                             <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} paddingY={5}  >Features</Typography>
                                         </Box>
                                         <Box>
@@ -226,7 +236,9 @@ const Profile = () => {
                                         <Typography component="p" variant='body2' paddingBottom={3} >
                                             Stay informed, stay profitable
                                         </Typography>
+                                      </> }
                                     </Box>
+
                                     <Box
                                         noValidate
                                         component="form"
@@ -238,7 +250,7 @@ const Profile = () => {
                                             </Typography>
                                             <Box className='' paddingY={1} >
                                                 <TextField
-                                                     label="Name"
+                                                     label="Name *"
                                                     className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
@@ -259,7 +271,7 @@ const Profile = () => {
                                             <Box className='' paddingY={1}>
                                                 <TextField
                                                     disabled
-                                                    label="Email"
+                                                    label="Email *"
                                                     className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
@@ -275,10 +287,11 @@ const Profile = () => {
                                                 />
                                                 <div className="invalid-feedback" style={{ color: "red" }}>{errors.email?.message}</div>
                                             </Box>
+
+
                                             <Box className='' paddingY={1}>
-                                                <TextField
-                                                    // disabled
-                                                    label="Mobile"
+                                                    <MuiTelInput
+                                                    label="Mobile *"
                                                     className="form-control white-input-box"
                                                     InputLabelProps={{
                                                         shrink: true,
@@ -288,21 +301,21 @@ const Profile = () => {
                                                     required
                                                     fullWidth
                                                     id="mobile"
-                                                    name="mobile"
                                                     autoComplete="off"
                                                     {...register("phone")}
+                                                    value={phone}
+                                                    onChange={handlePhone}
                                                 />
                                                 <div className="invalid-feedback" style={{ color: "red" }}>{errors.phone?.message}</div>
                                             </Box>  
-                                           
-                                            <Box className='' paddingY={1}>
+                                       {auth.login_attempt!==0  && <><Box className='' paddingY={1}>
                                             <TextField
-                                            label="Password"
+                                            required
+                                            label="Password *"
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
                                             margin="normal"
-                                            required
                                             variant="standard"
                                             fullWidth
                                             id="password"
@@ -311,7 +324,6 @@ const Profile = () => {
                                             name="password"
                                             autoComplete="current-password"
                                             size="small"
-                                           
                                             {...register('password')}
                                             className={`form-control white-input-box ${errors.password ? 'is-invalid' : ''}`}
                                             InputProps={{
@@ -325,12 +337,13 @@ const Profile = () => {
                                             }}
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.password?.message}</div>
-                                            </Box>    
+                                            </Box>   
+
                                             <Box className='' paddingY={1}>
                                             <TextField
-                                            label="Confirm Password"
+                                              required
+                                            label="Confirm Password *"
                                             margin="normal" 
-                                            required
                                             fullWidth
                                             id="confirm_password"
                                             placeholder='Confirm Password'
@@ -356,7 +369,9 @@ const Profile = () => {
                                         
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirmpassword?.message}</div>
-                                            </Box>                                                                                           
+                                            </Box> 
+                                            </>
+                                       }
                                         </Box>
                                         <Typography textAlign='right' paddingY={3}>
                                             <Button type="submit" className='btn btn-primary' sx={{ marginLeft: 'auto' }}>Save Settings</Button>

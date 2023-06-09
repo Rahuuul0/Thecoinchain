@@ -6,7 +6,8 @@ import SubsImage from '../../../public/assets/images/subs.svg';
 import { NavigateNext } from '@mui/icons-material/';
 import Sidebar from './Components/Sidebar';
 import { useNavigate } from 'react-router-dom';
-
+import {  subscribedUserAtom } from '../../_state';
+import { useRecoilValue } from "recoil";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -62,7 +63,10 @@ const ForecastSubscriptions = () => {
 
     const navigate = useNavigate();
     const subscribed = subscriptionActions();
+    const subscribedUser = useRecoilValue(subscribedUserAtom);
     const [subscriptionData, setSubscriptionData] = useState([]);
+
+    console.log(subscribedUser,'subscribedUser')
 
     const [open, setOpen] = useState(false);
 
@@ -113,8 +117,8 @@ const ForecastSubscriptions = () => {
 
         // Subscription action get function   API data call 
         useEffect(()=>{
-            const    response = subscribed.subscription()
-            response.then((res)=>{setSubscriptionData(res)})
+            const response = subscribed.subscribedUser()
+            response.then((res)=>{(res)})
          },[])
   
     return (

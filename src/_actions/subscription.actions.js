@@ -32,7 +32,6 @@ const subscriptionActions = () => {
                     const dataa = res.data;
                     return dataa;
                 } else {
-                    console.log(res.msg,'res.msg')
                    // alertActions.error(res.msg);
                 }
             }).catch((err)=>{console.warn(err)})

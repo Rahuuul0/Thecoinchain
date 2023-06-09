@@ -9,30 +9,66 @@ import TransferImg from '../../../public/assets/images/transfer.svg'
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {notificationAtom} from '../../_state/notifications';
+import {notificationActions} from '../../_actions/notification.actions';
 import { useRecoilValue } from "recoil";
 
 
 const Notifications = () => {
-
+    const notificationAction = notificationActions();
     const notifications = useRecoilValue(notificationAtom);
+    const [loadMoreList,setLoadMoreList]=useState([notifications])
+    const [loadmore,setLoadmore] = useState([]);
 
-    const [select, setSelect] = useState();
 
-  
+    const [select, setSelect] = useState(true);
+    const [select2, setSelect2] = useState(true)
+
+
+    const handleClear =() =>{
+        notificationAction.clearData()
+    }
+   const markAllread = () =>{
+            notificationAction.markAllread()
+   }
     const handleSelectAll =() =>{
-        setSelect(select);
-   
+        setSelect(true);
+        setSelect2(true);
   
     }
     const handleUnselectAll =() =>{
-        setSelect(select);
+        setSelect(false);
+        setSelect2(false);
     
     }
- 
- console.log(select,'dfdvdfdsfdsfds')
-  
+
+   const handleLoadmore =() =>{
+         setLoadmore(loadmore +5)
+   }
+        // load more  code user  code futrue user
+
+//    useEffect(()=>{
+    
+//     let arr = notifications.filter( (item, index ,startIndex) =>  
+//       if(index<loadmore && index>=startIndex)
+//         return item;
+// );
+//   setLoadMoreList(arr)
+//    },[])
+
+//    useEffect(()=>{
+//     let startIndex=loadmore-1;
+//     let arr = notifications.filter( (item, index ,startIndex) =>  
+//        if(index<loadmore && index>=startIndex)
+//         return item;);
+//      setLoadMoreList(arr)
+//    },[loadmore])
+console.log(loadmore,'dfgdfgdfgdfgfd')
     return (
         <>
+
+
+
+
             <ThemeProvider theme={theme}>
                 <Box component="main" className='notification-wrapper' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
@@ -45,8 +81,8 @@ const Notifications = () => {
 
                                     <Box className='notification-head-cta'>
                                         <Box className="modal-subscribed-cta">
-                                            <Button variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
-                                            <Button variant="outlined" className='btn btn-outlined-secondary' >Clear all</Button>
+                                            <Button onClick={markAllread} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
+                                            <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Clear all</Button>
                                         </Box>
                                     </Box>
                                 </Box>
@@ -55,8 +91,10 @@ const Notifications = () => {
                                     <Box className='notification-list'>
 
 
-                                        {notifications.map((item) =>{
+                                        {notifications.map((item,index) =>{
+                                        
                                             return(
+                                             
                                                 <Box className='notification-list-itm'>
                                                     <Box className='notification-icon'>
                                                         <BoltOutlinedIcon />
@@ -76,12 +114,14 @@ const Notifications = () => {
                                                         <span className='notification-circle'></span>
                                                     </Box>
                                                 </Box>
-
+                                        
                                             )
+                                           
                                         })}
                                        
-
-                                        <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>
+                                    
+                                        <Button onClick={handleLoadmore}  variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>
+                            
                                     </Box>
                                     <Box className='notification-filter for-desktop'>
                                         <Typography component="h5" variant='h5'>

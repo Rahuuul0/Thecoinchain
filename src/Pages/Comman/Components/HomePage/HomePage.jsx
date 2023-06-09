@@ -49,6 +49,7 @@ import {
   selectedCategoryAtom,
   tutorialAtom,
   userAtom,
+  cardCoinsAtom,
 } from "../../../../_state";
 import ReactPlayer from "react-player";
 
@@ -63,6 +64,8 @@ const Home = () => {
   const selectedCat = useRecoilValue(selectedCategoryAtom);
   const [intervalCount, setIntervalCount] = useState(0);
   const userDetail = useRecoilValue(userAtom);
+  const cardCoinsList = useRecoilValue(cardCoinsAtom);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -146,7 +149,7 @@ const Home = () => {
             padding={3}
             borderRadius={6}
           >
-            {coinsList?.map((item, index) => {
+            {cardCoinsList?.map((item, index) => {
               if (index < 4) {
                 return (
                   <Grid item xs={12} sm={3} md={3} className="gridBox">
@@ -272,7 +275,7 @@ const Home = () => {
                         <ReactPlayer
                           url={item.video_link}
                           controls={true}
-                          light={true}
+                          light={item.image_link}
                           playing={true}
                           width="100%"
                           height="510px"
@@ -365,7 +368,7 @@ const Home = () => {
                               <ReactPlayer
                                 url={item.video_link}
                                 controls={true}
-                                light={true}
+                                light={item.image_link}
                                 playing={true}
                                 // poster={Learn01}
                                 width="100%"
@@ -402,7 +405,7 @@ const Home = () => {
                           <ReactPlayer
                             url={item.video_link}
                             controls={true}
-                            light={true}
+                            light={item.image_link}
                             playing={true}
                             width="100%"
                             height="510px"
@@ -498,7 +501,7 @@ const Home = () => {
                                 <ReactPlayer
                                   url={item.video_link}
                                   controls={true}
-                                  light={true}
+                                  light={item.image_link}
                                   playing={true}
                                   // poster={Learn01}
                                   width="100%"
@@ -535,7 +538,7 @@ const Home = () => {
                           <ReactPlayer
                             url={item.video_link}
                             controls={true}
-                            light={true}
+                            light={item.image_link}
                             playing={true}
                             width="100%"
                             height="510px"
@@ -631,7 +634,7 @@ const Home = () => {
                                 <ReactPlayer
                                   url={item.video_link}
                                   controls={true}
-                                  light={true}
+                                  light={item.image_link}
                                   playing={true}
                                   // poster={Learn01}
                                   width="100%"
@@ -668,7 +671,7 @@ const Home = () => {
                           <ReactPlayer
                             url={item.video_link}
                             controls={true}
-                            light={true}
+                            light={item.image_link}
                             playing={true}
                             width="100%"
                             height="510px"
@@ -764,7 +767,7 @@ const Home = () => {
                                 <ReactPlayer
                                   url={item.video_link}
                                   controls={true}
-                                  light={true}
+                                  light={item.image_link}
                                   playing={true}
                                   // poster={Learn01}
                                   width="100%"

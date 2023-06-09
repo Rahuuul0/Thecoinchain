@@ -24,6 +24,11 @@ const switchAtom = atom({
   default: true,
 });
 
+const forecastSubAtom = atom({
+  key: "forecast",
+  default: { status: "expired" },
+});
+
 const homePageAtom = atom({
   key: "homePageAtom",
   default: [
@@ -505,4 +510,11 @@ const homePageAtom = atom({
     },
   ],
 });
-export { usersAtom, userAtom, userErrorAtom, switchAtom, homePageAtom };
+export {
+  usersAtom,
+  userAtom,
+  userErrorAtom,
+  switchAtom,
+  homePageAtom,
+  forecastSubAtom,
+};

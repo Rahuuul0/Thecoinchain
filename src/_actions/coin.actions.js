@@ -2,7 +2,12 @@ import { useSetRecoilState, useRecoilState } from "recoil";
 import { useFetchWrapper } from "../_helpers";
 import { useAlertActions } from "./alert.actions";
 import { Labels, Apis, RoutesName } from "../_common/app.constants";
-import { coinsAtom, coinCategoryAtom, selectedCategoryAtom } from "../_state/";
+import {
+  coinsAtom,
+  coinCategoryAtom,
+  selectedCategoryAtom,
+  cardCoinsAtom,
+} from "../_state/";
 import { useLocation } from "react-router-dom";
 
 const useCoinActions = () => {
@@ -12,6 +17,7 @@ const useCoinActions = () => {
   const [categoryList, setCoinsCategory] = useRecoilState(coinCategoryAtom);
   const setSelectedCategory = useSetRecoilState(selectedCategoryAtom);
   const location = useLocation();
+  const setCardCoins = useSetRecoilState(cardCoinsAtom);
 
   const categoriesList = async () => {
     return fetchWrapper
@@ -77,8 +83,11 @@ const useCoinActions = () => {
               coinArr.push(firstItem);
             }
           }
-
-          setCoinList(coinArr);
+          setCardCoins(coinArr);
+          if (location.pathname === "/") {
+            let homeCoins = coinArr.slice(0, 5);
+            setCoinList(homeCoins);
+          } else setCoinList(coinArr);
           return res.data.data;
         } else {
           alertActions.error(Labels.Error);

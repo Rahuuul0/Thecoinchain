@@ -28,8 +28,14 @@ import HttpsIcon from "@mui/icons-material/Https";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Line, Chart } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
-import { useCoinActions } from "../../_actions";
-import { coinsAtom, userAtom, selectedCategoryAtom } from "../../_state";
+import { useCoinActions, subscriptionActions } from "../../_actions";
+import {
+  coinsAtom,
+  userAtom,
+  selectedCategoryAtom,
+  forecastSubAtom,
+  authAtom,
+} from "../../_state";
 
 import { TabPanel } from "@mui/lab";
 ChartJS.register(...registerables);
@@ -54,7 +60,7 @@ function paginator(items, current_page, per_page_items) {
 const CryptoTable = (props) => {
   const coinActions = useCoinActions();
   const coinsList = useRecoilValue(coinsAtom);
-  const userDetail = useRecoilValue(userAtom);
+  const userDetail = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const [value, setValue] = useState("1");
   const location = useLocation();
@@ -67,6 +73,9 @@ const CryptoTable = (props) => {
   const [page, setPage] = useState(1);
   const [intervalCount, setIntervalCount] = useState(0);
   const selectedCat = useRecoilValue(selectedCategoryAtom);
+  const subscriptionAction = subscriptionActions();
+  const subscriptionDetails = useRecoilValue(forecastSubAtom);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -100,24 +109,41 @@ const CryptoTable = (props) => {
     setChartData("");
   };
 
+  useEffect(() => {
+    if (userDetail && !subscriptionDetails.id) {
+      subscriptionAction.subscribedUser();
+    }
+  }, []);
+
   //  Latest Listing API call
   useEffect(() => {
-    if (!userDetail.isSubscribed) getLastestListing();
-    else if (userDetail.isSubscribed && location.pathname === "/")
+    if (subscriptionDetails.status === "expired") getLastestListing();
+    else if (
+      subscriptionDetails.status === "running" &&
+      location.pathname === "/"
+    )
       getLastestListing();
-  }, []);
+
+    if (
+      (location.pathname === "/prediction-dashboard" ||
+        location.pathname === "/market") &&
+      subscriptionDetails.status === "running"
+    ) {
+      getLastestListing();
+    }
+  }, [subscriptionDetails]);
 
   const getLastestListing = async () => {
     let page = "";
-    if (userDetail.isSubscribed) {
+    if (subscriptionDetails.status === "running") {
       location.pathname === "/prediction-dashboard"
-        ? (page = `page_name=prediction_page&subscribed_user=${userDetail.isSubscribed}`)
+        ? (page = `page_name=prediction_page`)
         : location.pathname === "/market"
         ? (page = `page_name=market_page`)
         : "";
     } else {
       location.pathname === "/prediction-dashboard"
-        ? (page = `page_name=prediction_page&subscribed_user=${userDetail.isSubscribed}`)
+        ? (page = `page_name=prediction_page`)
         : location.pathname === "/market"
         ? (page = "page_name=market_page")
         : "";
@@ -134,7 +160,7 @@ const CryptoTable = (props) => {
     if (
       (location.pathname === "/market" ||
         location.pathname === "/prediction-dashboard") &&
-      userDetail.isSubscribed
+      subscriptionDetails.status === "running"
     ) {
       const interval = setInterval(() => {
         setIntervalCount(intervalCount + 1);
@@ -146,16 +172,7 @@ const CryptoTable = (props) => {
       }, 10000);
       return () => clearInterval(interval);
     }
-  }, [intervalCount, selectedCat]);
-
-  useEffect(() => {
-    if (
-      location.pathname === "/prediction-dashboard" &&
-      userDetail.isSubscribed
-    ) {
-      getLastestListing();
-    }
-  }, []);
+  }, [intervalCount, selectedCat, subscriptionDetails]);
 
   const data = {
     labels: [
@@ -219,7 +236,11 @@ const CryptoTable = (props) => {
                       </>
                     ) : location.pathname === "/market" ? (
                       <>
-                        <TableCell align="right">7d %</TableCell>
+                        {subscriptionDetails.status === "running" ? (
+                          <TableCell align="right">7d %</TableCell>
+                        ) : (
+                          ""
+                        )}
                         <TableCell align="right">Marketcap</TableCell>
                         <TableCell align="right">Volume(24h)</TableCell>
                       </>
@@ -277,7 +298,7 @@ const CryptoTable = (props) => {
                           </span>
                         </TableCell>
                         {location.pathname === "/prediction-dashboard" &&
-                        !userDetail?.isSubscribed ? (
+                        subscriptionDetails.status === "expired" ? (
                           <>
                             <TableCell align="right">
                               <HttpsIcon />
@@ -293,7 +314,7 @@ const CryptoTable = (props) => {
                             </TableCell>{" "}
                           </>
                         ) : location.pathname === "/prediction-dashboard" &&
-                          userDetail?.isSubscribed ? (
+                          subscriptionDetails.status === "running" ? (
                           <>
                             <TableCell align="right">
                               {/* <span className='up'>{Math.round((item.quote.USD.percent_change_1h + Number.EPSILON) * 100) / 100}%</span> */}
@@ -343,17 +364,21 @@ const CryptoTable = (props) => {
                           </>
                         ) : location.pathname === "/market" ? (
                           <>
-                            <TableCell align="right">
-                              <span
-                                className={
-                                  priceChange.percent_change_7d < 0
-                                    ? "down"
-                                    : "up"
-                                }
-                              >
-                                {priceChange.percent_change_7d}
-                              </span>
-                            </TableCell>
+                            {subscriptionDetails.status === "running" ? (
+                              <TableCell align="right">
+                                <span
+                                  className={
+                                    priceChange.percent_change_7d < 0
+                                      ? "down"
+                                      : "up"
+                                  }
+                                >
+                                  {priceChange.percent_change_7d}
+                                </span>
+                              </TableCell>
+                            ) : (
+                              ""
+                            )}
                             <TableCell align="right">
                               <span
                                 className={
@@ -377,7 +402,7 @@ const CryptoTable = (props) => {
                           ""
                         )}
 
-                        {userDetail?.isSubscribed &&
+                        {subscriptionDetails.status === "running" &&
                         location.pathname !== "/" ? (
                           <TableCell align="right" sx={{ cursor: "pointer" }}>
                             <img
@@ -393,7 +418,7 @@ const CryptoTable = (props) => {
                               onClick={() => handleChartOpen(item.id)}
                             />
                           </TableCell>
-                        ) : !userDetail.isSubscribed &&
+                        ) : subscriptionDetails.status === "expired" &&
                           location.pathname !== "/" ? (
                           <TableCell
                             align="right"
@@ -466,6 +491,16 @@ const CryptoTable = (props) => {
                                   marginLeft: "auto",
                                 }}
                                 className="btn-outlined-secondary btn"
+                                onClick={() => {
+                                  navigate(
+                                    !userDetail
+                                      ? "/create-account"
+                                      : userDetail &&
+                                        subscriptionDetails.status === "running"
+                                      ? "/prediction-dashboard"
+                                      : "/subscription"
+                                  );
+                                }}
                               >
                                 Predict
                               </Button>
@@ -566,7 +601,7 @@ const CryptoTable = (props) => {
 
               <TabContext value={value}>
                 <Box>
-                  {userDetail?.isSubscribed ? (
+                  {subscriptionDetails.status === "running" ? (
                     <TabList onChange={handleChange} aria-label="Login Tabs">
                       <Tab label="15m" value="1" />
                       <Tab label="1h" value="2" />

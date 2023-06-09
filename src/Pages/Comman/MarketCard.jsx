@@ -20,11 +20,14 @@ import AtcIc from "../../../public/assets/images/icons/atc-ic.svg";
 import EthIc from "../../../public/assets/images/icons/eth-ic.svg";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { useCoinActions } from "../../_actions";
+import { useCoinActions, subscriptionActions } from "../../_actions";
 import {
   coinCategoryAtom,
   selectedCategoryAtom,
   coinsAtom,
+  cardCoinsAtom,
+  authAtom,
+  forecastSubAtom,
 } from "../../_state";
 const MarketCard = () => {
   const navigate = useNavigate();
@@ -33,9 +36,13 @@ const MarketCard = () => {
   const coinActions = useCoinActions();
   const categoryList = useRecoilValue(coinCategoryAtom);
   const selectedCat = useRecoilValue(selectedCategoryAtom);
-
   const [tablefilter, setTablefilter] = useState("");
   const [selectedCatId, setSelectedCatId] = useState(0);
+  const cardCoinsList = useRecoilValue(cardCoinsAtom);
+  const userDetail = useRecoilValue(authAtom);
+  const subscriptionAction = subscriptionActions();
+  const subscriptionDetails = useRecoilValue(forecastSubAtom);
+
   const handleChangeTablefilter = (event) => {
     setTablefilter(event.target.value);
   };
@@ -46,14 +53,18 @@ const MarketCard = () => {
 
   useEffect(() => {
     coinActions.latestListing();
+    if (userDetail && !subscriptionDetails.id) {
+      subscriptionAction.subscribedUser();
+    }
   }, []);
+
   return (
     <>
       <Box className="market-crypto-card-wrapper">
         <Container maxWidth="lg">
           <Box className="market-crypto-card-wrapper-inner">
             <Box className="market-crypto-graph">
-              {coinsList.slice(0, 3).map((item) => {
+              {cardCoinsList?.slice(0, 3).map((item) => {
                 return (
                   <Box className="market-crypto-graph-col">
                     <Box className="market-crypto-graph-ic">
@@ -80,11 +91,11 @@ const MarketCard = () => {
                                   : "#58bd7d",
                             }}
                           >
-                            {item.percent_change_24h.toFixed(2)}
+                            {item.percent_change_24h?.toFixed(2)}
                           </span>
                         </Typography>
                         <Typography component="h5" varient="h5">
-                          {item.price.toFixed(2)}
+                          {item.price?.toFixed(2)}
                         </Typography>
                         <Typography component="small" varient="small-caption">
                           {item.market_cap}
@@ -177,7 +188,13 @@ const MarketCard = () => {
                 variant="outlined"
                 className="btn btn-outlined-secondary"
                 onClick={() => {
-                  navigate("../predict-market");
+                  navigate(
+                    !userDetail
+                      ? "/create-account"
+                      : userDetail && subscriptionDetails.status === "running"
+                      ? "/prediction-dashboard"
+                      : "/subscription"
+                  );
                 }}
               >
                 Predict

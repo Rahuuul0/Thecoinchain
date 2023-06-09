@@ -1,7 +1,7 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Typography, Button, Link} from '@mui/material'
+import { Box, Container, Typography, Button, Link } from '@mui/material'
 import CryptoTrader01 from '../../../public/assets/images/crypto-trader-01.svg'
 import CryptoTrader02 from '../../../public/assets/images/crypto-trader-02.svg'
 import CryptoTrader03 from '../../../public/assets/images/crypto-trader-03.svg'
@@ -16,7 +16,7 @@ const Subscription = () => {
             <ThemeProvider theme={theme}>
                 <Box component="main" className='subscription-wrapper' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
-                        <Box className='subscription-wrapper-head'>
+                        <Box className='subscription-wrapper-head back-arrow'>
                             <Typography component="h2" variant='h2'>
                                 Subscriptions
                             </Typography>
@@ -28,8 +28,8 @@ const Subscription = () => {
                     </Container>
 
                     <Box className='subscription-steps'>
-                        <Container maxWidth="lg">                                            
-                            <CheckoutPayment />  
+                        <Container maxWidth="lg">
+                            <CheckoutPayment />
                         </Container>
                     </Box>
                     <Box className='become-a-crypto-trader'>
@@ -87,7 +87,7 @@ const Subscription = () => {
                         </Container>
                     </Box>
                 </Box >
-            </ThemeProvider >            
+            </ThemeProvider >
         </>
     )
 }

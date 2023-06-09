@@ -1271,6 +1271,10 @@ input[type="number"] {
   justify-content: center;
 }
 
+.contact-hero-image {
+  width: 100%;
+}
+
 .margin10 {
   margin-left: 10px;
 }
@@ -1346,6 +1350,7 @@ input[type="number"] {
 
 .faq-accordian .MuiPaper-root {
   box-shadow: none;
+  background-color: unset;
 }
 
 .faq-accordian .MuiButtonBase-root {
@@ -2135,6 +2140,12 @@ p.left-icon {
   font-weight: 700;
   font-family: var(--secondary-font) !important;
   cursor: pointer;
+  color: var(--color_dark);
+  opacity: 0.6;
+}
+
+p.left-icon.active {
+  opacity: 1;
 }
 
 p.left-icon span {
@@ -2166,7 +2177,7 @@ p.left-icon img {
 }  */
 
 .img-btn img {
-  width: 30px;
+  width: 18px;
 }
 
 .img-btn>input {
@@ -2581,6 +2592,10 @@ body {
   z-index: 0;
 }
 
+.modal-yay div.MuiBackdrop-root {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
 
@@ -2742,6 +2757,30 @@ body {
 }
 
 @media (max-width: 767.98px) {
+  #root .subscription-wrapper-head h2 {
+    font-size: 32px;
+  }
+
+  #root .subscription-wrapper-head.back-arrow h2 {
+    position: relative;
+    padding-left: 30px;
+
+  }
+
+  #root .subscription-wrapper-head.back-arrow h2::before {
+    content: "❮";
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    font-size: 18px;
+  }
+
+  #root .crypto-trader-head h2 {
+    font-size: 40px;
+  }
+
   .for-mobile {
     display: block;
   }
@@ -3195,8 +3234,4 @@ body {
   .auth-otp>div input {
     padding: 20px 10px;
   }
-}
-
-div.MuiBackdrop-root {
-  background-color: rgba(0, 0, 0, 0.8);
 }

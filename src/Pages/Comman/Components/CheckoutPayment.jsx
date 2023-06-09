@@ -372,6 +372,7 @@ const CheckoutForm = () => {
                 open={open}
                 onClose={() => setOpen(false)}
                 aria-labelledby="modal-modal-title"
+                className="modal-yay"
             >
                 <Box className="modal-dialog modal-subscribed">
                     <Button onClick={() => setOpen(false)} variant='outlined' className='btn btn-outlined-secondary btn-round btn-close'><CloseIcon /></Button>

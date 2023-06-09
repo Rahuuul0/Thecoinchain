@@ -8,15 +8,15 @@ import { NavigateNext } from '@mui/icons-material/';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
-import { useUserActions } from "../../_actions/user.actions"
+import { useUserActions, subscriptionActions} from "../../_actions"
 import Sidebar from './Components/Sidebar';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from "@mui/material/IconButton";
 import { MuiTelInput } from 'mui-tel-input'
-import { authAtom } from '../../_state';
 import { useRecoilValue } from 'recoil';
-import {userAtom} from '../../_state/users';
+import {userAtom, authAtom, forecastSubAtom} from '../../_state';
+import dayjs from 'dayjs';
 
 function handleClick(event) {
   event.preventDefault();
@@ -43,12 +43,13 @@ function getStyles(name, personName, theme) {
   };
 }
 const Profile = (props) => {
-
-const [Subscribe, setSubscribe] = useRecoilState(userAtom);
 const profileUpdate = useUserActions();
+const subUserAction = subscriptionActions();
 const [phone, setPhone] = useState('')
 const label = { inputProps: { "aria-label": "Switch demo" } };
 const auth = useRecoilValue(authAtom);
+const subscribeUser = useRecoilValue(forecastSubAtom);
+
 const validationSchema = Yup.object().shape({
         user_name: Yup.string()
             .trim()
@@ -86,6 +87,13 @@ const validationSchema = Yup.object().shape({
      const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
 
     const [personName, setPersonName] = useState([]);
+
+
+           // Subscription action get function   API data call 
+           useEffect(()=>{
+            const response = subUserAction.subscribedUser()
+            response.then((res)=>{(res)})
+         },[])
 
       // Mobile contry code 
       const handlePhone = (newPhone) => {
@@ -169,7 +177,7 @@ const validationSchema = Yup.object().shape({
                                                     <Box>
                                                         <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} >{auth.user_name?auth.user_name:auth.email.split('@')[0]}</Typography>
                                                         <Typography component="p" variant='body2' className='secondary-color' sx={{ fontSize: '14px', color: '#777E90' }}>{auth.email}</Typography>
-                                                        <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>{Subscribe?.isSubscribed?'VIP':'FREE' }</Button>
+                                                        <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>{subscribeUser?.status?'VIP':'FREE' }</Button>   
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={12} sm={4} md={4}>
@@ -211,13 +219,13 @@ const validationSchema = Yup.object().shape({
                                             </Grid>
                                         </Box>
 
-                                       {Subscribe?.isSubscribed && <> <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
+                                       {subscribeUser?.status === 'running' && <> <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
                                             <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} paddingY={5}  >Features</Typography>
                                         </Box>
                                         <Box>
                                             <Box display='flex' paddingY={3}>
                                                 <span >
-                                                    <Typography component="p" variant='body2' fontWeight={500} >VIP - Your annual plan will be expired on 15/2/2025</Typography>
+                                                    <Typography component="p" variant='body2' fontWeight={500} >VIP - Your annual plan will be expired on {dayjs(subscribeUser.end_date).format('MM/DD/YY')}</Typography>
                                                 </span>
                                                 <span >
                                                     <Switch {...label} defaultChecked />
@@ -228,7 +236,7 @@ const validationSchema = Yup.object().shape({
                                             Get all crypto price predictions
                                         </Typography>
                                         <Typography component="p" variant='body2' paddingBottom={3} >
-                                            15 min, 1 hour, 4 hour, 1 day time frames available
+                                            1 hour, 1 day, 7day, 1 month time frames available
                                         </Typography>
                                         <Typography component="p" variant='body2' paddingBottom={3} >
                                             Trade with Machine Learning

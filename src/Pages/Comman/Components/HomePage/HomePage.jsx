@@ -237,7 +237,7 @@ const Home = () => {
                 className="btn btn-outlined-secondary"
                 sx={{ borderRadius: "90px", ml: { lg: "auto" } }}
                 onClick={() => {
-                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                  window.scrollTo({ top: 1650, left: 0, behavior: "smooth" });
                   navigate("./learn-cypto");
                 }}
               >

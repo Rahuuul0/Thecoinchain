@@ -181,7 +181,8 @@ const useUserActions = () => {
         navigate('/login');               
     }
 
-    const updateUser =({name,email, phone})=>{      
+    const updateUser =({name,email, mobile})=>{  
+        const  phone = mobile;  
         const password = localStorage.getItem("password")
       return fetchWrapper.post(`${Apis.Update_User}`,{name,email,phone,password})
       .then(res=>{

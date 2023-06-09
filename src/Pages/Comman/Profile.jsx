@@ -51,6 +51,7 @@ const profileUpdate = useUserActions();
 const [phone, setPhone] = useState('')
 const label = { inputProps: { "aria-label": "Switch demo" } };
 const auth = useRecoilValue(authAtom);
+
 const validationSchema = Yup.object().shape({
         user_name: Yup.string()
             .trim()
@@ -59,11 +60,25 @@ const validationSchema = Yup.object().shape({
             .email()
             .trim()
             .required("Email Address is required"),
-        phone: Yup.string()
-            .max(15,"Phone must be at most 15 characters")
+        mobile: Yup.string()
             .trim()
-            .required( "Mobile is required"),
-           
+            .required( "Mobile Number is required")
+            .max(15,"Phone must be at most 15 characters"),
+        });
+
+
+        const validationSchema1 = Yup.object().shape({ 
+        user_name: Yup.string()
+            .trim()
+            .required("Name is required"),
+        email: Yup.string()
+            .email()
+            .trim()
+            .required("Email Address is required"),
+        mobile: Yup.string()
+            .trim()
+            .required( "Mobile Number is required")
+            .max(15,"Phone must be at most 15 characters"),        
         password: Yup.string()
             .required(" Password is required")
             .min(8, " Password must be at least 8 characters.")
@@ -73,9 +88,11 @@ const validationSchema = Yup.object().shape({
             ),
         confirmpassword: Yup.string().required('Confirm Password is required')
             .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    });
+        });
 
-  const formOptions = { resolver: yupResolver(validationSchema) };
+        const formOptions = { resolver: yupResolver(auth.login_attempt !==0 ? validationSchema1 :validationSchema) };
+
+//   const formOptions = { resolver: yupResolver( validationSchema) };
   // get functions to build form with useForm() hook
   const { register, handleSubmit, formState, reset, watch } =
     useForm(formOptions);
@@ -84,10 +101,10 @@ const validationSchema = Yup.object().shape({
 
      //password eye IconButton
      const [showPassword, setShowPassword] = React.useState(false);
-     const [showPassword2, setShowPassword2] = React.useState(false);
+     const [showPassword1, setShowPassword1] = React.useState(false);
  
      const handleClickShowPassword = () => setShowPassword((show) => !show);
-     const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
+     const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
 
     const [personName, setPersonName] = useState([]);
 
@@ -291,8 +308,6 @@ const validationSchema = Yup.object().shape({
                                                 />
                                                 <div className="invalid-feedback" style={{ color: "red" }}>{errors.email?.message}</div>
                                             </Box>
-
-
                                             <Box className='' paddingY={1}>
                                                     <MuiTelInput
                                                     label="Mobile *"
@@ -306,11 +321,11 @@ const validationSchema = Yup.object().shape({
                                                     fullWidth
                                                     id="mobile"
                                                     autoComplete="off"
-                                                    {...register("phone")}
+                                                    {...register("mobile")}
                                                     value={phone}
                                                     onChange={handlePhone}
                                                 />
-                                                <div className="invalid-feedback" style={{ color: "red" }}>{errors.phone?.message}</div>
+                                                <div className="invalid-feedback" style={{ color: "red" }}>{errors.mobile?.message}</div>
                                             </Box>  
                                        {auth.login_attempt !==0  && <><Box className='' paddingY={1}>
                                             <TextField
@@ -326,7 +341,7 @@ const validationSchema = Yup.object().shape({
                                             placeholder='Password'
                                             type={showPassword ? "text" : "password"}
                                             name="password"
-                                            autoComplete="current-password"
+                                            autoComplete="password"
                                             size="small"
                                             {...register('password')}
                                             className={`form-control white-input-box ${errors.password ? 'is-invalid' : ''}`}
@@ -345,13 +360,13 @@ const validationSchema = Yup.object().shape({
 
                                             <Box className='' paddingY={1}>
                                             <TextField
-                                              required
                                             label="Confirm Password *"
-                                            margin="normal" 
+                                            margin="normal"
+                                            required 
                                             fullWidth
                                             id="confirm_password"
                                             placeholder='Confirm Password'
-                                            type={showPassword2 ? "text" : "password"}
+                                            type={showPassword1? "text" : "password"}
                                             name="confirm_password"
                                             autoComplete="confirm-password"
                                             size="small"
@@ -364,8 +379,8 @@ const validationSchema = Yup.object().shape({
                                             InputProps={{
                                                 endAdornment: (
                                                     <InputAdornment position="end">
-                                                        <IconButton onClick={handleClickShowPassword2}>
-                                                            {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                        <IconButton onClick={handleClickShowPassword1}>
+                                                            {showPassword1 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
                                                         </IconButton>
                                                     </InputAdornment>
                                                 )

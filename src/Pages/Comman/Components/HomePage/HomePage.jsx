@@ -133,26 +133,67 @@ const Home = () => {
       {/* Banner Ends */}
       <Container>
         <Box>
-          <Grid container spacing={4} sx={{ alignItems: 'center' }} className='grid-bit' backgroundColor='#F4F5F6' padding={3} borderRadius={6}>
-          {coinsList?.map((item, index)=> {
-              if(index < 4){
-                return(
-                <Grid item xs={12} sm={3} md={3} className='gridBox'>
-              <img src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}  alt={item.symbol} width="33px"  />
-              <Stack direction="row" spacing={2} alignItems='center' paddingTop={1} paddingBottom={1}>
-                <Typography className='top-head' sx={{fontSize:'12px !important'}}>
-                  {item.symbol}/USDT
-                </Typography>
-                <Button variant="contained" className='orange-btn' sx={{ borderRadius: '90px', }}>{Math.round((item.quote.USD.percent_change_1h + Number.EPSILON) * 100) / 100}%</Button>
-              </Stack>
-              <Typography variant='h4' component='div' sx={{fontSize:'20px !important'}} fontWeight={600} paddingBottom={1} className='primary-font'>
-              {Math.round((item.quote.USD.price + Number.EPSILON) * 100) / 100}
-              </Typography>
-              <Typography variant='h6' component='div' sx={{fontSize:'12px !important'}} fontWeight={400} className='primary-font'>
-              {Math.round((item.quote.USD.price + Number.EPSILON) * 100) / 10000000}
-              </Typography>
-            </Grid>
-              )
+          <Grid
+            container
+            spacing={4}
+            sx={{ alignItems: "center" }}
+            className="grid-bit"
+            backgroundColor="#F4F5F6"
+            padding={3}
+            borderRadius={6}
+          >
+            {coinsList?.map((item, index) => {
+              if (index < 4) {
+                return (
+                  <Grid item xs={12} sm={3} md={3} className="gridBox">
+                    <img
+                      src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}
+                      alt={item.symbol}
+                      width="33px"
+                    />
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      alignItems="center"
+                      paddingTop={1}
+                      paddingBottom={1}
+                    >
+                      <Typography
+                        className="top-head"
+                        sx={{ fontSize: "12px !important" }}
+                      >
+                        {item.symbol}/USDT
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        className="orange-btn"
+                        sx={{ borderRadius: "90px" }}
+                      >
+                        {item.percent_change_24h.toFixed(2)}%
+                      </Button>
+                    </Stack>
+                    <Typography
+                      variant="h4"
+                      component="div"
+                      sx={{ fontSize: "20px !important" }}
+                      fontWeight={600}
+                      paddingBottom={1}
+                      className="primary-font"
+                    >
+                      {item.price.toFixed(2)}
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      sx={{ fontSize: "12px !important" }}
+                      fontWeight={400}
+                      className="primary-font"
+                    >
+                      {Math.round((item.price + Number.EPSILON) * 100) /
+                        10000000}
+                    </Typography>
+                  </Grid>
+                );
               }
             })}
           </Grid>

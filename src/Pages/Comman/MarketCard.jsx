@@ -74,19 +74,19 @@ const MarketCard = () => {
                             className="status-badge"
                             style={{
                               backgroundColor:
-                                item.quote.USD.percent_change_24h < 0
+                                item.percent_change_24h < 0
                                   ? "#ff6838"
                                   : "#58bd7d",
                             }}
                           >
-                            {item.quote.USD.percent_change_24h.toFixed(2)}
+                            {item.percent_change_24h.toFixed(2)}
                           </span>
                         </Typography>
                         <Typography component="h5" varient="h5">
-                          {item.quote.USD.price.toFixed(2)}
+                          {item.price.toFixed(2)}
                         </Typography>
                         <Typography component="small" varient="small-caption">
-                          {item.quote.USD.market_cap.toFixed(2)}
+                          {item.market_cap}
                         </Typography>
                       </Box>
                     </Box>
@@ -97,7 +97,7 @@ const MarketCard = () => {
                         height="33px"
                         style={{
                           filter:
-                            item.quote.USD.percent_change_24h < 0
+                            item.percent_change_24h < 0
                               ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
                               : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
                         }}

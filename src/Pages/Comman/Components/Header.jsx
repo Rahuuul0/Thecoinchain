@@ -68,8 +68,9 @@ function Header(props) {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+    <>
+         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+    
       <Divider />
       <List>
         {navItems.map((item, i) => {
@@ -101,6 +102,7 @@ function Header(props) {
       </List>
 
     </Box>
+    </>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -110,15 +112,20 @@ function Header(props) {
       <CssBaseline />
       <AppBar component="nav" className="app-nav">
         <Toolbar>
+          <Box   sx={{ display: { sm: 'none' } }}>
+        <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+
+
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
-          >
+            >
             <MenuIcon />
           </IconButton>
+            </Box>
           <Typography
             variant="h6"
 
@@ -252,21 +259,26 @@ function Header(props) {
         </Toolbar>
       </AppBar>
       <Box component="nav">
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
+        <Box>
+
+         
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: 'block', sm: 'none' },
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Box>
+
       </Box>
     </Box>
   );

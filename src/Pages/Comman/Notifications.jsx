@@ -16,7 +16,8 @@ import { useRecoilValue } from "recoil";
 const Notifications = () => {
     const notificationAction = notificationActions();
     const notifications = useRecoilValue(notificationAtom);
-    const [loadmore,setLoadmore] = useState(5);
+    const [loadMoreList,setLoadMoreList]=useState([notifications])
+    const [loadmore,setLoadmore] = useState([]);
 
 
     const [select, setSelect] = useState(true);
@@ -38,11 +39,27 @@ const Notifications = () => {
     
     }
 
-
    const handleLoadmore =() =>{
          setLoadmore(loadmore +5)
    }
-// console.log(loadmore,'dfgdfgdfgdfgfd')
+
+//    useEffect(()=>{
+    
+//     let arr = notifications.filter( (item, index ,startIndex) =>  
+//       if(index<loadmore && index>=startIndex)
+//         return item;
+// );
+//   setLoadMoreList(arr)
+//    },[])
+
+//    useEffect(()=>{
+//     let startIndex=loadmore-1;
+//     let arr = notifications.filter( (item, index ,startIndex) =>  
+//        if(index<loadmore && index>=startIndex)
+//         return item;);
+//      setLoadMoreList(arr)
+//    },[loadmore])
+console.log(loadmore,'dfgdfgdfgdfgfd')
     return (
         <>
 

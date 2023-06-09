@@ -24,13 +24,26 @@ const notificationActions = () => {
             }).catch((err)=>{console.warn(err)})
     }
 
+    const markAllread = () => {
+        return fetchWrapper.get(Apis.Guides_analysis)
+            .then(res => {
+                if (res.statusCode === 200) {
+                    // setNotification([...res.data])
+                    alertActions.success("Mark all Read Successfully");
+                
+                } else {
+                    // alertActions.error(res.msg);
+                }
+            }).catch((err)=>{console.warn(err)})
+    }
+
     const clearData = () => {
     
         // return fetchWrapper.delete(`${Apis.User_Delete}/${id}`)
         //     .then((res) => {
         //         if (res.statusCode === 200) {                
                     alertActions.success('Clear all Data Successfully');
-                      setNotification([...res.data])
+                    //   setNotification([...res.data])
             //     }
             // });
     }
@@ -38,6 +51,7 @@ const notificationActions = () => {
     return {
 
         notificationList,
+        markAllread,
         clearData,
     }
 }

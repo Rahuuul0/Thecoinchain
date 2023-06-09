@@ -27,7 +27,9 @@ const Notifications = () => {
     const handleClear =() =>{
         notificationAction.clearData()
     }
-  
+   const markAllread = () =>{
+            notificationAction.markAllread()
+   }
     const handleSelectAll =() =>{
         setSelect(true);
         setSelect2(true);
@@ -79,7 +81,7 @@ console.log(loadmore,'dfgdfgdfgdfgfd')
 
                                     <Box className='notification-head-cta'>
                                         <Box className="modal-subscribed-cta">
-                                            <Button  variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
+                                            <Button onClick={markAllread} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
                                             <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Clear all</Button>
                                         </Box>
                                     </Box>

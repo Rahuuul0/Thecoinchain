@@ -42,6 +42,7 @@ const Notifications = () => {
    const handleLoadmore =() =>{
          setLoadmore(loadmore +5)
    }
+        // load more  code user  code futrue user
 
 //    useEffect(()=>{
     

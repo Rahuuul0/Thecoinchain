@@ -302,10 +302,8 @@ const validationSchema = Yup.object().shape({
                                                     }}
                                                     variant="standard"
                                                     margin="normal"
-                                                    
                                                     required
                                                     fullWidth
-                                                     max={10}   
                                                     id="mobile"
                                                     autoComplete="off"
                                                     {...register("phone")}
@@ -314,7 +312,7 @@ const validationSchema = Yup.object().shape({
                                                 />
                                                 <div className="invalid-feedback" style={{ color: "red" }}>{errors.phone?.message}</div>
                                             </Box>  
-                                       {auth.login_attempt ==0  && <><Box className='' paddingY={1}>
+                                       {auth.login_attempt !==0  && <><Box className='' paddingY={1}>
                                             <TextField
                                             required
                                             label="Password *"

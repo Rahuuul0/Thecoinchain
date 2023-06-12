@@ -71,7 +71,7 @@ const useCoinActions = () => {
     setSelectedCategory(0);
     categoryList.length <= 0 ? categoriesList() : "";
     return fetchWrapper
-      .get(`${Apis.Latest_Listings}?${params}`)
+      .post(`${Apis.Latest_Listings}?${params}`)
 
       .then((res) => {
         if (res.statusCode === 200) {
@@ -88,6 +88,7 @@ const useCoinActions = () => {
             let homeCoins = coinArr.slice(0, 5);
             setCoinList(homeCoins);
           } else setCoinList(coinArr);
+
           return res.data.data;
         } else {
           alertActions.error(Labels.Error);

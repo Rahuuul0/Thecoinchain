@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
-import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
+import { NotificationsNone, Search, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
 import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
@@ -14,12 +14,18 @@ import { useUserActions } from "../../../_actions/user.actions";
 import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
-import {notificationActions} from '../../../_actions/notification.actions';
+import { notificationActions } from '../../../_actions/notification.actions';
 
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import {notificationAtom} from '../../../_state/notifications';
+import { notificationAtom } from '../../../_state/notifications';
 import { useRecoilValue } from "recoil";
-const drawerWidth = 240;
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+const drawerWidth = '100%';
+const drawerHeight = '100vh';
 
 function Header(props) {
   const userActions = useUserActions();
@@ -27,15 +33,15 @@ function Header(props) {
   const notifications = useRecoilValue(notificationAtom);
   // const [ clear, setClear ] = useState();
 
-  const handleClear = async() => {
-  //  const clearData  = await  notification.clearData();
-  //  setClear(clearData);
-  notification.clearData();
+  const handleClear = async () => {
+    //  const clearData  = await  notification.clearData();
+    //  setClear(clearData);
+    notification.clearData();
   };
 
 
-  console.log(notifications,'dfgdfgdfgjdfgdfgdfj');
-
+  // console.log(notifications, 'dfgdfgdfgjdfgdfgdfj');
+  // const userActions = useUserActions();
   const navItems = [
     {
       page: 'Community',
@@ -109,38 +115,85 @@ function Header(props) {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+    <Box className='mobile-nav-box' onClick={handleDrawerToggle} sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
+      <Box>
+        <Box display='flex' justifyContent='space-between' alignItems='center'>
+          <Box>
+            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+          </Box>
+          <Box display='flex' alignItems='center' >
+            <Box>
+              <IconButton
+                size="small"
+                className='icon-btn icon-avatar-img btnicon' aria-label="flash" color="primary">
+                <NotificationsNone color="action" />
+              </IconButton>
+            </Box>
+            <Box>
+              <IconButton
+                size="small"
+                sx={{ ml: 2 }} className='icon-avatar-img btnicon' aria-label="flash" color="primary">
+                <img src={UserAvatar} />
+              </IconButton>
+            </Box>
+            <Box className='close'><p>+</p></Box>
+          </Box>
+        </Box>
+        <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
+          <Button variant='standard' className='nav-mobile-btn btn'>Crypto</Button>
+          <Accordion className='submenu'>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="acadamy"
+            >
+              <Button
+                id="acedamy-btn"
 
-      <Divider />
-      <List alignItems='center' className='itemnavitem'>
-        {navItems.map((item, i) => {
-          return (
-            <ListItem key={i} disablePadding alignItems='center'>
+              >
+                Academy
+              </Button>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
+              <Typography onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+            </AccordionDetails>
+          </Accordion>
+          <List className='itemnavitem'>
+            {navItems.map((item, i) => {
+              return (
+                <ListItem key={i} disablePadding >
+                  <ListItemButton >
+                    {item.icon &&
+                      <img src={item.icon} alt={item.page} />
+                    }
+                    <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
+                  </ListItemButton>
+                </ListItem>
+              )
+            })}
+            <ListItem disablePadding alignItems='center'>
               <ListItemButton sx={{ textAlign: 'center' }}>
-                {item.icon &&
-                  <img src={item.icon} alt={item.page} />
-                }
-                <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
+                <ListItemText primary="" onClick={() => { navigate(item.link) }}>
+                  Search
+                </ListItemText>
+              </ListItemButton>
+            </ListItem>notifications
+            <ListItem disablePadding>
+              <ListItemButton sx={{ textAlign: 'center' }}>
+                <ListItemText primary="" onClick={() => { navigate(item.link) }}>
+                  Login
+                </ListItemText>
               </ListItemButton>
             </ListItem>
-          )
-        })}
-        <ListItem disablePadding alignItems='center'>
-          <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText primary="" onClick={() => { navigate(item.link) }}>
-              Search
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>notifications
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText primary="" onClick={() => { navigate(item.link) }}>
-              Login
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-      </List>
+          </List>
+        </Box>
+      </Box>
+      <Box display='flex' justifyContent='space-between'>
+        <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Profile settings</Button>
+        <IconButton aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
+        <IconButton aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
+      </Box>
 
     </Box>
   );
@@ -280,7 +333,7 @@ function Header(props) {
               <FlashOnOutlined />
             </IconButton>
 
-            <IconButton  onClick={handleClickAnchorbtn}
+            <IconButton onClick={handleClickAnchorbtn}
               size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
@@ -326,38 +379,35 @@ function Header(props) {
               <Box padding={2}>
                 <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
 
-                {notifications.map((item,index) =>{
-                   if(index < 5){
-
-                
-                  return(
+                {notifications.map((item) => {
+                  return (
                     <>
-                    
-                    <MenuItem  sx={{padding:'0'}}>
-                     <span className='outer-div-menu'>
-                      <span className='inner-div-menu'>
-                        <span className='head-menu'>{item.name}</span>
-                        <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                      </span>
-                      <Typography className='secondary-color' sx={{fontSize:'10px'}}>{item.create}</Typography>
-                     </span>
-                   </MenuItem>
-                   <Divider/>
-                  </>
+
+                      <MenuItem sx={{ padding: '0' }}>
+                        <span className='outer-div-menu'>
+                          <span className='inner-div-menu'>
+                            <span className='head-menu'>{item.name}</span>
+                            <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                          </span>
+                          <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.create}</Typography>
+                        </span>
+                      </MenuItem>
+                      <Divider />
+                    </>
                   )
                 }
-                })}
+                )}
 
-              
-                <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex' , justifyContent: 'space-between'}} >
-                  <Button onClick={() =>{navigate('/notifications')}} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
+
+                <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
+                  <Button onClick={() => { navigate('/notifications') }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
                     View all
                   </Button>
-                  <Button  onClick={handleClear}  variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                  <Button variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
                     Clear all
                   </Button>
                 </Box>
-                
+
               </Box>
 
             </Menu>

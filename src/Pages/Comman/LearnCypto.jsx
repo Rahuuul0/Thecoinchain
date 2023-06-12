@@ -248,7 +248,7 @@ const LearnCypto = () => {
                                     {item.title}
                                   </Typography>
                                   <Typography paddingBottom={5}>
-                                    Ethereum
+                                    {item.category}
                                   </Typography>
                                   <Typography className="body-caption secondary-color">
                                     {item.blog_description}
@@ -260,7 +260,7 @@ const LearnCypto = () => {
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={7} md={7}>
-                              <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                              <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                             </Grid>
                           </Grid>
                         </Box>
@@ -302,15 +302,13 @@ const LearnCypto = () => {
                                     className="secondary-font"
                                     paddingBottom={2}
                                   >
-                                    A Beginner's Guide to TradingView
+                                    {item.title}
                                   </Typography>
                                   <Typography paddingBottom={5}>
-                                    Ethereum
+                                    {item.category}
                                   </Typography>
                                   <Typography className="body-caption secondary-color">
-                                    A fully-featured landing page kit, including
-                                    design files, and beautiful 3D illustrations
-                                    editable.
+                                   {item.blog_description}
                                   </Typography>
                                 </Box>
                                 <Box>
@@ -319,7 +317,7 @@ const LearnCypto = () => {
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={7} md={7}>
-                              <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                              <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                             </Grid>
                           </Grid>
                         </Box>
@@ -361,15 +359,13 @@ const LearnCypto = () => {
                                     className="secondary-font"
                                     paddingBottom={2}
                                   >
-                                    A Beginner's Guide to TradingView
+                                    {item.title}
                                   </Typography>
                                   <Typography paddingBottom={5}>
-                                    Ethereum
+                                    {item.category}
                                   </Typography>
                                   <Typography className="body-caption secondary-color">
-                                    A fully-featured landing page kit, including
-                                    design files, and beautiful 3D illustrations
-                                    editable.
+                                   {item.blog_description}
                                   </Typography>
                                 </Box>
                                 <Box>
@@ -378,7 +374,7 @@ const LearnCypto = () => {
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={7} md={7}>
-                              <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                              <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                             </Grid>
                           </Grid>
                         </Box>

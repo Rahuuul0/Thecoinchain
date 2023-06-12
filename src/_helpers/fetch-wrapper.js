@@ -59,7 +59,6 @@ function useFetchWrapper() {
           setAuth(null);
           navigate(`/login`);
         }
-
         const error = (data && data.message) || response.statusText;
         if (![402]) {
           alertActions.error(error);

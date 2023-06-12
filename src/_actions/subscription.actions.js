@@ -1,47 +1,68 @@
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from "../_helpers";
-import { Labels, Apis, RoutesName } from "../_common/app.constants";
-import { authAtom } from "../_state";
+import { Apis } from "../_common/app.constants";
+import { forecastSubAtom } from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
 
 const subscriptionActions = () => {
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
   const alertActions = useAlertActions();
-  const [auth, setAuth] = useRecoilState(authAtom);
+  const setForecastSub = useSetRecoilState(forecastSubAtom);
 
-    const subscription =  () => {
-        return fetchWrapper.get(Apis.Subscription_Plan )
-            .then(res => {
-                if (res.statusCode === 200) {
-                    const dataa = res.data;
-               return dataa
-                    // alertActions.success("Logged In Successfully");
-                    // navigate("/")
-                } else {
-                    // alertActions.error(res.msg);
-                }
-            }).catch((err)=>{console.warn(err)})
-    }
+  const subscription = () => {
+    return fetchWrapper
+      .get(Apis.Subscription_Plan)
+      .then((res) => {
+        if (res.statusCode === 200) {
+          const dataa = res.data;
+          return dataa;          
+        } else if (res.statusCode === 401) {
+            console.log(res.msg, "res.msg");     
+        }
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  };
 
-    const createPaymentIntent =  (data) => {
-        return fetchWrapper.post(Apis.Create_Payment_Intent,data)
-            .then(res => {
-                if (res.statusCode === 200) {
-                    const dataa = res.data;
-                    return dataa;
-                } else {
-                    console.log(res.msg,'res.msg')
-                   // alertActions.error(res.msg);
-                }
-            }).catch((err)=>{console.warn(err)})
-    }
-       
-    return{
-        subscription,
-        createPaymentIntent
-    }
-}
+  const createPaymentIntent = (data) => {
+    return fetchWrapper
+      .post(Apis.Create_Payment_Intent, data)
+      .then((res) => {
+        if (res.statusCode === 200) {
+          const dataa = res.data;
+          return dataa;
+        } else {
+          console.log(res.msg, "res.msg");         
+        }
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  };
 
-export{ subscriptionActions }
+  const subscribedUser = () => {
+    return fetchWrapper
+      .get(Apis.Subscribed_User)
+      .then((res) => {
+        if (res.statusCode === 200) {
+          setForecastSub(res.data);         
+        } else {
+            console.log(res.msg, "res.msg");
+        }
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  };
+
+  return {
+    subscription,
+    createPaymentIntent,
+    subscribedUser,
+  };
+};
+
+export { subscriptionActions };

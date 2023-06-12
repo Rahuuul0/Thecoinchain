@@ -52,9 +52,11 @@ const LearnCyptoDetail = () => {
   const scrollRef = useRef();
   const tutorialsData = useRecoilValue(tutorialAtom);
   const displayVideo = tutorialsData[0]?.video_link;
+  const displayImage = tutorialsData[0]?.image_link;
   const [videoUrl, setVideoUrl] = useState("");
   const [visibleVideos, setVisibleVideos] = useState(6);
   const tutorialAction = useTutorialActions();
+  const [imageUrl, setImageUrl] = useState("");
 
   const scrollToVideo = (e, videoLink) => {
     e.current.scrollIntoView({
@@ -109,7 +111,7 @@ const LearnCyptoDetail = () => {
               <ReactPlayer
                 url={videoUrl}
                 controls={true}
-                light={true}
+                light={displayImage}
                 playing={true}
                 width="100%"
                 height="550px"
@@ -274,6 +276,7 @@ const LearnCyptoDetail = () => {
         <Box paddingY={7}>
           <Grid container spacing={6} rowSpacing={6}>
             {tutorialsData?.slice(0, visibleVideos).map((item) => {
+              let title = item.title.substring(0, 20) + "...";
               return (
                 <Grid item xs={12} sm={4} md={4}>
                   <Box className="about-crypto">
@@ -289,7 +292,7 @@ const LearnCyptoDetail = () => {
                       onClick={() => scrollToVideo(scrollRef, item.video_link)}
                       sx={{ cursor: "pointer" }}
                     >
-                      <img src={GridImage} />
+                      <img className="tutorial-preview" src={item.image_link} />
                     </Box>
                     <Stack
                       direction="row"
@@ -299,9 +302,7 @@ const LearnCyptoDetail = () => {
                       <Box display="flex">
                         <img src={Avatar} />
                         <Box sx={{ paddingLeft: "15px" }}>
-                          <Typography fontWeight="500">
-                            Top 7 NFT usecase
-                          </Typography>
+                          <Typography fontWeight="500">{title}</Typography>
                           <Typography
                             className="small secondary-color"
                             fontWeight="500"

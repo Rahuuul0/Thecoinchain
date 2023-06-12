@@ -368,7 +368,7 @@ const Contact = () => {
               </Stack>
             </Box>
             <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>What is your issue about?</Typography>
+              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>What is your issue about? *</Typography>
               <Grid item xs={12}>
             <Autocomplete
                 required
@@ -379,7 +379,7 @@ const Contact = () => {
                 value={formData?.question}
                 options= {names}
                 onChange={(e, props) => reset({ ...formData, question: props?.name })}
-                renderInput={(params) => <TextField {...register('question')}  required {...params} InputLabelProps={{ shrink: true }} />}
+                renderInput={(params) => <TextField autoFocus {...register('question')}  required {...params} InputLabelProps={{ shrink: true }} />}
             />
             <div style={{ color: "red" }}>{errors.question?.message}</div>
         </Grid>
@@ -387,7 +387,7 @@ const Contact = () => {
 
             <Box paddingBottom={2}>
               <TextField
-                label="Email"
+                label="Email *"
                 className="form-control"
                 type="email"
                 InputLabelProps={{
@@ -410,7 +410,7 @@ const Contact = () => {
 
             <Box paddingBottom={2}>
               <TextField
-                label="Subject"
+                label="Subject *"
                 className="form-control"
                 InputLabelProps={{
                   shrink: true,
@@ -431,7 +431,7 @@ const Contact = () => {
             <Box paddingTop='2'>
               <TextField
                 id="outlined-multiline-static"
-                label="Message"
+                label="Message *"
                 variant="standard"
                 className="form-control"
                 placeholder='Say something'

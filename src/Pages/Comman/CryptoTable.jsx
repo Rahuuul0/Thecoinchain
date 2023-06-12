@@ -325,7 +325,7 @@ const CryptoTable = (props) => {
                                     : "up"
                                 }
                               >
-                                {priceChange.percent_change_1h}
+                                {priceChange.percent_change_1h?.toFixed(2)}
                               </span>
                             </TableCell>
                             <TableCell align="right">
@@ -336,7 +336,7 @@ const CryptoTable = (props) => {
                                     : "up"
                                 }
                               >
-                                {priceChange.percent_change_24h}
+                                {priceChange.percent_change_24h?.toFixed(2)}
                               </span>
                             </TableCell>
                             <TableCell align="right">
@@ -347,7 +347,7 @@ const CryptoTable = (props) => {
                                     : "up"
                                 }
                               >
-                                {priceChange.percent_change_7d}
+                                {priceChange.percent_change_7d?.toFixed(2)}
                               </span>
                             </TableCell>
                             <TableCell align="right">
@@ -358,7 +358,7 @@ const CryptoTable = (props) => {
                                     : "up"
                                 }
                               >
-                                {priceChange.percent_change_30d}
+                                {priceChange.percent_change_30d?.toFixed(2)}
                               </span>
                             </TableCell>
                           </>
@@ -373,7 +373,7 @@ const CryptoTable = (props) => {
                                       : "up"
                                   }
                                 >
-                                  {priceChange.percent_change_7d}
+                                  {priceChange.percent_change_7d?.toFixed(2)}
                                 </span>
                               </TableCell>
                             ) : (
@@ -385,7 +385,7 @@ const CryptoTable = (props) => {
                                   priceChange.market_cap < 0 ? "down" : "up"
                                 }
                               >
-                                ${priceChange.market_cap}
+                                ${priceChange.market_cap?.toFixed(2)}
                               </span>
                             </TableCell>
                             <TableCell align="right">
@@ -394,7 +394,7 @@ const CryptoTable = (props) => {
                                   priceChange.volume_24h < 0 ? "down" : "up"
                                 }
                               >
-                                ${priceChange.volume_24h}
+                                ${priceChange.volume_24h?.toFixed(2)}
                               </span>
                             </TableCell>
                           </>

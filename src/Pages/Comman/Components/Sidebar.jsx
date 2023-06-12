@@ -17,15 +17,15 @@ const Sidebar = (props) => {
     <Box className='subscription-steps-col'>
       <Stack spacing={2}>
         <Box sx={{ borderBottom: '1px solid #E6E8EC' }} paddingBottom={2}>
-          <Typography onClick={() => { navigate('/account/profile') }} className='left-icon secondary-color' paddingBottom={4} fontWeight={700}><span><img src={UserIcon} /> </span>Profile</Typography>
-          <Typography onClick={() => { navigate('/account/referrals') }} className='left-icon secondary-color' paddingBottom={4}><span><img src={ShareIcon} /> </span>Referrals</Typography>
-          {/* <Typography className='left-icon secondary-color' paddingBottom={2}><span><img src={SubscriptionIcon} /> </span>API keys</Typography> */}
-          <Typography onClick={() => { navigate('/account/forecast-subscription') }} className='left-icon secondary-color' paddingBottom={2}><span><img src={SubscriptionIcon} /> </span>Subscriptions</Typography>
+          <Typography onClick={() => { navigate('/account/profile') }} className='left-icon active' paddingBottom={4} fontWeight={700}><span><img src={UserIcon} /> </span>Profile</Typography>
+          <Typography onClick={() => { navigate('/account/referrals') }} className='left-icon' paddingBottom={4}><span><img src={ShareIcon} /> </span>Referrals</Typography>
+          {/* <Typography className='left-icon' paddingBottom={2}><span><img src={SubscriptionIcon} /> </span>API keys</Typography> */}
+          <Typography onClick={() => { navigate('/account/forecast-subscription') }} className='left-icon' paddingBottom={2}><span><img src={SubscriptionIcon} /> </span>Subscriptions</Typography>
         </Box>
         <Box paddingTop={2}>
-          <Typography onClick={() => { navigate('/account/session-and-history') }} className='left-icon secondary-color' paddingBottom={4}><span><img src={SessionIcon} /> </span>Sessions & login history</Typography>
-          <Typography onClick={() => { navigate('/account/2fa-enable') }} className='left-icon secondary-color' paddingBottom={4}><span><img src={FaIcon} /> </span>2FA</Typography>
-          <Typography onClick={() => { navigate('/account/change-account-password') }} className='left-icon secondary-color' paddingBottom={4}><span><img src={Lockbtn} /> </span>Change password</Typography>
+          <Typography onClick={() => { navigate('/account/session-and-history') }} className='left-icon' paddingBottom={4}><span><img src={SessionIcon} /> </span>Sessions & login history</Typography>
+          <Typography onClick={() => { navigate('/account/2fa-enable') }} className='left-icon' paddingBottom={4}><span><img src={FaIcon} /> </span>2FA</Typography>
+          <Typography onClick={() => { navigate('/account/change-account-password') }} className='left-icon' paddingBottom={4}><span><img src={Lockbtn} /> </span>Change password</Typography>
         </Box>
       </Stack>
     </Box>

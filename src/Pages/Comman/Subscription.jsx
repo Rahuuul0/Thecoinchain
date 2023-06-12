@@ -1,39 +1,22 @@
-import React, { useState ,useEffect} from 'react'
+import React, { useState } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Typography, Button, Modal, Link} from '@mui/material'
+import { Box, Container, Typography, Button, Link } from '@mui/material'
 import CryptoTrader01 from '../../../public/assets/images/crypto-trader-01.svg'
 import CryptoTrader02 from '../../../public/assets/images/crypto-trader-02.svg'
 import CryptoTrader03 from '../../../public/assets/images/crypto-trader-03.svg'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import CloseIcon from '@mui/icons-material/Close';
-import {subscriptionActions} from '../../_actions/subscription.actions';
 import { useNavigate } from 'react-router-dom';
 import CheckoutPayment from './Components/CheckoutPayment';
 
 const Subscription = () => {
     const navigate = useNavigate();
-    
-    const [open, setOpen] = useState(false);
-
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);    
-   
-    const toggleAcordion = () => {
-      setExpand((prev) => true);
-      setExpandFirst((prev) => false);
-    };
-    const confirmAcordion = () => {
-      setExpand((prev) => false);
-      setconfirm((prev) => true);
-      };
-        
     return (
         <>
             <ThemeProvider theme={theme}>
                 <Box component="main" className='subscription-wrapper' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
-                        <Box className='subscription-wrapper-head'>
+                        <Box className='subscription-wrapper-head back-arrow'>
                             <Typography component="h2" variant='h2'>
                                 Subscriptions
                             </Typography>
@@ -46,38 +29,7 @@ const Subscription = () => {
 
                     <Box className='subscription-steps'>
                         <Container maxWidth="lg">
-                            <Box className='subscription-steps-inner'>
-                                <Box className='subscription-steps-col'>
-                                    <Box className='subscription-step completed-step'>
-                                       
-                                        <Box component="span" className='number-circle'>
-                                        <Button >1</Button>
-                                        </Box>
-                                        <Typography component="p" variant='body2'>
-                                            Select Package
-                                        </Typography>
-                                    </Box>
-                                    <Box className='subscription-step current-step'>
-                                        <Box component="span" className='number-circle'>
-                                        <Button onClick={() =>{toggleAcordion()}}>2</Button>
-                                        </Box>
-                                        <Typography component="p" variant='body2'>
-                                            Payment info
-                                        </Typography>
-                                    </Box>
-                                    <Box className='subscription-step'>
-                                        <Box component="span" className='number-circle'>
-                                        <Button onClick={confirmAcordion}>3</Button>
-                                        </Box>
-                                        <Typography component="p" variant='body2'>
-                                            Confirm order
-                                        </Typography>
-                                    </Box>
-                                </Box>
-                                <Box className='subscription-steps-col-details'>                                                                    
-                                    <CheckoutPayment />                                       
-                                </Box>
-                            </Box>
+                            <CheckoutPayment />
                         </Container>
                     </Box>
                     <Box className='become-a-crypto-trader'>
@@ -136,49 +88,6 @@ const Subscription = () => {
                     </Box>
                 </Box >
             </ThemeProvider >
-            {/* Modal */}
-            < Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-            >
-                <Box className="modal-dialog modal-subscribed">
-                    <Button onClick={handleClose} variant='outlined' className='btn btn-outlined-secondary btn-round btn-close'><CloseIcon /></Button>
-
-                    <Box className="modal-modal-description" sx={{ mt: 2, p: 2 }}>
-                        <Typography className="modal-modal-title" variant="h2" component="h2">
-                            Yay! 🎉
-                        </Typography>
-                        <Typography className="crypto-fullname" variant="body1" component="p">
-                            You successfully subscribed.<br />
-                            Crypto prediction made easy - our algorithms do the work for you!
-                        </Typography>
-
-                    </Box>
-                    <Box className="modal-subscribed-cta">
-                        <Button
-                            fullWidth
-                            variant="outlined"
-                            className='btn btn-outlined-secondary'
-                            onClick={()=>{
-                                navigate("/")
-                            }}
-                        >
-                            Home
-                        </Button>
-                        <Button
-                            fullWidth
-                            variant="contained"
-                            className='btn btn-primary'
-                            onClick={()=>{
-                                navigate("/prediction-dashboard")
-                            }}
-                        >
-                            Dashboard
-                        </Button>
-                    </Box>
-                </Box>
-            </Modal >
         </>
     )
 }

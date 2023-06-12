@@ -37,7 +37,6 @@ import Globe from "../../../../../public/assets/images/globe.svg";
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { useEffect } from "react"
 import Marquee from "react-fast-marquee";
 import CryptoTable from "../../CryptoTable";
 import Learn01 from "../../../../../public/assets/images/learn01.png";
@@ -64,9 +63,9 @@ const Home = () => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };  
-  
-  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) },[]);
+  };
+
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }, []);
   const getFirstLetters = (str) => {
     const firstLetters = str.replace("Portfolio", "");
     // .split(' ')
@@ -75,7 +74,7 @@ const Home = () => {
 
     return firstLetters;
   }
-  
+
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
@@ -133,35 +132,14 @@ const Home = () => {
       {/* Banner Ends */}
       <Container>
         <Box>
-          <Grid
-            container
-            spacing={4}
-            sx={{ alignItems: "center" }}
-            className="grid-bit"
-            backgroundColor="#F4F5F6"
-            padding={3}
-            borderRadius={6}
-          >
+          <Grid container spacing={4} sx={{ alignItems: 'center' }} className='grid-bit' backgroundColor='#F4F5F6' padding={3} borderRadius={6}>
             {coinsList?.map((item, index) => {
               if (index < 4) {
                 return (
-                  <Grid item xs={12} sm={3} md={3} className="gridBox">
-                    <img
-                      src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}
-                      alt={item.symbol}
-                      width="33px"
-                    />
-                    <Stack
-                      direction="row"
-                      spacing={2}
-                      alignItems="center"
-                      paddingTop={1}
-                      paddingBottom={1}
-                    >
-                      <Typography
-                        className="top-head"
-                        sx={{ fontSize: "12px !important" }}
-                      >
+                  <Grid item xs={12} sm={3} md={3} className='gridBox'>
+                    <img src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`} alt={item.symbol} width="33px" />
+                    <Stack direction="row" spacing={2} alignItems='center' paddingTop={1} paddingBottom={1}>
+                      <Typography className='top-head' sx={{ fontSize: '12px !important' }}>
                         {item.symbol}/USDT
                       </Typography>
                       <Button
@@ -193,7 +171,7 @@ const Home = () => {
                         10000000}
                     </Typography>
                   </Grid>
-                );
+                )
               }
             })}
           </Grid>
@@ -874,18 +852,18 @@ const Home = () => {
           </Button>
         </Box>
         <Stack direction='row' className='filter-btn' spacing='2' paddingTop={5}>
-          {(selectedCat===0)?
-            <Button variant='contained' className='btn btn-secondary' onClick={e=>coinActions.latestListing() }>All</Button>
-          :
-            <Button  className='btn' onClick={e=>coinActions.latestListing() }>All</Button>
+          {(selectedCat === 0) ?
+            <Button variant='contained' className='btn btn-secondary' onClick={e => coinActions.latestListing()}>All</Button>
+            :
+            <Button className='btn' onClick={e => coinActions.latestListing()}>All</Button>
           }
-          {categoryList.length && 
-            categoryList.map((item,index)=>{
-              if(index < 4){
-                if(selectedCat!==0 && selectedCat===item.id){
-                  return(<Button variant='contained' className='btn btn-secondary' key={index} onClick={e=>coinActions.coinListbByCategoty(item.id) } title={item.name}>{getFirstLetters(item.name)}</Button>)
-                }else{
-                  return(<Button  className='btn' onClick={e=>coinActions.coinListbByCategoty(item.id) } title={item.name}>{getFirstLetters(item.name)}</Button>)
+          {categoryList.length &&
+            categoryList.map((item, index) => {
+              if (index < 4) {
+                if (selectedCat !== 0 && selectedCat === item.id) {
+                  return (<Button variant='contained' className='btn btn-secondary' key={index} onClick={e => coinActions.coinListbByCategoty(item.id)} title={item.name}>{getFirstLetters(item.name)}</Button>)
+                } else {
+                  return (<Button className='btn' onClick={e => coinActions.coinListbByCategoty(item.id)} title={item.name}>{getFirstLetters(item.name)}</Button>)
                 }
               } else {
                 return "";
@@ -895,7 +873,7 @@ const Home = () => {
         <CryptoTable isIt={false} />
       </Container>
 
-      <Container maxWidth='fluid' className='' sx={{ backgroundColor: '#F4F5F6',   paddingTop: { md: '80px', sm: '20px' },}} >
+      <Container maxWidth='fluid' className='' sx={{ backgroundColor: '#F4F5F6', paddingTop: { md: '80px', sm: '20px' }, }} >
         <Container>
           <Box paddingTop={5} paddingBottom={15} className="become-crypto">
             <Typography

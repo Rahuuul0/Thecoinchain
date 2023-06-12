@@ -1,9 +1,9 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Typography, Button,  Breadcrumbs, TextField, IconButton, InputAdornment } from '@mui/material';
+import { Box, Container, Typography, Button, Breadcrumbs, TextField, IconButton, InputAdornment } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import Sidebar from './Components/Sidebar';
@@ -16,9 +16,9 @@ const ChangeAccountPassword = () => {
 
     const navigate = useNavigate();
     const userActions = useUserActions();
-    
+
     // form validation rules 
-     const validationSchema = Yup.object().shape({
+    const validationSchema = Yup.object().shape({
         old_password: Yup.string()
             .required("Old Password is required"),
         new_password: Yup.string()
@@ -90,109 +90,110 @@ const ChangeAccountPassword = () => {
                                         </Typography>
                                     </Box>
                                     <Box component="form"
-                                    onSubmit={handleSubmit(userActions.changePassword)}
-                                    noValidate
-                                >
-                                    <Box component="div" className='auth-form' >
-                                        <TextField
-                                            label="Old Password"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="old_password"
-                                            placeholder='Old Password'
-                                            type={showPassword ? "text" : "password"}
-                                            name="password"
-                                            autoComplete="old_password"
-                                            size="small"
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            variant="standard"
-                                            {...register('old_password')}
-                                            className={`form-control ${errors.old_password ? 'is-invalid' : ''}`}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton onClick={handleClickShowPassword}>
-                                                            {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                )
-                                            }}
-                                            autoFocus
-                                        />
-                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.old_password?.message}</div>
-                                        <TextField
-                                            label="New Password"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="password"
-                                            placeholder='New Password'
-                                            type={showPassword2 ? "text" : "password"}
-                                            name="password"
-                                            autoComplete="current-password"
-                                            size="small"
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            variant="standard"
-                                            {...register('new_password')}
-                                            className={`form-control ${errors.new_password ? 'is-invalid' : ''}`}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton onClick={handleClickShowPassword2}>
-                                                            {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                )
-                                            }}
+                                        onSubmit={handleSubmit(userActions.changePassword)}
+                                        noValidate
+                                    >
+                                        <Box component="div" className='auth-form' >
+                                            <TextField
+                                                label="Old Password"
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                id="old_password"
+                                                placeholder='Old Password'
+                                                type={showPassword ? "text" : "password"}
+                                                name="password"
+                                                autoComplete="old_password"
+                                                size="small"
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                                variant="standard"
+                                                {...register('old_password')}
+                                                className={`form-control ${errors.old_password ? 'is-invalid' : ''}`}
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton onClick={handleClickShowPassword}>
+                                                                {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    )
+                                                }}
+                                                autoFocus
+                                            />
+                                            <div className="invalid-feedback" style={{ color: "red" }}>{errors.old_password?.message}</div>
+                                            <TextField
+                                                label="New Password"
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                id="password"
+                                                placeholder='New Password'
+                                                type={showPassword2 ? "text" : "password"}
+                                                name="password"
+                                                autoComplete="current-password"
+                                                size="small"
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                                variant="standard"
+                                                {...register('new_password')}
+                                                className={`form-control ${errors.new_password ? 'is-invalid' : ''}`}
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton onClick={handleClickShowPassword2}>
+                                                                {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    )
+                                                }}
 
-                                        />
-                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.new_password?.message}</div>
-                                        <TextField
-                                            label="Confirm New Password"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="confirm_password"
-                                            placeholder='Confirm New Password'
-                                            type={showPassword3 ? "text" : "password"}
-                                            name="confirm_password"
-                                            autoComplete="confirm-password"
-                                            size="small"
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            variant="standard"
-                                            {...register('confirm_password')}
-                                            className={`form-control ${errors.confirm_password ? 'is-invalid' : ''}`}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton onClick={handleClickShowPassword3}>
-                                                            {showPassword3 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                )
-                                            }}
-                                            autoFocus
-                                        />
-                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirm_password?.message}</div>
+                                            />
+                                            <div className="invalid-feedback" style={{ color: "red" }}>{errors.new_password?.message}</div>
+                                            <TextField
+                                                label="Confirm New Password"
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                id="confirm_password"
+                                                placeholder='Confirm New Password'
+                                                type={showPassword3 ? "text" : "password"}
+                                                name="confirm_password"
+                                                autoComplete="confirm-password"
+                                                size="small"
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                                variant="standard"
+                                                {...register('confirm_password')}
+                                                className={`form-control ${errors.confirm_password ? 'is-invalid' : ''}`}
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton onClick={handleClickShowPassword3}>
+                                                                {showPassword3 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    )
+                                                }}
+                                                autoFocus
+                                            />
+                                            <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirm_password?.message}</div>
 
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            className='btn btn-primary'
-                                            fullWidth
-                                            disabled={isSubmitting}
-                                        >
-                                            Continue
-                                        </Button>
+                                            <Button
+                                                type="submit"
+                                                variant="contained"
+                                                className='btn btn-primary'
+                                                fullWidth
+                                                disabled={isSubmitting}
+                                                sx={{ ml: 'auto', mt: { xs: '30px ', md: '30px' } }}
+                                            >
+                                                Continue
+                                            </Button>
+                                        </Box>
                                     </Box>
-                                </Box>
                                 </Box>
                             </Box>
                         </Container>

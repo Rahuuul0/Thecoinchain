@@ -2,7 +2,7 @@ import { useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from "../_helpers";
 import { Apis } from "../_common/app.constants";
-import { forecastSubAtom } from "../_state";
+import { forecastSubAtom, loaderAtom } from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
 
 const subscriptionActions = () => {
@@ -10,6 +10,7 @@ const subscriptionActions = () => {
   const fetchWrapper = useFetchWrapper();
   const alertActions = useAlertActions();
   const setForecastSub = useSetRecoilState(forecastSubAtom);
+  const loader = useSetRecoilState(loaderAtom);
 
   const subscription = () => {
     return fetchWrapper
@@ -17,9 +18,9 @@ const subscriptionActions = () => {
       .then((res) => {
         if (res.statusCode === 200) {
           const dataa = res.data;
-          return dataa;          
+          return dataa;
         } else if (res.statusCode === 401) {
-            console.log(res.msg, "res.msg");     
+          console.log(res.msg, "res.msg");
         }
       })
       .catch((err) => {
@@ -35,7 +36,7 @@ const subscriptionActions = () => {
           const dataa = res.data;
           return dataa;
         } else {
-          console.log(res.msg, "res.msg");         
+          console.log(res.msg, "res.msg");
         }
       })
       .catch((err) => {
@@ -44,13 +45,16 @@ const subscriptionActions = () => {
   };
 
   const subscribedUser = () => {
+    loader(true);
     return fetchWrapper
       .get(Apis.Subscribed_User)
       .then((res) => {
         if (res.statusCode === 200) {
-          setForecastSub(res.data);         
+          setForecastSub(res.data);
+          loader(false);
         } else {
-            console.log(res.msg, "res.msg");
+          console.log(res.msg, "res.msg");
+          loader(false);
         }
       })
       .catch((err) => {

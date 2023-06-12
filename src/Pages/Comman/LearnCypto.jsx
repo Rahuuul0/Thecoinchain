@@ -9,6 +9,8 @@ import {
   OutlinedInput,
   FormControl,
   Select,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 import Blog1 from "../../../public/assets/images/blog-1.svg";
@@ -21,8 +23,7 @@ import Globe from "../../../public/assets/images/globe.svg";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tutorialAtom } from "../../_state";
-import { blogAtom } from "../../_state";
+import { tutorialAtom, blogAtom, loaderAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import AppBar from "@mui/material/AppBar";
 import Tab from "@mui/material/Tab";
@@ -58,7 +59,6 @@ const LearnCypto = () => {
   const tutorialsData = useRecoilValue(tutorialAtom);
   const displayVideo = tutorialsData[0]?.video_link;
   const displayImage = tutorialsData[0]?.image_link;
-
   const [value, setValue] = useState("1");
   const [tutorialTab, setTutorialTab] = useState("1");
   const theme = useTheme();
@@ -66,8 +66,7 @@ const LearnCypto = () => {
   const [visibleVideos, setVisibleVideos] = useState(6);
   const [videoUrl, setVideoUrl] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-
-  console.log(blogsData, 2222222222);
+  const loader = useRecoilValue(loaderAtom);
 
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
@@ -113,6 +112,12 @@ const LearnCypto = () => {
   return (
     <>
       <Container sx={{ pt: 14 }}>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loader}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <Box paddingBottom={15}>
           <Typography
             variant="h1"

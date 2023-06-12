@@ -8,16 +8,8 @@ import {
   MenuItem,
   Stack,
 } from "@mui/material";
-
-import Tab from "@mui/material/Tab";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import GraphUp from "../../../public/assets/images/chart-up.svg";
-import GraphDown from "../../../public/assets/images/chart-down.svg";
-import BtcIc from "../../../public/assets/images/icons/btc-ic.svg";
-import AtcIc from "../../../public/assets/images/icons/atc-ic.svg";
-import EthIc from "../../../public/assets/images/icons/eth-ic.svg";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { useCoinActions, subscriptionActions } from "../../_actions";
@@ -32,19 +24,15 @@ import {
 const MarketCard = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState("1");
-  const coinsList = useRecoilValue(coinsAtom);
   const coinActions = useCoinActions();
   const categoryList = useRecoilValue(coinCategoryAtom);
   const selectedCat = useRecoilValue(selectedCategoryAtom);
   const [tablefilter, setTablefilter] = useState("");
-  const [selectedCatId, setSelectedCatId] = useState(0);
   const cardCoinsList = useRecoilValue(cardCoinsAtom);
   const userDetail = useRecoilValue(authAtom);
   const subscriptionAction = subscriptionActions();
   const subscriptionDetails = useRecoilValue(forecastSubAtom);
   let page = "page_name=market_page";
-
-  console.log(categoryList, "response for category list");
 
   const handleChangeTablefilter = (event) => {
     setTablefilter(event.target.value);

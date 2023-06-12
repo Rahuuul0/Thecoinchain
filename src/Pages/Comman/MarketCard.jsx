@@ -42,6 +42,9 @@ const MarketCard = () => {
   const userDetail = useRecoilValue(authAtom);
   const subscriptionAction = subscriptionActions();
   const subscriptionDetails = useRecoilValue(forecastSubAtom);
+  let page = "page_name=market_page";
+
+  console.log(categoryList, "response for category list");
 
   const handleChangeTablefilter = (event) => {
     setTablefilter(event.target.value);
@@ -52,7 +55,7 @@ const MarketCard = () => {
   };
 
   useEffect(() => {
-    coinActions.latestListing();
+    coinActions.latestListing(page);
     if (userDetail && !subscriptionDetails.id) {
       subscriptionAction.subscribedUser();
     }
@@ -98,7 +101,9 @@ const MarketCard = () => {
                           {item.price?.toFixed(2)}
                         </Typography>
                         <Typography component="small" varient="small-caption">
-                          {item.market_cap}
+                          {Math.round(
+                            (item.market_cap + Number.EPSILON) * 100
+                          ) / 10000}
                         </Typography>
                       </Box>
                     </Box>
@@ -133,7 +138,9 @@ const MarketCard = () => {
                       variant="contained"
                       className="btn btn-secondary"
                       onClick={(e) => {
-                        coinActions.latestListing();
+                        location.pathname === "/market"
+                          ? coinActions.latestListing(page)
+                          : coinActions.latestListing();
                       }}
                     >
                       All
@@ -142,7 +149,9 @@ const MarketCard = () => {
                     <Button
                       className="btn"
                       onClick={(e) => {
-                        coinActions.latestListing();
+                        location.pathname === "/market"
+                          ? coinActions.latestListing(page)
+                          : coinActions.latestListing();
                       }}
                     >
                       All

@@ -56,9 +56,6 @@ const LearnCypto = () => {
   const tutorialAction = useTutorialActions();
   const blogsData = useRecoilValue(blogAtom);
   const tutorialsData = useRecoilValue(tutorialAtom);
-  const displayVideo = tutorialsData[0]?.video_link;
-  const displayImage = tutorialsData[0]?.image_link;
-
   const [value, setValue] = useState("1");
   const [tutorialTab, setTutorialTab] = useState("1");
   const theme = useTheme();
@@ -66,8 +63,6 @@ const LearnCypto = () => {
   const [visibleVideos, setVisibleVideos] = useState(6);
   const [videoUrl, setVideoUrl] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-
-  console.log(blogsData, 2222222222);
 
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
@@ -102,9 +97,9 @@ const LearnCypto = () => {
   }, []);
 
   useEffect(() => {
-    setVideoUrl(displayVideo);
-    setImageUrl(displayImage);
-  }, [displayVideo]);
+    setVideoUrl(tutorialsData[0]?.video_link);
+    setImageUrl(tutorialsData[0]?.image_link);
+  }, [tutorialsData]);
 
   const handleLoadMore = () => {
     setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
@@ -205,7 +200,7 @@ const LearnCypto = () => {
                     >
                       <Tab label="2D Design" value="1" />
                       <Tab label="3D Design" value="2" />
-                      <Tab label="User Experience" value="3" />
+                      <Tab label="Bitcoin" value="3" />
                     </TabList>
                   </Grid>
                 </Grid>
@@ -329,7 +324,7 @@ const LearnCypto = () => {
                 <Box>
                   {blogsData
                     .filter((blog) => {
-                      return blog.category === "User experience";
+                      return blog.category === "Bitcoin";
                     })
                     .slice(0, 3)
                     .map((item) => {

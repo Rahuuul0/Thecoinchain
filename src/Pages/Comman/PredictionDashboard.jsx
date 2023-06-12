@@ -51,7 +51,7 @@ const PredictionDashboard = () => {
                                             return(
                                            <Box className='market-prediction-faq-item'>
                                             <Box className='market-prediction-faq-item-img'>
-                                                <img src={FAQ01} alt='FAQ' />
+                                                <img src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} alt='FAQ' />
                                             </Box>
                                             <Box className='market-prediction-faq-item-content'>
                                                 <Typography component="small" variant='body2' className='small-caption' sx={{ color: '#777E90' }}>

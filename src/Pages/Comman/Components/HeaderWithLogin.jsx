@@ -129,10 +129,10 @@ function Header(props) {
                 <NotificationsNone color="action" />
               </IconButton>
             </Box>
-            <Box>
+            <Box className=''>
               <IconButton
                 size="small"
-                sx={{ ml: 2 }} className='icon-avatar-img btnicon' aria-label="flash" color="primary">
+                sx={{ ml: 2, }} className='icon-avatar-img btnicon mobile-avatar' aria-label="flash" color="primary">
                 <img src={UserAvatar} />
               </IconButton>
             </Box>

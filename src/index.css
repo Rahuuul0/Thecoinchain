@@ -2734,6 +2734,9 @@ body {
 }
 
 @media (max-width: 767.98px) {
+  body{
+    overflow-x: hidden !important;
+  }
   #root .subscription-wrapper-head h2 {
     font-size: 32px;
   }
@@ -2866,6 +2869,9 @@ body {
     transform: rotate(45deg);
     line-height: 0;
   }
+  .mobile-avatar {
+    padding-right: 20px !important;
+  }
   .close{
     transform: rotate(45deg);font-size: 29px;   line-height: 0;
   }
@@ -2890,9 +2896,7 @@ body {
   nav .MuiButtonBase-root {
     padding: 6px 0px;
   }
-  .mobile-nav-box Button{
-    padding-right: 40px;
-  }
+
   /* homepage */
   .filter-btn,
   .learn-cypto-tab .MuiTabs-flexContainer {
@@ -3190,6 +3194,10 @@ body {
   /* refferals */
   #root .mobile-body-large {
     font-size: 24px;
+  }
+
+  .community-wrapper-inner{
+    grid-template-columns: repeat(1, 1fr)
   }
 }
 

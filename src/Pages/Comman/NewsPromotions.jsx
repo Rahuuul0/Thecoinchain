@@ -200,7 +200,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -256,7 +256,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}/>
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -311,7 +311,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -366,7 +366,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -511,7 +511,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -566,7 +566,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -621,7 +621,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -676,7 +676,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>

@@ -421,11 +421,12 @@ function Header(props) {
             <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline mobile-none' sx={{ display: { xs: 'none', md: 'block'}, color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid',  }}>
               Account
             </Button>
-            <IconButton aria-label="sunny" color="primary " >
+            <IconButton aria-label="sunny" color="primary " className=' mobile-none'>
               <WbSunnyOutlined />
             </IconButton>
 
             <IconButton onClick={handleClickAnchor}
+            
               size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchor ? 'account-menu' : undefined}

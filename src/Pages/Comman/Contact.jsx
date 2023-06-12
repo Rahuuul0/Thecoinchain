@@ -158,7 +158,7 @@ const Contact = () => {
     <>
       {/* Banner starts */}
       <Container>
-        <Box paddingTop={5} paddingBottom={10}>
+        <Box sx={{paddingTop: {xs: '80px' , md: '150px'} , paddingBottom: {xs: '0px' , md: '50px'} }} >
           <Grid container sx={{ alignItems: 'center' }}>
             <Grid item xs={12} sm={6} md={6} paddingRight={5} className='padding-0-mobile'>
               <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} >Save your time with Stacks</Typography>
@@ -196,6 +196,7 @@ const Contact = () => {
 
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
         <Box paddingY={7} className='newdesignbox'>
+        <Typography sx={{paddingX: {xs: '20px', md: '400px'}, paddingBottom: {xs: '20px', md: '50px'}}} component='p' variant='p' className='body-caption' textAlign='center'>Before asking for an answer, you may find it in our learn crypto center</Typography>
           <Grid container spacing={0} rowSpacing={6} >
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>

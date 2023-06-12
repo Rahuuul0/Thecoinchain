@@ -2901,9 +2901,19 @@ body {
     padding-right: 0px;
   }
   .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
-    height: 100vh;    display: flex;
+    height: 100vh;    
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+  #root nav .btn.mobile-none{
+    display: none !important;
+  }
+  nav .MuiButtonBase-root {
+    padding: 6px 0px;
+  }
+  .mobile-nav-box Button{
+    padding-right: 40px;
   }
   /* homepage */
   .filter-btn,

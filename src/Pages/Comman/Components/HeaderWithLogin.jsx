@@ -163,7 +163,7 @@ function Header(props) {
                   Search
                 </ListItemText>
               </ListItemButton>
-            </ListItem>notifications
+            </ListItem>
             <ListItem disablePadding>
               <ListItemButton sx={{ textAlign: 'center' }}>
                 <ListItemText primary="" onClick={() => { navigate(item.link) }}>
@@ -190,24 +190,24 @@ function Header(props) {
       <CssBaseline />
       <AppBar component="nav" className="app-nav">
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
+        <Typography
             variant="h6"
 
             onClick={() => { navigate('/') }}
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
+            sx={{ flexGrow: 1, display: { xs: 'block', md: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
+          >
+            <img width='140' src={CoinGuru} alt='Coin Guru' />
+          </Typography>
+          
+          {/* <Typography
+            variant="h6"
+
+            onClick={() => { navigate('/') }}
+            sx={{ flexGrow: 1, display: { xs: 'block', md: 'none', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
           >
             <img src={CoinGuru} alt='Coin Guru' />
-          </Typography>
-          <Box className='' sx={{ display: { xs: 'none', sm: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
+          </Typography> */}
+          <Box className='' sx={{ display: { xs: 'none !important', sm: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>
               <li >
                 <Button
@@ -217,6 +217,7 @@ function Header(props) {
                   aria-expanded={open ? 'true' : undefined}
                   onClick={handleClick}
                   endIcon={<KeyboardArrowDown />}
+                  sx={{ display: { xs: 'none !important', sm: 'flex'}}}
                 >
                   Academy
                 </Button>
@@ -250,7 +251,7 @@ function Header(props) {
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
               endIcon={<KeyboardArrowDown />}
-              onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
+              onClick={handleClickB} className='btn mobile-none' sx={{ color: '#23262F' ,display: { xs: 'none !important', md: 'flex' }}}>
               EN/USD
             </Button>
             <Menu
@@ -398,7 +399,7 @@ function Header(props) {
             <IconButton className='icon-btn' onClick={e => navigate('/subscription#')} aria-label="flash" color="primary">
               <ShoppingCartOutlinedIcon />
             </IconButton>
-            <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+            <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline mobile-none' sx={{ display: { xs: 'none', md: 'block'}, color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid',  }}>
               Account
             </Button>
             <IconButton aria-label="sunny" color="primary " >
@@ -488,10 +489,21 @@ function Header(props) {
               </MenuItem>
 
             </Menu>
+
+            <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
       <Box component="nav">
+     
         <Drawer
           container={container}
           variant="temporary"

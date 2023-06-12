@@ -40,6 +40,8 @@ import Community from "./Community";
 import { authAtom } from "../../_state";
 import NewsPromotions from "./NewsPromotions";
 import Academy from "./Academy";
+import MasterCourse from "./MasterCourse";
+import AcademyAboutCrypto from "./AcademyAboutCrypto";
 import SubscriptionPayment from "./SubscriptionPayment";
 
 const Customer = () => {
@@ -98,7 +100,9 @@ const Customer = () => {
           <Route path={`guides-analysis`} exact element={<GuidesAnalysis />} />
           <Route path={`community`} exact element={<Community />} />
           <Route path={`news-promotions`} exact element={<NewsPromotions />} />
-          <Route path={`academy`} exact element={<Academy />} />
+          <Route path={`academy`} exact element={<Academy/>} /> 
+          <Route path={`academy-about-crypto`} exact element={<AcademyAboutCrypto />} />
+          <Route path={`master-course`} exact element={<MasterCourse />} />
           <Route
             path={`/subscription-payment`}
             exact

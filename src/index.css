@@ -451,7 +451,6 @@ nav .MuiButtonBase-root:hover {
   font-family: var(--secondary-font) !important;
 }
 
-
 .auth-wrapper-inner {
   display: flex;
   min-height: 100vh;
@@ -1128,7 +1127,6 @@ input[type="number"] {
   border: none;
 }
 
-
 .MuiTabs-root .MuiTabs-indicator {
   display: none;
 }
@@ -1253,6 +1251,11 @@ input[type="number"] {
   position: relative;
 }
 
+.about-crypto .tutorial-preview {
+  aspect-ratio: 4/2;
+  object-fit: cover;
+}
+
 .about-crypto .float-img {
   position: absolute;
   top: 15px;
@@ -1322,7 +1325,7 @@ input[type="number"] {
 }
 
 .faq-accordian .Mui-expanded .faq-count {
-  color: #3772FF;
+  color: #3772ff;
 }
 
 /* Homepage Ends */
@@ -2177,11 +2180,11 @@ p.left-icon img {
 }  */
 
 .img-btn img {
-  width: 18px;
+  width: 30px;
 }
 
 .img-btn>input {
-  display: none
+  display: none;
 }
 
 .img-btn>img {
@@ -2194,9 +2197,9 @@ p.left-icon img {
   display: flex;
   font-size: 14px !important;
   text-transform: unset !important;
-  color: #777E90 !important;
+  color: #777e90 !important;
   font-family: var(--secondary-font) !important;
-  border-bottom: 1px solid #E6E8EC;
+  border-bottom: 1px solid #e6e8ec;
   padding-top: 11px;
   padding-bottom: 11px;
   align-items: center;
@@ -2374,7 +2377,7 @@ p.left-icon img {
 }
 
 .fa-disabled span {
-  color: #FF6838;
+  color: #ff6838;
 }
 
 .email-icon svg {
@@ -2527,7 +2530,6 @@ video[poster] {
 }
 
 .crypto-list-table table tr th:last-child {
-
   padding-right: 28px;
 }
 
@@ -2550,12 +2552,12 @@ video[poster] {
 }
 
 .center-tab.primary-tabs.MuiTabs-root button.MuiTab-root.Mui-selected {
-  background-color: #3772FF;
+  background-color: #3772ff;
 }
 
 .primary-tabs.MuiTabs-root button.MuiTab-root {
   background-color: #00000000;
-  border: 1px solid #E6E8EC;
+  border: 1px solid #e6e8ec;
 }
 
 .icon-btn {

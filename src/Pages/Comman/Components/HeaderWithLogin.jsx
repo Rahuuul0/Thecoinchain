@@ -14,7 +14,7 @@ import { useUserActions } from "../../../_actions/user.actions";
 import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
-
+import {notificationActions} from '../../../_actions/notification.actions';
 
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {notificationAtom} from '../../../_state/notifications';
@@ -22,11 +22,20 @@ import { useRecoilValue } from "recoil";
 const drawerWidth = 240;
 
 function Header(props) {
+  const userActions = useUserActions();
+  const notification = notificationActions();
+  const notifications = useRecoilValue(notificationAtom);
+  // const [ clear, setClear ] = useState();
 
-  const notifications = useRecoilValue(notificationAtom)
+  const handleClear = async() => {
+  //  const clearData  = await  notification.clearData();
+  //  setClear(clearData);
+  notification.clearData();
+  };
+
 
   console.log(notifications,'dfgdfgdfgjdfgdfgdfj');
-  const userActions = useUserActions();
+
   const navItems = [
     {
       page: 'Community',
@@ -47,6 +56,12 @@ function Header(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    navigate('/academy-about-crypto')
+  };
+
+  const handle = () => {
+    setAnchorEl(null);
+    navigate('/master-course')
   };
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
@@ -177,7 +192,7 @@ function Header(props) {
                   onClose={handleClose}
                 >
                   <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
-                  <MenuItem onClick={handleClose}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
+                  <MenuItem onClick={handle}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
                 </Menu>
               </li>
             </ul>
@@ -311,7 +326,10 @@ function Header(props) {
               <Box padding={2}>
                 <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
 
-                {notifications.map((item) =>{
+                {notifications.map((item,index) =>{
+                   if(index < 5){
+
+                
                   return(
                     <>
                     
@@ -327,6 +345,7 @@ function Header(props) {
                    <Divider/>
                   </>
                   )
+                }
                 })}
 
               
@@ -334,7 +353,7 @@ function Header(props) {
                   <Button onClick={() =>{navigate('/notifications')}} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
                     View all
                   </Button>
-                  <Button  variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                  <Button  onClick={handleClear}  variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
                     Clear all
                   </Button>
                 </Box>

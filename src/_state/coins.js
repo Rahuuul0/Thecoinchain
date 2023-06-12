@@ -1,27 +1,33 @@
-import { atom } from 'recoil';
+import { atom } from "recoil";
 const coinsAtom = atom({
-    key: 'coinsAtom',
-    default: []
+  key: "coinsAtom",
+  default: [],
 });
 
 const coinsErrorAtom = atom({
-    key: 'coinsErrorAtom',
-    default: false,   
+  key: "coinsErrorAtom",
+  default: false,
 });
 
 const selectedCategoryAtom = atom({
-    key: 'categoryName',
-    default: 0  /* 0 for all */
+  key: "categoryName",
+  default: 0 /* 0 for all */,
 });
 
 const coinCategoryAtom = atom({
-    key: 'categoryListAtom',
-    default:[],   
+  key: "categoryListAtom",
+  default: [],
 });
 
-export { 
-    coinsAtom,
-    coinsErrorAtom ,
-    coinCategoryAtom,
-    selectedCategoryAtom
+const cardCoinsAtom = atom({
+  key: "cardCoinsAtom",
+  default: [],
+});
+
+export {
+  coinsAtom,
+  coinsErrorAtom,
+  coinCategoryAtom,
+  selectedCategoryAtom,
+  cardCoinsAtom,
 };

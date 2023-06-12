@@ -48,6 +48,8 @@ import {
   coinCategoryAtom,
   selectedCategoryAtom,
   tutorialAtom,
+  userAtom,
+  cardCoinsAtom,
 } from "../../../../_state";
 import ReactPlayer from "react-player";
 
@@ -60,6 +62,9 @@ const Home = () => {
   const coinsList = useRecoilValue(coinsAtom);
   const categoryList = useRecoilValue(coinCategoryAtom);
   const selectedCat = useRecoilValue(selectedCategoryAtom);
+  const [intervalCount, setIntervalCount] = useState(0);
+  const userDetail = useRecoilValue(userAtom);
+  const cardCoinsList = useRecoilValue(cardCoinsAtom);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -132,8 +137,16 @@ const Home = () => {
       {/* Banner Ends */}
       <Container>
         <Box>
-          <Grid container spacing={4} sx={{ alignItems: 'center' }} className='grid-bit' backgroundColor='#F4F5F6' padding={3} borderRadius={6}>
-            {coinsList?.map((item, index) => {
+          <Grid
+            container
+            spacing={4}
+            sx={{ alignItems: "center" }}
+            className="grid-bit"
+            backgroundColor="#F4F5F6"
+            padding={3}
+            borderRadius={6}
+          >
+            {cardCoinsList?.map((item, index) => {
               if (index < 4) {
                 return (
                   <Grid item xs={12} sm={3} md={3} className='gridBox'>
@@ -147,7 +160,7 @@ const Home = () => {
                         className="orange-btn"
                         sx={{ borderRadius: "90px" }}
                       >
-                        {item.percent_change_24h.toFixed(2)}%
+                        {item.percent_change_24h?.toFixed(2)}%
                       </Button>
                     </Stack>
                     <Typography
@@ -158,7 +171,7 @@ const Home = () => {
                       paddingBottom={1}
                       className="primary-font"
                     >
-                      {item.price.toFixed(2)}
+                      {item.price?.toFixed(2)}
                     </Typography>
                     <Typography
                       variant="h6"
@@ -208,7 +221,7 @@ const Home = () => {
                 className="btn btn-outlined-secondary"
                 sx={{ borderRadius: "90px", ml: { lg: "auto" } }}
                 onClick={() => {
-                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                  window.scrollTo({ top: 1650, left: 0, behavior: "smooth" });
                   navigate("./learn-cypto");
                 }}
               >
@@ -246,7 +259,7 @@ const Home = () => {
                         <ReactPlayer
                           url={item.video_link}
                           controls={true}
-                          light={true}
+                          light={item.image_link}
                           playing={true}
                           width="100%"
                           height="510px"
@@ -339,7 +352,7 @@ const Home = () => {
                               <ReactPlayer
                                 url={item.video_link}
                                 controls={true}
-                                light={true}
+                                light={item.image_link}
                                 playing={true}
                                 // poster={Learn01}
                                 width="100%"
@@ -376,7 +389,7 @@ const Home = () => {
                           <ReactPlayer
                             url={item.video_link}
                             controls={true}
-                            light={true}
+                            light={item.image_link}
                             playing={true}
                             width="100%"
                             height="510px"
@@ -472,7 +485,7 @@ const Home = () => {
                                 <ReactPlayer
                                   url={item.video_link}
                                   controls={true}
-                                  light={true}
+                                  light={item.image_link}
                                   playing={true}
                                   // poster={Learn01}
                                   width="100%"
@@ -509,7 +522,7 @@ const Home = () => {
                           <ReactPlayer
                             url={item.video_link}
                             controls={true}
-                            light={true}
+                            light={item.image_link}
                             playing={true}
                             width="100%"
                             height="510px"
@@ -605,7 +618,7 @@ const Home = () => {
                                 <ReactPlayer
                                   url={item.video_link}
                                   controls={true}
-                                  light={true}
+                                  light={item.image_link}
                                   playing={true}
                                   // poster={Learn01}
                                   width="100%"
@@ -642,7 +655,7 @@ const Home = () => {
                           <ReactPlayer
                             url={item.video_link}
                             controls={true}
-                            light={true}
+                            light={item.image_link}
                             playing={true}
                             width="100%"
                             height="510px"
@@ -738,7 +751,7 @@ const Home = () => {
                                 <ReactPlayer
                                   url={item.video_link}
                                   controls={true}
-                                  light={true}
+                                  light={item.image_link}
                                   playing={true}
                                   // poster={Learn01}
                                   width="100%"
@@ -851,19 +864,61 @@ const Home = () => {
             View More
           </Button>
         </Box>
-        <Stack direction='row' className='filter-btn' spacing='2' paddingTop={5}>
-          {(selectedCat === 0) ?
-            <Button variant='contained' className='btn btn-secondary' onClick={e => coinActions.latestListing()}>All</Button>
-            :
-            <Button className='btn' onClick={e => coinActions.latestListing()}>All</Button>
-          }
+        <Stack
+          direction="row"
+          className="filter-btn"
+          spacing="2"
+          paddingTop={5}
+        >
+          {selectedCat === 0 ? (
+            <Button
+              variant="contained"
+              className="btn btn-secondary"
+              onClick={(e) => {
+                coinActions.latestListing();
+              }}
+            >
+              All
+            </Button>
+          ) : (
+            <Button
+              className="btn"
+              onClick={(e) => {
+                coinActions.latestListing();
+              }}
+            >
+              All
+            </Button>
+          )}
           {categoryList.length &&
             categoryList.map((item, index) => {
               if (index < 4) {
                 if (selectedCat !== 0 && selectedCat === item.id) {
-                  return (<Button variant='contained' className='btn btn-secondary' key={index} onClick={e => coinActions.coinListbByCategoty(item.id)} title={item.name}>{getFirstLetters(item.name)}</Button>)
+                  return (
+                    <Button
+                      variant="contained"
+                      className="btn btn-secondary"
+                      key={index}
+                      onClick={(e) => {
+                        coinActions.coinListbByCategoty(item.id);
+                      }}
+                      title={item.name}
+                    >
+                      {getFirstLetters(item.name)}
+                    </Button>
+                  );
                 } else {
-                  return (<Button className='btn' onClick={e => coinActions.coinListbByCategoty(item.id)} title={item.name}>{getFirstLetters(item.name)}</Button>)
+                  return (
+                    <Button
+                      className="btn"
+                      onClick={(e) => {
+                        coinActions.coinListbByCategoty(item.id);
+                      }}
+                      title={item.name}
+                    >
+                      {getFirstLetters(item.name)}
+                    </Button>
+                  );
                 }
               } else {
                 return "";

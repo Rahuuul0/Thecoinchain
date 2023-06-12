@@ -27,6 +27,7 @@ import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import Lock from '../../../public/assets/images/icons/lock.svg'
 import GoogleLogin from "./GoogleLogin.jsx";
 import AppleIcon from '@mui/icons-material/Apple';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 
 const LogIn = () => {
@@ -244,13 +245,15 @@ const LogIn = () => {
                                                             Forgot password?
                                                         </Link>
                                                     </Box>
-                                                    <Button
+                                                    <LoadingButton
                                                         type="submit"
+                                                        loading={isSubmitting}
+                                                        loadingPosition="end"
                                                         variant="contained"
                                                         className='btn btn-primary'
                                                         disabled={isSubmitting}>
                                                         Login
-                                                    </Button>
+                                                    </LoadingButton>
                                                 </TabPanel>
                                                 <TabPanel value="2" sx={{ p: 0 }}>
 
@@ -311,13 +314,16 @@ const LogIn = () => {
                                                         </Link>
                                                     </Box>
 
-                                                    <Button 
+                                                    <LoadingButton 
                                                         type="submit"
+                                                        loading={isSubmitting}
+                                                        loadingPosition="end"
                                                         variant="contained"
-                                                        className='btn btn-primary'
+                                                        disabled={isSubmitting}
+                                                        className='btn btn-primary'                                                       
                                                     >
                                                         Login
-                                                    </Button>
+                                                    </LoadingButton>
                                                 </TabPanel>
                                             </TabContext>
                                         </Box>

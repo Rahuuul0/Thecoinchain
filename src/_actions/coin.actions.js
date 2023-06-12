@@ -7,7 +7,6 @@ import {
   coinCategoryAtom,
   selectedCategoryAtom,
   cardCoinsAtom,
-  loaderAtom,
 } from "../_state/";
 import { useLocation } from "react-router-dom";
 
@@ -19,7 +18,6 @@ const useCoinActions = () => {
   const setSelectedCategory = useSetRecoilState(selectedCategoryAtom);
   const location = useLocation();
   const setCardCoins = useSetRecoilState(cardCoinsAtom);
-  const loader = useSetRecoilState(loaderAtom);
 
   const categoriesList = async () => {
     return fetchWrapper
@@ -70,7 +68,6 @@ const useCoinActions = () => {
   };
 
   const latestListing = async (params) => {
-    loader(true);
     setSelectedCategory(0);
     categoryList.length <= 0 ? categoriesList() : "";
     return fetchWrapper
@@ -92,7 +89,6 @@ const useCoinActions = () => {
             setCoinList(homeCoins);
           } else setCoinList(coinArr);
 
-          loader(false);
           return res.data.data;
         } else {
           alertActions.error(Labels.Error);

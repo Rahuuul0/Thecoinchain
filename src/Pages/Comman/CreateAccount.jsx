@@ -19,6 +19,7 @@ import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
 import AppleIcon from '@mui/icons-material/Apple';
 import ReCAPTCHA from "react-google-recaptcha";
+import { MuiTelInput } from 'mui-tel-input'
 
 import GoogleAuth from "./GoogleAuth.jsx";
 
@@ -26,13 +27,15 @@ const CreateAccount = () => {
     const navigate = useNavigate();
     const userActions = useUserActions();
     const alertActions = useAlertActions();
+    const [phone, setPhone] = useState('')
     const captchaRef = useRef(null)
     const validationSchema = Yup.object().shape({
         email: Yup.string()
             .email("Email must be a valid email")
             .trim()
             .required("Email Address is required"),
-        mobile: Yup.string().required("Mobile Number is required").matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, { message: "Please enter valid number.", excludeEmptyString: false }),
+        mobile: Yup.string().max(15,"Phone must be at most 15 characters")
+        .required("Mobile Number is required"),
         password: Yup.string()
             .trim()
             .required("Password is required")
@@ -67,6 +70,11 @@ const CreateAccount = () => {
     const handleChange = value => {
         console.log("Captcha value:", value);
     };
+
+      // Mobile contry code 
+      const handlePhone = (newPhone) => {
+        setPhone(newPhone)
+    }
 
     const asyncScriptOnLoad = () => {
         console.log("scriptLoad - reCaptcha Ref-");
@@ -148,7 +156,7 @@ const CreateAccount = () => {
                                 >
                                     <Box className='auth-form' >
                                         <TextField
-                                            label="Email"
+                                            label="Email *"
                                             className="form-control"
                                             type="email"
                                             InputLabelProps={{
@@ -169,25 +177,23 @@ const CreateAccount = () => {
                                         />
                                         <div style={{ color: "red" }}>{errors.email?.message}
                                         </div>
-                                        <TextField
-                                            onChange={(e) => reset({ ...formData, name: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-                                            label="Mobile"
-                                            className="form-control"
-                                            type="number"
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            variant="standard"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="mobile"
-                                            placeholder='Mobile Number'
-                                            name="mobile"
-                                            autoComplete="off"
-                                            size="small"
-                                            {...register("mobile")}
-                                        />
+                                        <MuiTelInput
+                                                    label="Mobile *"
+                                                    className="form-control white-input-box"
+                                                    InputLabelProps={{
+                                                        shrink: true,
+                                                    }}
+                                                    variant="standard"
+                                                    margin="normal"
+                                                    required
+                                                    fullWidth
+                                                     max={10}   
+                                                    id="mobile"
+                                                    autoComplete="off"
+                                                    {...register("mobile")}
+                                                    value={phone}
+                                                    onChange={handlePhone}
+                                                />
                                         <div style={{ color: "red" }}>{errors.mobile?.message}
                                         </div>
                                         <TextField
@@ -200,7 +206,7 @@ const CreateAccount = () => {
                                             }}
                                             variant="standard"
                                             id="password"
-                                            label="Password"
+                                            label="Password *"
                                             placeholder='Password'
                                             name="password"
                                             autoComplete="off"
@@ -229,7 +235,7 @@ const CreateAccount = () => {
                                             type={showCnfrmPassword ? "text" : "password"}
                                             fullWidth
                                             id="confirm_password"
-                                            label="Confirm Password"
+                                            label="Confirm Password *"
                                             placeholder='Confirm Password'
                                             name="confirm_password"
                                             autoComplete="off"

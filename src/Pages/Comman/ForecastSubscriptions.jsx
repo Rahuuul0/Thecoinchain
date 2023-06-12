@@ -6,7 +6,8 @@ import SubsImage from '../../../public/assets/images/subs.svg';
 import { NavigateNext } from '@mui/icons-material/';
 import Sidebar from './Components/Sidebar';
 import { useNavigate } from 'react-router-dom';
-
+import {  forecastSubAtom } from '../../_state';
+import { useRecoilValue } from "recoil";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -40,49 +41,10 @@ function handleClick(event) {
     event.preventDefault();
     console.info('You clicked a breadcrumb.');
 }
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};
-function getStyles(name, personName, theme) {
-    return {
-        fontWeight:
-            personName.indexOf(name) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
-    };
-}
 const ForecastSubscriptions = () => {
-
     const navigate = useNavigate();
     const subscribed = subscriptionActions();
-    const [subscriptionData, setSubscriptionData] = useState([]);
-
-    const [open, setOpen] = useState(false);
-
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
-    const label = { inputProps: { 'aria-label': 'Switch demo' } };
-
-
-    const [personName, setPersonName] = React.useState([]);
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-        const {
-            target: { value },
-        } = event;
-        setPersonName(
-            // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
-    };
+    const subscribedUser = useRecoilValue(forecastSubAtom);
     const breadcrumbs = [
         <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
             Home
@@ -102,21 +64,18 @@ const ForecastSubscriptions = () => {
         'Usa',
         'Usa',
         'Usa',
-    ];
-    const [value, setValue] = React.useState('1');
-
+    ];    
     const [expanded, setExpanded] = React.useState(false);
-
     const handleChanges = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
 
     // Subscription action get function   API data call 
-    useEffect(() => {
-        const response = subscribed.subscription()
-        response.then((res) => { setSubscriptionData(res) })
-    }, [])
-
+    useEffect(()=>{
+        const response = subscribed.subscribedUser()
+        response.then((res)=>{(res)})
+    },[])
+  
     return (
         <>
             <ThemeProvider theme={theme}>

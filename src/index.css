@@ -28,11 +28,9 @@
   --color-grey: rgba(119, 126, 144, 1);
   --secondary-color: #777e90;
 }
-
 .color-dark {
   color: #23262f;
 }
-
 .font-500 {
   font-weight: 500;
 }
@@ -105,7 +103,6 @@ body .modal-dialog * {
 .btn-round {
   border-radius: 100px !important;
 }
-
 .rounded-radius .btn {
   border-radius: 90px;
 }
@@ -409,7 +406,6 @@ nav .MuiButtonBase-root:hover {
   background-color: rgba(25, 118, 210, 0.04);
   border-radius: 90px;
 }
-
 .app-nav button.MuiButtonBase-root.btnicon:hover {
   background-color: transparent;
 }
@@ -422,25 +418,20 @@ nav .MuiButtonBase-root:hover {
   display: flex;
   justify-content: space-between;
 }
-
 .notification-menu .MuiList-root {
   width: 316px;
 }
-
 .outer-div-menu {
   width: 100%;
   padding-bottom: 15px;
   padding-top: 15px;
 }
-
 .outer-div-menu svg {
   color: #58bd7d;
 }
-
 .inner-div-menu .head-menu {
   font-size: 12px;
 }
-
 .inner-div-menu .sub-head-menu {
   display: inline-flex;
 }
@@ -450,7 +441,6 @@ nav .MuiButtonBase-root:hover {
   font-weight: 700;
   font-family: var(--secondary-font) !important;
 }
-
 
 .auth-wrapper-inner {
   display: flex;
@@ -775,7 +765,6 @@ input[type="number"] {
   display: flex;
   flex-direction: column;
 }
-
 .inner-div-outer {
   display: flex;
   flex-direction: row;
@@ -1127,11 +1116,9 @@ input[type="number"] {
   border: none;
 }
 
-
 .MuiTabs-root .MuiTabs-indicator {
   display: none;
 }
-
 #root .css-hip9hq-MuiPaper-root-MuiAppBar-root,
 .MuiTabs-root .MuiTabs-scroller .css-hip9hq-MuiPaper-root-MuiAppBar-root {
   background-color: transparent;
@@ -1252,6 +1239,11 @@ input[type="number"] {
   position: relative;
 }
 
+.about-crypto .tutorial-preview {
+  aspect-ratio: 4/2;
+  object-fit: cover;
+}
+
 .about-crypto .float-img {
   position: absolute;
   top: 15px;
@@ -1319,9 +1311,8 @@ input[type="number"] {
 .topic-que .MuiFormControl-root label {
   transform: none !important;
 }
-
 .faq-accordian .Mui-expanded .faq-count {
-  color: #3772FF;
+  color: #3772ff;
 }
 
 /* Homepage Ends */
@@ -2176,14 +2167,12 @@ p.left-icon img {
 }  */
 
 .img-btn img {
-  width: 18px;
+  width: 30px;
 }
-
-.img-btn>input {
-  display: none
+.img-btn > input {
+  display: none;
 }
-
-.img-btn>img {
+.img-btn > img {
   cursor: pointer;
   border: 0px solid transparent;
   margin-right: 8px;
@@ -2193,18 +2182,16 @@ p.left-icon img {
   display: flex;
   font-size: 14px !important;
   text-transform: unset !important;
-  color: #777E90 !important;
+  color: #777e90 !important;
   font-family: var(--secondary-font) !important;
-  border-bottom: 1px solid #E6E8EC;
+  border-bottom: 1px solid #e6e8ec;
   padding-top: 11px;
   padding-bottom: 11px;
   align-items: center;
 }
-
 .img-btn:last-child {
   border: none;
 }
-
 .first-img-btn {
   padding-top: 0px !important;
 }
@@ -2367,20 +2354,16 @@ p.left-icon img {
 .green-span span {
   color: #58bd7d;
 }
-
 .faenable-box span {
   color: #58bd7d;
 }
-
 .fa-disabled span {
-  color: #FF6838;
+  color: #ff6838;
 }
-
 .email-icon svg {
   top: 7px;
   position: relative;
 }
-
 .change-password-box {
   padding: 40px 90px;
 }
@@ -2524,9 +2507,7 @@ video[poster] {
 .community-details {
   width: 100%;
 }
-
 .crypto-list-table table tr th:last-child {
-
   padding-right: 28px;
 }
 
@@ -2543,18 +2524,15 @@ video[poster] {
 .react-player__preview {
   border-radius: 16px;
 }
-
 .MuiFormControl-root .MuiFormLabel-asterisk {
   display: none;
 }
-
 .center-tab.primary-tabs.MuiTabs-root button.MuiTab-root.Mui-selected {
-  background-color: #3772FF;
+  background-color: #3772ff;
 }
-
 .primary-tabs.MuiTabs-root button.MuiTab-root {
   background-color: #00000000;
-  border: 1px solid #E6E8EC;
+  border: 1px solid #e6e8ec;
 }
 
 .icon-btn {

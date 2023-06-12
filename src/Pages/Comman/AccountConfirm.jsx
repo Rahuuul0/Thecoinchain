@@ -197,10 +197,7 @@ const AccountConfirm = () => {
                       </Button>
                       }
                       <Button
-                        onClick={() => {
-                        navigate("/");
-                      }}
-                       type="submit" variant="contained" className='btn btn-primary'  >
+                        type="submit" variant="contained" className='btn btn-primary'  >
                         Continue
                       </Button>
 

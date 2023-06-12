@@ -16,7 +16,6 @@ const useHomeActions = () => {
     return fetchWrapper.get(Apis.Categories_Data)
         .then(res => {
          if (res.statusCode === 200) {
-         console.log(res,'categoriesData');
          } else {
              alertActions.error(Labels.Error);
          }
@@ -28,7 +27,6 @@ const useHomeActions = () => {
     return fetchWrapper.post(Apis.Category_Data,)
         .then(res => {
          if (res.statusCode === 200) {
-              console.log(res, 'category')
          } else {
              alertActions.error(Labels.Error);
          }

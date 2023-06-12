@@ -185,7 +185,7 @@ const LogIn = () => {
                                                 </Box>
                                                 <TabPanel value="1" sx={{ p: 0 }}>
                                                     <TextField
-                                                        label="Email"
+                                                        label="Email *"
                                                         className="form-control"
                                                         type="email"
                                                         InputLabelProps={{
@@ -207,7 +207,7 @@ const LogIn = () => {
                                                     <div style={{ color: "red" }}>{errors.email?.message}</div>
 
                                                     <TextField
-                                                        label="Password"
+                                                        label="Password *"
                                                         className="form-control"
                                                         InputLabelProps={{
                                                             shrink: true,
@@ -255,7 +255,7 @@ const LogIn = () => {
                                                 <TabPanel value="2" sx={{ p: 0 }}>
 
                                                     <MuiTelInput
-                                                        label="Number"
+                                                        label="Number *"
                                                         className="form-control"
                                                         variant="standard"
                                                         required
@@ -273,7 +273,7 @@ const LogIn = () => {
                                                     </div>
 
                                                     <TextField
-                                                        label="Password"
+                                                        label="Password *"
                                                         className="form-control"
                                                         InputLabelProps={{
                                                             shrink: true,

@@ -58,9 +58,12 @@ function useFetchWrapper() {
                     localStorage.removeItem('user');
                     setAuth(null);
                     navigate(`/login`);
-                }    
-                const error = (data && data.message) || response.statusText;
-                alertActions.error(error);
+                } 
+                
+                if (![402].includes(response.status)) {                
+                    const error = (data && data.message) || response.statusText;
+                    alertActions.error(error);                   
+                }
                 return Promise.reject(error);
             }else{
                 if ([403].includes(data.statusCode) && data.status==='unauthorized' ) {

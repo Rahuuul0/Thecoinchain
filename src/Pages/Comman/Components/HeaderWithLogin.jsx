@@ -34,7 +34,7 @@ function Header(props) {
   };
 
 
-  console.log(notifications,'dfgdfgdfgjdfgdfgdfj');
+  // console.log(notifications,'dfgdfgdfgjdfgdfgdfj');
 
   const navItems = [
     {

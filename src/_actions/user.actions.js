@@ -1,7 +1,7 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from "../_helpers";
-import { switchAtom, userErrorAtom, authAtom, loaderAtom } from "../_state";
+import { switchAtom, userErrorAtom, authAtom, loaderAtom, forecastSubAtom } from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
 import { Labels, Apis } from "../_common/app.constants";
 import axios from "axios";
@@ -14,6 +14,8 @@ const useUserActions = () => {
   const setUserError = useSetRecoilState(userErrorAtom);
   const [auth, setAuth] = useRecoilState(authAtom);
   const [loader, setLoader] = useRecoilState(loaderAtom);
+  const subscription = useSetRecoilState(forecastSubAtom);
+
 
 
   const login = async ({ email, password }) => {
@@ -281,6 +283,8 @@ const useUserActions = () => {
     setAuth(null);
     alertActions.success(Labels.Logout_Success);
     navigate("/");
+    subscription({status: "expired"})
+
   };
 
   const getOtpPhone = async (phone) => {

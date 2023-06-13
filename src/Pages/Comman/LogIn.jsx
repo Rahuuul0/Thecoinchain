@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState  } from 'react';
+import { useRecoilState } from 'recoil';
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -9,8 +10,7 @@ import { useUserActions } from "../../_actions/user.actions"
 import { yupResolver } from "@hookform/resolvers/yup";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useAlertActions } from '../../_actions/alert.actions';
-import {  loaderAtom } from '../../_state';
-import {  useRecoilValue } from 'recoil';
+import {  userErrorAtom } from '../../_state';
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
@@ -69,16 +69,8 @@ const LogIn = () => {
         setValue(newValue);
         reset({email:'',pass:'',phone:''});
     };
-
-    useEffect(() => {
-        if (userError)
-            setIsSubmitting(false)
-    }, [userError])
-
     
-    const handleFormSubmit = () => {
-        setIsSubmitting(true)
-        setUserError(false)       
+    const handleFormSubmit = () => {        
         userActions.login(formData);   
     }
     return (
@@ -221,7 +213,7 @@ const LogIn = () => {
                                                         type="submit"
                                                         variant="contained"
                                                         className='btn btn-primary'
-                                                        disabled={loader}>
+                                                    >
                                                         Login
                                                     </Button>
                                                 </TabPanel>

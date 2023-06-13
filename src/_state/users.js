@@ -28,6 +28,11 @@ const homePageAtom = atom({
   key: "homePageAtom",
   default: [],
 });
+
+const loginDataAtom = atom({
+  key: "loginDataAtom",
+  default: {'email':'','phone':'','pass':'','otp':''},
+});
 export {
   usersAtom,
   userAtom,
@@ -35,4 +40,5 @@ export {
   switchAtom,
   homePageAtom,
   forecastSubAtom,
+  loginDataAtom
 };

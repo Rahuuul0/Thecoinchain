@@ -51,14 +51,14 @@ const subscriptionActions = () => {
       .then((res) => {
         if (res.statusCode === 200) {
           setForecastSub(res.data);
-          loader(false);
         } else {
           console.log(res.msg, "res.msg");
-          loader(false);
         }
+        loader(false);
       })
       .catch((err) => {
         console.warn(err);
+        loader(false);
       });
   };
 

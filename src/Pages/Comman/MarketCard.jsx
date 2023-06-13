@@ -86,7 +86,13 @@ const MarketCard = () => {
                           </span>
                         </Typography>
                         <Typography component="h5" varient="h5">
-                          {item.price?.toFixed(2)}
+                          {item?.price > 1
+                            ? item.price?.toFixed(2)
+                            : item?.price < 1 && item?.price >= 0.1
+                            ? item.price?.toFixed(4)
+                            : item?.price < 0.1 && item?.price > 0.01
+                            ? item.price?.toFixed(6)
+                            : item?.price}
                         </Typography>
                         <Typography component="small" varient="small-caption">
                           {Math.round(

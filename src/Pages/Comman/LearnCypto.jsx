@@ -265,7 +265,11 @@ const LearnCypto = () => {
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={7} md={7}>
-                              <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                              <img
+                                className="tutorial-preview"
+                                sx={{ maxWidth: "100%" }}
+                                src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
+                              />
                             </Grid>
                           </Grid>
                         </Box>
@@ -313,7 +317,7 @@ const LearnCypto = () => {
                                     {item.category}
                                   </Typography>
                                   <Typography className="body-caption secondary-color">
-                                   {item.blog_description}
+                                    {item.blog_description}
                                   </Typography>
                                 </Box>
                                 <Box>
@@ -322,7 +326,10 @@ const LearnCypto = () => {
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={7} md={7}>
-                              <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                              <img
+                                sx={{ maxWidth: "100%" }}
+                                src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
+                              />
                             </Grid>
                           </Grid>
                         </Box>
@@ -370,7 +377,7 @@ const LearnCypto = () => {
                                     {item.category}
                                   </Typography>
                                   <Typography className="body-caption secondary-color">
-                                   {item.blog_description}
+                                    {item.blog_description}
                                   </Typography>
                                 </Box>
                                 <Box>
@@ -379,7 +386,10 @@ const LearnCypto = () => {
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={7} md={7}>
-                              <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                              <img
+                                sx={{ maxWidth: "100%" }}
+                                src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
+                              />
                             </Grid>
                           </Grid>
                         </Box>

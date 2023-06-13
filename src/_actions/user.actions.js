@@ -14,9 +14,9 @@ const useUserActions = () => {
   const setUserError = useSetRecoilState(userErrorAtom);
   const [auth, setAuth] = useRecoilState(authAtom);
 
-  const login = async ({ email, password }) => {
+  const login = async ({ email, password,phone, }) => {
     return fetchWrapper
-      .post(Apis.Login, { email, password })
+      .post(Apis.Login, { email, password,phone })
       .then((res) => {
         if (res.statusCode === 200) {
           let { data, access_token, login_attempt} = res;
@@ -29,17 +29,17 @@ const useUserActions = () => {
               isSubscribed: true,
             })
           );
-
-          setAuth({ ...data, access_token,login_attempt, isSubscribed: true });
-        
+          setAuth({ ...data, access_token,login_attempt, isSubscribed: true });        
           res.data.is_profile_completed == 0 ? navigate("/account/profile") : navigate("/");
           setUserError(true);
           alertActions.success(Labels.Login_Success);
         } else {
+          setUserError(true);
           alertActions.error(res.msg);
         }
       })
       .catch((err) => {
+        setUserError(true);
         console.warn(err);
       });
   };
@@ -111,12 +111,12 @@ const useUserActions = () => {
   };
 
   const loginMobile = ({ number, passwordMob }) => {
-    alertActions.success("called" + number + " " + passwordMob);
+    
   };
 
-  const forgotPassword = async (email) => {
+  const forgotPassword = async (data) => {
     return fetchWrapper
-      .post(Apis.Forgot_Password, { email })
+      .post(Apis.Forgot_Password, data)
       .then((res) => {
         if (res.statusCode === 200) {
           alertActions.success(

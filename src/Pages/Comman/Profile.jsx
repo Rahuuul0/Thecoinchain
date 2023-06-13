@@ -14,10 +14,10 @@ import Sidebar from './Components/Sidebar';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from "@mui/material/IconButton";
-import { MuiTelInput } from 'mui-tel-input'
 import { useRecoilValue } from 'recoil';
 import {userAtom, authAtom, forecastSubAtom} from '../../_state';
 import dayjs from 'dayjs';
+import MuiPhoneNumber from "material-ui-phone-number";
 
 function handleClick(event) {
   event.preventDefault();
@@ -261,7 +261,7 @@ const validationSchema = Yup.object().shape({
                                                 <div className="invalid-feedback" style={{ color: "red" }}>{errors.email?.message}</div>
                                             </Box>
                                             <Box className='' paddingY={1}>
-                                                    <MuiTelInput
+                                                    <MuiPhoneNumber
                                                     label="Mobile *"
                                                     className="form-control white-input-box"
                                                     InputLabelProps={{
@@ -273,6 +273,7 @@ const validationSchema = Yup.object().shape({
                                                     fullWidth
                                                     id="mobile"
                                                     autoComplete="off"
+                                                    defaultCountry={"us"}
                                                     {...register("mobile")}
                                                     value={phone}
                                                     onChange={handlePhone}

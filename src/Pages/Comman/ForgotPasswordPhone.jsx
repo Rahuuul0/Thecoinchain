@@ -141,7 +141,7 @@ const ForgotPasswordPhone = () => {
                                         To secure your account, please complete the following verification.
                                     </Typography>
                                     <Typography component="p" variant="body-caption" sx={{ textAlign: 'center', color: '#777E90', display: 'block', marginBottom: '20px' }}>
-                                        Enter the 4 digit code received by <span style={{ color: '#23262F' }}>{localStorage.getItem("phone")}</span>
+                                        Enter the 4 digit code received by <br/><span style={{ color: '#23262F' }}>{formData.phone}</span>
                                     </Typography>
                                 </Box>
                                 <Box

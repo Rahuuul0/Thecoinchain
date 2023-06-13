@@ -19,7 +19,6 @@ import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
 import AppleIcon from '@mui/icons-material/Apple';
 import ReCAPTCHA from "react-google-recaptcha";
-import { MuiTelInput } from 'mui-tel-input'
 import MuiPhoneNumber from "material-ui-phone-number";
 
 import GoogleAuth from "./GoogleAuth.jsx";

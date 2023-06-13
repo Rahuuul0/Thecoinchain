@@ -123,7 +123,7 @@ const useUserActions = () => {
       .then((res) => {
         if (res.statusCode === 200) {
           alertActions.success(
-            Labels.Password_Reset_Email.replaceAll(Labels.Replce_Text, email)
+            Labels.Password_Reset_Email.replaceAll(Labels.Replce_Text, data.email?data.email:data.phone)
           );
           setSoption(false);
         } else {

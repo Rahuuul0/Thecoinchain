@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Box, Grid, Container, Typography, Link, Stack, TextField, InputAdornment, IconButton, Button } from '@mui/material';
 import { ArrowRightAlt } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -64,22 +64,22 @@ const Footer = () => {
             <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC' }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ md: 4, sm: 3 }} paddingBottom={{ md: 4, sm: 3 }} >
               <Box className="quick-links">
                 <Stack spacing={2}>
-                  <Link href="#" onClick={() => { navigate("/contact") }}>Contacts</Link>
-                  <Link href="#" onClick={() => { navigate("./privacy-policy") }}>Privacy Policy</Link>
-                  <Link href="#" onClick={() => { navigate("./terms-of-use") }}>Terms of use</Link>
-                  <Link href="#" onClick={() => { navigate("./disclaimer") }}>Disclaimer </Link>
-                  <Link href="#" onClick={() => { navigate("./community") }}>Join our community</Link>
+                  <RouterLink to={"/contact"}>Contacts</RouterLink>
+                  <RouterLink to={"privacy-policy"}>Privacy Policy</RouterLink>
+                  <RouterLink to={"terms-of-use"}>Terms of use</RouterLink>
+                  <RouterLink to={"disclaimer"}>Disclaimer </RouterLink>
+                  <RouterLink to={"community"}>Join our community</RouterLink>
                 </Stack>
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC', }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ md: 4, sm: 3 }} paddingBottom={{ md: 4, sm: 3 }}  >
               <Box className="quick-links">
                 <Stack spacing={2}>
-                  <Link href="#" onClick={() => { navigate("./prediction-dashboard") }}>Price Forecast</Link>
-                  <Link href="#" onClick={() => { navigate("./guides-analysis") }}>Guides & Analysis</Link>
-                  <Link href="#" onClick={() => { navigate("./academy") }}>Academy</Link>
-                  <Link href="#" onClick={() => { navigate("./news-promotions") }}>News & Promotions</Link>
-                  <Link href="#" onClick={() => { navigate("./subscription") }}>Subscriptions</Link>
+                  <RouterLink to={"./prediction-dashboard"} >Price Forecast</RouterLink>
+                  <RouterLink to={"./guides-analysis"} >Guides & Analysis</RouterLink>
+                  <RouterLink to={"./academy"}>Academy</RouterLink>
+                  <RouterLink to={"./news-promotions"}>News & Promotions</RouterLink>
+                  <RouterLink to={"./subscription"}>Subscriptions</RouterLink>
                 </Stack>
               </Box>
             </Grid>

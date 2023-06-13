@@ -8,15 +8,15 @@ import {
   Button,
   Link,
   Breadcrumbs,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import VideoImg from "../../../public/assets/images/learn01.png";
 import Avatar from "../../../public/assets/images/avatar.svg";
 import GridImage from "../../../public/assets/images/grid.svg";
 import { NavigateNext, ArrowDropDown } from "@mui/icons-material";
-import Love from "../../../public/assets/images/love.svg";
-import Share from "../../../public/assets/images/share.svg";
 import { useRecoilValue } from "recoil";
-import { tutorialAtom } from "../../_state";
+import { tutorialAtom, loaderAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import ReactPlayer from "react-player";
 
@@ -56,7 +56,7 @@ const LearnCyptoDetail = () => {
   const [videoUrl, setVideoUrl] = useState("");
   const [visibleVideos, setVisibleVideos] = useState(6);
   const tutorialAction = useTutorialActions();
-  const [imageUrl, setImageUrl] = useState("");
+  const loader = useRecoilValue(loaderAtom);
 
   const scrollToVideo = (e, videoLink) => {
     e.current.scrollIntoView({
@@ -80,6 +80,12 @@ const LearnCyptoDetail = () => {
   return (
     <>
       <Container sx={{ pt: 10 }}>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loader}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <Box ref={scrollRef}>
           <Typography
             paddingTop={5}

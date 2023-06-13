@@ -9,6 +9,8 @@ import {
   OutlinedInput,
   FormControl,
   Select,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 import Blog1 from "../../../public/assets/images/blog-1.svg";
@@ -21,8 +23,7 @@ import Globe from "../../../public/assets/images/globe.svg";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tutorialAtom } from "../../_state";
-import { blogAtom } from "../../_state";
+import { tutorialAtom, blogAtom, loaderAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import AppBar from "@mui/material/AppBar";
 import Tab from "@mui/material/Tab";
@@ -58,7 +59,6 @@ const LearnCypto = () => {
   const tutorialsData = useRecoilValue(tutorialAtom);
   const displayVideo = tutorialsData[0]?.video_link;
   const displayImage = tutorialsData[0]?.image_link;
-
   const [value, setValue] = useState("1");
   const [tutorialTab, setTutorialTab] = useState("1");
   const theme = useTheme();
@@ -66,8 +66,7 @@ const LearnCypto = () => {
   const [visibleVideos, setVisibleVideos] = useState(6);
   const [videoUrl, setVideoUrl] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-
-  console.log(blogsData, 2222222222);
+  const loader = useRecoilValue(loaderAtom);
 
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
@@ -102,9 +101,9 @@ const LearnCypto = () => {
   }, []);
 
   useEffect(() => {
-    setVideoUrl(displayVideo);
-    setImageUrl(displayImage);
-  }, [displayVideo]);
+    setVideoUrl(tutorialsData[0]?.video_link);
+    setImageUrl(tutorialsData[0]?.image_link);
+  }, [tutorialsData]);
 
   const handleLoadMore = () => {
     setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
@@ -113,6 +112,12 @@ const LearnCypto = () => {
   return (
     <>
       <Container sx={{ pt: 14 }}>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loader}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <Box paddingBottom={15}>
           <Typography
             variant="h1"
@@ -205,7 +210,7 @@ const LearnCypto = () => {
                     >
                       <Tab label="2D Design" value="1" />
                       <Tab label="3D Design" value="2" />
-                      <Tab label="User Experience" value="3" />
+                      <Tab label="Bitcoin" value="3" />
                     </TabList>
                   </Grid>
                 </Grid>
@@ -248,7 +253,7 @@ const LearnCypto = () => {
                                     {item.title}
                                   </Typography>
                                   <Typography paddingBottom={5}>
-                                    Ethereum
+                                    {item.category}
                                   </Typography>
                                   <Typography className="body-caption secondary-color">
                                     {item.blog_description}
@@ -260,7 +265,7 @@ const LearnCypto = () => {
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={7} md={7}>
-                              <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                              <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                             </Grid>
                           </Grid>
                         </Box>
@@ -302,15 +307,13 @@ const LearnCypto = () => {
                                     className="secondary-font"
                                     paddingBottom={2}
                                   >
-                                    A Beginner's Guide to TradingView
+                                    {item.title}
                                   </Typography>
                                   <Typography paddingBottom={5}>
-                                    Ethereum
+                                    {item.category}
                                   </Typography>
                                   <Typography className="body-caption secondary-color">
-                                    A fully-featured landing page kit, including
-                                    design files, and beautiful 3D illustrations
-                                    editable.
+                                   {item.blog_description}
                                   </Typography>
                                 </Box>
                                 <Box>
@@ -319,7 +322,7 @@ const LearnCypto = () => {
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={7} md={7}>
-                              <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                              <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                             </Grid>
                           </Grid>
                         </Box>
@@ -331,7 +334,7 @@ const LearnCypto = () => {
                 <Box>
                   {blogsData
                     .filter((blog) => {
-                      return blog.category === "User experience";
+                      return blog.category === "Bitcoin";
                     })
                     .slice(0, 3)
                     .map((item) => {
@@ -361,15 +364,13 @@ const LearnCypto = () => {
                                     className="secondary-font"
                                     paddingBottom={2}
                                   >
-                                    A Beginner's Guide to TradingView
+                                    {item.title}
                                   </Typography>
                                   <Typography paddingBottom={5}>
-                                    Ethereum
+                                    {item.category}
                                   </Typography>
                                   <Typography className="body-caption secondary-color">
-                                    A fully-featured landing page kit, including
-                                    design files, and beautiful 3D illustrations
-                                    editable.
+                                   {item.blog_description}
                                   </Typography>
                                 </Box>
                                 <Box>
@@ -378,7 +379,7 @@ const LearnCypto = () => {
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={7} md={7}>
-                              <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                              <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                             </Grid>
                           </Grid>
                         </Box>

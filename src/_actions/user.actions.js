@@ -19,7 +19,7 @@ const useUserActions = () => {
       .post(Apis.Login, { email, password })
       .then((res) => {
         if (res.statusCode === 200) {
-          let { data, access_token, login_attempt } = res;
+          let { data, access_token, login_attempt} = res;
           localStorage.setItem(
             "user",
             JSON.stringify({
@@ -29,8 +29,10 @@ const useUserActions = () => {
               isSubscribed: true,
             })
           );
-          setAuth({ ...data, access_token, login_attempt, isSubscribed: true });
-          login_attempt === 0 ? navigate("/account/profile") : navigate("/");
+
+          setAuth({ ...data, access_token,login_attempt, isSubscribed: true });
+        
+          res.data.is_profile_completed == 0 ? navigate("/account/profile") : navigate("/");
           setUserError(true);
           alertActions.success(Labels.Login_Success);
         } else {
@@ -62,16 +64,16 @@ const useUserActions = () => {
               isSubscribed: true,
             })
           );
-          setAuth({ ...data, access_token, login_attempt, isSubscribed: true });
+          setAuth({ ...data, access_token,login_attempt,isSubscribed: true });
           alertActions.success(Labels.Login_Success);
-          login_attempt === 0 ? navigate("/account/profile") : navigate("/");
+         res.data.is_profile_completed == 0 ? navigate("/account/profile") : navigate("/");
+          
         } else {
           alertActions.error(res.msg);
         }
       })
       .catch((err) => {
-        console.warn(err);
-      });
+  console.warn(err); });
   };
 
   const googleAuth = async (user) => {
@@ -247,10 +249,9 @@ const useUserActions = () => {
     navigate("/login");
   };
 
-  const updateUser = ({ name, email, phone }) => {
-    const password = localStorage.getItem("password");
-    return fetchWrapper
-      .post(`${Apis.Update_User}`, { name, email, phone, password })
+  const updateUser = ({ name, email, mobile, password }) => {
+      const phone = mobile;
+    return fetchWrapper.post(`${Apis.Update_User}`, { name, email, phone, password })
       .then((res) => {
         if (res.statusCode === 200) {
           let { data } = res;

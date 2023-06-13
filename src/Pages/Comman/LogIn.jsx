@@ -10,8 +10,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { MuiTelInput } from 'mui-tel-input'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useAlertActions } from '../../_actions/alert.actions';
-import { userErrorAtom } from '../../_state';
-import { useRecoilState } from 'recoil';
+import {  loaderAtom } from '../../_state';
+import {  useRecoilValue } from 'recoil';
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
@@ -32,9 +32,7 @@ import AppleIcon from '@mui/icons-material/Apple';
 const LogIn = () => {
 
     const [value, setValue] = useState('1');
-    
-    const [userError, setUserError] = useRecoilState(userErrorAtom);
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const loader = useRecoilValue(loaderAtom);
 
     // Mobile contry code 
     const [phone, setPhone] = useState('')
@@ -88,18 +86,11 @@ const LogIn = () => {
     const formOptions = { resolver: yupResolver(value == 1 ? validationSchema : validationSchemaMobile) };
     // get functions to build form with useForm() hook
     const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
-    const { errors } = formState;
-
-
-    useEffect(() => {
-        if (userError)
-            setIsSubmitting(false)
-    }, [userError])
+    const { errors, isSubmitted } = formState;
 
     const formData = watch();
+
     const handleFormSubmit = () => {
-        setIsSubmitting(true)
-        setUserError(false)
         if (value == 1) {
             userActions.login(formData)
         }
@@ -248,7 +239,7 @@ const LogIn = () => {
                                                         type="submit"
                                                         variant="contained"
                                                         className='btn btn-primary'
-                                                        disabled={isSubmitting}>
+                                                        disabled={loader}>
                                                         Login
                                                     </Button>
                                                 </TabPanel>

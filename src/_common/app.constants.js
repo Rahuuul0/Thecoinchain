@@ -52,7 +52,12 @@ export const Apis = {
   User_Login_History: 'user-login-history',
   Promotions: 'promotions-list',
   Analytics: 'analytics-list',
-  FAQ: 'faq-list'
+  FAQ: 'faq-list',
+  Notifications_List : 'get-notification',
+  Notification_All_Clear: 'notification-all-clear',
+  Notifications_Single_Read : 'notification-single-read',
+  Category_Notifications : 'categorized-notification'
+
 };
 
 export const theme = createTheme({

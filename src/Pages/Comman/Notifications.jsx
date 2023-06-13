@@ -18,32 +18,57 @@ const Notifications = () => {
     const notifications = useRecoilValue(notificationAtom);
     const [loadMoreList,setLoadMoreList]=useState([notifications])
     const [loadmore,setLoadmore] = useState([]);
-
-
     const [select, setSelect] = useState(true);
-    const [select2, setSelect2] = useState(true)
+    // const [select2, setSelect2] = useState(false)
+    const [categoryArr,setCategoryArr]=useState([]);
+    const [notificationList,setNotificationList]=useState([]);
 
-
+    console.log(select, "notifications")
+    
+    const [notification ,setnotification] = useState([])
     const handleClear =() =>{
         notificationAction.clearData()
     }
    const markAllread = () =>{
             notificationAction.markAllread()
    }
-    const handleSelectAll =() =>{
+    const handleSelectAll =(e) =>{
         setSelect(true);
-        setSelect2(true);
+        // setSelect2(true);
+        alert('fghfhfhgfhf')
   
     }
     const handleUnselectAll =() =>{
         setSelect(false);
-        setSelect2(false);
+        // setSelect2(false);
     
     }
 
    const handleLoadmore =() =>{
          setLoadmore(loadmore +5)
    }
+
+useEffect(() =>{
+
+    notificationAction.notificationList()
+    notificationAction.categoryNotifications() 
+    
+     
+},[])
+
+useEffect(()=>{
+    setNotificationList(notifications)
+
+},[notifications])
+
+const filterNotifications =(category) =>{
+      
+ console.log(categoryArr,"catArr")   
+const notificationArr = notifications.filter((item) => categoryArr?.includes(item.ct_notify_catrgory));
+setNotificationList(notificationArr)
+// setSelect(true);
+
+}
         // load more  code user  code futrue user
 
 //    useEffect(()=>{
@@ -62,7 +87,8 @@ const Notifications = () => {
 //         return item;);
 //      setLoadMoreList(arr)
 //    },[loadmore])
-console.log(loadmore,'dfgdfgdfgdfgfd')
+ console.log(notificationList,'dfgdfgdfgdfgfd')
+
     return (
         <>
 
@@ -91,7 +117,7 @@ console.log(loadmore,'dfgdfgdfgdfgfd')
                                     <Box className='notification-list'>
 
 
-                                        {notifications.map((item,index) =>{
+                                        {notificationList?.map((item,index) =>{
                                         
                                             return(
                                              
@@ -101,15 +127,18 @@ console.log(loadmore,'dfgdfgdfgdfgfd')
                                                     </Box>
                                                     <Box className='notification-title'>
                                                         <Typography component="p" variant='body'>
-                                                           {item.tittle}
+                                                           {item.ct_notify_title}
                                                         </Typography>
                                                         <Typography component="small" variant='body2'>
-                                                            {item.name}
+                                                            {item.ct_notify_msg}
+                                                        </Typography>
+                                                        <Typography component="small" variant='body2'>
+                                                            {item.ct_notify_catrgory}
                                                         </Typography>
                                                     </Box>
                                                     <Box className='notification-date'>
                                                         <Typography component="small" variant='body2'>
-                                                            <span className='n-date'> {item.create} </span>
+                                                            <span className='n-date'> {item.ct_notify_created_At} </span>
                                                         </Typography>
                                                         <span className='notification-circle'></span>
                                                     </Box>
@@ -129,10 +158,10 @@ console.log(loadmore,'dfgdfgdfgdfgfd')
                                         </Typography>
 
                                         <FormGroup>
-                                            <FormControlLabel control={<Checkbox   />}    Checked={select}   label="Crypto Prediction" />
-                                            <FormControlLabel control={<Checkbox />}    Checked={select} label="Community" />
-                                            <FormControlLabel control={<Checkbox  />}   Checked={select} label="Academy" />
-                                            <FormControlLabel control={<Checkbox />}   Checked={select} label="News" />
+                                            <FormControlLabel control={<Checkbox   />} onClick={(e)=>{categoryArr.push("Crypto Prediction");filterNotifications("Crypto Prediction")}}   Checked={select}   label="Crypto Prediction" />
+                                            <FormControlLabel control={<Checkbox />}   onClick={(e)=>{categoryArr.push("Community");filterNotifications("Community")}}  Checked={select} label="Community" />
+                                            <FormControlLabel control={<Checkbox  />}  onClick={(e)=>{categoryArr.push("Academy");filterNotifications("Academy")}} Checked={select} label="Academy" />
+                                            <FormControlLabel control={<Checkbox />}   onClick={()=>{categoryArr.push("News");filterNotifications("News")}}  Checked={select} label="News" />
                                         </FormGroup>
 
                                         <Box className='notification-filter-cta'>

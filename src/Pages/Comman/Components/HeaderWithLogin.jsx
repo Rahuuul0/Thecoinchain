@@ -15,9 +15,9 @@ import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import {notificationActions} from '../../../_actions/notification.actions';
-
+import { useState, useEffect } from "react";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import {notificationAtom} from '../../../_state/notifications';
+import {notificationAtom, authAtom} from '../../../_state/';
 import { useRecoilValue } from "recoil";
 const drawerWidth = 240;
 
@@ -25,17 +25,31 @@ function Header(props) {
   const userActions = useUserActions();
   const notification = notificationActions();
   const notifications = useRecoilValue(notificationAtom);
+  const userDetails = useRecoilValue(authAtom);
+
   // const [ clear, setClear ] = useState();
+
+  console.log(notifications,'narendra')
 
   const handleClear = async() => {
   //  const clearData  = await  notification.clearData();
   //  setClear(clearData);
   notification.clearData();
+
   };
+ 
+useEffect(()=>{
+       notification.notificationList() 
+     
+},[])
 
+const singleRead = async (notId) =>{
+  let userId = userDetails.id
 
-  // console.log(notifications,'dfgdfgdfgjdfgdfgdfj');
-
+  console.log(userId,'Narendra ssssss')
+  notification.notificationSingleread(notId, userId)
+ 
+}
   const navItems = [
     {
       page: 'Community',
@@ -107,6 +121,7 @@ function Header(props) {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -326,7 +341,7 @@ function Header(props) {
               <Box padding={2}>
                 <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
 
-                {notifications.map((item,index) =>{
+                {notifications?.map((item,index) =>{
                    if(index < 5){
 
                 
@@ -336,10 +351,10 @@ function Header(props) {
                     <MenuItem  sx={{padding:'0'}}>
                      <span className='outer-div-menu'>
                       <span className='inner-div-menu'>
-                        <span className='head-menu'>{item.name}</span>
-                        <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                        <span className='head-menu'>{item.ct_notify_title}</span>
+                        <span className='pl-3 sub-head-menu'><FiberManualRecord onClick={()=> singleRead(item.ct_notiy_id)} /></span>
                       </span>
-                      <Typography className='secondary-color' sx={{fontSize:'10px'}}>{item.create}</Typography>
+                      <Typography className='secondary-color' sx={{fontSize:'10px'}}>{item.ct_notify_created_At}</Typography>
                      </span>
                    </MenuItem>
                    <Divider/>

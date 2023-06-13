@@ -1,7 +1,7 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from "../_helpers";
-import { switchAtom, userErrorAtom, authAtom } from "../_state";
+import { switchAtom, userErrorAtom, authAtom, loaderAtom, forecastSubAtom } from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
 import { Labels, Apis } from "../_common/app.constants";
 import axios from "axios";
@@ -13,7 +13,8 @@ const useUserActions = () => {
   const [Soption, setSoption] = useRecoilState(switchAtom);
   const setUserError = useSetRecoilState(userErrorAtom);
   const [auth, setAuth] = useRecoilState(authAtom);
-
+  const [loader, setLoader] = useRecoilState(loaderAtom);
+  const subscription = useSetRecoilState(forecastSubAtom);
   const login = async ({ email, password,phone, }) => {
     return fetchWrapper
       .post(Apis.Login, { email, password,phone })
@@ -31,16 +32,18 @@ const useUserActions = () => {
           );
           setAuth({ ...data, access_token,login_attempt, isSubscribed: true });        
           res.data.is_profile_completed == 0 ? navigate("/account/profile") : navigate("/");
-          setUserError(true);
+          setLoader(false)
           alertActions.success(Labels.Login_Success);
         } else {
           setUserError(true);
           alertActions.error(res.msg);
+          
         }
       })
       .catch((err) => {
         setUserError(true);
         console.warn(err);
+        setLoader(false)
       });
   };
 
@@ -276,6 +279,8 @@ const useUserActions = () => {
     setAuth(null);
     alertActions.success(Labels.Logout_Success);
     navigate("/");
+    subscription({status: "expired"})
+
   };
 
   const getOtpPhone = async (phone) => {

@@ -9,8 +9,8 @@ import { useUserActions } from "../../_actions/user.actions"
 import { yupResolver } from "@hookform/resolvers/yup";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useAlertActions } from '../../_actions/alert.actions';
-import { userErrorAtom } from '../../_state';
-import { useRecoilState } from 'recoil';
+import {  loaderAtom } from '../../_state';
+import {  useRecoilValue } from 'recoil';
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
@@ -33,11 +33,9 @@ const LogIn = () => {
     const [value, setValue] = useState('1');    
     const [userError, setUserError] = useRecoilState(userErrorAtom);
     const [isSubmitting, setIsSubmitting] = useState(false)   
-
     const userActions = useUserActions();
     const navigate = useNavigate();
-    const alertActions = useAlertActions();
-    
+    const alertActions = useAlertActions();    
 
     const validationSchema = Yup.object().shape({
         email: Yup.string()
@@ -223,7 +221,7 @@ const LogIn = () => {
                                                         type="submit"
                                                         variant="contained"
                                                         className='btn btn-primary'
-                                                        disabled={isSubmitting}>
+                                                        disabled={loader}>
                                                         Login
                                                     </Button>
                                                 </TabPanel>

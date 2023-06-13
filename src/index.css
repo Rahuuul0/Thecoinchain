@@ -744,6 +744,7 @@ input[type="number"] {
 .gallery-menu-icon {
   padding-right: 10px;
 }
+
 .dropdown-menu .MuiPaper-root {
   border-radius: 12px;
   box-shadow: 0px 16px 64px rgba(15, 15, 15, 0.1);
@@ -1530,6 +1531,11 @@ video {
 
 .crypto-list-table table tbody td {
   font-weight: 500;
+}
+
+.crypto-list-table table tbody td img.favorite-ic {
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 .crypto-list-table table tbody:before {
@@ -2846,43 +2852,56 @@ body {
   #root .auth-wrapper h3 {
     font-size: 32px;
   }
-  .mobile-nav Button{
+
+  .mobile-nav Button {
     padding: 0;
     margin: 0;
   }
-  .mobile-nav-box Button{
-    
+
+  .mobile-nav-box Button {
+
     text-transform: capitalize;
   }
-  .mobile-menu .MuiTypography-root,  .mobile-menu .MuiButtonBase-root{
+
+  .mobile-menu .MuiTypography-root,
+  .mobile-menu .MuiButtonBase-root {
     font-size: 24px;
     font-weight: 600;
-    font-family: var(--primary-font);padding: 3px 0;
+    font-family: var(--primary-font);
+    padding: 3px 0;
     color: #777E90;
     border: none;
-    
+
   }
-  .mobile-menu .MuiTypography-root:active,  .mobile-menu .MuiButtonBase-root:active{
+
+  .mobile-menu .MuiTypography-root:active,
+  .mobile-menu .MuiButtonBase-root:active {
     color: #141416;
   }
-  .mobile-menu .MuiAccordionSummary-content{
+
+  .mobile-menu .MuiAccordionSummary-content {
     margin: 0 !important;
   }
-  .mobile-menu .MuiPaper-root{
+
+  .mobile-menu .MuiPaper-root {
     box-shadow: none;
   }
- .submenu p{
+
+  .submenu p {
     font-size: 16px !important;
     padding-top: 10px !important;
   }
-  .submenu .MuiAccordionDetails-root{
+
+  .submenu .MuiAccordionDetails-root {
     padding-top: 0px;
     padding-bottom: 0px;
   }
+
   .mobile-nav-box {
     position: relative;
   }
-  .mobile-nav-box .close-btn{
+
+  .mobile-nav-box .close-btn {
     position: absolute;
     right: 32px;
     top: 0px;
@@ -2890,23 +2909,31 @@ body {
     transform: rotate(45deg);
     line-height: 0;
   }
-  .close{
-    transform: rotate(45deg);font-size: 29px;   line-height: 0;
+
+  .close {
+    transform: rotate(45deg);
+    font-size: 29px;
+    line-height: 0;
   }
-  .mobile-in-nav{
+
+  .mobile-in-nav {
     display: flex;
     justify-content: space-between;
     width: 100%;
   }
-  .mobile-menu li .MuiButtonBase-root{
+
+  .mobile-menu li .MuiButtonBase-root {
     padding-left: 0px;
     padding-right: 0px;
   }
+
   .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
-    height: 100vh;    display: flex;
+    height: 100vh;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
+
   /* homepage */
   .filter-btn,
   .learn-cypto-tab .MuiTabs-flexContainer {
@@ -3295,4 +3322,57 @@ body {
   .auth-otp>div input {
     padding: 20px 10px;
   }
+}
+
+
+
+
+
+
+
+.codedropz-upload-inner h3 {
+  color: #a7a9ad;
+  font-size: 24px;
+  margin: 0;
+}
+
+.codedropz-upload-inner span {
+  color: #a21d2f;
+}
+
+.codedropz-upload-handler .codedropz-upload-container {
+  padding: 10px;
+}
+
+.codedropz-upload-inner .codedropz-btn-wrap a.cd-upload-btn {
+  border-width: 0px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  font-size: 15px;
+  line-height: 17px;
+  box-shadow: none;
+  transition: all 0.3s ease-out;
+  color: #a21d2f;
+  background: #d8bd4c !important;
+  padding: 17px 0px 15px 2px;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.codedropz-upload-inner .codedropz-btn-wrap a.cd-upload-btn:hover,
+.codedropz-upload-inner .codedropz-btn-wrap a.cd-upload-btn:focus {
+  box-shadow: none;
+  border-width: 0px;
+  color: #d8bd4c;
+  background: #a21d2f !important;
+  padding: 17px 0px 15px 2px;
+}
+
+.wpcf7-form-control-wrap {
+  margin-top: 3px;
+}
+
+.wpcf7 form label {
+  font-size: 14px !important;
+
 }

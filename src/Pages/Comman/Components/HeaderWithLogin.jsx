@@ -329,18 +329,22 @@ function Header(props) {
                 </Grid>
               </Box>
             </Menu>
-            <IconButton className='icon-btn' aria-label="flash" color="primary">
-              <FlashOnOutlined />
+            <IconButton className='icon-btn icon-avatar-img btnicon' onClick={handleClickAnchorbtn} size="small"
+              sx={{ ml: 2 }}
+              aria-controls={openAnchorbtn ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openAnchorbtn ? 'true' : undefined} aria-label="flash" color="primary">
+              <FlashOnOutlined color="action" />
             </IconButton>
 
-            <IconButton onClick={handleClickAnchorbtn}
+            {/* <IconButton onClick={handleClickAnchorbtn}
               size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon' aria-label="flash" color="primary">
               <NotificationsNone color="action" />
-            </IconButton>
+            </IconButton> */}
             <Menu
               anchorEl={anchorElAnchorbtn}
               id=""
@@ -407,9 +411,7 @@ function Header(props) {
                     Clear all
                   </Button>
                 </Box>
-
               </Box>
-
             </Menu>
             <IconButton className='icon-btn' onClick={e => navigate('/subscription#')} aria-label="flash" color="primary">
               <ShoppingCartOutlinedIcon />

@@ -28,9 +28,11 @@
   --color-grey: rgba(119, 126, 144, 1);
   --secondary-color: #777e90;
 }
+
 .color-dark {
   color: #23262f;
 }
+
 .font-500 {
   font-weight: 500;
 }
@@ -103,6 +105,7 @@ body .modal-dialog * {
 .btn-round {
   border-radius: 100px !important;
 }
+
 .rounded-radius .btn {
   border-radius: 90px;
 }
@@ -406,6 +409,7 @@ nav .MuiButtonBase-root:hover {
   background-color: rgba(25, 118, 210, 0.04);
   border-radius: 90px;
 }
+
 .app-nav button.MuiButtonBase-root.btnicon:hover {
   background-color: transparent;
 }
@@ -418,20 +422,25 @@ nav .MuiButtonBase-root:hover {
   display: flex;
   justify-content: space-between;
 }
+
 .notification-menu .MuiList-root {
   width: 316px;
 }
+
 .outer-div-menu {
   width: 100%;
   padding-bottom: 15px;
   padding-top: 15px;
 }
+
 .outer-div-menu svg {
   color: #58bd7d;
 }
+
 .inner-div-menu .head-menu {
   font-size: 12px;
 }
+
 .inner-div-menu .sub-head-menu {
   display: inline-flex;
 }
@@ -735,6 +744,7 @@ input[type="number"] {
 .gallery-menu-icon {
   padding-right: 10px;
 }
+
 .dropdown-menu .MuiPaper-root {
   border-radius: 12px;
   box-shadow: 0px 16px 64px rgba(15, 15, 15, 0.1);
@@ -765,6 +775,7 @@ input[type="number"] {
   display: flex;
   flex-direction: column;
 }
+
 .inner-div-outer {
   display: flex;
   flex-direction: row;
@@ -1119,6 +1130,7 @@ input[type="number"] {
 .MuiTabs-root .MuiTabs-indicator {
   display: none;
 }
+
 #root .css-hip9hq-MuiPaper-root-MuiAppBar-root,
 .MuiTabs-root .MuiTabs-scroller .css-hip9hq-MuiPaper-root-MuiAppBar-root {
   background-color: transparent;
@@ -1311,6 +1323,7 @@ input[type="number"] {
 .topic-que .MuiFormControl-root label {
   transform: none !important;
 }
+
 .faq-accordian .Mui-expanded .faq-count {
   color: #3772ff;
 }
@@ -1518,6 +1531,11 @@ video {
 
 .crypto-list-table table tbody td {
   font-weight: 500;
+}
+
+.crypto-list-table table tbody td img.favorite-ic {
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 .crypto-list-table table tbody:before {
@@ -2169,10 +2187,12 @@ p.left-icon img {
 .img-btn img {
   width: 30px;
 }
-.img-btn > input {
+
+.img-btn>input {
   display: none;
 }
-.img-btn > img {
+
+.img-btn>img {
   cursor: pointer;
   border: 0px solid transparent;
   margin-right: 8px;
@@ -2189,9 +2209,11 @@ p.left-icon img {
   padding-bottom: 11px;
   align-items: center;
 }
+
 .img-btn:last-child {
   border: none;
 }
+
 .first-img-btn {
   padding-top: 0px !important;
 }
@@ -2354,16 +2376,20 @@ p.left-icon img {
 .green-span span {
   color: #58bd7d;
 }
+
 .faenable-box span {
   color: #58bd7d;
 }
+
 .fa-disabled span {
   color: #ff6838;
 }
+
 .email-icon svg {
   top: 7px;
   position: relative;
 }
+
 .change-password-box {
   padding: 40px 90px;
 }
@@ -2507,6 +2533,7 @@ video[poster] {
 .community-details {
   width: 100%;
 }
+
 .crypto-list-table table tr th:last-child {
   padding-right: 28px;
 }
@@ -2524,12 +2551,15 @@ video[poster] {
 .react-player__preview {
   border-radius: 16px;
 }
+
 .MuiFormControl-root .MuiFormLabel-asterisk {
   display: none;
 }
+
 .center-tab.primary-tabs.MuiTabs-root button.MuiTab-root.Mui-selected {
   background-color: #3772ff;
 }
+
 .primary-tabs.MuiTabs-root button.MuiTab-root {
   background-color: #00000000;
   border: 1px solid #e6e8ec;
@@ -2734,9 +2764,6 @@ body {
 }
 
 @media (max-width: 767.98px) {
-  body{
-    overflow-x: hidden !important;
-  }
   #root .subscription-wrapper-head h2 {
     font-size: 32px;
   }
@@ -2825,43 +2852,56 @@ body {
   #root .auth-wrapper h3 {
     font-size: 32px;
   }
-  .mobile-nav Button{
+
+  .mobile-nav Button {
     padding: 0;
     margin: 0;
   }
-  .mobile-nav-box Button{
-    
+
+  .mobile-nav-box Button {
+
     text-transform: capitalize;
   }
-  .mobile-menu .MuiTypography-root,  .mobile-menu .MuiButtonBase-root{
+
+  .mobile-menu .MuiTypography-root,
+  .mobile-menu .MuiButtonBase-root {
     font-size: 24px;
     font-weight: 600;
-    font-family: var(--primary-font);padding: 3px 0;
+    font-family: var(--primary-font);
+    padding: 3px 0;
     color: #777E90;
     border: none;
-    
+
   }
-  .mobile-menu .MuiTypography-root:active,  .mobile-menu .MuiButtonBase-root:active{
+
+  .mobile-menu .MuiTypography-root:active,
+  .mobile-menu .MuiButtonBase-root:active {
     color: #141416;
   }
-  .mobile-menu .MuiAccordionSummary-content{
+
+  .mobile-menu .MuiAccordionSummary-content {
     margin: 0 !important;
   }
-  .mobile-menu .MuiPaper-root{
+
+  .mobile-menu .MuiPaper-root {
     box-shadow: none;
   }
- .submenu p{
+
+  .submenu p {
     font-size: 16px !important;
     padding-top: 10px !important;
   }
-  .submenu .MuiAccordionDetails-root{
+
+  .submenu .MuiAccordionDetails-root {
     padding-top: 0px;
     padding-bottom: 0px;
   }
+
   .mobile-nav-box {
     position: relative;
   }
-  .mobile-nav-box .close-btn{
+
+  .mobile-nav-box .close-btn {
     position: absolute;
     right: 32px;
     top: 0px;
@@ -2869,32 +2909,29 @@ body {
     transform: rotate(45deg);
     line-height: 0;
   }
-  .mobile-avatar {
-    padding-right: 20px !important;
+
+  .close {
+    transform: rotate(45deg);
+    font-size: 29px;
+    line-height: 0;
   }
-  .close{
-    transform: rotate(45deg);font-size: 29px;   line-height: 0;
-  }
-  .mobile-in-nav{
+
+  .mobile-in-nav {
     display: flex;
     justify-content: space-between;
     width: 100%;
   }
-  .mobile-menu li .MuiButtonBase-root{
+
+  .mobile-menu li .MuiButtonBase-root {
     padding-left: 0px;
     padding-right: 0px;
   }
+
   .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
-    height: 100vh;    
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-  }
-  #root nav .btn.mobile-none{
-    display: none !important;
-  }
-  nav .MuiButtonBase-root {
-    padding: 6px 0px;
   }
 
   /* homepage */
@@ -3194,10 +3231,6 @@ body {
   /* refferals */
   #root .mobile-body-large {
     font-size: 24px;
-  }
-
-  .community-wrapper-inner{
-    grid-template-columns: repeat(1, 1fr)
   }
 }
 

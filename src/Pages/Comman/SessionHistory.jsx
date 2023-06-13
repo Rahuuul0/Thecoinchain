@@ -108,38 +108,38 @@ const SessionHistory = () => {
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
-                                                    {historyData.map((item, i) => {
-                                                    return (
-                                                        <TableRow
-                                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                         >
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                   {item.created_at}
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    10:46:09
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    Macbook Pro
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    Mac OS Bigsur
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell align="right">
-                                                                <Button 
-                                                                size='small' 
-                                                                variant='contained' 
-                                                                className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}> 
-                                                                <ReactCountryFlag countryCode={item.country_code} />{item.country_code}
-                                                                </Button>
-                                                            </TableCell>
-                                                        </TableRow>
+                                                        {historyData.map((item, i) => {
+                                                            return (
+                                                                <TableRow
+                                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                                >
+                                                                    <TableCell>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
+                                                                            {item.created_at}
+                                                                        </Typography>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
+                                                                            10:46:09
+                                                                        </Typography>
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
+                                                                            Macbook Pro
+                                                                        </Typography>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
+                                                                            Mac OS Bigsur
+                                                                        </Typography>
+                                                                    </TableCell>
+                                                                    <TableCell align="right">
+                                                                        <Button
+                                                                            size='small'
+                                                                            variant='contained'
+                                                                            className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}>
+                                                                            <ReactCountryFlag countryCode={item.country_code} />{item.country_code}
+                                                                        </Button>
+                                                                    </TableCell>
+                                                                </TableRow>
                                                             )
-                                                        })}  
+                                                        })}
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>

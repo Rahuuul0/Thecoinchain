@@ -6,7 +6,7 @@ import SubsImage from '../../../public/assets/images/subs.svg';
 import { NavigateNext } from '@mui/icons-material/';
 import Sidebar from './Components/Sidebar';
 import { useNavigate } from 'react-router-dom';
-import {  forecastSubAtom } from '../../_state';
+import { forecastSubAtom } from '../../_state';
 import { useRecoilValue } from "recoil";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -64,18 +64,18 @@ const ForecastSubscriptions = () => {
         'Usa',
         'Usa',
         'Usa',
-    ];    
+    ];
     const [expanded, setExpanded] = React.useState(false);
     const handleChanges = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
 
     // Subscription action get function   API data call 
-    useEffect(()=>{
+    useEffect(() => {
         const response = subscribed.subscribedUser()
-        response.then((res)=>{(res)})
-    },[])
-  
+        response.then((res) => { (res) })
+    }, [])
+
     return (
         <>
             <ThemeProvider theme={theme}>

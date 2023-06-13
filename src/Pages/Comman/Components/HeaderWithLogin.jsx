@@ -14,7 +14,7 @@ import { useUserActions } from "../../../_actions/user.actions";
 import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
-import {notificationActions} from '../../../_actions/notification.actions';
+import { notificationActions } from '../../../_actions/notification.actions';
 
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { notificationAtom } from '../../../_state/notifications';
@@ -33,14 +33,14 @@ function Header(props) {
   const notifications = useRecoilValue(notificationAtom);
   // const [ clear, setClear ] = useState();
 
-  const handleClear = async() => {
-  //  const clearData  = await  notification.clearData();
-  //  setClear(clearData);
-  notification.clearData();
+  const handleClear = async () => {
+    //  const clearData  = await  notification.clearData();
+    //  setClear(clearData);
+    notification.clearData();
   };
 
 
-  console.log(notifications,'dfgdfgdfgjdfgdfgdfj');
+  console.log(notifications, 'dfgdfgdfgjdfgdfgdfj');
 
   const navItems = [
     {
@@ -205,7 +205,7 @@ function Header(props) {
       <CssBaseline />
       <AppBar component="nav" className="app-nav">
         <Toolbar>
-        <Typography
+          <Typography
             variant="h6"
 
             onClick={() => { navigate('/') }}
@@ -213,7 +213,7 @@ function Header(props) {
           >
             <img width='140' src={CoinGuru} alt='Coin Guru' />
           </Typography>
-          
+
           {/* <Typography
             variant="h6"
 
@@ -232,7 +232,7 @@ function Header(props) {
                   aria-expanded={open ? 'true' : undefined}
                   onClick={handleClick}
                   endIcon={<KeyboardArrowDown />}
-                  sx={{ display: { xs: 'none ', md: 'flex'}}}
+                  sx={{ display: { xs: 'none ', md: 'flex' } }}
                 >
                   Academy
                 </Button>
@@ -266,7 +266,7 @@ function Header(props) {
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
               endIcon={<KeyboardArrowDown />}
-              onClick={handleClickB} className='btn mobile-none' sx={{ color: '#23262F' ,display: { xs: 'none !important', md: 'flex' }}}>
+              onClick={handleClickB} className='btn mobile-none' sx={{ color: '#23262F', display: { xs: 'none !important', md: 'flex' } }}>
               EN/USD
             </Button>
             <Menu
@@ -330,18 +330,22 @@ function Header(props) {
                 </Grid>
               </Box>
             </Menu>
-            <IconButton className='icon-btn' aria-label="flash" color="primary">
-              <FlashOnOutlined />
+            <IconButton className='icon-btn icon-avatar-img btnicon' onClick={handleClickAnchorbtn} size="small"
+              sx={{ ml: 2 }}
+              aria-controls={openAnchorbtn ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openAnchorbtn ? 'true' : undefined} aria-label="flash" color="primary">
+              <FlashOnOutlined color="action" />
             </IconButton>
 
-            <IconButton onClick={handleClickAnchorbtn}
+            {/* <IconButton onClick={handleClickAnchorbtn}
               size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon' aria-label="flash" color="primary">
               <NotificationsNone color="action" />
-            </IconButton>
+            </IconButton> */}
             <Menu
               anchorEl={anchorElAnchorbtn}
               id=""
@@ -380,26 +384,26 @@ function Header(props) {
               <Box padding={2}>
                 <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
 
-                {notifications.map((item,index) =>{
-                   if(index < 5){
+                {notifications.map((item, index) => {
+                  if (index < 5) {
 
-                
-                  return(
-                    <>
 
-                      <MenuItem sx={{ padding: '0' }}>
-                        <span className='outer-div-menu'>
-                          <span className='inner-div-menu'>
-                            <span className='head-menu'>{item.name}</span>
-                            <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                    return (
+                      <>
+
+                        <MenuItem sx={{ padding: '0' }}>
+                          <span className='outer-div-menu'>
+                            <span className='inner-div-menu'>
+                              <span className='head-menu'>{item.name}</span>
+                              <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                            </span>
+                            <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.create}</Typography>
                           </span>
-                          <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.create}</Typography>
-                        </span>
-                      </MenuItem>
-                      <Divider />
-                    </>
-                  )
-                }
+                        </MenuItem>
+                        <Divider />
+                      </>
+                    )
+                  }
                 })}
 
 
@@ -407,18 +411,16 @@ function Header(props) {
                   <Button onClick={() => { navigate('/notifications') }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
                     View all
                   </Button>
-                  <Button  onClick={handleClear}  variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                  <Button onClick={handleClear} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
                     Clear all
                   </Button>
                 </Box>
-
               </Box>
-
             </Menu>
             <IconButton className='icon-btn' onClick={e => navigate('/subscription#')} aria-label="flash" color="primary">
               <ShoppingCartOutlinedIcon />
             </IconButton>
-            <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline mobile-none' sx={{ display: { xs: 'none', md: 'block'}, color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid',  }}>
+            <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline mobile-none' sx={{ display: { xs: 'none', md: 'block' }, color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid', }}>
               Account
             </Button>
             <IconButton aria-label="sunny" color="primary " className=' mobile-none'>
@@ -426,7 +428,7 @@ function Header(props) {
             </IconButton>
 
             <IconButton onClick={handleClickAnchor}
-            
+
               size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchor ? 'account-menu' : undefined}
@@ -511,19 +513,19 @@ function Header(props) {
             </Menu>
 
             <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
       <Box component="nav">
-     
+
         <Drawer
           container={container}
           variant="temporary"

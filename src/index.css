@@ -2576,6 +2576,39 @@ body {
 .forcast-plan{
   border-top: none !important;
 }
+@-webkit-keyframes autofill {
+  to {
+    color: blue;
+    background: transparent;
+  }
+}
+/* .MuiInputBase-input:-webkit-autofill{
+  background-color: red;
+  -webkit-animation-duration: 5000s !important;
+  animation-duration: 5000s !important;
+  -webkit-animation-name: mui-auto-fill !important;
+  background-color: #000  !important;
+  animation-name: mui-auto-fill !important;
+  animation-name: unset  !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+input[data-autocompleted] {
+  background-color: transparent !important;
+} */
+/* Change autocomplete styles in WebKit */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #6e202000 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
 

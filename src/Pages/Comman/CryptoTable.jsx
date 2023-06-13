@@ -80,8 +80,6 @@ const CryptoTable = (props) => {
   const subscriptionDetails = useRecoilValue(forecastSubAtom);
   const [loader, setLoader] = useRecoilState(loaderAtom);
 
-  console.log(loader, "loader state");
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -116,7 +114,6 @@ const CryptoTable = (props) => {
   };
 
   useEffect(() => {
-    setLoader(true);
     if (userDetail && !subscriptionDetails.id) {
       subscriptionAction.subscribedUser();
     }
@@ -124,6 +121,7 @@ const CryptoTable = (props) => {
 
   //  Latest Listing API call
   useEffect(() => {
+    setLoader(true);
     if (subscriptionDetails.status === "expired") {
       getLastestListing();
     } else if (
@@ -271,7 +269,6 @@ const CryptoTable = (props) => {
                 </TableHead>
                 <TableBody>
                   {paginator(coinsList, page, 50).data.map((item, index) => {
-                    let priceChange = item;
                     return (
                       <TableRow
                         key={index}
@@ -297,7 +294,14 @@ const CryptoTable = (props) => {
                           </div>
                         </TableCell>
                         <TableCell align="right">
-                          $ {item.price?.toFixed(4)}
+                          $
+                          {item?.price > 1
+                            ? item.price?.toFixed(2)
+                            : item?.price < 1 && item?.price >= 0.1
+                            ? item.price?.toFixed(4)
+                            : item?.price < 0.1 && item?.price > 0.01
+                            ? item.price?.toFixed(6)
+                            : item?.price}
                         </TableCell>
                         <TableCell align="right">
                           <span
@@ -334,45 +338,37 @@ const CryptoTable = (props) => {
                               {/* <span className='up'>{Math.round((item.quote.USD.percent_change_1h + Number.EPSILON) * 100) / 100}%</span> */}
                               <span
                                 className={
-                                  priceChange.percent_change_1h < 0
-                                    ? "down"
-                                    : "up"
+                                  item.percent_change_1h < 0 ? "down" : "up"
                                 }
                               >
-                                {priceChange.percent_change_1h?.toFixed(2)}
+                                {item.percent_change_1h?.toFixed(2)}
                               </span>
                             </TableCell>
                             <TableCell align="right">
                               <span
                                 className={
-                                  priceChange.percent_change_24h < 0
-                                    ? "down"
-                                    : "up"
+                                  item.percent_change_24h < 0 ? "down" : "up"
                                 }
                               >
-                                {priceChange.percent_change_24h?.toFixed(2)}
+                                {item.percent_change_24h?.toFixed(2)}
                               </span>
                             </TableCell>
                             <TableCell align="right">
                               <span
                                 className={
-                                  priceChange.percent_change_7d < 0
-                                    ? "down"
-                                    : "up"
+                                  item.percent_change_7d < 0 ? "down" : "up"
                                 }
                               >
-                                {priceChange.percent_change_7d?.toFixed(2)}
+                                {item.percent_change_7d?.toFixed(2)}
                               </span>
                             </TableCell>
                             <TableCell align="right">
                               <span
                                 className={
-                                  priceChange.percent_change_30d < 0
-                                    ? "down"
-                                    : "up"
+                                  item.percent_change_30d < 0 ? "down" : "up"
                                 }
                               >
-                                {priceChange.percent_change_30d?.toFixed(2)}
+                                {item.percent_change_30d?.toFixed(2)}
                               </span>
                             </TableCell>
                           </>
@@ -382,12 +378,10 @@ const CryptoTable = (props) => {
                               <TableCell align="right">
                                 <span
                                   className={
-                                    priceChange.percent_change_7d < 0
-                                      ? "down"
-                                      : "up"
+                                    item.percent_change_7d < 0 ? "down" : "up"
                                   }
                                 >
-                                  {priceChange.percent_change_7d?.toFixed(2)}
+                                  {item.percent_change_7d?.toFixed(2)}
                                 </span>
                               </TableCell>
                             ) : (
@@ -395,20 +389,18 @@ const CryptoTable = (props) => {
                             )}
                             <TableCell align="right">
                               <span
-                                className={
-                                  priceChange.market_cap < 0 ? "down" : "up"
-                                }
+                                className={item.market_cap < 0 ? "down" : "up"}
                               >
-                                ${priceChange.market_cap?.toFixed(2)}
+                                ${item.market_cap?.toFixed(2)}
                               </span>
                             </TableCell>
                             <TableCell align="right">
                               <span
                                 className={
-                                  priceChange.volume_24h < 0 ? "down" : "up"
+                                  item.volume_change_24h < 0 ? "down" : "up"
                                 }
                               >
-                                ${priceChange.volume_24h?.toFixed(2)}
+                                ${item.volume_change_24h?.toFixed(2)}
                               </span>
                             </TableCell>
                           </>
@@ -425,7 +417,7 @@ const CryptoTable = (props) => {
                               height="33px"
                               style={{
                                 filter:
-                                  priceChange.percent_change_24h < 0
+                                  item.percent_change_24h < 0
                                     ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
                                     : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
                               }}
@@ -446,7 +438,7 @@ const CryptoTable = (props) => {
                                 height="33px"
                                 style={{
                                   filter:
-                                    priceChange.percent_change_24h < 0
+                                    item.percent_change_24h < 0
                                       ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
                                       : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
                                 }}
@@ -491,7 +483,7 @@ const CryptoTable = (props) => {
                                 height="33px"
                                 style={{
                                   filter:
-                                    priceChange.percent_change_24h < 0
+                                    item.percent_change_24h < 0
                                       ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
                                       : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
                                 }}

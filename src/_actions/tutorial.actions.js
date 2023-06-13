@@ -16,11 +16,12 @@ const useTutorialActions = () => {
       .then((res) => {
         if (res.statusCode === 200) {
           setTutorialData(res.data);
-          loader(false);
         }
+        loader(false);
       })
       .catch((err) => {
         console.warn(err);
+        loader(false);
       });
   };
 
@@ -31,11 +32,12 @@ const useTutorialActions = () => {
       .then((res) => {
         if (res.statusCode === 200) {
           setBlogData(res.data);
-          loader(false);
         }
+        loader(false);
       })
       .catch((err) => {
         console.warn(err);
+        loader(false);
       });
   };
 

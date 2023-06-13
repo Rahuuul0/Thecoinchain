@@ -24,10 +24,6 @@ import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import { Label } from 'recharts';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 const drawerWidth = '100%';

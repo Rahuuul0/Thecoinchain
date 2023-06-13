@@ -40,8 +40,8 @@ function Header(props) {
   };
 
 
-  // console.log(notifications, 'dfgdfgdfgjdfgdfgdfj');
-  // const userActions = useUserActions();
+  console.log(notifications, 'dfgdfgdfgjdfgdfgdfj');
+
   const navItems = [
     {
       page: 'Community',
@@ -129,10 +129,10 @@ function Header(props) {
                 <NotificationsNone color="action" />
               </IconButton>
             </Box>
-            <Box>
+            <Box className=''>
               <IconButton
                 size="small"
-                sx={{ ml: 2 }} className='icon-avatar-img btnicon' aria-label="flash" color="primary">
+                sx={{ ml: 2, }} className='icon-avatar-img btnicon mobile-avatar' aria-label="flash" color="primary">
                 <img src={UserAvatar} />
               </IconButton>
             </Box>
@@ -178,7 +178,7 @@ function Header(props) {
                   Search
                 </ListItemText>
               </ListItemButton>
-            </ListItem>notifications
+            </ListItem>
             <ListItem disablePadding>
               <ListItemButton sx={{ textAlign: 'center' }}>
                 <ListItemText primary="" onClick={() => { navigate(item.link) }}>
@@ -205,24 +205,24 @@ function Header(props) {
       <CssBaseline />
       <AppBar component="nav" className="app-nav">
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography
             variant="h6"
 
             onClick={() => { navigate('/') }}
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
+            sx={{ flexGrow: 1, display: { xs: 'block', md: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
+          >
+            <img width='140' src={CoinGuru} alt='Coin Guru' />
+          </Typography>
+
+          {/* <Typography
+            variant="h6"
+
+            onClick={() => { navigate('/') }}
+            sx={{ flexGrow: 1, display: { xs: 'block', md: 'none', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
           >
             <img src={CoinGuru} alt='Coin Guru' />
-          </Typography>
-          <Box className='' sx={{ display: { xs: 'none', sm: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
+          </Typography> */}
+          <Box className='' sx={{ display: { xs: 'none ', md: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>
               <li >
                 <Button
@@ -232,6 +232,7 @@ function Header(props) {
                   aria-expanded={open ? 'true' : undefined}
                   onClick={handleClick}
                   endIcon={<KeyboardArrowDown />}
+                  sx={{ display: { xs: 'none ', md: 'flex' } }}
                 >
                   Academy
                 </Button>
@@ -259,13 +260,13 @@ function Header(props) {
               </Button>
             ))}
           </Box>
-          <Box className='end-flex' sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
+          <Box className='end-flex' sx={{ display: { xs: 'none', md: 'block', flex: 2, textAlign: 'right' } }}>
             <Button id="currency-positioned-button"
               aria-controls={open ? 'currency-positioned-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
               endIcon={<KeyboardArrowDown />}
-              onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
+              onClick={handleClickB} className='btn mobile-none' sx={{ color: '#23262F', display: { xs: 'none !important', md: 'flex' } }}>
               EN/USD
             </Button>
             <Menu
@@ -383,31 +384,34 @@ function Header(props) {
               <Box padding={2}>
                 <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
 
-                {notifications.map((item) => {
-                  return (
-                    <>
+                {notifications.map((item, index) => {
+                  if (index < 5) {
 
-                      <MenuItem sx={{ padding: '0' }}>
-                        <span className='outer-div-menu'>
-                          <span className='inner-div-menu'>
-                            <span className='head-menu'>{item.name}</span>
-                            <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+
+                    return (
+                      <>
+
+                        <MenuItem sx={{ padding: '0' }}>
+                          <span className='outer-div-menu'>
+                            <span className='inner-div-menu'>
+                              <span className='head-menu'>{item.name}</span>
+                              <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                            </span>
+                            <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.create}</Typography>
                           </span>
-                          <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.create}</Typography>
-                        </span>
-                      </MenuItem>
-                      <Divider />
-                    </>
-                  )
-                }
-                )}
+                        </MenuItem>
+                        <Divider />
+                      </>
+                    )
+                  }
+                })}
 
 
                 <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
                   <Button onClick={() => { navigate('/notifications') }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
                     View all
                   </Button>
-                  <Button variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                  <Button onClick={handleClear} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
                     Clear all
                   </Button>
                 </Box>
@@ -416,14 +420,15 @@ function Header(props) {
             <IconButton className='icon-btn' onClick={e => navigate('/subscription#')} aria-label="flash" color="primary">
               <ShoppingCartOutlinedIcon />
             </IconButton>
-            <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+            <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline mobile-none' sx={{ display: { xs: 'none', md: 'block' }, color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid', }}>
               Account
             </Button>
-            <IconButton aria-label="sunny" color="primary " >
+            <IconButton aria-label="sunny" color="primary " className=' mobile-none'>
               <WbSunnyOutlined />
             </IconButton>
 
             <IconButton onClick={handleClickAnchor}
+
               size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchor ? 'account-menu' : undefined}
@@ -506,10 +511,21 @@ function Header(props) {
               </MenuItem>
 
             </Menu>
+
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
       <Box component="nav">
+
         <Drawer
           container={container}
           variant="temporary"

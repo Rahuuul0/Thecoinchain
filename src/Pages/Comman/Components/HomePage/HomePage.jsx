@@ -193,6 +193,8 @@ const Home = () => {
                         ? item.price?.toFixed(4)
                         : item?.price < 0.1 && item?.price > 0.01
                         ? item.price?.toFixed(6)
+                        : item?.price < 0.01
+                        ? item.price?.toFixed(8)
                         : item?.price}
                     </Typography>
                     <Typography
@@ -202,7 +204,7 @@ const Home = () => {
                       fontWeight={400}
                       className="primary-font"
                     >
-                      {Math.round((item.price + Number.EPSILON) * 100) / 10000}
+                      {item.volume_24h?.toFixed(2)}
                     </Typography>
                   </Grid>
                 );

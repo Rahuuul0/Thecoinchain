@@ -27,7 +27,7 @@ const useCoinActions = () => {
       .get(Apis.Categories_Data)
       .then((res) => {
         if (res.statusCode === 200) {
-          setCoinsCategory([...res.data.data[1].data]);
+          setCoinsCategory([...res.data.data]);
         } else {
           alertActions.error(Labels.Error);
         }

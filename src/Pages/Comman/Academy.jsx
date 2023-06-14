@@ -86,7 +86,7 @@ const Academy = () => {
                       fontWeight={700}
                       className="secondary-font"
                     >
-                      Leveraged tokens now available
+                      All About Crypto
                     </Typography>
                     <Typography
                       fontSize={16}
@@ -130,7 +130,7 @@ const Academy = () => {
                       fontWeight={700}
                       className="secondary-font"
                     >
-                      Leveraged tokens now available
+                       Master Course
                     </Typography>
                     <Typography
                       fontSize={16}

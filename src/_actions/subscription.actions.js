@@ -2,7 +2,7 @@ import { useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from "../_helpers";
 import { Apis } from "../_common/app.constants";
-import { forecastSubAtom, loaderAtom } from "../_state";
+import { forecastSubAtom, loaderAtom, setUnsubscribeAtom } from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
 
 const subscriptionActions = () => {
@@ -10,6 +10,7 @@ const subscriptionActions = () => {
   const fetchWrapper = useFetchWrapper();
   const alertActions = useAlertActions();
   const setForecastSub = useSetRecoilState(forecastSubAtom);
+  const setUnsubscribeUser = useSetRecoilState(setUnsubscribeAtom);
   const loader = useSetRecoilState(loaderAtom);
 
   const subscription = () => {
@@ -62,10 +63,28 @@ const subscriptionActions = () => {
       });
   };
 
+  const unsubscribeUser = () => { 
+    loader(true);
+    return fetchWrapper.post(Apis.Unsubscribe_User)
+      .then((res) => {
+        if (res.statusCode === 200) {
+          setForecastSub({status: "expired"});
+          loader(false);
+        } else {
+          console.log(res.msg, "res.msg");
+          loader(false);
+        }
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  };
+
   return {
     subscription,
     createPaymentIntent,
     subscribedUser,
+    unsubscribeUser
   };
 };
 

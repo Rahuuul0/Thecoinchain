@@ -92,12 +92,12 @@ const MarketCard = () => {
                             ? item.price?.toFixed(4)
                             : item?.price < 0.1 && item?.price > 0.01
                             ? item.price?.toFixed(6)
+                            : item?.price < 0.01
+                            ? item.price?.toFixed(8)
                             : item?.price}
                         </Typography>
                         <Typography component="small" varient="small-caption">
-                          {Math.round(
-                            (item.market_cap + Number.EPSILON) * 100
-                          ) / 10000}
+                          {item.volume_24h?.toFixed(2)}
                         </Typography>
                       </Box>
                     </Box>

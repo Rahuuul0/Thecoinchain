@@ -248,11 +248,7 @@ const CryptoTable = (props) => {
                       </>
                     ) : location.pathname === "/market" ? (
                       <>
-                        {subscriptionDetails.status === "running" ? (
-                          <TableCell align="right">7d %</TableCell>
-                        ) : (
-                          ""
-                        )}
+                        <TableCell align="right">7d %</TableCell>
                         <TableCell align="right">Marketcap</TableCell>
                         <TableCell align="right">Volume(24h)</TableCell>
                       </>
@@ -301,6 +297,8 @@ const CryptoTable = (props) => {
                             ? item.price?.toFixed(4)
                             : item?.price < 0.1 && item?.price > 0.01
                             ? item.price?.toFixed(6)
+                            : item?.price < 0.01
+                            ? item.price?.toFixed(8)
                             : item?.price}
                         </TableCell>
                         <TableCell align="right">
@@ -374,34 +372,21 @@ const CryptoTable = (props) => {
                           </>
                         ) : location.pathname === "/market" ? (
                           <>
-                            {subscriptionDetails.status === "running" ? (
-                              <TableCell align="right">
-                                <span
-                                  className={
-                                    item.percent_change_7d < 0 ? "down" : "up"
-                                  }
-                                >
-                                  {item.percent_change_7d?.toFixed(2)}
-                                </span>
-                              </TableCell>
-                            ) : (
-                              ""
-                            )}
-                            <TableCell align="right">
-                              <span
-                                className={item.market_cap < 0 ? "down" : "up"}
-                              >
-                                ${item.market_cap?.toFixed(2)}
-                              </span>
-                            </TableCell>
                             <TableCell align="right">
                               <span
                                 className={
-                                  item.volume_change_24h < 0 ? "down" : "up"
+                                  item.percent_change_7d < 0 ? "down" : "up"
                                 }
                               >
-                                ${item.volume_change_24h?.toFixed(2)}
+                                {item.percent_change_7d?.toFixed(2)}
                               </span>
+                            </TableCell>
+
+                            <TableCell align="right">
+                              ${item.market_cap?.toFixed(0)}
+                            </TableCell>
+                            <TableCell align="right">
+                              ${item.volume_24h?.toFixed(0)}
                             </TableCell>
                           </>
                         ) : (

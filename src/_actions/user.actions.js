@@ -15,13 +15,9 @@ const useUserActions = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
   const [loader, setLoader] = useRecoilState(loaderAtom);
   const subscription = useSetRecoilState(forecastSubAtom);
-
-
-
-  const login = async ({ email, password }) => {
-    setLoader(true)
+  const login = async ({ email, password,phone, }) => {
     return fetchWrapper
-      .post(Apis.Login, { email, password })
+      .post(Apis.Login, { email, password,phone })
       .then((res) => {
         if (res.statusCode === 200) {
           let { data, access_token, login_attempt} = res;
@@ -34,18 +30,18 @@ const useUserActions = () => {
               isSubscribed: true,
             })
           );
-
-          setAuth({ ...data, access_token,login_attempt, isSubscribed: true });
-        
+          setAuth({ ...data, access_token,login_attempt, isSubscribed: true });        
           res.data.is_profile_completed == 0 ? navigate("/account/profile") : navigate("/");
           setLoader(false)
           alertActions.success(Labels.Login_Success);
         } else {
+          setUserError(true);
           alertActions.error(res.msg);
           
         }
       })
       .catch((err) => {
+        setUserError(true);
         console.warn(err);
         setLoader(false)
       });
@@ -118,16 +114,16 @@ const useUserActions = () => {
   };
 
   const loginMobile = ({ number, passwordMob }) => {
-    alertActions.success("called" + number + " " + passwordMob);
+    
   };
 
-  const forgotPassword = async (email) => {
+  const forgotPassword = async (data) => {
     return fetchWrapper
-      .post(Apis.Forgot_Password, { email })
+      .post(Apis.Forgot_Password, data)
       .then((res) => {
         if (res.statusCode === 200) {
           alertActions.success(
-            Labels.Password_Reset_Email.replaceAll(Labels.Replce_Text, email)
+            Labels.Password_Reset_Email.replaceAll(Labels.Replce_Text, data.email?data.email:data.phone)
           );
           setSoption(false);
         } else {

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
@@ -19,7 +19,7 @@ import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
 import AppleIcon from '@mui/icons-material/Apple';
 import ReCAPTCHA from "react-google-recaptcha";
-import { MuiTelInput } from 'mui-tel-input'
+import MuiPhoneNumber from "material-ui-phone-number";
 
 import GoogleAuth from "./GoogleAuth.jsx";
 
@@ -35,7 +35,7 @@ const CreateAccount = () => {
             .trim()
             .required("Email Address is required"),
         mobile: Yup.string().max(17,"Phone must be at most 15 characters")
-        .required("Mobile Number is required"),
+            .required("Mobile Number is required"),
         password: Yup.string()
             .trim()
             .required("Password is required")
@@ -49,7 +49,7 @@ const CreateAccount = () => {
                 [Yup.ref("password"), null],
                 "Passwords must match."
             ),
-            agree: Yup.bool().oneOf([true], "You must accept the terms and conditions")       
+        agree: Yup.bool().oneOf([true], "You must accept the terms and conditions")       
     });
 
     //password eye IconButton
@@ -90,6 +90,8 @@ const CreateAccount = () => {
             alertActions.error("reCAPTCHA is mandatory")
         }        
     }
+
+    
     
     return (
         <>
@@ -170,27 +172,21 @@ const CreateAccount = () => {
                                             {...register("email")}
                                             onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         />
-                                        <div style={{ color: "red" }}>{errors.email?.message}
+                                        <div className="frm-message">{errors.email?.message}
                                         </div>
-                                        <MuiTelInput
-                                                    label="Mobile *"
-                                                    className="form-control white-input-box"
-                                                    InputLabelProps={{
-                                                        shrink: true,
-                                                    }}
-                                                    variant="standard"
-                                                    margin="normal"
-                                                    required
-                                                    fullWidth
-                                                     max={10}   
-                                                    id="mobile"
-                                                    autoComplete="off"
-                                                    {...register("mobile")}
-                                                    value={phone}
-                                                    onChange={handlePhone}
-                                                />
-                                        <div style={{ color: "red" }}>{errors.mobile?.message}
-                                        </div>
+                                        <MuiPhoneNumber
+                                            label="Mobile *"
+                                            className="form-control white-input-box"
+                                            fullWidth
+                                            variant="standard"
+                                            margin="normal"
+                                            required
+                                            autoComplete="off"
+                                            defaultCountry={"us"}
+                                            value={formData.mobile}
+                                            onChange={(value) => reset({ ...formData, mobile: value })}                                            
+                                        />    
+                                        <div className="frm-message">  {errors.mobile?.message}</div>                                   
                                         <TextField
                                             margin="normal"
                                             required
@@ -218,8 +214,8 @@ const CreateAccount = () => {
                                             }}
                                             {...register("password")}
                                             onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-                                        /><div style={{ color: "red" }}> {errors.password?.message}
-                                        </div>
+                                        />
+                                        <div className="frm-message"> {errors.password?.message}</div>
                                         <TextField
                                             margin="normal"
                                             required
@@ -248,8 +244,7 @@ const CreateAccount = () => {
                                             {...register("confirm_password")}
                                             onChange={(e) => reset({ ...formData, confirm_password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                         />
-                                        <div style={{ color: "red" }}> {errors.confirm_password?.message}
-                                        </div>
+                                        <div className="frm-message"> {errors.confirm_password?.message}</div>
 
                                         <FormControlLabel                                         
                                         className='auth-checkbox' 
@@ -257,8 +252,7 @@ const CreateAccount = () => {
                                         control={<Checkbox {...register("agree")}  />} 
                                         label='* By signing up I agree that I’m 18 <b> years</b> of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent.'
                                             />
-                                          <div style={{ color: "red" }}> {errors.agree?.message}
-                                        </div>
+                                        <div className="frm-message">  {errors.agree?.message}</div>
                                         <ReCAPTCHA
                                             style={{ margin: "10px auto", display: "flex", justifyContent: "center" }}
                                             theme="light"

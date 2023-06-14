@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState  } from 'react';
+import { useRecoilState } from 'recoil';
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -7,11 +8,9 @@ import { Container, Box, TextField, Typography, Link, Button, InputAdornment } f
 import { useForm } from "react-hook-form";
 import { useUserActions } from "../../_actions/user.actions"
 import { yupResolver } from "@hookform/resolvers/yup";
-import { MuiTelInput } from 'mui-tel-input'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useAlertActions } from '../../_actions/alert.actions';
-import {  loaderAtom } from '../../_state';
-import {  useRecoilValue } from 'recoil';
+import {  userErrorAtom } from '../../_state';
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
@@ -27,27 +26,16 @@ import AuthBg from '../../../public/assets/images/auth-bg.svg'
 import Lock from '../../../public/assets/images/icons/lock.svg'
 import GoogleLogin from "./GoogleLogin.jsx";
 import AppleIcon from '@mui/icons-material/Apple';
+import MuiPhoneNumber from "material-ui-phone-number";
 
 
 const LogIn = () => {
-
-    const [value, setValue] = useState('1');
-    const loader = useRecoilValue(loaderAtom);
-
-    // Mobile contry code 
-    const [phone, setPhone] = useState('')
-    const handlePhone = (newPhone) => {
-        setPhone(newPhone)
-    }
-
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
+    const [value, setValue] = useState('1');    
+    const [userError, setUserError] = useRecoilState(userErrorAtom);
+    const [isSubmitting, setIsSubmitting] = useState(false)   
     const userActions = useUserActions();
     const navigate = useNavigate();
-    const alertActions = useAlertActions();
+    const alertActions = useAlertActions();    
 
     const validationSchema = Yup.object().shape({
         email: Yup.string()
@@ -57,47 +45,33 @@ const LogIn = () => {
         password: Yup.string()
             .trim()
             .required("Password is required")
-            .min(8, "Password must be at least 8 characters.")
-            .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
-            ),
     });
     const validationSchemaMobile = Yup.object().shape({
-        number: Yup.string()
+        phone: Yup.string()
             .trim()
             .required("Mobile number is required"),
-        passwordMob: Yup.string()
+        password: Yup.string()
             .trim()
             .required("Password is required")
-            .min(8, "Password must be at least 8 characters.")
-            .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
-            ),
     });
 
     //password eye IconButton
     const [showPassword, setShowPassword] = React.useState(false);
-
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-
     //yup validation
     const formOptions = { resolver: yupResolver(value == 1 ? validationSchema : validationSchemaMobile) };
     // get functions to build form with useForm() hook
     const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
-    const { errors, isSubmitted } = formState;
-
+    const { errors } = formState;
     const formData = watch();
-
-    const handleFormSubmit = () => {
-        if (value == 1) {
-            userActions.login(formData)
-        }
-        else {
-            userActions.loginMobile(formData)
-        }
-
+    
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+        reset({email:'',pass:'',phone:''});
+    };
+    
+    const handleFormSubmit = () => {        
+        userActions.login(formData);   
     }
     return (
         <>
@@ -195,7 +169,7 @@ const LogIn = () => {
                                                         {...register("email")}
                                                         onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                                     />
-                                                    <div style={{ color: "red" }}>{errors.email?.message}</div>
+                                                    <div className="frm-message">{errors.email?.message}</div>
 
                                                     <TextField
                                                         label="Password *"
@@ -239,30 +213,27 @@ const LogIn = () => {
                                                         type="submit"
                                                         variant="contained"
                                                         className='btn btn-primary'
-                                                        disabled={loader}>
+                                                    >
                                                         Login
                                                     </Button>
                                                 </TabPanel>
                                                 <TabPanel value="2" sx={{ p: 0 }}>
-
-                                                    <MuiTelInput
-                                                        label="Number *"
-                                                        className="form-control"
-                                                        variant="standard"
-                                                        required
-                                                        margin="normal"
+                                                    <MuiPhoneNumber
+                                                        label="Mobile *"
+                                                        className="form-control white-input-box"
                                                         fullWidth
-                                                        placeholder='Number'
+                                                        variant="standard"
+                                                        margin="normal"
+                                                        required
                                                         autoComplete="off"
+                                                        defaultCountry={"us"}
+                                                        value={formData.phone}
+                                                        placeholder='Number'
                                                         size="small"
-                                                        autoFocus
-                                                        {...register("number")}
-                                                        value={phone}
-                                                        onChange={handlePhone}
-                                                    />
-                                                    <div style={{ color: "red" }}>{errors.number?.message}
-                                                    </div>
-
+                                                        {...register("phone")}
+                                                        onChange={(value) => reset({ ...formData, phone: value })}                                            
+                                                    />                                                     
+                                                    <div className="frm-message"> {errors.phone?.message}</div>
                                                     <TextField
                                                         label="Password *"
                                                         className="form-control"
@@ -279,8 +250,8 @@ const LogIn = () => {
                                                         autoComplete="off"
                                                         size="small"
                                                         type={showPassword ? "text" : "password"}
-                                                        {...register("passwordMob")}
-                                                        onChange={(e) => reset({ ...formData, passwordMob: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                                                        {...register("password")}
+                                                        onChange={(e) => reset({ ...formData, password: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                                                         InputProps={{
                                                             endAdornment: (
                                                                 <InputAdornment position="end">
@@ -291,7 +262,7 @@ const LogIn = () => {
                                                             ),
                                                         }}
                                                     />
-                                                    <div style={{ color: "red" }}> {errors.passwordMob?.message}</div>
+                                                    <div className="frm-message"> {errors.password?.message}</div>
 
                                                     <Box className='scan-forgot'>
                                                         <Link href='#' onClick={() => { navigate("/scan-to-login"); }} variant="body2" sx={{ color: '#777E91!important', textDecoration: 'none' }}>

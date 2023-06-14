@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
-import { Box, Grid, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, } from '@mui/material/';
+import { Box, Grid, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel,Accordion, AccordionDetails , AccordionSummary  } from '@mui/material/';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -24,6 +24,7 @@ import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import { Label } from 'recharts';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 const drawerWidth = '100%';
@@ -78,7 +79,7 @@ function Header(props) {
   const drawer = (
     <>
       <Box className='mobile-nav-box' onClick={handleDrawerToggle} sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
-        <Box className='close-btn'><p>+</p></Box>
+      <Box className='close-btn'><p>+</p></Box>
         <Box>
           <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
           <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
@@ -91,18 +92,18 @@ function Header(props) {
               >
                 <Button
                   id="acedamy-btn"
-
+                                
                 >
                   Academy
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
-                <Typography onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+              <Typography onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
+              <Typography onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
               </AccordionDetails>
             </Accordion>
-
-            <List sx={{ padding: '0px' }}>
+           
+            <List sx={{padding:'0px'}}>
               {navItems.map((item, i) => {
                 return (
                   <ListItem key={i} disablePadding>

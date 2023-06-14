@@ -204,7 +204,7 @@ const Home = () => {
                       fontWeight={400}
                       className="primary-font"
                     >
-                      {item.volume_24?.toFixed(2)}
+                      {item.volume_24h?.toFixed(2)}
                     </Typography>
                   </Grid>
                 );

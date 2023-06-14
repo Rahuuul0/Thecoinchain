@@ -177,7 +177,7 @@ const LearnCypto = () => {
             <Grid container>
               <Grid item xs={12} sm={5} md={5}>
                 <Typography className="small-caption secondary-color">
-                  Our Blog
+                  OUR BLOG
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={7} md={7}>
@@ -265,7 +265,10 @@ const LearnCypto = () => {
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={7} md={7}>
-                              <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                              <img
+                                sx={{ maxWidth: "100%" }}
+                                src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
+                              />
                             </Grid>
                           </Grid>
                         </Box>
@@ -313,7 +316,7 @@ const LearnCypto = () => {
                                     {item.category}
                                   </Typography>
                                   <Typography className="body-caption secondary-color">
-                                   {item.blog_description}
+                                    {item.blog_description}
                                   </Typography>
                                 </Box>
                                 <Box>
@@ -322,7 +325,10 @@ const LearnCypto = () => {
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={7} md={7}>
-                              <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                              <img
+                                sx={{ maxWidth: "100%" }}
+                                src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
+                              />
                             </Grid>
                           </Grid>
                         </Box>
@@ -370,7 +376,7 @@ const LearnCypto = () => {
                                     {item.category}
                                   </Typography>
                                   <Typography className="body-caption secondary-color">
-                                   {item.blog_description}
+                                    {item.blog_description}
                                   </Typography>
                                 </Box>
                                 <Box>
@@ -379,7 +385,10 @@ const LearnCypto = () => {
                               </Box>
                             </Grid>
                             <Grid item xs={12} sm={7} md={7}>
-                              <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                              <img
+                                sx={{ maxWidth: "100%" }}
+                                src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
+                              />
                             </Grid>
                           </Grid>
                         </Box>
@@ -605,7 +614,12 @@ const LearnCypto = () => {
                     Let’s stay in touch. Join our communities to keep up with
                     the BitCloud team and our traders from across the world.
                   </Typography>
-                  <Button className="btn-outlined-secondary">Join now</Button>
+                  <Button
+                    className="btn-outlined-secondary"
+                    onClick={() => navigate("/community")}
+                  >
+                    Join now
+                  </Button>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} textAlign="right">
                   <img src={Globe} />

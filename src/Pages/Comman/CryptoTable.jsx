@@ -566,7 +566,11 @@ const CryptoTable = (props) => {
               variant="h6"
               component="h2"
             >
-              <NavigateBeforeIcon /> BTC
+              <NavigateBeforeIcon
+                onClick={handleClose}
+                sx={{ cursor: "pointer" }}
+              />{" "}
+              BTC
             </Typography>
           </Box>
           <Box
@@ -587,12 +591,12 @@ const CryptoTable = (props) => {
               {chartData[0]?.name}
             </Typography>
             <Box className="value-details">
-              <Button
+              {/* <Button
                 variant="outlined"
                 className="btn btn-outlined-secondary btn-round btn-close"
               >
                 <KeyboardArrowDownIcon />
-              </Button>
+              </Button> */}
               <Typography className="crypto-value" variant="h5" component="h5">
                 {chartData[0]?.price}
               </Typography>

@@ -2622,6 +2622,7 @@ body {
 input[data-autocompleted] {
   background-color: transparent !important;
 } */
+
 /* Change autocomplete styles in WebKit */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -2634,6 +2635,24 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px #6e202000 inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+.css-qe9us1-MuiFormHelperText-root.Mui-error,
+.frm-message {
+  color: red;
+  font-size: 13px !important;
+  margin: 0;
+  padding-left: 0px;
+  line-height: 0.5;
+}
+
+.auth-form button {
+  min-width: 50px !important;
+}
+
+.favorite-ic {
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 /* Media Queries  */
@@ -3375,17 +3394,4 @@ select:-webkit-autofill:focus {
   .auth-otp>div input {
     padding: 20px 10px;
   }
-}
-
-.css-qe9us1-MuiFormHelperText-root.Mui-error,
-.frm-message {
-  color: red;
-  font-size: 13px !important;
-  margin: 0;
-  padding-left: 0px;
-  line-height: 0.5;
-}
-
-.auth-form button {
-  min-width: 50px !important;
 }

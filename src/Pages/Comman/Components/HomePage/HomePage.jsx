@@ -187,7 +187,15 @@ const Home = () => {
                       paddingBottom={1}
                       className="primary-font"
                     >
-                      {item.price?.toFixed(2)}
+                      {item?.price > 1
+                        ? item.price?.toFixed(2)
+                        : item?.price < 1 && item?.price >= 0.1
+                        ? item.price?.toFixed(4)
+                        : item?.price < 0.1 && item?.price > 0.01
+                        ? item.price?.toFixed(6)
+                        : item?.price < 0.01
+                        ? item.price?.toFixed(8)
+                        : item?.price}
                     </Typography>
                     <Typography
                       variant="h6"
@@ -196,8 +204,7 @@ const Home = () => {
                       fontWeight={400}
                       className="primary-font"
                     >
-                      {Math.round((item.price + Number.EPSILON) * 100) /
-                        10000000}
+                      {item.volume_24h?.toFixed(2)}
                     </Typography>
                   </Grid>
                 );

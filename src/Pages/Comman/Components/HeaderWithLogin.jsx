@@ -32,9 +32,11 @@ function Header(props) {
   console.log(notifications,'narendra')
 
   const handleClear = async() => {
-  //  const clearData  = await  notification.clearData();
-  //  setClear(clearData);
-  notification.clearData();
+    let userId = userDetails.id;
+    let notId = notifications.map((item,index) => { if(index < 5){return( item.ct_notiy_id )}  })
+
+    console.log(notId,'notifyId')
+  notification.clearData(notId,userId);
 
   };
  

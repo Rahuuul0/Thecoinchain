@@ -49,16 +49,12 @@ const notificationActions = () => {
 
 
     const categoryNotifications = (category,user_id) => {
-        return fetchWrapper.get(`${Apis.Category_Notifications}`,category,user_id)
-        // return fetchWrapper.get(Apis.Category_Notifications, {
-        //     body: JSON.stringify({
-        //       category: "Academy",
-        //       user_id: "5",
-        //     }),
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //   })
+        return fetchWrapper.get(Apis.Category_Notifications)
+            // {
+            //   "category":`${category}`,
+            //   "user_id":`${userId}`
+            // },
+        
             .then(res => {
                 if (res.statusCode === 200) {
                     // setNotification([...res.data])
@@ -70,25 +66,17 @@ const notificationActions = () => {
             }).catch((err)=>{console.warn(err)})
     }
 
-    const markAllread = () => {
-        return fetchWrapper.get(Apis.Guides_analysis)
-            .then(res => {
-                if (res.statusCode === 200) {
-                    // setNotification([...res.data])
-                    alertActions.success("Mark all Read Successfully");
-                
-                } else {
-                    // alertActions.error(res.msg);
-                }
-            }).catch((err)=>{console.warn(err)})
-    }
-
-    const clearData = (id) => {
+    const clearNotifications = () => {
     
-        return fetchWrapper.post(`${Apis.Notification_All_Clear}/${id}`)
+        // return fetchWrapper.post(`${Apis.Notification_All_Clear}/${id}`)
+        return fetchWrapper.post(Apis.Notification_All_Clear, 
+            {
+                "all_clear":"1",
+            })
             .then((res) => {
                 if (res.statusCode === 200) {  
                     return res.data  
+                    notificationList()
                     // console.log(res.data``,'dfgdfgfgdfgg')            
                     alertActions.success('Clear all Data Successfully');
                     //   setNotification([...res.data])
@@ -100,8 +88,7 @@ const notificationActions = () => {
 
         notificationList,
         notificationSingleread,
-        markAllread,
-        clearData,
+        clearNotifications,
         categoryNotifications,
     }
 }

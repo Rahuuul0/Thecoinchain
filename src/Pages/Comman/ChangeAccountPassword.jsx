@@ -178,7 +178,7 @@ const ChangeAccountPassword = () => {
                                                     </InputAdornment>
                                                 )
                                             }}
-                                            autoFocus
+                                            
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirm_password?.message}</div>
 

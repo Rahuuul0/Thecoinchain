@@ -43,7 +43,7 @@ import Academy from "./Academy";
 import MasterCourse from "./MasterCourse";
 import AcademyAboutCrypto from "./AcademyAboutCrypto";
 import SubscriptionPayment from "./SubscriptionPayment";
-
+import ForgotPasswordPhone from "./ForgotPasswordPhone";
 const Customer = () => {
   const auth = useRecoilValue(authAtom);
   const PrivateOutletWithLogin = () => {
@@ -118,6 +118,8 @@ const Customer = () => {
           <Route path={`/create-account`} element={<CreateAccount />} />
           <Route path={`/scan-to-login`} element={<ScanToLogin />} />
           <Route path={`/confirm-account`} element={<AccountConfirm />} />
+          <Route path={`/password-recovery`} element={<ForgotPasswordPhone />} />
+         
         </Route>
 
         {/* For account pages */}

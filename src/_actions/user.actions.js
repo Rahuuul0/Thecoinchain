@@ -1,7 +1,7 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from "../_helpers";
-import { switchAtom, userErrorAtom, authAtom } from "../_state";
+import { switchAtom, userErrorAtom, authAtom, loaderAtom, forecastSubAtom,loginDataAtom } from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
 import { Labels, Apis } from "../_common/app.constants";
 import axios from "axios";
@@ -13,10 +13,13 @@ const useUserActions = () => {
   const [Soption, setSoption] = useRecoilState(switchAtom);
   const setUserError = useSetRecoilState(userErrorAtom);
   const [auth, setAuth] = useRecoilState(authAtom);
+  const [loader, setLoader] = useRecoilState(loaderAtom);
+  const subscription = useSetRecoilState(forecastSubAtom);
+  const [loginData, setLoginData] = useRecoilState(loginDataAtom);
 
-  const login = async ({ email, password }) => {
+  const login = async ({ email, password,phone, }) => {
     return fetchWrapper
-      .post(Apis.Login, { email, password })
+      .post(Apis.Login, { email, password,phone })
       .then((res) => {
         if (res.statusCode === 200) {
           let { data, access_token, login_attempt} = res;
@@ -29,18 +32,20 @@ const useUserActions = () => {
               isSubscribed: true,
             })
           );
-
-          setAuth({ ...data, access_token,login_attempt, isSubscribed: true });
-        
+          setAuth({ ...data, access_token,login_attempt, isSubscribed: true });        
           res.data.is_profile_completed == 0 ? navigate("/account/profile") : navigate("/");
-          setUserError(true);
+          setLoader(false)
           alertActions.success(Labels.Login_Success);
         } else {
+          setUserError(true);
           alertActions.error(res.msg);
+          
         }
       })
       .catch((err) => {
+        setUserError(true);
         console.warn(err);
+        setLoader(false)
       });
   };
 
@@ -111,16 +116,16 @@ const useUserActions = () => {
   };
 
   const loginMobile = ({ number, passwordMob }) => {
-    alertActions.success("called" + number + " " + passwordMob);
+    
   };
 
-  const forgotPassword = async (email) => {
+  const forgotPassword = async (data) => {
     return fetchWrapper
-      .post(Apis.Forgot_Password, { email })
+      .post(Apis.Forgot_Password, data)
       .then((res) => {
         if (res.statusCode === 200) {
           alertActions.success(
-            Labels.Password_Reset_Email.replaceAll(Labels.Replce_Text, email)
+            Labels.Password_Reset_Email.replaceAll(Labels.Replce_Text, data.email?data.email:data.phone)
           );
           setSoption(false);
         } else {
@@ -211,10 +216,11 @@ const useUserActions = () => {
   };
 
   const resetPassword = async ({ password }) => {
-    const email = localStorage.getItem("email");
-    const newPassword = password;
+
+    const {email,phone} = loginData;
+    const newPassword = password;   
     return fetchWrapper
-      .post(Apis.Reset_Password, { email, newPassword })
+      .post(Apis.Reset_Password, { email, phone, newPassword })
       .then((res) => {
         if (res.statusCode === 200) {
           alertActions.success(Labels.Password_Reset_Success);
@@ -276,6 +282,8 @@ const useUserActions = () => {
     setAuth(null);
     alertActions.success(Labels.Logout_Success);
     navigate("/");
+    subscription({status: "expired"})
+
   };
 
   const getOtpPhone = async (phone) => {

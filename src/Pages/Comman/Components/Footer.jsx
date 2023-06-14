@@ -65,21 +65,21 @@ const Footer = () => {
               <Box className="quick-links">
                 <Stack spacing={2}>
                   <RouterLink to={"/contact"}>Contacts</RouterLink>
-                  <RouterLink to={"privacy-policy"}>Privacy Policy</RouterLink>
-                  <RouterLink to={"terms-of-use"}>Terms of use</RouterLink>
-                  <RouterLink to={"disclaimer"}>Disclaimer </RouterLink>
-                  <RouterLink to={"community"}>Join our community</RouterLink>
+                  <RouterLink to={"/privacy-policy"}>Privacy Policy</RouterLink>
+                  <RouterLink to={"/terms-of-use"}>Terms of use</RouterLink>
+                  <RouterLink to={"/disclaimer"}>Disclaimer </RouterLink>
+                  <RouterLink to={"/community"}>Join our community</RouterLink>
                 </Stack>
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC', }} paddingLeft={5} paddingRight={5} paddingTop={4} paddingBottom={4} >
               <Box className="quick-links">
                 <Stack spacing={2}>
-                  <RouterLink to={"./prediction-dashboard"} >Price Forecast</RouterLink>
-                  <RouterLink to={"./guides-analysis"} >Guides & Analysis</RouterLink>
-                  <RouterLink to={"./academy"}>Academy</RouterLink>
-                  <RouterLink to={"./news-promotions"}>News & Promotions</RouterLink>
-                  <RouterLink to={"./subscription"}>Subscriptions</RouterLink>
+                  <RouterLink to={"/prediction-dashboard"} >Price Forecast</RouterLink>
+                  <RouterLink to={"/guides-analysis"} >Guides & Analysis</RouterLink>
+                  <RouterLink to={"/academy"}>Academy</RouterLink>
+                  <RouterLink to={"/news-promotions"}>News & Promotions</RouterLink>
+                  <RouterLink to={"/subscription"}>Subscriptions</RouterLink>
                 </Stack>
               </Box>
             </Grid>

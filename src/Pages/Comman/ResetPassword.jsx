@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
@@ -17,9 +18,7 @@ import {KeyboardArrowLeft} from '@mui/icons-material/';
 
 const ResetPassword = () => {
     const navigate = useNavigate();
-
-    const userActions = useUserActions();
-
+    const userActions = useUserActions();  
     // form validation rules 
     const validationSchema = Yup.object().shape({
         password: Yup.string()

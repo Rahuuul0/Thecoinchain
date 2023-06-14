@@ -41,7 +41,7 @@ import Marquee from "react-fast-marquee";
 import CryptoTable from "../../CryptoTable";
 import Learn01 from "../../../../../public/assets/images/learn01.png";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useCoinActions, useTutorialActions } from "../../../../_actions";
 import {
   coinsAtom,
@@ -50,6 +50,7 @@ import {
   tutorialAtom,
   userAtom,
   cardCoinsAtom,
+  loaderAtom,
 } from "../../../../_state";
 import ReactPlayer from "react-player";
 
@@ -65,6 +66,7 @@ const Home = () => {
   const [intervalCount, setIntervalCount] = useState(0);
   const userDetail = useRecoilValue(userAtom);
   const cardCoinsList = useRecoilValue(cardCoinsAtom);
+  const loader = useSetRecoilState(loaderAtom);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -898,6 +900,7 @@ const Home = () => {
               variant="contained"
               className="btn btn-secondary"
               onClick={(e) => {
+                loader(true);
                 coinActions.latestListing();
               }}
             >
@@ -907,6 +910,7 @@ const Home = () => {
             <Button
               className="btn"
               onClick={(e) => {
+                loader(true);
                 coinActions.latestListing();
               }}
             >

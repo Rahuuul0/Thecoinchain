@@ -10,6 +10,8 @@ import {
   TableRow,
   Button,
   Fade,
+  Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -23,7 +25,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import HttpsIcon from "@mui/icons-material/Https";
@@ -37,6 +39,7 @@ import {
   selectedCategoryAtom,
   forecastSubAtom,
   authAtom,
+  loaderAtom,
 } from "../../_state";
 
 import { TabPanel } from "@mui/lab";
@@ -78,6 +81,9 @@ const CryptoTable = (props) => {
   const selectedCat = useRecoilValue(selectedCategoryAtom);
   const subscriptionAction = subscriptionActions();
   const subscriptionDetails = useRecoilValue(forecastSubAtom);
+  const [loader, setLoader] = useRecoilState(loaderAtom);
+
+  console.log(loader, "loader state");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -113,6 +119,7 @@ const CryptoTable = (props) => {
   };
 
   useEffect(() => {
+    setLoader(true);
     if (userDetail && !subscriptionDetails.id) {
       subscriptionAction.subscribedUser();
     }
@@ -120,8 +127,9 @@ const CryptoTable = (props) => {
 
   //  Latest Listing API call
   useEffect(() => {
-    if (subscriptionDetails.status === "expired") getLastestListing();
-    else if (
+    if (subscriptionDetails.status === "expired") {
+      getLastestListing();
+    } else if (
       subscriptionDetails.status === "running" &&
       location.pathname === "/"
     )
@@ -220,6 +228,12 @@ const CryptoTable = (props) => {
   return (
     <>
       <Box className="crypto-list" sx={{ py: 2 }}>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loader}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <Box className="crypto-list-table">
           <TableContainer>
             <Stack spacing={2}>
@@ -328,7 +342,7 @@ const CryptoTable = (props) => {
                                     : "up"
                                 }
                               >
-                                {priceChange.percent_change_1h}
+                                {priceChange.percent_change_1h?.toFixed(2)}
                               </span>
                             </TableCell>
                             <TableCell align="right">
@@ -339,7 +353,7 @@ const CryptoTable = (props) => {
                                     : "up"
                                 }
                               >
-                                {priceChange.percent_change_24h}
+                                {priceChange.percent_change_24h?.toFixed(2)}
                               </span>
                             </TableCell>
                             <TableCell align="right">
@@ -350,7 +364,7 @@ const CryptoTable = (props) => {
                                     : "up"
                                 }
                               >
-                                {priceChange.percent_change_7d}
+                                {priceChange.percent_change_7d?.toFixed(2)}
                               </span>
                             </TableCell>
                             <TableCell align="right">
@@ -361,7 +375,7 @@ const CryptoTable = (props) => {
                                     : "up"
                                 }
                               >
-                                {priceChange.percent_change_30d}
+                                {priceChange.percent_change_30d?.toFixed(2)}
                               </span>
                             </TableCell>
                           </>
@@ -376,7 +390,7 @@ const CryptoTable = (props) => {
                                       : "up"
                                   }
                                 >
-                                  {priceChange.percent_change_7d}
+                                  {priceChange.percent_change_7d?.toFixed(2)}
                                 </span>
                               </TableCell>
                             ) : (
@@ -388,7 +402,7 @@ const CryptoTable = (props) => {
                                   priceChange.market_cap < 0 ? "down" : "up"
                                 }
                               >
-                                ${priceChange.market_cap}
+                                ${priceChange.market_cap?.toFixed(2)}
                               </span>
                             </TableCell>
                             <TableCell align="right">
@@ -397,7 +411,7 @@ const CryptoTable = (props) => {
                                   priceChange.volume_24h < 0 ? "down" : "up"
                                 }
                               >
-                                ${priceChange.volume_24h}
+                                ${priceChange.volume_24h?.toFixed(2)}
                               </span>
                             </TableCell>
                           </>

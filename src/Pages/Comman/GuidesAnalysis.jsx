@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState ,useEffect} from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, } from '@mui/material';
@@ -17,23 +17,23 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 const GuidesAnalysis = (props) => {
-
+    
     const guidesActions = guidesAnalysisActions();
     const AnalyticActions = analyticsActions();
     const guides = useRecoilValue(guidesAtom);
     const analytic = useRecoilValue(analyticAtom);
 
-    // Subscription action get function   API data call 
-    useEffect(() => {
+       // Subscription action get function   API data call 
+       useEffect(()=>{
         const response = guidesActions.get()
-        response.then((res) => { (res) })
-    }, [])
+        response.then((res)=>{(res)})
+     },[])
 
-    // Subscription action get function   API data call 
-    useEffect(() => {
-        const response = AnalyticActions.get()
-        response.then((res) => { (res) })
-    }, [])
+        // Subscription action get function   API data call 
+        useEffect(()=>{
+            const response = AnalyticActions.get()
+            response.then((res)=>{(res)})
+         },[])
 
     function a11yProps(index) {
         return {
@@ -80,6 +80,8 @@ const GuidesAnalysis = (props) => {
     const handleChangeIndexTab3 = (index3) => {
         setValueTab3(index3);
     };
+
+    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -120,7 +122,7 @@ const GuidesAnalysis = (props) => {
                                         index={valueTab}
                                         onChangeIndex={handleChangeIndex}
                                     >
-                                        <TabPanel value={valueTab} index={0} dir={theme.direction} sx={{ padding: '0px' }}>
+                                        <TabPanel value={valueTab} index={0} dir={theme.direction} sx={{padding: '0px'}}>
                                             <Box>
                                                 <Box padding={0}>
                                                     <Grid container>
@@ -147,7 +149,7 @@ const GuidesAnalysis = (props) => {
                                                                 <Tab label="Blockchain" {...a11yProps(1)} />
                                                                 <Tab label="Trading" {...a11yProps(3)} />
                                                                 <Tab label="Cryptocurrency" {...a11yProps(4)} />
-
+                                                               
                                                             </Tabs>
                                                         </AppBar>
                                                         <SwipeableViews
@@ -155,228 +157,224 @@ const GuidesAnalysis = (props) => {
                                                             index={valueTab2}
                                                             onChangeIndex={handleChangeIndexTab}
                                                         >
-                                                            <TabPanel value={valueTab2} index2={0} dir={theme.direction} sx={{ padding: '0px' }}>
-                                                                {guides
-                                                                    .slice(0, 3)
-                                                                    .map((items) => {
-                                                                        return (
-                                                                            <Box padding={0}>
-                                                                                <Grid container>
-                                                                                    <Grid item xs={12} sm={5} md={5}>
-                                                                                        <Box
-                                                                                            className="blog-box"
-                                                                                            display="flex"
-                                                                                            flexDirection="column"
-                                                                                            justifyContent="space-between"
-                                                                                            sx={{ pr: 2 }}
-                                                                                        >
-                                                                                            <Box height="50">
-                                                                                                <Button
-                                                                                                    textTransform="uppercase"
-                                                                                                    sx={{ marginBottom: "50px" }}
-                                                                                                    className="orange-btn small-btn"
-                                                                                                >
-                                                                                                    New
-                                                                                                </Button>
-                                                                                            </Box>
-                                                                                            <Box className="" paddingBottom={5}>
-                                                                                                <Typography
-                                                                                                    variant="h4"
-                                                                                                    fontWeight="700"
-                                                                                                    className="secondary-font"
-                                                                                                    paddingBottom={2}
-                                                                                                >
-                                                                                                    {items.title}
-                                                                                                </Typography>
-                                                                                                <Typography paddingBottom={5}>
-                                                                                                    {items.category}
-                                                                                                </Typography>
-                                                                                                <Typography className="body-caption secondary-color">
-                                                                                                    {items.description}
-                                                                                                </Typography>
-                                                                                            </Box>
-                                                                                            <Box>
-                                                                                                <ArrowRightAlt />
-                                                                                            </Box>
-                                                                                        </Box>
-                                                                                    </Grid>
-                                                                                    <Grid item xs={12} sm={7} md={7}>
-                                                                                        <img sx={{ maxWidth: "100%" }} src={Blog1} />
-                                                                                    </Grid>
-                                                                                </Grid>
+                                                            <TabPanel value={valueTab2} index2={0} dir={theme.direction}  sx={{padding: '0px'}}>
+                                                            {guides
+                                                            .slice(0, 3)
+                                                            .map((items)=> {
+                                                              return(
+                                                                <Box padding={0}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
+                                                                                    >
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                    >
+                                                                                    {items.title}
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                    {items.category}
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                     {items.description}
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
                                                                             </Box>
-                                                                        )
-                                                                    })}
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${items.image}`} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+                                                                 )
+                                                                })}
                                                             </TabPanel>
-                                                            <TabPanel value={valueTab2} index2={1} dir={theme.direction} sx={{ padding: '0px' }}>
-                                                                {guides
-                                                                    .filter((blog) => {
-                                                                        return blog.category === "Blogchain";
-                                                                    })
-                                                                    .slice(0, 3)
-                                                                    .map((items) => {
-                                                                        return (
-                                                                            <Box padding={0}>
-                                                                                <Grid container>
-                                                                                    <Grid item xs={12} sm={5} md={5}>
-                                                                                        <Box
-                                                                                            className="blog-box"
-                                                                                            display="flex"
-                                                                                            flexDirection="column"
-                                                                                            justifyContent="space-between"
-                                                                                            sx={{ pr: 2 }}
-                                                                                        >
-                                                                                            <Box height="50">
-                                                                                                <Button
-                                                                                                    textTransform="uppercase"
-                                                                                                    sx={{ marginBottom: "50px" }}
-                                                                                                    className="orange-btn small-btn"
-                                                                                                >
-                                                                                                    New
-                                                                                                </Button>
-                                                                                            </Box>
-                                                                                            <Box className="" paddingBottom={5}>
-                                                                                                <Typography
-                                                                                                    variant="h4"
-                                                                                                    fontWeight="700"
-                                                                                                    className="secondary-font"
-                                                                                                    paddingBottom={2}
-                                                                                                >
-                                                                                                    {items.title}
-                                                                                                </Typography>
-                                                                                                <Typography paddingBottom={5}>
-                                                                                                    {items.category}
-                                                                                                </Typography>
-                                                                                                <Typography className="body-caption secondary-color">
-                                                                                                    {items.description}
-                                                                                                </Typography>
-                                                                                            </Box>
-                                                                                            <Box>
-                                                                                                <ArrowRightAlt />
-                                                                                            </Box>
-                                                                                        </Box>
-                                                                                    </Grid>
-                                                                                    <Grid item xs={12} sm={7} md={7}>
-                                                                                        <img sx={{ maxWidth: "100%" }} src={Blog1} />
-                                                                                    </Grid>
-                                                                                </Grid>
+                                                            <TabPanel value={valueTab2} index2={1} dir={theme.direction}  sx={{padding: '0px'}}>
+                                                            {guides
+                                                                .filter((blog) => {
+                                                                return blog.category === "Blogchain";
+                                                                })
+                                                                .slice(0, 3)
+                                                                .map((items) => {
+                                                                return (
+                                                                <Box padding={0}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
+                                                                                    >
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                    >
+                                                                                     {items.title}
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                    {items.category}
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                    {items.description}
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
                                                                             </Box>
-                                                                        )
-                                                                    })}
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${items.image}`} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+                                                                )
+                                                            })}
                                                             </TabPanel>
-                                                            <TabPanel value={valueTab2} index2={2} dir={theme.direction} sx={{ padding: '0px' }}>
-                                                                {guides
-                                                                    .filter((blog) => {
-                                                                        return blog.category === "Trading";
-                                                                    })
-                                                                    .slice(0, 3)
-                                                                    .map((items) => {
-                                                                        return (
-                                                                            <Box padding={0}>
-                                                                                <Grid container>
-                                                                                    <Grid item xs={12} sm={5} md={5}>
-                                                                                        <Box
-                                                                                            className="blog-box"
-                                                                                            display="flex"
-                                                                                            flexDirection="column"
-                                                                                            justifyContent="space-between"
-                                                                                            sx={{ pr: 2 }}
-                                                                                        >
-                                                                                            <Box height="50">
-                                                                                                <Button
-                                                                                                    textTransform="uppercase"
-                                                                                                    sx={{ marginBottom: "50px" }}
-                                                                                                    className="orange-btn small-btn"
-                                                                                                >
-                                                                                                    New
-                                                                                                </Button>
-                                                                                            </Box>
-                                                                                            <Box className="" paddingBottom={5}>
-                                                                                                <Typography
-                                                                                                    variant="h4"
-                                                                                                    fontWeight="700"
-                                                                                                    className="secondary-font"
-                                                                                                    paddingBottom={2}
-                                                                                                >
-                                                                                                    {items.title}
-                                                                                                </Typography>
-                                                                                                <Typography paddingBottom={5}>
-                                                                                                    {items.category}
-                                                                                                </Typography>
-                                                                                                <Typography className="body-caption secondary-color">
-                                                                                                    {items.description}
-                                                                                                </Typography>
-                                                                                            </Box>
-                                                                                            <Box>
-                                                                                                <ArrowRightAlt />
-                                                                                            </Box>
-                                                                                        </Box>
-                                                                                    </Grid>
-                                                                                    <Grid item xs={12} sm={7} md={7}>
-                                                                                        <img sx={{ maxWidth: "100%" }} src={Blog1} />
-                                                                                    </Grid>
-                                                                                </Grid>
+                                                            <TabPanel value={valueTab2} index2={2} dir={theme.direction}  sx={{padding: '0px'}}>
+                                                            {guides
+                                                                .filter((blog) => {
+                                                                return blog.category === "Trading";
+                                                                })
+                                                                .slice(0, 3)
+                                                                .map((items) => {
+                                                                return (
+                                                                <Box padding={0}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
+                                                                                    >
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                    >
+                                                                                     {items.title}
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                    {items.category}
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                    {items.description}
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
                                                                             </Box>
-                                                                        )
-                                                                    })}
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${items.image}`} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+                                                                   )
+                                                                })}
                                                             </TabPanel>
-                                                            <TabPanel value={valueTab2} index2={3} dir={theme.direction} sx={{ padding: '0px' }}>
-                                                                {guides
-                                                                    .filter((blog) => {
-                                                                        return blog.category === "Cryptocurrency";
-                                                                    })
-                                                                    .slice(0, 3)
-                                                                    .map((items) => {
-                                                                        return (
-                                                                            <Box padding={0}>
-                                                                                <Grid container>
-                                                                                    <Grid item xs={12} sm={5} md={5}>
-                                                                                        <Box
-                                                                                            className="blog-box"
-                                                                                            display="flex"
-                                                                                            flexDirection="column"
-                                                                                            justifyContent="space-between"
-                                                                                            sx={{ pr: 2 }}
-                                                                                        >
-                                                                                            <Box height="50">
-                                                                                                <Button
-                                                                                                    textTransform="uppercase"
-                                                                                                    sx={{ marginBottom: "50px" }}
-                                                                                                    className="orange-btn small-btn"
-                                                                                                >
-                                                                                                    New
-                                                                                                </Button>
-                                                                                            </Box>
-                                                                                            <Box className="" paddingBottom={5}>
-                                                                                                <Typography
-                                                                                                    variant="h4"
-                                                                                                    fontWeight="700"
-                                                                                                    className="secondary-font"
-                                                                                                    paddingBottom={2}
-                                                                                                >
-                                                                                                    {items.title}
-                                                                                                </Typography>
-                                                                                                <Typography paddingBottom={5}>
-                                                                                                    {items.category}
-                                                                                                </Typography>
-                                                                                                <Typography className="body-caption secondary-color">
-                                                                                                    {items.description}
-                                                                                                </Typography>
-                                                                                            </Box>
-                                                                                            <Box>
-                                                                                                <ArrowRightAlt />
-                                                                                            </Box>
-                                                                                        </Box>
-                                                                                    </Grid>
-                                                                                    <Grid item xs={12} sm={7} md={7}>
-                                                                                        <img sx={{ maxWidth: "100%" }} src={Blog1} />
-                                                                                    </Grid>
-                                                                                </Grid>
+                                                            <TabPanel value={valueTab2} index2={3} dir={theme.direction}  sx={{padding: '0px'}}>
+                                                            {guides
+                                                                .filter((blog) => {
+                                                                return blog.category === "Cryptocurrency";
+                                                                })
+                                                                .slice(0, 3)
+                                                                .map((items) => {
+                                                                return (
+                                                                <Box padding={0}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
+                                                                                    >
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                    >
+                                                                                     {items.title}
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                    {items.category}
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                    {items.description}
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
                                                                             </Box>
-                                                                        )
-                                                                    })}
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${items.image}`} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+                                                                  )
+                                                                })}
                                                             </TabPanel>
-                                                            <TabPanel value={valueTab2} index2={4} dir={theme.direction} sx={{ padding: '0px' }}>
+                                                            <TabPanel value={valueTab2} index2={4} dir={theme.direction}  sx={{padding: '0px'}}>
 
                                                                 <Box padding={0}>
                                                                     <Grid container>
@@ -386,7 +384,6 @@ const GuidesAnalysis = (props) => {
                                                                                 display="flex"
                                                                                 flexDirection="column"
                                                                                 justifyContent="space-between"
-                                                                                sx={{ pr: 2 }}
                                                                             >
                                                                                 <Box height="50">
                                                                                     <Button
@@ -436,316 +433,311 @@ const GuidesAnalysis = (props) => {
                                         </TabPanel>
                                         <TabPanel value={valueTab} index={1} dir={theme.direction}>
 
-                                            <Box padding={0}>
-                                                <Grid container>
-                                                    <Grid item xs={12} sm={5} md={5}>
-                                                        <Typography variant='h2' component='h2' className='secondary-font' >Analytics</Typography>
-                                                        <Typography variant='p' component='p' paddingTop={4} paddingBottom={4}>New to crypto? Not for long — start with these guides and explainers</Typography>
+                                                <Box padding={0}>
+                                                    <Grid container>
+                                                        <Grid item xs={12} sm={5} md={5}>
+                                                            <Typography variant='h2' component='h2' className='secondary-font' >Analytics</Typography>
+                                                            <Typography variant='p' component='p' paddingTop={4} paddingBottom={4}>New to crypto? Not for long — start with these guides and explainers</Typography>
 
+                                                        </Grid>
+                                                        <Grid item xs={12} sm={7} md={7}>
+                                                        </Grid>
                                                     </Grid>
-                                                    <Grid item xs={12} sm={7} md={7}>
-                                                    </Grid>
-                                                </Grid>
 
-                                                <TabContext value={valueTab3}>
-                                                    <AppBar position="static">
+                                                    <TabContext value={valueTab3}>
+                                                        <AppBar position="static">
 
-                                                        <Tabs
-                                                            value={valueTab3}
-                                                            onChange={handleChangeTab3}
-                                                            indicatorColor="secondary"
-                                                            textColor="inherit"
-                                                            aria-label="full width tabs example"
+                                                            <Tabs
+                                                                value={valueTab3}
+                                                                onChange={handleChangeTab3}
+                                                                indicatorColor="secondary"
+                                                                textColor="inherit"
+                                                                aria-label="full width tabs example"
+                                                            >
+                                                                <Tab label="All" {...a11yProps(0)} />
+                                                                <Tab label="Blockchain" {...a11yProps(1)} />
+                                                                <Tab label="Trading" {...a11yProps(3)} />
+                                                                <Tab label="Cryptocurrency" {...a11yProps(4)} />
+                            
+                                                            </Tabs>
+                                                        </AppBar>
+                                                        <SwipeableViews
+                                                            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+                                                            index={valueTab3}
+                                                            onChangeIndex={handleChangeIndexTab3}
                                                         >
-                                                            <Tab label="All" {...a11yProps(0)} />
-                                                            <Tab label="Blockchain" {...a11yProps(1)} />
-                                                            <Tab label="Trading" {...a11yProps(3)} />
-                                                            <Tab label="Cryptocurrency" {...a11yProps(4)} />
-
-                                                        </Tabs>
-                                                    </AppBar>
-                                                    <SwipeableViews
-                                                        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-                                                        index={valueTab3}
-                                                        onChangeIndex={handleChangeIndexTab3}
-                                                    >
-                                                        <TabPanel value={valueTab3} index3={0} dir={theme.direction} sx={{ padding: '0px !important' }}>
+                                                            <TabPanel value={valueTab3} index3={0} dir={theme.direction} sx={{ padding: '0px !important' }}>
                                                             {analytic
                                                                 .slice(0, 3)
                                                                 .map((items) => {
-                                                                    return (
-                                                                        <Box sx={{ padding: '0px !important' }}>
-                                                                            <Grid container>
-                                                                                <Grid item xs={12} sm={5} md={5}>
-                                                                                    <Box
-                                                                                        className="blog-box"
-                                                                                        display="flex"
-                                                                                        flexDirection="column"
-                                                                                        justifyContent="space-between"
-                                                                                        sx={{ pr: 2 }}
+                                                                return (
+                                                                <Box sx={{ padding: '0px !important' }}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
                                                                                     >
-                                                                                        <Box height="50">
-                                                                                            <Button
-                                                                                                textTransform="uppercase"
-                                                                                                sx={{ marginBottom: "50px" }}
-                                                                                                className="orange-btn small-btn"
-                                                                                            >
-                                                                                                New
-                                                                                            </Button>
-                                                                                        </Box>
-                                                                                        <Box className="" paddingBottom={5}>
-                                                                                            <Typography
-                                                                                                variant="h4"
-                                                                                                fontWeight="700"
-                                                                                                className="secondary-font"
-                                                                                                paddingBottom={2}
-                                                                                            >
-                                                                                                {items.title}
-                                                                                            </Typography>
-                                                                                            <Typography paddingBottom={5}>
-                                                                                                {items.category}
-                                                                                            </Typography>
-                                                                                            <Typography className="body-caption secondary-color">
-                                                                                                {items.discriptions}
-                                                                                            </Typography>
-                                                                                        </Box>
-                                                                                        <Box>
-                                                                                            <ArrowRightAlt />
-                                                                                        </Box>
-                                                                                    </Box>
-                                                                                </Grid>
-                                                                                <Grid item xs={12} sm={7} md={7}>
-                                                                                    <img sx={{ maxWidth: "100%" }} src={Blog1} />
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                        </Box>
-                                                                    )
-                                                                })}
-                                                        </TabPanel>
-                                                        <TabPanel value={valueTab3} index3={1} dir={theme.direction} sx={{ padding: '0px !important' }}>
-                                                            {analytic
-                                                                .filter((blog) => {
-                                                                    return blog.category === "Blockchain";
-                                                                })
-                                                                .slice(0, 3)
-                                                                .map((items) => {
-                                                                    return (
-                                                                        <Box padding={0}>
-                                                                            <Grid container>
-                                                                                <Grid item xs={12} sm={5} md={5}>
-                                                                                    <Box
-                                                                                        className="blog-box"
-                                                                                        display="flex"
-                                                                                        flexDirection="column"
-                                                                                        justifyContent="space-between"
-                                                                                        sx={{ pr: 2 }}
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
                                                                                     >
-                                                                                        <Box height="50">
-                                                                                            <Button
-                                                                                                textTransform="uppercase"
-                                                                                                sx={{ marginBottom: "50px" }}
-                                                                                                className="orange-btn small-btn"
-                                                                                            >
-                                                                                                New
-                                                                                            </Button>
-                                                                                        </Box>
-                                                                                        <Box className="" paddingBottom={5}>
-                                                                                            <Typography
-                                                                                                variant="h4"
-                                                                                                fontWeight="700"
-                                                                                                className="secondary-font"
-                                                                                                paddingBottom={2}
-                                                                                            >
-                                                                                                {items.title}
-                                                                                            </Typography>
-                                                                                            <Typography paddingBottom={5}>
-                                                                                                {items.category}
-                                                                                            </Typography>
-                                                                                            <Typography className="body-caption secondary-color">
-                                                                                                {items.discriptions}
-                                                                                            </Typography>
-                                                                                        </Box>
-                                                                                        <Box>
-                                                                                            <ArrowRightAlt />
-                                                                                        </Box>
-                                                                                    </Box>
-                                                                                </Grid>
-                                                                                <Grid item xs={12} sm={7} md={7}>
-                                                                                    <img sx={{ maxWidth: "100%" }} src={Blog1} />
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                        </Box>
-                                                                    )
-                                                                })}
-                                                        </TabPanel>
-                                                        <TabPanel value={valueTab3} index3={2} dir={theme.direction} sx={{ padding: '0' }}>
-                                                            {analytic
-                                                                .filter((blog) => {
-                                                                    return blog.category === "Trading";
-                                                                })
-                                                                .slice(0, 3)
-                                                                .map((items) => {
-                                                                    return (
-                                                                        <Box padding={0}>
-                                                                            <Grid container>
-                                                                                <Grid item xs={12} sm={5} md={5}>
-                                                                                    <Box
-                                                                                        className="blog-box"
-                                                                                        display="flex"
-                                                                                        flexDirection="column"
-                                                                                        justifyContent="space-between"
-                                                                                        sx={{ pr: 2 }}
-                                                                                    >
-                                                                                        <Box height="50">
-                                                                                            <Button
-                                                                                                textTransform="uppercase"
-                                                                                                sx={{ marginBottom: "50px" }}
-                                                                                                className="orange-btn small-btn"
-                                                                                            >
-                                                                                                New
-                                                                                            </Button>
-                                                                                        </Box>
-                                                                                        <Box className="" paddingBottom={5}>
-                                                                                            <Typography
-                                                                                                variant="h4"
-                                                                                                fontWeight="700"
-                                                                                                className="secondary-font"
-                                                                                                paddingBottom={2}
-                                                                                            >
-                                                                                                {items.title}
-                                                                                            </Typography>
-                                                                                            <Typography paddingBottom={5}>
-                                                                                                {items.category}
-                                                                                            </Typography>
-                                                                                            <Typography className="body-caption secondary-color">
-                                                                                                {items.discriptions}
-                                                                                            </Typography>
-                                                                                        </Box>
-                                                                                        <Box>
-                                                                                            <ArrowRightAlt />
-                                                                                        </Box>
-                                                                                    </Box>
-                                                                                </Grid>
-                                                                                <Grid item xs={12} sm={7} md={7}>
-                                                                                    <img sx={{ maxWidth: "100%" }} src={Blog1} />
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                        </Box>
-                                                                    )
-                                                                })}
-                                                        </TabPanel>
-                                                        <TabPanel value={valueTab3} index3={3} dir={theme.direction} sx={{ padding: '0' }}>
-                                                            {analytic
-                                                                .filter((blog) => {
-                                                                    return blog.category === "Cryptocurrency";
-                                                                })
-                                                                .slice(0, 3)
-                                                                .map((items) => {
-                                                                    return (
-                                                                        <Box padding={0}>
-                                                                            <Grid container>
-                                                                                <Grid item xs={12} sm={5} md={5}>
-                                                                                    <Box
-                                                                                        className="blog-box"
-                                                                                        display="flex"
-                                                                                        flexDirection="column"
-                                                                                        justifyContent="space-between"
-                                                                                        sx={{ pr: 2 }}
-                                                                                    >
-                                                                                        <Box height="50">
-                                                                                            <Button
-                                                                                                textTransform="uppercase"
-                                                                                                sx={{ marginBottom: "50px" }}
-                                                                                                className="orange-btn small-btn"
-                                                                                            >
-                                                                                                New
-                                                                                            </Button>
-                                                                                        </Box>
-                                                                                        <Box className="" paddingBottom={5}>
-                                                                                            <Typography
-                                                                                                variant="h4"
-                                                                                                fontWeight="700"
-                                                                                                className="secondary-font"
-                                                                                                paddingBottom={2}
-                                                                                            >
-                                                                                                {items.title}
-                                                                                            </Typography>
-                                                                                            <Typography paddingBottom={5}>
-                                                                                                {items.category}
-                                                                                            </Typography>
-                                                                                            <Typography className="body-caption secondary-color">
-                                                                                                {items.discriptions}
-                                                                                            </Typography>
-                                                                                        </Box>
-                                                                                        <Box>
-                                                                                            <ArrowRightAlt />
-                                                                                        </Box>
-                                                                                    </Box>
-                                                                                </Grid>
-                                                                                <Grid item xs={12} sm={7} md={7}>
-                                                                                    <img sx={{ maxWidth: "100%" }} src={Blog1} />
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                        </Box>
-                                                                    )
-                                                                })}
-                                                        </TabPanel>
-                                                        <TabPanel value={valueTab3} index3={4} dir={theme.direction}>
-
-                                                            <Box padding={0}>
-                                                                <Grid container>
-                                                                    <Grid item xs={12} sm={5} md={5}>
-                                                                        <Box
-                                                                            className="blog-box"
-                                                                            display="flex"
-                                                                            flexDirection="column"
-                                                                            justifyContent="space-between"
-                                                                            sx={{ pr: 2 }}
-                                                                        >
-                                                                            <Box height="50">
-                                                                                <Button
-                                                                                    textTransform="uppercase"
-                                                                                    sx={{ marginBottom: "50px" }}
-                                                                                    className="orange-btn small-btn"
-                                                                                >
-                                                                                    New
-                                                                                </Button>
+                                                                                    {items.title}
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                    {items.category}
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                    {items.discriptions}
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
                                                                             </Box>
-                                                                            <Box className="" paddingBottom={5}>
-                                                                                <Typography
-                                                                                    variant="h4"
-                                                                                    fontWeight="700"
-                                                                                    className="secondary-font"
-                                                                                    paddingBottom={2}
-                                                                                >
-                                                                                    A Beginner's Guide to TradingView
-                                                                                </Typography>
-                                                                                <Typography paddingBottom={5}>
-                                                                                    Ethereum
-                                                                                </Typography>
-                                                                                <Typography className="body-caption secondary-color">
-                                                                                    A fully-featured landing page kit,
-                                                                                    including design files, and beautiful 3D
-                                                                                    illustrations editable.
-                                                                                </Typography>
-                                                                            </Box>
-                                                                            <Box>
-                                                                                <ArrowRightAlt />
-                                                                            </Box>
-                                                                        </Box>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${items.image}`}/>
+                                                                        </Grid>
                                                                     </Grid>
-                                                                    <Grid item xs={12} sm={7} md={7}>
-                                                                        <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                </Box>
+                                                                   )
+                                                                })}
+                                                            </TabPanel>
+                                                            <TabPanel value={valueTab3} index3={1} dir={theme.direction} sx={{ padding: '0px !important' }}>
+                                                            {analytic
+                                                                .filter((blog) => {
+                                                                return blog.category === "Blockchain";
+                                                                })
+                                                                .slice(0, 3)
+                                                                .map((items) => {
+                                                                return (
+                                                                <Box padding={0}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
+                                                                                    >
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                    >
+                                                                                      {items.title}
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                      {items.category}
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                      {items.discriptions}
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
+                                                                            </Box>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${items.image}`} />
+                                                                        </Grid>
                                                                     </Grid>
-                                                                </Grid>
-                                                            </Box>
+                                                                </Box>
+                                                                  )
+                                                                })}
+                                                            </TabPanel>
+                                                            <TabPanel value={valueTab3} index3={2} dir={theme.direction} sx={{padding: '0'}}>
+                                                            {analytic
+                                                                .filter((blog) => {
+                                                                return blog.category === "Trading";
+                                                                })
+                                                                .slice(0, 3)
+                                                                .map((items) => {
+                                                                return (
+                                                                <Box padding={0}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
+                                                                                    >
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                    >
+                                                                                       {items.title}
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                      {items.category}
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                      {items.discriptions}
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
+                                                                            </Box>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${items.image}`} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+                                                                 )
+                                                                })}
+                                                            </TabPanel>
+                                                            <TabPanel value={valueTab3} index3={3} dir={theme.direction} sx={{padding: '0'}}>
+                                                            {analytic
+                                                                .filter((blog) => {
+                                                                return blog.category === "Cryptocurrency";
+                                                                })
+                                                                .slice(0, 3)
+                                                                .map((items) => {
+                                                                return (
+                                                                <Box padding={0}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
+                                                                                    >
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                    >
+                                                                                      {items.title}
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                      {items.category}
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                     {items.discriptions}
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
+                                                                            </Box>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${items.image}`} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+                                                                    )
+                                                                })}
+                                                            </TabPanel>
+                                                            <TabPanel value={valueTab3} index3={4} dir={theme.direction}>
 
-                                                        </TabPanel>
+                                                                <Box padding={0}>
+                                                                    <Grid container>
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
+                                                                            >
+                                                                                <Box height="50">
+                                                                                    <Button
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn"
+                                                                                    >
+                                                                                        New
+                                                                                    </Button>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                    >
+                                                                                        A Beginner's Guide to TradingView
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                        Ethereum
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color">
+                                                                                        A fully-featured landing page kit,
+                                                                                        including design files, and beautiful 3D
+                                                                                        illustrations editable.
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
+                                                                            </Box>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={Blog1} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
 
-                                                    </SwipeableViews>
-                                                </TabContext>
+                                                            </TabPanel>
 
-                                            </Box>
+                                                        </SwipeableViews>
+                                                    </TabContext>
+
+                                                </Box>
                                         </TabPanel>
 
                                     </SwipeableViews>

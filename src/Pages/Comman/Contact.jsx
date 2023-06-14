@@ -466,20 +466,18 @@ const Contact = () => {
           </Box>
           <Box paddingBottom={2}>
             <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>What is your issue about? *</Typography>
-            <Grid item xs={12}>
-              <Autocomplete
-                required
-                disablePortal
-                fullWidth
-                id="combo-box-demo"
-                size="small"
-                value={formData?.question}
-                options={names}
-                onChange={(e, props) => reset({ ...formData, question: props?.name })}
-                renderInput={(params) => <TextField autoFocus {...register('question')} required {...params} InputLabelProps={{ shrink: true }} />}
-              />
-              <div style={{ color: "red" }}>{errors.question?.message}</div>
-            </Grid>
+            <Autocomplete
+              required
+              disablePortal
+              fullWidth
+              id="combo-box-demo"
+              size="small"
+              value={formData?.question}
+              options={names}
+              onChange={(e, props) => reset({ ...formData, question: props?.name })}
+              renderInput={(params) => <TextField autoFocus {...register('question')} placeholder='What is your issue about?' required {...params} InputLabelProps={{ shrink: true }} />}
+            />
+            <div style={{ color: "red" }}>{errors.email?.message}</div>
           </Box>
 
           <Box paddingBottom={2}>
@@ -540,6 +538,7 @@ const Contact = () => {
               maxlength={10}
               fullWidth
               {...register("msg")}
+              onChange={(e) => reset({ ...formData, msg: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
             />
             <div style={{ color: "red" }}>{errors.msg?.message}</div>
           </Box>

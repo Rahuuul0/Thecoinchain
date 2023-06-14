@@ -34,7 +34,7 @@ const CreateAccount = () => {
             .email("Email must be a valid email")
             .trim()
             .required("Email Address is required"),
-        mobile: Yup.string().max(15,"Phone must be at most 15 characters")
+        mobile: Yup.string().max(17,"Phone must be at most 15 characters")
         .required("Mobile Number is required"),
         password: Yup.string()
             .trim()
@@ -88,17 +88,13 @@ const CreateAccount = () => {
         }
         else {
             alertActions.error("reCAPTCHA is mandatory")
-        }
-        
+        }        
     }
-
-
     
     return (
         <>
             <ThemeProvider theme={theme}>
                 <Container component="main" className='auth-wrapper' maxWidth="fluid">
-
                     <Box className='auth-header'
                         sx={{
                             display: "flex",
@@ -109,8 +105,7 @@ const CreateAccount = () => {
                         <Box className='auth-header-logo' >
                             <Link onClick={() => { navigate('/') }}> <img src={LogoLight} alt='Coin Guru' className='desktop' /></Link>
                             <Link onClick={() => { navigate('/') }}> <img src={LogoDark} alt='Coin Guru' className='ipad' /></Link>
-                        </Box>
-                        
+                        </Box>                        
                         <Box className='dont-have-acc'>
                             <Typography component="p"  position='relative' zIndex='2'  variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
                                 Already have an account? <Link onClick={() => { navigate("/login"); }}>Login</Link>

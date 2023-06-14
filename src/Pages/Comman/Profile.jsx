@@ -51,22 +51,21 @@ const [phone, setPhone] = useState('')
 const label = { inputProps: { "aria-label": "Switch demo" } };
 const auth = useRecoilValue(authAtom);
 const subscribeUser = useRecoilValue(forecastSubAtom);
+
 const validationSchema = Yup.object().shape({
-        user_name: Yup.string()
+        name: Yup.string()
             .trim()
             .required("Name is required"),
         email: Yup.string()
             .email()
-            .trim()
             .required("Email Address is required"),
         mobile: Yup.string()
-            .trim()
             .required( "Mobile Number is required")
-            .max(15,"Phone must be at most 15 characters"),
+            .max(17,"Phone must be at most 15 characters"),
         });
 
         const validationSchema1 = Yup.object().shape({ 
-        user_name: Yup.string()
+        name: Yup.string()
             .trim()
             .required("Name is required"),
         email: Yup.string()
@@ -74,9 +73,9 @@ const validationSchema = Yup.object().shape({
             .trim()
             .required("Email Address is required"),
         mobile: Yup.string()
-            .trim()
-            .required( "Mobile Number is required")
-            .max(15,"Phone must be at most 15 characters"),        
+            .max(17,"Phone must be at most 15 characters")    
+            .required( "Mobile Number is required"),
+               
         password: Yup.string()
             .required(" Password is required")
             .min(8, " Password must be at least 8 characters.")
@@ -88,11 +87,11 @@ const validationSchema = Yup.object().shape({
             .oneOf([Yup.ref('password'), null], 'Passwords must match')
         });
 
-    const formOptions = { resolver: yupResolver(auth.login_attempt !==0 ? validationSchema1 :validationSchema) };
+    const formOptions = { resolver: yupResolver(auth.is_profile_completed ===0 ? validationSchema1 :validationSchema) };
    
     const { register, handleSubmit, formState, reset, watch } =useForm(formOptions);
     const { errors, isSubmitting } = formState;
-    const formData = watch();
+  
     //password eye IconButton
     const [showPassword, setShowPassword] = React.useState(false);
     const [showPassword1, setShowPassword1] = React.useState(false);
@@ -131,30 +130,18 @@ const validationSchema = Yup.object().shape({
             Profile info
         </Typography>,
     ];
-    const names = [
-        'Australia',
-        'Argentina',
-        'Canada',
-        'Belgium',
-        'China',
-        'India',
-        'Ghana',
-        'France',
-        'Iraq',
-        'USA',
-    ];
+
     const [value, setValue] = useState('1');
 
-    const submitFunction = () => {
-        profileUpdate.updateUser({...formData,"name":formData.user_name})
-        // profileUpdate.resetPassword({...formData,"name":formData.password})
+    const submitFunction =  async() => {
+        await   profileUpdate.updateUser(formData)
         navigate("/")
     }
 
     useEffect(()=> {
         reset({...auth})
     },[auth])
-
+    const formData = watch();
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -193,42 +180,7 @@ const validationSchema = Yup.object().shape({
                                                         <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>{subscribeUser?.status?'VIP':'FREE' }</Button>   
                                                     </Box>
                                                 </Grid>
-                                                <Grid item xs={12} sm={4} md={4}>
-                                                    <Box>
-                                                        <Select
-                                                            multiple
-                                                            displayEmpty
-                                                            fullWidth
-                                                            sx={{ backgroundColor: '#F4F5F6', borderRadius: '60px' }}
-                                                            className='border-rounded'
-                                                            value={personName}
-                                                            onChange={handleChange}
-                                                            input={<OutlinedInput />}
-                                                            renderValue={(selected) => {
-                                                                if (selected.length === 0) {
-                                                                    return <p className='margin-0'>USA</p>;
-                                                                }
-
-                                                                return selected.join(', ');
-                                                            }}
-                                                            MenuProps={MenuProps}
-                                                            inputProps={{ 'aria-label': 'Without label' }}
-                                                        >
-                                                            <MenuItem disabled value="">
-                                                                USA
-                                                            </MenuItem>
-                                                            {names.map((name) => (
-                                                                <MenuItem
-                                                                    key={name}
-                                                                    value={name}
-                                                                    style={getStyles(name, personName, theme)}
-                                                                >
-                                                                    {name}
-                                                                </MenuItem>
-                                                            ))}
-                                                        </Select>
-                                                    </Box>
-                                                </Grid>
+                                                
                                             </Grid>
                                         </Box>
 
@@ -281,13 +233,13 @@ const validationSchema = Yup.object().shape({
                                                     required
                                                     fullWidth
                                                     id="name"
-                                                    name="name"
+                                                    name="user_name"
                                                     autoComplete="off"
                                                     backgroundColor='#fff'
                                                     autoFocus
-                                                    {...register("user_name")}
+                                                    {...register("name")}
                                                 />
-                                                <div className="invalid-feedback" style={{ color: "red" }}>{errors.user_name?.message}</div>
+                                                <div className="invalid-feedback" style={{ color: "red" }}>{errors.name?.message}</div>
                                             </Box>
                                             <Box className='' paddingY={1}>
                                                 <TextField
@@ -327,7 +279,7 @@ const validationSchema = Yup.object().shape({
                                                 />
                                                 <div className="invalid-feedback" style={{ color: "red" }}>{errors.mobile?.message}</div>
                                             </Box>  
-                                       {auth.login_attempt !==0  && <><Box className='' paddingY={1}>
+                                       {auth.is_profile_completed ===0  && <><Box className='' paddingY={1}>
                                             <TextField
                                             required
                                             label="Password *"

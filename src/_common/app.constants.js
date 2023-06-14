@@ -53,7 +53,8 @@ export const Apis = {
   Promotions: 'promotions-list',
   Analytics: 'analytics-list',
   FAQ: 'faq-list',
-  Unsubscribe_User: 'unsubscribe-user'
+  Unsubscribe_User: 'unsubscribe-user',
+  Banner_List: 'banner-list'
 };
 
 export const theme = createTheme({

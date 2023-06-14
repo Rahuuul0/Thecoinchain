@@ -42,7 +42,7 @@ import CryptoTable from "../../CryptoTable";
 import Learn01 from "../../../../../public/assets/images/learn01.png";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { useCoinActions, useTutorialActions } from "../../../../_actions";
+import { useCoinActions, useTutorialActions, bannerListActions } from "../../../../_actions";
 import {
   coinsAtom,
   coinCategoryAtom,
@@ -50,6 +50,7 @@ import {
   tutorialAtom,
   userAtom,
   cardCoinsAtom,
+  bannerListAtom
 } from "../../../../_state";
 import ReactPlayer from "react-player";
 
@@ -65,6 +66,8 @@ const Home = () => {
   const [intervalCount, setIntervalCount] = useState(0);
   const userDetail = useRecoilValue(userAtom);
   const cardCoinsList = useRecoilValue(cardCoinsAtom);
+  const bannerList = useRecoilValue(bannerListAtom);
+  const bannerActions = bannerListActions();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -82,6 +85,12 @@ const Home = () => {
 
     return firstLetters;
   };
+
+      //subscribedUser Api
+      useEffect(() => {
+        const response = bannerActions.get()
+        response.then((res) => { (res) })
+    }, [])
 
   return (
     <>

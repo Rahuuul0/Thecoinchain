@@ -14,10 +14,10 @@ import Sidebar from './Components/Sidebar';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from "@mui/material/IconButton";
-import { MuiTelInput } from 'mui-tel-input'
 import { useRecoilValue } from 'recoil';
 import {userAtom, authAtom, forecastSubAtom} from '../../_state';
 import dayjs from 'dayjs';
+import MuiPhoneNumber from "material-ui-phone-number";
 
 function handleClick(event) {
   event.preventDefault();
@@ -96,16 +96,23 @@ const validationSchema = Yup.object().shape({
     const [showPassword, setShowPassword] = React.useState(false);
     const [showPassword1, setShowPassword1] = React.useState(false);
  
+    
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
 
     const [personName, setPersonName] = useState([]);
+    const [subscription, setSubscription] = useState();
+
 
     // Subscription action get function   API data call 
     useEffect(()=>{
         const response = subUserAction.subscribedUser()
         response.then((res)=>{(res)})
     },[])
+
+    useEffect(()=> {
+        setSubscription(subscribeUser)
+    },[subscribeUser])
 
     // Mobile contry code 
     const handlePhone = (newPhone) => {
@@ -177,14 +184,14 @@ const validationSchema = Yup.object().shape({
                                                     <Box>
                                                         <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} >{auth.user_name?auth.user_name:auth.email.split('@')[0]}</Typography>
                                                         <Typography component="p" variant='body2' className='secondary-color' sx={{ fontSize: '14px', color: '#777E90' }}>{auth.email}</Typography>
-                                                        <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>{subscribeUser?.status?'VIP':'FREE' }</Button>   
+                                                        <Button className='btn btn-outlined-secondary border-rounded' sx={{ color: '#58BD7D !important', marginTop: '30px', marginBottom: '20px', borderRadius: '90px !important' }}>{subscription?.status === 'running'?'VIP':subscription?.status === 'expired' ? 'FREE': ""}</Button> 
                                                     </Box>
                                                 </Grid>
                                                 
                                             </Grid>
                                         </Box>
 
-                                       {subscribeUser?.status === 'running' && <> <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
+                                       {subscription?.status === 'running' && <> <Box sx={{ borderBottom: '1px solid #E6E8EC' }}>
                                             <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} paddingY={5}  >Features</Typography>
                                         </Box>
                                         <Box>
@@ -261,7 +268,7 @@ const validationSchema = Yup.object().shape({
                                                 <div className="invalid-feedback" style={{ color: "red" }}>{errors.email?.message}</div>
                                             </Box>
                                             <Box className='' paddingY={1}>
-                                                    <MuiTelInput
+                                                    <MuiPhoneNumber
                                                     label="Mobile *"
                                                     className="form-control white-input-box"
                                                     InputLabelProps={{
@@ -273,6 +280,7 @@ const validationSchema = Yup.object().shape({
                                                     fullWidth
                                                     id="mobile"
                                                     autoComplete="off"
+                                                    defaultCountry={"us"}
                                                     {...register("mobile")}
                                                     value={phone}
                                                     onChange={handlePhone}

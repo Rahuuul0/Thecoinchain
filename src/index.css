@@ -3326,3 +3326,16 @@ select:-webkit-autofill:focus {
     padding: 20px 10px;
   }
 }
+
+.css-qe9us1-MuiFormHelperText-root.Mui-error,
+.frm-message{
+  color: red;
+  font-size: 13px !important;
+  margin: 0;
+  padding-left: 0px;
+  line-height: 0.5;
+}
+
+.auth-form button { 
+  min-width: 50px!important;
+}

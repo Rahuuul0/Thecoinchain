@@ -40,7 +40,7 @@ const ForgotPassword = () => {
     const { errors, isSubmitting } = formState;
 
     const onSubmitFun = async () => {
-        await userActions.forgotPassword(formData.email);
+        await userActions.forgotPassword({"email":formData.email});
     }
 
     const onSubmitFunOTP = async () => {
@@ -173,7 +173,7 @@ const ForgotPassword = () => {
                                             <Button type="button" variant="outlined" className='btn btn-outlined-secondary' onClick={() => { userActions.forgotPassword(formData.email) }}>
                                                 Resend Code
                                             </Button>
-                                            <Button type="submit" variant="contained" className='btn btn-primary' >
+                                            <Button disabled={OTP.length!==4?true:false} type="submit" variant="contained" className={OTP.length!==4?'btn btn-outlined-secondary':"btn btn-primary"} >
                                                 Continue
                                             </Button>
                                         </Box>

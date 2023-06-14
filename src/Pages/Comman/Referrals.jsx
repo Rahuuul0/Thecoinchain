@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../_common/app.constants";
 import {
@@ -45,7 +45,7 @@ const Referrals = () => {
   const label = { inputProps: { "aria-label": "Switch demo" } };
   const userDetail = useRecoilValue(authAtom);
 
-  const [personName, setPersonName] = React.useState([]);
+  const [personName, setPersonName] = useState([]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
     const {
@@ -171,9 +171,23 @@ const Referrals = () => {
                           <Grid item xs={12} sm={6}>
                             <TextField
                               label="REFERRAL LINK"
-                              className="black-label form-control white-input-box"
-                              InputLabelProps={{
+                              className="black-label form-control white-input-box copied-adorement"
+                              InputProps={{
                                 shrink: true,
+                                endAdornment: (
+                                  <InputAdornment
+                                    sx={{ cursor: "pointer" }}
+                                    onClick={() => {
+                                      navigator.clipboard.writeText(
+                                        "http://dly1vyq5d0op3.cloudfront.net/create-account/referral/" +
+                                          userDetail.referral_code
+                                      );
+                                    }}
+                                    position="end"
+                                  >
+                                    Copy
+                                  </InputAdornment>
+                                ),
                               }}
                               variant="standard"
                               margin="normal"
@@ -181,7 +195,7 @@ const Referrals = () => {
                               fullWidth
                               id="link"
                               value={
-                                "http://dly1vyq5d0op3.cloudfront.net/create-account/" +
+                                "http://dly1vyq5d0op3.cloudfront.net/create-account/referral/" +
                                 userDetail.referral_code
                               }
                               // placeholder='link'
@@ -196,8 +210,16 @@ const Referrals = () => {
                               value={userDetail.referral_code}
                               InputProps={{
                                 endAdornment: (
-                                  <InputAdornment position="end">
-                                    Copied
+                                  <InputAdornment
+                                    sx={{ cursor: "pointer" }}
+                                    onClick={() => {
+                                      navigator.clipboard.writeText(
+                                        userDetail.referral_code
+                                      );
+                                    }}
+                                    position="end"
+                                  >
+                                    Copy
                                   </InputAdornment>
                                 ),
                               }}

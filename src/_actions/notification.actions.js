@@ -43,9 +43,10 @@ const notificationActions = () => {
 
 
     const categoryNotifications = (categoryArr) => {
+        const param = categoryArr.reduce((cat,curr)=> (cat[curr]=curr,cat),{});
         return fetchWrapper.post(Apis.Category_Notifications,
             {
-              "category":categoryArr
+              "category":param
             },
            )
             .then(res => {

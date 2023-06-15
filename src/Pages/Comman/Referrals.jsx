@@ -5,6 +5,8 @@ import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, InputAdorn
 import { NavigateNext } from '@mui/icons-material/';
 import { useNavigate } from "react-router-dom";
 import Sidebar from './Components/Sidebar';
+import {authAtom } from '../../_state/'
+import { useRecoilValue } from "recoil";
 
 function handleClick(event) {
     event.preventDefault();
@@ -29,10 +31,10 @@ function getStyles(name, personName, theme) {
     };
 }
 const Referrals = () => {
+    const userReferrals = useRecoilValue(authAtom);
     const navigate = useNavigate();
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
-
-
+ 
     const [personName, setPersonName] = React.useState([]);
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -102,7 +104,7 @@ const Referrals = () => {
                                                 Total rewards
                                             </Typography>
                                             <Typography component="h3" variant="h3" className="secondary-font green-span" fontWeight={700} paddingBottom={2}>
-                                                1,056.00  <span className='green-color' >USD</span>
+                                              {userReferrals.total_earning === null ? '0,00.00' : userReferrals?.total_earning }  <span className='green-color' >USD</span>
                                             </Typography>
                                             <Typography component="p" variant="p" className="secondary-color small-caption " paddingBottom={3}  >
                                                 You're earning 20% of the subscription plan your<br />

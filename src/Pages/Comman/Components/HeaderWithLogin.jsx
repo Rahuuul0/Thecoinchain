@@ -27,29 +27,20 @@ function Header(props) {
   const notifications = useRecoilValue(notificationAtom);
   const userDetails = useRecoilValue(authAtom);
 
-  // const [ clear, setClear ] = useState();
-
-  console.log(notifications,'narendra')
-
   const handleClear = async() => {
-    let userId = userDetails.id;
-    let notId = notifications.map((item,index) => { if(index < 5){return( item.ct_notiy_id )}  })
-
-    console.log(notId,'notifyId')
-  notification.clearData(notId,userId);
-
+      let notId = notifications.map((item,index) => { if(index < 5){return( item.ct_notiy_id )}  })
+      notification.clearNotifications(notId);
   };
  
 useEffect(()=>{
-       notification.notificationList() 
+      notification.notificationList() 
      
 },[])
 
 const singleRead = async (notId) =>{
-  let userId = userDetails.id
+    let userId = userDetails.id
 
-  console.log(userId,'Narendra ssssss')
-  notification.notificationSingleread(notId, userId)
+    notification.notificationSingleread(notId, userId)
  
 }
   const navItems = [
@@ -68,52 +59,52 @@ const singleRead = async (notId) =>{
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+        setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    setAnchorEl(null);
-    navigate('/academy-about-crypto')
+        setAnchorEl(null);
+        navigate('/academy-about-crypto')
   };
 
   const handle = () => {
-    setAnchorEl(null);
-    navigate('/master-course')
+        setAnchorEl(null);
+        navigate('/master-course')
   };
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
   const [anchorElB, setAnchorElB] = React.useState(null);
   const openB = Boolean(anchorElB);
   const handleClickB = (event) => {
-    setAnchorElB(event.currentTarget);
+        setAnchorElB(event.currentTarget);
   };
   const handleCloseB = () => {
-    setAnchorElB(null);
+        setAnchorElB(null);
   };
 
   const [anchorElAnchor, setAnchorElAnchor] = React.useState(null);
   const openAnchor = Boolean(anchorElAnchor);
   const handleClickAnchor = (event) => {
-    setAnchorElAnchor(event.currentTarget);
+        setAnchorElAnchor(event.currentTarget);
   };
   const handleCloseAnchor = () => {
-    setAnchorElAnchor(null);
+        setAnchorElAnchor(null);
   };
 
   const [anchorElAnchorbtn, setAnchorElAnchorbtn] = React.useState(null);
   const openAnchorbtn = Boolean(anchorElAnchorbtn);
   const handleClickAnchorbtn = (event) => {
-    setAnchorElAnchorbtn(event.currentTarget);
+        setAnchorElAnchorbtn(event.currentTarget);
   };
   const handleCloseAnchorbtn = () => {
-    setAnchorElAnchorbtn(null);
+        setAnchorElAnchorbtn(null);
   };
   const [anchorElNoti, setAnchorElNoti] = React.useState(null);
   const openAnchorNoti = Boolean(anchorElNoti);
   const handleClickAnchorNoti = (event) => {
-    setAnchorElNoti(event.currentTarget);
+        setAnchorElNoti(event.currentTarget);
   };
   const handleCloseAnchorNoti = () => {
-    setAnchorElNoti(null);
+        setAnchorElNoti(null);
   };
 
   const navigate = useNavigate();
@@ -121,7 +112,7 @@ const singleRead = async (notId) =>{
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
+        setMobileOpen((prevState) => !prevState);
   };
 
 
@@ -341,12 +332,12 @@ const singleRead = async (notId) =>{
               }}
             >
               <Box padding={2}>
+               {notifications.length>0?
+                <>
                 <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
-
+                 
                 {notifications?.map((item,index) =>{
                    if(index < 5){
-
-                
                   return(
                     <>
                     
@@ -365,7 +356,7 @@ const singleRead = async (notId) =>{
                 }
                 })}
 
-              
+                
                 <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex' , justifyContent: 'space-between'}} >
                   <Button onClick={() =>{navigate('/notifications')}} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
                     View all
@@ -374,7 +365,9 @@ const singleRead = async (notId) =>{
                     Clear all
                   </Button>
                 </Box>
-                
+                </> :<span>No New Notifications Available</span>
+                }
+              
               </Box>
 
             </Menu>

@@ -17,119 +17,82 @@ const Notifications = () => {
     const notifications = useRecoilValue(notificationAtom);
     const userDetails = useRecoilValue(authAtom);
     const [loadMoreList,setLoadMoreList]=useState([notifications])
-    const [loadmore,setLoadmore] = useState(10);
+    const [loadmore,setLoadmore] = useState(5);
     const [checked, setChecked] = useState(false)
     const [categoryArray,setCategoryArray]=useState([]);
-    const [notificationList,setNotificationList]=useState([]);
-    const [notification ,setnotification] = useState([])
     const [filterCategory,setFilterCategory]=useState(['Crypto Prediction','Community','Academy','News'])
-    const [checkCategoryFilter,setCheckCategoryFilter]=useState({})
     const [checkCrypto,setCheckCrypto]=useState(false)
     const [checkCommunity,setCheckCommunity]=useState(false)
     const [checkAcademy,setCheckAcademy]=useState(false)
     const [checkNews,setCheckNews]=useState(false)
-
+ 
     const handleClear = async() => {
-         notificationAction.clearNotifications();
+          notificationAction.clearNotifications();
         };
      
     //   Filter selectAll and UnselectAll function
     const handleSelectAll =(flag) =>{
-        if(flag){
+        let CategoryArr = categoryArray;
+         if(flag){
             setCheckCrypto(true)
             setCheckCommunity(true)
             setCheckAcademy(true)
             setCheckNews(true)
-            let CheckArray=checkCategoryFilter;
-            filterCategory.map((cat,idx)=>{
-                CheckArray[cat]=true
-                const index = categoryArray.indexOf(cat);
+            filterCategory.map((category,idx)=>{
+                const index = categoryArray.indexOf(category);
                 if(index === -1)
-                categoryArray.push(cat);    
+                CategoryArr.push(category);    
               })
-            setCheckCategoryFilter(CheckArray)
-            filterNotifications()
         }else{
             setCheckCrypto(false)
             setCheckCommunity(false)
             setCheckAcademy(false)
             setCheckNews(false)
-            let CheckArray=checkCategoryFilter;
-            filterCategory.map((cat,idx)=>{
-               CheckArray[cat]=false
-               const index = categoryArray.indexOf(cat);
+            filterCategory.map((category,idx)=>{
+               const index = categoryArray.indexOf(category);
                 if(index > -1)
-                 categoryArray.splice(index,1);    
+                CategoryArr.splice(index,1);    
             })
-            setCheckCategoryFilter(CheckArray)
-            filterNotifications()
-            }
-       flag ? setChecked(true):setChecked(false)
+         }
        
+       setCategoryArray(CategoryArr) 
+       const where= new URLSearchParams({
+        'category': CategoryArr,
+    }) 
+    CategoryArr.length>0? notificationAction.categoryNotifications(CategoryArr) : notificationAction.notificationList() 
+       flag ? setChecked(true):setChecked(false)
     }
   
     const handleLoadmore =() =>{
          setLoadmore(loadmore +5)
    }
 
-//    filter category by data  notifications function
-    useEffect(() =>{
-        filterCategory.map((cat,idx)=>{
-        checkCategoryFilter[cat]=false
-    })
-        let userId = userDetails.id;
+     useEffect(() =>{
         notificationAction.notificationList()
-        notificationAction.categoryNotifications(userId,) 
-        
     },[])
 
-    useEffect(()=>{
-        setNotificationList(notifications)
-
-    },[notifications])
-
-    const filterNotifications =() =>{
-    const notificationArr = notifications.filter((item) => categoryArray?.includes(item.ct_notify_catrgory));
-        setNotificationList(notificationArr.length?notificationArr:notifications)
-    }
-
-    const handleChange = (cat)=>{
-        let CheckArray=checkCategoryFilter;
-        CheckArray[cat]=!checkCategoryFilter[cat]
+   const showFilteredNotification = (e,cat)=>{
+        let categoryArr = categoryArray
         const index = categoryArray.indexOf(cat);
-        if(checkCategoryFilter[cat]){
-            categoryArray.push(cat)
-        }else{
-            const index = categoryArray.indexOf(cat);
-            if (index > -1)
-            categoryArray.splice(index, 1);  
-        }
-        filterNotifications()
-        setCheckCategoryFilter(CheckArray)
-        if(cat==="Crypto Prediction")
-        setCheckCrypto(!checkCrypto)
-        if(cat==="Community")
-        setCheckCommunity(!checkCommunity)
-        if(cat==="Academy")
-        setCheckAcademy(!checkAcademy)
-        if(cat==="News")
-        setCheckNews(!checkNews)
-        categoryArray.length===4?setChecked(true):setChecked(false)
+        if(e.target.checked){
+            if(index === -1)
+             categoryArr.push(cat);    
+         }else{
+             if(index > -1)
+               categoryArr.splice(index,1);
+         }
+         if(cat==="Crypto Prediction")
+           setCheckCrypto(e.target.checked)
+         if(cat==="Community")
+            setCheckCommunity(e.target.checked)
+         if(cat==="Academy")
+           setCheckAcademy(e.target.checked)
+         if(cat==="News")  
+           setCheckNews(e.target.checked)
+         setCategoryArray(categoryArr)
+        categoryArr.length>0? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList() 
     }
-        // load more  code user  code futrue user
-
-//   useEffect(()=>{
-//     console.log(loadmore,"loadMore")
-//     let startIndex=loadmore-1;
-   
-//     const arr = notifications.filter((item, index ,startIndex) => {
-//         if(index< startIndex<loadmore)
-//           return item;      
-//       });
-//     console.log(arr,"arr")  
-//    },[loadmore])
-
-
+       
     return (
         <>
            <ThemeProvider theme={theme}>
@@ -141,20 +104,19 @@ const Notifications = () => {
                                     <Typography component="h4" variant='h4'>
                                         Notifications
                                     </Typography>
-
+                                    {notifications.length>0 &&
                                     <Box className='notification-head-cta'>
                                         <Box className="modal-subscribed-cta">
                                             <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
                                             <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Clear all</Button>
                                         </Box>
-                                    </Box>
+                                    </Box>}
                                 </Box>
                                 <Box className="devider" />
                                 <Box className='notification-list-wrapper'>
                                     <Box className='notification-list'>
-
-
-                                        {notificationList?.map((item,index) =>{
+                                         
+                                         {notifications.length>0?notifications?.map((item,index) =>{
                                             if(index < loadmore){
 
                                             return(
@@ -181,22 +143,23 @@ const Notifications = () => {
                                         
                                             )
                                         }
-                                        })}
+                                        }):<span>No New Notifications Available</span>}
                                        
-                                    
-                                        <Button onClick={handleLoadmore}  variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>
+                                        {notifications.length>0 &&
+                                        <Button onClick={handleLoadmore}  variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>}
                             
                                     </Box>
+                                    {notifications.length>0 &&
                                     <Box className='notification-filter for-desktop'>
                                         <Typography component="h5" variant='h5'>
                                             Filters
                                         </Typography>
 
                                         <FormGroup>
-                                            <FormControlLabel control={<Checkbox checked={checkCrypto}  onChange={(e)=>{ handleChange("Crypto Prediction");}} />} label="Crypto Prediction" />
-                                            <FormControlLabel control={<Checkbox checked={checkCommunity}  onChange={(e)=>{ handleChange("Community");}} />} label="Community" />
-                                            <FormControlLabel control={<Checkbox  checked={checkAcademy}  onChange={(e)=>{ handleChange("Academy");}} />} label="Academy" />
-                                            <FormControlLabel control={<Checkbox checked={checkNews}  onChange={(e)=>{ handleChange("News");}} />}  label="News" />
+                                            <FormControlLabel control={<Checkbox checked={checkCrypto}  onChange={(e)=>{ showFilteredNotification(e,"Crypto Prediction");}} />} label="Crypto Prediction" />
+                                            <FormControlLabel control={<Checkbox checked={checkCommunity}  onChange={(e)=>{ showFilteredNotification(e,"Community");}} />} label="Community" />
+                                            <FormControlLabel control={<Checkbox  checked={checkAcademy}  onChange={(e)=>{ showFilteredNotification(e,"Academy");}} />} label="Academy" />
+                                            <FormControlLabel control={<Checkbox checked={checkNews}  onChange={(e)=>{ showFilteredNotification(e,"News");}} />}  label="News" />
                                         </FormGroup>
 
                                         <Box className='notification-filter-cta'>
@@ -214,6 +177,7 @@ const Notifications = () => {
                                          }
                                         </Box>
                                     </Box>
+                                    }
 
                                 </Box>
                             </Box>

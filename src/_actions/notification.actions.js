@@ -1,4 +1,4 @@
-import { useRecoilState,useSetRecoilState } from 'recoil';
+import { useSetRecoilState,useRecoilValue } from 'recoil';
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from '../_helpers';
 import { Apis } from '../_common/app.constants';
@@ -9,6 +9,7 @@ const notificationActions = () => {
     const navigate = useNavigate()
     const fetchWrapper = useFetchWrapper();
     const alertActions = useAlertActions();
+    const test=useRecoilValue(notificationAtom);
     const notificationLists = useSetRecoilState(notificationAtom);
 
     const notificationList = () => {
@@ -17,16 +18,11 @@ const notificationActions = () => {
                 if (res.statusCode === 200) {
                     notificationLists([...res.data])
 
-                } else {
-
-                }
+                } 
             }).catch((err)=>{console.warn(err)})
     }
 
-    
-
     const notificationSingleread = (notId, userId) => {
-        // return fetchWrapper.post(Apis.Notifications_single_read)
         return fetchWrapper.post(Apis.Notifications_Single_Read, 
             {
                 "read":"1",
@@ -36,50 +32,39 @@ const notificationActions = () => {
           )
             .then(res => {
                 if (res.statusCode === 200) {
-                    setNotification([...res.data])
+                    notificationList()
                     return res.data
-                    console.log(res.data,'sdfdddddddddd')
                     alertActions.success("Mark all Read Successfully");
-                
                 } else {
-                    // alertActions.error(res.msg);
+                    alertActions.error(res.msg);
                 }
             }).catch((err)=>{console.warn(err)})
     }
 
 
-    const categoryNotifications = (category,user_id) => {
-        return fetchWrapper.get(Apis.Category_Notifications)
-            // {
-            //   "category":`${category}`,
-            //   "user_id":`${userId}`
-            // },
-        
+    const categoryNotifications = (categoryArr) => {
+        return fetchWrapper.post(Apis.Category_Notifications,
+            {
+              "category":categoryArr
+            },
+           )
             .then(res => {
                 if (res.statusCode === 200) {
-                    // setNotification([...res.data])
-
-                    console.log(res, "category notification ")
-                } else {
-                    // alertActions.error(res.msg);
-                }
+                  
+                } 
             }).catch((err)=>{console.warn(err)})
     }
 
     const clearNotifications = () => {
     
-        // return fetchWrapper.post(`${Apis.Notification_All_Clear}/${id}`)
         return fetchWrapper.post(Apis.Notification_All_Clear, 
             {
                 "all_clear":"1",
             })
             .then((res) => {
                 if (res.statusCode === 200) {  
-                    return res.data  
-                    notificationList()
-                    // console.log(res.data``,'dfgdfgfgdfgg')            
+                    notificationList()        
                     alertActions.success('Clear all Data Successfully');
-                    //   setNotification([...res.data])
                 }
             });
     }

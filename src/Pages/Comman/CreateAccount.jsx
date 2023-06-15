@@ -34,7 +34,7 @@ const CreateAccount = () => {
             .email("Email must be a valid email")
             .trim()
             .required("Email Address is required"),
-        mobile: Yup.string().max(17,"Phone must be at most 15 characters")
+        mobile: Yup.string()
             .required("Mobile Number is required"),
         password: Yup.string()
             .trim()

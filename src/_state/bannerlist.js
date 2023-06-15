@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 const bannerListAtom = atom({
     key: 'bannerList',
-    default: {}
+    default: []
 });
 
 export { bannerListAtom };

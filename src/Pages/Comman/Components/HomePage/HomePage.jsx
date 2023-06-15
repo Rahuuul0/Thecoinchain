@@ -91,7 +91,6 @@ const Home = () => {
         const response = bannerActions.get()
         response.then((res) => { (res) })
     }, [])
-
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
@@ -1288,7 +1287,7 @@ const Home = () => {
         </Box>
         <Grid
           className="scrolling-tab"
-          paddingBottom={18}
+          paddingBottom={{ xs: 8, md: 10,lg: 12 }}
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
@@ -1398,19 +1397,20 @@ const Home = () => {
       {/* how it works section ends */}
       {/* logo slider starts */}
       <Container maxWidth="fluid">
+     
         <Marquee>
+        {bannerList 
+        .map((item)=> {
+          return(
           <Box paddingTop={8} paddingBottom={8}>
             <Stack direction="row" spacing={8}>
-              <img className="margin10" src={BusinessSlider} />
-              <img src={Finance} />
-              <img src={Investing} />
-              <img src={kasobu} />
-              <img src={Coindesk} />
-              <img src={CT} />
-              <img src={South} />
+              <img className="margin10" src={`${process.env.REACT_APP_IMAGE_URL}/${item.image_url}`} />
             </Stack>
           </Box>
+            )
+          })}
         </Marquee>
+      
       </Container>
       {/* logo slider ends */}
     </>

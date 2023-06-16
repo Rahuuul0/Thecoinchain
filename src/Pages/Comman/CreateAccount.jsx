@@ -40,13 +40,25 @@ const CreateAccount = () => {
   const captchaRef = useRef(null);
   const param = useParams();
 
+  Yup.addMethod(Yup.string, "phoneString", function () {
+    return this.transform(
+      (value) =>
+        (value = value
+          .replace(/[()\s]/g, "")
+          .replace("-", "")
+          .replace("+", ""))
+    );
+  });
+
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email("Email must be a valid email")
       .trim()
       .required("Email Address is required"),
     mobile: Yup.string()
-      .max(17, "Phone must be at most 15 characters")
+      .phoneString()
+      .min(11, "Please enter a valid phone number")
+      .max(15, "Phone must be at most 15 characters")
       .required("Mobile Number is required"),
     password: Yup.string()
       .trim()

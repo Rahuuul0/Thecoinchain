@@ -66,22 +66,34 @@ const Profile = (props) => {
   const auth = useRecoilValue(authAtom);
   const subscribeUser = useRecoilValue(forecastSubAtom);
 
+  Yup.addMethod(Yup.string, "phoneString", function () {
+    return this.transform(
+      (value) =>
+        (value = value
+          .replace(/[()\s]/g, "")
+          .replace("-", "")
+          .replace("+", ""))
+    );
+  });
+
   const validationSchema = Yup.object().shape({
     name: Yup.string().trim().required("Name is required"),
     email: Yup.string().email().required("Email Address is required"),
     mobile: Yup.string()
-      .min(8, "Please enter a valid phone number")
-      .required("Mobile Number is required")
-      .max(17, "Phone must be at most 15 characters"),
+      .trim()
+      .phoneString()
+      .required("Mobile number is required")
+      .min(11, "Please enter a valid phone number"),
   });
 
   const validationSchema1 = Yup.object().shape({
     name: Yup.string().trim().required("Name is required"),
     email: Yup.string().email().trim().required("Email Address is required"),
     mobile: Yup.string()
-      .min(8, "Please enter a valid phone number")
-      .max(17, "Phone must be at most 15 characters")
-      .required("Mobile Number is required"),
+      .trim()
+      .phoneString()
+      .required("Mobile number is required")
+      .min(11, "Please enter a valid phone number"),
 
     password: Yup.string()
       .required(" Password is required")
@@ -347,6 +359,7 @@ const Profile = (props) => {
                           backgroundColor="#fff"
                           autoFocus
                           {...register("name")}
+                          defaultValue={auth.user_name || formData.name}
                         />
                         <div
                           className="invalid-feedback"
@@ -394,7 +407,7 @@ const Profile = (props) => {
                           autoComplete="off"
                           defaultCountry={"us"}
                           {...register("mobile")}
-                          value={formData.mobile}
+                          value={auth.phone || formData.mobile}
                           onChange={(value) =>
                             reset({ ...formData, mobile: value })
                           }

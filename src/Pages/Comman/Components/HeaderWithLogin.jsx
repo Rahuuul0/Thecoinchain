@@ -15,9 +15,9 @@ import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import {notificationActions} from '../../../_actions/notification.actions';
-
+import { useState, useEffect } from "react";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import {notificationAtom} from '../../../_state/notifications';
+import {notificationAtom, authAtom} from '../../../_state/';
 import { useRecoilValue } from "recoil";
 const drawerWidth = 240;
 
@@ -25,17 +25,24 @@ function Header(props) {
   const userActions = useUserActions();
   const notification = notificationActions();
   const notifications = useRecoilValue(notificationAtom);
-  // const [ clear, setClear ] = useState();
+  const userDetails = useRecoilValue(authAtom);
 
   const handleClear = async() => {
-  //  const clearData  = await  notification.clearData();
-  //  setClear(clearData);
-  notification.clearData();
+      let notId = notifications.map((item,index) => { if(index < 5){return( item.ct_notiy_id )}  })
+      notification.clearNotifications(notId);
   };
+ 
+useEffect(()=>{
+      notification.notificationList() 
+     
+},[])
 
+const singleRead = async (notId) =>{
+    let userId = userDetails.id
 
-  // console.log(notifications,'dfgdfgdfgjdfgdfgdfj');
-
+    notification.notificationSingleread(notId, userId)
+ 
+}
   const navItems = [
     {
       page: 'Community',
@@ -52,52 +59,52 @@ function Header(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+        setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    setAnchorEl(null);
-    navigate('/academy-about-crypto')
+        setAnchorEl(null);
+        navigate('/academy-about-crypto')
   };
 
   const handle = () => {
-    setAnchorEl(null);
-    navigate('/master-course')
+        setAnchorEl(null);
+        navigate('/master-course')
   };
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
   const [anchorElB, setAnchorElB] = React.useState(null);
   const openB = Boolean(anchorElB);
   const handleClickB = (event) => {
-    setAnchorElB(event.currentTarget);
+        setAnchorElB(event.currentTarget);
   };
   const handleCloseB = () => {
-    setAnchorElB(null);
+        setAnchorElB(null);
   };
 
   const [anchorElAnchor, setAnchorElAnchor] = React.useState(null);
   const openAnchor = Boolean(anchorElAnchor);
   const handleClickAnchor = (event) => {
-    setAnchorElAnchor(event.currentTarget);
+        setAnchorElAnchor(event.currentTarget);
   };
   const handleCloseAnchor = () => {
-    setAnchorElAnchor(null);
+        setAnchorElAnchor(null);
   };
 
   const [anchorElAnchorbtn, setAnchorElAnchorbtn] = React.useState(null);
   const openAnchorbtn = Boolean(anchorElAnchorbtn);
   const handleClickAnchorbtn = (event) => {
-    setAnchorElAnchorbtn(event.currentTarget);
+        setAnchorElAnchorbtn(event.currentTarget);
   };
   const handleCloseAnchorbtn = () => {
-    setAnchorElAnchorbtn(null);
+        setAnchorElAnchorbtn(null);
   };
   const [anchorElNoti, setAnchorElNoti] = React.useState(null);
   const openAnchorNoti = Boolean(anchorElNoti);
   const handleClickAnchorNoti = (event) => {
-    setAnchorElNoti(event.currentTarget);
+        setAnchorElNoti(event.currentTarget);
   };
   const handleCloseAnchorNoti = () => {
-    setAnchorElNoti(null);
+        setAnchorElNoti(null);
   };
 
   const navigate = useNavigate();
@@ -105,8 +112,9 @@ function Header(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
+        setMobileOpen((prevState) => !prevState);
   };
+
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -324,22 +332,22 @@ function Header(props) {
               }}
             >
               <Box padding={2}>
+               {notifications.length>0?
+                <>
                 <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
-
-                {notifications.map((item,index) =>{
+                 
+                {notifications?.map((item,index) =>{
                    if(index < 5){
-
-                
                   return(
                     <>
                     
                     <MenuItem  sx={{padding:'0'}}>
                      <span className='outer-div-menu'>
                       <span className='inner-div-menu'>
-                        <span className='head-menu'>{item.name}</span>
-                        <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                        <span className='head-menu'>{item.ct_notify_title}</span>
+                        <span className='pl-3 sub-head-menu'><FiberManualRecord onClick={()=> singleRead(item.ct_notiy_id)} /></span>
                       </span>
-                      <Typography className='secondary-color' sx={{fontSize:'10px'}}>{item.create}</Typography>
+                      <Typography className='secondary-color' sx={{fontSize:'10px'}}>{item.ct_notify_created_At}</Typography>
                      </span>
                    </MenuItem>
                    <Divider/>
@@ -348,7 +356,7 @@ function Header(props) {
                 }
                 })}
 
-              
+                
                 <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex' , justifyContent: 'space-between'}} >
                   <Button onClick={() =>{navigate('/notifications')}} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
                     View all
@@ -357,7 +365,9 @@ function Header(props) {
                     Clear all
                   </Button>
                 </Box>
-                
+                </> :<span>No New Notifications Available</span>
+                }
+              
               </Box>
 
             </Menu>
@@ -436,14 +446,13 @@ function Header(props) {
                 </span>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={() => navigate('/account/session-and-history')}>
+              <MenuItem onClick={() => navigate('/account/profile')}>
                 <span className='inner-div-outer'>
                   <span className='inner-div-user'>
                     <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Settings</span>
                     <span className='pl-3 sub-head-menu'>View additional settings</span>
                   </span>
 
-                  <span>  <Switch {...label} defaultChecked /></span>
                 </span>
               </MenuItem>
               <Divider />

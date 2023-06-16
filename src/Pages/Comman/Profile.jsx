@@ -177,7 +177,7 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
-    reset({ ...auth });
+    reset({ ...auth, mobile: auth.phone });
   }, [auth]);
   const formData = watch();
   return (
@@ -407,7 +407,7 @@ const Profile = (props) => {
                           autoComplete="off"
                           defaultCountry={"us"}
                           {...register("mobile")}
-                          value={auth.phone || formData.mobile}
+                          value={formData.mobile}
                           onChange={(value) =>
                             reset({ ...formData, mobile: value })
                           }

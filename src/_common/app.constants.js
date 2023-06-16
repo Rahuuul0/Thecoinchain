@@ -54,7 +54,11 @@ export const Apis = {
   Analytics: 'analytics-list',
   FAQ: 'faq-list',
   Unsubscribe_User: 'unsubscribe-user',
-  Banner_List: 'banner-list'
+  Banner_List: 'banner-list',
+  Notifications_List : 'get-notification',
+  Notification_All_Clear: 'notification-all-clear',
+  Notifications_Single_Read : 'notification-single-read',
+  Category_Notifications : 'categorized-notification'
 };
 
 export const theme = createTheme({

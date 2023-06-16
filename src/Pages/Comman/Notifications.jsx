@@ -20,7 +20,7 @@ const Notifications = () => {
     const [loadmore,setLoadmore] = useState(5);
     const [checked, setChecked] = useState(false)
     const [categoryArray,setCategoryArray]=useState([]);
-    const [filterCategory,setFilterCategory]=useState(['Crypto Prediction','Community','Academy','News'])
+    const [filterCategory,setFilterCategory]=useState(['CryptoPrediction','Community','Academy','News'])
     const [checkCrypto,setCheckCrypto]=useState(false)
     const [checkCommunity,setCheckCommunity]=useState(false)
     const [checkAcademy,setCheckAcademy]=useState(false)

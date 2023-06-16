@@ -11,5 +11,6 @@ export * from './guidesanalysis';
 export * from './newslist.actions';
 export * from './promotions.action';
 export * from './analytics.actions';
+export * from './bannerlist.actions';
 
 

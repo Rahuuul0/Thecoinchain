@@ -72,8 +72,7 @@ const validationSchema = Yup.object().shape({
             .email()
             .trim()
             .required("Email Address is required"),
-        mobile: Yup.string()
-            .max(17,"Phone must be at most 15 characters")    
+        mobile: Yup.string() 
             .required( "Mobile Number is required"),
                
         password: Yup.string()
@@ -278,10 +277,11 @@ const validationSchema = Yup.object().shape({
                                                     id="mobile"
                                                     autoComplete="off"
                                                     defaultCountry={"us"}
-                                                    {...register("mobile")}
-                                                    value={phone}
-                                                    onChange={handlePhone}
+                                                    value={formData.mobile}
+                                                    {...register("mobile")}    
+                                                    onChange={(value) => reset({ ...formData, mobile: value })} 
                                                 />
+                                            
                                                 <div className="invalid-feedback" style={{ color: "red" }}>{errors.mobile?.message}</div>
                                             </Box>  
                                        {auth.is_profile_completed ===0  && <><Box className='' paddingY={1}>

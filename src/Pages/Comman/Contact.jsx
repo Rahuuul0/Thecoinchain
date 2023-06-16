@@ -358,7 +358,9 @@ const Contact = () => {
           sx={{ mt: '24px' }}
           onSubmit={handleSubmit(handleFormSubmit)}
                                 >
-          
+             <Typography component="h5" variant='h5' sx={{ width: '33%', flexShrink: 0 }}>
+                Contact-Us
+              </Typography>
             <Box paddingBottom={2} className='topic-select-radio'>
               <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>Select a topic</Typography>
 

@@ -29,10 +29,7 @@ const PredictionDashboard = () => {
 
     useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) },[]);
 
-    const handleView =() =>{
-        navigate("/contact")
-      
-    }
+ 
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -72,8 +69,7 @@ const PredictionDashboard = () => {
                                         })}
                                     </Box>
                                     <Button
-                                        onClick={handleView}
-                                       
+                                        onClick={() =>{navigate("/contact")}}
                                         sx={{ mt: 2 }}
                                         variant="outlined"
                                         className='btn btn-outlined-secondary'>

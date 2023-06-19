@@ -51,6 +51,7 @@ import MasterCourse from "./MasterCourse";
 import AcademyAboutCrypto from "./AcademyAboutCrypto";
 import SubscriptionPayment from "./SubscriptionPayment";
 import ForgotPasswordPhone from "./ForgotPasswordPhone";
+import ContentNotFound from "./ContentNotFound";
 
 const Customer = () => {
   const auth = useRecoilValue(authAtom);
@@ -108,7 +109,9 @@ const Customer = () => {
           <Route path={`guides-analysis`} exact element={<GuidesAnalysis />} />
           <Route path={`community`} exact element={<Community />} />
           <Route path={`news-promotions`} exact element={<NewsPromotions />} />
-          <Route path={`academy`} exact element={<Academy />} />
+          <Route path={`academy`} exact element={<Academy />} />  
+          <Route path={`contentnotfound`} exact element={<ContentNotFound />} />  
+
           <Route
             path={`academy-about-crypto`}
             exact

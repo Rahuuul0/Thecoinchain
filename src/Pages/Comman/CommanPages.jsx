@@ -49,7 +49,7 @@ import NewsPromotions from "./NewsPromotions";
 import Academy from "./Academy";
 import MasterCourse from "./MasterCourse";
 import AcademyAboutCrypto from "./AcademyAboutCrypto";
-import SubscriptionPayment from "./SubscriptionPayment";
+import SubscriptionPaymentPaypal from "./SubscriptionPaymentPaypal";
 import ForgotPasswordPhone from "./ForgotPasswordPhone";
 
 const Customer = () => {
@@ -118,7 +118,7 @@ const Customer = () => {
           <Route
             path={`/subscription-payment`}
             exact
-            element={<SubscriptionPayment />}
+            element={<SubscriptionPaymentPaypal />}
           />
         </Route>
 

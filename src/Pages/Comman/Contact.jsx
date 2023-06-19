@@ -20,6 +20,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { styled, alpha } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useNavigate } from 'react-router-dom';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -101,6 +102,7 @@ function getStyles(name, personName, theme) {
 }
 
 const Contact = () => {
+  const navigate = useNavigate();
   const useContactAddActions = useContactActions();
   const [value, setValue] = useState('1');
   const theme = useTheme();
@@ -153,7 +155,7 @@ const Contact = () => {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
-
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) },[]);
   return (
     <>
       {/* Banner starts */}
@@ -200,7 +202,7 @@ const Contact = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Design} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -213,7 +215,7 @@ const Contact = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Media} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -226,7 +228,7 @@ const Contact = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Design} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -239,7 +241,7 @@ const Contact = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Media} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -250,7 +252,7 @@ const Contact = () => {
             </Grid>
           </Grid>
           <Typography textAlign='center' paddingTop={10}>
-            <Button className='btn-outlined-secondary'>Learn More</Button>
+            <Button onClick={() =>{ navigate('/learn-cypto')}} className='btn-outlined-secondary'>Learn More</Button>
           </Typography>
         </Box>
       </Container>

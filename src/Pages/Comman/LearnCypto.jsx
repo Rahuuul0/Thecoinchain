@@ -300,13 +300,13 @@ const LearnCypto = () => {
                                 justifyContent="space-between"
                               >
                                 <Box height="50">
-                                  <Button
+                                  <Typography
                                     textTransform="uppercase"
                                     sx={{ marginBottom: "50px" }}
-                                    className="orange-btn small-btn"
+                                    className="orange-btn small-btn small-new-btn"
                                   >
                                     New
-                                  </Button>
+                                  </Typography>
                                 </Box>
                                 <Box className="" paddingBottom={5}>
                                   <Typography
@@ -360,13 +360,13 @@ const LearnCypto = () => {
                                 justifyContent="space-between"
                               >
                                 <Box height="50">
-                                  <Button
+                                  <Typography
                                     textTransform="uppercase"
                                     sx={{ marginBottom: "50px" }}
-                                    className="orange-btn small-btn"
+                                    className="orange-btn small-btn small-new-btn"
                                   >
                                     New
-                                  </Button>
+                                  </Typography>
                                 </Box>
                                 <Box className="" paddingBottom={5}>
                                   <Typography
@@ -500,12 +500,12 @@ const LearnCypto = () => {
                         navigate("../learn-cypto-detail");
                       }}
                     >
-                      <Button
+                      <Typography
                         textTransform="uppercase"
-                        className="orange-btn float-img small-btn"
+                        className="orange-btn float-img small-btn small-new-btn"
                       >
                         New
-                      </Button>
+                      </Typography>
 
                       <Box
                         className="avatar-rounded"
@@ -544,9 +544,9 @@ const LearnCypto = () => {
                         </Box>
 
                         <Box>
-                          <Button className="btn btn-green-outlined">
+                          <Typography className="btn btn-green-outlined small-new-btn">
                             Popular
-                          </Button>
+                          </Typography>
                         </Box>
                       </Stack>
                     </Box>

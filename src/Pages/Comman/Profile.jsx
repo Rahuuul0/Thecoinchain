@@ -68,11 +68,7 @@ const Profile = (props) => {
 
   Yup.addMethod(Yup.string, "phoneString", function () {
     return this.transform(
-      (value) =>
-        (value = value
-          .replace(/[()\s]/g, "")
-          .replace("-", "")
-          .replace("+", ""))
+      (value) => (value = value.replace(/[^A-Z0-9]/gi, ""))
     );
   });
 
@@ -83,7 +79,7 @@ const Profile = (props) => {
       .trim()
       .phoneString()
       .required("Mobile number is required")
-      .min(11, "Please enter a valid phone number"),
+      .min(8, "Please enter a valid phone number"),
   });
 
   const validationSchema1 = Yup.object().shape({
@@ -93,7 +89,7 @@ const Profile = (props) => {
       .trim()
       .phoneString()
       .required("Mobile number is required")
-      .min(11, "Please enter a valid phone number"),
+      .min(8, "Please enter a valid phone number"),
 
     password: Yup.string()
       .required(" Password is required")

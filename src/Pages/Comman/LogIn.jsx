@@ -46,11 +46,7 @@ const LogIn = () => {
 
   Yup.addMethod(Yup.string, "phoneString", function () {
     return this.transform(
-      (value) =>
-        (value = value
-          .replace(/[()\s]/g, "")
-          .replace("-", "")
-          .replace("+", ""))
+      (value) => (value = value.replace(/[^A-Z0-9]/gi, ""))
     );
   });
 
@@ -66,7 +62,7 @@ const LogIn = () => {
       .trim()
       .phoneString()
       .required("Mobile number is required")
-      .min(11, "Please enter a valid phone number"),
+      .min(8, "Please enter a valid phone number"),
     password: Yup.string().trim().required("Password is required"),
   });
 

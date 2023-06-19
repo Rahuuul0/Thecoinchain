@@ -42,11 +42,7 @@ const CreateAccount = () => {
 
   Yup.addMethod(Yup.string, "phoneString", function () {
     return this.transform(
-      (value) =>
-        (value = value
-          .replace(/[()\s]/g, "")
-          .replace("-", "")
-          .replace("+", ""))
+      (value) => (value = value.replace(/[^A-Z0-9]/gi, ""))
     );
   });
 
@@ -57,7 +53,7 @@ const CreateAccount = () => {
       .required("Email Address is required"),
     mobile: Yup.string()
       .phoneString()
-      .min(11, "Please enter a valid phone number")
+      .min(8, "Please enter a valid phone number")
       .max(15, "Phone must be at most 15 characters")
       .required("Mobile Number is required"),
     password: Yup.string()

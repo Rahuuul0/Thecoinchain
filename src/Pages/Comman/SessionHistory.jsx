@@ -56,8 +56,6 @@ const SessionHistory = () => {
         
      },[])
 
-   const platform = window.navigator.userAgentData.platform;
-
     return (
         <>
             <ThemeProvider theme={theme}>

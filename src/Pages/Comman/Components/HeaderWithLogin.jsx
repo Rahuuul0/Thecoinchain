@@ -17,7 +17,7 @@ import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import {notificationActions} from '../../../_actions/notification.actions';
 import { useState, useEffect } from "react";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import {notificationAtom, authAtom} from '../../../_state/';
+import {notificationAtom, authAtom, notificationCountAtom} from '../../../_state/';
 import { useRecoilValue } from "recoil";
 const drawerWidth = 240;
 
@@ -26,12 +26,13 @@ function Header(props) {
   const notification = notificationActions();
   const notifications = useRecoilValue(notificationAtom);
   const userDetails = useRecoilValue(authAtom);
+  const notificaionCount = useRecoilValue(notificationCountAtom);
 
   const handleClear = async() => {
       let notId = notifications.map((item,index) => { if(index < 5){return( item.ct_notiy_id )}  })
       notification.clearNotifications(notId);
   };
- 
+
 useEffect(()=>{
       notification.notificationList() 
      
@@ -285,14 +286,14 @@ const singleRead = async (notId) =>{
               </Box>
             </Menu>
 
-            <IconButton  onClick={handleClickAnchorbtn}
+            <Badge badgeContent={notificaionCount}  onClick={handleClickAnchorbtn}
               size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
               aria-haspopup="true"
-              aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon' aria-label="flash" color="primary">
+              aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
               <NotificationsNone color="action" />
-            </IconButton>
+            </Badge>
             <Menu
               anchorEl={anchorElAnchorbtn}
               id=""

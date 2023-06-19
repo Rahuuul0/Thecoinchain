@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
-import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
+import { NotificationsNone, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
 import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
@@ -284,9 +284,6 @@ const singleRead = async (notId) =>{
                 </Grid>
               </Box>
             </Menu>
-            <IconButton className='icon-btn' aria-label="flash" color="primary">
-              <FlashOnOutlined />
-            </IconButton>
 
             <IconButton  onClick={handleClickAnchorbtn}
               size="small"

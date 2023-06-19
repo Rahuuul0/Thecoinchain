@@ -447,14 +447,13 @@ const singleRead = async (notId) =>{
                 </span>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={() => navigate('/account/session-and-history')}>
+              <MenuItem onClick={() => navigate('/account/profile')}>
                 <span className='inner-div-outer'>
                   <span className='inner-div-user'>
                     <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Settings</span>
                     <span className='pl-3 sub-head-menu'>View additional settings</span>
                   </span>
 
-                  <span>  <Switch {...label} defaultChecked /></span>
                 </span>
               </MenuItem>
               <Divider />

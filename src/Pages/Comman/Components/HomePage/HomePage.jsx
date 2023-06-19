@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Grid,
   Container,
@@ -16,9 +16,7 @@ import {
   West,
 } from "@mui/icons-material";
 import HeroImage from "../../../../../public/assets/images/banner.svg";
-import Leveragedv3 from "../../../../../public/assets/images/leveragedv3.svg";
 import Leveraged from "../../../../../public/assets/images/leveraged.svg";
-import Leveragedv2 from "../../../../../public/assets/images/leveragedv2.svg";
 import BuyCypto from "../../../../../public/assets/images/crypto-trader-01.svg";
 import Market from "../../../../../public/assets/images/market.svg";
 import LearnCypto from "../../../../../public/assets/images/learn-cypto.svg";
@@ -26,30 +24,22 @@ import Appleicon from "../../../../../public/assets/images/apple.svg";
 import GoogleIcon from "../../../../../public/assets/images/google-g-2015-logo-svgrepo-com.svg";
 import InformedCypto from "../../../../../public/assets/images/informed-cypto.svg";
 import DarkLogo from "../../../../../public/assets/images/logo.svg";
-import BusinessSlider from "../../../../../public/assets/images/businessinsider.svg";
-import Finance from "../../../../../public/assets/images/finance.svg";
-import Investing from "../../../../../public/assets/images/investing.svg";
-import kasobu from "../../../../../public/assets/images/kasobu.svg";
-import Coindesk from "../../../../../public/assets/images/coindesk.svg";
-import CT from "../../../../../public/assets/images/ct.svg";
-import South from "../../../../../public/assets/images/south.svg";
 import Globe from "../../../../../public/assets/images/globe.svg";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Marquee from "react-fast-marquee";
 import CryptoTable from "../../CryptoTable";
-import Learn01 from "../../../../../public/assets/images/learn01.png";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { useCoinActions, useTutorialActions } from "../../../../_actions";
+import { useRecoilValue,useSetRecoilState } from "recoil";
+import { useCoinActions, useTutorialActions, bannerListActions } from "../../../../_actions";
 import {
-  coinsAtom,
   coinCategoryAtom,
   selectedCategoryAtom,
   tutorialAtom,
-  userAtom,
   cardCoinsAtom,
+  loaderAtom,
+  bannerListAtom
 } from "../../../../_state";
 import ReactPlayer from "react-player";
 
@@ -59,12 +49,12 @@ const Home = () => {
   const tutorialAction = useTutorialActions();
   const navigate = useNavigate();
   const [value, setValue] = React.useState("1");
-  const coinsList = useRecoilValue(coinsAtom);
   const categoryList = useRecoilValue(coinCategoryAtom);
   const selectedCat = useRecoilValue(selectedCategoryAtom);
-  const [intervalCount, setIntervalCount] = useState(0);
-  const userDetail = useRecoilValue(userAtom);
   const cardCoinsList = useRecoilValue(cardCoinsAtom);
+  const loader = useSetRecoilState(loaderAtom);
+  const bannerList = useRecoilValue(bannerListAtom);
+  const bannerActions = bannerListActions();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -76,13 +66,14 @@ const Home = () => {
 
   const getFirstLetters = (str) => {
     const firstLetters = str.replace("Portfolio", "");
-    // .split(' ')
-    // .map(word => word.charAt(0))
-    // .join('');
-
     return firstLetters;
   };
 
+  //subscribedUser Api
+  useEffect(() => {
+    const response = bannerActions.get()
+    response.then((res) => { (res) })
+  }, [])
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
@@ -898,6 +889,7 @@ const Home = () => {
               variant="contained"
               className="btn btn-secondary"
               onClick={(e) => {
+                loader(true);
                 coinActions.latestListing();
               }}
             >
@@ -907,6 +899,7 @@ const Home = () => {
             <Button
               className="btn"
               onClick={(e) => {
+                loader(true);
                 coinActions.latestListing();
               }}
             >
@@ -1004,7 +997,7 @@ const Home = () => {
                       className="btn btn-outlined-secondary"
                       sx={{ margin: "0 auto" }}
                     >
-                      Buy crypto
+                      Coming Soon
                     </Button>
                   </Box>
                 </Grid>
@@ -1026,7 +1019,7 @@ const Home = () => {
                       className="btn btn-outlined-secondary"
                       sx={{ margin: "0 auto" }}
                     >
-                      Trade now
+                      Coming Soon
                     </Button>
                   </Box>
                 </Grid>
@@ -1279,7 +1272,7 @@ const Home = () => {
         </Box>
         <Grid
           className="scrolling-tab"
-          paddingBottom={18}
+          paddingBottom={{ xs: 8, md: 10,lg: 12 }}
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
@@ -1389,19 +1382,20 @@ const Home = () => {
       {/* how it works section ends */}
       {/* logo slider starts */}
       <Container maxWidth="fluid">
+     
         <Marquee>
+        {bannerList 
+        .map((item)=> {
+          return(
           <Box paddingTop={8} paddingBottom={8}>
             <Stack direction="row" spacing={8}>
-              <img className="margin10" src={BusinessSlider} />
-              <img src={Finance} />
-              <img src={Investing} />
-              <img src={kasobu} />
-              <img src={Coindesk} />
-              <img src={CT} />
-              <img src={South} />
+              <img className="margin10" src={`${process.env.REACT_APP_IMAGE_URL}/${item.image_url}`} />
             </Stack>
           </Box>
+            )
+          })}
         </Marquee>
+      
       </Container>
       {/* logo slider ends */}
     </>

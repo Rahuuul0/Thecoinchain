@@ -83,7 +83,7 @@ const Subscription = () => {
                                     <Button variant='outlined' className='btn btn-outlined-secondary'>Learn now</Button>
                                 </Box>
                             </Box>
-                            <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={() => { navigate("./contact") }}>Contact Us</Button>
+                            <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={() => { navigate("/contact") }}>Contact Us</Button>
                         </Container>
                     </Box>
                 </Box >

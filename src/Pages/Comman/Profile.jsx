@@ -196,10 +196,7 @@ const validationSchema = Yup.object().shape({
                                         <Box>
                                             <Box display='flex' paddingY={3}>
                                                 <span >
-                                                    <Typography component="p" variant='body2' fontWeight={500} >VIP - Your annual plan will be expired on {dayjs(subscribeUser.end_date).format('MM/DD/YY')}</Typography>
-                                                </span>
-                                                <span >
-                                                    <Switch {...label} defaultChecked />
+                                                    <Typography component="p" variant='body2' fontWeight={500} >VIP - Your plan will be expired on {dayjs(subscribeUser.end_date).format('MM/DD/YY')}</Typography>
                                                 </span>
                                             </Box>
                                         </Box>

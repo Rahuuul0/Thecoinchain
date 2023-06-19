@@ -1,5 +1,6 @@
 import { Container, Typography, Box, Link, Breadcrumbs, } from '@mui/material';
 import React from 'react';
+import { useEffect } from 'react';
 import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
 
 function handleClick(event) {
@@ -18,7 +19,7 @@ const TermsOfUse = () => {
             Terms of use
         </Typography>,
     ];
-
+    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
     return (
         <>
             <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>

@@ -51,7 +51,7 @@ const AccountConfirm = () => {
     if (radioOption === "email") {
       userActions.getOtp();     
     }else {
-      userActions.getOtpPhone({phone:localStorage.getItem("phone")});      
+      userActions.getOtpPhone(localStorage.getItem("phone"));      
     }
   }
   const handleOtpSubmit = async () => {

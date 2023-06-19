@@ -19,6 +19,7 @@ import { useRecoilValue } from "recoil";
 import { tutorialAtom, loaderAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import ReactPlayer from "react-player";
+import { useNavigate } from "react-router-dom";
 
 function handleClick(event) {
   event.preventDefault();
@@ -27,23 +28,8 @@ function handleClick(event) {
 
 const LearnCyptoDetail = () => {
   const breadcrumbs = [
-    <Link
-      underline="hover"
-      key="1"
-      color="inherit"
-      href="/"
-      onClick={handleClick}
-    >
+    <Link underline="hover" key="1" color="inherit" href="/learn-cypto">
       Learn crypto
-    </Link>,
-    <Link
-      underline="hover"
-      key="2"
-      color="inherit"
-      href="/"
-      onClick={handleClick}
-    >
-      Trading
     </Link>,
     <Typography key="3" color="text.primary">
       Bitcoin
@@ -57,6 +43,7 @@ const LearnCyptoDetail = () => {
   const [visibleVideos, setVisibleVideos] = useState(6);
   const tutorialAction = useTutorialActions();
   const loader = useRecoilValue(loaderAtom);
+  const navigate = useNavigate();
 
   const scrollToVideo = (e, videoLink) => {
     e.current.scrollIntoView({
@@ -70,6 +57,7 @@ const LearnCyptoDetail = () => {
   };
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     tutorialAction.tutorialData();
   }, []);
 

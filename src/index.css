@@ -3085,5 +3085,17 @@ video[poster] {
 }
 
 .text-black{
-  color: #000;
+  color: #23262F;
 }
+.text-black .dark-icon{
+  display: block;
+}   
+.dark-icon{
+  display: none;;
+}
+.light-icon{
+  display: block;
+}
+.text-black .light-icon{
+display: none !important;
+}   

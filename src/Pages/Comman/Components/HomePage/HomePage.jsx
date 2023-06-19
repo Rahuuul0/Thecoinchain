@@ -1003,7 +1003,7 @@ const Home = () => {
                       className="btn btn-outlined-secondary"
                       sx={{ margin: "0 auto" }}
                     >
-                      Buy crypto
+                      Coming Soon
                     </Button>
                   </Box>
                 </Grid>
@@ -1025,7 +1025,7 @@ const Home = () => {
                       className="btn btn-outlined-secondary"
                       sx={{ margin: "0 auto" }}
                     >
-                      Trade now
+                      Coming Soon
                     </Button>
                   </Box>
                 </Grid>

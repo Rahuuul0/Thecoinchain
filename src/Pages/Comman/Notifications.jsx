@@ -32,7 +32,7 @@ const Notifications = () => {
      
     //   Filter selectAll and UnselectAll function
     const handleSelectAll =(flag) =>{
-        let CategoryArr = categoryArray;
+        let categoryArr = categoryArray;
          if(flag){
             setCheckCrypto(true)
             setCheckCommunity(true)
@@ -41,7 +41,7 @@ const Notifications = () => {
             filterCategory.map((category,idx)=>{
                 const index = categoryArray.indexOf(category);
                 if(index === -1)
-                CategoryArr.push(category);    
+                categoryArr.push(category);    
               })
         }else{
             setCheckCrypto(false)
@@ -51,15 +51,15 @@ const Notifications = () => {
             filterCategory.map((category,idx)=>{
                const index = categoryArray.indexOf(category);
                 if(index > -1)
-                CategoryArr.splice(index,1);    
+                categoryArr.splice(index,1);    
             })
          }
        
-       setCategoryArray(CategoryArr) 
+       setCategoryArray(categoryArr) 
        const where= new URLSearchParams({
-        'category': CategoryArr,
+        'category': categoryArr,
     }) 
-    CategoryArr.length>0? notificationAction.categoryNotifications(CategoryArr) : notificationAction.notificationList() 
+    categoryArr.length>0? notificationAction.categoryNotifications(CategoryArr) : notificationAction.notificationList() 
        flag ? setChecked(true):setChecked(false)
     }
   

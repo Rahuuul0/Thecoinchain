@@ -3133,3 +3133,15 @@ video[poster] {
 .auth-form button {
   min-width: 50px !important;
 }
+.v-center{
+  display: flex;
+  align-items: center;
+}
+.small-new-btn{
+  display: inline-block;
+  text-align: center;
+  font-family: var(--primary-font) !important;
+  font-weight: 600;
+  line-height: 1.6;
+  border-radius: 5px;
+}

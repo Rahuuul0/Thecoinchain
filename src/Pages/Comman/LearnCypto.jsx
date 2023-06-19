@@ -140,13 +140,7 @@ const LearnCypto = () => {
               paddingTop={3}
               paddingBottom={10}
             >
-              <Button
-                variant="contained"
-                className="btn btn-primary"
-                onClick={() => {
-                  navigate("../learn-cypto-detail");
-                }}
-              >
+              <Button variant="contained" className="btn btn-primary">
                 Learn Now{" "}
               </Button>
               <Button
@@ -556,7 +550,9 @@ const LearnCypto = () => {
                 className="btn btn-outlined-secondary"
                 varient="outlined"
                 endIcon={<ArrowDropDown />}
-                onClick={handleLoadMore}
+                onClick={() => {
+                  navigate("/learn-cypto-detail");
+                }}
               >
                 Learn More
               </Button>

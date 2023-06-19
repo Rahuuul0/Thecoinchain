@@ -167,16 +167,8 @@ const useUserActions = () => {
       });
   };
 
-  const create = async ({
-    email,
-    mobile,
-    password,
-    confirm_password,
-    country_code,
-  }) => {
-    const code = `+${country_code}`;
+  const create = async ({ email, mobile, password, confirm_password }) => {
     const phone = mobile;
-    console.log(phone, country_code, "phone number consoled");
     const type = "website";
     const name = "Unknown Name";
     return fetchWrapper
@@ -188,14 +180,12 @@ const useUserActions = () => {
         type,
         name,
         referral_code: referralToken,
-        country_code: code,
       })
       .then((res) => {
         if (res.statusCode === 200) {
           alertActions.success("Please select an option");
           localStorage.setItem("email", res.data.email);
           localStorage.setItem("phone", res.data.phone);
-          localStorage.setItem("country_code", country_code);
           setSoption(true);
           navigate("/confirm-account");
         } else {
@@ -310,15 +300,9 @@ const useUserActions = () => {
     subscription({ status: "expired" });
   };
 
-  const getOtpPhone = async (number) => {
-    const country_code = number.phoneNumber.code;
-    const phone = number.phoneNumber.phone;
-
-    console.log(phone, "phone number");
+  const getOtpPhone = async (phone) => {
     return fetchWrapper
-      .post(Apis.Get_Otp_Phone, {
-        body: { country_code, phone },
-      })
+      .post(Apis.Get_Otp_Phone, { phone })
       .then((res) => {
         if (res.statusCode === 200) {
           setSoption("phone");

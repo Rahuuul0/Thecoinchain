@@ -33,35 +33,35 @@ import MuiPhoneNumber from "material-ui-phone-number";
 import GoogleAuth from "./GoogleAuth.jsx";
 
 const CreateAccount = () => {
-  const navigate = useNavigate();
-  const userActions = useUserActions();
-  const alertActions = useAlertActions();
-  const [phone, setPhone] = useState("");
-  const captchaRef = useRef(null);
-  const param = useParams();
-  const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Email must be a valid email")
-      .trim()
-      .required("Email Address is required"),
-    mobile: Yup.string()
-      .required("Mobile Number is required")
-      .min(8, "Please enter a valid Mobile Number"),
-    password: Yup.string()
-      .trim()
-      .required("Password is required")
-      .min(8, "Password must be at least 8 characters.")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!#%*?&])[A-Za-z\d@$!#%*?&]{8,}$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
-      ),
-    confirm_password: Yup.string()
-      .trim()
-      .required("Confirm Password is required")
-      .oneOf([Yup.ref("password"), null], "Passwords must match."),
-    agree: Yup.bool().oneOf([true], "You must accept the terms and conditions"),
-  });
-
+    const navigate = useNavigate();
+    const userActions = useUserActions();
+    const alertActions = useAlertActions();
+    const [phone, setPhone] = useState('');
+    const captchaRef = useRef(null);
+    const param = useParams();
+    const validationSchema = Yup.object().shape({
+        email: Yup.string()
+            .email("Email must be a valid email")
+            .trim()
+            .required("Email Address is required"),
+        mobile: Yup.string()
+            .required("Mobile Number is required"),
+        password: Yup.string()
+            .trim()
+            .required("Password is required")
+            .min(8, "Password must be at least 8 characters.")
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!#%*?&])[A-Za-z\d@$!#%*?&]{8,}$/,
+                "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."),
+        confirm_password: Yup.string()
+            .trim()
+            .required("Confirm Password is required").oneOf(
+                [Yup.ref("password"), null],
+                "Passwords must match."
+            ),
+        agree: Yup.bool().oneOf([true], "You must accept the terms and conditions")       
+    });
+ 
   //password eye IconButton
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -84,9 +84,8 @@ const CreateAccount = () => {
   };
 
   // Mobile contry code
-  const handlePhone = (value, info) => {
-    let country_code = info.dialCode;
-    reset({ ...formData, mobile: value, country_code: country_code });
+  const handlePhone = (newPhone) => {
+    setPhone(newPhone);
   };
 
   const asyncScriptOnLoad = () => {
@@ -95,13 +94,9 @@ const CreateAccount = () => {
 
   const submitForm = () => {
     const token = captchaRef.current.getValue();
-    let phone = formData.mobile
-      .replace(/[^A-Z0-9]/gi, "")
-      .slice(formData.country_code.length, formData.mobile.length);
-    let data = { ...formData, mobile: phone };
     if (token) {
       captchaRef.current.reset();
-      return userActions.create(data);
+      return userActions.create(formData);
     } else {
       alertActions.error("reCAPTCHA is mandatory");
     }
@@ -275,7 +270,9 @@ const CreateAccount = () => {
                       autoComplete="off"
                       defaultCountry={"us"}
                       value={formData.mobile}
-                      onChange={handlePhone}
+                      onChange={(value) =>
+                        reset({ ...formData, mobile: value })
+                      }
                     />
                     <div className="frm-message"> {errors.mobile?.message}</div>
                     <TextField

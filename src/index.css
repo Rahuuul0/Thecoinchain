@@ -3083,3 +3083,7 @@ video[poster] {
 .auth-form button { 
   min-width: 50px!important;
 }
+
+.text-black{
+  color: #000;
+}

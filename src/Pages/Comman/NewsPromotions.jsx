@@ -201,7 +201,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.ctn_image}`} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -212,7 +212,7 @@ const NewsPromotions = (props) => {
                                                             <TabPanel value={valueTab2} index2={1} dir={theme.direction}>
                                                             {newsList
                                                               .filter((blog) => {
-                                                                return blog.category === "Blogchain";
+                                                                return blog.category === "Blockchain";
                                                               })
                                                             .slice(0, 3)
                                                             .map((item)=> {
@@ -257,7 +257,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}/>
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.ctn_image}`}/>
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -312,7 +312,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.ctn_image}`} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -367,7 +367,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.ctn_image}`} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>

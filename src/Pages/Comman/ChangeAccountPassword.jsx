@@ -150,37 +150,37 @@ const ChangeAccountPassword = () => {
                                                     )
                                                 }}
 
-                                        />
-                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.new_password?.message}</div>
-                                        <TextField
-                                            label="Confirm New Password"
-                                            margin="normal"
-                                            required
-                                            fullWidth
-                                            id="confirm_password"
-                                            placeholder='Confirm New Password'
-                                            type={showPassword3 ? "text" : "password"}
-                                            name="confirm_password"
-                                            autoComplete="confirm-password"
-                                            size="small"
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            variant="standard"
-                                            {...register('confirm_password')}
-                                            className={`form-control ${errors.confirm_password ? 'is-invalid' : ''}`}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <InputAdornment position="end">
-                                                        <IconButton onClick={handleClickShowPassword3}>
-                                                            {showPassword3 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                )
-                                            }}
-                                            
-                                        />
-                                        <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirm_password?.message}</div>
+                                            />
+                                            <div className="invalid-feedback" style={{ color: "red" }}>{errors.new_password?.message}</div>
+                                            <TextField
+                                                label="Confirm New Password"
+                                                margin="normal"
+                                                required
+                                                fullWidth
+                                                id="confirm_password"
+                                                placeholder='Confirm New Password'
+                                                type={showPassword3 ? "text" : "password"}
+                                                name="confirm_password"
+                                                autoComplete="confirm-password"
+                                                size="small"
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                                variant="standard"
+                                                {...register('confirm_password')}
+                                                className={`form-control ${errors.confirm_password ? 'is-invalid' : ''}`}
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <InputAdornment position="end">
+                                                            <IconButton onClick={handleClickShowPassword3}>
+                                                                {showPassword3 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    )
+                                                }}
+
+                                            />
+                                            <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirm_password?.message}</div>
 
                                             <Button
                                                 type="submit"

@@ -476,11 +476,11 @@ const Contact = () => {
                 value={formData?.question}
                 options={names}
                 onChange={(e, props) => reset({ ...formData, question: props?.name })}
-                renderInput={(params) => <TextField autoFocus {...register('question')}  required {...params} InputLabelProps={{ shrink: true }} />}
-            />
-            <div style={{ color: "red" }}>{errors.question?.message}</div>
-        </Grid>
-            </Box>
+                renderInput={(params) => <TextField autoFocus {...register('question')} required {...params} InputLabelProps={{ shrink: true }} />}
+              />
+              <div style={{ color: "red" }}>{errors.question?.message}</div>
+            </Grid>
+          </Box>
 
           <Box paddingBottom={2}>
             <TextField
@@ -505,47 +505,47 @@ const Contact = () => {
             <div style={{ color: "red" }}>{errors.email?.message}</div>
           </Box>
 
-            <Box paddingBottom={2}>
-              <TextField
-                label="Subject *"
-                className="form-control"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="standard"
-                margin="normal"
-                required
-                fullWidth
-                id="Subject"
-                placeholder='Subject'
-                name="subject"
-                autoComplete="off"
-                {...register("subject")}
-                onChange={(e) => reset({ ...formData, subject: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-              />
-               <div style={{ color: "red" }}>{errors.subject?.message}</div>
-            </Box>
-            <Box paddingTop='2'>
-              <TextField
-                id="outlined-multiline-static"
-                label="Message *"
-                variant="standard"
-                className="form-control"
-                placeholder='Say something'
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                multiline
-                rows={4}
-                maxlength={10}
-                fullWidth
-                {...register("msg")}
-              />
-               <div style={{ color: "red" }}>{errors.msg?.message}</div>
-            </Box>
-            <Box paddingTop='2'>
-              <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
-                <Button 
+          <Box paddingBottom={2}>
+            <TextField
+              label="Subject *"
+              className="form-control"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+              margin="normal"
+              required
+              fullWidth
+              id="Subject"
+              placeholder='Subject'
+              name="subject"
+              autoComplete="off"
+              {...register("subject")}
+              onChange={(e) => reset({ ...formData, subject: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+            />
+            <div style={{ color: "red" }}>{errors.subject?.message}</div>
+          </Box>
+          <Box paddingTop='2'>
+            <TextField
+              id="outlined-multiline-static"
+              label="Message *"
+              variant="standard"
+              className="form-control"
+              placeholder='Say something'
+              InputLabelProps={{
+                shrink: true,
+              }}
+              multiline
+              rows={4}
+              maxlength={10}
+              fullWidth
+              {...register("msg")}
+            />
+            <div style={{ color: "red" }}>{errors.msg?.message}</div>
+          </Box>
+          <Box paddingTop='2'>
+            <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
+              <Button
                 type='submit'
                 className='btn btn-primary'
                 sx={{ float: 'right' }}

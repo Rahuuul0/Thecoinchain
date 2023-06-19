@@ -1,14 +1,16 @@
 import React from "react";
+import { useEffect} from 'react';
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../_common/app.constants";
 import { Box, Container, Typography, Link, Breadcrumbs } from "@mui/material";
 import { NavigateNext } from "@mui/icons-material/";
 import { Grid, Button, Stack } from "@mui/material";
 import { KeyboardArrowRight } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import Leveragedv3 from "../../../public/assets/images/leveragedv3.svg";
 import Leveragedv2 from "../../../public/assets/images/leveragedv2.svg";
 import Learn01 from "../../../public/assets/images/learn01.png";
-import { useNavigate } from "react-router-dom";
+
 
 function handleClick(event) {
   event.preventDefault();
@@ -31,6 +33,7 @@ const Academy = () => {
       Academy
     </Typography>,
   ];
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
   return (
     <>
       <ThemeProvider theme={theme}>

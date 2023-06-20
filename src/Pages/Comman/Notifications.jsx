@@ -11,8 +11,10 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {notificationAtom, authAtom} from '../../_state/';
 import {notificationActions} from '../../_actions/notification.actions';
 import { useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 const Notifications = () => {
+    const navigate = useNavigate();
     const notificationAction = notificationActions();
     const notifications = useRecoilValue(notificationAtom);
     const userDetails = useRecoilValue(authAtom);
@@ -193,7 +195,7 @@ const Notifications = () => {
                                         <Typography component="p" variant='body1' className='body-caption'>
                                             Deposit crypto or cash currency to your wallet and start trading on the world largest exchange!
                                         </Typography>
-                                        <Button size='small' variant="outlined" className='btn btn-outlined-secondary' endIcon={<ArrowRightAltOutlinedIcon />}>Bank deposit</Button>
+                                        <Button onClick={()=>{navigate("/contentnotfound")}} size='small' variant="outlined" className='btn btn-outlined-secondary' endIcon={<ArrowRightAltOutlinedIcon />}>Bank deposit</Button>
                                     </Box>
                                 </Box>
                                 <Box className="deposit-transfer-card">
@@ -207,7 +209,7 @@ const Notifications = () => {
                                         <Typography component="p" variant='body1' className='body-caption'>
                                             Internal transfers are free on Bitcloud.
                                         </Typography>
-                                        <Button size='small' variant="outlined" className='btn btn-outlined-secondary' endIcon={<ArrowRightAltOutlinedIcon />}>Transfer coin</Button>
+                                        <Button onClick={()=>{navigate("/contentnotfound")}} size='small' variant="outlined" className='btn btn-outlined-secondary' endIcon={<ArrowRightAltOutlinedIcon />}>Transfer coin</Button>
                                     </Box>
                                 </Box>
                             </Box>

@@ -15,12 +15,12 @@ const ContentNotFound = () => {
                 <Box component="main" className='' sx={{ mt: 12 }}>
                     <Container maxWidth="lg">
                         <Box textAlign='center' padding={3}>
-                      <img src={NoData} width='200'/>
-                      <Typography paddingY={3} variant='h4' component='h4'>Sorry! What you searching not found</Typography>
-                      </Box>
+                            <img src={NoData} width='200'/>
+                            <Typography paddingY={3} variant='h4' component='h4'>Sorry! What you searching not found</Typography>
+                        </Box>
                     </Container>
-                </Box >
-            </ThemeProvider >
+                </Box>
+            </ThemeProvider>
         </>
     )
 }

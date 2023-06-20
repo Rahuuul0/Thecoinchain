@@ -15,12 +15,15 @@ import TableRow from '@mui/material/TableRow';
 import USAflag from '../../../public/assets/images/icons/usa.svg';
 import Sidebar from './Components/Sidebar';
 import ReactCountryFlag from "react-country-flag"
+import { useDeviceData, useDeviceSelectors, isMacOs } from "react-device-detect";
+
 
 const SessionHistory = () => {
 
     const userHistoryAction = userLoginHistoryActions();
     const [historyData, setHistoryData] = useState([]);
     const navigate = useNavigate();
+    const deviceData = useDeviceData();
 
     const breadcrumbs = [
         <Link underline="hover" key="1" color="inherit" href="/">
@@ -52,6 +55,8 @@ const SessionHistory = () => {
         response.then((res)=>{setHistoryData([...res])})
         
      },[])
+
+   const platform = window.navigator.userAgentData.platform;
 
     return (
         <>
@@ -118,15 +123,15 @@ const SessionHistory = () => {
                                                                    {item.created_at}
                                                                 </Typography>
                                                                 <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    10:46:09
+                                                                   
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell>
                                                                 <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    Macbook Pro
+                                                                  {deviceData.device.model}
                                                                 </Typography>
                                                                 <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    Mac OS Bigsur
+                                                                  {deviceData.os.name}
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell align="right">
@@ -195,7 +200,7 @@ const SessionHistory = () => {
                                                                         </Typography>
                                                                     </TableCell>
                                                                     <TableCell align="right">
-                                                                        <Button size='small' variant='contained' color={(v.cta === "NO") ? "error" : "success"} className={(v.cta === "NO") ? "btn btn-table btn-error" : "btn btn-table btn-success"} sx={{ ml: 'auto' }}>{v.cta}</Button>
+                                                                        <Button size='small' variant='contained' color={(v.cta === "NO") ? "error" : "success"} className={(v.cta === "NO") ? "btn btn-table btn-error" : "btn btn-table btn-success"} sx={{ ml: 'auto' }}>{v.cta} Yes</Button>
                                                                     </TableCell>
                                                                 </TableRow>
                                                             )

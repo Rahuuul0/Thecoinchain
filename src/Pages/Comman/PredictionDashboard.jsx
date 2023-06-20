@@ -12,9 +12,10 @@ import FAQ03 from '../../../public/assets/images/faq-03.svg'
 import FAQ04 from '../../../public/assets/images/faq-04.svg'
 import FAQ05 from '../../../public/assets/images/faq-05.svg'
 import FAQ06 from '../../../public/assets/images/faq-06.svg'
-
+import { useNavigate } from 'react-router-dom';
 const PredictionDashboard = () => {
 
+    const navigate = useNavigate();
     const faqGetAction = faqActions();
     const faq = useRecoilValue(faqAtom);
 
@@ -26,7 +27,9 @@ const PredictionDashboard = () => {
          },[])
         
 
-    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
+    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) },[]);
+
+ 
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -66,6 +69,7 @@ const PredictionDashboard = () => {
                                         })}
                                     </Box>
                                     <Button
+                                        onClick={() =>{navigate("/contact")}}
                                         sx={{ mt: 2 }}
                                         variant="outlined"
                                         className='btn btn-outlined-secondary'>

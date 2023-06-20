@@ -508,7 +508,7 @@ const CryptoTable = (props) => {
                 </TableBody>
               </Table>
             </Stack>
-            {location.pathname === "/prediction-dashboard" ? (
+            {/* {location.pathname === "/prediction-dashboard" ? (
               <Pagination
                 sx={{ float: "right" }}
                 count={count}
@@ -518,7 +518,7 @@ const CryptoTable = (props) => {
               />
             ) : (
               ""
-            )}
+            )} */}
           </TableContainer>
         </Box>
       </Box>

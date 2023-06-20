@@ -32,6 +32,7 @@ import USA from "../../../../public/assets/images/icons/usa.svg";
 import japan from "../../../../public/assets/images/icons/japan.svg";
 import Chaina from "../../../../public/assets/images/icons/chaina.svg";
 import { Label } from "recharts";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 const drawerWidth = 240;
 
@@ -248,7 +249,9 @@ function Header(props) {
             >
               EN/USD
             </Button>
-
+            {/* <IconButton className='icon-btn' onClick={e => navigate('/subscription#')} aria-label="flash" color="primary">
+              <ShoppingCartOutlinedIcon />
+            </IconButton> */}
             <Menu
               className="dropdown-menu en-dropdown"
               id="currency-positioned-menu"

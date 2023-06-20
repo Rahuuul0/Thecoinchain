@@ -18,6 +18,8 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import ChartUp from "../../../public/assets/images/chart-up.svg";
 import DollarImg from "../../../public/assets/images/icons/dollar.svg";
+import FavoriteIc from "../../../public/assets/images/icons/star.svg";
+import FavoritefilledIc from "../../../public/assets/images/icons/star-filled.svg";
 import TimeImg from "../../../public/assets/images/icons/time-ic.svg";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -41,6 +43,7 @@ import {
 } from "../../_state";
 
 import { TabPanel } from "@mui/lab";
+import { Favorite } from "@mui/icons-material";
 ChartJS.register(...registerables);
 
 function paginator(items, current_page, per_page_items) {
@@ -145,14 +148,14 @@ const CryptoTable = (props) => {
       location.pathname === "/prediction-dashboard"
         ? (page = `page_name=prediction_page`)
         : location.pathname === "/market"
-        ? (page = `page_name=market_page`)
-        : "";
+          ? (page = `page_name=market_page`)
+          : "";
     } else {
       location.pathname === "/prediction-dashboard"
         ? (page = `page_name=prediction_page`)
         : location.pathname === "/market"
-        ? (page = "page_name=market_page")
-        : "";
+          ? (page = "page_name=market_page")
+          : "";
     }
 
     const ress = await coinActions.latestListing(page);
@@ -274,7 +277,7 @@ const CryptoTable = (props) => {
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
                       >
-                        <TableCell>{index + 1}</TableCell>
+                        <TableCell> <img src={FavoriteIc} alt="star" className="favorite-ic" /> {index + 1}</TableCell>
                         <TableCell
                           onClick={() => handleOpen(item.id)}
                           sx={{ cursor: "pointer" }}
@@ -314,7 +317,7 @@ const CryptoTable = (props) => {
                           </span>
                         </TableCell>
                         {location.pathname === "/prediction-dashboard" &&
-                        subscriptionDetails.status === "expired" ? (
+                          subscriptionDetails.status === "expired" ? (
                           <>
                             <TableCell align="right">
                               <HttpsIcon />
@@ -394,7 +397,7 @@ const CryptoTable = (props) => {
                         )}
 
                         {subscriptionDetails.status === "running" &&
-                        location.pathname !== "/" ? (
+                          location.pathname !== "/" ? (
                           <TableCell align="right" sx={{ cursor: "pointer" }}>
                             <img
                               src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
@@ -443,7 +446,9 @@ const CryptoTable = (props) => {
                                     margin: "auto",
                                   }}
                                   onClick={() => {
-                                    navigate("/subscription"),
+                                    userDetail
+                                      ? navigate("/subscription")
+                                      : navigate("/login"),
                                       window.scrollTo({
                                         top: 0,
                                         left: 0,
@@ -451,7 +456,7 @@ const CryptoTable = (props) => {
                                       });
                                   }}
                                 >
-                                  Subscribe
+                                  {userDetail ? "Subscribe" : "Login"}
                                 </Button>
                               </Fade>
                             }
@@ -488,8 +493,8 @@ const CryptoTable = (props) => {
                                       ? "/create-account"
                                       : userDetail &&
                                         subscriptionDetails.status === "running"
-                                      ? "/prediction-dashboard"
-                                      : "/subscription"
+                                        ? "/prediction-dashboard"
+                                        : "/subscription"
                                   );
                                 }}
                               >
@@ -506,7 +511,7 @@ const CryptoTable = (props) => {
                 </TableBody>
               </Table>
             </Stack>
-            {location.pathname === "/prediction-dashboard" ? (
+            {/* {location.pathname === "/prediction-dashboard" ? (
               <Pagination
                 sx={{ float: "right" }}
                 count={count}
@@ -516,7 +521,7 @@ const CryptoTable = (props) => {
               />
             ) : (
               ""
-            )}
+            )} */}
           </TableContainer>
         </Box>
       </Box>

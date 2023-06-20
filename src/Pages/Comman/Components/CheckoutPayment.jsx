@@ -1,15 +1,15 @@
-import {useState,useMemo,useEffect} from 'react';
-import {loadStripe} from '@stripe/stripe-js';
-import { 
-  Elements,
-  useStripe,
-  useElements,
-  CardNumberElement,
-  CardExpiryElement,
-  CardCvcElement  
+import { useState, useMemo, useEffect } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import {
+    Elements,
+    useStripe,
+    useElements,
+    CardNumberElement,
+    CardExpiryElement,
+    CardCvcElement
 } from '@stripe/react-stripe-js';
-import { Box, Typography, Button, Modal} from '@mui/material'
-import {subscriptionActions} from './../../../_actions';
+import { Box, Typography, Button, Modal } from '@mui/material'
+import { subscriptionActions } from './../../../_actions';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import BtcImg from '../../../../public/assets/images/icons/btc-ic.svg'
 import WalletIc from '../../../../public/assets/images/icons/wallet.svg'
@@ -19,15 +19,17 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
+import SubscriptionPaymentPaypal from '../Components/SubscriptionPaymentPaypal';
+import CheckIcon from '@mui/icons-material/Check';
 
 const stripePromise = loadStripe('pk_test_51NAt8fSGQOsMaWjbyOBmlRhFwSdDQt1wIWSMIyzzg16p9Qq2PjfKN1uS2UDP20EyvqxVIzECtgwU7erWue7zZQfm00LxmWF4sK');
 
-  const useOptions = () => {  
+const useOptions = () => {
     const options = useMemo(
         () => ({
             style: {
                 base: {
-                    fontSize:"16px",
+                    fontSize: "16px",
                     color: "#424770",
                     letterSpacing: "0.025em",
                     fontFamily: "Roboto, Source Code Pro, monospace, SFUIDisplay",
@@ -42,9 +44,9 @@ const stripePromise = loadStripe('pk_test_51NAt8fSGQOsMaWjbyOBmlRhFwSdDQt1wIWSMI
             }
         }),
         []
-  );
+    );
 
-  return options;
+    return options;
 };
 
 const CheckoutForm = () => {
@@ -58,7 +60,8 @@ const CheckoutForm = () => {
   const options = useOptions();
   const [subscriptionData, setSubscriptionData] = useState([]);
   const [open, setOpen] = useState(false);
-
+  const [creditCardStatus, setCreditCardStatus] = useState(true);
+  
   // Subscription action get function   API data call 
   useEffect(()=>{
     const get_subscription = async() => {
@@ -70,8 +73,10 @@ const CheckoutForm = () => {
   
   
 
-  const handleSubmit = async (event) => {
-    event.preventDefault() 
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
 
         // your billing details object looks like this
         const billingDetails = {
@@ -82,7 +87,7 @@ const CheckoutForm = () => {
                 line1: "896 Bell Street",
                 state: "NY",
                 postal_code: "10022",
-                country:'US'
+                country: 'US'
             }
         }
 
@@ -96,320 +101,346 @@ const CheckoutForm = () => {
             });
 
             if (paymentMethodReq.error) {
-              setCheckoutError(paymentMethodReq.error.message);
-              setProcessingTo(false);
-              return;
-            } 
-            
-            const resultToken = await stripe.createToken(cardElement);
-              if (resultToken.error) {
                 setCheckoutError(paymentMethodReq.error.message);
                 setProcessingTo(false);
                 return;
-              } 
-                
-              // pass the token to your backend API
-            const data = await subscribed.createPaymentIntent({'sub_id':confirm.plan.id,'token':resultToken.token,paymentMethodReq});              
-            console.log("Payment successful q",data,paymentMethodReq)
+            }
+
+            const resultToken = await stripe.createToken(cardElement);
+            if (resultToken.error) {
+                setCheckoutError(paymentMethodReq.error.message);
+                setProcessingTo(false);
+                return;
+            }
+
+            // pass the token to your backend API
+            const data = await subscribed.createPaymentIntent({ 'sub_id': confirm.plan.id, 'token': resultToken.token, paymentMethodReq });
+            console.log("Payment successful q", data, paymentMethodReq)
             if (data.client_secret) {
-              const confirmedCardPayment = await stripe.confirmCardPayment(data.client_secret, {
-                  payment_method: paymentMethodReq.paymentMethod.id
-              });
-              console.log("Payment successful q",confirmedCardPayment)
-              if (confirmedCardPayment.error) {
-                  setCheckoutError(confirmedCardPayment.error);
-                  setProcessingTo(false);
-                  return;
-              }              
-              // display your success messages or redirect user to a success page
-              console.log("Payment successful")
-              setProcessingTo(false);
-              setOpen(true);
-            }else{
-              console.log("Error: Server could not initiate the payment process.")
-            }            
+                const confirmedCardPayment = await stripe.confirmCardPayment(data.client_secret, {
+                    payment_method: paymentMethodReq.paymentMethod.id
+                });
+                console.log("Payment successful q", confirmedCardPayment)
+                if (confirmedCardPayment.error) {
+                    setCheckoutError(confirmedCardPayment.error);
+                    setProcessingTo(false);
+                    return;
+                }
+                // display your success messages or redirect user to a success page
+                console.log("Payment successful")
+                setProcessingTo(false);
+                setOpen(true);
+            } else {
+                console.log("Error: Server could not initiate the payment process.")
+            }
         } catch (err) {
             console.log(err.message)
             setCheckoutError(err.message)
         }
-    
-  }
+
+    }
 
 
-  const handleCardDetailsChange = event => {
-      event.error ? setCheckoutError(event.error.message) : setCheckoutError();
-  };    
+    const handleCardDetailsChange = event => {
+        event.error ? setCheckoutError(event.error.message) : setCheckoutError();
+    };
 
-  const styled = (confirm.step===2)?{"height":'100%',"opacity":"1"}:{"height":'0px',"opacity":"0"}
-  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
-  return (
-    <Box className='subscription-steps-inner'>
-        <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-            open={isProcessing}
-            onClick={()=>setProcessingTo(false)}
+    const styled = (confirm.step === 2) ? { "height": '100%', "opacity": "1" } : { "height": '0px', "opacity": "0", "display": "none" }
+    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
+    return (
+        <Box className='subscription-steps-inner'>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={isProcessing}
+                onClick={() => setProcessingTo(false)}
             >
-            <CircularProgress color="inherit" />
-        </Backdrop>
-        <Box className='subscription-steps-col'>
-            <Box className={`subscription-step ${confirm.step===1?"current-step":'completed-step'}`}>                                       
-                <Box component="span" className='number-circle'>
-                <Button onClick={()=>setConfirm({...confirm,"step":1})}>1</Button>
-                </Box>
-                <Typography component="p" variant='body2'>
-                    Select Package
-                </Typography>
-            </Box>
-            <Box className={`subscription-step ${confirm.step===2?"current-step":confirm.step===3?'completed-step':''}`}>
-                <Box component="span" className='number-circle'>
-                <Button onClick={() =>setConfirm({...confirm,"step":2})}>2</Button>
-                </Box>
-                <Typography component="p" variant='body2'>
-                    Payment info
-                </Typography>
-            </Box>
-            <Box className={`subscription-step ${confirm.step===3?"current-step":''}`}>
-                <Box component="span" className='number-circle'>
-                <Button onClick={()=>setConfirm({...confirm,"step":3})}>3</Button>
-                </Box>
-                <Typography component="p" variant='body2'>
-                    Confirm order
-                </Typography>
-            </Box>
-        </Box>
-        <Box className='subscription-steps-col-details'>  
-            <form onSubmit={handleSubmit} >
-                {confirm.step===1 &&
-                <Box className="step-one">
-                    <Box className="card-inner-head">
-                        <Typography component="h5" variant='body1' className='large-caption'>
+                <CircularProgress color="inherit" />
+            </Backdrop>
+            <Box className='subscription-steps-col'>
+                <Box className={`subscription-step ${confirm.step === 1 ? "current-step" : 'completed-step'}`}>
+                    <Box component="span" className='number-circle'>
+                        <Box onClick={() => setConfirm({ ...confirm, "step": 1 })}> {confirm.step === 1 ? "1" : <CheckIcon />} </Box>
+                    </Box>
+                    <Typography component="p" variant='body2'>
                         Select Package
-                        </Typography>
-                    </Box>     
-                    <Box className='subscription-plan'>
-                        {subscriptionData.map((plan,i) => (
-                            <Box className="subscription-plan-card">
-                                <Typography component="h4" variant='h4' className='plan-title'>
-                                    {plan.subscription_name}
+                    </Typography>
+                </Box>
+                <Box className={`subscription-step ${confirm.step === 2 ? "current-step" : confirm.step === 3 ? 'completed-step' : ''}`}>
+                    <Box component="span" className='number-circle'>
+                        <Box onClick={() => setConfirm({ ...confirm, "step": 2 })}>{confirm.step === 2 ? "2" : confirm.step === 3 ? <CheckIcon /> : '2'}</Box>
+                    </Box>
+                    <Typography component="p" variant='body2'>
+                        Payment info
+                    </Typography>
+                </Box>
+                <Box className={`subscription-step ${confirm.step === 3 ? "current-step" : ''}`}>
+                    <Box component="span" className='number-circle'>
+                        <Box onClick={() => setConfirm({ ...confirm, "step": 3 })}>3</Box>
+                    </Box>
+                    <Typography component="p" variant='body2'>
+                        Confirm order
+                    </Typography>
+                </Box>
+            </Box>
+            <Box className='subscription-steps-col-details'>
+                <form onSubmit={handleSubmit} >
+                    {confirm.step === 1 &&
+                        <Box className="step-one">
+                            <Box className="card-inner-head">
+                                <Typography component="h5" variant='body1' className='large-caption'>
+                                    Select Package
                                 </Typography>
-                                <Box className="subscription-plan-body">
-                                    <Typography component="h4" variant='h4' className='plan-price'>
-                                        ${plan?.subscription_price||0}  <span className='plan-days'>/ {plan?.duration} days</span>
-                                    </Typography>
-                                    <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
-                                        {plan.description}
+                            </Box>
+                            <Box className='subscription-plan'>
+                                {subscriptionData.map((plan, i) => (
+                                    <Box className="subscription-plan-card">
+                                        <Typography component="h4" variant='h4' className='plan-title'>
+                                            {plan.subscription_name}
+                                        </Typography>
+                                        <Box className="subscription-plan-body">
+                                            <Typography component="h4" variant='h4' className='plan-price'>
+                                                ${plan?.subscription_price || 0}  <span className='plan-days'>/ {plan?.duration} days</span>
+                                            </Typography>
+                                            <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
+                                                {plan.description}
+                                            </Typography>
+                                        </Box>
+                                        <Box className="subscription-plan-cta">
+                                            <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={e => setConfirm({ plan, "step": 2 })} >Continue</Button>
+                                        </Box>
+                                    </Box>
+                                ))}
+                            </Box>
+                            <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
+                                The subscription can be canceled at any moment through the payment system or by using the "unsubscribe" button in the Subscription section. In the case of technical issues, you can submit your inquiries
+                            </Typography>
+                            <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
+                                using the contact us form. By subscribing you accept our Disclaimer.
+                            </Typography>
+                            <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D', mt: '32px' }}>
+                                Each account on our website can have only one active subscription at a time. Buying a new subscription while having an active one stops the active subscription. Each subscription requires its own user.
+                            </Typography>
+                        </Box>
+                    }
+
+                    {/* Step Two */}
+                    <Box className="step-two" style={styled}>
+                        <Box className="card-inner-head">
+                            <Typography component="h5" variant='body1' className='large-caption'>
+                                <KeyboardBackspaceIcon /> Payment info
+                            </Typography>
+                            <Typography component="h5" variant='body1' className='large-caption invest-smarter'>
+                                Invest smarter, not harder. <img src={BtcImg} alt='BTC' width="24px" />
+                            </Typography>
+                        </Box>
+                        <Box className='payment-info'>
+                            <Box className='amount-for'>
+                                <Box className='payment-amount'>
+                                    <span className='wallet-ic'>
+                                        <img src={WalletIc} alt='wallet' width="20px" />
+                                    </span>
+                                    <Typography component="small" variant='body2'>
+                                        <span className='label'>Plan</span>
+                                        {confirm.plan.subscription_name}
+
                                     </Typography>
                                 </Box>
-                                <Box className="subscription-plan-cta">
-                                    <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={e=>setConfirm({plan,"step":2})} >Continue</Button>
+                                <Box className='payment-for'>
+                                    <span className='wallet-ic'>
+                                        <img src={WalletIc} alt='wallet' width="20px" />
+                                    </span>
+                                    <Typography component="small" variant='body2'>
+                                        <span className='label'>Amount</span>
+                                        ${confirm.plan?.subscription_price || 0}
+                                    </Typography>
                                 </Box>
                             </Box>
-                        ))}
-                    </Box>
-                    <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
-                        The subscription can be canceled at any moment through the payment system or by using the "unsubscribe" button in the Subscription section. In the case of technical issues, you can submit your inquiries
-                    </Typography>
-                    <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
-                        using the contact us form. By subscribing you accept our Disclaimer.
-                    </Typography>
-                    <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D', mt: '32px' }}>
-                        Each account on our website can have only one active subscription at a time. Buying a new subscription while having an active one stops the active subscription. Each subscription requires its own user.
-                    </Typography>
-                </Box>
-            }
-            
-                {/* Step Two */}            
-                <Box className="step-two" style={styled}>       
-                <Box className="card-inner-head">
-                    <Typography component="h5" variant='body1' className='large-caption'>
-                        <KeyboardBackspaceIcon /> Payment info
-                    </Typography>
-                    <Typography component="h5" variant='body1' className='large-caption invest-smarter'>
-                        Invest smarter, not harder. <img src={BtcImg} alt='BTC' width="24px" />
-                    </Typography>
-                </Box>
-                <Box className='payment-info'>           
-                    <Box  className='amount-for'>
-                        <Box className='payment-amount'>
-                            <span className='wallet-ic'>
-                                <img src={WalletIc} alt='wallet' width="20px" />
-                            </span>
-                            <Typography component="small" variant='body2'>
-                            <span className='label'>Plan</span>
-                            {confirm.plan.subscription_name}
+                            <>
+                                <Box>     
+                                    <Typography onClick={e=>setCreditCardStatus(true)} component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D', mt: '32px' }}>
+                                        Credit Card 
+                                    </Typography>
+                                    <Typography onClick={e=>setCreditCardStatus(false)} component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D', mt: '32px' }}>
+                                        Paypal 
+                                    </Typography>
+                                </Box>  
+                                {creditCardStatus===true  &&  
+                                    <>
+                                        <Box className='credit-card-head'>
+                                            <Typography component="h5" variant='body1' className='large-caption' sx={{ fontWeight: '600' }}>
+                                                Credit Card
+                                            </Typography>
+                                            <Box className='card-type'>
+                                                <img src={VisaIc} alt='Visa' height="12px" />
+                                                <img src={MasterIc} alt='Master' height="12px" />
+                                            </Box>
+                                        </Box>
+                                        <div className='checkout-form'>
+                                            {/* <>{checkoutError}</> */}
+                                            <label>
+                                                <span>Card number</span>
+                                                <CardNumberElement options={options} onChange={handleCardDetailsChange} />
+                                            </label>
+                                            <label>
+                                                <span>Expiration date</span>
 
-                            </Typography>
-                            <Typography component="small" variant='body2'>
-                            <span className='label'>Amount</span>
-                            ${confirm.plan?.subscription_price||0}  
-                            </Typography>
-                        </Box>               
-                    </Box>    
-                    <Box className='credit-card-head'>
-                        <Typography component="h5" variant='body1' className='large-caption' sx={{ fontWeight: '600' }}>
-                            Credit Card
+                                                <CardExpiryElement options={options} onChange={handleCardDetailsChange} />
+                                            </label>
+                                            <label>
+                                                <span>CVC</span>
+                                                <CardCvcElement options={options} onChange={handleCardDetailsChange} />
+                                            </label>
+                                            <div className='form-error'>{checkoutError}</div>
+                                            {/* {!checkoutError && <CheckoutError>{checkoutError}</CheckoutError>} */}
+                                            <Box className="subscription-plan-cta">
+                                                <Button variant='outlined' className='btn btn-outlined-secondary' onClick={e => setConfirm({ ...confirm, step: 1 })}>Cancel</Button>
+                                                <Button onClick={e => setConfirm({ ...confirm, step: 3 })} variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} >Continue</Button>
+                                            </Box>
+                                        </div>
+                                    </>   
+                                } 
+                                {confirm.step===2 && creditCardStatus===false && 
+                                <SubscriptionPaymentPaypal plan={confirm} setOpen={setOpen}  setConfirm={setConfirm} />   
+                                }
+                            </>
+                        </Box>
+                    </Box>
+                    {/* Step Three */}
+                    {confirm.step === 3 &&
+                        <Box className="step-three">
+                            <Box className="card-inner-head">
+                                <Typography component="h5" variant='body1' className='large-caption'>
+                                    <KeyboardBackspaceIcon /> Confirm order
+                                </Typography>
+                                <Typography component="h5" variant='body1' className='large-caption invest-smarter'>
+                                    Invest smarter, not harder. <img src={BtcImg} alt='BTC' width="24px" />
+                                </Typography>
+                            </Box>
+                            <Box className='payment-info'>
+                                <Box className='amount-for'>
+                                    <Box className='payment-amount'>
+                                        <span className='wallet-ic'>
+                                            <img src={WalletIc} alt='wallet' width="20px" />
+                                        </span>
+                                        <Typography component="small" variant='body2'>
+                                            <span className='label'>Plan</span>
+                                            {confirm.plan.subscription_name}
+                                        </Typography>
+                                    </Box>
+                                    <Box className='payment-for'>
+                                        <span className='wallet-ic'>
+                                            <img src={WalletIc} alt='wallet' width="20px" />
+                                        </span>
+                                        <Typography component="small" variant='body2'>
+                                            <span className='label'>Amount</span>
+                                            ${confirm.plan?.subscription_price || 0}
+                                        </Typography>
+                                    </Box>
+                                    <Box className='payment-method'>
+                                        <span className='wallet-ic'>
+                                            <img src={WalletIc} alt='wallet' width="20px" />
+                                        </span>
+                                        <Typography component="small" variant='body2'>
+                                            <span className='label'>Method</span>
+                                            Credit Card
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                                <Typography component="p" variant='body1'>
+                                    You are about to Stay ahead of the crowd - with our predictive analysis of the crypto market!
+                                </Typography>
+                                <Box className='payment-breakdown'>
+                                    <Box className='payment-breakdown-list'>
+                                        <Box className='payment-breakdown-list-itm'>
+                                            <Typography component="p" variant='body1'>
+                                                ${confirm.plan?.subscription_price || 0}  <span className='plan-days'>/ {confirm.plan?.duration} days plan</span>
+                                            </Typography>
+                                            <Typography component="p" variant='body1' sx={{ ml: "auto" }}>
+                                                USD
+                                            </Typography>
+                                        </Box>
+                                        <Box className='devider' sx={{ my: 1, borderColor: '#E6E8EC' }} />
+                                        <Box className='payment-breakdown-list-itm'>
+                                            <Typography component="p" variant='body1' sx={{ color: '#777E90', fontWeight: '400 !important' }}>
+                                                Service fee
+                                            </Typography>
+                                            <Typography component="p" variant='body1' sx={{ ml: "auto" }}>
+                                                0  USD
+                                            </Typography>
+                                        </Box>
+
+                                        <Box className='payment-breakdown-list-itm'>
+                                            <Typography component="p" variant='body1' sx={{ color: '#777E90', fontWeight: '400 !important' }}>
+                                                You will pay
+                                            </Typography>
+                                            <Typography component="p" variant='body1' sx={{ ml: "auto" }}>
+                                                ${confirm.plan?.subscription_price || 0}  USD
+                                            </Typography>
+                                        </Box>
+                                    </Box>
+                                    <Box className="subscription-plan-cta">
+                                        <Button variant='outlined' className='btn btn-outlined-secondary' onClick={e => setConfirm({ ...confirm, step: 2 })}>Cancel</Button>
+                                        <Button variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} type='submit' disabled={!stripe || !elements} >I understand, Continue</Button>
+                                    </Box>
+                                </Box>
+                            </Box>
+                        </Box>
+                    }
+                </form>
+            </Box>
+            {/* Modal */}
+            < Modal
+                open={open}
+                onClose={() => setOpen(false)}
+                aria-labelledby="modal-modal-title"
+                className="modal-yay"
+            >
+                <Box className="modal-dialog modal-subscribed">
+                    <Button onClick={() => setOpen(false)} variant='outlined' className='btn btn-outlined-secondary btn-round btn-close'><CloseIcon /></Button>
+
+                    <Box className="modal-modal-description" sx={{ mt: 2, p: 2 }}>
+                        <Typography className="modal-modal-title" variant="h2" component="h2">
+                            Yay! 🎉
                         </Typography>
-                        <Box className='card-type'>
-                            <img src={VisaIc} alt='Visa' height="12px" />
-                            <img src={MasterIc} alt='Master' height="12px" />
-                        </Box>
-                    </Box>
-                    <>
-                    <>{checkoutError}</>
-                    <label>
-                        <span>Card number</span>
-                        <CardNumberElement options={options} onChange={handleCardDetailsChange} />
-                    </label>
-                    <label>
-                        <span>Expiration date</span>
-
-                        <CardExpiryElement options={options} onChange={handleCardDetailsChange} />
-                    </label>
-                    <label>
-                        <span>CVC</span>
-                        <CardCvcElement options={options} onChange={handleCardDetailsChange} />
-                    </label>
-                    {/* {!checkoutError && <CheckoutError>{checkoutError}</CheckoutError>} */}
-                    <Box className="subscription-plan-cta">
-                        <Button variant='outlined' className='btn btn-outlined-secondary' onClick={e=>setConfirm({...confirm,step:1})}>Cancel</Button>
-                        <Button onClick={e=>setConfirm({...confirm,step:3})}  variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} >Continue</Button>
-                    </Box>     
-                </>                                          
-                </Box>
-            </Box>
-            {/* Step Three */}
-            {confirm.step===3 &&
-            <Box className="step-three">       
-                <Box className="card-inner-head">
-                    <Typography component="h5" variant='body1' className='large-caption'>
-                        <KeyboardBackspaceIcon /> Confirm order
-                    </Typography>
-                    <Typography component="h5" variant='body1' className='large-caption invest-smarter'>
-                        Invest smarter, not harder. <img src={BtcImg} alt='BTC' width="24px" />
-                    </Typography>
-                </Box>
-                <Box className='payment-info'>          
-                    <Box  className='amount-for'>
-                    <Box className='payment-amount'>
-                            <span className='wallet-ic'>
-                                <img src={WalletIc} alt='wallet' width="20px" />
-                            </span>
-                            <Typography component="small" variant='body2'>
-                            <span className='label'>Plan</span>
-                            {confirm.plan.subscription_name}
-
-                            </Typography>
-                            <Typography component="small" variant='body2'>
-                            <span className='label'>Amount</span>
-                            ${confirm.plan?.subscription_price||0}  
-                            </Typography>
-                        </Box>  
-                        <Box className='payment-method'>
-                            <span className='wallet-ic'>
-                                <img src={WalletIc} alt='wallet' width="20px" />
-                            </span>
-                            <Typography component="small" variant='body2'>
-                                <span className='label'>Method</span>
-                                Credit Card
-                            </Typography>
-                        </Box>
-                    </Box>
-                    <Box className='credit-card-head'>
-                        <Typography component="p" variant='body1'>
-                            You are about to Stay ahead of the crowd - with our predictive analysis of the crypto market!
+                        <Typography className="crypto-fullname" variant="body1" component="p">
+                            You successfully subscribed.<br />
+                            Crypto prediction made easy - our algorithms do the work for you!
                         </Typography>
-                    </Box>
-                    <Box className='payment-breakdown'>
-                        <Box className='payment-breakdown-list'>
-                            <Box className='payment-breakdown-list-itm'>
-                                <Typography component="p" variant='body1'>                       
-                                ${confirm.plan?.subscription_price||0}  <span className='plan-days'>/ {confirm.plan?.duration} days plan</span>
-                                </Typography>
-                                <Typography component="p" variant='body1' sx={{ ml: "auto" }}>
-                                    USD
-                                </Typography>
-                            </Box>
-                            <Box className='devider' sx={{ my: 1, borderColor: '#E6E8EC' }} />
-                            <Box className='payment-breakdown-list-itm'>
-                                <Typography component="p" variant='body1' sx={{ color: '#777E90', fontWeight: '400 !important' }}>
-                                    Service fee
-                                </Typography>
-                                <Typography component="p" variant='body1' sx={{ ml: "auto" }}>
-                                0  USD
-                                </Typography>
-                            </Box>
 
-                            <Box className='payment-breakdown-list-itm'>
-                                <Typography component="p" variant='body1' sx={{ color: '#777E90', fontWeight: '400 !important' }}>
-                                You will pay
-                                </Typography>
-                                <Typography component="p" variant='body1' sx={{ ml: "auto" }}>
-                                ${confirm.plan?.subscription_price||0}  USD
-                                </Typography>
-                            </Box>
-                        </Box>
-                        <Box className="subscription-plan-cta">
-                            <Button variant='outlined' className='btn btn-outlined-secondary' onClick={e=>setConfirm({...confirm,step:2})}>Cancel</Button>
-                            <Button variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} type='submit' disabled={!stripe || !elements} >I understand, Continue</Button>
-                        </Box>
+                    </Box>
+                    <Box className="modal-subscribed-cta">
+                        <Button
+                            fullWidth
+                            variant="outlined"
+                            className='btn btn-outlined-secondary'
+                            onClick={() => {
+                                navigate("/")
+                            }}
+                        >
+                            Home
+                        </Button>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            className='btn btn-primary'
+                            onClick={() => {
+                                navigate("/account")
+                            }}
+                        >
+                            Dashboard
+                        </Button>
                     </Box>
                 </Box>
-                </Box>  
-                }   
-        </form>
-    </Box>
-    {/* Modal */}
-    < Modal
-        open={open}
-        onClose={()=>setOpen(false)}
-        aria-labelledby="modal-modal-title"
-    >
-        <Box className="modal-dialog modal-subscribed">
-            <Button onClick={()=>setOpen(false)} variant='outlined' className='btn btn-outlined-secondary btn-round btn-close'><CloseIcon /></Button>
-
-            <Box className="modal-modal-description" sx={{ mt: 2, p: 2 }}>
-                <Typography className="modal-modal-title" variant="h2" component="h2">
-                    Yay! 🎉
-                </Typography>
-                <Typography className="crypto-fullname" variant="body1" component="p">
-                    You successfully subscribed.<br />
-                    Crypto prediction made easy - our algorithms do the work for you!
-                </Typography>
-
-            </Box>
-            <Box className="modal-subscribed-cta">
-                <Button
-                    fullWidth
-                    variant="outlined"
-                    className='btn btn-outlined-secondary'
-                    onClick={()=>{
-                        navigate("/")
-                    }}
-                >
-                    Home
-                </Button>
-                <Button
-                    fullWidth
-                    variant="contained"
-                    className='btn btn-primary'
-                    onClick={()=>{
-                        navigate("/account")
-                    }}
-                >
-                    Dashboard
-                </Button>
-            </Box>
+            </Modal >
         </Box>
-    </Modal >
-</Box>
-  );
+    );
 };
 
 
 const CheckoutPayment = () => (
-  <Elements stripe={stripePromise} >
-    <CheckoutForm />
-  </Elements>
+    <Elements stripe={stripePromise} >
+        <CheckoutForm />
+    </Elements>
 );
 
 

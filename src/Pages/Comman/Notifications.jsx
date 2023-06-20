@@ -8,31 +8,33 @@ import DepositImg from '../../../public/assets/images/deposit.svg'
 import TransferImg from '../../../public/assets/images/transfer.svg'
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import {notificationAtom, authAtom} from '../../_state/';
+import {notificationAtom, authAtom,categoryAtom} from '../../_state/';
 import {notificationActions} from '../../_actions/notification.actions';
 import { useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 const Notifications = () => {
+    const navigate = useNavigate();
     const notificationAction = notificationActions();
     const notifications = useRecoilValue(notificationAtom);
     const userDetails = useRecoilValue(authAtom);
-    const [loadMoreList,setLoadMoreList]=useState([notifications])
-    const [loadmore,setLoadmore] = useState(5);
+    // const [loadMoreList,setLoadMoreList]=useState([notifications])
+    const [loadmore,setLoadmore] = useState(10);
     const [checked, setChecked] = useState(false)
     const [categoryArray,setCategoryArray]=useState([]);
-    const [filterCategory,setFilterCategory]=useState(['CryptoPrediction','Community','Academy','News'])
+    const [filterCategory,setFilterCategory]=useState(['Crypto Prediction','Community','Academy','News'])
     const [checkCrypto,setCheckCrypto]=useState(false)
     const [checkCommunity,setCheckCommunity]=useState(false)
     const [checkAcademy,setCheckAcademy]=useState(false)
     const [checkNews,setCheckNews]=useState(false)
- 
+
     const handleClear = async() => {
           notificationAction.clearNotifications();
         };
      
     //   Filter selectAll and UnselectAll function
     const handleSelectAll =(flag) =>{
-        let CategoryArr = categoryArray;
+        let categoryArr = categoryArray;
          if(flag){
             setCheckCrypto(true)
             setCheckCommunity(true)
@@ -41,7 +43,7 @@ const Notifications = () => {
             filterCategory.map((category,idx)=>{
                 const index = categoryArray.indexOf(category);
                 if(index === -1)
-                CategoryArr.push(category);    
+                categoryArr.push(category);    
               })
         }else{
             setCheckCrypto(false)
@@ -51,15 +53,15 @@ const Notifications = () => {
             filterCategory.map((category,idx)=>{
                const index = categoryArray.indexOf(category);
                 if(index > -1)
-                CategoryArr.splice(index,1);    
+                categoryArr.splice(index,1);    
             })
          }
        
-       setCategoryArray(CategoryArr) 
+       setCategoryArray(categoryArr) 
        const where= new URLSearchParams({
-        'category': CategoryArr,
+        'category': categoryArr,
     }) 
-    CategoryArr.length>0? notificationAction.categoryNotifications(CategoryArr) : notificationAction.notificationList() 
+    categoryArr.length>0? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList() 
        flag ? setChecked(true):setChecked(false)
     }
   
@@ -193,7 +195,7 @@ const Notifications = () => {
                                         <Typography component="p" variant='body1' className='body-caption'>
                                             Deposit crypto or cash currency to your wallet and start trading on the world largest exchange!
                                         </Typography>
-                                        <Button size='small' variant="outlined" className='btn btn-outlined-secondary' endIcon={<ArrowRightAltOutlinedIcon />}>Bank deposit</Button>
+                                        <Button onClick={()=>{navigate("/contentnotfound")}} size='small' variant="outlined" className='btn btn-outlined-secondary' endIcon={<ArrowRightAltOutlinedIcon />}>Bank deposit</Button>
                                     </Box>
                                 </Box>
                                 <Box className="deposit-transfer-card">
@@ -207,7 +209,7 @@ const Notifications = () => {
                                         <Typography component="p" variant='body1' className='body-caption'>
                                             Internal transfers are free on Bitcloud.
                                         </Typography>
-                                        <Button size='small' variant="outlined" className='btn btn-outlined-secondary' endIcon={<ArrowRightAltOutlinedIcon />}>Transfer coin</Button>
+                                        <Button onClick={()=>{navigate("/contentnotfound")}} size='small' variant="outlined" className='btn btn-outlined-secondary' endIcon={<ArrowRightAltOutlinedIcon />}>Transfer coin</Button>
                                     </Box>
                                 </Box>
                             </Box>

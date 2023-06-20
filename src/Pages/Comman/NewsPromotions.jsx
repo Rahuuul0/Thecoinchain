@@ -15,9 +15,10 @@ import SwipeableViews from "react-swipeable-views";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import { useNavigate } from 'react-router-dom';
 
 const NewsPromotions = (props) => {
-
+     const navigate = useNavigate();
     const newsListGetActions = newsListActions();
     const promotionsGetActions = promotionsActions();
     const newsList = useRecoilValue(newsListAtom);
@@ -171,13 +172,13 @@ const NewsPromotions = (props) => {
                                                                                 justifyContent="space-between"
                                                                             >
                                                                                 <Box height="50">
-                                                                                    <Button
+                                                                                    <Typography
                                                                                         textTransform="uppercase"
                                                                                         sx={{ marginBottom: "50px" }}
-                                                                                        className="orange-btn small-btn"
+                                                                                        className="orange-btn small-btn small-new-btn"
                                                                                     >
                                                                                         New
-                                                                                    </Button>
+                                                                                    </Typography>
                                                                                 </Box>
                                                                                 <Box className="" paddingBottom={5}>
                                                                                     <Typography
@@ -201,7 +202,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.ctn_image}`} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -212,7 +213,7 @@ const NewsPromotions = (props) => {
                                                             <TabPanel value={valueTab2} index2={1} dir={theme.direction}>
                                                             {newsList
                                                               .filter((blog) => {
-                                                                return blog.category === "Blogchain";
+                                                                return blog.category === "Blockchain";
                                                               })
                                                             .slice(0, 3)
                                                             .map((item)=> {
@@ -227,13 +228,13 @@ const NewsPromotions = (props) => {
                                                                                 justifyContent="space-between"
                                                                             >
                                                                                 <Box height="50">
-                                                                                    <Button
+                                                                                    <Typography
                                                                                         textTransform="uppercase"
                                                                                         sx={{ marginBottom: "50px" }}
-                                                                                        className="orange-btn small-btn"
+                                                                                        className="orange-btn small-btn small-new-btn"
                                                                                     >
                                                                                         New
-                                                                                    </Button>
+                                                                                    </Typography>
                                                                                 </Box>
                                                                                 <Box className="" paddingBottom={5}>
                                                                                     <Typography
@@ -257,7 +258,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}/>
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.ctn_image}`}/>
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -282,13 +283,13 @@ const NewsPromotions = (props) => {
                                                                                 justifyContent="space-between"
                                                                             >
                                                                                 <Box height="50">
-                                                                                    <Button
+                                                                                    <Typography
                                                                                         textTransform="uppercase"
                                                                                         sx={{ marginBottom: "50px" }}
-                                                                                        className="orange-btn small-btn"
+                                                                                        className="orange-btn small-btn small-new-btn"
                                                                                     >
                                                                                         New
-                                                                                    </Button>
+                                                                                    </Typography>
                                                                                 </Box>
                                                                                 <Box className="" paddingBottom={5}>
                                                                                     <Typography
@@ -312,7 +313,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.ctn_image}`} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -337,13 +338,13 @@ const NewsPromotions = (props) => {
                                                                                 justifyContent="space-between"
                                                                             >
                                                                                 <Box height="50">
-                                                                                    <Button
+                                                                                    <Typography
                                                                                         textTransform="uppercase"
                                                                                         sx={{ marginBottom: "50px" }}
-                                                                                        className="orange-btn small-btn"
+                                                                                        className="orange-btn small-btn small-new-btn"
                                                                                     >
                                                                                         New
-                                                                                    </Button>
+                                                                                    </Typography>
                                                                                 </Box>
                                                                                 <Box className="" paddingBottom={5}>
                                                                                     <Typography
@@ -367,7 +368,7 @@ const NewsPromotions = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.ctn_image}`} />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>
@@ -386,13 +387,13 @@ const NewsPromotions = (props) => {
                                                                                 justifyContent="space-between"
                                                                             >
                                                                                 <Box height="50">
-                                                                                    <Button
+                                                                                    <Typography
                                                                                         textTransform="uppercase"
                                                                                         sx={{ marginBottom: "50px" }}
-                                                                                        className="orange-btn small-btn"
+                                                                                        className="orange-btn small-btn small-new-btn"
                                                                                     >
                                                                                         New
-                                                                                    </Button>
+                                                                                    </Typography>
                                                                                 </Box>
                                                                                 <Box className="" paddingBottom={5}>
                                                                                     <Typography
@@ -482,13 +483,13 @@ const NewsPromotions = (props) => {
                                                                                 justifyContent="space-between"
                                                                             >
                                                                                 <Box height="50">
-                                                                                    <Button
+                                                                                    <Typography
                                                                                         textTransform="uppercase"
                                                                                         sx={{ marginBottom: "50px" }}
-                                                                                        className="orange-btn small-btn"
+                                                                                        className="orange-btn small-btn small-new-btn"
                                                                                     >
                                                                                         New
-                                                                                    </Button>
+                                                                                    </Typography>
                                                                                 </Box>
                                                                                 <Box className="" paddingBottom={5}>
                                                                                     <Typography
@@ -537,13 +538,13 @@ const NewsPromotions = (props) => {
                                                                                 justifyContent="space-between"
                                                                             >
                                                                                 <Box height="50">
-                                                                                    <Button
+                                                                                    <Typography
                                                                                         textTransform="uppercase"
                                                                                         sx={{ marginBottom: "50px" }}
-                                                                                        className="orange-btn small-btn"
+                                                                                        className="orange-btn small-btn small-new-btn"
                                                                                     >
                                                                                         New
-                                                                                    </Button>
+                                                                                    </Typography>
                                                                                 </Box>
                                                                                 <Box className="" paddingBottom={5}>
                                                                                     <Typography
@@ -592,13 +593,13 @@ const NewsPromotions = (props) => {
                                                                                 justifyContent="space-between"
                                                                             >
                                                                                 <Box height="50">
-                                                                                    <Button
+                                                                                    <Typography
                                                                                         textTransform="uppercase"
                                                                                         sx={{ marginBottom: "50px" }}
-                                                                                        className="orange-btn small-btn"
+                                                                                        className="orange-btn small-btn small-new-btn"
                                                                                     >
                                                                                         New
-                                                                                    </Button>
+                                                                                    </Typography>
                                                                                 </Box>
                                                                                 <Box className="" paddingBottom={5}>
                                                                                     <Typography
@@ -647,13 +648,13 @@ const NewsPromotions = (props) => {
                                                                                 justifyContent="space-between"
                                                                             >
                                                                                 <Box height="50">
-                                                                                    <Button
+                                                                                    <Typography
                                                                                         textTransform="uppercase"
                                                                                         sx={{ marginBottom: "50px" }}
-                                                                                        className="orange-btn small-btn"
+                                                                                        className="orange-btn small-btn small-new-btn"
                                                                                     >
                                                                                         New
-                                                                                    </Button>
+                                                                                    </Typography>
                                                                                 </Box>
                                                                                 <Box className="" paddingBottom={5}>
                                                                                     <Typography
@@ -696,13 +697,13 @@ const NewsPromotions = (props) => {
                                                                                 justifyContent="space-between"
                                                                             >
                                                                                 <Box height="50">
-                                                                                    <Button
+                                                                                    <Typography
                                                                                         textTransform="uppercase"
                                                                                         sx={{ marginBottom: "50px" }}
-                                                                                        className="orange-btn small-btn"
+                                                                                        className="orange-btn small-btn small-new-btn"
                                                                                     >
                                                                                         New
-                                                                                    </Button>
+                                                                                    </Typography>
                                                                                 </Box>
                                                                                 <Box className="" paddingBottom={5}>
                                                                                     <Typography
@@ -802,7 +803,7 @@ const NewsPromotions = (props) => {
                                             Let’s stay in touch. Join our communities to keep up with
                                             the BitCloud team and our traders from across the world.
                                         </Typography>
-                                        <Button className="btn-outlined-secondary">Join now</Button>
+                                        <Button  onClick={() => navigate("/community")}  className="btn-outlined-secondary">Join now</Button>
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={6} textAlign="right">
                                         <img src={Globe} />

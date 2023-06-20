@@ -9,9 +9,7 @@ const selectAtom =atom({
 const notificationAtom = atom({
     key: 'notificationAtom',
     default: [
-                 
-                  
-                        
+                                    
             ]
         
 });
@@ -20,5 +18,6 @@ const notificationCountAtom = atom({
     default: 0
     
 });
+
 
 export { notificationAtom, notificationCountAtom };

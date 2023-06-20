@@ -109,8 +109,8 @@ const Customer = () => {
           <Route path={`guides-analysis`} exact element={<GuidesAnalysis />} />
           <Route path={`community`} exact element={<Community />} />
           <Route path={`news-promotions`} exact element={<NewsPromotions />} />
-          <Route path={`academy`} exact element={<Academy />} />  
-          <Route path={`contentnotfound`} exact element={<ContentNotFound />} />  
+          <Route path={`academy`} exact element={<Academy />} />
+          <Route path={`contentnotfound`} exact element={<ContentNotFound />} />
 
           <Route
             path={`academy-about-crypto`}
@@ -137,10 +137,7 @@ const Customer = () => {
             path={`/password-recovery`}
             element={<ForgotPasswordPhone />}
           />
-          <Route
-            path={`/create-account/referral/:id`}
-            element={<CreateAccount />}
-          />
+          <Route path={`/create-account/:id`} element={<CreateAccount />} />
         </Route>
 
         {/* For account pages */}

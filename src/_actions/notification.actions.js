@@ -12,7 +12,7 @@ const notificationActions = () => {
     const test=useRecoilValue(notificationAtom);
     const notificationLists = useSetRecoilState(notificationAtom);
     const notificationCount = useSetRecoilState(notificationCountAtom);
-
+    
 
     const notificationList = () => {
         return fetchWrapper.get(Apis.Notifications_List)
@@ -51,7 +51,8 @@ const notificationActions = () => {
         return fetchWrapper.post(Apis.Category_Notifications,param,)
             .then(res => {
                 if (res.statusCode === 200) {
-                  
+                    console.log(res,"res")
+                    notificationLists(res.data)
                 } 
             }).catch((err)=>{console.warn(err)})
     }

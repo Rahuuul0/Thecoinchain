@@ -163,30 +163,14 @@ const Contact = () => {
         <Box sx={{paddingTop: { xs: '80px', md: '100px' } ,paddingBottom: { xs: '80px', md: '80px' }} }>
           <Grid container sx={{ alignItems: 'center' }}>
             <Grid item xs={12} sm={6} md={6} paddingRight={5} className='padding-0-mobile'>
-              <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} >Save your time with Stacks</Typography>
-              <Typography variant='h1' component="div" className='hero-heading primary-color'>
-                How can we help
-              </Typography>
-              <Typography variant='body2' component="div" className='hero-para secondary-color' paddingBottom={2}>
-                A creative agency that lead and inspire
-              </Typography>
-              <Typography component="div" paddingBottom={2} >
-
-                <Search className='contact-search'>
-
-                  <StyledInputBase
-                    className='primary-font'
-                    placeholder="Search anything"
-                    inputProps={{ 'aria-label': 'search' }}
-                  />
-
-                  <SearchIconWrapper className='padding-0-mobile'>
-                    <Box className='search-icon'>
-                      <ArrowRightAlt />
-                    </Box>
-                  </SearchIconWrapper>
-                </Search>
-              </Typography>
+                <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} >Save your time with Stacks</Typography>
+                <Typography variant='h1' component="div" className='hero-heading primary-color'>
+                  How can we help
+                </Typography>
+                <Typography variant='body2' component="div" className='hero-para secondary-color' paddingBottom={2}>
+                  A creative agency that lead and inspire
+                </Typography>
+            
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
               <img className='contact-hero-image' src={ContactHeroImage} />

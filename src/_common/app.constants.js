@@ -60,6 +60,7 @@ export const Apis = {
   Notifications_Single_Read: "notification-single-read",
   Category_Notifications: "categorized-notification",
   Get_Otp_Phone: "get-otp-phone",
+  Create_Payment_Intent_Paypal: "paypal-user-subscription",
 };
 
 export const theme = createTheme({

@@ -19,6 +19,7 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
+import SubscriptionPaymentPaypal from '../Components/SubscriptionPaymentPaypal';
 
 const stripePromise = loadStripe('pk_test_51NAt8fSGQOsMaWjbyOBmlRhFwSdDQt1wIWSMIyzzg16p9Qq2PjfKN1uS2UDP20EyvqxVIzECtgwU7erWue7zZQfm00LxmWF4sK');
 
@@ -58,7 +59,8 @@ const CheckoutForm = () => {
   const options = useOptions();
   const [subscriptionData, setSubscriptionData] = useState([]);
   const [open, setOpen] = useState(false);
-
+  const [creditCardStatus, setCreditCardStatus] = useState(true);
+  
   // Subscription action get function   API data call 
   useEffect(()=>{
     const get_subscription = async() => {
@@ -216,10 +218,9 @@ const CheckoutForm = () => {
                         Each account on our website can have only one active subscription at a time. Buying a new subscription while having an active one stops the active subscription. Each subscription requires its own user.
                     </Typography>
                 </Box>
-            }
-            
-                {/* Step Two */}            
-                <Box className="step-two" style={styled}>       
+            }                   
+            {/* Step Two */}                  
+            <Box className="step-two" style={styled}>       
                 <Box className="card-inner-head">
                     <Typography component="h5" variant='body1' className='large-caption'>
                         <KeyboardBackspaceIcon /> Payment info
@@ -244,39 +245,54 @@ const CheckoutForm = () => {
                             ${confirm.plan?.subscription_price||0}  
                             </Typography>
                         </Box>               
-                    </Box>    
-                    <Box className='credit-card-head'>
-                        <Typography component="h5" variant='body1' className='large-caption' sx={{ fontWeight: '600' }}>
-                            Credit Card
-                        </Typography>
-                        <Box className='card-type'>
-                            <img src={VisaIc} alt='Visa' height="12px" />
-                            <img src={MasterIc} alt='Master' height="12px" />
-                        </Box>
-                    </Box>
+                    </Box>                        
                     <>
-                    <>{checkoutError}</>
-                    <label>
-                        <span>Card number</span>
-                        <CardNumberElement options={options} onChange={handleCardDetailsChange} />
-                    </label>
-                    <label>
-                        <span>Expiration date</span>
-
-                        <CardExpiryElement options={options} onChange={handleCardDetailsChange} />
-                    </label>
-                    <label>
-                        <span>CVC</span>
-                        <CardCvcElement options={options} onChange={handleCardDetailsChange} />
-                    </label>
-                    {/* {!checkoutError && <CheckoutError>{checkoutError}</CheckoutError>} */}
-                    <Box className="subscription-plan-cta">
-                        <Button variant='outlined' className='btn btn-outlined-secondary' onClick={e=>setConfirm({...confirm,step:1})}>Cancel</Button>
-                        <Button onClick={e=>setConfirm({...confirm,step:3})}  variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} >Continue</Button>
-                    </Box>     
-                </>                                          
-                </Box>
-            </Box>
+                        <Box>     
+                            <Typography onClick={e=>setCreditCardStatus(true)} component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D', mt: '32px' }}>
+                                Credit Card 
+                            </Typography>
+                            <Typography onClick={e=>setCreditCardStatus(false)} component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D', mt: '32px' }}>
+                                Paypal 
+                            </Typography>
+                        </Box>  
+                        {creditCardStatus===true  &&  
+                        <>
+                            <Box className='credit-card-head'>
+                                <Typography component="h5" variant='body1' className='large-caption' sx={{ fontWeight: '600' }}>
+                                    Credit Card
+                                </Typography>
+                                <Box className='card-type'>
+                                    <img src={VisaIc} alt='Visa' height="12px" />
+                                    <img src={MasterIc} alt='Master' height="12px" />
+                                </Box>
+                            </Box>
+                    
+                            <>{checkoutError}</>
+                            <label>
+                                <span>Card number</span>
+                                <CardNumberElement options={options} onChange={handleCardDetailsChange} />
+                            </label>
+                            <label>
+                                <span>Expiration date</span>
+                                <CardExpiryElement options={options} onChange={handleCardDetailsChange} />
+                            </label>
+                            <label>
+                                <span>CVC</span>
+                                <CardCvcElement options={options} onChange={handleCardDetailsChange} />
+                            </label>
+                            {/* {!checkoutError && <CheckoutError>{checkoutError}</CheckoutError>} */}
+                            <Box className="subscription-plan-cta">
+                                <Button variant='outlined' className='btn btn-outlined-secondary' onClick={e=>setConfirm({...confirm,step:1})}>Cancel</Button>
+                                <Button onClick={e=>setConfirm({...confirm,step:3})}  variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} >Continue</Button>
+                            </Box> 
+                        </>   
+                        } 
+                        {confirm.step===2 && creditCardStatus===false && 
+                            <SubscriptionPaymentPaypal plan={confirm} setOpen={setOpen}  setConfirm={setConfirm} />   
+                        }
+                    </>                                     
+                </Box>                   
+            </Box>            
             {/* Step Three */}
             {confirm.step===3 &&
             <Box className="step-three">       

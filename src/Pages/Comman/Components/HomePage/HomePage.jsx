@@ -25,12 +25,15 @@ import GoogleIcon from "../../../../../public/assets/images/google-g-2015-logo-s
 import InformedCypto from "../../../../../public/assets/images/informed-cypto.svg";
 import DarkLogo from "../../../../../public/assets/images/logo.svg";
 import Globe from "../../../../../public/assets/images/globe.svg";
+import Wallet from "../../../../../public/assets/images/wallet-home.svg";
+import Money from "../../../../../public/assets/images/money.svg";  
+import Treding from "../../../../../public/assets/images/treding.svg";  
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Marquee from "react-fast-marquee";
 import CryptoTable from "../../CryptoTable";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   useCoinActions,
@@ -1310,7 +1313,7 @@ const Home = () => {
           </Grid>
           <Grid item xs={6} sm={6} md={3}>
             <Box textAlign="center" className="howworks-box contact-line ">
-              <img src={Market} width={96} />
+              <img src={Wallet} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}
@@ -1335,7 +1338,7 @@ const Home = () => {
           </Grid>
           <Grid item xs={6} sm={6} md={3}>
             <Box textAlign="center" className="howworks-box contact-line ">
-              <img src={Market} width={96} />
+              <img src={Treding} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}
@@ -1360,7 +1363,7 @@ const Home = () => {
           </Grid>
           <Grid item xs={6} sm={6} md={3}>
             <Box textAlign="center" className="howworks-box ">
-              <img src={Market} width={96} />
+              <img src={Money} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}

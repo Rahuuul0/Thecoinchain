@@ -1183,8 +1183,8 @@ input[type="number"] {
 }
 
 .contact-line:before {
-  /* content: "O------------O"; */
-  content: url("./../public/assets/images/connect-line.svg");
+  content: "O------------O";
+  /* content: url("./../public/assets/images/connect-line.svg"); */
   position: absolute;
   left: 76%;
   top: 10%;

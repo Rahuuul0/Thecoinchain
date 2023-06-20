@@ -46,6 +46,7 @@ import {
   bannerListAtom,
 } from "../../../../_state";
 import ReactPlayer from "react-player";
+import dayjs from "dayjs";
 
 const Home = () => {
   const coinActions = useCoinActions();
@@ -368,7 +369,7 @@ const Home = () => {
                               fontWeight={400}
                               className="secondary-color primary-font"
                             >
-                              {item.created_at.substring(0, 10)}
+                              {dayjs(item.created_at).format("MMM DD,YYYY")}
                             </Typography>
                           </Grid>
                           <Grid item xs={6}>
@@ -501,7 +502,7 @@ const Home = () => {
                                 fontWeight={400}
                                 className="secondary-color primary-font"
                               >
-                                {item.created_at.substring(0, 10)}
+                                {dayjs(item.created_at).format("MMM DD,YYYY")}
                               </Typography>
                             </Grid>
                             <Grid item xs={6}>
@@ -634,7 +635,7 @@ const Home = () => {
                                 fontWeight={400}
                                 className="secondary-color primary-font"
                               >
-                                {item.created_at.substring(0, 10)}
+                                {dayjs(item.created_at).format("MMM DD,YYYY")}
                               </Typography>
                             </Grid>
                             <Grid item xs={6}>

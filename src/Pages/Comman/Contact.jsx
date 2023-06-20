@@ -196,6 +196,8 @@ const Contact = () => {
       </Container>
       {/* Banner Ends */}
 
+     <Typography textAlign='center' className='body-caption secondary-color'>Before asking for an answer, you may find it in <br/> our learn crypto center</Typography>
+   
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
         <Box paddingY={7} className='newdesignbox'>
           <Typography sx={{ paddingX: { xs: '20px', md: '400px' }, paddingBottom: { xs: '20px', md: '50px' } }} component='p' variant='p' className='body-caption' textAlign='center'>Before asking for an answer, you may find it in our learn crypto center</Typography>
@@ -206,7 +208,7 @@ const Contact = () => {
                   <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Design} />
                 </Box>
-                <Box paddingTop={4} className="inner-con-box">
+                <Box paddingTop={4} className="inner-con-box">   
                   <Typography fontWeight='500' paddingBottom={2}>Celebrating the new Design System</Typography>
                   <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
                 </Box>

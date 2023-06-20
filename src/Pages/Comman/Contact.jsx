@@ -2,7 +2,7 @@ import { Container, Typography, Grid, Box, Stack, Button, Tab, Accordion, Accord
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { ArrowRightAlt, ExpandMore } from '@mui/icons-material';
+import { ArrowRightAlt, ExpandMore,ArrowDropDown } from '@mui/icons-material';
 import { useContactActions } from '../../_actions/contact.actions';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -160,7 +160,7 @@ const Contact = () => {
     <>
       {/* Banner starts */}
       <Container>
-        <Box paddingTop={5} paddingBottom={10}>
+        <Box sx={{paddingTop: { xs: '80px', md: '100px' } ,paddingBottom: { xs: '80px', md: '80px' }} }>
           <Grid container sx={{ alignItems: 'center' }}>
             <Grid item xs={12} sm={6} md={6} paddingRight={5} className='padding-0-mobile'>
               <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} >Save your time with Stacks</Typography>
@@ -252,7 +252,12 @@ const Contact = () => {
             </Grid>
           </Grid>
           <Typography textAlign='center' paddingTop={10}>
-            <Button onClick={() =>{ navigate('/learn-cypto')}} className='btn-outlined-secondary'>Learn More</Button>
+            <Button 
+                endIcon={<ArrowDropDown />}
+                onClick={() =>{ navigate('/learn-cypto')}}
+                className='btn-outlined-secondary'>
+                Learn More
+            </Button>
           </Typography>
         </Box>
       </Container>

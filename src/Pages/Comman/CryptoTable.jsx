@@ -443,7 +443,9 @@ const CryptoTable = (props) => {
                                     margin: "auto",
                                   }}
                                   onClick={() => {
-                                    navigate("/subscription"),
+                                    userDetail
+                                      ? navigate("/subscription")
+                                      : navigate("/login"),
                                       window.scrollTo({
                                         top: 0,
                                         left: 0,
@@ -451,7 +453,7 @@ const CryptoTable = (props) => {
                                       });
                                   }}
                                 >
-                                  Subscribe
+                                  {userDetail ? "Subscribe" : "Login"}
                                 </Button>
                               </Fade>
                             }

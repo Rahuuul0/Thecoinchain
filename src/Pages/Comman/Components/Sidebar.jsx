@@ -27,17 +27,6 @@ const Sidebar = (props) => {
     <Box className='subscription-steps-col'>
       <Stack spacing={2}>
         <Box sx={{ borderBottom: '1px solid #E6E8EC' }} paddingBottom={2}>
-<<<<<<< HEAD
-          <Typography onClick={() => { navigate('/account/profile') }} className='left-icon active' paddingBottom={4} fontWeight={700}><span><img src={UserIcon} /> </span>Profile</Typography>
-          <Typography onClick={() => { navigate('/account/referrals') }} className='left-icon' paddingBottom={4}><span><img src={ShareIcon} /> </span>Referrals</Typography>
-          {/* <Typography className='left-icon' paddingBottom={2}><span><img src={SubscriptionIcon} /> </span>API keys</Typography> */}
-          <Typography onClick={() => { navigate('/account/forecast-subscription') }} className='left-icon' paddingBottom={2}><span><img src={SubscriptionIcon} /> </span>Subscriptions</Typography>
-        </Box>
-        <Box paddingTop={2}>
-          <Typography onClick={() => { navigate('/account/session-and-history') }} className='left-icon' paddingBottom={4}><span><img src={SessionIcon} /> </span>Sessions & login history</Typography>
-          <Typography onClick={() => { navigate('/account/2fa-enable') }} className='left-icon' paddingBottom={4}><span><img src={FaIcon} /> </span>2FA</Typography>
-          <Typography onClick={() => { navigate('/account/change-account-password') }} className='left-icon' paddingBottom={4}><span><img src={Lockbtn} /> </span>Change password</Typography>
-=======
           <Typography onClick={(e) => { setActiveTab("profile");navigate('/account/profile') }}  className={`left-icon secondary-color ${activeTab==="profile"? 'text-black' : ''}`} paddingBottom={4} fontWeight={700}><span><img className='dark-icon' src={UserDark} /> <img className='light-icon' src={UserIcon} /> </span>Profile</Typography>
           <Typography onClick={(e) => {setActiveTab("referrals"); navigate('/account/referrals') }}  className={`left-icon secondary-color ${activeTab==="referrals"? 'text-black' : ''}`} paddingBottom={4}><span><img className='light-icon' src={ShareIcon} /> <img className='dark-icon' src={ShareDark} /> </span>Referrals</Typography>
           {/* <Typography className='left-icon secondary-color' paddingBottom={2}><span><img src={SubscriptionIcon} /> </span>API keys</Typography> */}
@@ -47,7 +36,6 @@ const Sidebar = (props) => {
           <Typography onClick={() => {setActiveTab("sessionAndHistory"); navigate('/account/session-and-history') }} className={`left-icon secondary-color ${activeTab==="sessionAndHistory"? 'text-black' : ''}`} paddingBottom={4}><span><img className='light-icon' src={SessionIcon} /> <img className='dark-icon' src={SessionDark} /> </span>Sessions & login history</Typography>
           <Typography onClick={() => {setActiveTab("2fa"); navigate('/account/2fa-enable') }} className={`left-icon secondary-color ${activeTab==="2fa"? 'text-black' : ''}`}  paddingBottom={4}><span><img className='light-icon' src={FaIcon} /> <img className='dark-icon' src={FaDark} /> </span>2FA</Typography>
           <Typography onClick={() => {setActiveTab("changePassword"); navigate('/account/change-account-password') }} className={`left-icon secondary-color ${activeTab==="changePassword"? 'text-black' : ''}`} paddingBottom={4}><span><img className='light-icon' src={Lockbtn} /><img className='dark-icon' src={LockbtnDark} />   </span>Change password</Typography>
->>>>>>> 0bcd524babc271706a581e838a9df99cae048e37
         </Box>
       </Stack>
     </Box>

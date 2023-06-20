@@ -83,14 +83,14 @@ const Referrals = () => {
     setLinkCopy(true);
     setTimeout(() => {
       setLinkCopy(false);
-    }, 5000);
+    }, 3000);
   };
   const handleRefCode = () => {
     navigator.clipboard.writeText(userDetail.referral_code);
     setCodeCopy(true);
     setTimeout(() => {
       setCodeCopy(false);
-    }, 4000);
+    }, 3000);
   };
 
   return (

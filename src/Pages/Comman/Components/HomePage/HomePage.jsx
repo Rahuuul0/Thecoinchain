@@ -49,6 +49,7 @@ import {
   bannerListAtom,
 } from "../../../../_state";
 import ReactPlayer from "react-player";
+import dayjs from "dayjs";
 
 const Home = () => {
   const coinActions = useCoinActions();
@@ -157,7 +158,11 @@ const Home = () => {
                       </Typography>
                       <Button
                         variant="contained"
-                        className="orange-btn"
+                        className={
+                          item.percent_change_24h < 0
+                            ? "orange-btn"
+                            : "green-btn"
+                        }
                         sx={{ borderRadius: "90px", cursor: "default" }}
                       >
                         {item.percent_change_24h?.toFixed(2)}%
@@ -351,7 +356,7 @@ const Home = () => {
                               fontWeight={400}
                               className="secondary-color primary-font"
                             >
-                              {item.created_at.substring(0, 10)}
+                              {dayjs(item.created_at).format("MMM DD,YYYY")}
                             </Typography>
                           </Grid>
                           <Grid item xs={6}>
@@ -484,7 +489,7 @@ const Home = () => {
                                 fontWeight={400}
                                 className="secondary-color primary-font"
                               >
-                                {item.created_at.substring(0, 10)}
+                                {dayjs(item.created_at).format("MMM DD,YYYY")}
                               </Typography>
                             </Grid>
                             <Grid item xs={6}>
@@ -617,7 +622,7 @@ const Home = () => {
                                 fontWeight={400}
                                 className="secondary-color primary-font"
                               >
-                                {item.created_at.substring(0, 10)}
+                                {dayjs(item.created_at).format("MMM DD,YYYY")}
                               </Typography>
                             </Grid>
                             <Grid item xs={6}>

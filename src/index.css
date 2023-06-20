@@ -29,6 +29,7 @@
   --secondary-color: #777e90;
 }
 
+
 .color-dark {
   color: #23262f;
 }
@@ -1274,6 +1275,10 @@ input[type="number"] {
   justify-content: center;
 }
 
+.contact-hero-image {
+  width: 100%;
+}
+
 .margin10 {
   margin-left: 75px;
 }
@@ -1349,6 +1354,7 @@ input[type="number"] {
 
 .faq-accordian .MuiPaper-root {
   box-shadow: none;
+  background-color: unset;
 }
 
 .faq-accordian .MuiButtonBase-root {
@@ -1805,6 +1811,11 @@ video {
   margin-bottom: 40px;
   font-weight: 700;
   font-size: 14px;
+  cursor: pointer;
+}
+
+.subscription-step:hover {
+  background-color: #f1f1f1;
 }
 
 .subscription-step:after {
@@ -1828,6 +1839,7 @@ video {
 .subscription-step .number-circle {
   width: 32px;
   height: 32px;
+  color: #23262F;
   border: 2px solid #e6e8ec;
   border-radius: 100%;
   display: flex;
@@ -1836,6 +1848,16 @@ video {
   font-weight: 700;
   font-size: 14px;
   font-family: var(--secondary-font) !important;
+}
+
+.subscription-step .number-circle>div.MuiBox-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subscription-step .number-circle>div.MuiBox-root svg {
+  width: 18px;
 }
 
 .subscription-step.completed-step .number-circle {
@@ -1861,7 +1883,7 @@ video {
 }
 
 .subscription-plan {
-  margin-top: 32px;
+  /* margin-top: 32px; */
   margin-bottom: 36px;
   border-top: 1px solid #e6e8ec;
 }
@@ -1969,13 +1991,14 @@ video {
   border-radius: 16px;
   padding: 25px 37px;
   display: flex;
+  justify-content: space-between;
   margin: 48px 0;
 }
 
 .payment-amount,
 .payment-for,
 .payment-method {
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   gap: 10px;
 }
@@ -2030,6 +2053,47 @@ video {
   margin-bottom: 12px;
 }
 
+.checkout-form {
+  margin-top: 40px;
+}
+
+.checkout-form label {
+  margin-top: 32px;
+  display: block;
+}
+
+.checkout-form label span {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 12px;
+  text-transform: uppercase;
+  color: #B1B5C4;
+}
+
+.checkout-form label div.StripeElement {
+  padding: 12px 16px;
+  border: 2px solid #E6E8EC;
+  border-radius: 12px;
+}
+
+.checkout-form label div.StripeElement.StripeElement--focus {
+  border-color: #3772FF;
+}
+
+.checkout-form label div.StripeElement.StripeElement--complete {
+  border-color: #58bd7d;
+}
+
+.checkout-form label div.StripeElement.StripeElement--invalid {
+  border-color: #9e2146;
+}
+
+.checkout-form .form-error {
+  font-size: 12px;
+  color: #9e2146;
+  margin-top: 10px;
+}
+
 .payment-breakdown .payment-breakdown-list-itm p {
   font-weight: 500;
 }
@@ -2080,6 +2144,12 @@ p.left-icon {
   font-weight: 700;
   font-family: var(--secondary-font) !important;
   cursor: pointer;
+  color: var(--color_dark);
+  opacity: 0.6;
+}
+
+p.left-icon.active {
+  opacity: 1;
 }
 
 p.left-icon span {
@@ -2111,7 +2181,7 @@ p.left-icon img {
 }  */
 
 .img-btn img {
-  width: 30px;
+  width: 18px;
 }
 
 .img-btn>input {
@@ -2505,10 +2575,21 @@ video[poster] {
   padding: 6px 5px !important;
 }
 
+.coming-out-box {
+  background-image: url(http://dly1vyq5d0op3.cloudfront.net/banner.svg);
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
+  display: table;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
 
-@media (max-width: 1199.98px) {}
+@media (max-width: 1199.98px) {
+}
 
 @media (max-width: 1024.98px) {
   .auth-header {
@@ -2666,6 +2747,34 @@ video[poster] {
 }
 
 @media (max-width: 767.98px) {
+  body {
+    overflow-x: hidden !important;
+  }
+
+  #root .subscription-wrapper-head h2 {
+    font-size: 32px;
+  }
+
+  #root .subscription-wrapper-head.back-arrow h2 {
+    position: relative;
+    padding-left: 30px;
+
+  }
+
+  #root .subscription-wrapper-head.back-arrow h2::before {
+    content: "❮";
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    font-size: 18px;
+  }
+
+  #root .crypto-trader-head h2 {
+    font-size: 40px;
+  }
+
   .for-mobile {
     display: block;
   }
@@ -2729,6 +2838,99 @@ video[poster] {
 
   #root .auth-wrapper h3 {
     font-size: 32px;
+  }
+
+  .mobile-nav Button {
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-nav-box Button {
+
+    text-transform: capitalize;
+  }
+
+  .mobile-menu .MuiTypography-root,
+  .mobile-menu .MuiButtonBase-root {
+    font-size: 24px;
+    font-weight: 600;
+    font-family: var(--primary-font);
+    padding: 3px 0;
+    color: #777E90;
+    border: none;
+
+  }
+
+  .mobile-menu .MuiTypography-root:active,
+  .mobile-menu .MuiButtonBase-root:active {
+    color: #141416;
+  }
+
+  .mobile-menu .MuiAccordionSummary-content {
+    margin: 0 !important;
+  }
+
+  .mobile-menu .MuiPaper-root {
+    box-shadow: none;
+  }
+
+  .submenu p {
+    font-size: 16px !important;
+    padding-top: 10px !important;
+  }
+
+  .submenu .MuiAccordionDetails-root {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  .mobile-nav-box {
+    position: relative;
+  }
+
+  .mobile-nav-box .close-btn {
+    position: absolute;
+    right: 32px;
+    top: 0px;
+    font-size: 29px;
+    transform: rotate(45deg);
+    line-height: 0;
+  }
+
+  .mobile-avatar {
+    padding-right: 20px !important;
+  }
+
+  .close {
+    transform: rotate(45deg);
+    font-size: 29px;
+    line-height: 0;
+  }
+
+  .mobile-in-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .mobile-menu li .MuiButtonBase-root {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #root nav .btn.mobile-none {
+    display: none !important;
+  }
+
+  nav .MuiButtonBase-root {
+    padding: 6px 0px;
   }
 
   /* homepage */
@@ -3029,6 +3231,10 @@ video[poster] {
   #root .mobile-body-large {
     font-size: 24px;
   }
+
+  .community-wrapper-inner {
+    grid-template-columns: repeat(1, 1fr)
+  }
 }
 
 @media (max-width: 680.98px) {
@@ -3122,7 +3328,7 @@ video[poster] {
 }
 
 .css-qe9us1-MuiFormHelperText-root.Mui-error,
-.frm-message {
+.frm-message{
   color: red;
   font-size: 13px !important;
   margin: 0;
@@ -3130,6 +3336,6 @@ video[poster] {
   line-height: 0.5;
 }
 
-.auth-form button {
-  min-width: 50px !important;
+.auth-form button { 
+  min-width: 50px!important;
 }

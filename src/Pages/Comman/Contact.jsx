@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { contact_AddAtom } from '../../_state';
 import { useRecoilState } from 'recoil';
 import * as Yup from "yup";
-import ContactHeroImage from "../../../public/assets/images/contact.svg";
+import ContactHeroImage from "../../../public/assets/images/learn-cypto.svg";
 import InputBase from '@mui/material/InputBase';
 import Media from "../../../public/assets/images/media-img.svg";
 import Design from "../../../public/assets/images/design-sys.svg";
@@ -119,8 +119,8 @@ const Contact = () => {
     question: Yup.string()
       .required('Question is required'),
     msg: Yup.string()
-    .required('Message is required')
-    .max(250)
+      .required('Message is required')
+      .max(250)
   });
 
   //yup validation
@@ -134,10 +134,10 @@ const Contact = () => {
 
   useEffect(() => {
     if (contactError)
-        setIsSubmitting(false)
-}, [contactError])
+      setIsSubmitting(false)
+  }, [contactError])
 
-  const handleFormSubmit = (data) =>{
+  const handleFormSubmit = (data) => {
     setIsSubmitting(true)
     setContactError(false)
     return useContactAddActions.add(data);
@@ -158,7 +158,7 @@ const Contact = () => {
     <>
       {/* Banner starts */}
       <Container>
-        <Box paddingTop={5} paddingBottom={10}>
+        <Box sx={{ paddingTop: { xs: '80px', md: '150px' }, paddingBottom: { xs: '0px', md: '50px' } }} >
           <Grid container sx={{ alignItems: 'center' }}>
             <Grid item xs={12} sm={6} md={6} paddingRight={5} className='padding-0-mobile'>
               <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} >Save your time with Stacks</Typography>
@@ -187,7 +187,7 @@ const Contact = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-              <img className='heroImage' src={ContactHeroImage} />
+              <img className='contact-hero-image' src={ContactHeroImage} />
             </Grid>
           </Grid>
         </Box>
@@ -196,6 +196,7 @@ const Contact = () => {
 
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
         <Box paddingY={7} className='newdesignbox'>
+          <Typography sx={{ paddingX: { xs: '20px', md: '400px' }, paddingBottom: { xs: '20px', md: '50px' } }} component='p' variant='p' className='body-caption' textAlign='center'>Before asking for an answer, you may find it in our learn crypto center</Typography>
           <Grid container spacing={0} rowSpacing={6} >
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
@@ -352,121 +353,209 @@ const Contact = () => {
       <Container maxWidth='fluid' sx={{ backgroundColor: '#F8F8F9' }}>
         <Container className='smallwidth'>
           <Box paddingY={10} className="topic-que">
-          <Box
-          noValidate
-          component="form"
-          sx={{ mt: '24px' }}
-          onSubmit={handleSubmit(handleFormSubmit)}
-                                >
-             <Typography component="h5" variant='h5' sx={{ width: '33%', flexShrink: 0 }}>
-                Contact-Us
-              </Typography>
-            <Box paddingBottom={2} className='topic-select-radio'>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>Select a topic</Typography>
+            <Box
+              noValidate
+              component="form"
+              sx={{ mt: '24px' }}
+              onSubmit={handleSubmit(handleFormSubmit)}
+            >
 
-              <Stack direction='row' spacing={3} className='button-img' >
-                <Button className='btn' variant="outlined" > <span><img src={GenralIcon} /></span> General</Button>
-                <Button className='btn' variant="outlined" > <span><img src={SubsIcon} /></span> Subscription</Button>
-              </Stack>
+              <Box paddingBottom={2} className='topic-select-radio'>
+                <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>Select a topic</Typography>
+
+                <Stack direction='row' spacing={3} className='button-img' >
+                  <Button className='btn' variant="outlined" > <span><img src={GenralIcon} /></span> General</Button>
+                  <Button className='btn' variant="outlined" > <span><img src={SubsIcon} /></span> Subscription</Button>
+                </Stack>
+              </Box>
+              <Box paddingBottom={2}>
+                <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>What is your issue about?</Typography>
+                <Grid item xs={12}>
+                  <Autocomplete
+                    required
+                    disablePortal
+                    fullWidth
+                    id="combo-box-demo"
+                    size="small"
+                    value={formData?.question}
+                    options={names}
+                    onChange={(e, props) => reset({ ...formData, question: props?.name })}
+                    renderInput={(params) => <TextField {...register('question')} required {...params} InputLabelProps={{ shrink: true }} />}
+                  />
+                  <div style={{ color: "red" }}>{errors.question?.message}</div>
+                </Grid>
+              </Box>
+
+              <Box paddingBottom={2}>
+                <TextField
+                  label="Email"
+                  className="form-control"
+                  type="email"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  placeholder='Email address'
+                  name="email"
+                  autoComplete="off"
+                  size="small"
+                  {...register("email")}
+                  onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                />
+                <div style={{ color: "red" }}>{errors.email?.message}</div>
+              </Box>
+
+              <Box paddingBottom={2}>
+                <TextField
+                  label="Subject"
+                  className="form-control"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="Subject"
+                  placeholder='Subject'
+                  name="subject"
+                  autoComplete="off"
+                  {...register("subject")}
+                  onChange={(e) => reset({ ...formData, subject: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                />
+                <div style={{ color: "red" }}>{errors.subject?.message}</div>
+              </Box>
+              <Box paddingTop='2'>
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Message"
+                  variant="standard"
+                  className="form-control"
+                  placeholder='Say something'
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  multiline
+                  rows={4}
+                  maxlength={10}
+                  fullWidth
+                  {...register("msg")}
+                />
+                <div style={{ color: "red" }}>{errors.msg?.message}</div>
+              </Box>
+              <Box paddingTop='2'>
+                <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
+                  <Button
+                    type='submit'
+                    className='btn btn-primary'
+                    sx={{ float: 'right' }}
+                    disabled={isSubmitting}
+                    variant='contained'>Send message
+                  </Button>
+                </Typography>
+              </Box>
             </Box>
-            <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>What is your issue about? *</Typography>
-              <Grid item xs={12}>
-            <Autocomplete
+            <Stack direction='row' spacing={3} className='button-img' >
+              <Button className='btn' variant="outlined" > <span><img src={GenralIcon} /></span> General</Button>
+              <Button className='btn' variant="outlined" > <span><img src={SubsIcon} /></span> Subscription</Button>
+            </Stack>
+          </Box>
+          <Box paddingBottom={2}>
+            <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>What is your issue about? *</Typography>
+            <Grid item xs={12}>
+              <Autocomplete
                 required
                 disablePortal
                 fullWidth
                 id="combo-box-demo"
                 size="small"
                 value={formData?.question}
-                options= {names}
+                options={names}
                 onChange={(e, props) => reset({ ...formData, question: props?.name })}
-                renderInput={(params) => <TextField autoFocus {...register('question')} placeholder='What is your issue about?' required {...params} InputLabelProps={{ shrink: true }} />}
+                renderInput={(params) => <TextField autoFocus {...register('question')} required {...params} InputLabelProps={{ shrink: true }} />}
+              />
+              <div style={{ color: "red" }}>{errors.question?.message}</div>
+            </Grid>
+          </Box>
+
+          <Box paddingBottom={2}>
+            <TextField
+              label="Email *"
+              className="form-control"
+              type="email"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              placeholder='Email address'
+              name="email"
+              autoComplete="off"
+              size="small"
+              {...register("email")}
+              onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
             />
-            <div style={{ color: "red" }}>{errors.question?.message}</div>
-        </Grid>
-            </Box>
+            <div style={{ color: "red" }}>{errors.email?.message}</div>
+          </Box>
 
-            <Box paddingBottom={2}>
-              <TextField
-                label="Email *"
-                className="form-control"
-                type="email"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="standard"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                placeholder='Email address'
-                name="email"
-                autoComplete="off"
-                size="small"
-                {...register("email")}
-                onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-              />
-              <div style={{ color: "red" }}>{errors.email?.message}</div>
-            </Box>
-
-            <Box paddingBottom={2}>
-              <TextField
-                label="Subject *"
-                className="form-control"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="standard"
-                margin="normal"
-                required
-                fullWidth
-                id="Subject"
-                placeholder='Subject'
-                name="subject"
-                autoComplete="off"
-                {...register("subject")}
-                onChange={(e) => reset({ ...formData, subject: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-              />
-               <div style={{ color: "red" }}>{errors.subject?.message}</div>
-            </Box>
-            <Box paddingTop='2'>
-              <TextField
-                id="outlined-multiline-static"
-                label="Message *"
-                variant="standard"
-                className="form-control"
-                placeholder='Say something'
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                multiline
-                rows={4}
-                maxlength={10}
-                fullWidth
-                {...register("msg")}
-                onChange={(e) => reset({ ...formData, msg: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-              />
-               <div style={{ color: "red" }}>{errors.msg?.message}</div>
-            </Box>
-            <Box paddingTop='2'>
-              <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
-                <Button 
+          <Box paddingBottom={2}>
+            <TextField
+              label="Subject *"
+              className="form-control"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="standard"
+              margin="normal"
+              required
+              fullWidth
+              id="Subject"
+              placeholder='Subject'
+              name="subject"
+              autoComplete="off"
+              {...register("subject")}
+              onChange={(e) => reset({ ...formData, subject: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+            />
+            <div style={{ color: "red" }}>{errors.subject?.message}</div>
+          </Box>
+          <Box paddingTop='2'>
+            <TextField
+              id="outlined-multiline-static"
+              label="Message *"
+              variant="standard"
+              className="form-control"
+              placeholder='Say something'
+              InputLabelProps={{
+                shrink: true,
+              }}
+              multiline
+              rows={4}
+              maxlength={10}
+              fullWidth
+              {...register("msg")}
+            />
+            <div style={{ color: "red" }}>{errors.msg?.message}</div>
+          </Box>
+          <Box paddingTop='2'>
+            <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
+              <Button
                 type='submit'
-                className='btn btn-primary' 
-                sx={{ float: 'right' }} 
+                className='btn btn-primary'
+                sx={{ float: 'right' }}
                 disabled={isSubmitting}
                 variant='contained'>Send message
-                </Button>
-              </Typography>
-            </Box>
+              </Button>
+            </Typography>
           </Box>
-          </Box>
-        </Container>
-      </Container>
-
-
-
+        </Container >
+      </Container >
 
     </>
   )

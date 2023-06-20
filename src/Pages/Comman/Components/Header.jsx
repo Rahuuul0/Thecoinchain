@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
-import { Box, Grid, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, } from '@mui/material/';
+import { Box, Grid, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel,Accordion, AccordionDetails , AccordionSummary  } from '@mui/material/';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -19,14 +19,16 @@ import CoinGuru from '../../../../public/assets/images/logo.svg';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
-import { KeyboardArrowDown } from '@mui/icons-material/';
+import { KeyboardArrowDown, WbSunnyOutlined, Search } from '@mui/icons-material/';
 import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import { Label } from 'recharts';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
-const drawerWidth = 240;
+const drawerWidth = '100%';
+const drawerHeight = '100vh';
 
 function Header(props) {
 
@@ -75,39 +77,73 @@ function Header(props) {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
-      <Divider />
-      <List>
-        {navItems.map((item, i) => {
-          return (
-            <ListItem key={i} disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                {item.icon &&
-                  <img src={item.icon} alt={item.page} />
-                }
-                <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
-              </ListItemButton>
-            </ListItem>
-          )
-        })}
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText primary="" onClick={() => { navigate(item.link) }}>
-              Search
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText primary="" onClick={() => { navigate(item.link) }}>
-              Login
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-      </List>
+    <>
+      <Box className='mobile-nav-box' onClick={handleDrawerToggle} sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
+      <Box className='close-btn'><p>+</p></Box>
+        <Box>
+          <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+          <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
+            <Button variant='standard' className='nav-mobile-btn btn'>Crypto</Button>
+            <Accordion className='submenu'>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="acadamy"
+              >
+                <Button
+                  id="acedamy-btn"
+                                
+                >
+                  Academy
+                </Button>
+              </AccordionSummary>
+              <AccordionDetails>
+              <Typography onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
+              <Typography onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+              </AccordionDetails>
+            </Accordion>
+           
+            <List sx={{padding:'0px'}}>
+              {navItems.map((item, i) => {
+                return (
+                  <ListItem key={i} disablePadding>
+                    <ListItemButton >
+                      {item.icon &&
+                        <img src={item.icon} alt={item.page} />
+                      }
+                      <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
+                    </ListItemButton>
+                  </ListItem>
+                )
+              })}
+              <ListItem disablePadding>
+                <ListItemButton >
+                  <ListItemText primary="" onClick={() => { navigate(item.link) }}>
+                    Search
+                  </ListItemText>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton sx={{ textAlign: 'center' }}>
+                  <ListItemText primary="" onClick={() => { navigate(item.link) }}>
+                    Login
+                  </ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </Box>
+        </Box>
+        <Box display='flex' justifyContent='space-between'>
+          <Button variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', borderRadius: '90px' }}>Sign Up</Button>
+          <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Login</Button>
+          <IconButton aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
+          <IconButton aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
 
-    </Box>
+
+        </Box>
+
+      </Box>
+    </>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -116,16 +152,20 @@ function Header(props) {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar component="nav" className="app-nav">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
+        <Toolbar className='mobile-nav'>
+          <Box className='mobile-in-nav' sx={{ display: { sm: 'none' } }}>
+            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
           <Typography
             variant="h6"
 
@@ -212,7 +252,7 @@ function Header(props) {
                         <FormControlLabel className='radio-option' value="japanese" control={<Radio />} label="Japanese" />
                       </RadioGroup>
                     </FormControl> */}
-                     <Box className='language-dropdown'>
+                    <Box className='language-dropdown'>
                       <Typography className='small-caption language-box' id="lang-label" sx={{ fontSize: '12px !important' }} paddingBottom={4}>Language</Typography>
                       <Box class="img-btn first-img-btn">
                         <input type="radio" name="country-flags" checked />
@@ -246,7 +286,7 @@ function Header(props) {
                       </RadioGroup>
                     </FormControl>
 
-                   
+
                   </Grid>
                 </Grid>
               </Box>
@@ -262,21 +302,26 @@ function Header(props) {
         </Toolbar>
       </AppBar>
       <Box component="nav">
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
+        <Box>
+
+
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: 'block', sm: 'none' },
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, height: drawerHeight },
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Box>
+
       </Box>
     </Box>
   );

@@ -25,9 +25,9 @@ import GoogleIcon from "../../../../../public/assets/images/google-g-2015-logo-s
 import InformedCypto from "../../../../../public/assets/images/informed-cypto.svg";
 import DarkLogo from "../../../../../public/assets/images/logo.svg";
 import Globe from "../../../../../public/assets/images/globe.svg";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 import Marquee from "react-fast-marquee";
 import CryptoTable from "../../CryptoTable";
 import { useNavigate } from "react-router-dom";
@@ -63,15 +63,12 @@ const Home = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    tutorialAction.tutorialData();
-  }, []);
 
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }, []);
   const getFirstLetters = (str) => {
     const firstLetters = str.replace("Portfolio", "");
     return firstLetters;
-  };
+  }
 
   //subscribedUser Api
   useEffect(() => {
@@ -149,23 +146,10 @@ const Home = () => {
             {cardCoinsList?.map((item, index) => {
               if (index < 4) {
                 return (
-                  <Grid item xs={12} sm={3} md={3} className="gridBox">
-                    <img
-                      src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}
-                      alt={item.symbol}
-                      width="33px"
-                    />
-                    <Stack
-                      direction="row"
-                      spacing={2}
-                      alignItems="center"
-                      paddingTop={1}
-                      paddingBottom={1}
-                    >
-                      <Typography
-                        className="top-head"
-                        sx={{ fontSize: "12px !important" }}
-                      >
+                  <Grid item xs={12} sm={3} md={3} className='gridBox'>
+                    <img src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`} alt={item.symbol} width="33px" />
+                    <Stack direction="row" spacing={2} alignItems='center' paddingTop={1} paddingBottom={1}>
+                      <Typography className='top-head' sx={{ fontSize: '12px !important' }}>
                         {item.symbol}/USDT
                       </Typography>
                       <Button
@@ -204,7 +188,7 @@ const Home = () => {
                       {item.volume_24h?.toFixed(2)}
                     </Typography>
                   </Grid>
-                );
+                )
               }
             })}
           </Grid>
@@ -950,14 +934,7 @@ const Home = () => {
         <CryptoTable isIt={false} />
       </Container>
 
-      <Container
-        maxWidth="fluid"
-        className=""
-        sx={{
-          backgroundColor: "#F4F5F6",
-          paddingTop: { md: "80px", sm: "20px" },
-        }}
-      >
+      <Container maxWidth='fluid' className='' sx={{ backgroundColor: '#F4F5F6', paddingTop: { md: '80px', sm: '20px' }, }} >
         <Container>
           <Box paddingTop={5} paddingBottom={15} className="become-crypto">
             <Typography

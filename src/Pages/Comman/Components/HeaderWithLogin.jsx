@@ -353,6 +353,7 @@ const singleRead = async (notId) =>{
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
+              <IconButton>
               <NotificationsNone color="action" />
             </IconButton> */}
             <Menu
@@ -362,7 +363,6 @@ const singleRead = async (notId) =>{
               open={openAnchorbtn}
               onClose={handleCloseAnchorbtn}
               onClick={handleCloseAnchorbtn}
-
               PaperProps={{
                 elevation: 0,
                 sx: {
@@ -400,11 +400,11 @@ const singleRead = async (notId) =>{
                   return(
                     <>
                     
-                    <MenuItem  sx={{padding:'0'}}>
+                    <MenuItem  onClick={()=> singleRead(item.ct_notiy_id)} sx={{padding:'0'}}>
                      <span className='outer-div-menu'>
                       <span className='inner-div-menu'>
                         <span className='head-menu'>{item.ct_notify_title}</span>
-                        <span className='pl-3 sub-head-menu'><FiberManualRecord onClick={()=> singleRead(item.ct_notiy_id)} /></span>
+                        <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
                       </span>
                       <Typography className='secondary-color' sx={{fontSize:'10px'}}>{item.ct_notify_created_At}</Typography>
                      </span>

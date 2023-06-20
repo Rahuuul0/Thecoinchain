@@ -2330,10 +2330,10 @@ p.left-icon img {
   background-color: #58bd7d;
   line-height: 5;
   position: absolute;
-  left: 10px;
+  right: 27px;
   width: 20px;
   height: 20px;
-  top: 5px;
+  top: 12px;
 }
 
 .notification-filter h5 {

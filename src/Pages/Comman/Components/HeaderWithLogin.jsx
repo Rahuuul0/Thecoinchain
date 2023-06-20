@@ -223,14 +223,6 @@ const singleRead = async (notId) =>{
             <img width='140' src={CoinGuru} alt='Coin Guru' />
           </Typography>
 
-          {/* <Typography
-            variant="h6"
-
-            onClick={() => { navigate('/') }}
-            sx={{ flexGrow: 1, display: { xs: 'block', md: 'none', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
-          >
-            <img src={CoinGuru} alt='Coin Guru' />
-          </Typography> */}
           <Box className='' sx={{ display: { xs: 'none ', md: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>
               <li >
@@ -347,7 +339,7 @@ const singleRead = async (notId) =>{
               <FlashOnOutlined color="action" />
             </IconButton>
 
-            {/* <IconButton onClick={handleClickAnchorbtn}
+            <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
               size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
@@ -355,7 +347,8 @@ const singleRead = async (notId) =>{
               aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
               <IconButton>
               <NotificationsNone color="action" />
-            </IconButton> */}
+            </IconButton>
+            </Badge>
             <Menu
               anchorEl={anchorElAnchorbtn}
               id=""

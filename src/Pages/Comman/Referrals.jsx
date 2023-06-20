@@ -14,8 +14,8 @@ import {
 } from "@mui/material";
 import { NavigateNext } from "@mui/icons-material/";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "./Components/Sidebar";
-import { authAtom } from "../../_state";
+import Sidebar from './Components/Sidebar';
+import {authAtom } from '../../_state/'
 import { useRecoilValue } from "recoil";
 
 function handleClick(event) {

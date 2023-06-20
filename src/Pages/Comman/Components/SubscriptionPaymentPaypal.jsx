@@ -41,7 +41,7 @@ const SubscriptionPaymentPaypal = ({plan,setOpen,setConfirm}) => {
    return actions.order.capture().then(function (details) {
      const { payer } = details;
      setOrderDetails({...orderDetails,...details});
-     setSuccess(true);
+     setSuccess(true);     
    });
  };
  //capture likely error
@@ -56,10 +56,11 @@ const SubscriptionPaymentPaypal = ({plan,setOpen,setConfirm}) => {
       'token':orderDetails.payer.payer_id,
       'transaction_id':orderDetails.id,
       'orderDetails':orderDetails
-    });      
-    setOpen(true);        
+    });     
+    setConfirm({...plan,step:3});          
+    setOpen(true);         
   }   
-  if (success) {
+  if (success) {    
     console.log(orderDetails,'Payment successful!!') 
     get_subscription();
   }  

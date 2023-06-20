@@ -921,8 +921,14 @@ input[type="number"] {
 .orange-btn {
   background-color: #ff6838 !important;
   color: #fff !important;
-}
 
+}
+.contact-new{
+  font-size: 14px !important;
+  font-weight: 600!important;
+  max-width: 60px !important;
+  width: 100% !important;
+}
 .gridBox {
   padding: 50px 30px 50px 30px !important;
   border-radius: 32px;
@@ -1178,8 +1184,8 @@ input[type="number"] {
 }
 
 .contact-line:before {
-  /* content: "O------------O"; */
-  content: url("./../public/assets/images/connect-line.svg");
+  content: "O------------O";
+  /* content: url("./../public/assets/images/connect-line.svg"); */
   position: absolute;
   left: 76%;
   top: 10%;
@@ -3336,6 +3342,18 @@ video[poster] {
   line-height: 0.5;
 }
 
-.auth-form button { 
-  min-width: 50px!important;
+.auth-form button {
+  min-width: 50px !important;
+}
+.v-center{
+  display: flex;
+  align-items: center;
+}
+.small-new-btn{
+  display: inline-block;
+  text-align: center;
+  font-family: var(--primary-font) !important;
+  font-weight: 600;
+  line-height: 1.8;
+  border-radius: 5px;
 }

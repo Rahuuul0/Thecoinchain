@@ -48,11 +48,7 @@ const notificationActions = () => {
 
     const categoryNotifications = (categoryArr) => {
         const param = categoryArr.reduce((cat,curr)=> (cat[curr]=curr,cat),{});
-        return fetchWrapper.post(Apis.Category_Notifications,
-            {
-            category : param
-            },
-           )
+        return fetchWrapper.post(Apis.Category_Notifications,param,)
             .then(res => {
                 if (res.statusCode === 200) {
                   

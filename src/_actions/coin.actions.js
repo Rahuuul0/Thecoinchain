@@ -22,6 +22,7 @@ const useCoinActions = () => {
   const loader = useSetRecoilState(loaderAtom);
 
   const categoriesList = async () => {
+    loader(true);
     return fetchWrapper
       .get(Apis.Categories_Data)
       .then((res) => {
@@ -30,6 +31,7 @@ const useCoinActions = () => {
         } else {
           alertActions.error(Labels.Error);
         }
+        loader(false);
       })
       .catch((err) => {
         console.warn(err);
@@ -37,6 +39,7 @@ const useCoinActions = () => {
   };
 
   const coinListbByCategoty = async (id) => {
+    loader(true);
     setSelectedCategory(id);
     return fetchWrapper
       .post(Apis.Category_Data, { categories_id: id })
@@ -63,9 +66,11 @@ const useCoinActions = () => {
         } else {
           alertActions.error(Labels.Error);
         }
+        loader(false);
       })
       .catch((err) => {
         console.warn(err);
+        loader(false);
       });
   };
 
@@ -74,8 +79,8 @@ const useCoinActions = () => {
     categoryList.length <= 0 ? categoriesList() : "";
     return fetchWrapper
       .post(`${Apis.Latest_Listings}?${params}`)
-
       .then((res) => {
+        loader(false);
         if (res.statusCode === 200) {
           let coinArr = [];
           for (let key in res.data) {
@@ -90,16 +95,16 @@ const useCoinActions = () => {
             let homeCoins = coinArr.slice(0, 5);
             setCoinList(homeCoins);
           } else setCoinList(coinArr);
-          loader(false);
-          return res.data.data;
         } else {
           alertActions.error(Labels.Error);
         }
       })
       .catch((err) => {
         console.warn(err);
+        loader(false);
       });
   };
+
   return {
     categoriesList,
     coinListbByCategoty,

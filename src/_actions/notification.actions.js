@@ -1,58 +1,85 @@
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState,useRecoilValue } from 'recoil';
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from '../_helpers';
 import { Apis } from '../_common/app.constants';
 import { useAlertActions } from '../_actions/alert.actions';
-import {notificationAtom} from '../_state/notifications';
+import {notificationAtom, notificationCountAtom} from '../_state';
 
 const notificationActions = () => {
     const navigate = useNavigate()
     const fetchWrapper = useFetchWrapper();
     const alertActions = useAlertActions();
-    const [notificationLists, setNotification] = useRecoilState(notificationAtom);
+    const test=useRecoilValue(notificationAtom);
+    const notificationLists = useSetRecoilState(notificationAtom);
+    const notificationCount = useSetRecoilState(notificationCountAtom);
+
 
     const notificationList = () => {
-        return fetchWrapper.get(Apis.Guides_analysis)
+        return fetchWrapper.get(Apis.Notifications_List)
             .then(res => {
                 if (res.statusCode === 200) {
-                    // setNotification([...res.data])
-                    alertActions.success(" Successfully");
-                
-                } else {
-                    // alertActions.error(res.msg);
-                }
+                    notificationLists([...res.data])
+                    notificationCount(res.nofications_count)
+
+
+                } 
             }).catch((err)=>{console.warn(err)})
     }
 
-    const markAllread = () => {
-        return fetchWrapper.get(Apis.Guides_analysis)
+    const notificationSingleread = (notId, userId) => {
+        return fetchWrapper.post(Apis.Notifications_Single_Read, 
+            {
+                "read":"1",
+                "notify_id": `${notId}`,
+                "user_id":`${userId}`
+            },
+          )
             .then(res => {
                 if (res.statusCode === 200) {
-                    // setNotification([...res.data])
+                    notificationList()
+                    return res.data
                     alertActions.success("Mark all Read Successfully");
-                
                 } else {
-                    // alertActions.error(res.msg);
+                    alertActions.error(res.msg);
                 }
             }).catch((err)=>{console.warn(err)})
     }
 
-    const clearData = () => {
+
+    const categoryNotifications = (categoryArr) => {
+        const param = categoryArr.reduce((cat,curr)=> (cat[curr]=curr,cat),{});
+        return fetchWrapper.post(Apis.Category_Notifications,
+            {
+            category : param
+            },
+           )
+            .then(res => {
+                if (res.statusCode === 200) {
+                  
+                } 
+            }).catch((err)=>{console.warn(err)})
+    }
+
+    const clearNotifications = () => {
     
-        // return fetchWrapper.delete(`${Apis.User_Delete}/${id}`)
-        //     .then((res) => {
-        //         if (res.statusCode === 200) {                
+        return fetchWrapper.post(Apis.Notification_All_Clear, 
+            {
+                "all_clear":"1",
+            })
+            .then((res) => {
+                if (res.statusCode === 200) {  
+                    notificationList()        
                     alertActions.success('Clear all Data Successfully');
-                    //   setNotification([...res.data])
-            //     }
-            // });
+                }
+            });
     }
        
     return {
 
         notificationList,
-        markAllread,
-        clearData,
+        notificationSingleread,
+        clearNotifications,
+        categoryNotifications,
     }
 }
 

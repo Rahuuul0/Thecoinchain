@@ -142,6 +142,7 @@ const CheckoutForm = () => {
     };
 
     const styled = (confirm.step === 2) ? { "height": '100%', "opacity": "1" } : { "height": '0px', "opacity": "0", "display": "none" }
+    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
     return (
         <Box className='subscription-steps-inner'>
             <Backdrop

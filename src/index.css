@@ -29,6 +29,7 @@
   --secondary-color: #777e90;
 }
 
+
 .color-dark {
   color: #23262f;
 }
@@ -1279,7 +1280,7 @@ input[type="number"] {
 }
 
 .margin10 {
-  margin-left: 10px;
+  margin-left: 75px;
 }
 
 /* learn cypto ends */
@@ -2319,6 +2320,16 @@ p.left-icon img {
   background-color: #58bd7d;
 }
 
+.notification-badge .MuiBadge-badge {
+  background-color: #58bd7d;
+  line-height: 5;
+  position: absolute;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  top: 5px;
+}
+
 .notification-filter h5 {
   margin-bottom: 24px;
   font-weight: 600;
@@ -2574,91 +2585,11 @@ video[poster] {
   overflow-x: hidden;
 }
 
-body {
-  overflow-x: hidden;
-}
-
-.coming-in-box {
-  position: relative;
-  display: table-cell;
-  height: 100%;
-  vertical-align: middle;
-}
-
-.coming-out-box:before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  background-color: rgb(255 255 255 / 61%);
-  position: absolute;
-  z-index: 0;
-}
-
-.modal-yay div.MuiBackdrop-root {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-.forcast-plan {
-  border-top: none !important;
-}
-
-@-webkit-keyframes autofill {
-  to {
-    color: blue;
-    background: transparent;
-  }
-}
-
-/* .MuiInputBase-input:-webkit-autofill{
-  background-color: red;
-  -webkit-animation-duration: 5000s !important;
-  animation-duration: 5000s !important;
-  -webkit-animation-name: mui-auto-fill !important;
-  background-color: #000  !important;
-  animation-name: mui-auto-fill !important;
-  animation-name: unset  !important;
-  transition: background-color 5000s ease-in-out 0s;
-}
-input[data-autocompleted] {
-  background-color: transparent !important;
-} */
-
-/* Change autocomplete styles in WebKit */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0px 1000px #6e202000 inset;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
-.css-qe9us1-MuiFormHelperText-root.Mui-error,
-.frm-message {
-  color: red;
-  font-size: 13px !important;
-  margin: 0;
-  padding-left: 0px;
-  line-height: 0.5;
-}
-
-.auth-form button {
-  min-width: 50px !important;
-}
-
-.favorite-ic {
-  cursor: pointer;
-  margin-right: 5px;
-}
-
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
 
-@media (max-width: 1199.98px) {}
+@media (max-width: 1199.98px) {
+}
 
 @media (max-width: 1024.98px) {
   .auth-header {
@@ -3394,4 +3325,17 @@ select:-webkit-autofill:focus {
   .auth-otp>div input {
     padding: 20px 10px;
   }
+}
+
+.css-qe9us1-MuiFormHelperText-root.Mui-error,
+.frm-message{
+  color: red;
+  font-size: 13px !important;
+  margin: 0;
+  padding-left: 0px;
+  line-height: 0.5;
+}
+
+.auth-form button { 
+  min-width: 50px!important;
 }

@@ -1,7 +1,14 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from "../_helpers";
-import { switchAtom, userErrorAtom, authAtom, loaderAtom, forecastSubAtom,loginDataAtom } from "../_state";
+import {
+  switchAtom,
+  userErrorAtom,
+  authAtom,
+  loaderAtom,
+  forecastSubAtom,
+  loginDataAtom,
+} from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
 import { Labels, Apis } from "../_common/app.constants";
 import axios from "axios";
@@ -16,13 +23,15 @@ const useUserActions = () => {
   const [loader, setLoader] = useRecoilState(loaderAtom);
   const subscription = useSetRecoilState(forecastSubAtom);
   const [loginData, setLoginData] = useRecoilState(loginDataAtom);
+  let referralToken = "";
+  referralToken = localStorage.getItem("refToken");
 
-  const login = async ({ email, password,phone, }) => {
+  const login = async ({ email, password, phone }) => {
     return fetchWrapper
-      .post(Apis.Login, { email, password,phone })
+      .post(Apis.Login, { email, password, phone })
       .then((res) => {
         if (res.statusCode === 200) {
-          let { data, access_token, login_attempt} = res;
+          let { data, access_token, login_attempt } = res;
           localStorage.setItem(
             "user",
             JSON.stringify({
@@ -32,20 +41,21 @@ const useUserActions = () => {
               isSubscribed: true,
             })
           );
-          setAuth({ ...data, access_token,login_attempt, isSubscribed: true });        
-          res.data.is_profile_completed == 0 ? navigate("/account/profile") : navigate("/");
-          setLoader(false)
+          setAuth({ ...data, access_token, login_attempt, isSubscribed: true });
+          res.data.is_profile_completed == 0
+            ? navigate("/account/profile")
+            : navigate("/");
+          setLoader(false);
           alertActions.success(Labels.Login_Success);
         } else {
           setUserError(true);
           alertActions.error(res.msg);
-          
         }
       })
       .catch((err) => {
         setUserError(true);
         console.warn(err);
-        setLoader(false)
+        setLoader(false);
       });
   };
 
@@ -55,6 +65,7 @@ const useUserActions = () => {
     authData.name = data.name;
     authData.google_id = data.id;
     authData.email = data.email;
+    authData.referral_code = referralToken;
     return fetchWrapper
       .post(Apis.Social_Media_Login, authData)
       .then((res) => {
@@ -69,16 +80,18 @@ const useUserActions = () => {
               isSubscribed: true,
             })
           );
-          setAuth({ ...data, access_token,login_attempt,isSubscribed: true });
+          setAuth({ ...data, access_token, login_attempt, isSubscribed: true });
           alertActions.success(Labels.Login_Success);
-         res.data.is_profile_completed == 0 ? navigate("/account/profile") : navigate("/");
-          
+          res.data.is_profile_completed == 0
+            ? navigate("/account/profile")
+            : navigate("/");
         } else {
           alertActions.error(res.msg);
         }
       })
       .catch((err) => {
-  console.warn(err); });
+        console.warn(err);
+      });
   };
 
   const googleAuth = async (user) => {
@@ -115,9 +128,7 @@ const useUserActions = () => {
       .catch((err) => console.log(err));
   };
 
-  const loginMobile = ({ number, passwordMob }) => {
-    
-  };
+  const loginMobile = ({ number, passwordMob }) => {};
 
   const forgotPassword = async (data) => {
     return fetchWrapper
@@ -125,7 +136,10 @@ const useUserActions = () => {
       .then((res) => {
         if (res.statusCode === 200) {
           alertActions.success(
-            Labels.Password_Reset_Email.replaceAll(Labels.Replce_Text, data.email?data.email:data.phone)
+            Labels.Password_Reset_Email.replaceAll(
+              Labels.Replce_Text,
+              data.email ? data.email : data.phone
+            )
           );
           setSoption(false);
         } else {
@@ -165,6 +179,7 @@ const useUserActions = () => {
         confirm_password,
         type,
         name,
+        referral_code: referralToken,
       })
       .then((res) => {
         if (res.statusCode === 200) {
@@ -216,9 +231,8 @@ const useUserActions = () => {
   };
 
   const resetPassword = async ({ password }) => {
-
-    const {email,phone} = loginData;
-    const newPassword = password;   
+    const { email, phone } = loginData;
+    const newPassword = password;
     return fetchWrapper
       .post(Apis.Reset_Password, { email, phone, newPassword })
       .then((res) => {
@@ -256,8 +270,9 @@ const useUserActions = () => {
   };
 
   const updateUser = ({ name, email, mobile, password }) => {
-      const phone = mobile;
-    return fetchWrapper.post(`${Apis.Update_User}`, { name, email, phone, password })
+    const phone = mobile;
+    return fetchWrapper
+      .post(`${Apis.Update_User}`, { name, email, phone, password })
       .then((res) => {
         if (res.statusCode === 200) {
           let { data } = res;
@@ -282,8 +297,7 @@ const useUserActions = () => {
     setAuth(null);
     alertActions.success(Labels.Logout_Success);
     navigate("/");
-    subscription({status: "expired"})
-
+    subscription({ status: "expired" });
   };
 
   const getOtpPhone = async (phone) => {

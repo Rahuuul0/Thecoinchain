@@ -203,7 +203,7 @@ const Referrals = () => {
                               fullWidth
                               id="link"
                               value={
-                                "http://dly1vyq5d0op3.cloudfront.net/create-account/referral/" +
+                                "http://dly1vyq5d0op3.cloudfront.net/create-account/" +
                                 userDetail.referral_code
                               }
                               // placeholder='link'

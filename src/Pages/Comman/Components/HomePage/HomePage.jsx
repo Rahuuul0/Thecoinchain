@@ -170,7 +170,11 @@ const Home = () => {
                       </Typography>
                       <Button
                         variant="contained"
-                        className="orange-btn"
+                        className={
+                          item.percent_change_24h < 0
+                            ? "orange-btn"
+                            : "green-btn"
+                        }
                         sx={{ borderRadius: "90px", cursor: "default" }}
                       >
                         {item.percent_change_24h?.toFixed(2)}%

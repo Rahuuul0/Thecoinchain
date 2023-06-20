@@ -1,7 +1,7 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from "../_helpers";
-import { switchAtom, userErrorAtom, authAtom, loaderAtom, forecastSubAtom } from "../_state";
+import { switchAtom, userErrorAtom, authAtom, loaderAtom, forecastSubAtom,loginDataAtom } from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
 import { Labels, Apis } from "../_common/app.constants";
 import axios from "axios";
@@ -15,6 +15,8 @@ const useUserActions = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
   const [loader, setLoader] = useRecoilState(loaderAtom);
   const subscription = useSetRecoilState(forecastSubAtom);
+  const [loginData, setLoginData] = useRecoilState(loginDataAtom);
+
   const login = async ({ email, password,phone, }) => {
     return fetchWrapper
       .post(Apis.Login, { email, password,phone })
@@ -214,10 +216,11 @@ const useUserActions = () => {
   };
 
   const resetPassword = async ({ password }) => {
-    const email = localStorage.getItem("email");
-    const newPassword = password;
+
+    const {email,phone} = loginData;
+    const newPassword = password;   
     return fetchWrapper
-      .post(Apis.Reset_Password, { email, newPassword })
+      .post(Apis.Reset_Password, { email, phone, newPassword })
       .then((res) => {
         if (res.statusCode === 200) {
           alertActions.success(Labels.Password_Reset_Success);

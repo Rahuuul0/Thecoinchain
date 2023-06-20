@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useAlertActions } from '../../_actions/alert.actions';
-import { switchAtom } from '../../_state/users';
+import { switchAtom,loginDataAtom } from '../../_state/users';
 import { useUserActions } from "../../_actions/user.actions";
 import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
 import { RoutesName } from '../../_common/app.constants';
@@ -27,6 +27,7 @@ const ForgotPasswordPhone = () => {
     const userActions = useUserActions();
     const alertActions = useAlertActions();
     const [Soption, setSoption] = useRecoilState(switchAtom);
+    const [loginData, setLoginData] = useRecoilState(loginDataAtom);
 
     // form validation rules
     const validationSchema = Yup.object().shape({
@@ -39,7 +40,8 @@ const ForgotPasswordPhone = () => {
     const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
 
-    const onSubmitFun = async () => {        
+    const onSubmitFun = async () => { 
+        setLoginData({...loginData,"phone":formData.phone,'email':''})       
         await userActions.forgotPassword({"phone":formData.phone});
     }
 
@@ -48,6 +50,7 @@ const ForgotPasswordPhone = () => {
             alertActions.error("Fill OTP first")
         }
         else {
+            setLoginData({...loginData,"otp":OTP})
             await userActions.forgotPasswordVerify(OTP)
         }
     }

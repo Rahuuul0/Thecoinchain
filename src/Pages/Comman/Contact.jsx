@@ -184,7 +184,6 @@ const Contact = () => {
    
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
         <Box paddingY={7} className='newdesignbox'>
-          <Typography sx={{ paddingX: { xs: '20px', md: '400px' }, paddingBottom: { xs: '20px', md: '50px' } }} component='p' variant='p' className='body-caption' textAlign='center'>Before asking for an answer, you may find it in our learn crypto center</Typography>
           <Grid container spacing={0} rowSpacing={6} >
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>

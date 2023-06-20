@@ -28,12 +28,15 @@
   --color-grey: rgba(119, 126, 144, 1);
   --secondary-color: #777e90;
 }
+
 .color-dark {
   color: #23262f;
 }
+
 .font-500 {
   font-weight: 500;
 }
+
 :focus {
   outline: none !important;
 }
@@ -102,9 +105,11 @@ body .modal-dialog * {
 .btn-round {
   border-radius: 100px !important;
 }
+
 .rounded-radius .btn {
   border-radius: 90px;
 }
+
 button.btn-close {
   width: 40px;
   height: 40px;
@@ -358,6 +363,7 @@ img,
 
 /* Extra small devices (phones, 767px and down) */
 @media only screen and (max-width: 767px) {
+
   /* footer  */
   .footer .bg-white {
     background-color: initial;
@@ -388,10 +394,12 @@ main.auth-wrapper {
   width: calc(100% - 160px);
   padding: 80px;
 }
+
 nav .MuiButtonBase-root {
   padding: 6px 20px;
   height: 46px;
 }
+
 #root nav .btn {
   display: inherit !important;
 }
@@ -401,33 +409,42 @@ nav .MuiButtonBase-root:hover {
   background-color: rgba(25, 118, 210, 0.04);
   border-radius: 90px;
 }
+
 .app-nav button.MuiButtonBase-root.btnicon:hover {
   background-color: transparent;
 }
+
 .auth-header-logo img.ipad {
   display: none;
 }
+
 .inner-div-menu {
   display: flex;
   justify-content: space-between;
 }
+
 .notification-menu .MuiList-root {
   width: 316px;
 }
+
 .outer-div-menu {
   width: 100%;
   padding-bottom: 15px;
   padding-top: 15px;
 }
+
 .outer-div-menu svg {
   color: #58bd7d;
 }
+
 .inner-div-menu .head-menu {
   font-size: 12px;
 }
+
 .inner-div-menu .sub-head-menu {
   display: inline-flex;
 }
+
 .auth-header .dont-have-acc p {
   font-size: 14px !important;
   font-weight: 700;
@@ -549,17 +566,18 @@ nav .MuiButtonBase-root:hover {
   color: var(--primary-color);
 }
 
-.MuiFormControl-root label + .MuiInputBase-root {
+.MuiFormControl-root label+.MuiInputBase-root {
   margin-top: 24px;
   padding: 11.5px 5px 11.5px 16px;
   border: 2px solid #e6e8ec;
   border-radius: 12px;
 }
 
-.MuiFormControl-root label.Mui-focused + .MuiInputBase-root {
+.MuiFormControl-root label.Mui-focused+.MuiInputBase-root {
   border-color: var(--primary-color);
 }
-.refferal-form .MuiFormControl-root label.Mui-focused + .MuiInputBase-root {
+
+.refferal-form .MuiFormControl-root label.Mui-focused+.MuiInputBase-root {
   border-color: #58bd7d;
 }
 
@@ -658,13 +676,13 @@ nav .MuiButtonBase-root:hover {
   font-size: 14px;
 }
 
-.auth-otp > div {
+.auth-otp>div {
   display: flex;
   gap: 16px;
   width: 100%;
 }
 
-.auth-otp > div input {
+.auth-otp>div input {
   margin: 0 !important;
   padding: 30px 15px;
   background: #f4f5f6;
@@ -677,7 +695,7 @@ nav .MuiButtonBase-root:hover {
   flex: 1;
 }
 
-.auth-otp > div input:focus {
+.auth-otp>div input:focus {
   background-color: #fff;
   border: 1px solid #e6e8ec;
 }
@@ -757,6 +775,7 @@ input[type="number"] {
   display: flex;
   flex-direction: column;
 }
+
 .inner-div-outer {
   display: flex;
   flex-direction: row;
@@ -944,6 +963,7 @@ input[type="number"] {
   width: 264px;
   height: 264px;
 }
+
 /* Homepage Ends */
 
 /* Market page */
@@ -1110,11 +1130,13 @@ input[type="number"] {
 .MuiTabs-root .MuiTabs-indicator {
   display: none;
 }
+
 #root .css-hip9hq-MuiPaper-root-MuiAppBar-root,
 .MuiTabs-root .MuiTabs-scroller .css-hip9hq-MuiPaper-root-MuiAppBar-root {
   background-color: transparent;
   box-shadow: none;
 }
+
 .MuiTabs-root button.MuiTab-root {
   border-radius: 50px;
   text-transform: initial;
@@ -1297,9 +1319,11 @@ input[type="number"] {
 .topic-que .MuiFormControl-root label {
   transform: none !important;
 }
+
 .faq-accordian .Mui-expanded .faq-count {
   color: #3772ff;
 }
+
 /* Homepage Ends */
 #root .topic-que .MuiSelect-select {
   padding: 10.5px 5px 10.5px 16px !important;
@@ -1490,7 +1514,7 @@ video {
 }
 
 /* Crypto Table styles*/
-.crypto-list-table > div {
+.crypto-list-table>div {
   padding: 0 10px;
 }
 
@@ -2077,6 +2101,7 @@ p.left-icon img {
 .white-input-box .MuiInputBase-root.MuiInput-root {
   background-color: #ffffff;
 }
+
 /* 
  .update-profile input {
     background-color: #fff !important;
@@ -2088,10 +2113,12 @@ p.left-icon img {
 .img-btn img {
   width: 30px;
 }
-.img-btn > input {
+
+.img-btn>input {
   display: none;
 }
-.img-btn > img {
+
+.img-btn>img {
   cursor: pointer;
   border: 0px solid transparent;
   margin-right: 8px;
@@ -2108,9 +2135,11 @@ p.left-icon img {
   padding-bottom: 11px;
   align-items: center;
 }
+
 .img-btn:last-child {
   border: none;
 }
+
 .first-img-btn {
   padding-top: 0px !important;
 }
@@ -2221,6 +2250,16 @@ p.left-icon img {
   background-color: #58bd7d;
 }
 
+.notification-badge .MuiBadge-badge {
+  background-color: #58bd7d;
+  line-height: 5;
+  position: absolute;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  top: 5px;
+}
+
 .notification-filter h5 {
   margin-bottom: 24px;
   font-weight: 600;
@@ -2273,19 +2312,24 @@ p.left-icon img {
 .green-span span {
   color: #58bd7d;
 }
+
 .faenable-box span {
   color: #58bd7d;
 }
+
 .fa-disabled span {
   color: #ff6838;
 }
+
 .email-icon svg {
   top: 7px;
   position: relative;
 }
+
 .change-password-box {
   padding: 40px 90px;
 }
+
 .main-box .center-box .input-link {
   font-size: 12px !important;
   font-weight: 700;
@@ -2379,9 +2423,11 @@ video[poster] {
 .extra-wrapper p {
   margin-bottom: 24px;
 }
+
 .borderRounded {
   border-radius: 90%;
 }
+
 .guide-box {
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
   padding: 19px;
@@ -2423,6 +2469,7 @@ video[poster] {
 .community-details {
   width: 100%;
 }
+
 .crypto-list-table table tr th:last-child {
   padding-right: 28px;
 }
@@ -2440,25 +2487,28 @@ video[poster] {
 .react-player__preview {
   border-radius: 16px;
 }
+
 .MuiFormControl-root .MuiFormLabel-asterisk {
   display: none;
 }
+
 .center-tab.primary-tabs.MuiTabs-root button.MuiTab-root.Mui-selected {
   background-color: #3772ff;
 }
+
 .primary-tabs.MuiTabs-root button.MuiTab-root {
   background-color: #00000000;
   border: 1px solid #e6e8ec;
 }
-.icon-btn{
+
+.icon-btn {
   padding: 6px 5px !important;
 }
-/* Media Queries  */
-@media (max-width: 1399.98px) {
-}
 
-@media (max-width: 1199.98px) {
-}
+/* Media Queries  */
+@media (max-width: 1399.98px) {}
+
+@media (max-width: 1199.98px) {}
 
 @media (max-width: 1024.98px) {
   .auth-header {
@@ -3066,13 +3116,13 @@ video[poster] {
     font-size: 12px;
   }
 
-  .auth-otp > div input {
+  .auth-otp>div input {
     padding: 20px 10px;
   }
 }
 
 .css-qe9us1-MuiFormHelperText-root.Mui-error,
-.frm-message{
+.frm-message {
   color: red;
   font-size: 13px !important;
   margin: 0;
@@ -3080,6 +3130,6 @@ video[poster] {
   line-height: 0.5;
 }
 
-.auth-form button { 
-  min-width: 50px!important;
+.auth-form button {
+  min-width: 50px !important;
 }

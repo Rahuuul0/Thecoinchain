@@ -33,35 +33,44 @@ import MuiPhoneNumber from "material-ui-phone-number";
 import GoogleAuth from "./GoogleAuth.jsx";
 
 const CreateAccount = () => {
-    const navigate = useNavigate();
-    const userActions = useUserActions();
-    const alertActions = useAlertActions();
-    const [phone, setPhone] = useState('');
-    const captchaRef = useRef(null);
-    const param = useParams();
-    const validationSchema = Yup.object().shape({
-        email: Yup.string()
-            .email("Email must be a valid email")
-            .trim()
-            .required("Email Address is required"),
-        mobile: Yup.string()
-            .required("Mobile Number is required"),
-        password: Yup.string()
-            .trim()
-            .required("Password is required")
-            .min(8, "Password must be at least 8 characters.")
-            .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!#%*?&])[A-Za-z\d@$!#%*?&]{8,}$/,
-                "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."),
-        confirm_password: Yup.string()
-            .trim()
-            .required("Confirm Password is required").oneOf(
-                [Yup.ref("password"), null],
-                "Passwords must match."
-            ),
-        agree: Yup.bool().oneOf([true], "You must accept the terms and conditions")       
-    });
- 
+  const navigate = useNavigate();
+  const userActions = useUserActions();
+  const alertActions = useAlertActions();
+  const [phone, setPhone] = useState("");
+  const captchaRef = useRef(null);
+  const param = useParams();
+
+  Yup.addMethod(Yup.string, "phoneString", function () {
+    return this.transform(
+      (value) => (value = value.replace(/[^A-Z0-9]/gi, ""))
+    );
+  });
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Email must be a valid email")
+      .trim()
+      .required("Email Address is required"),
+    mobile: Yup.string()
+      .phoneString()
+      .min(8, "Please enter a valid phone number")
+      .max(15, "Phone must be at most 15 characters")
+      .required("Mobile Number is required"),
+    password: Yup.string()
+      .trim()
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters.")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!#%*?&])[A-Za-z\d@$!#%*?&]{8,}$/,
+        "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character."
+      ),
+    confirm_password: Yup.string()
+      .trim()
+      .required("Confirm Password is required")
+      .oneOf([Yup.ref("password"), null], "Passwords must match."),
+    agree: Yup.bool().oneOf([true], "You must accept the terms and conditions"),
+  });
+
   //password eye IconButton
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);

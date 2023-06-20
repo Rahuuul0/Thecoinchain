@@ -15,5 +15,10 @@ const notificationAtom = atom({
             ]
         
 });
+const notificationCountAtom = atom({
+    key: 'notificationCountAtom',
+    default: 0
+    
+});
 
-export { notificationAtom };
+export { notificationAtom, notificationCountAtom };

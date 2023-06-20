@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from '../_helpers';
 import { Apis } from '../_common/app.constants';
 import { useAlertActions } from '../_actions/alert.actions';
-import {notificationAtom} from '../_state/notifications';
+import {notificationAtom, notificationCountAtom} from '../_state';
 
 const notificationActions = () => {
     const navigate = useNavigate()
@@ -11,12 +11,16 @@ const notificationActions = () => {
     const alertActions = useAlertActions();
     const test=useRecoilValue(notificationAtom);
     const notificationLists = useSetRecoilState(notificationAtom);
+    const notificationCount = useSetRecoilState(notificationCountAtom);
+
 
     const notificationList = () => {
         return fetchWrapper.get(Apis.Notifications_List)
             .then(res => {
                 if (res.statusCode === 200) {
                     notificationLists([...res.data])
+                    notificationCount(res.nofications_count)
+
 
                 } 
             }).catch((err)=>{console.warn(err)})
@@ -43,9 +47,10 @@ const notificationActions = () => {
 
 
     const categoryNotifications = (categoryArr) => {
+        const param = categoryArr.reduce((cat,curr)=> (cat[curr]=curr,cat),{});
         return fetchWrapper.post(Apis.Category_Notifications,
             {
-              "category":categoryArr
+            category : param
             },
            )
             .then(res => {

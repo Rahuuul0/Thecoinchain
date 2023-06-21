@@ -5,7 +5,7 @@ import Learn01 from '../../../public/assets/images/learn01.png'
 import Learn02 from '../../../public/assets/images/learn02.png'
 import Learn03 from '../../../public/assets/images/learn03.png'
 import LoadingImg from '../../../public/assets/images/icons/loading.svg'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,Link} from 'react-router-dom';
 
 const LearnNEarn = () => {
 

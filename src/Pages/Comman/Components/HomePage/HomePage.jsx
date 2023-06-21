@@ -1230,6 +1230,7 @@ const Home = () => {
                     the BitCloud team and our traders from across the world.
                   </Typography>
                   <Button
+                    onClick={()=>{navigate("/community")}} 
                     className="btn-outlined-secondary"
                     sx={{ textTransform: "capitalize" }}
                   >

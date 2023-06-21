@@ -20,6 +20,7 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { styled, alpha } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
+import { General, Subscriptions } from './Questions';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -77,19 +78,6 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const names = [
-  'Recent 1',
-  'Recent 2',
-  'Recent 3',
-  'Recent 4',
-  'Recent 5',
-  'Recent 6',
-  'Recent 7',
-  'Recent 8',
-  'Recent 9',
-  'Recent 10',
-];
-
 
 function getStyles(name, personName, theme) {
   return {
@@ -106,6 +94,8 @@ const Contact = () => {
   const theme = useTheme();
   const [personName, setPersonName] = useState([]);
   const [contactError, setContactError] = useRecoilState(contact_AddAtom)
+  const [question, setQuestion] = useState("");
+  const [category, setCategory] = useState("general");
 
   // form validation rules 
   const validationSchema = Yup.object().shape({
@@ -137,10 +127,13 @@ const Contact = () => {
         setIsSubmitting(false)
 }, [contactError])
 
-  const handleFormSubmit = (data) =>{
+  const handleFormSubmit = async (data) =>{
+    console.log(data,"data") 
     setIsSubmitting(true)
     setContactError(false)
-    return useContactAddActions.add(data);
+    data.category = category;
+    await useContactAddActions.add(data);
+    reset({email : " ", subject : " ", msg : " "  });
   }
 
   const handleChange = (event, newValue) => {
@@ -153,6 +146,21 @@ const Contact = () => {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
+
+  useEffect(() => {
+    setQuestion(General)
+},[])
+
+  const handleGenral = () => {
+    setQuestion(General);
+  }
+
+  const handleSubscription = () => {
+    setQuestion(Subscriptions);
+  }
+  useEffect(()=> {
+    reset({ ...formData, question: question[0] })
+  },[question]);
 
   return (
     <>
@@ -365,8 +373,8 @@ const Contact = () => {
               <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>Select a topic</Typography>
 
               <Stack direction='row' spacing={3} className='button-img' >
-                <Button className='btn' variant="outlined" > <span><img src={GenralIcon} /></span> General</Button>
-                <Button className='btn' variant="outlined" > <span><img src={SubsIcon} /></span> Subscription</Button>
+                <Button className='btn' variant="outlined" onClick={() => { setCategory("general"); handleGenral(); }} > <span><img src={GenralIcon} /></span> General</Button>
+                <Button className='btn' variant="outlined" onClick={() => { setCategory("subscriptions"); handleSubscription(); }} > <span><img src={SubsIcon} /></span> Subscription</Button>
               </Stack>
             </Box>
             <Box paddingBottom={2}>
@@ -379,9 +387,9 @@ const Contact = () => {
                 id="combo-box-demo"
                 size="small"
                 value={formData?.question}
-                options= {names}
+                options= {question}
                 onChange={(e, props) => reset({ ...formData, question: props?.name })}
-                renderInput={(params) => <TextField autoFocus {...register('question')} placeholder='What is your issue about?' required {...params} InputLabelProps={{ shrink: true }} />}
+                renderInput={(params) => <TextField autoFocus {...register('question')} required {...params} InputLabelProps={{ shrink: true }} />}
             />
             <div style={{ color: "red" }}>{errors.question?.message}</div>
         </Grid>

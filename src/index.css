@@ -2597,6 +2597,10 @@ video[poster] {
   width: 100%;
   overflow-x: hidden;
 }
+.subscription-steps-col p.left-icon{
+  opacity: 1;
+  color: #777E90;
+}
 
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
@@ -3372,7 +3376,7 @@ video[poster] {
 }
 
 .text-black{
-  color: #23262F;
+  color: #23262F !important;
 }
 .text-black .dark-icon{
   display: block;

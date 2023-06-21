@@ -1164,7 +1164,7 @@ const Home = () => {
                       component="div"
                       className="body-caption secondary-color"
                     >
-                      Download from
+                      Download for
                     </Typography>
                     <Typography
                       variant=""

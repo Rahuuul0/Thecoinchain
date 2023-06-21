@@ -256,11 +256,11 @@ const CheckoutForm = () => {
                                 </Box>
                             </Box>
                             <>
-                                <Box>     
-                                    <Typography onClick={e=>setCreditCardStatus(true)} component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D', mt: '32px' }}>
+                                <Box className='payment-plan-box'>     
+                                    <Typography   className={creditCardStatus?'active small-caption':'small-caption'}  onClick={e=>setCreditCardStatus(true)} component="p" variant='body2'  sx={{ color: '#6C757D', mt: '32px' }}>
                                         Credit Card 
                                     </Typography>
-                                    <Typography onClick={e=>setCreditCardStatus(false)} component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D', mt: '32px' }}>
+                                    <Typography  className={creditCardStatus?'small-caption':'active small-caption'}  onClick={e=>setCreditCardStatus(false)} component="p" variant='body2' sx={{ color: '#6C757D', mt: '32px' }}>
                                         Paypal 
                                     </Typography>
                                 </Box>  

@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
-import { NotificationsNone, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
+import { NotificationsNone, Search, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
 import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
@@ -17,21 +17,28 @@ import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import {notificationActions} from '../../../_actions/notification.actions';
 import { useState, useEffect } from "react";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import {notificationAtom, authAtom} from '../../../_state/';
+import {notificationAtom, authAtom, notificationCountAtom} from '../../../_state/';
 import { useRecoilValue } from "recoil";
-const drawerWidth = 240;
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+const drawerWidth = '100%';
+const drawerHeight = '100vh';
 
 function Header(props) {
   const userActions = useUserActions();
   const notification = notificationActions();
   const notifications = useRecoilValue(notificationAtom);
   const userDetails = useRecoilValue(authAtom);
+  const notificaionCount = useRecoilValue(notificationCountAtom);
 
   const handleClear = async() => {
       let notId = notifications.map((item,index) => { if(index < 5){return( item.ct_notiy_id )}  })
       notification.clearNotifications(notId);
   };
- 
+
 useEffect(()=>{
       notification.notificationList() 
      
@@ -117,38 +124,85 @@ const singleRead = async (notId) =>{
 
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+    <Box className='mobile-nav-box' onClick={handleDrawerToggle} sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
+      <Box>
+        <Box display='flex' justifyContent='space-between' alignItems='center'>
+          <Box>
+            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+          </Box>
+          <Box display='flex' alignItems='center' >
+            <Box>
+              <IconButton
+                size="small"
+                className='icon-btn icon-avatar-img btnicon' aria-label="flash" color="primary">
+                <NotificationsNone color="action" />
+              </IconButton>
+            </Box>
+            <Box className=''>
+              <IconButton
+                size="small"
+                sx={{ ml: 2, }} className='icon-avatar-img btnicon mobile-avatar' aria-label="flash" color="primary">
+                <img src={UserAvatar} />
+              </IconButton>
+            </Box>
+            <Box className='close'><p>+</p></Box>
+          </Box>
+        </Box>
+        <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
+          <Button variant='standard' className='nav-mobile-btn btn'>Crypto</Button>
+          <Accordion className='submenu'>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="acadamy"
+            >
+              <Button
+                id="acedamy-btn"
 
-      <Divider />
-      <List alignItems='center' className='itemnavitem'>
-        {navItems.map((item, i) => {
-          return (
-            <ListItem key={i} disablePadding alignItems='center'>
+              >
+                Academy
+              </Button>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
+              <Typography onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+            </AccordionDetails>
+          </Accordion>
+          <List className='itemnavitem'>
+            {navItems.map((item, i) => {
+              return (
+                <ListItem key={i} disablePadding >
+                  <ListItemButton >
+                    {item.icon &&
+                      <img src={item.icon} alt={item.page} />
+                    }
+                    <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
+                  </ListItemButton>
+                </ListItem>
+              )
+            })}
+            <ListItem disablePadding alignItems='center'>
               <ListItemButton sx={{ textAlign: 'center' }}>
-                {item.icon &&
-                  <img src={item.icon} alt={item.page} />
-                }
-                <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
+                <ListItemText primary="" onClick={() => { navigate(item.link) }}>
+                  Search
+                </ListItemText>
               </ListItemButton>
             </ListItem>
-          )
-        })}
-        <ListItem disablePadding alignItems='center'>
-          <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText primary="" onClick={() => { navigate(item.link) }}>
-              Search
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>notifications
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText primary="" onClick={() => { navigate(item.link) }}>
-              Login
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-      </List>
+            <ListItem disablePadding>
+              <ListItemButton sx={{ textAlign: 'center' }}>
+                <ListItemText primary="" onClick={() => { navigate(item.link) }}>
+                  Login
+                </ListItemText>
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Box>
+      </Box>
+      <Box display='flex' justifyContent='space-between'>
+        <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Profile settings</Button>
+        <IconButton aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
+        <IconButton aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
+      </Box>
 
     </Box>
   );
@@ -160,24 +214,16 @@ const singleRead = async (notId) =>{
       <CssBaseline />
       <AppBar component="nav" className="app-nav">
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography
             variant="h6"
 
             onClick={() => { navigate('/') }}
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
+            sx={{ flexGrow: 1, display: { xs: 'block', md: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
           >
-            <img src={CoinGuru} alt='Coin Guru' />
+            <img width='140' src={CoinGuru} alt='Coin Guru' />
           </Typography>
-          <Box className='' sx={{ display: { xs: 'none', sm: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
+
+          <Box className='' sx={{ display: { xs: 'none ', md: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>
               <li >
                 <Button
@@ -187,6 +233,7 @@ const singleRead = async (notId) =>{
                   aria-expanded={open ? 'true' : undefined}
                   onClick={handleClick}
                   endIcon={<KeyboardArrowDown />}
+                  sx={{ display: { xs: 'none ', md: 'flex' } }}
                 >
                   Academy
                 </Button>
@@ -214,13 +261,13 @@ const singleRead = async (notId) =>{
               </Button>
             ))}
           </Box>
-          <Box className='end-flex' sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
+          <Box className='end-flex' sx={{ display: { xs: 'none', md: 'block', flex: 2, textAlign: 'right' } }}>
             <Button id="currency-positioned-button"
               aria-controls={open ? 'currency-positioned-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
               endIcon={<KeyboardArrowDown />}
-              onClick={handleClickB} className='btn' sx={{ color: '#23262F' }}>
+              onClick={handleClickB} className='btn mobile-none' sx={{ color: '#23262F', display: { xs: 'none !important', md: 'flex' } }}>
               EN/USD
             </Button>
             <Menu
@@ -284,18 +331,24 @@ const singleRead = async (notId) =>{
                 </Grid>
               </Box>
             </Menu>
-            <IconButton className='icon-btn' aria-label="flash" color="primary">
-              <FlashOnOutlined />
+            <IconButton className='icon-btn icon-avatar-img btnicon' onClick={handleClickAnchorbtn} size="small"
+              sx={{ ml: 2 }}
+              aria-controls={openAnchorbtn ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openAnchorbtn ? 'true' : undefined} aria-label="flash" color="primary">
+              <FlashOnOutlined color="action" />
             </IconButton>
 
-            <IconButton  onClick={handleClickAnchorbtn}
+            <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
               size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
               aria-haspopup="true"
-              aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon' aria-label="flash" color="primary">
+              aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
+              <IconButton>
               <NotificationsNone color="action" />
             </IconButton>
+            </Badge>
             <Menu
               anchorEl={anchorElAnchorbtn}
               id=""
@@ -303,7 +356,6 @@ const singleRead = async (notId) =>{
               open={openAnchorbtn}
               onClose={handleCloseAnchorbtn}
               onClick={handleCloseAnchorbtn}
-
               PaperProps={{
                 elevation: 0,
                 sx: {
@@ -341,11 +393,11 @@ const singleRead = async (notId) =>{
                   return(
                     <>
                     
-                    <MenuItem  sx={{padding:'0'}}>
+                    <MenuItem  onClick={()=> singleRead(item.ct_notiy_id)} sx={{padding:'0'}}>
                      <span className='outer-div-menu'>
                       <span className='inner-div-menu'>
                         <span className='head-menu'>{item.ct_notify_title}</span>
-                        <span className='pl-3 sub-head-menu'><FiberManualRecord onClick={()=> singleRead(item.ct_notiy_id)} /></span>
+                        <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
                       </span>
                       <Typography className='secondary-color' sx={{fontSize:'10px'}}>{item.ct_notify_created_At}</Typography>
                      </span>
@@ -361,7 +413,7 @@ const singleRead = async (notId) =>{
                   <Button onClick={() =>{navigate('/notifications')}} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
                     View all
                   </Button>
-                  <Button  onClick={handleClear}  variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                  <Button onClick={handleClear} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
                     Clear all
                   </Button>
                 </Box>
@@ -369,19 +421,19 @@ const singleRead = async (notId) =>{
                 }
               
               </Box>
-
             </Menu>
             <IconButton className='icon-btn' onClick={e => navigate('/subscription#')} aria-label="flash" color="primary">
               <ShoppingCartOutlinedIcon />
             </IconButton>
-            <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+            <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline mobile-none' sx={{ display: { xs: 'none', md: 'block' }, color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid', }}>
               Account
             </Button>
-            <IconButton aria-label="sunny" color="primary " >
+            <IconButton aria-label="sunny" color="primary " className=' mobile-none'>
               <WbSunnyOutlined />
             </IconButton>
 
             <IconButton onClick={handleClickAnchor}
+
               size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchor ? 'account-menu' : undefined}
@@ -463,10 +515,21 @@ const singleRead = async (notId) =>{
               </MenuItem>
 
             </Menu>
+
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
       <Box component="nav">
+
         <Drawer
           container={container}
           variant="temporary"

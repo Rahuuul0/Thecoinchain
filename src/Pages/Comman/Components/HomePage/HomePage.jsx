@@ -25,23 +25,31 @@ import GoogleIcon from "../../../../../public/assets/images/google-g-2015-logo-s
 import InformedCypto from "../../../../../public/assets/images/informed-cypto.svg";
 import DarkLogo from "../../../../../public/assets/images/logo.svg";
 import Globe from "../../../../../public/assets/images/globe.svg";
+import Wallet from "../../../../../public/assets/images/wallet-home.svg";
+import Money from "../../../../../public/assets/images/money.svg";  
+import Treding from "../../../../../public/assets/images/treding.svg";  
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Marquee from "react-fast-marquee";
 import CryptoTable from "../../CryptoTable";
-import { useNavigate } from "react-router-dom";
-import { useRecoilValue,useSetRecoilState } from "recoil";
-import { useCoinActions, useTutorialActions, bannerListActions } from "../../../../_actions";
+import { useNavigate } from "react-router-dom"; 
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  useCoinActions,
+  useTutorialActions,
+  bannerListActions,
+} from "../../../../_actions";
 import {
   coinCategoryAtom,
   selectedCategoryAtom,
   tutorialAtom,
   cardCoinsAtom,
   loaderAtom,
-  bannerListAtom
+  bannerListAtom,
 } from "../../../../_state";
 import ReactPlayer from "react-player";
+import dayjs from "dayjs";
 
 const Home = () => {
   const coinActions = useCoinActions();
@@ -59,21 +67,20 @@ const Home = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    tutorialAction.tutorialData();
-  }, []);
 
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }, []);
   const getFirstLetters = (str) => {
     const firstLetters = str.replace("Portfolio", "");
     return firstLetters;
-  };
+  }
 
   //subscribedUser Api
   useEffect(() => {
-    const response = bannerActions.get()
-    response.then((res) => { (res) })
-  }, [])
+    const response = bannerActions.get();
+    response.then((res) => {
+      res;
+    });
+  }, []);
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
@@ -143,29 +150,20 @@ const Home = () => {
             {cardCoinsList?.map((item, index) => {
               if (index < 4) {
                 return (
-                  <Grid item xs={12} sm={3} md={3} className="gridBox">
-                    <img
-                      src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}
-                      alt={item.symbol}
-                      width="33px"
-                    />
-                    <Stack
-                      direction="row"
-                      spacing={2}
-                      alignItems="center"
-                      paddingTop={1}
-                      paddingBottom={1}
-                    >
-                      <Typography
-                        className="top-head"
-                        sx={{ fontSize: "12px !important" }}
-                      >
+                  <Grid item xs={12} sm={3} md={3} className='gridBox'>
+                    <img src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`} alt={item.symbol} width="33px" />
+                    <Stack direction="row" spacing={2} alignItems='center' paddingTop={1} paddingBottom={1}>
+                      <Typography className='top-head' sx={{ fontSize: '12px !important' }}>
                         {item.symbol}/USDT
                       </Typography>
                       <Button
                         variant="contained"
-                        className="orange-btn"
-                        sx={{ borderRadius: "90px" }}
+                        className={
+                          item.percent_change_24h < 0
+                            ? "orange-btn"
+                            : "green-btn"
+                        }
+                        sx={{ borderRadius: "90px", cursor: "default" }}
                       >
                         {item.percent_change_24h?.toFixed(2)}%
                       </Button>
@@ -198,7 +196,7 @@ const Home = () => {
                       {item.volume_24h?.toFixed(2)}
                     </Typography>
                   </Grid>
-                );
+                )
               }
             })}
           </Grid>
@@ -358,7 +356,7 @@ const Home = () => {
                               fontWeight={400}
                               className="secondary-color primary-font"
                             >
-                              {item.created_at.substring(0, 10)}
+                              {dayjs(item.created_at).format("MMM DD,YYYY")}
                             </Typography>
                           </Grid>
                           <Grid item xs={6}>
@@ -491,7 +489,7 @@ const Home = () => {
                                 fontWeight={400}
                                 className="secondary-color primary-font"
                               >
-                                {item.created_at.substring(0, 10)}
+                                {dayjs(item.created_at).format("MMM DD,YYYY")}
                               </Typography>
                             </Grid>
                             <Grid item xs={6}>
@@ -624,7 +622,7 @@ const Home = () => {
                                 fontWeight={400}
                                 className="secondary-color primary-font"
                               >
-                                {item.created_at.substring(0, 10)}
+                                {dayjs(item.created_at).format("MMM DD,YYYY")}
                               </Typography>
                             </Grid>
                             <Grid item xs={6}>
@@ -944,14 +942,7 @@ const Home = () => {
         <CryptoTable isIt={false} />
       </Container>
 
-      <Container
-        maxWidth="fluid"
-        className=""
-        sx={{
-          backgroundColor: "#F4F5F6",
-          paddingTop: { md: "80px", sm: "20px" },
-        }}
-      >
+      <Container maxWidth='fluid' className='' sx={{ backgroundColor: '#F4F5F6', paddingTop: { md: '80px', sm: '20px' }, }} >
         <Container>
           <Box paddingTop={5} paddingBottom={15} className="become-crypto">
             <Typography
@@ -1272,7 +1263,7 @@ const Home = () => {
         </Box>
         <Grid
           className="scrolling-tab"
-          paddingBottom={{ xs: 8, md: 10,lg: 12 }}
+          paddingBottom={{ xs: 8, md: 10, lg: 12 }}
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
@@ -1304,7 +1295,7 @@ const Home = () => {
           </Grid>
           <Grid item xs={6} sm={6} md={3}>
             <Box textAlign="center" className="howworks-box contact-line ">
-              <img src={Market} width={96} />
+              <img src={Wallet} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}
@@ -1329,7 +1320,7 @@ const Home = () => {
           </Grid>
           <Grid item xs={6} sm={6} md={3}>
             <Box textAlign="center" className="howworks-box contact-line ">
-              <img src={Market} width={96} />
+              <img src={Treding} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}
@@ -1354,7 +1345,7 @@ const Home = () => {
           </Grid>
           <Grid item xs={6} sm={6} md={3}>
             <Box textAlign="center" className="howworks-box ">
-              <img src={Market} width={96} />
+              <img src={Money} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}
@@ -1382,20 +1373,20 @@ const Home = () => {
       {/* how it works section ends */}
       {/* logo slider starts */}
       <Container maxWidth="fluid">
-     
         <Marquee>
-        {bannerList 
-        .map((item)=> {
-          return(
-          <Box paddingTop={8} paddingBottom={8}>
-            <Stack direction="row" spacing={8}>
-              <img className="margin10" src={`${process.env.REACT_APP_IMAGE_URL}/${item.image_url}`} />
-            </Stack>
-          </Box>
-            )
+          {bannerList.map((item) => {
+            return (
+              <Box paddingTop={8} paddingBottom={8}>
+                <Stack direction="row" spacing={8}>
+                  <img
+                    className="margin10"
+                    src={`${process.env.REACT_APP_IMAGE_URL}/${item.image_url}`}
+                  />
+                </Stack>
+              </Box>
+            );
           })}
         </Marquee>
-      
       </Container>
       {/* logo slider ends */}
     </>

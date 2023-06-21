@@ -49,7 +49,7 @@ import NewsPromotions from "./NewsPromotions";
 import Academy from "./Academy";
 import MasterCourse from "./MasterCourse";
 import AcademyAboutCrypto from "./AcademyAboutCrypto";
-import SubscriptionPayment from "./SubscriptionPayment";
+import SubscriptionPaymentPaypal from "./SubscriptionPaymentPaypal";
 import ForgotPasswordPhone from "./ForgotPasswordPhone";
 import ContentNotFound from "./ContentNotFound";
 
@@ -109,8 +109,8 @@ const Customer = () => {
           <Route path={`guides-analysis`} exact element={<GuidesAnalysis />} />
           <Route path={`community`} exact element={<Community />} />
           <Route path={`news-promotions`} exact element={<NewsPromotions />} />
-          <Route path={`academy`} exact element={<Academy />} />  
-          <Route path={`contentnotfound`} exact element={<ContentNotFound />} />  
+          <Route path={`academy`} exact element={<Academy />} />
+          <Route path={`contentnotfound`} exact element={<ContentNotFound />} />
 
           <Route
             path={`academy-about-crypto`}
@@ -121,7 +121,7 @@ const Customer = () => {
           <Route
             path={`/subscription-payment`}
             exact
-            element={<SubscriptionPayment />}
+            element={<SubscriptionPaymentPaypal />}
           />
         </Route>
 
@@ -137,10 +137,7 @@ const Customer = () => {
             path={`/password-recovery`}
             element={<ForgotPasswordPhone />}
           />
-          <Route
-            path={`/create-account/referral/:id`}
-            element={<CreateAccount />}
-          />
+          <Route path={`/create-account/:id`} element={<CreateAccount />} />
         </Route>
 
         {/* For account pages */}

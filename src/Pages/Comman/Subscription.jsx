@@ -1,12 +1,12 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Typography, Button, Link} from '@mui/material'
+import { Box, Container, Typography, Button, Link } from '@mui/material'
 import CryptoTrader01 from '../../../public/assets/images/crypto-trader-01.svg'
 import CryptoTrader02 from '../../../public/assets/images/crypto-trader-02.svg'
 import CryptoTrader03 from '../../../public/assets/images/crypto-trader-03.svg'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link as Links } from 'react-router-dom';
 import CheckoutPayment from './Components/CheckoutPayment';
 
 const Subscription = () => {
@@ -16,20 +16,20 @@ const Subscription = () => {
             <ThemeProvider theme={theme}>
                 <Box component="main" className='subscription-wrapper' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
-                        <Box className='subscription-wrapper-head'>
+                        <Box className='subscription-wrapper-head back-arrow'>
                             <Typography component="h2" variant='h2'>
                                 Subscriptions
                             </Typography>
 
                             <Typography component="small" variant='body2' className='' sx={{ color: '#777E90', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                How to buy crypto on Bitcloud <Link sx={{ color: '#353945', display: 'flex', alignItems: 'center' }}>Learn now <KeyboardArrowRightIcon sx={{ width: '16px' }} /></Link>
+                                How to buy crypto on Bitcloud <Links to={'/learn-cypto'} className='v-center' sx={{ color: '#353945', display: 'flex', alignItems: 'center' }}>Learn now <KeyboardArrowRightIcon sx={{ width: '16px' }} /></Links>
                             </Typography>
                         </Box>
                     </Container>
 
                     <Box className='subscription-steps'>
-                        <Container maxWidth="lg">                                            
-                            <CheckoutPayment />  
+                        <Container maxWidth="lg">
+                            <CheckoutPayment />
                         </Container>
                     </Box>
                     <Box className='become-a-crypto-trader'>
@@ -54,7 +54,7 @@ const Subscription = () => {
                                         We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                                     </Typography>
 
-                                    <Button variant='outlined' className='btn btn-outlined-secondary'>Buy crypto</Button>
+                                    <Button onClick={()=>{navigate("/contentnotfound")}} variant='outlined' className='btn btn-outlined-secondary'>Buy crypto</Button>
                                 </Box>
                                 <Box className='become-a-crypto-trader-card'>
                                     <Box className='crypto-trader-img'>
@@ -67,7 +67,7 @@ const Subscription = () => {
                                         We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                                     </Typography>
 
-                                    <Button variant='outlined' className='btn btn-outlined-secondary'>Trade now</Button>
+                                    <Button onClick={()=>{navigate("/contentnotfound")}}  variant='outlined' className='btn btn-outlined-secondary'>Trade now</Button>
                                 </Box>
                                 <Box className='become-a-crypto-trader-card'>
                                     <Box className='crypto-trader-img'>
@@ -80,14 +80,14 @@ const Subscription = () => {
                                         We realize ideas from simple to complex, everything becomes easy to use and reach the most potential customers.
                                     </Typography>
 
-                                    <Button variant='outlined' className='btn btn-outlined-secondary'>Learn now</Button>
+                                    <Button onClick={()=>{navigate("/learn-cypto")}}  variant='outlined' className='btn btn-outlined-secondary'>Learn now</Button>
                                 </Box>
                             </Box>
                             <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={() => { navigate("/contact") }}>Contact Us</Button>
                         </Container>
                     </Box>
-                </Box >
-            </ThemeProvider >            
+                </Box>
+            </ThemeProvider>            
         </>
     )
 }

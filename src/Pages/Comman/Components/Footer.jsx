@@ -61,7 +61,7 @@ const Footer = () => {
               > <img className='logo-cg' src={Darklogo} />
               </Button>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC', }} paddingLeft={5} paddingRight={5} paddingTop={4} paddingBottom={4} >
+            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC' }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ md: 4, sm: 3 }} paddingBottom={{ md: 4, sm: 3 }} >
               <Box className="quick-links">
                 <Stack spacing={2}>
                   <RouterLink to={"/contact"}>Contacts</RouterLink>
@@ -72,7 +72,7 @@ const Footer = () => {
                 </Stack>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC', }} paddingLeft={5} paddingRight={5} paddingTop={4} paddingBottom={4} >
+            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC', }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ md: 4, sm: 3 }} paddingBottom={{ md: 4, sm: 3 }}  >
               <Box className="quick-links">
                 <Stack spacing={2}>
                   <RouterLink to={"/prediction-dashboard"} >Price Forecast</RouterLink>
@@ -83,7 +83,7 @@ const Footer = () => {
                 </Stack>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} paddingLeft={5} paddingTop={4} paddingBottom={4} >
+            <Grid item xs={12} sm={12} md={3} paddingLeft={{ md: 5, sm: 2 }} paddingTop={{ md: 4, sm: 3 }} paddingBottom={{ md: 4, sm: 3 }} >
               <Box
                 noValidate
                 component="form"

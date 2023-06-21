@@ -51,7 +51,7 @@ const AccountConfirm = () => {
     if (radioOption === "email") {
       userActions.getOtp();     
     }else {
-      userActions.getOtpPhone({phone:localStorage.getItem("phone")});      
+      userActions.getOtpPhone(localStorage.getItem("phone"));      
     }
   }
   const handleOtpSubmit = async () => {
@@ -138,7 +138,7 @@ const AccountConfirm = () => {
                           <FormControlLabel
                             value="phone"
                             control={<Radio />}
-                            label={`Get the code by text message (SM) at ${localStorage.getItem("phone")}`}
+                            label={`Get the code by Mobile Number (SM) at ${localStorage.getItem("phone")}`}
                           />
                           <Box component="div" className="devider" />
                           <FormControlLabel

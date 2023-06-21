@@ -4,7 +4,7 @@ import { theme } from "../../_common/app.constants"
 import { useEffect, useState } from 'react';
 import { Box, Container, Typography, Button, Link, Breadcrumbs } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
-import {userLoginHistoryActions} from '../../_actions';
+import { userLoginHistoryActions } from '../../_actions';
 import { useNavigate } from "react-router-dom";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -142,7 +142,7 @@ const SessionHistory = () => {
                                                             </TableCell>
                                                         </TableRow>
                                                             )
-                                                        })}  
+                                                        })}
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
@@ -155,7 +155,7 @@ const SessionHistory = () => {
                                             Login history
                                         </Typography>
                                         <Box className='session-list'>
-                                       
+
                                             <TableContainer>
                                                 <Table sx={{ minWidth: { xs: '250px', md: '650px' } }} aria-label="simple table">
                                                     <TableHead>
@@ -168,7 +168,7 @@ const SessionHistory = () => {
                                                             <TableCell>
                                                                 <Typography component="small" variant='body2' className='' sx={{ fontWeight: '600' }}>
                                                                     IP address
-                                                                    
+
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell align="right">

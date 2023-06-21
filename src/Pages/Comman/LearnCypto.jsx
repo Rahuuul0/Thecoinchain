@@ -103,11 +103,15 @@ const LearnCypto = () => {
   useEffect(() => {
     setVideoUrl(tutorialsData[0]?.video_link);
     setImageUrl(tutorialsData[0]?.image_link);
+
   }, [tutorialsData]);
 
   const handleLoadMore = () => {
     setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+
   };
+  // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
   return (
     <>
@@ -140,13 +144,7 @@ const LearnCypto = () => {
               paddingTop={3}
               paddingBottom={10}
             >
-              <Button
-                variant="contained"
-                className="btn btn-primary"
-                onClick={() => {
-                  navigate("../learn-cypto-detail");
-                }}
-              >
+              <Button variant="contained" className="btn btn-primary">
                 Learn Now{" "}
               </Button>
               <Button
@@ -235,13 +233,13 @@ const LearnCypto = () => {
                                 justifyContent="space-between"
                               >
                                 <Box height="50">
-                                  <Button
+                                  <Typography
                                     textTransform="uppercase"
                                     sx={{ marginBottom: "50px" }}
-                                    className="orange-btn small-btn"
+                                    className="orange-btn small-btn small-new-btn"
                                   >
                                     New
-                                  </Button>
+                                  </Typography>
                                 </Box>
                                 <Box className="" paddingBottom={5}>
                                   <Typography
@@ -296,13 +294,13 @@ const LearnCypto = () => {
                                 justifyContent="space-between"
                               >
                                 <Box height="50">
-                                  <Button
+                                  <Typography
                                     textTransform="uppercase"
                                     sx={{ marginBottom: "50px" }}
-                                    className="orange-btn small-btn"
+                                    className="orange-btn small-btn small-new-btn"
                                   >
                                     New
-                                  </Button>
+                                  </Typography>
                                 </Box>
                                 <Box className="" paddingBottom={5}>
                                   <Typography
@@ -356,13 +354,13 @@ const LearnCypto = () => {
                                 justifyContent="space-between"
                               >
                                 <Box height="50">
-                                  <Button
+                                  <Typography
                                     textTransform="uppercase"
                                     sx={{ marginBottom: "50px" }}
-                                    className="orange-btn small-btn"
+                                    className="orange-btn small-btn small-new-btn"
                                   >
                                     New
-                                  </Button>
+                                  </Typography>
                                 </Box>
                                 <Box className="" paddingBottom={5}>
                                   <Typography
@@ -406,23 +404,6 @@ const LearnCypto = () => {
       <Container>
         <TabContext value={tutorialTab}>
           <Box paddingY={7}>
-            <Box>
-              <Stack
-                display="flex"
-                flexDirection="row"
-                justifyContent="space-between"
-                paddingY={5}
-                sx={{ borderBottom: "1px solid #E6E8EC" }}
-              >
-                <Typography className="body-large" fontWeight={600}>
-                  Search anything about crypto
-                </Typography>
-                <Button className="search-icon">
-                  <Search />
-                </Button>
-              </Stack>
-            </Box>
-
             <Box
               sx={{ display: { xs: "block", md: "flex" } }}
               flexDirection="row"
@@ -477,10 +458,10 @@ const LearnCypto = () => {
                     onChange={handleChangeTutorialTab}
                     aria-label="lab API tabs example"
                   >
-                    <Tab label="Tutorials" value="1" />
-                    <Tab label="Usecase" value="2" />
-                    <Tab label="Trading" value="3" />
-                    <Tab label="Wallet" value="4" />
+                    <Tab onClick={()=>{navigate("/contentnotfound")}}  label="Tutorials" value="1" />
+                    <Tab  onClick={()=>{navigate("/contentnotfound")}}  label="Usecase" value="2" />
+                    <Tab  onClick={()=>{navigate("/contentnotfound")}}  label="Trading" value="3" />
+                    <Tab  onClick={()=>{navigate("/contentnotfound")}}  label="Wallet" value="4" />
                   </TabList>
                 </Stack>
               </Box>
@@ -496,12 +477,12 @@ const LearnCypto = () => {
                         navigate("../learn-cypto-detail");
                       }}
                     >
-                      <Button
+                      <Typography
                         textTransform="uppercase"
-                        className="orange-btn float-img small-btn"
+                        className="orange-btn float-img small-btn small-new-btn"
                       >
                         New
-                      </Button>
+                      </Typography>
 
                       <Box
                         className="avatar-rounded"
@@ -540,9 +521,9 @@ const LearnCypto = () => {
                         </Box>
 
                         <Box>
-                          <Button className="btn btn-green-outlined">
+                          <Typography className="btn btn-green-outlined small-new-btn">
                             Popular
-                          </Button>
+                          </Typography>
                         </Box>
                       </Stack>
                     </Box>
@@ -556,7 +537,9 @@ const LearnCypto = () => {
                 className="btn btn-outlined-secondary"
                 varient="outlined"
                 endIcon={<ArrowDropDown />}
-                onClick={handleLoadMore}
+                onClick={() => {
+                  navigate("/learn-cypto-detail");
+                }}
               >
                 Learn More
               </Button>

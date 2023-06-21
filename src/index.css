@@ -3392,3 +3392,15 @@ display: none !important;
   background-color: #353945;
   color: #fff;
 }
+#root .button-img .btn.active{
+  background-color: #f2f2f2;
+  color: #000;
+}
+#root .button-img .btn.active img{
+  border: 1px solid #ffffff;
+}
+#root .button-img .btn img{
+  border: 1px solid transparent;
+  border-radius: 90px;
+  padding: 0;
+}

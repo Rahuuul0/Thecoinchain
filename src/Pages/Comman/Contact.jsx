@@ -161,6 +161,7 @@ const Contact = () => {
     reset({ ...formData, question: question[0] })
   },[question]);
 
+
   return (
     <>
       {/* Banner starts */}
@@ -372,8 +373,8 @@ const Contact = () => {
               <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>Select a topic</Typography>
 
               <Stack direction='row' spacing={3} className='button-img' >
-                <Button className='btn' variant="outlined" onClick={() => { setCategory("general"); handleGenral(); }} > <span><img src={GenralIcon} /></span> General</Button>
-                <Button className='btn' variant="outlined" onClick={() => { setCategory("subscriptions"); handleSubscription(); }} > <span><img src={SubsIcon} /></span> Subscription</Button>
+                <Button className={category=="general"?"active btn":"btn"} variant="outlined" onClick={() => { setCategory("general"); handleGenral(); }} > <span><img src={GenralIcon} /></span> General</Button>
+                <Button className={category=="subscriptions"?"active btn":"btn"} variant="outlined" onClick={() => { setCategory("subscriptions"); handleSubscription(); }} > <span><img src={SubsIcon} /></span> Subscription</Button>
               </Stack>
             </Box>
             <Box paddingBottom={2}>

@@ -92,7 +92,8 @@ const ForgotPassword = () => {
             <Box className="auth-header-logo">
               <Link
                 onClick={() => {
-                  navigate("/"), setSoption(true);
+                  navigate("/");
+                  setSoption(true);
                 }}
               >
                 <img src={LogoLight} alt="Coin Guru" className="desktop" />
@@ -112,7 +113,7 @@ const ForgotPassword = () => {
                 variant="body2"
                 sx={{ fontSize: "14px", color: "#2B2B2B;" }}
               >
-                Don’t have an account?{" "}
+                Don’t have an account?
                 <Link
                   onClick={() => {
                     navigate("/create-account");
@@ -133,6 +134,7 @@ const ForgotPassword = () => {
                 <IconButton
                   onClick={() => {
                     navigate("/login");
+                    setSoption(true);
                   }}
                   aria-label="delete"
                   className="btn-primary btn"
@@ -295,7 +297,7 @@ const ForgotPassword = () => {
                       />
                     </Box>
                     <Box component="div" className="auth-otp-cta">
-                      {timer > 1 ? (
+                      {timer > 0 && (
                         <Button
                           disabled
                           style={{ background: "#ccc" }}
@@ -304,24 +306,18 @@ const ForgotPassword = () => {
                         >
                           Resend Code ({timer})
                         </Button>
-                      ) : timer < 1 ? (
+                      )}
+                      {timer < 1 && (
                         <Button
                           type="button"
                           variant="outlined"
                           className="btn btn-outlined-secondary"
                           onClick={() => {
-                            userActions.forgotPassword(formData.email);
+                            userActions.forgotPassword({
+                              email: formData.email,
+                            });
                             resetTimer();
                           }}
-                        >
-                          Resend Code
-                        </Button>
-                      ) : (
-                        <Button
-                          disabled
-                          style={{ background: "#ccc" }}
-                          variant="outlined"
-                          className="btn btn-outlined-secondary"
                         >
                           Resend Code
                         </Button>

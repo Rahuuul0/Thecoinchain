@@ -301,6 +301,7 @@ const ForgotPasswordPhone = () => {
                       {timer < 1 && (
                         <Button
                           type="button"
+                          disabled
                           variant="outlined"
                           className="btn btn-outlined-secondary"
                           onClick={() => {

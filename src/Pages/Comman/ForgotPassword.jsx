@@ -295,19 +295,16 @@ const ForgotPassword = () => {
                       />
                     </Box>
                     <Box component="div" className="auth-otp-cta">
-                      {timer > 1 && (
+                      {timer > 1 ? (
                         <Button
-                          type="button"
+                          disabled
+                          style={{ background: "#ccc" }}
                           variant="outlined"
                           className="btn btn-outlined-secondary"
-                          onClick={() => {
-                            userActions.forgotPassword(formData.email);
-                          }}
                         >
                           Resend Code ({timer})
                         </Button>
-                      )}
-                      {timer < 1 && (
+                      ) : timer < 1 ? (
                         <Button
                           type="button"
                           variant="outlined"
@@ -316,6 +313,15 @@ const ForgotPassword = () => {
                             userActions.forgotPassword(formData.email);
                             resetTimer();
                           }}
+                        >
+                          Resend Code
+                        </Button>
+                      ) : (
+                        <Button
+                          disabled
+                          style={{ background: "#ccc" }}
+                          variant="outlined"
+                          className="btn btn-outlined-secondary"
                         >
                           Resend Code
                         </Button>

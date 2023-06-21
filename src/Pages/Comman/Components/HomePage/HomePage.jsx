@@ -961,8 +961,7 @@ const Home = () => {
               paddingTop={3}
               paddingBottom={4}
             >
-              Stacks is a production-ready library of stackable content blocks
-              built in React Native.
+              We've got everything you need to start trading.
             </Typography>
             <Box paddingBottom={6}>
               <Grid
@@ -985,6 +984,7 @@ const Home = () => {
                       customers.
                     </Typography>
                     <Button
+                      onClick={()=>{navigate("/contentnotfound")}} 
                       className="btn btn-outlined-secondary"
                       sx={{ margin: "0 auto" }}
                     >
@@ -1007,6 +1007,7 @@ const Home = () => {
                       customers.
                     </Typography>
                     <Button
+                      onClick={()=>{navigate("/contentnotfound")}} 
                       className="btn btn-outlined-secondary"
                       sx={{ margin: "0 auto" }}
                     >

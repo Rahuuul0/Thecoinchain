@@ -21,6 +21,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import { styled, alpha } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate } from 'react-router-dom';
+import {West, East} from '@mui/icons-material';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -237,6 +238,15 @@ const Contact = () => {
               </Box>
             </Grid>
           </Grid>
+          <Stack direction="row" spacing={3} justifyContent='center'>
+                    <Box className="slider-icon">
+                      <West />
+                    </Box>
+                    <Box className="slider-icon active-slider-icon">
+                      <East />
+                    </Box>
+                  </Stack>
+
           <Typography textAlign='center' paddingTop={10}>
             <Button 
                 endIcon={<ArrowDropDown />}

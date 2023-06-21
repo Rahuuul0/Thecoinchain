@@ -193,7 +193,7 @@ div * {
 
 #root h2 {
   font-weight: 700;
-  font-size: 48px;
+  font-size: 48px !important;
 }
 
 #root h3 {
@@ -376,6 +376,9 @@ img,
 
   .footer .footer-subs-form button {
     margin-top: 20px;
+  }
+  #root .font-40{
+    font-size: 40px !important;
   }
 }
 
@@ -1184,17 +1187,18 @@ input[type="number"] {
 }
 
 .contact-line:before {
+
   content: "O------------O";
-  /* content: url("./../public/assets/images/connect-line.svg"); */
+  /* content: url(./../public/assets/images/connect-line.svg); */
   position: absolute;
-  left: 76%;
+  left: 50%;
   top: 10%;
   width: 160px;
   height: 12px;
   z-index: 11;
   display: inline-block;
   color: #b1b5c3;
-  /* background-color: #000; */
+  transform: translate(35%, 0px);
 }
 
 /* Homepage Ends */
@@ -1202,6 +1206,9 @@ input[type="number"] {
 .center-tab .MuiTabs-flexContainer {
   justify-content: center !important;
   gap: 20px;
+}
+.howworks-box{
+  width: 270px;
 }
 
 .filter-btn .btn {
@@ -2590,6 +2597,10 @@ video[poster] {
   width: 100%;
   overflow-x: hidden;
 }
+.subscription-steps-col p.left-icon{
+  opacity: 1;
+  color: #777E90;
+}
 
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
@@ -2749,6 +2760,9 @@ video[poster] {
 
   .session-history .subscription-steps-inner {
     grid-template-columns: 1fr;
+  }
+  .contact-line:before{
+    transform: translate(0%, 0px);
   }
 }
 
@@ -3304,8 +3318,11 @@ video[poster] {
     width: auto;
   }
 
-  .modal-subscribed-cta .btn {
+  .modal-subscribed-cta .btn#root h2 {
     width: 100%;
+  }
+  .crypto-list-table table tbody td:first-child{
+    padding-left: 0px;
   }
 }
 
@@ -3359,7 +3376,7 @@ video[poster] {
 }
 
 .text-black{
-  color: #23262F;
+  color: #23262F !important;
 }
 .text-black .dark-icon{
   display: block;

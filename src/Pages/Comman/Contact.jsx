@@ -128,7 +128,6 @@ const Contact = () => {
 }, [contactError])
 
   const handleFormSubmit = async (data) =>{
-    console.log(data,"data") 
     setIsSubmitting(true)
     setContactError(false)
     data.category = category;

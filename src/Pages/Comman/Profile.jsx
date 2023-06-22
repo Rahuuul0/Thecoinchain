@@ -33,7 +33,6 @@ import { userAtom, authAtom, forecastSubAtom } from "../../_state";
 import dayjs from "dayjs";
 import MuiPhoneNumber from "material-ui-phone-number";
 import LoadingButton from '@mui/lab/LoadingButton';
-import SendIcon from "@mui/icons-material/Send";
 
 function handleClick(event) {
   event.preventDefault();
@@ -513,7 +512,6 @@ const Profile = (props) => {
                         loadingPosition="end"
                         className="btn btn-primary"
                         sx={{ marginLeft: "auto" }}
-                        endIcon={<SendIcon />}
                         disabled={isSubmitting}
                       >
                         Save Settings

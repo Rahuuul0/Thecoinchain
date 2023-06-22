@@ -24,6 +24,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useAlertActions } from '../../_actions/alert.actions';
 import { switchAtom } from '../../_state';
 import { useRecoilState } from 'recoil';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const AccountConfirm = () => {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const AccountConfirm = () => {
   const { handleSubmit } = useForm();
   const alertActions = useAlertActions();
   const [Soption, setSoption] = useRecoilState(switchAtom);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [timer, setTimer] = useState(60);    
   const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
@@ -48,6 +50,7 @@ const AccountConfirm = () => {
   };  
 
   const onSubmitFun = async () => {
+  
     if (radioOption === "email") {
       userActions.getOtp();     
     }else {
@@ -55,6 +58,7 @@ const AccountConfirm = () => {
     }
   }
   const handleOtpSubmit = async () => {
+  
     if (OTP.length !== 4) { 
       alertActions.error("Fill OTP First"); } 
     else { 
@@ -149,14 +153,16 @@ const AccountConfirm = () => {
                         </RadioGroup>
                       </FormControl>
 
-                      <Button
+                      <LoadingButton
                         type="submit"
+                        loading={isSubmitting}
+                        loadingPosition="end"
                         variant="contained"
                         className="btn btn-primary"
                         endIcon={<KeyboardArrowRightIcon />}
                       >
                         Continue
-                      </Button>
+                      </LoadingButton>
                     </Box>
                   </Box>
                 </Box>

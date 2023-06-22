@@ -12,7 +12,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useUserActions } from "../../_actions/user.actions";
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import LoadingButton from '@mui/lab/LoadingButton';
-import SendIcon from "@mui/icons-material/Send";
 
 const ChangeAccountPassword = () => {
 

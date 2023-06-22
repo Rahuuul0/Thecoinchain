@@ -29,7 +29,6 @@ import OTPInput from "otp-input-react";
 import { KeyboardArrowLeft } from "@mui/icons-material/";
 import MuiPhoneNumber from "material-ui-phone-number";
 import LoadingButton from '@mui/lab/LoadingButton';
-import SendIcon from "@mui/icons-material/Send";
 
 
 const ForgotPasswordPhone = () => {
@@ -203,9 +202,7 @@ const ForgotPasswordPhone = () => {
                         loadingPosition="end"
                         variant="contained"
                         className="btn btn-primary"
-                        endIcon={<SendIcon />}
                         disabled={isSubmitting}
-                      
                       >
                         Continue
                       </LoadingButton>

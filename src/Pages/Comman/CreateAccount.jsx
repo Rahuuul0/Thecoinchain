@@ -31,7 +31,6 @@ import ReCAPTCHA from "react-google-recaptcha";
 import MuiPhoneNumber from "material-ui-phone-number";
 import GoogleAuth from "./GoogleAuth.jsx";
 import LoadingButton from '@mui/lab/LoadingButton';
-import SendIcon from "@mui/icons-material/Send";
 
 const CreateAccount = () => {
   const navigate = useNavigate();
@@ -400,7 +399,6 @@ const CreateAccount = () => {
                       variant="contained"
                       disabled={isSubmitting}
                       className="btn btn-primary"
-                      endIcon={<SendIcon />}
                       disabled={isSubmitting}
                     >
                       Sign up

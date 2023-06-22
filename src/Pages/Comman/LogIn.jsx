@@ -36,7 +36,7 @@ import GoogleLogin from "./GoogleLogin.jsx";
 import AppleIcon from "@mui/icons-material/Apple";
 import MuiPhoneNumber from "material-ui-phone-number";
 import LoadingButton from '@mui/lab/LoadingButton';
-import SendIcon from "@mui/icons-material/Send";
+
 
 const LogIn = () => {
   const [value, setValue] = useState("1");
@@ -344,11 +344,8 @@ const LogIn = () => {
                             loadingPosition="end"
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            // disabled={isSubmitting}
                             className="btn btn-primary"
-                            endIcon={<SendIcon />}
-                            disabled={isSubmitting}
-                          
+                            disabled={isSubmitting} 
                           >
                             Login
                           </LoadingButton>

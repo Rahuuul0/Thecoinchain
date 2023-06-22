@@ -283,7 +283,7 @@ const LearnCyptoDetail = () => {
 
                     <Box
                       className="avatar-rounded"
-                      onClick={() => scrollToVideo(scrollRef, item.video_link)}
+                      onClick={() => scrollToVideo(scrollRef, item.video_link,)}
                       sx={{ cursor: "pointer" }}
                     >
                       <img className="tutorial-preview" src={item.image_link} />

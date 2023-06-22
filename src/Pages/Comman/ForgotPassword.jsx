@@ -28,7 +28,6 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import OTPInput from "otp-input-react";
 import { KeyboardArrowLeft } from "@mui/icons-material/";
 import LoadingButton from '@mui/lab/LoadingButton';
-import SendIcon from "@mui/icons-material/Send";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -211,7 +210,6 @@ const ForgotPassword = () => {
                         loadingPosition="end"
                         variant="contained"
                         className="btn btn-primary"
-                        endIcon={<SendIcon />}
                         disabled={isSubmitting}
                       >
                         Continue

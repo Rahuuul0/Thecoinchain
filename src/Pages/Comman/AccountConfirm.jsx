@@ -22,7 +22,7 @@ import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useAlertActions } from '../../_actions/alert.actions';
-import { switchAtom } from '../../_state';
+import { switchAtom,userErrorAtom } from '../../_state';
 import { useRecoilState } from 'recoil';
 import LoadingButton from '@mui/lab/LoadingButton';
 
@@ -34,6 +34,7 @@ const AccountConfirm = () => {
   const { handleSubmit } = useForm();
   const alertActions = useAlertActions();
   const [Soption, setSoption] = useRecoilState(switchAtom);
+  const [userError, setUserError] = useRecoilState(userErrorAtom);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [timer, setTimer] = useState(60);    
@@ -49,20 +50,30 @@ const AccountConfirm = () => {
     }
   };  
 
+  useEffect(() => {
+    if (userError)
+        setIsSubmitting(false)
+}, [userError])
+
   const onSubmitFun = async () => {
   
     if (radioOption === "email") {
-      userActions.getOtp();     
+      userActions.getOtp(); 
+      setIsSubmitting(true)
+      setUserError(false)    
     }else {
-      userActions.getOtpPhone(localStorage.getItem("phone"));      
+      userActions.getOtpPhone(localStorage.getItem("phone"));   
+      setIsSubmitting(true)
+      setUserError(false)   
     }
   }
   const handleOtpSubmit = async () => {
-  
+   
     if (OTP.length !== 4) { 
       alertActions.error("Fill OTP First"); } 
     else { 
       userActions.verifyRegisterOtp(OTP) 
+    
     }   
   }
 
@@ -159,6 +170,7 @@ const AccountConfirm = () => {
                         loadingPosition="end"
                         variant="contained"
                         className="btn btn-primary"
+                        disabled={isSubmitting} 
                         endIcon={<KeyboardArrowRightIcon />}
                       >
                         Continue

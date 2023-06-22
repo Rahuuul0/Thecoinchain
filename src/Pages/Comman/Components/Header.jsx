@@ -133,8 +133,21 @@ function Header(props) {
           </Box>
         </Box>
         <Box display='flex' justifyContent='space-between'>
-          <Button variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', borderRadius: '90px' }}>Sign Up</Button>
-          <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Login</Button>
+          {/* <Button variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', borderRadius: '90px' }}>Sign Up</Button> */}
+          {/* <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Login</Button> */}
+          <Button
+              onClick={() => {
+                navigate("/create-account");
+              }}
+              variant="contained" className="btn btn-primary" sx={{ color: '#ffffff', backgroundColor: '#3772FF', borderRadius: '90px' }}
+            >Sign up</Button>
+            <Button
+              onClick={() => {
+                navigate("/login");
+              }}
+              variant="outline" className="btn btn-outline"  sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }} >
+              Login</Button>
+          
           <IconButton aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
           <IconButton aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
 

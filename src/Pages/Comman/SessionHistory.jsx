@@ -65,7 +65,7 @@ const SessionHistory = () => {
                             <Typography component="h2" variant='h2'>
                                 Sessions & login history
                             </Typography>
-                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
+                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', paddingTop: {xs: '10px', md: '0px'} }}>
                                 <Box  >
                                     <Breadcrumbs
                                         separator={<NavigateNext fontSize="small" />}

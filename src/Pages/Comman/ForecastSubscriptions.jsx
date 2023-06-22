@@ -158,7 +158,7 @@ const ForecastSubscriptions = () => {
                                                         </Typography>
                                                         <Box className="subscription-plan-body">
                                                             <Typography component="h4" variant='h4' className='plan-price'>
-                                                                {User.amount} <span className='plan-days'>/ {User.plan_type}</span>
+                                                                ${User.amount} <span className='plan-days'>/ {User.plan_type}</span>
                                                             </Typography>
 
                                                             <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>

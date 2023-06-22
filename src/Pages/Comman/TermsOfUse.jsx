@@ -1,18 +1,14 @@
-import { Container, Typography, Box, Link, Breadcrumbs, } from '@mui/material';
+import { Container, Typography, Box, Breadcrumbs, } from '@mui/material';
 import React from 'react';
 import { useEffect } from 'react';
+import { Link } from "react-router-dom"; 
 import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
-
-function handleClick(event) {
-    event.preventDefault();
-    console.info('You clicked a breadcrumb.');
-}
 
 
 const TermsOfUse = () => {
 
     const breadcrumbs = [
-        <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
+        <Link to="/" underline="hover" key="1" color="inherit" >
             Home
         </Link>,
         <Typography key="3" color="text.primary" sx={{ m: "0!important" }}>

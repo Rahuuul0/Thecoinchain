@@ -284,9 +284,6 @@ const Profile = (props) => {
                                 )}
                               </Typography>
                             </span>
-                            <span>
-                              <Switch {...label} defaultChecked />
-                            </span>
                           </Box>
                         </Box>
                         <Typography

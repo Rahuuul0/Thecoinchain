@@ -24,6 +24,7 @@ const GuidesAnalysis = (props) => {
     const guides = useRecoilValue(guidesAtom);
     const analytic = useRecoilValue(analyticAtom);
 
+    console.log(guides,'ewewrfewe3r')
        // Subscription action get function   API data call 
        useEffect(()=>{
         const response = guidesActions.get()
@@ -113,7 +114,7 @@ const GuidesAnalysis = (props) => {
                                             className='center-tab primary-tabs'
                                             aria-label="full width tabs example"
                                         >
-                                            <Tab label="Guide" {...a11yProps(0)} />
+                                            <Tab label="Guides" {...a11yProps(0)} />
                                             <Tab label="Analytics" {...a11yProps(1)} />
 
                                         </Tabs>
@@ -167,6 +168,7 @@ const GuidesAnalysis = (props) => {
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
+                                                                            sx={{paddingRight: {xs:'30px', md:'50px'}}}
                                                                                 className="blog-box"
                                                                                 display="flex"
                                                                                 flexDirection="column"
@@ -175,7 +177,7 @@ const GuidesAnalysis = (props) => {
                                                                                 <Box height="50">
                                                                                     <Typography
                                                                                         textTransform="uppercase"
-                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        sx={{ marginBottom: {xs: '10px', md: '50px'} }}
                                                                                         className="orange-btn small-btn small-new-btn"
                                                                                     >
                                                                                         New
@@ -213,7 +215,7 @@ const GuidesAnalysis = (props) => {
                                                             <TabPanel value={valueTab2} index2={1} dir={theme.direction}  sx={{padding: '0px'}}>
                                                             {guides
                                                                 .filter((blog) => {
-                                                                return blog.category === "Blogchain";
+                                                                return blog.category === "Blockchain";
                                                                 })
                                                                 .slice(0, 3)
                                                                 .map((items) => {
@@ -222,6 +224,7 @@ const GuidesAnalysis = (props) => {
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
+                                                                            sx={{paddingRight: {xs:'30px', md:'50px'}}}
                                                                                 className="blog-box"
                                                                                 display="flex"
                                                                                 flexDirection="column"
@@ -230,7 +233,8 @@ const GuidesAnalysis = (props) => {
                                                                                 <Box height="50">
                                                                                     <Typography
                                                                                         textTransform="uppercase"
-                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                       
+                                                                                        sx={{ marginBottom: {xs: '10px', md: '50px'} }}
                                                                                         className="orange-btn small-btn small-new-btn"
                                                                                     >
                                                                                         New
@@ -277,6 +281,7 @@ const GuidesAnalysis = (props) => {
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
+                                                                            sx={{paddingRight: {xs:'30px', md:'50px'}}}
                                                                                 className="blog-box"
                                                                                 display="flex"
                                                                                 flexDirection="column"
@@ -332,6 +337,7 @@ const GuidesAnalysis = (props) => {
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
+                                                                            sx={{paddingRight: {xs:'30px', md:'50px'}}}
                                                                                 className="blog-box"
                                                                                 display="flex"
                                                                                 flexDirection="column"
@@ -381,6 +387,7 @@ const GuidesAnalysis = (props) => {
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
+                                                                            sx={{paddingRight: {xs:'30px', md:'50px'}}}
                                                                                 className="blog-box"
                                                                                 display="flex"
                                                                                 flexDirection="column"
@@ -476,6 +483,7 @@ const GuidesAnalysis = (props) => {
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
+                                                                            sx={{paddingRight: {xs:'30px', md:'50px'}}}
                                                                                 className="blog-box"
                                                                                 display="flex"
                                                                                 flexDirection="column"
@@ -531,6 +539,7 @@ const GuidesAnalysis = (props) => {
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
+                                                                            sx={{paddingRight: {xs:'30px', md:'50px'}}}
                                                                                 className="blog-box"
                                                                                 display="flex"
                                                                                 flexDirection="column"
@@ -586,6 +595,7 @@ const GuidesAnalysis = (props) => {
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
+                                                                            sx={{paddingRight: {xs:'30px', md:'50px'}}}
                                                                                 className="blog-box"
                                                                                 display="flex"
                                                                                 flexDirection="column"
@@ -641,6 +651,7 @@ const GuidesAnalysis = (props) => {
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
+                                                                            sx={{paddingRight: {xs:'30px', md:'50px'}}}
                                                                                 className="blog-box"
                                                                                 display="flex"
                                                                                 flexDirection="column"
@@ -690,6 +701,7 @@ const GuidesAnalysis = (props) => {
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
+                                                                            sx={{paddingRight: {xs:'30px', md:'50px'}}}
                                                                                 className="blog-box"
                                                                                 display="flex"
                                                                                 flexDirection="column"

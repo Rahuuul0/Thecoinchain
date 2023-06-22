@@ -1,2 +1,12 @@
-export const General = ["Q.1", "Q.2","Q.3"]
-export const Subscriptions = ["Q.55", "Q.56","Q.57"]
+export const General = [
+"What do you mean by Bitcoin Mining?",
+"How do Bitcoin Transactions work",
+"How is Bitcoin Purchased?",
+"What do you mean by Double Spending?"
+]
+export const Subscriptions = [
+"What is a Bitcoin wallet?", 
+"Should we perceive it as important?",
+"What do we mean by hard limit?",
+"Can we sell Bitcoins?"
+]

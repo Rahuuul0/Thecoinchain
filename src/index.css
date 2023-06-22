@@ -3266,6 +3266,9 @@ video[poster] {
     top: 12px;
     font-size: 10px;
 }
+.subs-coloum .btn-primary{
+  width: auto !important;
+}
 }
 
 @media (max-width: 680.98px) {

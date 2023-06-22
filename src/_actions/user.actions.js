@@ -142,6 +142,9 @@ const useUserActions = () => {
             )
           );
           setSoption(false);
+          data.email
+            ? localStorage.setItem("email", data.email)
+            : localStorage.setItem("phone", data.phone);
         } else {
           alertActions.error(Labels.Error);
         }
@@ -158,6 +161,7 @@ const useUserActions = () => {
         if (res.statusCode === 200) {
           alertActions.success(Labels.Success);
           navigate("/reset-password");
+          setSoption(true);
         } else {
           alertActions.error(Labels.Error);
         }

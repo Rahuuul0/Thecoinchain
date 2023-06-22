@@ -21,6 +21,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import { styled, alpha } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate } from 'react-router-dom';
+import {West, East} from '@mui/icons-material';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -184,7 +185,6 @@ const Contact = () => {
    
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
         <Box paddingY={7} className='newdesignbox'>
-          <Typography sx={{ paddingX: { xs: '20px', md: '400px' }, paddingBottom: { xs: '20px', md: '50px' } }} component='p' variant='p' className='body-caption' textAlign='center'>Before asking for an answer, you may find it in our learn crypto center</Typography>
           <Grid container spacing={0} rowSpacing={6} >
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
@@ -238,6 +238,15 @@ const Contact = () => {
               </Box>
             </Grid>
           </Grid>
+          <Stack direction="row" spacing={3} justifyContent='center'>
+                    <Box className="slider-icon">
+                      <West />
+                    </Box>
+                    <Box className="slider-icon active-slider-icon">
+                      <East />
+                    </Box>
+                  </Stack>
+
           <Typography textAlign='center' paddingTop={10}>
             <Button 
                 endIcon={<ArrowDropDown />}

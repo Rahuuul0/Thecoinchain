@@ -240,10 +240,10 @@ const Contact = () => {
           </Grid>
           <Stack direction="row" spacing={3} justifyContent='center'>
                     <Box className="slider-icon">
-                      <West />
+                      <West/>
                     </Box>
                     <Box className="slider-icon active-slider-icon">
-                      <East />
+                      <East/>
                     </Box>
                   </Stack>
 

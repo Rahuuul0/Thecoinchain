@@ -138,7 +138,7 @@ const AccountConfirm = () => {
                           <FormControlLabel
                             value="phone"
                             control={<Radio />}
-                            label={`Get the code by Mobile Number (SM) at ${localStorage.getItem("phone")}`}
+                            label={`Get the code by text message (SM) at ${localStorage.getItem("phone")}`}
                           />
                           <Box component="div" className="devider" />
                           <FormControlLabel

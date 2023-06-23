@@ -6,20 +6,13 @@ import SubsImage from '../../../public/assets/images/subs.svg';
 import { NavigateNext } from '@mui/icons-material/';
 import Sidebar from './Components/Sidebar';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-=======
 import { subscriptionActions, } from '../../_actions';
->>>>>>> 591436d89a4fd8b280755f09755b08304f8429ab
 import { forecastSubAtom } from '../../_state';
 import { useRecoilValue } from "recoil";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-<<<<<<< HEAD
-import { subscriptionActions } from '../../_actions';
-=======
->>>>>>> 591436d89a4fd8b280755f09755b08304f8429ab
 
 function handleClick(event) {
     event.preventDefault();
@@ -97,48 +90,25 @@ const ForecastSubscriptions = () => {
             Subscriptions
         </Typography>,
     ];
-<<<<<<< HEAD
-    const names = [
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-        'Usa',
-    ];
-=======
 
     const [value, setValue] = React.useState('1');
 
->>>>>>> 591436d89a4fd8b280755f09755b08304f8429ab
     const [expanded, setExpanded] = React.useState(false);
 
     const handleChanges = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
 
-<<<<<<< HEAD
-    // Subscription action get function   API data call 
-    useEffect(() => {
-        const response = subscribed.subscribedUser()
-        response.then((res) => { (res) })
-    }, [])
-=======
     // Accordion  function call
     const [expandFirst, setExpandFirst] = React.useState(true);
     useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }, [expandFirst]);
->>>>>>> 591436d89a4fd8b280755f09755b08304f8429ab
 
     return (
         <>
             <ThemeProvider theme={theme}>
                 <Box component="main" className='subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
-                        <Box className='subscription-wrapper-head back-arrow'>
+                        <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>
                                 Subscriptions
                             </Typography>
@@ -169,21 +139,6 @@ const ForecastSubscriptions = () => {
                                             <Typography component="h2" variant='h2'>
                                                 <span>Forecast </span> Subscriptions
                                             </Typography>
-<<<<<<< HEAD
-                                            <Typography component="p" variant='body2' className='small-caption'>
-                                                By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content. To regain full access to the content, a new subscription is required.
-                                            </Typography>
-                                        </Box>
-                                        <Box className='subscription-plan forcast-plan'>
-                                            <Box >
-                                                <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                                                    Plan Details
-                                                </Typography>
-                                                {plans.map((plan) => (
-                                                    <Box className="subscription-plan-card">
-                                                        <Typography component="h4" variant='h4' className='plan-title'>
-                                                            {plan.title}
-=======
                                         </Box>}
                                         <Box className='subscription-plan'>
                                             {User?.status === 'running' ? (<Accordion expanded={expandFirst}>
@@ -203,7 +158,7 @@ const ForecastSubscriptions = () => {
                                                         </Typography>
                                                         <Box className="subscription-plan-body">
                                                             <Typography component="h4" variant='h4' className='plan-price'>
-                                                                {User.amount} <span className='plan-days'>/ {User.plan_type}</span>
+                                                                ${User.amount} <span className='plan-days'>/ {User.plan_type}</span>
                                                             </Typography>
 
                                                             <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
@@ -242,25 +197,8 @@ const ForecastSubscriptions = () => {
                                                     <Box className="subscription-plan-body">
                                                         <Typography component="h4" variant='h4' className='plan-price'>
                                                             <span className='plan-days'> Free</span>
->>>>>>> 591436d89a4fd8b280755f09755b08304f8429ab
                                                         </Typography>
-                                                        <Box className="subscription-plan-body">
-                                                            <Typography component="h4" variant='h4' className='plan-price'>
-                                                                {plan.price} <span className='plan-days'>/ {plan.days}</span>
-                                                            </Typography>
 
-<<<<<<< HEAD
-                                                            <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
-                                                                {plan.extra}
-                                                            </Typography>
-                                                        </Box>
-                                                        <Box className="subscription-plan-cta">
-                                                            <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
-                                                                {plan.cta}
-                                                            </Typography>
-
-                                                        </Box>
-=======
                                                         <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
                                                             <Typography>Free market chart view & Tutorials for crypto</Typography>
                                                         </Typography>
@@ -269,33 +207,8 @@ const ForecastSubscriptions = () => {
                                                         <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
                                                             <Typography>You are subscribed to this plan</Typography>
                                                         </Typography>
->>>>>>> 591436d89a4fd8b280755f09755b08304f8429ab
                                                     </Box>
-                                                ))}
-                                            </Box>
-
-                                            {/* first box-ends */}
-                                            <Box>
-                                                <Typography sx={{ width: '33%', flexShrink: 0 }}>Resubscribe</Typography>
-                                                <Box textAlign='center'>
-                                                    <img src={SubsImage} />
-                                                    <Typography variant='p' component='div' sx={{ color: '#777E90', fontSize: '14px' }}>Your subscription and recurring payment has been canceled.</Typography>
-                                                    <Stack className='subs-div' direction='row' spacing={3} paddingY={4} justifyContent='center'>
-                                                        <Button className='btn btn-outlined-secondary' >Home</Button>
-                                                        <Button onClick={() => { navigate("/subscription#"); }} className='btn btn-dark' >Resubscribe</Button>
-                                                    </Stack>
                                                 </Box>
-<<<<<<< HEAD
-                                            </Box>
-                                           
-
-                                        </Box>
-                                        <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
-                                            By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content once your plan finishes. To regain full access to the content, a new subscription is required.
-                                        </Typography>
-                                        <Box className="subscription-plan-cta">
-                                            <Button onClick={() => { navigate("/"); }} variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribed</Button>
-=======
 
                                             </Box>)}
 
@@ -310,7 +223,6 @@ const ForecastSubscriptions = () => {
                                                     <Button onClick={() => { navigate("/subscription"); }} className='btn btn-dark' >Resubscribe</Button>
                                                 </Stack>
                                             </Box>}
->>>>>>> 591436d89a4fd8b280755f09755b08304f8429ab
                                         </Box>
                                     </Box>
                                 </Box>

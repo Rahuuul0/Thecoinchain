@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Typography, Link, Breadcrumbs } from '@mui/material';
@@ -21,6 +22,7 @@ const Community = () => {
             Community
         </Typography>,
     ];
+    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
     return (
         <>
             <ThemeProvider theme={theme}>

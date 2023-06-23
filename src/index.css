@@ -1279,7 +1279,7 @@ input[type="number"] {
 }
 
 .margin10 {
-  margin-left: 10px;
+  margin-left: 75px;
 }
 
 /* learn cypto ends */
@@ -2319,6 +2319,16 @@ p.left-icon img {
   background-color: #58bd7d;
 }
 
+.notification-badge .MuiBadge-badge {
+  background-color: #58bd7d;
+  line-height: 5;
+  position: absolute;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  top: 5px;
+}
+
 .notification-filter h5 {
   margin-bottom: 24px;
   font-weight: 600;
@@ -2564,19 +2574,10 @@ video[poster] {
   padding: 6px 5px !important;
 }
 
-.coming-out-box {
-  background-image: url(http://dly1vyq5d0op3.cloudfront.net/banner.svg);
-  background-position: center center;
-  background-size: cover;
-  height: 100vh;
-  display: table;
-  width: 100%;
-  overflow-x: hidden;
-}
+/* Media Queries  */
+@media (max-width: 1399.98px) {}
 
-body {
-  overflow-x: hidden;
-}
+@media (max-width: 1199.98px) {}
 
 .coming-in-box {
   position: relative;
@@ -3394,4 +3395,17 @@ select:-webkit-autofill:focus {
   .auth-otp>div input {
     padding: 20px 10px;
   }
+}
+
+.css-qe9us1-MuiFormHelperText-root.Mui-error,
+.frm-message {
+  color: red;
+  font-size: 13px !important;
+  margin: 0;
+  padding-left: 0px;
+  line-height: 0.5;
+}
+
+.auth-form button {
+  min-width: 50px !important;
 }

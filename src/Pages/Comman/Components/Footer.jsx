@@ -22,7 +22,6 @@ const Footer = () => {
   const useFooterAddActions = useFooterActions()
   const navigate = useNavigate();
   const [addAtomError, setAddError] = useRecoilState(FooterAddAtom);
-
   // form validation rules 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -48,6 +47,7 @@ const Footer = () => {
   const handleFormSubmit = (data) => {
     setIsSubmitting(true)
     setAddError(false)
+    setTimeout(()=>{reset({email : " "})},2000)
     return useFooterAddActions.add(data);
   }
 
@@ -121,7 +121,7 @@ const Footer = () => {
                   fullWidth
                   id="email"
                   placeholder='Enter your email here'
-                  name="email"
+                  name="email"     
                   autoComplete="off"
                   size="small"
                   {...register("email")}

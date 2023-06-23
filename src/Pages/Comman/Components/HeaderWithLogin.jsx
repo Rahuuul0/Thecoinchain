@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
-import { NotificationsNone, Search, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
+import { NotificationsNone, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
 import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
@@ -15,9 +15,9 @@ import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
 import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import { notificationActions } from '../../../_actions/notification.actions';
-
+import { useState, useEffect } from "react";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { notificationAtom } from '../../../_state/notifications';
+import { notificationAtom, authAtom, notificationCountAtom } from '../../../_state/';
 import { useRecoilValue } from "recoil";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -31,17 +31,25 @@ function Header(props) {
   const userActions = useUserActions();
   const notification = notificationActions();
   const notifications = useRecoilValue(notificationAtom);
-  // const [ clear, setClear ] = useState();
+  const userDetails = useRecoilValue(authAtom);
+  const notificaionCount = useRecoilValue(notificationCountAtom);
 
   const handleClear = async () => {
-    //  const clearData  = await  notification.clearData();
-    //  setClear(clearData);
-    notification.clearData();
+    let notId = notifications.map((item, index) => { if (index < 5) { return (item.ct_notiy_id) } })
+    notification.clearNotifications(notId);
   };
 
+  useEffect(() => {
+    notification.notificationList()
 
-  // console.log(notifications,'dfgdfgdfgjdfgdfgdfj');
+  }, [])
 
+  const singleRead = async (notId) => {
+    let userId = userDetails.id
+
+    notification.notificationSingleread(notId, userId)
+
+  }
   const navItems = [
     {
       page: 'Community',
@@ -113,6 +121,7 @@ function Header(props) {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
 
   const drawer = (
     <Box className='mobile-nav-box' onClick={handleDrawerToggle} sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
@@ -330,22 +339,15 @@ function Header(props) {
                 </Grid>
               </Box>
             </Menu>
-            <IconButton className='icon-btn icon-avatar-img btnicon' onClick={handleClickAnchorbtn} size="small"
-              sx={{ ml: 2 }}
-              aria-controls={openAnchorbtn ? 'account-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={openAnchorbtn ? 'true' : undefined} aria-label="flash" color="primary">
-              <FlashOnOutlined color="action" />
-            </IconButton>
 
-            {/* <IconButton onClick={handleClickAnchorbtn}
+            <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
               size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
               aria-haspopup="true"
-              aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon' aria-label="flash" color="primary">
+              aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
               <NotificationsNone color="action" />
-            </IconButton> */}
+            </Badge>
             <Menu
               anchorEl={anchorElAnchorbtn}
               id=""
@@ -382,39 +384,42 @@ function Header(props) {
               }}
             >
               <Box padding={2}>
-                <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
+                {notifications.length > 0 ?
+                  <>
+                    <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
 
-                {notifications.map((item, index) => {
-                  if (index < 5) {
+                    {notifications?.map((item, index) => {
+                      if (index < 5) {
+                        return (
+                          <>
+
+                            <MenuItem sx={{ padding: '0' }}>
+                              <span className='outer-div-menu'>
+                                <span className='inner-div-menu'>
+                                  <span className='head-menu'>{item.ct_notify_title}</span>
+                                  <span className='pl-3 sub-head-menu'><FiberManualRecord onClick={() => singleRead(item.ct_notiy_id)} /></span>
+                                </span>
+                                <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.ct_notify_created_At}</Typography>
+                              </span>
+                            </MenuItem>
+                            <Divider />
+                          </>
+                        )
+                      }
+                    })}
 
 
-                    return (
-                      <>
+                    <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
+                      <Button onClick={() => { navigate('/notifications') }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
+                        View all
+                      </Button>
+                      <Button onClick={handleClear} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                        Clear all
+                      </Button>
+                    </Box>
+                  </> : <span>No New Notifications Available</span>
+                }
 
-                        <MenuItem sx={{ padding: '0' }}>
-                          <span className='outer-div-menu'>
-                            <span className='inner-div-menu'>
-                              <span className='head-menu'>{item.name}</span>
-                              <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                            </span>
-                            <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.create}</Typography>
-                          </span>
-                        </MenuItem>
-                        <Divider />
-                      </>
-                    )
-                  }
-                })}
-
-
-                <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
-                  <Button onClick={() => { navigate('/notifications') }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
-                    View all
-                  </Button>
-                  <Button onClick={handleClear} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
-                    Clear all
-                  </Button>
-                </Box>
               </Box>
             </Menu>
             <IconButton className='icon-btn' onClick={e => navigate('/subscription#')} aria-label="flash" color="primary">
@@ -493,14 +498,13 @@ function Header(props) {
                 </span>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={() => navigate('/account/session-and-history')}>
+              <MenuItem onClick={() => navigate('/account/profile')}>
                 <span className='inner-div-outer'>
                   <span className='inner-div-user'>
                     <span className='img-div-dropdown head-menu'><img src={ShareIcon} /> Settings</span>
                     <span className='pl-3 sub-head-menu'>View additional settings</span>
                   </span>
 
-                  <span>  <Switch {...label} defaultChecked /></span>
                 </span>
               </MenuItem>
               <Divider />

@@ -26,10 +26,9 @@ const Footer = () => {
 
   // form validation rules 
   const validationSchema = Yup.object().shape({
-    email: Yup.string()
+    email: Yup.string().required("Email Address is required").matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,"Email is invalid")
       .email("Email must be a valid email")
-      .trim()
-      .required("Email Address is required"),
+      .trim(),
   });
 
   //yup validation
@@ -40,7 +39,6 @@ const Footer = () => {
  
 
   const formData = watch();
-  console.log(errors, "errors")
 
   useEffect(() => {
     reset({email: ""})
@@ -121,6 +119,7 @@ const Footer = () => {
                   margin="normal"
                   required
                   fullWidth
+                  type = "email"
                   id="email"
                   placeholder='Enter your email here'
                   name="email"     

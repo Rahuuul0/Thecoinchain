@@ -28,6 +28,8 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import OTPInput from "otp-input-react";
 import { KeyboardArrowLeft } from "@mui/icons-material/";
 import MuiPhoneNumber from "material-ui-phone-number";
+import LoadingButton from '@mui/lab/LoadingButton';
+
 
 const ForgotPasswordPhone = () => {
   const navigate = useNavigate();
@@ -194,14 +196,16 @@ const ForgotPasswordPhone = () => {
                       <div style={{ color: "red" }}>
                         {errors.phone?.message}
                       </div>
-                      <Button
+                      <LoadingButton
                         type="submit"
+                        loading={isSubmitting}
+                        loadingPosition="end"
                         variant="contained"
                         className="btn btn-primary"
                         disabled={isSubmitting}
                       >
                         Continue
-                      </Button>
+                      </LoadingButton>
                       <Typography
                         onClick={() => {
                           navigate("/login");

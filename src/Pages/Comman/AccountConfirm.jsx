@@ -22,8 +22,9 @@ import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useAlertActions } from '../../_actions/alert.actions';
-import { switchAtom } from '../../_state';
+import { switchAtom,userErrorAtom } from '../../_state';
 import { useRecoilState } from 'recoil';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const AccountConfirm = () => {
   const navigate = useNavigate();
@@ -33,6 +34,8 @@ const AccountConfirm = () => {
   const { handleSubmit } = useForm();
   const alertActions = useAlertActions();
   const [Soption, setSoption] = useRecoilState(switchAtom);
+  const [userError, setUserError] = useRecoilState(userErrorAtom);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [timer, setTimer] = useState(60);    
   const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
@@ -47,18 +50,30 @@ const AccountConfirm = () => {
     }
   };  
 
+  useEffect(() => {
+    if (userError)
+        setIsSubmitting(false)
+}, [userError])
+
   const onSubmitFun = async () => {
+  
     if (radioOption === "email") {
-      userActions.getOtp();     
+      userActions.getOtp(); 
+      setIsSubmitting(true)
+      setUserError(false)    
     }else {
-      userActions.getOtpPhone(localStorage.getItem("phone"));      
+      userActions.getOtpPhone(localStorage.getItem("phone"));   
+      setIsSubmitting(true)
+      setUserError(false)   
     }
   }
   const handleOtpSubmit = async () => {
+   
     if (OTP.length !== 4) { 
       alertActions.error("Fill OTP First"); } 
     else { 
       userActions.verifyRegisterOtp(OTP) 
+    
     }   
   }
 
@@ -138,7 +153,7 @@ const AccountConfirm = () => {
                           <FormControlLabel
                             value="phone"
                             control={<Radio />}
-                            label={`Get the code by Mobile Number (SM) at ${localStorage.getItem("phone")}`}
+                            label={`Get the code by text message (SM) at ${localStorage.getItem("phone")}`}
                           />
                           <Box component="div" className="devider" />
                           <FormControlLabel
@@ -149,14 +164,17 @@ const AccountConfirm = () => {
                         </RadioGroup>
                       </FormControl>
 
-                      <Button
+                      <LoadingButton
                         type="submit"
+                        loading={isSubmitting}
+                        loadingPosition="end"
                         variant="contained"
                         className="btn btn-primary"
+                        disabled={isSubmitting} 
                         endIcon={<KeyboardArrowRightIcon />}
                       >
                         Continue
-                      </Button>
+                      </LoadingButton>
                     </Box>
                   </Box>
                 </Box>

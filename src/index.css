@@ -3418,6 +3418,7 @@ display: none !important;
   padding: 5px 12px;
   border-radius: 66px;
 }
+
 .payment-plan-box p.active{
 
   border-color: #353945;
@@ -3435,4 +3436,14 @@ display: none !important;
   border: 1px solid transparent;
   border-radius: 90px;
   padding: 0;
+}
+
+.MuiLoadingButton-loadingIndicator{
+  position: relative !important;
+  right: -32px !important;
+}
+#root .MuiLoadingButton-loading{
+  background-color: #f2f2f2 !important; 
+  color: #212529;
+  border: 1px solid #3772FF;
 }

@@ -32,6 +32,7 @@ import { useRecoilValue } from "recoil";
 import { userAtom, authAtom, forecastSubAtom } from "../../_state";
 import dayjs from "dayjs";
 import MuiPhoneNumber from "material-ui-phone-number";
+import LoadingButton from '@mui/lab/LoadingButton';
 
 function handleClick(event) {
   event.preventDefault();
@@ -505,13 +506,16 @@ const Profile = (props) => {
                       )}
                     </Box>
                     <Typography textAlign="right" paddingY={3}>
-                      <Button
+                      <LoadingButton
                         type="submit"
+                        loading={isSubmitting}
+                        loadingPosition="end"
                         className="btn btn-primary"
                         sx={{ marginLeft: "auto" }}
+                        disabled={isSubmitting}
                       >
                         Save Settings
-                      </Button>
+                      </LoadingButton>
                     </Typography>
                   </Box>
                 </Box>

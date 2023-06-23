@@ -210,11 +210,13 @@ const useUserActions = () => {
           setSoption("email");
           alertActions.success("We have sent you the code");
         } else {
+        
           alertActions.error(Labels.Error);
         }
       })
       .catch((err) => {
         console.log(err);
+        setUserError(true);
       });
   };
 
@@ -226,12 +228,14 @@ const useUserActions = () => {
           alertActions.success(Labels.Verified);
           navigate("/login");
         } else {
+         
           alertActions.error("Error Verifying");
         }
       })
       .catch((err) => {
         console.log(err);
       });
+      
   };
 
   const resetPassword = async ({ password }) => {
@@ -317,6 +321,7 @@ const useUserActions = () => {
       })
       .catch((err) => {
         console.log(err);
+        setUserError(true);
       });
   };
 

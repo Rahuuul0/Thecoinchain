@@ -342,7 +342,7 @@ const singleRead = async (notId) =>{
                 </Grid>
               </Box>
             </Menu>
-            <IconButton className='icon-btn icon-avatar-img btnicon' onClick={handleClickAnchorbtn} size="small"
+            <IconButton className='icon-btn icon-avatar-img btnicon' size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
               aria-haspopup="true"

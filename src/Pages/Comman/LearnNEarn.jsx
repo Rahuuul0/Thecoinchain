@@ -114,7 +114,7 @@ const LearnNEarn = () => {
                     </Box>
                 </Box>
                 <Button
-                    onClick={() => { navigate("../learn-cypto") }}
+                    onClick={() => { navigate("/contentnotfound") }}
                     sx={{ mt: 10, mx: 'auto' }}
                     variant="outlined"
                     className='btn btn-outlined-secondary'>

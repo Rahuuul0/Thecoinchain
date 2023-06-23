@@ -50,7 +50,7 @@ const PrivacyPolicy = () => {
                     <Box>
                         <Container maxWidth="lg">
                             <Box>
-                                <Typography component='p' variant='p' paddingTop={1}> coinguru.org (“we” or “us”) operates the <a href='#'> https://www.coinguru.org/</a> website (the “Site”).</Typography>
+                                <Typography component='p' variant='p' paddingTop={1}> coinguru.org (“we” or “us”) operates the <a href='https://www.coinguru.org/'> https://www.coinguru.org/</a> website (the “Site”).</Typography>
                                 <Typography component='p' variant='p' paddingY={1}> Hereby we inform you as our Site visitor of the policies regarding the collection, use, and disclosure of personal data when browsing our Site and the options the Site visitors have in relation with this data.</Typography>
                                 <Typography component='p' variant='p' paddingBottom={1}> We use your data to provide and improve the Site. By using the Site you give your consent to the collection and use of data in accordance with this policy.</Typography>
                             </Box>
@@ -111,7 +111,7 @@ const PrivacyPolicy = () => {
                         </Container>
                     </Box>
 
-                </Box >
+                </Box>
             </ThemeProvider>
         </>
     )

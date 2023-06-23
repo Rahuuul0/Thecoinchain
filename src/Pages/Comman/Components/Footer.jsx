@@ -67,7 +67,7 @@ const Footer = () => {
                   <RouterLink to={"/contact"}>Contacts</RouterLink>
                   <RouterLink to={"/privacy-policy"}>Privacy Policy</RouterLink>
                   <RouterLink to={"/terms-of-use"}>Terms of use</RouterLink>
-                  <RouterLink to={"/disclaimer"}>Disclaimer </RouterLink>
+                  <RouterLink to={"/disclaimer"}>Disclaimers</RouterLink>
                   <RouterLink to={"/community"}>Join our community</RouterLink>
                 </Stack>
               </Box>
@@ -79,7 +79,7 @@ const Footer = () => {
                   <RouterLink to={"/guides-analysis"} >Guides & Analysis</RouterLink>
                   <RouterLink to={"/academy"}>Academy</RouterLink>
                   <RouterLink to={"/news-promotions"}>News & Promotions</RouterLink>
-                  <RouterLink to={"/subscription"}>Subscriptions</RouterLink>
+                  <RouterLink to={"/subscription"}>Subscription</RouterLink>
                 </Stack>
               </Box>
             </Grid>

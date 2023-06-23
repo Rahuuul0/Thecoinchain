@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
 import galleryImage from '../../../../public/assets/images/gallery.svg';
-import { NotificationsNone, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
+import { NotificationsNone, Search, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
 import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
@@ -132,11 +132,22 @@ function Header(props) {
           </Box>
           <Box display='flex' alignItems='center' >
             <Box>
-              <IconButton
+              {/* <IconButton
                 size="small"
                 className='icon-btn icon-avatar-img btnicon' aria-label="flash" color="primary">
                 <NotificationsNone color="action" />
-              </IconButton>
+              </IconButton> */}
+
+              <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={openAnchorbtn ? 'account-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
+                <IconButton>
+                  <NotificationsNone color="action" />
+                </IconButton>
+              </Badge>
             </Box>
             <Box className=''>
               <IconButton
@@ -223,14 +234,6 @@ function Header(props) {
             <img width='140' src={CoinGuru} alt='Coin Guru' />
           </Typography>
 
-          {/* <Typography
-            variant="h6"
-
-            onClick={() => { navigate('/') }}
-            sx={{ flexGrow: 1, display: { xs: 'block', md: 'none', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
-          >
-            <img src={CoinGuru} alt='Coin Guru' />
-          </Typography> */}
           <Box className='' sx={{ display: { xs: 'none ', md: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>
               <li >
@@ -339,6 +342,13 @@ function Header(props) {
                 </Grid>
               </Box>
             </Menu>
+            <IconButton className='icon-btn icon-avatar-img btnicon' onClick={handleClickAnchorbtn} size="small"
+              sx={{ ml: 2 }}
+              aria-controls={openAnchorbtn ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openAnchorbtn ? 'true' : undefined} aria-label="flash" color="primary">
+              <FlashOnOutlined color="action" />
+            </IconButton>
 
             <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
               size="small"
@@ -346,7 +356,9 @@ function Header(props) {
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
-              <NotificationsNone color="action" />
+              <IconButton>
+                <NotificationsNone color="action" />
+              </IconButton>
             </Badge>
             <Menu
               anchorEl={anchorElAnchorbtn}
@@ -355,7 +367,6 @@ function Header(props) {
               open={openAnchorbtn}
               onClose={handleCloseAnchorbtn}
               onClick={handleCloseAnchorbtn}
-
               PaperProps={{
                 elevation: 0,
                 sx: {
@@ -393,11 +404,11 @@ function Header(props) {
                         return (
                           <>
 
-                            <MenuItem sx={{ padding: '0' }}>
+                            <MenuItem onClick={() => singleRead(item.ct_notiy_id)} sx={{ padding: '0' }}>
                               <span className='outer-div-menu'>
                                 <span className='inner-div-menu'>
                                   <span className='head-menu'>{item.ct_notify_title}</span>
-                                  <span className='pl-3 sub-head-menu'><FiberManualRecord onClick={() => singleRead(item.ct_notiy_id)} /></span>
+                                  <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
                                 </span>
                                 <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.ct_notify_created_At}</Typography>
                               </span>
@@ -417,7 +428,8 @@ function Header(props) {
                         Clear all
                       </Button>
                     </Box>
-                  </> : <span>No New Notifications Available</span>
+                  </>
+                  : <span>No New Notifications Available</span>
                 }
 
               </Box>
@@ -521,7 +533,7 @@ function Header(props) {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}
+              sx={{ mr: 2, display: { md: 'none' } }}
             >
               <MenuIcon />
             </IconButton>
@@ -539,7 +551,7 @@ function Header(props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            display: { xs: 'block', md: 'block', sm: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >

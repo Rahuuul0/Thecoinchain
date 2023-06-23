@@ -14,8 +14,8 @@ import {
 } from "@mui/material";
 import { NavigateNext } from "@mui/icons-material/";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "./Components/Sidebar";
-import { authAtom } from "../../_state";
+import Sidebar from './Components/Sidebar';
+import {authAtom } from '../../_state/'
 import { useRecoilValue } from "recoil";
 
 function handleClick(event) {
@@ -44,8 +44,12 @@ const Referrals = () => {
   const navigate = useNavigate();
   const label = { inputProps: { "aria-label": "Switch demo" } };
   const userDetail = useRecoilValue(authAtom);
-
   const [personName, setPersonName] = useState([]);
+  const [linkCopy, setLinkCopy] = useState(false);
+  const [codeCopy, setCodeCopy] = useState(false);
+
+  const [value, setValue] = useState("1");
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     const {
@@ -70,19 +74,25 @@ const Referrals = () => {
       Referrals
     </Typography>,
   ];
-  const names = [
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-    "Usa",
-  ];
-  const [value, setValue] = React.useState("1");
+
+  const handleLink = () => {
+    navigator.clipboard.writeText(
+      "http://dly1vyq5d0op3.cloudfront.net/create-account/" +
+        userDetail.referral_code
+    );
+    setLinkCopy(true);
+    setTimeout(() => {
+      setLinkCopy(false);
+    }, 3000);
+  };
+  const handleRefCode = () => {
+    navigator.clipboard.writeText(userDetail.referral_code);
+    setCodeCopy(true);
+    setTimeout(() => {
+      setCodeCopy(false);
+    }, 3000);
+  };
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -97,7 +107,7 @@ const Referrals = () => {
                 Referrals
               </Typography>
 
-              <Box className="" sx={{ color: "#777E90", fontWeight: "500" }}>
+              <Box className="" sx={{ color: "#777E90", fontWeight: "500" , paddingTop: {xs: '10px', md: '0px'} }}>
                 <Box>
                   <Breadcrumbs
                     separator={<NavigateNext fontSize="small" />}
@@ -133,7 +143,10 @@ const Referrals = () => {
                         fontWeight={700}
                         paddingBottom={2}
                       >
-                        1,056.00 <span className="green-color">USD</span>
+                        {userDetail.total_earning !== ""
+                          ? Number(userDetail.total_earning)?.toFixed(2) + " "
+                          : "0.00"}
+                        <span className="green-color">USD</span>
                       </Typography>
                       <Typography
                         component="p"
@@ -177,15 +190,10 @@ const Referrals = () => {
                                 endAdornment: (
                                   <InputAdornment
                                     sx={{ cursor: "pointer" }}
-                                    onClick={() => {
-                                      navigator.clipboard.writeText(
-                                        "http://dly1vyq5d0op3.cloudfront.net/create-account/referral/" +
-                                          userDetail.referral_code
-                                      );
-                                    }}
+                                    onClick={handleLink}
                                     position="end"
                                   >
-                                    Copy
+                                    {linkCopy === true ? "copied" : "copy"}
                                   </InputAdornment>
                                 ),
                               }}
@@ -195,7 +203,7 @@ const Referrals = () => {
                               fullWidth
                               id="link"
                               value={
-                                "http://dly1vyq5d0op3.cloudfront.net/create-account/referral/" +
+                                "http://dly1vyq5d0op3.cloudfront.net/create-account/" +
                                 userDetail.referral_code
                               }
                               // placeholder='link'
@@ -212,14 +220,10 @@ const Referrals = () => {
                                 endAdornment: (
                                   <InputAdornment
                                     sx={{ cursor: "pointer" }}
-                                    onClick={() => {
-                                      navigator.clipboard.writeText(
-                                        userDetail.referral_code
-                                      );
-                                    }}
+                                    onClick={handleRefCode}
                                     position="end"
                                   >
-                                    Copy
+                                    {codeCopy === true ? "copied" : "copy"}
                                   </InputAdornment>
                                 ),
                               }}

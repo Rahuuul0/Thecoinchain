@@ -29,6 +29,7 @@
   --secondary-color: #777e90;
 }
 
+
 .color-dark {
   color: #23262f;
 }
@@ -192,7 +193,7 @@ div * {
 
 #root h2 {
   font-weight: 700;
-  font-size: 48px;
+  font-size: 48px !important;
 }
 
 #root h3 {
@@ -375,6 +376,10 @@ img,
 
   .footer .footer-subs-form button {
     margin-top: 20px;
+  }
+
+  #root .font-40 {
+    font-size: 40px !important;
   }
 }
 
@@ -920,6 +925,14 @@ input[type="number"] {
 .orange-btn {
   background-color: #ff6838 !important;
   color: #fff !important;
+
+}
+
+.contact-new {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  max-width: 60px !important;
+  width: 100% !important;
 }
 
 .gridBox {
@@ -1177,17 +1190,18 @@ input[type="number"] {
 }
 
 .contact-line:before {
-  /* content: "O------------O"; */
-  content: url("./../public/assets/images/connect-line.svg");
+
+  content: "O------------O";
+  /* content: url(./../public/assets/images/connect-line.svg); */
   position: absolute;
-  left: 76%;
+  left: 50%;
   top: 10%;
   width: 160px;
   height: 12px;
   z-index: 11;
   display: inline-block;
   color: #b1b5c3;
-  /* background-color: #000; */
+  transform: translate(35%, 0px);
 }
 
 /* Homepage Ends */
@@ -1195,6 +1209,10 @@ input[type="number"] {
 .center-tab .MuiTabs-flexContainer {
   justify-content: center !important;
   gap: 20px;
+}
+
+.howworks-box {
+  width: 270px;
 }
 
 .filter-btn .btn {
@@ -2323,10 +2341,10 @@ p.left-icon img {
   background-color: #58bd7d;
   line-height: 5;
   position: absolute;
-  left: 10px;
+  right: 27px;
   width: 20px;
   height: 20px;
-  top: 5px;
+  top: 12px;
 }
 
 .notification-filter h5 {
@@ -2481,6 +2499,7 @@ video[poster] {
   width: 100%;
   object-fit: cover;
   border-radius: 16px;
+  cursor: pointer;
 }
 
 #root .extra-wrapper h1 {
@@ -2574,86 +2593,19 @@ video[poster] {
   padding: 6px 5px !important;
 }
 
-/* Media Queries  */
-@media (max-width: 1399.98px) {}
-
-@media (max-width: 1199.98px) {}
-
-.coming-in-box {
-  position: relative;
-  display: table-cell;
-  height: 100%;
-  vertical-align: middle;
-}
-
-.coming-out-box:before {
-  content: "";
+.coming-out-box {
+  background-image: url(http://dly1vyq5d0op3.cloudfront.net/banner.svg);
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
+  display: table;
   width: 100%;
-  height: 100%;
-  background-color: rgb(255 255 255 / 61%);
-  position: absolute;
-  z-index: 0;
+  overflow-x: hidden;
 }
 
-.modal-yay div.MuiBackdrop-root {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-.forcast-plan {
-  border-top: none !important;
-}
-
-@-webkit-keyframes autofill {
-  to {
-    color: blue;
-    background: transparent;
-  }
-}
-
-/* .MuiInputBase-input:-webkit-autofill{
-  background-color: red;
-  -webkit-animation-duration: 5000s !important;
-  animation-duration: 5000s !important;
-  -webkit-animation-name: mui-auto-fill !important;
-  background-color: #000  !important;
-  animation-name: mui-auto-fill !important;
-  animation-name: unset  !important;
-  transition: background-color 5000s ease-in-out 0s;
-}
-input[data-autocompleted] {
-  background-color: transparent !important;
-} */
-
-/* Change autocomplete styles in WebKit */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0px 1000px #6e202000 inset;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
-.css-qe9us1-MuiFormHelperText-root.Mui-error,
-.frm-message {
-  color: red;
-  font-size: 13px !important;
-  margin: 0;
-  padding-left: 0px;
-  line-height: 0.5;
-}
-
-.auth-form button {
-  min-width: 50px !important;
-}
-
-.favorite-ic {
-  cursor: pointer;
-  margin-right: 5px;
+.subscription-steps-col p.left-icon {
+  opacity: 1;
+  color: #777E90;
 }
 
 /* Media Queries  */
@@ -2813,6 +2765,10 @@ select:-webkit-autofill:focus {
 
   .session-history .subscription-steps-inner {
     grid-template-columns: 1fr;
+  }
+
+  .contact-line:before {
+    transform: translate(0%, 0px);
   }
 }
 
@@ -3305,6 +3261,21 @@ select:-webkit-autofill:focus {
   .community-wrapper-inner {
     grid-template-columns: repeat(1, 1fr)
   }
+
+  .notification-badge .MuiBadge-badge {
+    background-color: #58bd7d;
+    line-height: 5;
+    position: absolute;
+    right: 6px;
+    width: 20px;
+    height: 20px;
+    top: 12px;
+    font-size: 10px;
+  }
+
+  .subs-coloum .btn-primary {
+    width: auto !important;
+  }
 }
 
 @media (max-width: 680.98px) {
@@ -3334,6 +3305,7 @@ select:-webkit-autofill:focus {
   .notification-wrapper .notification-wrapper-head h4 {
     margin-bottom: 20px;
   }
+
 }
 
 @media (max-width: 480.98px) {
@@ -3368,8 +3340,12 @@ select:-webkit-autofill:focus {
     width: auto;
   }
 
-  .modal-subscribed-cta .btn {
+  .modal-subscribed-cta .btn#root h2 {
     width: 100%;
+  }
+
+  .crypto-list-table table tbody td:first-child {
+    padding-left: 0px;
   }
 }
 
@@ -3408,4 +3384,60 @@ select:-webkit-autofill:focus {
 
 .auth-form button {
   min-width: 50px !important;
+}
+
+.v-center {
+  display: flex;
+  align-items: center;
+}
+
+.small-new-btn {
+  display: inline-block;
+  text-align: center;
+  font-family: var(--primary-font) !important;
+  font-weight: 600;
+  line-height: 1.8;
+  border-radius: 5px;
+}
+
+.text-black {
+  color: #23262F !important;
+}
+
+.text-black .dark-icon {
+  display: block;
+}
+
+.dark-icon {
+  display: none;
+  ;
+}
+
+.light-icon {
+  display: block;
+}
+
+.text-black .light-icon {
+  display: none !important;
+}
+
+.payment-plan-box {
+  display: flex;
+}
+
+.payment-plan-box p {
+  border: 1px solid;
+  border-color: #353945;
+  background-color: transparent;
+  color: #353945;
+  margin: 0px 10px 15px 0px !important;
+  padding: 5px 12px;
+  border-radius: 66px;
+}
+
+.payment-plan-box p.active {
+
+  border-color: #353945;
+  background-color: #353945;
+  color: #fff;
 }

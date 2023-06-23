@@ -446,7 +446,9 @@ const CryptoTable = (props) => {
                                     margin: "auto",
                                   }}
                                   onClick={() => {
-                                    navigate("/subscription"),
+                                    userDetail
+                                      ? navigate("/subscription")
+                                      : navigate("/login"),
                                       window.scrollTo({
                                         top: 0,
                                         left: 0,
@@ -454,7 +456,7 @@ const CryptoTable = (props) => {
                                       });
                                   }}
                                 >
-                                  Subscribe
+                                  {userDetail ? "Subscribe" : "Login"}
                                 </Button>
                               </Fade>
                             }
@@ -509,7 +511,7 @@ const CryptoTable = (props) => {
                 </TableBody>
               </Table>
             </Stack>
-            {location.pathname === "/prediction-dashboard" ? (
+            {/* {location.pathname === "/prediction-dashboard" ? (
               <Pagination
                 sx={{ float: "right" }}
                 count={count}
@@ -519,7 +521,7 @@ const CryptoTable = (props) => {
               />
             ) : (
               ""
-            )}
+            )} */}
           </TableContainer>
         </Box>
       </Box>

@@ -189,7 +189,7 @@ const Profile = (props) => {
               <Typography component="h2" variant="h2">
                 Profile info
               </Typography>
-              <Box className="" sx={{ color: "#777E90", fontWeight: "500" }}>
+              <Box className="" sx={{ color: "#777E90", fontWeight: "500",  paddingTop: {xs: '10px', md: '0px'} }}>
                 <Box>
                   <Breadcrumbs
                     separator={<NavigateNext fontSize="small" />}
@@ -283,9 +283,6 @@ const Profile = (props) => {
                                   "MM/DD/YY"
                                 )}
                               </Typography>
-                            </span>
-                            <span>
-                              <Switch {...label} defaultChecked />
                             </span>
                           </Box>
                         </Box>

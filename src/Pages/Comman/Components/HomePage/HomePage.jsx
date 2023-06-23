@@ -25,12 +25,15 @@ import GoogleIcon from "../../../../../public/assets/images/google-g-2015-logo-s
 import InformedCypto from "../../../../../public/assets/images/informed-cypto.svg";
 import DarkLogo from "../../../../../public/assets/images/logo.svg";
 import Globe from "../../../../../public/assets/images/globe.svg";
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+import Wallet from "../../../../../public/assets/images/wallet-home.svg";
+import Money from "../../../../../public/assets/images/money.svg";  
+import Treding from "../../../../../public/assets/images/treding.svg";  
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
 import Marquee from "react-fast-marquee";
 import CryptoTable from "../../CryptoTable";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   useCoinActions,
@@ -46,6 +49,7 @@ import {
   bannerListAtom,
 } from "../../../../_state";
 import ReactPlayer from "react-player";
+import dayjs from "dayjs";
 
 const Home = () => {
   const coinActions = useCoinActions();
@@ -84,7 +88,7 @@ const Home = () => {
       <Container>
         <Box paddingBottom={8}>
           <Grid container sx={{ alignItems: "center" }}>
-            <Grid item xs={12} sm={6} md={6} paddingRight={8}>
+            <Grid item xs={12} sm={6} md={6} sx={{paddingRight: {xs:'0px',  md: '50px'}, paddingTop : {xs: '50px' , md: '0px'}}} >
               <Typography
                 variant="h1"
                 component="div"
@@ -96,7 +100,8 @@ const Home = () => {
                 variant="body2"
                 component="div"
                 className="hero-para primary-font secondary-color"
-                paddingBottom={2}
+                sx={{paddingBottom: {xs:'30px',  md: '50px'} , paddingTop : {xs: '20px'}}}
+                
               >
                 we bring clarity to the volatile world of crypto!
               </Typography>
@@ -154,7 +159,11 @@ const Home = () => {
                       </Typography>
                       <Button
                         variant="contained"
-                        className="orange-btn"
+                        className={
+                          item.percent_change_24h < 0
+                            ? "orange-btn"
+                            : "green-btn"
+                        }
                         sx={{ borderRadius: "90px", cursor: "default" }}
                       >
                         {item.percent_change_24h?.toFixed(2)}%
@@ -348,7 +357,7 @@ const Home = () => {
                               fontWeight={400}
                               className="secondary-color primary-font"
                             >
-                              {item.created_at.substring(0, 10)}
+                              {dayjs(item.created_at).format("MMM DD,YYYY")}
                             </Typography>
                           </Grid>
                           <Grid item xs={6}>
@@ -481,7 +490,7 @@ const Home = () => {
                                 fontWeight={400}
                                 className="secondary-color primary-font"
                               >
-                                {item.created_at.substring(0, 10)}
+                                {dayjs(item.created_at).format("MMM DD,YYYY")}
                               </Typography>
                             </Grid>
                             <Grid item xs={6}>
@@ -614,7 +623,7 @@ const Home = () => {
                                 fontWeight={400}
                                 className="secondary-color primary-font"
                               >
-                                {item.created_at.substring(0, 10)}
+                                {dayjs(item.created_at).format("MMM DD,YYYY")}
                               </Typography>
                             </Grid>
                             <Grid item xs={6}>
@@ -818,7 +827,7 @@ const Home = () => {
                 </Grid>
 
                 <Box>
-                  <Stack direction="row" spacing={1}>
+                  <Stack direction="row" spacing={1} sx={{justifyContent: {xs: 'center', md : 'left '} }} >
                     <Box className="slider-icon">
                       <West />
                     </Box>
@@ -853,7 +862,7 @@ const Home = () => {
             className=""
             variant="p"
             component="p"
-            sx={{ display: { xs: "block", md: "none" } }}
+            sx={{ display: { xs: "block", md: "none" } ,paddingLeft: {xs: '30px', md: '0px'} }}
           >
             <span className="gold-color">Subscribe</span> to gain complete
             access to the most precise short and long-term predictions of
@@ -942,19 +951,18 @@ const Home = () => {
               component="h2"
               className="secondary-font font-40"
               textAlign="center"
-              sx={{ fontWeight: "700" }}
+              sx={{ fontWeight: "700" , paddingX: {xs: '0px', md: '250px'} }}
             >
-              Become a crypto <br />
+              Become a crypto 
               trader in seconds
             </Typography>
             <Typography
               className="secondary-color"
-              textAlign="center"
+              sx={{textAlign: {xs: 'left' , md: 'center'}}}
               paddingTop={3}
               paddingBottom={4}
             >
-              Stacks is a production-ready library of stackable content blocks
-              built in React Native.
+              We've got everything you need to start trading.
             </Typography>
             <Box paddingBottom={6}>
               <Grid
@@ -977,6 +985,7 @@ const Home = () => {
                       customers.
                     </Typography>
                     <Button
+                      onClick={()=>{navigate("/contentnotfound")}} 
                       className="btn btn-outlined-secondary"
                       sx={{ margin: "0 auto" }}
                     >
@@ -999,6 +1008,7 @@ const Home = () => {
                       customers.
                     </Typography>
                     <Button
+                      onClick={()=>{navigate("/contentnotfound")}} 
                       className="btn btn-outlined-secondary"
                       sx={{ margin: "0 auto" }}
                     >
@@ -1064,7 +1074,7 @@ const Home = () => {
             className="flow-reverse-mobile"
           >
             <Grid item xs={12} sm={6}>
-              <Box paddingBottom={5}>
+              <Box  sx={{paddingBottom: {xs:'15px', md: '50px'}}}>
                 <Typography
                   variant="h2"
                   fontWeight={700}
@@ -1072,7 +1082,7 @@ const Home = () => {
                 >
                   Make informed decisions
                 </Typography>
-                <Typography className="secondary-color">
+                <Typography className="secondary-color" sx={{paddingBottom: {xs:'15px', md: '25px'}}}>
                   with our expert insights and analysis of the crypto market!
                 </Typography>
               </Box>
@@ -1155,7 +1165,7 @@ const Home = () => {
                       component="div"
                       className="body-caption secondary-color"
                     >
-                      Download from
+                      Download for
                     </Typography>
                     <Typography
                       variant=""
@@ -1179,7 +1189,7 @@ const Home = () => {
       {/* section starts */}
       <Container maxWidth="fluid" sx={{ backgroundColor: "#F4F5F6" }}>
         <Container>
-          <Box paddingBottom={15} paddingTop={15}>
+          <Box sx={{paddingY: {xs:'50px', md: '120px'}}}>
             <Box textAlign="center">
               <img src={DarkLogo} />
               <Typography
@@ -1221,6 +1231,7 @@ const Home = () => {
                     the BitCloud team and our traders from across the world.
                   </Typography>
                   <Button
+                    onClick={()=>{navigate("/community")}} 
                     className="btn-outlined-secondary"
                     sx={{ textTransform: "capitalize" }}
                   >
@@ -1261,19 +1272,21 @@ const Home = () => {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           <Grid item xs={6} sm={6} md={3}>
-            <Box textAlign="center" className="howworks-box contact-line ">
+            <Box 
+              sx={{ textAlign :{xs: 'left', md : 'center'}}}
+            className="howworks-box contact-line ">
               <img src={Market} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}
-                paddingBottom={3}
-                textAlign="center"
+                paddingBottom={3}                
+                sx={{ textAlign :{xs: 'left', md : 'center'}}}
               >
                 Step 1
               </Typography>
               <Typography
-                className=""
-                textAlign="center"
+                className=""                
+                sx={{ textAlign :{xs: 'left', md : 'center'}}}
                 fontWeight="500"
                 paddingBottom={3}
               >
@@ -1286,19 +1299,21 @@ const Home = () => {
             </Box>
           </Grid>
           <Grid item xs={6} sm={6} md={3}>
-            <Box textAlign="center" className="howworks-box contact-line ">
-              <img src={Market} width={96} />
+            <Box 
+              sx={{ textAlign :{xs: 'left', md : 'center'}}}
+            className="howworks-box contact-line ">
+              <img src={Wallet} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}
-                paddingBottom={3}
-                textAlign="center"
+                paddingBottom={3}                
+                sx={{ textAlign :{xs: 'left', md : 'center'}}}
               >
                 Step 2
               </Typography>
               <Typography
-                className=""
-                textAlign="center"
+                className=""                
+                sx={{ textAlign :{xs: 'left', md : 'center'}}}
                 fontWeight="500"
                 paddingBottom={3}
               >
@@ -1311,19 +1326,21 @@ const Home = () => {
             </Box>
           </Grid>
           <Grid item xs={6} sm={6} md={3}>
-            <Box textAlign="center" className="howworks-box contact-line ">
-              <img src={Market} width={96} />
+            <Box 
+              sx={{ textAlign :{xs: 'left', md : 'center'}}}
+            className="howworks-box contact-line ">
+              <img src={Treding} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}
-                paddingBottom={3}
-                textAlign="center"
+                paddingBottom={3}                
+                sx={{ textAlign :{xs: 'left', md : 'center'}}}
               >
                 Step 3
               </Typography>
               <Typography
-                className=""
-                textAlign="center"
+                className=""                
+                sx={{ textAlign :{xs: 'left', md : 'center'}}}
                 fontWeight="500"
                 paddingBottom={3}
               >
@@ -1336,19 +1353,22 @@ const Home = () => {
             </Box>
           </Grid>
           <Grid item xs={6} sm={6} md={3}>
-            <Box textAlign="center" className="howworks-box ">
-              <img src={Market} width={96} />
+            <Box 
+              sx={{ textAlign :{xs: 'left', md : 'center'}}}
+            className="howworks-box ">
+              <img src={Money} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}
-                paddingBottom={3}
-                textAlign="center"
+                paddingBottom={3}                
+                sx={{ textAlign :{xs: 'left', md : 'center'}}}
               >
                 Step 4
               </Typography>
               <Typography
-                className=""
-                textAlign="center"
+                className=""                
+                  sx={{ textAlign :{xs: 'left', md : 'center'}}}
+
                 fontWeight="500"
                 paddingBottom={3}
               >

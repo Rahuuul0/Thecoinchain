@@ -2,7 +2,7 @@ import { Container, Typography, Grid, Box, Stack, Button, Tab, Accordion, Accord
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { ArrowRightAlt, ExpandMore } from '@mui/icons-material';
+import { ArrowRightAlt, ExpandMore, ArrowDropDown } from '@mui/icons-material';
 import { useContactActions } from '../../_actions/contact.actions';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -20,6 +20,8 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { styled, alpha } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useNavigate } from 'react-router-dom';
+import { West, East } from '@mui/icons-material';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -101,6 +103,7 @@ function getStyles(name, personName, theme) {
 }
 
 const Contact = () => {
+  const navigate = useNavigate();
   const useContactAddActions = useContactActions();
   const [value, setValue] = useState('1');
   const theme = useTheme();
@@ -153,12 +156,12 @@ const Contact = () => {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
-
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }, []);
   return (
     <>
       {/* Banner starts */}
       <Container>
-        <Box sx={{ paddingTop: { xs: '80px', md: '150px' }, paddingBottom: { xs: '0px', md: '50px' } }} >
+        <Box sx={{ paddingTop: { xs: '80px', md: '100px' }, paddingBottom: { xs: '80px', md: '80px' } }}>
           <Grid container sx={{ alignItems: 'center' }}>
             <Grid item xs={12} sm={6} md={6} paddingRight={5} className='padding-0-mobile'>
               <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} >Save your time with Stacks</Typography>
@@ -168,23 +171,7 @@ const Contact = () => {
               <Typography variant='body2' component="div" className='hero-para secondary-color' paddingBottom={2}>
                 A creative agency that lead and inspire
               </Typography>
-              <Typography component="div" paddingBottom={2} >
 
-                <Search className='contact-search'>
-
-                  <StyledInputBase
-                    className='primary-font'
-                    placeholder="Search anything"
-                    inputProps={{ 'aria-label': 'search' }}
-                  />
-
-                  <SearchIconWrapper className='padding-0-mobile'>
-                    <Box className='search-icon'>
-                      <ArrowRightAlt />
-                    </Box>
-                  </SearchIconWrapper>
-                </Search>
-              </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
               <img className='contact-hero-image' src={ContactHeroImage} />
@@ -194,14 +181,15 @@ const Contact = () => {
       </Container>
       {/* Banner Ends */}
 
+      <Typography textAlign='center' className='body-caption secondary-color'>Before asking for an answer, you may find it in <br /> our learn crypto center</Typography>
+
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
         <Box paddingY={7} className='newdesignbox'>
-          <Typography sx={{ paddingX: { xs: '20px', md: '400px' }, paddingBottom: { xs: '20px', md: '50px' } }} component='p' variant='p' className='body-caption' textAlign='center'>Before asking for an answer, you may find it in our learn crypto center</Typography>
           <Grid container spacing={0} rowSpacing={6} >
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Design} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -214,7 +202,7 @@ const Contact = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Media} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -227,7 +215,7 @@ const Contact = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Design} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -240,7 +228,7 @@ const Contact = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Media} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -250,8 +238,22 @@ const Contact = () => {
               </Box>
             </Grid>
           </Grid>
+          <Stack direction="row" spacing={3} justifyContent='center'>
+            <Box className="slider-icon">
+              <West />
+            </Box>
+            <Box className="slider-icon active-slider-icon">
+              <East />
+            </Box>
+          </Stack>
+
           <Typography textAlign='center' paddingTop={10}>
-            <Button className='btn-outlined-secondary'>Learn More</Button>
+            <Button
+              endIcon={<ArrowDropDown />}
+              onClick={() => { navigate('/learn-cypto') }}
+              className='btn-outlined-secondary'>
+              Learn More
+            </Button>
           </Typography>
         </Box>
       </Container>
@@ -359,9 +361,6 @@ const Contact = () => {
               sx={{ mt: '24px' }}
               onSubmit={handleSubmit(handleFormSubmit)}
             >
-              <Typography component="h5" variant='h5' sx={{ width: '33%', flexShrink: 0 }}>
-                Contact-Us
-              </Typography>
               <Box paddingBottom={2} className='topic-select-radio'>
                 <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>Select a topic</Typography>
 

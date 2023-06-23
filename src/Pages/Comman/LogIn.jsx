@@ -141,7 +141,7 @@ const LogIn = () => {
               <img src={AuthBg} alt="Auth bg" />
             </Box>
             <Box className="auth-wrapper-form" position="relative">
-              <Box position="absolute" sx={{ top: "90px" }}>
+              <Box position="absolute" sx={{ top: {xs: '0px' , md: '90px'}  }}>
                 <IconButton
                   onClick={() => {
                     navigate("/");

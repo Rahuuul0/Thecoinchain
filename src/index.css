@@ -3256,6 +3256,19 @@ video[poster] {
   .community-wrapper-inner {
     grid-template-columns: repeat(1, 1fr)
   }
+  .notification-badge .MuiBadge-badge {
+    background-color: #58bd7d;
+    line-height: 5;
+    position: absolute;
+    right: 6px;
+    width: 20px;
+    height: 20px;
+    top: 12px;
+    font-size: 10px;
+}
+.subs-coloum .btn-primary{
+  width: auto !important;
+}
 }
 
 @media (max-width: 680.98px) {
@@ -3285,6 +3298,7 @@ video[poster] {
   .notification-wrapper .notification-wrapper-head h4 {
     margin-bottom: 20px;
   }
+  
 }
 
 @media (max-width: 480.98px) {

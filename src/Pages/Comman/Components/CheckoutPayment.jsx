@@ -156,7 +156,7 @@ const CheckoutForm = () => {
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
-            <Box className='subscription-steps-col'>
+            <Box className='subscription-steps-col '>
                 <Box className={`subscription-step ${confirm.step === 1 ? "current-step" : 'completed-step'}`}>
                     <Box component="span" className='number-circle'>
                         <Box onClick={() => setConfirm({ ...confirm, "step": 1 })}> {confirm.step === 1 ? "1" : <CheckIcon />} </Box>
@@ -191,7 +191,7 @@ const CheckoutForm = () => {
                                     Select Package
                                 </Typography>
                             </Box>
-                            <Box className='subscription-plan'>
+                            <Box className='subscription-plan subs-coloum'>
                                 {subscriptionData.map((plan, i) => (
                                     <Box className="subscription-plan-card">
                                         <Typography component="h4" variant='h4' className='plan-title'>

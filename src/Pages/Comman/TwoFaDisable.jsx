@@ -117,7 +117,7 @@ const TwoFaDisable = () => {
                         </Container>
                     </Box>
 
-                </Box >
+                </Box>
             </ThemeProvider>
         </>
     )

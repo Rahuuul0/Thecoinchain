@@ -505,10 +505,11 @@ const Profile = (props) => {
                         loading={isSubmitting}
                         loadingPosition="end"
                         className="btn btn-primary"
-                        sx={{ marginLeft: "auto" }}
+                        sx={{ marginLeft: "auto",minWidth: "160px" }}
                         disabled={isSubmitting}
+                      
                       >
-                        Save Settings
+                       {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Save Settings"}
                       </LoadingButton>
                     </Typography>
                   </Box>

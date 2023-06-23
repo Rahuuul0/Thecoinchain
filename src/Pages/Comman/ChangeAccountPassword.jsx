@@ -192,10 +192,8 @@ const ChangeAccountPassword = () => {
                                                 fullWidth
                                                 disabled={isSubmitting}
                                                 sx={{ ml: 'auto', mt: { xs: '30px ', md: '30px' } }}
-                                                label={isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-
                                             >
-                                                Continue
+                                            {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Continue"}
                                             </LoadingButton>
                                         </Box>
                                     </Box>

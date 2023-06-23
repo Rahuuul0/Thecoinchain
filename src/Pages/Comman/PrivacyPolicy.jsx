@@ -2,20 +2,14 @@ import React from 'react'
 import { useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Typography, Link, Breadcrumbs } from '@mui/material';
+import { Box, Container, Typography, Breadcrumbs } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
-
-function handleClick(event) {
-    event.preventDefault();
-    console.info('You clicked a breadcrumb.');
-}
-
-
+import { Link } from "react-router-dom"; 
 
 const PrivacyPolicy = () => {
 
     const breadcrumbs = [
-        <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
+        <Link to="/" underline="hover" key="1" color="inherit" >
             Home
         </Link>,
         <Typography key="3" color="text.primary">

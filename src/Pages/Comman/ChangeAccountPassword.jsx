@@ -50,7 +50,7 @@ const ChangeAccountPassword = () => {
     const { errors, isSubmitting } = formState;
 
     const breadcrumbs = [
-        <Link underline="hover" key="1" color="inherit" href="/">
+        <Link underline="hover" key="1" color="inherit" to="/">
             Home
         </Link>,
         <Typography key="3" color="text.primary">
@@ -191,7 +191,7 @@ const ChangeAccountPassword = () => {
                                                 className='btn btn-primary'
                                                 fullWidth
                                                 disabled={isSubmitting}
-                                                sx={{ ml: 'auto', mt: { xs: '30px ', md: '30px' } }}endIcon={<SendIcon />}
+                                                sx={{ ml: 'auto', mt: { xs: '30px ', md: '30px' } }}
                                                 label={isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
 
                                             >

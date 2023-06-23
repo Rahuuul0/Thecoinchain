@@ -9,7 +9,6 @@ import {
   Grid,
   Typography,
   Button,
-  Link,
   Breadcrumbs,
   Select,
   OutlinedInput,
@@ -20,7 +19,7 @@ import {
 } from "@mui/material";
 import { NavigateNext } from "@mui/icons-material/";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { useUserActions, subscriptionActions } from "../../_actions";
@@ -34,10 +33,6 @@ import dayjs from "dayjs";
 import MuiPhoneNumber from "material-ui-phone-number";
 import LoadingButton from '@mui/lab/LoadingButton';
 
-function handleClick(event) {
-  event.preventDefault();
-  console.info("You clicked a breadcrumb.");
-}
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -156,8 +151,7 @@ const Profile = (props) => {
       underline="hover"
       key="1"
       color="inherit"
-      href="/"
-      onClick={handleClick}
+      to="/"
     >
       Home
     </Link>,

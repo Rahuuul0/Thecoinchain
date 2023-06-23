@@ -1,22 +1,15 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, InputAdornment, IconButton, TextField } from '@mui/material';
+import { Box, Container, Grid, Typography, Button, Breadcrumbs, InputAdornment, IconButton, TextField } from '@mui/material';
 import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
+import { Link } from "react-router-dom"; 
 import Sidebar from './Components/Sidebar';
-
-
-function handleClick(event) {
-    event.preventDefault();
-    console.info('You clicked a breadcrumb.');
-}
-
-
 
 const FaEnable = () => {
 
     const breadcrumbs = [
-        <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
+        <Link to="/" underline="hover" key="1" color="inherit" >
             Home
         </Link>,
         <Typography key="3" color="text.primary">
@@ -40,7 +33,7 @@ const FaEnable = () => {
                                         aria-label="breadcrumb"
                                         className='center-breadcrum'
                                     >
-                                        {breadcrumbs}
+                                    {breadcrumbs}
                                     </Breadcrumbs>
 
                                 </Box>
@@ -128,7 +121,7 @@ const FaEnable = () => {
                         </Container>
                     </Box>
 
-                </Box >
+                </Box>
             </ThemeProvider>
         </>
     )

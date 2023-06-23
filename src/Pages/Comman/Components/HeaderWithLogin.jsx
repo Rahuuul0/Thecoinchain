@@ -120,11 +120,22 @@ const singleRead = async (notId) =>{
           </Box>
           <Box display='flex' alignItems='center' >
             <Box>
-              <IconButton
+              {/* <IconButton
                 size="small"
                 className='icon-btn icon-avatar-img btnicon' aria-label="flash" color="primary">
                 <NotificationsNone color="action" />
-              </IconButton>
+              </IconButton> */}
+
+              <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
+              size="small"
+              sx={{ ml: 2 }}
+              aria-controls={openAnchorbtn ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
+              <IconButton>
+              <NotificationsNone color="action" />
+            </IconButton>
+            </Badge>
             </Box>
             <Box className=''>
               <IconButton
@@ -430,7 +441,7 @@ const singleRead = async (notId) =>{
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}
+              sx={{ mr: 2, display: { md: 'none' } }}
             >
               <MenuIcon />
             </IconButton>
@@ -448,7 +459,7 @@ const singleRead = async (notId) =>{
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            display: { xs: 'block', md: 'block', sm: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >

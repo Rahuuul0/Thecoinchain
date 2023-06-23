@@ -71,7 +71,7 @@ const ResetPassword = () => {
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
                         <Box className='auth-wrapper-form'  position='relative'>
-                        <Box position='absolute' sx={{top: '90px'}}>
+                        <Box position='absolute' sx={{ top: {xs: '0px' , md: '90px'}  }}>
                             <IconButton aria-label="delete"  className='btn-primary btn' variant="outlined" sx={{padding: '4px 4px !important', margin: '0px !important'}}>
                                 <KeyboardArrowLeft />
                             </IconButton>

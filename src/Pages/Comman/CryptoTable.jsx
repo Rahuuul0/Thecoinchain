@@ -126,13 +126,6 @@ const CryptoTable = (props) => {
     }
   }, []);
 
-     //historicalAction Api
-  //    useEffect(() => {
-  //     const response = historicalAction.get("BTC");
-  //     console.log(response,'response')
-  //     response.then((res) => { (res) })
-  // }, [])
-
   //  Latest Listing API call
   useEffect(() => {
     setLoader(true);
@@ -233,8 +226,6 @@ const CryptoTable = (props) => {
   const handleChanges = (event, value) => {
     setPage(paginator(coinsList, value, 3).page);
   };
-
-  console.log(coinsList,'coinlist')
 
   return (
     <>

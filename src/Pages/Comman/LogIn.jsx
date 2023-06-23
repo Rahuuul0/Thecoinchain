@@ -443,13 +443,16 @@ const LogIn = () => {
                             </Link>
                           </Box>
 
-                          <Button
+                          <LoadingButton
                             type="submit"
+                            loading={isSubmitting}
+                            loadingPosition="end"
                             variant="contained"
                             className="btn btn-primary"
+                            disabled={isSubmitting} 
                           >
                             Login
-                          </Button>
+                          </LoadingButton>
                         </TabPanel>
                       </TabContext>
                     </Box>

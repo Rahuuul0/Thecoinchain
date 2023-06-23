@@ -27,6 +27,7 @@ import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import OTPInput from "otp-input-react";
 import { KeyboardArrowLeft } from "@mui/icons-material/";
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -130,7 +131,7 @@ const ForgotPassword = () => {
               <img src={AuthBg} alt="Auth bg" />
             </Box>
             <Box className="auth-wrapper-form">
-              <Box position="absolute" sx={{ top: "90px" }}>
+              <Box position="absolute" sx={{ top: {xs: '15px' , md: '90px'}  }}>
                 <IconButton
                   onClick={() => {
                     navigate("/login");
@@ -203,14 +204,16 @@ const ForgotPassword = () => {
                       <div style={{ color: "red" }}>
                         {errors.email?.message}
                       </div>
-                      <Button
+                      <LoadingButton
                         type="submit"
+                        loading={isSubmitting}
+                        loadingPosition="end"
                         variant="contained"
                         className="btn btn-primary"
                         disabled={isSubmitting}
                       >
                         Continue
-                      </Button>
+                      </LoadingButton>
                       <Typography
                         onClick={() => {
                           navigate("/login");

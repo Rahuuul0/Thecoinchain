@@ -35,6 +35,8 @@ import Lock from "../../../public/assets/images/icons/lock.svg";
 import GoogleLogin from "./GoogleLogin.jsx";
 import AppleIcon from "@mui/icons-material/Apple";
 import MuiPhoneNumber from "material-ui-phone-number";
+import LoadingButton from '@mui/lab/LoadingButton';
+
 
 const LogIn = () => {
   const [value, setValue] = useState("1");
@@ -78,16 +80,24 @@ const LogIn = () => {
   // get functions to build form with useForm() hook
   const { register, handleSubmit, formState, reset, watch } =
     useForm(formOptions);
-  const { errors } = formState;
+  const { errors  } = formState;
   const formData = watch();
-
+ 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     reset({ email: "", pass: "", phone: "" });
   };
 
+  useEffect(() => {
+    if (userError)
+        setIsSubmitting(false)
+}, [userError])
+
+
   const handleFormSubmit = () => {
-    userActions.login(formData);
+    userActions.login(formData );
+    setIsSubmitting(true)
+    setUserError(false)
   };
   return (
     <>
@@ -141,7 +151,7 @@ const LogIn = () => {
               <img src={AuthBg} alt="Auth bg" />
             </Box>
             <Box className="auth-wrapper-form" position="relative">
-              <Box position="absolute" sx={{ top: {xs: '20px' , md: '90px'}  }}>
+              <Box position="absolute" sx={{ top: {xs: '0px' , md: '90px'}  }}>
                 <IconButton
                   onClick={() => {
                     navigate("/");
@@ -328,13 +338,17 @@ const LogIn = () => {
                               Forgot password?
                             </Link>
                           </Box>
-                          <Button
-                            type="submit"
+                          <LoadingButton
+                             type="submit"
+                            loading={isSubmitting}
+                            loadingPosition="end"
                             variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
                             className="btn btn-primary"
+                            disabled={isSubmitting} 
                           >
                             Login
-                          </Button>
+                          </LoadingButton>
                         </TabPanel>
                         <TabPanel value="2" sx={{ p: 0 }}>
                           <MuiPhoneNumber

@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useUserActions } from "../../_actions/user.actions";
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const ChangeAccountPassword = () => {
 
@@ -65,7 +66,7 @@ const ChangeAccountPassword = () => {
                             <Typography component="h2" variant='h2'>
                                 Change password
                             </Typography>
-                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
+                            <Box className='' sx={{ color: '#777E90', fontWeight: '500',  paddingTop: {xs: '10px', md: '0px'}}}>
                                 <Box  >
                                     <Breadcrumbs
                                         separator={<NavigateNext fontSize="small" />}
@@ -182,16 +183,20 @@ const ChangeAccountPassword = () => {
                                             />
                                             <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirm_password?.message}</div>
 
-                                            <Button
+                                            <LoadingButton
                                                 type="submit"
+                                                loading={isSubmitting}
+                                                loadingPosition="end"
                                                 variant="contained"
                                                 className='btn btn-primary'
                                                 fullWidth
                                                 disabled={isSubmitting}
-                                                sx={{ ml: 'auto', mt: { xs: '30px ', md: '30px' } }}
+                                                sx={{ ml: 'auto', mt: { xs: '30px ', md: '30px' } }}endIcon={<SendIcon />}
+                                                label={isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
+
                                             >
                                                 Continue
-                                            </Button>
+                                            </LoadingButton>
                                         </Box>
                                     </Box>
                                 </Box>

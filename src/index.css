@@ -3256,6 +3256,19 @@ video[poster] {
   .community-wrapper-inner {
     grid-template-columns: repeat(1, 1fr)
   }
+  .notification-badge .MuiBadge-badge {
+    background-color: #58bd7d;
+    line-height: 5;
+    position: absolute;
+    right: 6px;
+    width: 20px;
+    height: 20px;
+    top: 12px;
+    font-size: 10px;
+}
+.subs-coloum .btn-primary{
+  width: auto !important;
+}
 }
 
 @media (max-width: 680.98px) {
@@ -3285,6 +3298,7 @@ video[poster] {
   .notification-wrapper .notification-wrapper-head h4 {
     margin-bottom: 20px;
   }
+  
 }
 
 @media (max-width: 480.98px) {
@@ -3404,9 +3418,32 @@ display: none !important;
   padding: 5px 12px;
   border-radius: 66px;
 }
+
 .payment-plan-box p.active{
 
   border-color: #353945;
   background-color: #353945;
   color: #fff;
+}
+#root .button-img .btn.active{
+  background-color: #e5e5e5;
+  color: #000;
+}
+#root .button-img .btn.active img{
+  border: 1px solid #ffffff;
+}
+#root .button-img .btn img{
+  border: 1px solid transparent;
+  border-radius: 90px;
+  padding: 0;
+}
+
+.MuiLoadingButton-loadingIndicator{
+  position: relative !important;
+  right: -32px !important;
+}
+#root .MuiLoadingButton-loading{
+  background-color: #f2f2f2 !important; 
+  color: #212529;
+  border: 1px solid #3772FF;
 }

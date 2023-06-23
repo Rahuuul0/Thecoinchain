@@ -10,7 +10,6 @@ import {
 } from '@stripe/react-stripe-js';
 import { Box, Typography, Button, Modal } from '@mui/material'
 import { subscriptionActions } from './../../../_actions';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import BtcImg from '../../../../public/assets/images/icons/btc-ic.svg'
 import WalletIc from '../../../../public/assets/images/icons/wallet.svg'
 import VisaIc from '../../../../public/assets/images/icons/visa.svg'
@@ -156,7 +155,7 @@ const CheckoutForm = () => {
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
-            <Box className='subscription-steps-col'>
+            <Box className='subscription-steps-col '>
                 <Box className={`subscription-step ${confirm.step === 1 ? "current-step" : 'completed-step'}`}>
                     <Box component="span" className='number-circle'>
                         <Box onClick={() => setConfirm({ ...confirm, "step": 1 })}> {confirm.step === 1 ? "1" : <CheckIcon />} </Box>
@@ -191,7 +190,7 @@ const CheckoutForm = () => {
                                     Select Package
                                 </Typography>
                             </Box>
-                            <Box className='subscription-plan'>
+                            <Box className='subscription-plan subs-coloum'>
                                 {subscriptionData.map((plan, i) => (
                                     <Box className="subscription-plan-card">
                                         <Typography component="h4" variant='h4' className='plan-title'>
@@ -227,7 +226,7 @@ const CheckoutForm = () => {
                     <Box className="step-two" style={styled}>
                         <Box className="card-inner-head">
                             <Typography component="h5" variant='body1' className='large-caption'>
-                                <KeyboardBackspaceIcon /> Payment info
+                                 Payment info
                             </Typography>
                             <Typography component="h5" variant='body1' className='large-caption invest-smarter'>
                                 Invest smarter, not harder. <img src={BtcImg} alt='BTC' width="24px" />
@@ -310,7 +309,7 @@ const CheckoutForm = () => {
                         <Box className="step-three">
                             <Box className="card-inner-head">
                                 <Typography component="h5" variant='body1' className='large-caption'>
-                                    <KeyboardBackspaceIcon /> Confirm order
+                                    Confirm order
                                 </Typography>
                                 <Typography component="h5" variant='body1' className='large-caption invest-smarter'>
                                     Invest smarter, not harder. <img src={BtcImg} alt='BTC' width="24px" />

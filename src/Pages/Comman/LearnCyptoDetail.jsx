@@ -274,16 +274,16 @@ const LearnCyptoDetail = () => {
               return (
                 <Grid item xs={12} sm={4} md={4}>
                   <Box className="about-crypto">
-                    <Button
+                    <Typography
                       textTransform="uppercase"
-                      className="orange-btn float-img small-btn"
+                      className="orange-btn float-img small-btn small-new-btn"
                     >
                       New
-                    </Button>
+                    </Typography>
 
                     <Box
                       className="avatar-rounded"
-                      onClick={() => scrollToVideo(scrollRef, item.video_link)}
+                      onClick={() => scrollToVideo(scrollRef, item.video_link,)}
                       sx={{ cursor: "pointer" }}
                     >
                       <img className="tutorial-preview" src={item.image_link} />
@@ -307,9 +307,9 @@ const LearnCyptoDetail = () => {
                       </Box>
 
                       <Box>
-                        <Button className="btn btn-green-outlined">
+                        <Typography className="btn btn-green-outlined">
                           Popular
-                        </Button>
+                        </Typography>
                       </Box>
                     </Stack>
                   </Box>

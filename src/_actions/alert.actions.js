@@ -6,7 +6,7 @@ const useAlertActions = () => {
                 enqueueSnackbar(message, { variant:"success",autoHideDuration:2000 }); 
             },
         error: message => {
-            enqueueSnackbar(message, { variant:"error",autoHideDuration:5000 });  
+            enqueueSnackbar(message, { variant:"error",autoHideDuration:2000 });  
         }
     }
 }

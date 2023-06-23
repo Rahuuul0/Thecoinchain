@@ -342,9 +342,9 @@ const Contact = () => {
 
                     </Box>
                   </TabPanel>
-                  <TabPanel value="2">Bitcoin</TabPanel>
-                  <TabPanel value="3">Blockchain</TabPanel>
-                  <TabPanel value="4">Tutorial</TabPanel>
+                  <TabPanel value="2">Support</TabPanel>
+                  <TabPanel value="3">Hosting</TabPanel>
+                  <TabPanel value="4">Product</TabPanel>
                 </TabContext>
               </Box>
             </Box>

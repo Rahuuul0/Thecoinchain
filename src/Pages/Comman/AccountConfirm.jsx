@@ -214,17 +214,10 @@ const AccountConfirm = () => {
                         Resend Code 
                       </Button>
                       }
-                      <LoadingButton
-                        type="submit"
-                        loading={isSubmitting}
-                        loadingPosition="end"
-                        variant="contained"
-                        className="btn btn-primary"
-                        disabled={isSubmitting} 
-                        endIcon={<KeyboardArrowRightIcon />}
-                      >
-                         {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Continue"}
-                      </LoadingButton>
+                      <Button
+                        type="submit" variant="contained" className='btn btn-primary'  >
+                        Continue 
+                      </Button>
 
                     </Box>
                   </Box>

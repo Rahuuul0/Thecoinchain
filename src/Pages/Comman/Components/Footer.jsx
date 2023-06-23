@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { Box, Grid, Container, Typography, Link, Stack, TextField, InputAdornment, IconButton, Button } from '@mui/material';
 import { ArrowRightAlt } from '@mui/icons-material';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useNavigate, Link as RouterLink, useLocation } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from 'react';
@@ -15,13 +15,15 @@ import FacebookIcon from "../../../../public/assets/images/icons/facebook.svg";
 import InstagramIcon from "../../../../public/assets/images/icons/instagram.svg";
 import DribbbleIcon from "../../../../public/assets/images/icons/dribbble.svg";
 import TwitterIcon from "../../../../public/assets/images/icons/twitter.svg";
-import { FooterAddAtom } from '../../../_state';
+import { loaderAtom } from '../../../_state';
 
 
 const Footer = () => {
   const useFooterAddActions = useFooterActions()
   const navigate = useNavigate();
-  const [addAtomError, setAddError] = useRecoilState(FooterAddAtom);
+  const location = useLocation();
+  const loader = useRecoilValue(loaderAtom);
+
   // form validation rules 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -35,20 +37,20 @@ const Footer = () => {
   // get functions to build form with useForm() hook
   const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
   const { errors } = formState;
-  const [isSubmitting, setIsSubmitting] = useState(false);
+ 
 
   const formData = watch();
+  console.log(errors, "errors")
 
   useEffect(() => {
-    if (addAtomError)
-      setIsSubmitting(false)
-  }, [addAtomError])
+    reset({email: ""})
+    errors.email = "";
+  },[location])
 
   const handleFormSubmit = (data) => {
-    setIsSubmitting(true)
-    setAddError(false)
     setTimeout(()=>{reset({email : " "})},2000)
     return useFooterAddActions.add(data);
+   
   }
 
   return (<>
@@ -132,7 +134,7 @@ const Footer = () => {
                       <InputAdornment position="end">
                         <IconButton
                           type='submit'
-                          disabled={isSubmitting}
+                          disabled={loader}
                           variant="outlined"  >
                           <ArrowRightAlt />
                         </IconButton>

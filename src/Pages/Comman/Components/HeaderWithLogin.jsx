@@ -5,10 +5,10 @@ import { ListItem, List, ListItemButton, ListItemText, CssBaseline, IconButton, 
 import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
-import galleryImage from '../../../../public/assets/images/gallery.svg';
+import galleryImage from '../../../../public/assets/images/icons/gallery.svg';
 import { NotificationsNone, Search, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
-import ShareIcon from '../../../../public/assets/images/share-square.svg';
-import UserIcon from '../../../../public/assets/images/user.svg';
+import ShareIcon from '../../../../public/assets/images/icons/share-square.svg';
+import UserIcon from '../../../../public/assets/images/icons/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import { useUserActions } from "../../../_actions/user.actions";
 import USA from '../../../../public/assets/images/icons/usa.svg';
@@ -342,7 +342,7 @@ function Header(props) {
                 </Grid>
               </Box>
             </Menu>
-            <IconButton className='icon-btn icon-avatar-img btnicon' onClick={handleClickAnchorbtn} size="small"
+            <IconButton className='icon-btn icon-avatar-img btnicon' size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
               aria-haspopup="true"

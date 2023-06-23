@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
-import { Box, Grid, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel,Accordion, AccordionDetails , AccordionSummary  } from '@mui/material/';
+import { Box, Grid, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Accordion, AccordionDetails, AccordionSummary } from '@mui/material/';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -18,7 +18,7 @@ import Button from '@mui/material/Button';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import galleryImage from '../../../../public/assets/images/gallery.svg';
+import galleryImage from '../../../../public/assets/images/icons/gallery.svg';
 import { KeyboardArrowDown, WbSunnyOutlined, Search } from '@mui/icons-material/';
 import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
@@ -78,7 +78,7 @@ function Header(props) {
   const drawer = (
     <>
       <Box className='mobile-nav-box' onClick={handleDrawerToggle} sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
-      <Box className='close-btn'><p>+</p></Box>
+        <Box className='close-btn'><p>+</p></Box>
         <Box>
           <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
           <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
@@ -91,18 +91,18 @@ function Header(props) {
               >
                 <Button
                   id="acedamy-btn"
-                                
+
                 >
                   Academy
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
-              <Typography onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
-              <Typography onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+                <Typography onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
+                <Typography onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
               </AccordionDetails>
             </Accordion>
-           
-            <List sx={{padding:'0px'}}>
+
+            <List sx={{ padding: '0px' }}>
               {navItems.map((item, i) => {
                 return (
                   <ListItem key={i} disablePadding>
@@ -136,18 +136,18 @@ function Header(props) {
           {/* <Button variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', borderRadius: '90px' }}>Sign Up</Button> */}
           {/* <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Login</Button> */}
           <Button
-              onClick={() => {
-                navigate("/create-account");
-              }}
-              variant="contained" className="btn btn-primary" sx={{ color: '#ffffff', backgroundColor: '#3772FF', borderRadius: '90px' }}
-            >Sign up</Button>
-            <Button
-              onClick={() => {
-                navigate("/login");
-              }}
-              variant="outline" className="btn btn-outline"  sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }} >
-              Login</Button>
-          
+            onClick={() => {
+              navigate("/create-account");
+            }}
+            variant="contained" className="btn btn-primary" sx={{ color: '#ffffff', backgroundColor: '#3772FF', borderRadius: '90px' }}
+          >Sign up</Button>
+          <Button
+            onClick={() => {
+              navigate("/login");
+            }}
+            variant="outline" className="btn btn-outline" sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }} >
+            Login</Button>
+
           <IconButton aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
           <IconButton aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
 

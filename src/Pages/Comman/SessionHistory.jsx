@@ -16,6 +16,7 @@ import USAflag from '../../../public/assets/images/icons/usa.svg';
 import Sidebar from './Components/Sidebar';
 import ReactCountryFlag from "react-country-flag"
 import { useDeviceData, useDeviceSelectors, isMacOs } from "react-device-detect";
+import dayjs from "dayjs";
 
 
 const SessionHistory = () => {
@@ -55,6 +56,8 @@ const SessionHistory = () => {
         response.then((res) => { setHistoryData([...res]) })
 
     }, [])
+
+    const historyDataSort = historyData.sort().reverse();
 
     return (
         <>
@@ -111,14 +114,16 @@ const SessionHistory = () => {
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
-                                                        {historyData.map((item, i) => {
+                                                        {historyDataSort.map((item, i) => {
                                                             return (
                                                                 <TableRow
                                                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                                                 >
                                                                     <TableCell>
                                                                         <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                            {item.created_at}
+                                                                            {dayjs(item.created_at).format(
+                                                                                "MM/DD/YY - HH:mm:ss"
+                                                                            )}
                                                                         </Typography>
                                                                         <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
 
@@ -179,14 +184,17 @@ const SessionHistory = () => {
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
-                                                        {historyData.map((v, i) => {
+                                                        {historyDataSort.map((v, i) => {
                                                             return (
                                                                 <TableRow
                                                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                                                 >
                                                                     <TableCell>
                                                                         <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                            {v.created_at}
+                                                                            {dayjs(v.created_at)
+                                                                                .format(
+                                                                                    "MM/DD/YY - HH:mm:ss"
+                                                                                )}
                                                                         </Typography>
                                                                         <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
                                                                             {v.time}

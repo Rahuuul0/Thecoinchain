@@ -29,8 +29,8 @@ import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import AppleIcon from "@mui/icons-material/Apple";
 import ReCAPTCHA from "react-google-recaptcha";
 import MuiPhoneNumber from "material-ui-phone-number";
-
 import GoogleAuth from "./GoogleAuth.jsx";
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const CreateAccount = () => {
   const navigate = useNavigate();
@@ -172,7 +172,7 @@ const CreateAccount = () => {
               <img src={AuthBg} alt="Auth bg" />
             </Box>
             <Box className="auth-wrapper-form" position="relative">
-              <Box position="absolute" sx={{ top: {xs: '0px' , md: '90px'}  }}>
+              <Box position="absolute" sx={{ top: { xs: '0px', md: '90px' } }}>
                 <IconButton
                   onClick={() => {
                     navigate("/");
@@ -392,14 +392,16 @@ const CreateAccount = () => {
                       onChange={handleChange}
                       asyncScriptOnLoad={asyncScriptOnLoad}
                     />
-                    <Button
+                    <LoadingButton
                       type="submit"
+                      loading={isSubmitting}
+                      loadingPosition="end"
                       variant="contained"
                       disabled={isSubmitting}
                       className="btn btn-primary"
                     >
                       Sign up
-                    </Button>
+                    </LoadingButton>
                   </Box>
                 </Box>
               </Box>

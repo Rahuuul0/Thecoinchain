@@ -212,10 +212,9 @@ const Home = () => {
           >
             <Grid item xs={12} sm={8} md={8}>
               <Typography
-                variant="h3"
+                variant="h2"
                 fontSize={48}
                 fontWeight={700}
-                paddingBottom={2}
                 className="secondary-font mobile-text-center"
               >
                 Learn crypto
@@ -854,7 +853,6 @@ const Home = () => {
             component="h2"
             variant="h2"
             className="secondary-font mobile-font-40"
-            paddingBottom={2}
           >
             Market trend
           </Typography>
@@ -951,7 +949,7 @@ const Home = () => {
               component="h2"
               className="secondary-font font-40"
               textAlign="center"
-              sx={{ fontWeight: "700", paddingX: { xs: '0px', md: '250px' } }}
+              sx={{ fontWeight: "700", maxWidth: "500px", margin: 'auto' }}
             >
               Become a crypto
               trader in seconds
@@ -1073,7 +1071,7 @@ const Home = () => {
             columns={{ xs: 4, sm: 8, md: 12 }}
             className="flow-reverse-mobile"
           >
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={5}>
               <Box sx={{ paddingBottom: { xs: '15px', md: '50px' } }}>
                 <Typography
                   variant="h2"
@@ -1178,7 +1176,7 @@ const Home = () => {
                 </Stack>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={7}>
               <img src={InformedCypto} />
             </Grid>
           </Grid>

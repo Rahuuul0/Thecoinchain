@@ -70,14 +70,14 @@ const ChangePassword = () => {
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
                         <Box className='auth-wrapper-form' position='relative'>
-                            <Box position='absolute'  sx={{ top: {xs: '20px' , md: '90px'}  }}>
+                            <Box position='absolute' sx={{ top: { xs: '20px', md: '90px' } }}>
                                 <IconButton aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
                                     <KeyboardArrowLeft />
                                 </IconButton>
                             </Box>
                             <Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
-                                    Change Password
+                                    New Password
                                 </Typography>
                                 <Box component="form"
                                     onSubmit={handleSubmit(userActions.changePassword)}

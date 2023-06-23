@@ -113,7 +113,7 @@ const ForecastSubscriptions = () => {
                                 Subscriptions
                             </Typography>
 
-                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', paddingTop: {xs: '10px', md: '0px'} }}>
+                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', paddingTop: { xs: '10px', md: '0px' } }}>
                                 <Box  >
                                     <Breadcrumbs
                                         separator={<NavigateNext fontSize="small" />}
@@ -140,54 +140,40 @@ const ForecastSubscriptions = () => {
                                                 <span>Forecast </span> Subscriptions
                                             </Typography>
                                         </Box>}
-                                        <Box className='subscription-plan'>
-                                            {User?.status === 'running' ? (<Accordion expanded={expandFirst}>
-                                                <AccordionSummary
-                                                    // expandIcon={<ExpandMoreIcon />}
-                                                    aria-controls="panel1bh-content"
-                                                    id="panel1bh-header"
-                                                >
-                                                    <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                                                        Plan Details
+                                        <Box className='subscription-plan forecast-subscription'>
+                                            {User?.status === 'running' ? (<Box expanded={expandFirst}>
+                                                <Box className="subscription-plan-card">
+                                                    <Typography component="h4" variant='h4' className='plan-title'>
+                                                        {User.plan_type}
                                                     </Typography>
-                                                </AccordionSummary>
-                                                <AccordionDetails>
-                                                    <Box className="subscription-plan-card">
-                                                        <Typography component="h4" variant='h4' className='plan-title'>
-                                                            {User.plan_type}
-                                                        </Typography>
-                                                        <Box className="subscription-plan-body">
-                                                            <Typography component="h4" variant='h4' className='plan-price'>
-                                                                ${User.amount} <span className='plan-days'>/ {User.plan_type}</span>
-                                                            </Typography>
-
-                                                            <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
-                                                                <Typography>Gat all crypto price predictions & Trade with Machine learning</Typography>
-                                                            </Typography>
-                                                        </Box>
-                                                        <Box className="subscription-plan-cta">
-                                                            <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
-                                                                <Typography>You are subscribed to this plan</Typography>
-                                                            </Typography>
-
-                                                        </Box>
-
-                                                        <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
-                                                            By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content once your plan finishes. To regain full access to the content, a new subscription is required.
+                                                    <Box className="subscription-plan-body">
+                                                        <Typography component="h4" variant='h4' className='plan-price'>
+                                                            ${User.amount} <span className='plan-days'>/ {User.plan_type}</span>
                                                         </Typography>
 
+                                                        <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
+                                                            <Typography>Gat all crypto price predictions & Trade with Machine learning</Typography>
+                                                        </Typography>
                                                     </Box>
                                                     <Box className="subscription-plan-cta">
-                                                        <Button onClick={() => { setExpandFirst(false); unsubscribedUserFun() }} variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribe</Button>
+                                                        <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
+                                                            <Typography>You are subscribed to this plan</Typography>
+                                                        </Typography>
                                                     </Box>
-                                                </AccordionDetails>
-                                            </Accordion>) : (<Box className='subscription-plan'>
-                                            <AccordionSummary
+                                                </Box>
+                                                <Box className="unsubscribe-plan">
+                                                    <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
+                                                        By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content once your plan finishes. To regain full access to the content, a new subscription is required.
+                                                    </Typography>
+                                                    <Button onClick={() => { setExpandFirst(false); unsubscribedUserFun() }} variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribe</Button>
+                                                </Box>
+                                            </Box>) : (<Box className='subscription-plan'>
+                                                <AccordionSummary
                                                     aria-controls="panel1bh-content"
                                                     id="panel1bh-header"
                                                 >
                                                     <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                                                      Details
+                                                        Details
                                                     </Typography>
                                                 </AccordionSummary>
                                                 <Box className="subscription-plan-card">

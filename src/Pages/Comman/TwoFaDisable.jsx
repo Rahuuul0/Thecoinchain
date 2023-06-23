@@ -35,7 +35,7 @@ const TwoFaDisable = () => {
                                 2FA
                             </Typography>
 
-                            <Box className='' sx={{ color: '#777E90', fontWeight: '500',  paddingTop: {xs: '10px', md: '0px'} }}>
+                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', paddingTop: { xs: '10px', md: '0px' } }}>
                                 <Box  >
                                     <Breadcrumbs
                                         separator={<NavigateNext fontSize="small" />}
@@ -115,7 +115,7 @@ const TwoFaDisable = () => {
                                     </Grid>
 
                                     <Typography textAlign='right' paddingY={3}>
-                                        <Button className='btn btn-success btn-primary mobile-w-100' sx={{ margin: '0 auto' }} onClick={() => { navigate("../2fa-enable") }}>Enable 2FA</Button>
+                                        <Button className='btn btn-success btn-success mobile-w-100' color='success' sx={{ margin: '0 auto' }} onClick={() => { navigate("../2fa-enable") }}>Enable 2FA</Button>
                                     </Typography>
                                 </Box>
                             </Box>

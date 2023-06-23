@@ -167,9 +167,9 @@ const Contact = () => {
     <>
       {/* Banner starts */}
       <Container>
-        <Box paddingTop={5} paddingBottom={10}>
+        <Box paddingTop={{ lg: 10, md: 6 }} paddingBottom={{ lg: 10, md: 6 }}>
           <Grid container sx={{ alignItems: 'center' }}>
-            <Grid item xs={12} sm={6} md={6} paddingRight={5} className='padding-0-mobile'>
+            <Grid item xs={12} sm={6} md={6} className='padding-0-mobile'>
               <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} >Save your time with Stacks</Typography>
               <Typography variant='h1' component="div" className='hero-heading primary-color'>
                 How can we help
@@ -195,14 +195,15 @@ const Contact = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-              <img className='heroImage' src={ContactHeroImage} />
+              <img className='heroImage w-100' src={ContactHeroImage} />
             </Grid>
           </Grid>
         </Box>
-      </Container>
+      </Container >
       {/* Banner Ends */}
 
-      <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
+      < Container maxWidth='fluid' sx={{ padding: '0px !important' }
+      }>
         <Box paddingY={7} className='newdesignbox'>
           <Grid container spacing={0} rowSpacing={6} >
             <Grid item xs={12} sm={3} md={3} >
@@ -270,12 +271,12 @@ const Contact = () => {
             <Button className='btn-outlined-secondary'>Learn More</Button>
           </Typography>
         </Box>
-      </Container>
+      </Container >
 
 
       {/* Slider ends */}
 
-      <Container>
+      < Container >
         <Box paddingY={10}>
           <Box>
             <Box className='smallwidth'>
@@ -364,7 +365,7 @@ const Contact = () => {
           </Box>
 
         </Box>
-      </Container>
+      </Container >
 
       <Container maxWidth='fluid' sx={{ backgroundColor: '#F8F8F9' }}>
         <Container className='smallwidth'>

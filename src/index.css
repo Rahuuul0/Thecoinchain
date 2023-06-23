@@ -53,7 +53,7 @@ body .modal-dialog * {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0px 24px;
+  padding: 10px 24px;
   gap: 12px;
   font-size: 14px;
   border-radius: 90px !important;
@@ -65,7 +65,7 @@ body .modal-dialog * {
 
 #root .btn.MuiButton-sizeSmall,
 .modal-dialog .btn.MuiButton-sizeSmall {
-  padding: 4px 15px;
+  padding: 1px 10px;
 }
 
 #root .btn.btn-table.MuiButton-sizeSmall,
@@ -76,10 +76,8 @@ body .modal-dialog * {
 #root .btn-primary,
 .modal-dialog .btn-primary {
   background-color: var(--primary-color) !important;
-  /* min-width: 150px; */
-  /* height: 46px; */
   color: var(--color_light);
-  padding: 9px 15px;
+  padding: 10px 15px;
 }
 
 #root .btn-secondary,
@@ -93,10 +91,12 @@ body .modal-dialog * {
 
 #root .btn-success {
   background-color: #58bd7d;
+  color: #fff;
 }
 
 #root .btn-error {
   background-color: #ff6838;
+  color: #fff;
 }
 
 #root .gold-color {
@@ -1008,7 +1008,7 @@ input[type="number"] {
 .learn-cypto-tab .MuiTabs-flexContainer {
   justify-content: left;
   gap: 20px;
-  padding-top: 20px;
+  padding-top: 40px;
 }
 
 .learn-cypto-tab button {
@@ -1180,7 +1180,7 @@ input[type="number"] {
 .crypto-box {
   padding: 50px;
   background-color: #ffffff;
-  margin-top: 100px;
+  margin-top: 80px;
   border-radius: 24px;
   box-shadow: 0px 6px 25px rgb(15 15 15 / 10%);
 }
@@ -1556,6 +1556,11 @@ video {
   content: "_";
   color: #fcfcfd;
   display: block;
+}
+
+.crypto-list-table table tr th:first-child,
+.crypto-list-table table tr td:first-child {
+  padding-left: 0;
 }
 
 .crypto-list-table table tr th,
@@ -1953,6 +1958,10 @@ video {
   justify-content: center;
 }
 
+.forecast-subscription .unsubscribe-plan {
+  display: block;
+}
+
 .account-main .step-one {
   box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
   padding-bottom: 32px;
@@ -1975,6 +1984,11 @@ video {
 
 .account-main .subscription-plan {
   margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.account-main .subscription-plan .unsubscribe-plan {
+  margin-top: 33px;
 }
 
 #root .subscription-plan .subscription-plan-cta p {
@@ -2480,6 +2494,10 @@ p.left-icon img {
 }
 
 /* account */
+.update-profile {
+  border-radius: 16px;
+}
+
 .update-profile .MuiFormControl-root label {
   color: #353945;
   transform: none;
@@ -2701,6 +2719,19 @@ video[poster] {
   background-color: #f2f2f2 !important;
   color: #212529;
   border: 1px solid #3772FF;
+}
+
+.y-scroll {
+  overflow-y: auto;
+}
+
+.session-list table tr th:first-child,
+.session-list table tr td:first-child {
+  padding-left: 0;
+}
+
+.favorite-ic {
+  cursor: pointer;
 }
 
 /* Media Queries  */

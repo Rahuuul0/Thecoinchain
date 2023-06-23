@@ -91,9 +91,9 @@ const SessionHistory = () => {
                                         <Typography component="h5" variant='h5'>
                                             Active sessions
                                         </Typography>
-                                        <Box className='session-list' marginBottom={5}>
-                                            <TableContainer>
-                                                <Table sx={{ minWidth: { xs: '250px', md: '650px' } }} aria-label="simple table">
+                                        <Box className='session-list'>
+                                            <TableContainer sx={{ maxHeight: 440, paddingRight: '18px' }}>
+                                                <Table stickyHeader aria-label="sticky table" sx={{ minWidth: { xs: '250px', md: '650px' } }}>
                                                     <TableHead>
                                                         <TableRow>
                                                             <TableCell>
@@ -160,9 +160,8 @@ const SessionHistory = () => {
                                             Login history
                                         </Typography>
                                         <Box className='session-list'>
-
-                                            <TableContainer>
-                                                <Table sx={{ minWidth: { xs: '250px', md: '650px' } }} aria-label="simple table">
+                                            <TableContainer sx={{ maxHeight: 440, paddingRight: '18px' }}>
+                                                <Table stickyHeader aria-label="sticky table" sx={{ minWidth: { xs: '250px', md: '650px' } }}>
                                                     <TableHead>
                                                         <TableRow>
                                                             <TableCell>
@@ -215,7 +214,7 @@ const SessionHistory = () => {
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                            <Button onClick={() => { navigate('/contact') }} variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto' }}>Contact us</Button>
+                                            <Button onClick={() => { navigate('/contact') }} variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto', marginY: { xs: '40px ', md: '40px' } }}>Contact us</Button>
                                         </Box>
                                     </Box>
                                 </Box>

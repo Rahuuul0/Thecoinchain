@@ -23,6 +23,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate } from 'react-router-dom';
 import {West, East} from '@mui/icons-material';
 import { General, Subscriptions } from './Questions';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -455,13 +456,16 @@ const Contact = () => {
             </Box>
             <Box paddingTop='2'>
               <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
-                <Button 
+                <LoadingButton 
                 type='submit'
+                loading={isSubmitting}
+                loadingPosition="end"
                 className='btn btn-primary' 
                 sx={{ float: 'right' }} 
                 disabled={isSubmitting}
-                variant='contained'>Send message
-                </Button>
+                variant='contained'>
+                {isSubmitting? <span  className="spinner-border ">Loading</span>:" Send message "}
+                </LoadingButton>
               </Typography>
             </Box>
           </Box>

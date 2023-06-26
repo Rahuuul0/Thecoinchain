@@ -32,7 +32,7 @@ import HttpsIcon from "@mui/icons-material/Https";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Line, Chart } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
-import { useCoinActions, subscriptionActions } from "../../_actions";
+import { useCoinActions, subscriptionActions, quotesHistoricalActions } from "../../_actions";
 import {
   coinsAtom,
   userAtom,
@@ -40,6 +40,7 @@ import {
   forecastSubAtom,
   authAtom,
   loaderAtom,
+  historicalAtom
 } from "../../_state";
 
 import { TabPanel } from "@mui/lab";
@@ -82,6 +83,7 @@ const CryptoTable = (props) => {
   const subscriptionAction = subscriptionActions();
   const subscriptionDetails = useRecoilValue(forecastSubAtom);
   const [loader, setLoader] = useRecoilState(loaderAtom);
+  const historicalAction = quotesHistoricalActions();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -106,9 +108,11 @@ const CryptoTable = (props) => {
     setChartData("");
   };
 
-  const handleChartOpen = (id) => {
+  const handleChartOpen = async (id)  => {
+    const response = await historicalAction.add(id.symbol);
+        console.warn(response)
     setChartOpen(true);
-    setChartData(coinsList.filter((item) => item.id === id));
+    setChartData(coinsList.filter((item) => item.id === id.id));
   };
 
   const handleChartClose = (id) => {
@@ -409,7 +413,7 @@ const CryptoTable = (props) => {
                                     ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
                                     : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
                               }}
-                              onClick={() => handleChartOpen(item.id)}
+                              onClick={() => handleChartOpen(item)}
                             />
                           </TableCell>
                         ) : subscriptionDetails.status === "expired" &&

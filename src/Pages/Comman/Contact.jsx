@@ -461,7 +461,7 @@ const Contact = () => {
                 loading={isSubmitting}
                 loadingPosition="end"
                 className='btn btn-primary' 
-                sx={{ float: 'right' }} 
+                sx={{ float: 'right',minWidth: "160px" }} 
                 disabled={isSubmitting}
                 variant='contained'>
                 {isSubmitting? <span  className="spinner-border ">Loading</span>:" Send message "}

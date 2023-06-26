@@ -26,25 +26,25 @@ const drawerHeight = '100vh';
 
 function Header(props) {
   const userActions = useUserActions();
-  const notification = notificationActions();
+  const notificationAction = notificationActions();
   const notifications = useRecoilValue(notificationAtom);
   const userDetails = useRecoilValue(authAtom);
   const notificaionCount = useRecoilValue(notificationCountAtom);
 
   const handleClear = async() => {
       let notId = notifications.map((item,index) => { if(index < 5){return( item.ct_notiy_id )}  })
-      notification.clearNotifications(notId);
+      notificationAction.clearNotifications(notId);
   };
 
 useEffect(()=>{
-      notification.notificationList() 
+  notificationAction.notificationList() 
      
 },[])
 
 const singleRead = async (notId) =>{
     let userId = userDetails.id
 
-    notification.notificationSingleread(notId, userId)
+    notificationAction.notificationSingleread(notId, userId)
  
 }
   const navItems = [

@@ -18,7 +18,6 @@ const Notifications = () => {
     const notificationAction = notificationActions();
     const notifications = useRecoilValue(notificationAtom);
     const userDetails = useRecoilValue(authAtom);
-    // const [loadMoreList,setLoadMoreList]=useState([notifications])
     const [loadmore,setLoadmore] = useState(10);
     const [checked, setChecked] = useState(false)
     const [categoryArray,setCategoryArray]=useState([]);
@@ -31,6 +30,12 @@ const Notifications = () => {
     const handleClear = async() => {
           notificationAction.clearNotifications();
         };
+
+    const singleRead = async (notId) =>{
+            let userId = userDetails.id
+            notificationAction.notificationSingleread(notId, userId)
+         
+        }
      
     //   Filter selectAll and UnselectAll function
     const handleSelectAll =(flag) =>{
@@ -123,7 +128,7 @@ const Notifications = () => {
 
                                             return(
                                              
-                                                <Box className='notification-list-itm'>
+                                                <Box onClick={()=> singleRead(item.ct_notiy_id)} className='notification-list-itm'>
                                                     <Box className='notification-icon'>
                                                         <BoltOutlinedIcon />
                                                     </Box>

@@ -20,6 +20,10 @@ import { tutorialAtom, loaderAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
+import ShareIcon from "../../../public/assets/images/share.svg";
+import LikeIcon from "../../../public/assets/images/love.svg";
+
+
 
 function handleClick(event) {
   event.preventDefault();
@@ -54,6 +58,7 @@ const LearnCyptoDetail = () => {
 
   const handleLoadMore = () => {
     setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
+     navigate("/learn-cypto")
   };
 
   useEffect(() => {
@@ -97,7 +102,6 @@ const LearnCyptoDetail = () => {
       </Container>
 
       {/* video section ends */}
-
       <Container>
         <Box paddingY={10}>
           <Box>
@@ -264,6 +268,13 @@ const LearnCyptoDetail = () => {
             </Box>
           </Box>
         </Box>
+      </Container>
+      <Container>
+        <Stack direction='row' justifyContent='center' spacing={3}  marginBottom={5} >
+        <img src={ShareIcon} />
+        <img src={LikeIcon} />
+
+        </Stack>
       </Container>
 
       <Container>

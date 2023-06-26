@@ -30,7 +30,7 @@ function Header(props) {
   const notifications = useRecoilValue(notificationAtom);
   const userDetails = useRecoilValue(authAtom);
   const notificaionCount = useRecoilValue(notificationCountAtom);
-
+ 
   const handleClear = async() => {
       let notId = notifications.map((item,index) => { if(index < 5){return( item.ct_notiy_id )}  })
       notificationAction.clearNotifications(notId);
@@ -47,6 +47,7 @@ const singleRead = async (notId) =>{
     notificationAction.notificationSingleread(notId, userId)
  
 }
+
   const navItems = [
     {
       page: 'Community',
@@ -119,13 +120,8 @@ const singleRead = async (notId) =>{
             <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
           </Box>
           <Box display='flex' alignItems='center' >
+          
             <Box>
-              {/* <IconButton
-                size="small"
-                className='icon-btn icon-avatar-img btnicon' aria-label="flash" color="primary">
-                <NotificationsNone color="action" />
-              </IconButton> */}
-
               <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
               size="small"
               sx={{ ml: 2 }}
@@ -137,6 +133,7 @@ const singleRead = async (notId) =>{
             </IconButton>
             </Badge>
             </Box>
+
             <Box className=''>
               <IconButton
                 size="small"
@@ -315,7 +312,6 @@ const singleRead = async (notId) =>{
                    if(index < 5){
                   return(
                     <>
-                    
                     <MenuItem  onClick={()=> singleRead(item.ct_notiy_id)} sx={{padding:'0'}}>
                      <span className='outer-div-menu'>
                       <span className='inner-div-menu'>

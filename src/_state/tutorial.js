@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 const tutorialAtom = atom({
-  key: "tutorial",
+  key: "tutorialAtom",
   default: [],
 });
 

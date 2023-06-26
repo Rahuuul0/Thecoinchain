@@ -25,9 +25,9 @@ import GoogleIcon from "../../../../../public/assets/images/google-g-2015-logo-s
 import InformedCypto from "../../../../../public/assets/images/informed-cypto.svg";
 import DarkLogo from "../../../../../public/assets/images/logo.svg";
 import Globe from "../../../../../public/assets/images/globe.svg";
-import Wallet from "../../../../../public/assets/images/wallet-home.svg";
+import Wallet from "../../../../../public/assets/images/crypto-trader-03.svg";
 import Money from "../../../../../public/assets/images/money.svg";
-import Treding from "../../../../../public/assets/images/treding.svg";
+import Treding from "../../../../../public/assets/images/crypto-trader-01.svg";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
@@ -47,7 +47,7 @@ import {
   cardCoinsAtom,
   loaderAtom,
   bannerListAtom,
-} from "../../../../_state";
+} from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
 
@@ -67,7 +67,6 @@ const Home = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }, []);
   const getFirstLetters = (str) => {
     const firstLetters = str.replace("Portfolio", "");
@@ -76,11 +75,14 @@ const Home = () => {
 
   //subscribedUser Api
   useEffect(() => {
+    tutorialAction.tutorialData();
     const response = bannerActions.get();
     response.then((res) => {
       res;
     });
   }, []);
+
+
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
@@ -203,8 +205,10 @@ const Home = () => {
           </Grid>
         </Box>
       </Container>
+
+
       <Container>
-        <Box paddingTop={12}>
+        <Box className="learn-crypto-home">
           <Grid
             container
             rowSpacing={1}
@@ -335,7 +339,7 @@ const Home = () => {
                           className="flex-between-box"
                           marginBottom={3}
                         >
-                          <Grid item xs={6} paddingRight={3}>
+                          <Grid item xs={6}>
                             <Stack spacing={2} justifyContent="space-between">
                               <Typography
                                 fontSize={16}
@@ -843,107 +847,111 @@ const Home = () => {
 
       {/* learn cypto star*/}
 
+
       <Container>
-        <Box
-          sx={{ display: { xs: "block", md: "flex" } }}
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typography
-            component="h2"
-            variant="h2"
-            className="secondary-font mobile-font-40"
+        <Box className="market-trend">
+          <Box
+            sx={{ display: { xs: "block", md: "flex" } }}
+            justifyContent="space-between"
+            alignItems="center"
+
           >
-            Market trend
-          </Typography>
-          <Typography
-            className=""
-            variant="p"
-            component="p"
-            sx={{ display: { xs: "block", md: "none" }, paddingLeft: { xs: '30px', md: '0px' } }}
-          >
-            <span className="gold-color">Subscribe</span> to gain complete
-            access to the most precise short and long-term predictions of
-            cryptocurrency prices.
-          </Typography>
-          <Button
-            className="btn btn-outlined-secondary mobile-none"
-            onClick={() => {
-              navigate("/market");
-            }}
-          >
-            View More
-          </Button>
-        </Box>
-        <Stack
-          direction="row"
-          className="filter-btn"
-          spacing="2"
-          paddingTop={5}
-        >
-          {selectedCat === 0 ? (
+            <Typography
+              component="h2"
+              variant="h2"
+              className="secondary-font mobile-font-40"
+            >
+              Market trend
+            </Typography>
+            <Typography
+              className=""
+              variant="p"
+              component="p"
+              sx={{ display: { xs: "block", md: "none" }, paddingLeft: { xs: '30px', md: '0px' } }}
+            >
+              <span className="gold-color">Subscribe</span> to gain complete
+              access to the most precise short and long-term predictions of
+              cryptocurrency prices.
+            </Typography>
             <Button
-              variant="contained"
-              className="btn btn-secondary"
-              onClick={(e) => {
-                loader(true);
-                coinActions.latestListing();
+              className="btn btn-outlined-secondary mobile-none"
+              onClick={() => {
+                navigate("/market");
               }}
             >
-              All
+              View More
             </Button>
-          ) : (
-            <Button
-              className="btn"
-              onClick={(e) => {
-                loader(true);
-                coinActions.latestListing();
-              }}
-            >
-              All
-            </Button>
-          )}
-          {categoryList.length &&
-            categoryList.map((item, index) => {
-              if (index < 4) {
-                if (selectedCat !== 0 && selectedCat === item.id) {
-                  return (
-                    <Button
-                      variant="contained"
-                      className="btn btn-secondary"
-                      key={index}
-                      onClick={(e) => {
-                        coinActions.coinListbByCategoty(item.id);
-                      }}
-                      title={item.name}
-                    >
-                      {getFirstLetters(item.name)}
-                    </Button>
-                  );
+          </Box>
+          <Stack
+            direction="row"
+            className="filter-btn"
+            spacing="2"
+            paddingTop={5}
+          >
+            {selectedCat === 0 ? (
+              <Button
+                variant="contained"
+                className="btn btn-secondary"
+                onClick={(e) => {
+                  loader(true);
+                  coinActions.latestListing();
+                }}
+              >
+                All
+              </Button>
+            ) : (
+              <Button
+                className="btn"
+                onClick={(e) => {
+                  loader(true);
+                  coinActions.latestListing();
+                }}
+              >
+                All
+              </Button>
+            )}
+            {categoryList.length &&
+              categoryList.map((item, index) => {
+                if (index < 4) {
+                  if (selectedCat !== 0 && selectedCat === item.id) {
+                    return (
+                      <Button
+                        variant="contained"
+                        className="btn btn-secondary"
+                        key={index}
+                        onClick={(e) => {
+                          coinActions.coinListbByCategoty(item.id);
+                        }}
+                        title={item.name}
+                      >
+                        {getFirstLetters(item.name)}
+                      </Button>
+                    );
+                  } else {
+                    return (
+                      <Button
+                        className="btn"
+                        onClick={(e) => {
+                          coinActions.coinListbByCategoty(item.id);
+                        }}
+                        title={item.name}
+                      >
+                        {getFirstLetters(item.name)}
+                      </Button>
+                    );
+                  }
                 } else {
-                  return (
-                    <Button
-                      className="btn"
-                      onClick={(e) => {
-                        coinActions.coinListbByCategoty(item.id);
-                      }}
-                      title={item.name}
-                    >
-                      {getFirstLetters(item.name)}
-                    </Button>
-                  );
+                  return "";
                 }
-              } else {
-                return "";
-              }
-            })}
-        </Stack>
-        <CryptoTable isIt={false} />
+              })}
+          </Stack>
+          <CryptoTable isIt={false} />
+        </Box>
       </Container>
 
-      <Container maxWidth='fluid' className='' sx={{ backgroundColor: '#F4F5F6', paddingTop: { md: '80px', sm: '20px' }, }} >
+      <Box className="become-crypto" >
         <Container>
-          <Box paddingTop={5} paddingBottom={15} className="become-crypto">
+          <Box>
             <Typography
               variant="h2"
               component="h2"
@@ -1058,7 +1066,7 @@ const Home = () => {
             </Button>
           </Box>
         </Container>
-      </Container>
+      </Box>
 
       {/* learn cypto end */}
 

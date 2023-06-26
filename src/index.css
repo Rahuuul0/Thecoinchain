@@ -575,6 +575,7 @@ nav .MuiButtonBase-root:hover {
   margin-top: 24px;
   padding: 11.5px 5px 11.5px 16px;
   border: 2px solid #e6e8ec;
+  background: #fff;
   border-radius: 12px;
 }
 
@@ -594,7 +595,10 @@ nav .MuiButtonBase-root:hover {
 
 .MuiFormControl-root .MuiInputBase-root input::placeholder,
 .MuiFormControl-root .MuiInputBase-root input:-moz-placeholder,
-.MuiFormControl-root .MuiInputBase-root input::-webkit-input-placeholder {
+.MuiFormControl-root .MuiInputBase-root input::-webkit-input-placeholder,
+.MuiFormControl-root .MuiInputBase-root textarea::placeholder,
+.MuiFormControl-root .MuiInputBase-root textarea:-moz-placeholder,
+.MuiFormControl-root .MuiInputBase-root textarea::-webkit-input-placeholder {
   color: #777e91;
   opacity: 1;
 }
@@ -977,6 +981,11 @@ input[type="number"] {
   height: 264px;
 }
 
+.learn-cypto-tab .MuiTabPanel-root {
+  padding-bottom: 0;
+  padding-top: 80px;
+}
+
 /* Homepage Ends */
 
 /* Market page */
@@ -1009,22 +1018,6 @@ input[type="number"] {
   justify-content: left;
   gap: 20px;
   padding-top: 40px;
-}
-
-.learn-cypto-tab button {
-  /* .market-hero::after {
-    background-image: url("https://media.istockphoto.com/id/539001564/photo/rajwada-palace-indore.jpg?s=612x612&w=0&k=20&c=ihbWY77GKzZXNmYfvz3dUDpZissBxxcrfSDSMSqa548=");
-    background-repeat: no-repeat;
-    content: "";
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
-    left: auto;
-    width: 100%;
-    height: 500px;
-    z-index: -1;
-} */
 }
 
 .market-hero .MuiContainer-root {
@@ -1075,8 +1068,6 @@ input[type="number"] {
   box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
   box-shadow: 0px 64px 64px -48px #0f0f0f1a;
   border-radius: 24px;
-  /* padding: 24px; */
-  /* margin-top: -100px; */
   position: relative;
   z-index: 1;
 }
@@ -1204,6 +1195,16 @@ input[type="number"] {
   transform: translate(35%, 0px);
 }
 
+
+.learn-crypto-home {
+  padding-top: 136px;
+}
+
+.market-trend {
+  padding-top: 136px;
+  padding-bottom: 136px;
+}
+
 /* Homepage Ends */
 /* Learn Cypto Page */
 .center-tab .MuiTabs-flexContainer {
@@ -1220,6 +1221,7 @@ input[type="number"] {
   height: 28px !important;
   font-size: 14px !important;
   padding: 6px 12px !important;
+  margin-right: 2px;
 }
 
 .filter-btn .MuiTabs-root button {
@@ -1292,8 +1294,13 @@ input[type="number"] {
   justify-content: center;
 }
 
+.contact-hero {
+  padding-top: 78px;
+}
+
 .contact-hero-image {
   width: 100%;
+
 }
 
 .margin10 {
@@ -1358,6 +1365,21 @@ input[type="number"] {
   border: 0px !important;
 }
 
+.topic-que .MuiBox-root .select-input .MuiInputBase-root {
+  padding: 11.5px 5px 11.5px 16px;
+  border: 2px solid #e6e8ec;
+  background: #fff;
+  border-radius: 12px;
+}
+
+.topic-que .MuiBox-root .select-input .MuiInputBase-root input {
+  padding: 0;
+}
+
+.select-input.Mui-focused .MuiInputBase-root {
+  border-color: #3772FF;
+}
+
 #root .topic-que .MuiSelect-select p {
   font-size: 14px !important;
 }
@@ -1414,6 +1436,7 @@ input[type="number"] {
   border-radius: 8px !important;
   padding: 19px 36px 12px 36px !important;
   min-width: 48%;
+  border: 2px solid #FCFCFD;
 }
 
 #root .button-img .btn img {
@@ -1427,12 +1450,26 @@ input[type="number"] {
 .topic-que .MuiInputBase-root,
 .topic-que .MuiStack-root {
   width: 100%;
-  background-color: #fff;
+  /* background-color: #fff; */
   margin-top: 35px;
 }
 
 .topic-que .MuiBox-root {
   position: relative;
+}
+
+.topic-que {
+  padding-top: 136px;
+  padding-bottom: 136px;
+}
+
+.newdesignbox {
+  padding: 0;
+}
+
+.newdesignbox-grid {
+  padding-top: 40px;
+  padding-bottom: 60px;
 }
 
 .newdesignbox img {
@@ -1462,7 +1499,7 @@ input[type="number"] {
 
 .learn-n-earn-head {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 64px;
   padding: 0 30%;
 }
 
@@ -1532,11 +1569,20 @@ input[type="number"] {
   font-weight: 500;
 }
 
+.learn-n-earn .btn {
+  margin-top: 64px;
+}
+
 video {
   border-radius: 16px;
 }
 
 /* Crypto Table styles*/
+.market-trend .crypto-list {
+  padding-top: 64px;
+  padding-bottom: 0;
+}
+
 .crypto-list-table>div {
   padding: 0 10px;
 }
@@ -1656,6 +1702,20 @@ video {
 }
 
 /* FAQ */
+.faq-box {
+  padding-top: 136px;
+  padding-bottom: 136px;
+}
+
+.faq-box .MuiTabs-flexContainer {
+  padding-top: 16px;
+  padding-bottom: 64px;
+}
+
+.faq-box .MuiTabPanel-root {
+  padding: 0;
+}
+
 .market-prediction-faq {
   background: #f4f5f6;
 }
@@ -1739,6 +1799,13 @@ video {
   gap: 10px;
 }
 
+
+.value-details .MuiTabPanel-root {
+  padding: 0;
+  padding-bottom: 16px;
+  box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1019607843);
+}
+
 .modal-modal-description .value-with-date-col {
   flex: 1;
 }
@@ -1750,8 +1817,13 @@ video {
   margin-bottom: 32px;
 }
 
+.modal-crypto-table .modal-modal-description {
+  margin-bottom: 32px;
+}
+
 .modal-modal-description .value-details {
   position: relative;
+  box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1019607843);
 }
 
 .modal-modal-description .value-details .btn-round {
@@ -2203,6 +2275,10 @@ p.left-icon img {
   background-color: #ffffff;
 }
 
+.button-loading {
+  width: 20px;
+}
+
 /* 
  .update-profile input {
     background-color: #fff !important;
@@ -2212,7 +2288,7 @@ p.left-icon img {
 }  */
 
 .img-btn img {
-  width: 18px;
+  min-width: 150px;
 }
 
 .img-btn>input {
@@ -2508,6 +2584,7 @@ p.left-icon img {
   transform: none;
 }
 
+div.for-mobile,
 .for-mobile {
   display: none;
 }
@@ -2696,8 +2773,9 @@ video[poster] {
 }
 
 #root .button-img .btn.active {
-  background-color: #e5e5e5;
+  background-color: #FCFCFD;
   color: #000;
+  border: 2px solid #3772FF;
 }
 
 #root .button-img .btn.active img {
@@ -2734,6 +2812,11 @@ video[poster] {
   cursor: pointer;
 }
 
+.become-crypto {
+  padding: 136px 0;
+  background-color: #F4F5F6;
+}
+
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
 
@@ -2743,6 +2826,10 @@ video[poster] {
   .auth-header {
     padding: 48px;
     width: calc(100% - 96px);
+  }
+
+  .learn-n-earn-cards .body-large {
+    min-height: 108px;
   }
 
   .auth-header-logo img.desktop {
@@ -2770,7 +2857,7 @@ video[poster] {
   #root .price-prediction h2,
   #root .subscription-wrapper-head h2,
   #root .extra-wrapper h1 {
-    font-size: 40px;
+    font-size: 40px !important;
   }
 
   .price-prediction {
@@ -2844,6 +2931,16 @@ video[poster] {
 }
 
 @media (max-width: 991.98px) {
+  .faq-box {
+    padding-top: 112px;
+    padding-bottom: 112px;
+  }
+
+  .topic-que {
+    padding-top: 32px;
+    padding-bottom: 64px;
+  }
+
   .market-hero-img-wrapper {
     right: -50%;
   }
@@ -2927,6 +3024,7 @@ video[poster] {
     font-size: 40px;
   }
 
+  div.for-mobile,
   .for-mobile {
     display: block;
   }
@@ -2935,6 +3033,7 @@ video[poster] {
     width: 100%;
   }
 
+  div.for-desktop,
   .for-desktop {
     display: none;
   }
@@ -3152,7 +3251,8 @@ video[poster] {
     margin-bottom: 30px !important;
   }
 
-  .mobile-font-40 {
+  .mobile-font-40,
+  .contact-hero .hero-heading {
     font-size: 40px !important;
   }
 
@@ -3352,7 +3452,11 @@ video[poster] {
     border-radius: 90px !important;
   }
 
-  .button-img img {
+  #root .button-img .btn {
+    padding: 16px 32px !important;
+  }
+
+  .button-img span {
     display: none;
   }
 
@@ -3360,10 +3464,6 @@ video[poster] {
     text-overflow: ellipsis;
     max-width: 90%;
     overflow: hidden;
-  }
-
-  #root .button-img .btn {
-    padding: 17px 39px 12px 36px !important;
   }
 
   /* account-profile */

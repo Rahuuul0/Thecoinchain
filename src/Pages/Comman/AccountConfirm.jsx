@@ -173,7 +173,7 @@ const AccountConfirm = () => {
                         disabled={isSubmitting} 
                         endIcon={<KeyboardArrowRightIcon />}
                       >
-                        Continue
+                         {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Continue"}
                       </LoadingButton>
                     </Box>
                   </Box>
@@ -216,7 +216,7 @@ const AccountConfirm = () => {
                       }
                       <Button
                         type="submit" variant="contained" className='btn btn-primary'  >
-                        Continue
+                        Continue 
                       </Button>
 
                     </Box>

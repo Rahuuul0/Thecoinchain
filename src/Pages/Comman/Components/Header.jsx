@@ -192,8 +192,8 @@ function Header(props) {
                 lineHeight: "100%",
                 flex: 1,
                 cursor: "pointer",
-                borderRight: "1px solid #E6E8EC",
               },
+              borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
             }}
           >
             <img src={CoinGuru} alt="Coin Guru" />

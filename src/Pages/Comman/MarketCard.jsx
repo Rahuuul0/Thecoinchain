@@ -89,12 +89,12 @@ const MarketCard = () => {
                           {item?.price > 1
                             ? item.price?.toFixed(2)
                             : item?.price < 1 && item?.price >= 0.1
-                            ? item.price?.toFixed(4)
-                            : item?.price < 0.1 && item?.price > 0.01
-                            ? item.price?.toFixed(6)
-                            : item?.price < 0.01
-                            ? item.price?.toFixed(8)
-                            : item?.price}
+                              ? item.price?.toFixed(4)
+                              : item?.price < 0.1 && item?.price > 0.01
+                                ? item.price?.toFixed(6)
+                                : item?.price < 0.01
+                                  ? item.price?.toFixed(8)
+                                  : item?.price}
                         </Typography>
                         <Typography component="small" varient="small-caption">
                           {item.volume_24h?.toFixed(2)}
@@ -125,7 +125,6 @@ const MarketCard = () => {
                   direction="row"
                   className="filter-btn"
                   spacing="2"
-                  paddingTop={5}
                 >
                   {selectedCat === 0 ? (
                     <Button
@@ -195,8 +194,8 @@ const MarketCard = () => {
                     !userDetail
                       ? "/create-account"
                       : userDetail && subscriptionDetails.status === "running"
-                      ? "/prediction-dashboard"
-                      : "/subscription"
+                        ? "/prediction-dashboard"
+                        : "/subscription"
                   );
                 }}
               >

@@ -13,6 +13,7 @@ import { Container, Box, TextField, Typography, Link, Button, InputAdornment } f
 import LogoLight from '../../../public/assets/images/logo-light.svg';
 import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const ChangePassword = () => {
     const navigate = useNavigate();
@@ -172,14 +173,18 @@ const ChangePassword = () => {
                                         />
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirm_password?.message}</div>
 
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            className='btn btn-primary'
-                                            disabled={isSubmitting}
-                                        >
-                                            Continue
-                                        </Button>
+                                        <LoadingButton
+                                                type="submit"
+                                                loading={isSubmitting}
+                                                loadingPosition="end"
+                                                variant="contained"
+                                                className='btn btn-primary'
+                                                fullWidth
+                                                disabled={isSubmitting}
+                                                sx={{ ml: 'auto', mt: { xs: '30px ', md: '30px' } }}
+                                            >
+                                            {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Continue"}
+                                            </LoadingButton>
                                     </Box>
                                 </Box>
                             </Box>

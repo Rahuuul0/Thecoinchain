@@ -347,7 +347,7 @@ const LogIn = () => {
                             className="btn btn-primary"
                             disabled={isSubmitting} 
                           >
-                            Login
+                          {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Login"}
                           </LoadingButton>
                         </TabPanel>
                         <TabPanel value="2" sx={{ p: 0 }}>
@@ -443,13 +443,16 @@ const LogIn = () => {
                             </Link>
                           </Box>
 
-                          <Button
+                          <LoadingButton
                             type="submit"
+                            loading={isSubmitting}
+                            loadingPosition="end"
                             variant="contained"
                             className="btn btn-primary"
+                            disabled={isSubmitting} 
                           >
-                            Login
-                          </Button>
+                          {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Login"}
+                          </LoadingButton>
                         </TabPanel>
                       </TabContext>
                     </Box>

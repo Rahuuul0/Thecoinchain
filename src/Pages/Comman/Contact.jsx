@@ -1,4 +1,19 @@
-import { Container, Typography, Grid, Box, Stack, Button, Tab, Accordion, AccordionSummary, TextField, AccordionDetails } from '@mui/material'
+import {
+  Container,
+  Typography,
+  Grid,
+  Box,
+  Stack,
+  Button,
+  Tab,
+  Accordion,
+  AccordionSummary,
+  TextField,
+  AccordionDetails,
+  FormControl,
+  MenuItem,
+  Select
+} from '@mui/material'
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
@@ -9,7 +24,7 @@ import { useForm } from "react-hook-form";
 import { contact_AddAtom } from '../../_state';
 import { useRecoilState } from 'recoil';
 import * as Yup from "yup";
-import ContactHeroImage from "../../../public/assets/images/contact.svg";
+import ContactHeroImage from "../../../public/assets/images/learn-cypto.svg";
 import InputBase from '@mui/material/InputBase';
 import Media from "../../../public/assets/images/media-img.svg";
 import Design from "../../../public/assets/images/design-sys.svg";
@@ -23,6 +38,10 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate } from 'react-router-dom';
 import { West, East } from '@mui/icons-material';
 import { General, Subscriptions } from './Questions';
+import LoadingButton from '@mui/lab/LoadingButton';
+
+
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -91,6 +110,12 @@ function getStyles(name, personName, theme) {
 }
 
 const Contact = () => {
+  const [faqfilter, setFaqfilter] = useState("");
+
+  const handleChangeFAQfilter = (event) => {
+    setFaqfilter(event.target.value);
+  };
+  const navigate = useNavigate();
   const useContactAddActions = useContactActions();
   const [value, setValue] = useState('1');
   const theme = useTheme();
@@ -167,49 +192,33 @@ const Contact = () => {
     <>
       {/* Banner starts */}
       <Container>
-        <Box paddingTop={{ lg: 10, md: 6 }} paddingBottom={{ lg: 10, md: 6 }}>
+        <Box className="contact-hero" >
           <Grid container sx={{ alignItems: 'center' }}>
             <Grid item xs={12} sm={6} md={6} className='padding-0-mobile'>
-              <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} >Save your time with Stacks</Typography>
-              <Typography variant='h1' component="div" className='hero-heading primary-color'>
+              <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} sx={{ fontWeight: 700 }} >Save your time with Stacks</Typography>
+              <Typography variant='h1' component="h1" className='hero-heading primary-color' sx={{ lineHeight: 1, mb: "20px" }}>
                 How can we help
               </Typography>
               <Typography variant='body2' component="div" className='hero-para secondary-color' paddingBottom={2}>
                 A creative agency that lead and inspire
               </Typography>
-              <Typography component="div" paddingBottom={2} >
 
-                <Search className='contact-search'>
-
-                  <StyledInputBase
-                    className='primary-font'
-                    placeholder="Search anything"
-                    inputProps={{ 'aria-label': 'search' }}
-                  />
-                  <SearchIconWrapper className='padding-0-mobile'>
-                    <Box className='search-icon'>
-                      <ArrowRightAlt />
-                    </Box>
-                  </SearchIconWrapper>
-                </Search>
-              </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-              <img className='heroImage w-100' src={ContactHeroImage} />
+              <img className='contact-hero-image' src={ContactHeroImage} />
             </Grid>
           </Grid>
         </Box>
       </Container >
       {/* Banner Ends */}
-
-      < Container maxWidth='fluid' sx={{ padding: '0px !important' }
-      }>
-        <Box paddingY={7} className='newdesignbox'>
-          <Grid container spacing={0} rowSpacing={6} >
+      <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
+        <Box className='newdesignbox'>
+          <Typography textAlign='center' className='body-caption secondary-color'>Before asking for an answer, you may find it in <br /> our learn crypto center</Typography>
+          <Grid container spacing={0} rowSpacing={6} className='newdesignbox-grid'>
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Design} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -222,7 +231,7 @@ const Contact = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Media} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -235,7 +244,7 @@ const Contact = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Design} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -248,7 +257,7 @@ const Contact = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Media} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -267,9 +276,9 @@ const Contact = () => {
             </Box>
           </Stack>
 
-          <Typography textAlign='center' paddingTop={10}>
-            <Button className='btn-outlined-secondary'>Learn More</Button>
-          </Typography>
+          {/* <Typography textAlign='center' paddingTop={10}>
+            <Button onClick={() => { navigate("/learn-cypto") }} className='btn-outlined-secondary'>Learn More</Button>
+          </Typography> */}
         </Box>
       </Container >
 
@@ -277,7 +286,7 @@ const Contact = () => {
       {/* Slider ends */}
 
       < Container >
-        <Box paddingY={10}>
+        <Box className="faq-box">
           <Box>
             <Box className='smallwidth'>
               <Typography variant='h2' fontWeight='700' textAlign='center' className='secondary-font' paddingBottom={4}>Frequently asked questions</Typography>
@@ -285,16 +294,36 @@ const Contact = () => {
               <Box className="learn-cypto-tab center-tab" sx={{ width: '100%', typography: 'body1' }}>
                 <TabContext value={value}>
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <TabList onChange={handleChange} aria-label="tabs">
+                    <TabList onChange={handleChange} aria-label="tabs" className='for-desktop'>
                       <Tab label="General" value="1" />
                       <Tab label="Support" value="2" />
                       <Tab label="Hosting" value="3" />
                       <Tab label="Product" value="4" />
                     </TabList>
+
+                    <Box className="market-crypto-tabs for-mobile dropdown-mobile">
+                      <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                        <Select
+                          value={faqfilter}
+                          onChange={handleChangeFAQfilter}
+                          displayEmpty
+                          inputProps={{ "aria-label": "Without label" }}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          <MenuItem value={10}>General</MenuItem>
+                          <MenuItem value={20}>Support</MenuItem>
+                          <MenuItem value={30}>Hosting</MenuItem>
+                          <MenuItem value={40}>Product</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+
                   </Box>
                   <TabPanel value="1" sx={{ paddingRight: '0', paddingLeft: '0' }} >
                     <Box className='faq-accordian'>
-                      <Accordion >
+                      <Accordion sx={{ p: 0 }}>
                         <AccordionSummary
                           expandIcon={<ExpandMore />}
                           aria-controls="panel1a-content"
@@ -356,9 +385,9 @@ const Contact = () => {
 
                     </Box>
                   </TabPanel>
-                  <TabPanel value="2">Bitcoin</TabPanel>
-                  <TabPanel value="3">Blockchain</TabPanel>
-                  <TabPanel value="4">Tutorial</TabPanel>
+                  <TabPanel value="2">Support</TabPanel>
+                  <TabPanel value="3">Hosting</TabPanel>
+                  <TabPanel value="4">Product</TabPanel>
                 </TabContext>
               </Box>
             </Box>
@@ -369,16 +398,16 @@ const Contact = () => {
 
       <Container maxWidth='fluid' sx={{ backgroundColor: '#F8F8F9' }}>
         <Container className='smallwidth'>
-          <Box paddingY={10} className="topic-que">
+          <Box className="topic-que">
             <Box
               noValidate
               component="form"
               sx={{ mt: '24px' }}
               onSubmit={handleSubmit(handleFormSubmit)}
             >
-              <Typography component="h5" variant='h5' sx={{ width: '33%', flexShrink: 0 }}>
+              {/* <Typography component="h5" variant='h5' sx={{ width: '33%', flexShrink: 0 }}>
                 Contact-Us
-              </Typography>
+              </Typography> */}
               <Box paddingBottom={2} className='topic-select-radio'>
                 <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>Select a topic</Typography>
 
@@ -398,6 +427,7 @@ const Contact = () => {
                     name="email"
                     autoComplete="off"
                     size="small"
+                    className='select-input'
                     value={formData?.question}
                     options={question}
                     onChange={(e, props) => reset({ ...formData, question: props?.name })}
@@ -450,6 +480,7 @@ const Contact = () => {
                 />
                 <div style={{ color: "red" }}>{errors.subject?.message}</div>
               </Box>
+
               <Box paddingTop='2'>
                 <TextField
                   id="outlined-multiline-static"
@@ -471,15 +502,19 @@ const Contact = () => {
               </Box>
               <Box paddingTop='2'>
                 <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
-                  <Button
+                  <LoadingButton
                     type='submit'
+                    loading={isSubmitting}
+                    loadingPosition="end"
                     className='btn btn-primary'
-                    sx={{ float: 'right' }}
+                    sx={{ ml: 'auto' }}
                     disabled={isSubmitting}
-                    variant='contained'>Send message
-                  </Button>
+                    variant='contained'>
+                    {isSubmitting ? <span className="spinner-border ">Loading</span> : " Send message "}
+                  </LoadingButton>
                 </Typography>
               </Box>
+
             </Box>
           </Box>
         </Container>

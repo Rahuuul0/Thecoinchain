@@ -23,6 +23,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { useNavigate } from 'react-router-dom';
 import {West, East} from '@mui/icons-material';
 import { General, Subscriptions } from './Questions';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -91,6 +92,7 @@ function getStyles(name, personName, theme) {
 }
 
 const Contact = () => {
+  const navigate = useNavigate();
   const useContactAddActions = useContactActions();
   const [value, setValue] = useState('1');
   const theme = useTheme();
@@ -168,7 +170,7 @@ const Contact = () => {
     <>
       {/* Banner starts */}
       <Container>
-        <Box paddingTop={5} paddingBottom={10}>
+        <Box sx={{paddingTop:{ xs: '50px', md: '100px'}}} paddingBottom={10}>
           <Grid container sx={{ alignItems: 'center' }}>
             <Grid item xs={12} sm={6} md={6} paddingRight={5} className='padding-0-mobile'>
               <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} >Save your time with Stacks</Typography>
@@ -178,39 +180,23 @@ const Contact = () => {
               <Typography variant='body2' component="div" className='hero-para secondary-color' paddingBottom={2}>
                 A creative agency that lead and inspire
               </Typography>
-              <Typography component="div" paddingBottom={2} >
-
-                <Search className='contact-search'>
-
-                  <StyledInputBase
-                    className='primary-font'
-                    placeholder="Search anything"
-                    inputProps={{ 'aria-label': 'search' }}
-                  />
-
-                  <SearchIconWrapper className='padding-0-mobile'>
-                    <Box className='search-icon'>
-                      <ArrowRightAlt />
-                    </Box>
-                  </SearchIconWrapper>
-                </Search>
-              </Typography>
+           
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-              <img className='heroImage' src={ContactHeroImage} />
+              <img className='contact-hero-image' src={ContactHeroImage} />
             </Grid>
           </Grid>
         </Box>
       </Container>
       {/* Banner Ends */}
-
+      <Typography textAlign='center' className='body-caption secondary-color'>Before asking for an answer, you may find it in <br/> our learn crypto center</Typography>
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
         <Box paddingY={7} className='newdesignbox'>
           <Grid container spacing={0} rowSpacing={6} >
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Design} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -223,7 +209,7 @@ const Contact = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Media} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -236,7 +222,7 @@ const Contact = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Design} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -249,7 +235,7 @@ const Contact = () => {
             <Grid item xs={12} sm={3} md={3} >
               <Box className='about-crypto'>
                 <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Media} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -269,7 +255,7 @@ const Contact = () => {
                   </Stack>
 
           <Typography textAlign='center' paddingTop={10}>
-            <Button className='btn-outlined-secondary'>Learn More</Button>
+            <Button onClick={()=>{navigate("/learn-cypto")}} className='btn-outlined-secondary'>Learn More</Button>
           </Typography>
         </Box>
       </Container>
@@ -357,9 +343,9 @@ const Contact = () => {
 
                     </Box>
                   </TabPanel>
-                  <TabPanel value="2">Bitcoin</TabPanel>
-                  <TabPanel value="3">Blockchain</TabPanel>
-                  <TabPanel value="4">Tutorial</TabPanel>
+                  <TabPanel value="2">Support</TabPanel>
+                  <TabPanel value="3">Hosting</TabPanel>
+                  <TabPanel value="4">Product</TabPanel>
                 </TabContext>
               </Box>
             </Box>
@@ -470,13 +456,16 @@ const Contact = () => {
             </Box>
             <Box paddingTop='2'>
               <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
-                <Button 
+                <LoadingButton 
                 type='submit'
+                loading={isSubmitting}
+                loadingPosition="end"
                 className='btn btn-primary' 
                 sx={{ float: 'right' }} 
                 disabled={isSubmitting}
-                variant='contained'>Send message
-                </Button>
+                variant='contained'>
+                {isSubmitting? <span  className="spinner-border ">Loading</span>:" Send message "}
+                </LoadingButton>
               </Typography>
             </Box>
           </Box>

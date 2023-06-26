@@ -1,16 +1,10 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Link, Breadcrumbs, InputAdornment, IconButton, TextField } from '@mui/material';
+import { Box, Container, Grid, Typography, Button,  Breadcrumbs, InputAdornment, IconButton, TextField } from '@mui/material';
 import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Sidebar from './Components/Sidebar';
-
-
-function handleClick(event) {
-    event.preventDefault();
-    console.info('You clicked a breadcrumb.');
-}
 
 
 const TwoFaEnable = () => {
@@ -18,8 +12,8 @@ const TwoFaEnable = () => {
     const navigate = useNavigate();
 
     const breadcrumbs = [
-        <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
-            Home
+        <Link underline="hover" key="1" color="inherit" to="/">
+            Home 
         </Link>,
         <Typography key="3" color="text.primary">
             2FA

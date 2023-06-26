@@ -11,9 +11,6 @@ import ShareIcon from '../../../../public/assets/images/share-square.svg';
 import UserIcon from '../../../../public/assets/images/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import { useUserActions } from "../../../_actions/user.actions";
-import USA from '../../../../public/assets/images/icons/usa.svg';
-import japan from '../../../../public/assets/images/icons/japan.svg';
-import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import {notificationActions} from '../../../_actions/notification.actions';
 import { useState, useEffect } from "react";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
@@ -78,15 +75,6 @@ const singleRead = async (notId) =>{
         navigate('/master-course')
   };
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
-
-  const [anchorElB, setAnchorElB] = React.useState(null);
-  const openB = Boolean(anchorElB);
-  const handleClickB = (event) => {
-        setAnchorElB(event.currentTarget);
-  };
-  const handleCloseB = () => {
-        setAnchorElB(null);
-  };
 
   const [anchorElAnchor, setAnchorElAnchor] = React.useState(null);
   const openAnchor = Boolean(anchorElAnchor);
@@ -273,82 +261,6 @@ const singleRead = async (notId) =>{
             ))}
           </Box>
           <Box className='end-flex' sx={{ display: { xs: 'none', md: 'block', flex: 2, textAlign: 'right' } }}>
-            <Button id="currency-positioned-button"
-              aria-controls={open ? 'currency-positioned-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              endIcon={<KeyboardArrowDown />}
-              onClick={handleClickB} className='btn mobile-none' sx={{ color: '#23262F', display: { xs: 'none !important', md: 'flex' } }}>
-              EN/USD
-            </Button>
-            <Menu
-              className='dropdown-menu en-dropdown'
-              id="currency-positioned-menu"
-              aria-labelledby="currency-positioned-button"
-              anchorEl={anchorElB}
-              open={openB}
-              sx={{ borderRadius: '12px' }}
-              onClose={handleCloseB}
-            >
-              <Box className='menu-box'>
-                <Grid container >
-                  <Grid item xs={6} sm={6} md={6} sx={{ borderRight: '1px solid #E6E8EC' }}>
-                    {/* <FormControl className='language-dropdown'>
-                      <FormLabel className='small-caption language-box' id="demo-radio-buttons-group-label">Language</FormLabel>
-                      <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="English"
-                        name="radio-buttons-group"
-                      >
-                        <FormControlLabel className='radio-option' value="english" control={<Radio />} label="English" />
-                        <FormControlLabel className='radio-option' value="chinese" control={<Radio />} label="Chinese" />
-                        <FormControlLabel className='radio-option' value="japanese" control={<Radio />} label="Japanese" />
-                      </RadioGroup>
-                    </FormControl> */}
-                    <Box className='language-dropdown'>
-                      <Typography className='small-caption language-box' id="lang-label" sx={{ fontSize: '12px !important' }} paddingBottom={4}>Language</Typography>
-                      <Box class="img-btn first-img-btn">
-                        <input type="radio" name="country-flags" checked />
-                        <img width='30' src={USA} alt="Sri Lanka Flag" /> English
-                      </Box>
-
-                      <Box class="img-btn">
-                        <input type="radio" name="country-flags" />
-                        <img width='30' src={Chaina} alt="America Flag" /> Chinese
-                      </Box>
-
-                      <Box class="img-btn">
-                        <input type="radio" name="country-flags" />
-                        <img width='30' src={japan} alt="India Flag" /> Japanese
-                      </Box>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={6} sm={6} md={6} className='right-box'>
-                    <FormControl className='language-dropdown'>
-                      <FormLabel id="currency-label" className='small-caption language-box' >Currency</FormLabel>
-                      <RadioGroup
-                        aria-labelledby="currency-label"
-                        defaultValue="USD"
-                        name="radio-buttons-group"
-                      >
-                        <FormControlLabel className='radio-option' value="usd" control={<Radio />} label="USD" />
-                        <FormControlLabel className='radio-option' value="aud" control={<Radio />} label="AUD" />
-                        <FormControlLabel className='radio-option' value="eur" control={<Radio />} label="EUR" />
-                        <FormControlLabel className='radio-option' value="jpy" control={<Radio />} label="JPY" />
-                        <FormControlLabel className='radio-option' value="btc" control={<Radio />} label="BTC" />
-                      </RadioGroup>
-                    </FormControl>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Menu>
-            <IconButton className='icon-btn icon-avatar-img btnicon' size="small"
-              sx={{ ml: 2 }}
-              aria-controls={openAnchorbtn ? 'account-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={openAnchorbtn ? 'true' : undefined} aria-label="flash" color="primary">
-              <FlashOnOutlined color="action" />
-            </IconButton>
 
             <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
               size="small"
@@ -433,9 +345,6 @@ const singleRead = async (notId) =>{
               
               </Box>
             </Menu>
-            <IconButton className='icon-btn' onClick={e => navigate('/subscription#')} aria-label="flash" color="primary">
-              <ShoppingCartOutlinedIcon />
-            </IconButton>
             <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline mobile-none' sx={{ display: { xs: 'none', md: 'block' }, color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid', }}>
               Account
             </Button>

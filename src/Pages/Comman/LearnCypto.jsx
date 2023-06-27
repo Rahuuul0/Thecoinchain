@@ -67,7 +67,7 @@ const LearnCypto = () => {
   const [videoUrl, setVideoUrl] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const loader = useRecoilValue(loaderAtom);
- 
+
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
   };
@@ -115,14 +115,14 @@ const LearnCypto = () => {
 
   return (
     <>
-      <Container sx={{ pt: 14 }}>
+      <Container className="learn-crypto">
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={loader}
         >
           <CircularProgress color="inherit" />
         </Backdrop>
-        <Box paddingBottom={15}>
+        <Box>
           <Typography
             variant="h1"
             className="secondary-font"
@@ -458,10 +458,10 @@ const LearnCypto = () => {
                     onChange={handleChangeTutorialTab}
                     aria-label="lab API tabs example"
                   >
-                    <Tab onClick={()=>{navigate("/contentnotfound")}}  label="Tutorials" value="1" />
-                    <Tab  onClick={()=>{navigate("/contentnotfound")}}  label="Usecase" value="2" />
-                    <Tab  onClick={()=>{navigate("/contentnotfound")}}  label="Trading" value="3" />
-                    <Tab  onClick={()=>{navigate("/contentnotfound")}}  label="Wallet" value="4" />
+                    <Tab onClick={() => { navigate("/contentnotfound") }} label="Tutorials" value="1" />
+                    <Tab onClick={() => { navigate("/contentnotfound") }} label="Usecase" value="2" />
+                    <Tab onClick={() => { navigate("/contentnotfound") }} label="Trading" value="3" />
+                    <Tab onClick={() => { navigate("/contentnotfound") }} label="Wallet" value="4" />
                   </TabList>
                 </Stack>
               </Box>

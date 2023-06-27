@@ -1195,6 +1195,10 @@ input[type="number"] {
   transform: translate(35%, 0px);
 }
 
+.learn-crypto {
+  padding-top: 161px;
+  padding-bottom: 136px;
+}
 
 .learn-crypto-home {
   padding-top: 136px;
@@ -1437,6 +1441,7 @@ input[type="number"] {
   padding: 19px 36px 12px 36px !important;
   min-width: 48%;
   border: 2px solid #FCFCFD;
+  color: #23262F;
 }
 
 #root .button-img .btn img {
@@ -2774,7 +2779,6 @@ video[poster] {
 
 #root .button-img .btn.active {
   background-color: #FCFCFD;
-  color: #000;
   border: 2px solid #3772FF;
 }
 
@@ -3042,6 +3046,7 @@ video[poster] {
   .MuiPopover-root .MuiList-root .MuiMenuItem-root {
     font-size: 14px !important;
     font-weight: 500;
+    padding: 12px;
   }
 
   .learn-earn-dropdown {
@@ -3262,11 +3267,11 @@ video[poster] {
   }
 
   #root h1 {
-    font-size: 40px;
+    font-size: 40px !important;
   }
 
   #root h2 {
-    font-size: 32px;
+    font-size: 32px !important;
   }
 
   .market-hero h1 {
@@ -3300,7 +3305,7 @@ video[poster] {
   }
 
   #root .learn-n-earn h2 {
-    font-size: 40px;
+    font-size: 40px !important;
   }
 
   .learn-n-earn,
@@ -3501,6 +3506,19 @@ video[poster] {
 
   .subs-coloum .btn-primary {
     width: auto !important;
+  }
+
+  #root .price-prediction h2 {
+    font-size: 24px !important;
+  }
+
+  .learn-n-earn-cards .body-large {
+    font-size: 24px !important;
+    min-height: auto;
+  }
+
+  .learn-n-earn {
+    padding-bottom: 0px;
   }
 }
 

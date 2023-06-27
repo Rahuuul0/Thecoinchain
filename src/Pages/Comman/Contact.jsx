@@ -516,9 +516,42 @@ const Contact = () => {
               </Box>
 
             </Box>
+            <Box paddingTop='2'>
+              <TextField
+                id="outlined-multiline-static"
+                label="Message *"
+                variant="standard"
+                className="form-control"
+                placeholder='Say something'
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                multiline
+                rows={4}
+                maxlength={10}
+                fullWidth
+                {...register("msg")}
+                onChange={(e) => reset({ ...formData, msg: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+              />
+              <div style={{ color: "red" }}>{errors.msg?.message}</div>
+            </Box>
+            <Box paddingTop='2'>
+              <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
+                <LoadingButton
+                  type='submit'
+                  loading={isSubmitting}
+                  loadingPosition="end"
+                  className='btn btn-primary'
+                  sx={{ float: 'right', minWidth: "160px" }}
+                  disabled={isSubmitting}
+                  variant='contained'>
+                  {isSubmitting ? <span className="spinner-border ">Loading</span> : " Send message "}
+                </LoadingButton>
+              </Typography>
+            </Box>
           </Box>
         </Container>
-      </Container>
+      </Container >
     </>
   )
 }

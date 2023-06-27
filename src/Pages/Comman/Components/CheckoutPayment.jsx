@@ -65,14 +65,13 @@ const CheckoutForm = () => {
     useEffect(() => {
         const get_subscription = async () => {
             await subscribed.subscription()
-                .then((res) => { setSubscriptionData(res) })
+                .then((res) => {
+                    res.reverse()
+                    setSubscriptionData(res)
+                })
         }
         get_subscription();
     }, [])
-
-
-
-
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -156,12 +155,12 @@ const CheckoutForm = () => {
                 <CircularProgress color="inherit" />
             </Backdrop>
             <Box className='subscription-steps-col '>
-                <Box className={`subscription-step ${confirm.step === 1 ? "current-step" : 'completed-step'}`}>
+                <Box className={`subscription-step ${confirm.step === 1 ? "completed-step" : 'completed-step'}`}>
                     <Box component="span" className='number-circle'>
                         <Box onClick={() => setConfirm({ ...confirm, "step": 1 })}> {confirm.step === 1 ? "1" : <CheckIcon />} </Box>
                     </Box>
                     <Typography component="p" variant='body2'>
-                        Select Package
+                        {confirm.step === 1 ? "Select Package" : "Choose plan"}
                     </Typography>
                 </Box>
                 <Box className={`subscription-step ${confirm.step === 2 ? "current-step" : confirm.step === 3 ? 'completed-step' : ''}`}>
@@ -226,7 +225,7 @@ const CheckoutForm = () => {
                     <Box className="step-two" style={styled}>
                         <Box className="card-inner-head">
                             <Typography component="h5" variant='body1' className='large-caption'>
-                                 Payment info
+                                Payment info
                             </Typography>
                             <Typography component="h5" variant='body1' className='large-caption invest-smarter'>
                                 Invest smarter, not harder. <img src={BtcImg} alt='BTC' width="24px" />
@@ -239,9 +238,9 @@ const CheckoutForm = () => {
                                         <img src={WalletIc} alt='wallet' width="20px" />
                                     </span>
                                     <Typography component="small" variant='body2'>
-                                        <span className='label'>Plan</span>
-                                        {confirm.plan.subscription_name}
 
+                                        <span className='label'>Amount</span>
+                                        ${confirm.plan?.subscription_price || 0}.00
                                     </Typography>
                                 </Box>
                                 <Box className='payment-for'>
@@ -249,8 +248,8 @@ const CheckoutForm = () => {
                                         <img src={WalletIc} alt='wallet' width="20px" />
                                     </span>
                                     <Typography component="small" variant='body2'>
-                                        <span className='label'>Amount</span>
-                                        ${confirm.plan?.subscription_price || 0}
+                                        <span className='label'>For</span>
+                                        {confirm.plan.subscription_name}
                                     </Typography>
                                 </Box>
                             </Box>
@@ -322,8 +321,9 @@ const CheckoutForm = () => {
                                             <img src={WalletIc} alt='wallet' width="20px" />
                                         </span>
                                         <Typography component="small" variant='body2'>
-                                            <span className='label'>Plan</span>
-                                            {confirm.plan.subscription_name}
+
+                                            <span className='label'>Amount</span>
+                                            ${confirm.plan?.subscription_price || 0}.00
                                         </Typography>
                                     </Box>
                                     <Box className='payment-for'>
@@ -331,8 +331,9 @@ const CheckoutForm = () => {
                                             <img src={WalletIc} alt='wallet' width="20px" />
                                         </span>
                                         <Typography component="small" variant='body2'>
-                                            <span className='label'>Amount</span>
-                                            ${confirm.plan?.subscription_price || 0}
+                                            <span className='label'>For</span>
+                                            {confirm.plan.subscription_name}
+
                                         </Typography>
                                     </Box>
                                     <Box className='payment-method'>

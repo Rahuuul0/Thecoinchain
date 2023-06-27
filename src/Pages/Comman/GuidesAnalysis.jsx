@@ -346,7 +346,7 @@ const GuidesAnalysis = (props) => {
                                                                                             <Box height="50">
                                                                                                 <Typography
                                                                                                     textTransform="uppercase"
-                                                                                                    sx={{ paddingBottom: { xs: '10px', md: '50px' } }}
+                                                                                                    sx={{ marginBottom: { xs: '10px', md: '50px' } }}
                                                                                                     className="orange-btn small-btn small-new-btn"
                                                                                                 >
                                                                                                     New

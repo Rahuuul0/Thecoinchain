@@ -18,7 +18,6 @@ const Notifications = () => {
     const notificationAction = notificationActions();
     const notifications = useRecoilValue(notificationAtom);
     const userDetails = useRecoilValue(authAtom);
-    // const [loadMoreList,setLoadMoreList]=useState([notifications])
     const [loadmore,setLoadmore] = useState(10);
     const [checked, setChecked] = useState(false)
     const [categoryArray,setCategoryArray]=useState([]);
@@ -31,6 +30,12 @@ const Notifications = () => {
     const handleClear = async() => {
           notificationAction.clearNotifications();
         };
+
+    const singleRead = async (notId) =>{
+            let userId = userDetails.id
+            notificationAction.notificationSingleread(notId, userId)
+         
+        }
      
     //   Filter selectAll and UnselectAll function
     const handleSelectAll =(flag) =>{
@@ -106,7 +111,7 @@ const Notifications = () => {
                                     <Typography component="h4" variant='h4'>
                                         Notifications
                                     </Typography>
-                                    {notifications.length>0 &&
+                                    {notifications.length>0 && notifications.length === loadmore &&
                                     <Box className='notification-head-cta'>
                                         <Box className="modal-subscribed-cta">
                                             <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
@@ -123,7 +128,7 @@ const Notifications = () => {
 
                                             return(
                                              
-                                                <Box className='notification-list-itm'>
+                                                <Box onClick={()=> singleRead(item.ct_notiy_id)} className='notification-list-itm'>
                                                     <Box className='notification-icon'>
                                                         <BoltOutlinedIcon />
                                                     </Box>
@@ -147,7 +152,7 @@ const Notifications = () => {
                                         }
                                         }):<span>No New Notifications Available</span>}
                                        
-                                        {notifications.length>0 &&
+                                        {notifications.length>0 && notifications.length !== loadmore &&
                                         <Button onClick={handleLoadmore}  variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>}
                             
                                     </Box>

@@ -7,21 +7,16 @@ import {
   Grid,
   Typography,
   Button,
-  Link,
   Breadcrumbs,
   InputAdornment,
   TextField,
 } from "@mui/material";
 import { NavigateNext } from "@mui/icons-material/";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import Sidebar from './Components/Sidebar';
 import {authAtom } from '../../_state/'
 import { useRecoilValue } from "recoil";
 
-function handleClick(event) {
-  event.preventDefault();
-  console.info("You clicked a breadcrumb.");
-}
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -65,8 +60,7 @@ const Referrals = () => {
       underline="hover"
       key="1"
       color="inherit"
-      href="/"
-      onClick={handleClick}
+      to="/"
     >
       Home
     </Link>,

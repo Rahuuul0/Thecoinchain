@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Typography, Button, Link, Breadcrumbs, Stack } from '@mui/material';
+import { Box, Container, Typography, Button, Breadcrumbs, Stack } from '@mui/material';
 import SubsImage from '../../../public/assets/images/subs.svg';
 import { NavigateNext } from '@mui/icons-material/';
 import Sidebar from './Components/Sidebar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { subscriptionActions, } from '../../_actions';
 import { forecastSubAtom } from '../../_state';
 import { useRecoilValue } from "recoil";
@@ -14,10 +14,6 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-function handleClick(event) {
-    event.preventDefault();
-    console.info('You clicked a breadcrumb.');
-}
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -83,7 +79,7 @@ const ForecastSubscriptions = () => {
         );
     };
     const breadcrumbs = [
-        <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
+        <Link underline="hover" key="1" color="inherit" to="/" >
             Home
         </Link>,
         <Typography key="3" color="text.primary">

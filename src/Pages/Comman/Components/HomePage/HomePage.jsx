@@ -47,7 +47,7 @@ import {
   cardCoinsAtom,
   loaderAtom,
   bannerListAtom,
-} from "../../../../_state";
+} from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
 
@@ -67,7 +67,6 @@ const Home = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }, []);
   const getFirstLetters = (str) => {
     const firstLetters = str.replace("Portfolio", "");
@@ -76,11 +75,14 @@ const Home = () => {
 
   //subscribedUser Api
   useEffect(() => {
+    tutorialAction.tutorialData();
     const response = bannerActions.get();
     response.then((res) => {
       res;
     });
   }, []);
+  
+
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
@@ -203,6 +205,8 @@ const Home = () => {
           </Grid>
         </Box>
       </Container>
+
+      
       <Container>
         <Box paddingTop={12}>
           <Grid
@@ -843,6 +847,7 @@ const Home = () => {
       </Container>
 
       {/* learn cypto star*/}
+
 
       <Container>
         <Box

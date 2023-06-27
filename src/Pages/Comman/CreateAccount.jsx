@@ -401,7 +401,7 @@ const CreateAccount = () => {
                       className="btn btn-primary"
                       disabled={isSubmitting}
                     >
-                      Sign up
+                      {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Sign up"}
                     </LoadingButton>
                   </Box>
                 </Box>

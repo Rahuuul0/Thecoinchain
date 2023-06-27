@@ -72,7 +72,7 @@ const MarketCard = () => {
                           varient="body2"
                           className="currency-name"
                         >
-                          {item.symbol}{" "}
+                          {item.symbol}{"/USDT "}
                           <span
                             className="status-badge"
                             style={{

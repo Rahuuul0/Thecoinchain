@@ -67,7 +67,7 @@ const LearnCypto = () => {
   const [videoUrl, setVideoUrl] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const loader = useRecoilValue(loaderAtom);
-
+ 
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
   };

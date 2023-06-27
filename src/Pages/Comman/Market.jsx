@@ -41,7 +41,7 @@ const Market = () => {
                 >
                   Please{" "}
                   <Link to="/subscription" style={{ color: "#FFD166" }}>
-                   <u>Subscribe</u>
+                    <u>Subscribe</u>
                   </Link>{" "}
                   now to gain complete access to the most precise short and
                   long-term predictions of cryptocurrency prices.

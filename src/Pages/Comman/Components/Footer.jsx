@@ -54,14 +54,14 @@ const Footer = () => {
   return (<>
     <footer className="footer" style={{ backgroundColor: '#FCFCFD', color: '#fff' }}>
       <Container>
-        <Box paddingTop={5}>
+        <Box>
           <Grid container sx={{ justifyContent: 'space-between' }}>
-            <Grid item xs={12} sm={12} md={2} paddingTop={4} paddingBottom={4} >
-              <Button onClick={() => { navigate("/"); }}
+            <Grid item xs={12} sm={12} md={2} paddingTop={{ xs: 8, sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
+              <Button sx={{ padding: 0 }} onClick={() => { navigate("/"); }}
               > <img className='logo-cg' src={Darklogo} />
               </Button>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC' }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ md: 4, sm: 3 }} paddingBottom={{ md: 4, sm: 3 }} >
+            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: { sm: "none", md: '1px solid #E6E8EC' }, borderBottom: { xs: "1px solid #E6E8EC", sm: "1px solid #E6E8EC", md: 'none' } }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 0, sm: 0, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
               <Box className="quick-links">
                 <Stack spacing={2}>
                   <RouterLink to={"/contact"}>Contacts</RouterLink>
@@ -72,7 +72,7 @@ const Footer = () => {
                 </Stack>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC', }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ md: 4, sm: 3 }} paddingBottom={{ md: 4, sm: 3 }}  >
+            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: { sm: "none", md: '1px solid #E6E8EC' }, borderBottom: { xs: "1px solid #E6E8EC", sm: "1px solid #E6E8EC", md: 'none' } }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 3, sm: 3, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }}   >
               <Box className="quick-links">
                 <Stack spacing={2}>
                   <RouterLink to={"/prediction-dashboard"} >Price Forecast</RouterLink>
@@ -83,11 +83,10 @@ const Footer = () => {
                 </Stack>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} paddingLeft={{ md: 5, sm: 2 }} paddingTop={{ md: 4, sm: 3 }} paddingBottom={{ md: 4, sm: 3 }} >
+            <Grid item xs={12} sm={12} md={3} paddingLeft={{ md: 5, sm: 2 }} paddingTop={{ xs: 3, sm: 3, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }}   >
               <Box
                 noValidate
                 component="form"
-                sx={{ mt: '24px' }}
                 onSubmit={handleSubmit(handleFormSubmit)}
               >
                 <Typography

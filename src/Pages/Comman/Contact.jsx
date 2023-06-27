@@ -199,7 +199,7 @@ const Contact = () => {
               <Typography variant='h1' component="h1" className='hero-heading primary-color' sx={{ lineHeight: 1, mb: "20px" }}>
                 How can we help
               </Typography>
-              <Typography variant='body2' component="div" className='hero-para secondary-color' paddingBottom={2}>
+              <Typography variant='body1' component="p" className='hero-para secondary-color' paddingBottom={2}>
                 A creative agency that lead and inspire
               </Typography>
 
@@ -275,10 +275,6 @@ const Contact = () => {
               <East />
             </Box>
           </Stack>
-
-          {/* <Typography textAlign='center' paddingTop={10}>
-            <Button onClick={() => { navigate("/learn-cypto") }} className='btn-outlined-secondary'>Learn More</Button>
-          </Typography> */}
         </Box>
       </Container >
 

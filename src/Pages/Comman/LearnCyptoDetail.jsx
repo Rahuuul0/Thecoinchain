@@ -72,7 +72,7 @@ const LearnCyptoDetail = () => {
 
   return (
     <>
-      <Container sx={{ pt: 10 }}>
+      <Container className="learn-crypto-details">
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={loader}
@@ -81,8 +81,7 @@ const LearnCyptoDetail = () => {
         </Backdrop>
         <Box ref={scrollRef}>
           <Typography
-            paddingTop={5}
-            paddingBottom={5}
+            paddingBottom={3}
             variant="h1"
             className="secondary-font"
             fontWeight="700"
@@ -103,9 +102,9 @@ const LearnCyptoDetail = () => {
 
       {/* video section ends */}
       <Container>
-        <Box paddingY={10}>
+        <Box paddingBottom={{ xs: 4, sm: 10 }}>
           <Box>
-            <Box paddingBottom={10}>
+            <Box paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}>
               <ReactPlayer
                 url={videoUrl}
                 controls={true}
@@ -155,7 +154,7 @@ const LearnCyptoDetail = () => {
                 className="secondary-color"
                 variant="p"
                 component="p"
-                paddingBottom={10}
+                paddingBottom={{ xs: 4, sm: 10 }}
               >
                 Mix-and-match dozens of responsive elements to quickly configure
                 your favorite landing page layouts or hit the ground running
@@ -168,7 +167,6 @@ const LearnCyptoDetail = () => {
                 className="secondary-font font-40 bottom-border"
                 marginBottom={4}
                 paddingBottom={4}
-                paddingTop={4}
               >
                 What does TradingView do?
               </Typography>
@@ -176,7 +174,7 @@ const LearnCyptoDetail = () => {
                 className="secondary-color"
                 variant="p"
                 component="p"
-                paddingBottom={3}
+                paddingBottom={4}
               >
                 The Stacks series of products: Stacks: Landing Page Kit, Stacks:
                 Portfolio Kit, Stacks: eCommerce Kit. "Stacks is a
@@ -187,7 +185,6 @@ const LearnCyptoDetail = () => {
                 className="secondary-color"
                 variant="p"
                 component="p"
-                paddingBottom={3}
               >
                 Mix-and-match dozens of responsive elements to quickly configure
                 your favorite landing page layouts or hit the ground running
@@ -195,11 +192,11 @@ const LearnCyptoDetail = () => {
               </Typography>
             </Box>
           </Box>
-          <Box>
-            <Box paddingBottom={10} textAlign="center">
-              <img src={VideoImg} />
+          <Box className="smallwidth">
+            <Box paddingY={{ xs: 4, sm: 10 }} textAlign="center">
+              <img src={VideoImg} className="w-100" />
             </Box>
-            <Box className="smallwidth">
+            <Box>
               <Typography
                 variant="h2"
                 fontWeight="700"
@@ -207,7 +204,6 @@ const LearnCyptoDetail = () => {
                 className="secondary-font font-40 bottom-border"
                 marginBottom={4}
                 paddingBottom={4}
-                paddingTop={4}
               >
                 How expensive is TradingView?
               </Typography>
@@ -215,7 +211,7 @@ const LearnCyptoDetail = () => {
                 className="secondary-color"
                 variant="p"
                 component="p"
-                paddingBottom={3}
+                paddingBottom={4}
               >
                 The Stacks series of products: Stacks: Landing Page Kit, Stacks:
                 Portfolio Kit, Stacks: eCommerce Kit. "Stacks is a
@@ -226,13 +222,14 @@ const LearnCyptoDetail = () => {
                 className="secondary-color"
                 variant="p"
                 component="p"
-                paddingBottom={3}
               >
                 {" "}
                 Mix-and-match dozens of responsive elements to quickly configure
                 your favorite landing page layouts or hit the ground running
                 with 10 pre-built templates, all in light or dark mode."{" "}
               </Typography>
+            </Box>
+            <Box paddingTop={{ xs: 4, sm: 10 }}>
               <Typography
                 variant="h2"
                 fontWeight="700"
@@ -240,7 +237,6 @@ const LearnCyptoDetail = () => {
                 className="secondary-font font-40 bottom-border"
                 marginBottom={4}
                 paddingBottom={4}
-                paddingTop={4}
               >
                 Understanding the TradingView UI
               </Typography>
@@ -248,7 +244,7 @@ const LearnCyptoDetail = () => {
                 className="secondary-color"
                 variant="p"
                 component="p"
-                paddingBottom={3}
+                paddingBottom={4}
               >
                 The Stacks series of products: Stacks: Landing Page Kit, Stacks:
                 Portfolio Kit, Stacks: eCommerce Kit. "Stacks is a
@@ -259,7 +255,6 @@ const LearnCyptoDetail = () => {
                 className="secondary-color"
                 variant="p"
                 component="p"
-                paddingBottom={10}
               >
                 Mix-and-match dozens of responsive elements to quickly configure
                 your favorite landing page layouts or hit the ground running
@@ -270,20 +265,19 @@ const LearnCyptoDetail = () => {
         </Box>
       </Container>
       <Container>
-        <Stack direction='row' justifyContent='center' spacing={3} marginBottom={5} >
+        <Stack direction='row' justifyContent='center' spacing={3} marginBottom={{ xs: "64px", sm: "64px", md: "112px", lg: "136px" }} >
           <img src={ShareIcon} />
           <img src={LikeIcon} />
-
         </Stack>
       </Container>
 
       <Container>
-        <Box paddingY={7}>
+        <Box paddingBottom={{ xs: "64px", sm: "64px", md: "112px", lg: "136px" }}>
           <Grid container spacing={6} rowSpacing={6}>
             {tutorialsData?.slice(0, visibleVideos).map((item) => {
               let title = item.title.substring(0, 20) + "...";
               return (
-                <Grid item xs={12} sm={4} md={4}>
+                <Grid item xs={12} sm={6} md={6} lg={4}>
                   <Box className="about-crypto">
                     <Typography
                       textTransform="uppercase"

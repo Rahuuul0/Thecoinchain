@@ -362,6 +362,10 @@ img,
   text-transform: capitalize;
 }
 
+.w-100 {
+  width: 100%;
+}
+
 /* Extra small devices (phones, 767px and down) */
 @media only screen and (max-width: 767px) {
 
@@ -379,7 +383,7 @@ img,
   }
 
   #root .font-40 {
-    font-size: 40px !important;
+    font-size: 32px !important;
   }
 }
 
@@ -1151,6 +1155,7 @@ input[type="number"] {
   font-weight: 700;
   color: #777e91;
   min-width: 60px;
+  font-family: var(--secondary-font) !important;
 }
 
 .learn-cypto-tab .MuiTabs-root button {
@@ -1176,6 +1181,10 @@ input[type="number"] {
   box-shadow: 0px 6px 25px rgb(15 15 15 / 10%);
 }
 
+#root .crypto-box h4 {
+  font-size: 24px !important;
+}
+
 .contact-line {
   position: relative;
 }
@@ -1196,8 +1205,44 @@ input[type="number"] {
 }
 
 .learn-crypto {
-  padding-top: 161px;
+  padding-top: 158px;
   padding-bottom: 136px;
+}
+
+.latest-release {
+  background-color: #F4F5F6;
+  padding: 136px 0;
+}
+
+.right-tab .MuiTabs-flexContainer {
+  gap: 12px;
+  margin-top: 64px;
+}
+
+.right-tab .MuiTabPanel-root {
+  margin-top: 80px;
+  padding: 0;
+}
+
+.blog-box .blog-box-content {
+  margin-bottom: 64px;
+  margin-top: 64px;
+}
+
+.right-tab .right-tab-content {
+  margin-bottom: 80px;
+}
+
+.right-tab .right-tab-content:last-child {
+  margin-bottom: 0;
+}
+
+.tutorials-grid {
+  padding: 136px 0;
+}
+
+.tutorials-grid-item {
+  margin-top: 64px;
 }
 
 .learn-crypto-home {
@@ -1273,10 +1318,15 @@ input[type="number"] {
 
 .about-crypto {
   position: relative;
+  margin-bottom: 32px;
+}
+
+.newdesignbox .about-crypto {
+  margin-bottom: 0;
 }
 
 .about-crypto .tutorial-preview {
-  aspect-ratio: 4/2;
+  aspect-ratio: 1/1;
   object-fit: cover;
 }
 
@@ -1322,8 +1372,15 @@ input[type="number"] {
 
 .center-breadcrum .MuiBreadcrumbs-li a {
   color: var(--color-grey) !important;
-  font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--secondary-font);
+}
+
+.center-breadcrum .MuiBreadcrumbs-li p.MuiTypography-root {
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--secondary-font);
 }
 
 .center-breadcrum .MuiBreadcrumbs-li p.MuiTypography-root {
@@ -1474,7 +1531,7 @@ input[type="number"] {
 
 .newdesignbox-grid {
   padding-top: 40px;
-  padding-bottom: 60px;
+  padding-bottom: 64px;
 }
 
 .newdesignbox img {
@@ -1711,6 +1768,8 @@ video {
   padding-top: 136px;
   padding-bottom: 136px;
 }
+
+
 
 .faq-box .MuiTabs-flexContainer {
   padding-top: 16px;
@@ -2368,6 +2427,7 @@ p.left-icon img {
 .notification-wrapper .notification-wrapper-head h4 {
   font-size: 32px;
   font-weight: 700;
+  font-family: var(--secondary-font) !important;
 }
 
 .notification-list-wrapper {
@@ -2629,6 +2689,14 @@ video[poster] {
   max-width: 700px;
 }
 
+.community-wrapper {
+  padding: 136px 0;
+}
+
+.community-wrapper .subscription-wrapper-head {
+  padding-top: 0;
+}
+
 .community-card {
   padding: 40px 30px;
   border-radius: 15px;
@@ -2727,8 +2795,13 @@ video[poster] {
   text-align: center;
   font-family: var(--primary-font) !important;
   font-weight: 600;
-  line-height: 1.8;
   border-radius: 5px;
+}
+
+.about-crypto .small-new-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .text-black {
@@ -2817,12 +2890,39 @@ video[poster] {
   background-color: #F4F5F6;
 }
 
+.global-community {
+  background-color: #f4f5f6;
+  padding: 136px 0;
+}
+
+
+.learn-crypto-details {
+  padding-top: 158px;
+}
+
+#root .notification-wrapper .btn.MuiButton-sizeSmall {
+  padding: 6px 16px;
+}
+
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
 
 @media (max-width: 1199.98px) {}
 
 @media (max-width: 1024.98px) {
+  .global-community {
+    padding: 112px 0;
+  }
+
+  .faq-box h2 {
+    max-width: 544px;
+    margin: auto;
+  }
+
+  .faq-box {
+    padding-bottom: 112px;
+  }
+
   .auth-header {
     padding: 48px;
     width: calc(100% - 96px);
@@ -2884,6 +2984,14 @@ video[poster] {
     gap: 64px;
   }
 
+  .subscription-steps {
+    padding-bottom: 32px;
+  }
+
+  .become-a-crypto-trader {
+    padding: 112px 0;
+  }
+
   .notification-list-wrapper {
     grid-template-columns: 1fr 230px;
   }
@@ -2927,6 +3035,29 @@ video[poster] {
 
   .ipad-visible {
     display: block !important;
+  }
+
+  .learn-crypto {
+    padding-top: 136px;
+    padding-bottom: 112px;
+  }
+
+  .latest-release,
+  .tutorials-grid {
+    padding: 112px 0;
+  }
+
+  .blog-box .blog-box-content {
+    margin-bottom: 48px;
+    margin-top: 48px;
+  }
+
+  .learn-n-earn-head {
+    margin-bottom: 48px;
+  }
+
+  .learn-n-earn .btn {
+    margin-top: 48px;
   }
 }
 
@@ -2993,11 +3124,31 @@ video[poster] {
   .contact-line:before {
     transform: translate(0%, 0px);
   }
+
+  /* .filter-btn {
+    margin-top: 32px;
+  } */
 }
 
 @media (max-width: 767.98px) {
   body {
     overflow-x: hidden !important;
+  }
+
+  .crypto-list-table table tbody:before {
+    line-height: 1em;
+  }
+
+  .learn-crypto-details {
+    padding-top: 88px;
+  }
+
+  .global-community {
+    padding: 64px 0;
+  }
+
+  .crypto-box {
+    margin-top: 24px;
   }
 
   #root .subscription-wrapper-head h2 {
@@ -3007,7 +3158,7 @@ video[poster] {
   #root .subscription-wrapper-head.back-arrow h2 {
     position: relative;
     padding-left: 30px;
-
+    font-size: 32px !important;
   }
 
   #root .subscription-wrapper-head.back-arrow h2::before {
@@ -3021,7 +3172,7 @@ video[poster] {
   }
 
   #root .crypto-trader-head h2 {
-    font-size: 40px;
+    font-size: 40px !important;
   }
 
   div.for-mobile,
@@ -3046,7 +3197,7 @@ video[poster] {
   }
 
   .learn-earn-dropdown {
-    margin-top: 32px;
+    margin-top: 48px;
     margin-bottom: 48px;
   }
 
@@ -3473,11 +3624,11 @@ video[poster] {
   }
 
   .bredcrum-div .subscription-wrapper-head {
-    display: block;
+    /* display: block; */
   }
 
   .center-breadcrum ol {
-    justify-content: start;
+    /* justify-content: start; */
   }
 
   /* refferals */
@@ -3516,6 +3667,45 @@ video[poster] {
   .learn-n-earn {
     padding-bottom: 0px;
   }
+
+  .learn-crypto {
+    padding-bottom: 64px;
+  }
+
+  .latest-release,
+  .tutorials-grid {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  #root .latest-release h2 {
+    font-size: 40px !important;
+  }
+
+  .right-tab .MuiTabs-flexContainer {
+    margin-top: 48px;
+  }
+
+  .right-tab .MuiTabPanel-root {
+    margin-top: 48px;
+  }
+
+  .latest-release-tabs {
+    margin-top: 48px;
+  }
+
+  .right-tab-content .MuiGrid-container {
+    flex-direction: column-reverse;
+  }
+
+  .blog-box .blog-box-content {
+    margin-bottom: 16px;
+    margin-top: 16px;
+  }
+
+  .right-tab .blog-box {
+    margin-top: 32px;
+  }
 }
 
 @media (max-width: 680.98px) {
@@ -3549,6 +3739,17 @@ video[poster] {
 }
 
 @media (max-width: 480.98px) {
+
+  div.for-mobile,
+  .for-mobile {
+    width: 100%;
+  }
+
+  .tutorials-grid .MuiSelect-select {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
   .learn-n-earn-head {
     padding: 0;
   }

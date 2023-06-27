@@ -101,7 +101,7 @@ const GuidesAnalysis = (props) => {
                         <Typography textAlign="center" className="secondary-color body-large">
                             Guides and Analytics  for Trading Crypto
                         </Typography>
-                        <Box className='' paddingTop={4}>
+                        <Box className=''>
                             <Box className="right-tab">
                                 <TabContext value={valueTab}>
                                     <AppBar position="static">
@@ -164,7 +164,7 @@ const GuidesAnalysis = (props) => {
                                                                     .slice(0, 3)
                                                                     .map((items) => {
                                                                         return (
-                                                                            <Box padding={0}  sx={{ marginBottom: {xs: '30px', md: '0px'} }}>
+                                                                            <Box padding={0} sx={{ marginBottom: { xs: '30px', md: '0px' } }}>
                                                                                 <Grid container>
                                                                                     <Grid item xs={12} sm={5} md={5} >
                                                                                         <Box
@@ -220,7 +220,7 @@ const GuidesAnalysis = (props) => {
                                                                     .slice(0, 3)
                                                                     .map((items) => {
                                                                         return (
-                                                                            <Box padding={0} sx={{ marginBottom: {xs: '30px', md: '0px'} }}>
+                                                                            <Box padding={0} sx={{ marginBottom: { xs: '30px', md: '0px' } }}>
                                                                                 <Grid container>
                                                                                     <Grid item xs={12} sm={5} md={5}>
                                                                                         <Box
@@ -249,7 +249,7 @@ const GuidesAnalysis = (props) => {
                                                                                                 >
                                                                                                     {items.title}
                                                                                                 </Typography>
-                                                                                                <Typography  sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
+                                                                                                <Typography sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
                                                                                                     {items.category}
                                                                                                 </Typography>
                                                                                                 <Typography className="body-caption secondary-color">
@@ -277,7 +277,7 @@ const GuidesAnalysis = (props) => {
                                                                     .slice(0, 3)
                                                                     .map((items) => {
                                                                         return (
-                                                                            <Box padding={0}  sx={{ paddingBottom: { xs: '10px', md: '0px' } }}>
+                                                                            <Box padding={0} sx={{ paddingBottom: { xs: '10px', md: '0px' } }}>
                                                                                 <Grid container>
                                                                                     <Grid item xs={12} sm={5} md={5}>
                                                                                         <Box
@@ -296,7 +296,7 @@ const GuidesAnalysis = (props) => {
                                                                                                     New
                                                                                                 </Typography>
                                                                                             </Box>
-                                                                                            <Box className=""  sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
+                                                                                            <Box className="" sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
                                                                                                 <Typography
                                                                                                     variant="h4"
                                                                                                     fontWeight="700"
@@ -305,7 +305,7 @@ const GuidesAnalysis = (props) => {
                                                                                                 >
                                                                                                     {items.title}
                                                                                                 </Typography>
-                                                                                                <Typography  sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
+                                                                                                <Typography sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
                                                                                                     {items.category}
                                                                                                 </Typography>
                                                                                                 <Typography className="body-caption secondary-color">
@@ -352,7 +352,7 @@ const GuidesAnalysis = (props) => {
                                                                                                     New
                                                                                                 </Typography>
                                                                                             </Box>
-                                                                                            <Box className=""  sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
+                                                                                            <Box className="" sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
                                                                                                 <Typography
                                                                                                     variant="h4"
                                                                                                     fontWeight="700"
@@ -361,7 +361,7 @@ const GuidesAnalysis = (props) => {
                                                                                                 >
                                                                                                     {items.title}
                                                                                                 </Typography>
-                                                                                                <Typography  sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
+                                                                                                <Typography sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
                                                                                                     {items.category}
                                                                                                 </Typography>
                                                                                                 <Typography className="body-caption secondary-color">
@@ -383,7 +383,7 @@ const GuidesAnalysis = (props) => {
                                                             </TabPanel>
                                                             <TabPanel value={valueTab2} index2={4} dir={theme.direction} sx={{ padding: '0px' }}>
 
-                                                                <Box padding={0}  sx={{ marginBottom: { xs: '10px', md: '0px' } }}>
+                                                                <Box padding={0} sx={{ marginBottom: { xs: '10px', md: '0px' } }}>
                                                                     <Grid container>
                                                                         <Grid item xs={12} sm={5} md={5}>
                                                                             <Box
@@ -402,7 +402,7 @@ const GuidesAnalysis = (props) => {
                                                                                         New
                                                                                     </Typography>
                                                                                 </Box>
-                                                                                <Box className=""  sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
+                                                                                <Box className="" sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
                                                                                     <Typography
                                                                                         variant="h4"
                                                                                         fontWeight="700"
@@ -411,7 +411,7 @@ const GuidesAnalysis = (props) => {
                                                                                     >
                                                                                         A Beginner's Guide to TradingView
                                                                                     </Typography>
-                                                                                    <Typography  sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
+                                                                                    <Typography sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
                                                                                         Ethereum
                                                                                     </Typography>
                                                                                     <Typography className="body-caption secondary-color">
@@ -441,7 +441,7 @@ const GuidesAnalysis = (props) => {
                                         </TabPanel>
                                         <TabPanel value={valueTab} index={1} dir={theme.direction}>
 
-                                            <Box padding={0}  sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
+                                            <Box padding={0} sx={{ paddingBottom: { xs: '10px', md: '50px' } }}>
                                                 <Grid container>
                                                     <Grid item xs={12} sm={5} md={5}>
                                                         <Typography variant='h2' component='h2' className='secondary-font' >Analytics</Typography>

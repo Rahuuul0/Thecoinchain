@@ -23,8 +23,6 @@ import { useNavigate } from "react-router-dom";
 import ShareIcon from "../../../public/assets/images/share.svg";
 import LikeIcon from "../../../public/assets/images/love.svg";
 
-
-
 function handleClick(event) {
   event.preventDefault();
   console.info("You clicked a breadcrumb.");
@@ -34,6 +32,9 @@ const LearnCyptoDetail = () => {
   const breadcrumbs = [
     <Link underline="hover" key="1" color="inherit" href="/learn-cypto">
       Learn crypto
+    </Link>,
+    <Link underline="hover" key="2" color="inherit" href="/learn-cypto">
+      Trading
     </Link>,
     <Typography key="3" color="text.primary">
       Bitcoin
@@ -58,7 +59,6 @@ const LearnCyptoDetail = () => {
 
   const handleLoadMore = () => {
     setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
-     navigate("/learn-cypto")
   };
 
   useEffect(() => {
@@ -270,10 +270,14 @@ const LearnCyptoDetail = () => {
         </Box>
       </Container>
       <Container>
-        <Stack direction='row' justifyContent='center' spacing={3}  marginBottom={5} >
-        <img src={ShareIcon} />
-        <img src={LikeIcon} />
-
+        <Stack
+          direction="row"
+          justifyContent="center"
+          spacing={3}
+          marginBottom={5}
+        >
+          <img src={ShareIcon} />
+          <img src={LikeIcon} />
         </Stack>
       </Container>
 
@@ -294,7 +298,7 @@ const LearnCyptoDetail = () => {
 
                     <Box
                       className="avatar-rounded"
-                      onClick={() => scrollToVideo(scrollRef, item.video_link,)}
+                      onClick={() => scrollToVideo(scrollRef, item.video_link)}
                       sx={{ cursor: "pointer" }}
                     >
                       <img className="tutorial-preview" src={item.image_link} />

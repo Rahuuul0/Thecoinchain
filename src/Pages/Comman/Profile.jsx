@@ -31,8 +31,7 @@ import { useRecoilValue } from "recoil";
 import { userAtom, authAtom, forecastSubAtom } from "../../_state";
 import dayjs from "dayjs";
 import MuiPhoneNumber from "material-ui-phone-number";
-import LoadingButton from '@mui/lab/LoadingButton';
-
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -147,12 +146,7 @@ const Profile = (props) => {
     );
   };
   const breadcrumbs = [
-    <Link
-      underline="hover"
-      key="1"
-      color="inherit"
-      to="/"
-    >
+    <Link underline="hover" key="1" color="inherit" to="/">
       Home
     </Link>,
     <Typography key="3" color="text.primary">
@@ -238,6 +232,7 @@ const Profile = (props) => {
                                 marginTop: { xs: "12px", sm: "30px" },
                                 marginBottom: "20px",
                                 borderRadius: "90px !important",
+                                cursor: "default",
                               }}
                             >
                               {subscription?.status === "running"

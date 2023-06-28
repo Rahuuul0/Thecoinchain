@@ -56,12 +56,7 @@ const Referrals = () => {
     );
   };
   const breadcrumbs = [
-    <Link
-      underline="hover"
-      key="1"
-      color="inherit"
-      to="/"
-    >
+    <Link underline="hover" key="1" color="inherit" to="/">
       Home
     </Link>,
     <Typography key="3" color="text.primary">
@@ -179,48 +174,49 @@ const Referrals = () => {
                             <TextField
                               label="REFERRAL LINK"
                               className="black-label form-control white-input-box copied-adorement"
-                              InputProps={{
-                                shrink: true,
-                                endAdornment: (
-                                  <InputAdornment
-                                    sx={{ cursor: "pointer" }}
-                                    onClick={handleLink}
-                                    position="end"
-                                  >
-                                    {linkCopy === true ? "copied" : "copy"}
-                                  </InputAdornment>
-                                ),
-                              }}
+                              // InputProps={{
+                              //   shrink: true,
+                              // endAdornment: (
+                              //   <InputAdornment
+                              //     sx={{ cursor: "pointer" }}
+                              //     onClick={handleLink}
+                              //     position="end"
+                              //   >
+                              //     {linkCopy === true ? "copied" : "copy"}
+                              //   </InputAdornment>
+                              // ),
+                              // }}
                               variant="standard"
                               margin="normal"
                               required
                               fullWidth
                               id="link"
-                              value={
-                                "http://dly1vyq5d0op3.cloudfront.net/create-account/" +
-                                userDetail.referral_code
-                              }
-                              // placeholder='link'
+                              // value={
+                              //   "http://dly1vyq5d0op3.cloudfront.net/create-account/" +
+                              //   userDetail.referral_code
+                              // }
+                              // placeholder="link"
                               name="link"
                               autoComplete="off"
-                            // size="small"
+                              // size="small"
+                              disabled
                             />
                           </Grid>
                           <Grid item xs={12} sm={6}>
                             <TextField
                               label="REFERRAL CODE"
-                              value={userDetail.referral_code}
-                              InputProps={{
-                                endAdornment: (
-                                  <InputAdornment
-                                    sx={{ cursor: "pointer" }}
-                                    onClick={handleRefCode}
-                                    position="end"
-                                  >
-                                    {codeCopy === true ? "copied" : "copy"}
-                                  </InputAdornment>
-                                ),
-                              }}
+                              // value={userDetail.referral_code}
+                              // InputProps={{
+                              //   endAdornment: (
+                              //     <InputAdornment
+                              //       sx={{ cursor: "pointer" }}
+                              //       onClick={handleRefCode}
+                              //       position="end"
+                              //     >
+                              //       {codeCopy === true ? "copied" : "copy"}
+                              //     </InputAdornment>
+                              //   ),
+                              // }}
                               className="black-label form-control white-input-box copied-adorement"
                               InputLabelProps={{
                                 shrink: true,
@@ -233,7 +229,7 @@ const Referrals = () => {
                               // placeholder='Link'
                               name="code"
                               autoComplete="off"
-
+                              disabled
                             // size="small"
                             />
                           </Grid>

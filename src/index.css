@@ -2918,6 +2918,150 @@ video[poster] {
   padding: 136px 0;
 }
 
+
+.css-qe9us1-MuiFormHelperText-root.Mui-error,
+.frm-message {
+  color: red;
+  font-size: 13px !important;
+  margin: 0;
+  padding-left: 0px;
+  line-height: 0.5;
+}
+
+.auth-form button {
+  min-width: 50px !important;
+}
+
+.v-center {
+  display: flex;
+  align-items: center;
+}
+
+.small-new-btn {
+  display: inline-block;
+  text-align: center;
+  font-family: var(--primary-font) !important;
+  font-weight: 600;
+  line-height: 1.8;
+  border-radius: 5px;
+}
+
+.text-black {
+  color: #23262F !important;
+}
+
+.text-black .dark-icon {
+  display: block;
+}
+
+.dark-icon {
+  display: none;
+  ;
+}
+
+.light-icon {
+  display: block;
+}
+
+.text-black .light-icon {
+  display: none !important;
+}
+
+.payment-plan-box {
+  display: flex;
+}
+
+.payment-plan-box p {
+  border: 1px solid;
+  border-color: #353945;
+  background-color: transparent;
+  color: #353945;
+  margin: 0px 10px 15px 0px !important;
+  padding: 5px 12px;
+  border-radius: 66px;
+}
+
+.payment-plan-box p.active {
+
+  border-color: #353945;
+  background-color: #353945;
+  color: #fff;
+}
+
+#root .button-img .btn.active {
+  background-color: #e5e5e5;
+  color: #000;
+}
+
+#root .button-img .btn.active img {
+  border: 1px solid #ffffff;
+}
+
+#root .button-img .btn img {
+  border: 1px solid transparent;
+  border-radius: 90px;
+  padding: 0;
+}
+
+.MuiLoadingButton-loadingIndicator {
+  position: relative !important;
+  right: -32px !important;
+}
+
+#root .MuiLoadingButton-loading {
+  background-color: #f2f2f2 !important;
+  color: #212529;
+  border: 1px solid #3772FF;
+}
+
+.rcs_buttonSet {
+
+  left: 50% !important;
+  bottom: 0px !important;
+  transform: translate(-50%, 0%) !important;
+  height: 400px;
+  align-items: end;
+}
+
+.rcs_slideCon .itemWrapper {
+  width: 25% !important;
+  margin: 0 0 !important;
+  padding: 0px !important;
+}
+
+.rcs_slideCon .itemWrapper img {
+  width: 283px !important;
+  min-width: 251px !important;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Media Queries  */
 @media (max-width: 1399.98px) {}
 

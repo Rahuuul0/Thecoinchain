@@ -109,7 +109,7 @@ const LearnNEarn = () => {
                     </Box>
                 </Box>
                 <Button
-                    onClick={() => { navigate("/contentnotfound") }}
+                    onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "smooth" })}
                     sx={{ mx: 'auto' }}
                     variant="outlined"
                     className='btn btn-outlined-secondary'>

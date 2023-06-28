@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
-import { Box, Container, FormControl, Select, MenuItem, Typography, Button, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
+import { Box, Container, Typography, Button, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined';
 import LoadMoreIc from '../../../public/assets/images/icons/cale-ic.svg'
 import DepositImg from '../../../public/assets/images/deposit.svg'
 import TransferImg from '../../../public/assets/images/transfer.svg'
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { notificationAtom, authAtom, categoryAtom } from '../../_state/';
+import { notificationAtom, authAtom, categoryAtom, notificationViewAtom } from '../../_state/';
 import { notificationActions } from '../../_actions/notification.actions';
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 
 const Notifications = () => {
-    const [notificationFilter, setNotificationFilter] = useState("");
-
-    const handleChangeNotificationFilter = (event) => {
-        setNotificationFilter(event.target.value);
-    };
     const navigate = useNavigate();
     const notificationAction = notificationActions();
-    const notifications = useRecoilValue(notificationAtom);
+    const notifications = useRecoilValue(notificationViewAtom);
     const userDetails = useRecoilValue(authAtom);
     const [loadmore, setLoadmore] = useState(10);
     const [checked, setChecked] = useState(false)
@@ -74,13 +69,19 @@ const Notifications = () => {
         categoryArr.length > 0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList()
         flag ? setChecked(true) : setChecked(false)
     }
-
+    //   console.log(notifications.length % 5 , "remiander")
     const handleLoadmore = () => {
-        setLoadmore(loadmore + 5)
+        if (notifications.length % 5 < 5) {
+            setLoadmore(loadmore + (notifications.length - loadmore))
+        } else {
+            setLoadmore(loadmore + 5)
+        }
     }
 
     useEffect(() => {
         notificationAction.notificationList()
+        notificationAction.notificationList_View()
+
     }, [])
 
     const showFilteredNotification = (e, cat) => {
@@ -108,7 +109,7 @@ const Notifications = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Box component="main" className='notification-wrapper' sx={{ mt: { xs: "112px", sm: 8 } }}>
+                <Box component="main" className='notification-wrapper' sx={{ mt: 8 }}>
                     <Container maxWidth="lg">
                         <Box className='notification-inner'>
                             <Box className='notification-list-card'>
@@ -123,25 +124,6 @@ const Notifications = () => {
                                                 <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Clear all</Button>
                                             </Box>
                                         </Box>}
-                                </Box>
-
-                                <Box className="for-mobile dropdown-mobile">
-                                    <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
-                                        <Select
-                                            value={notificationFilter}
-                                            onChange={handleChangeNotificationFilter}
-                                            displayEmpty
-                                            inputProps={{ "aria-label": "Without label" }}
-                                        >
-                                            <MenuItem value="">
-                                                <em>None</em>
-                                            </MenuItem>
-                                            <MenuItem value={10}>Crypto Prediction</MenuItem>
-                                            <MenuItem value={20}>Community</MenuItem>
-                                            <MenuItem value={30}>Academy</MenuItem>
-                                            <MenuItem value={40}>News</MenuItem>
-                                        </Select>
-                                    </FormControl>
                                 </Box>
                                 <Box className="devider" />
                                 <Box className='notification-list-wrapper'>
@@ -168,7 +150,15 @@ const Notifications = () => {
                                                             <Typography component="small" variant='body2'>
                                                                 <span className='n-date'> {item.ct_notify_created_At} </span>
                                                             </Typography>
-                                                            <span className='notification-circle'></span>
+                                                            <span className='notification-circle'
+                                                                style={{
+                                                                    backgroundColor: item.ct_notify_status === 1
+                                                                        ? '#777e90'
+                                                                        : '#58bd7d'
+                                                                }}
+                                                            >
+                                                            </span>
+
                                                         </Box>
                                                     </Box>
 
@@ -176,7 +166,7 @@ const Notifications = () => {
                                             }
                                         }) : <span>No New Notifications Available</span>}
 
-                                        {notifications.length > 0 && notifications.length !== loadmore &&
+                                        {notifications.length > 0 && notifications.length !== loadmore && notifications.length > 10 &&
                                             <Button onClick={handleLoadmore} variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>}
 
                                     </Box>

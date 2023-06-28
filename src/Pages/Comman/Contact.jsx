@@ -23,21 +23,27 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { contact_AddAtom } from '../../_state';
 import { useRecoilState } from 'recoil';
+import { West, East } from '@mui/icons-material';
+import { General, Subscriptions } from './Questions';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+import { useNavigate } from 'react-router-dom';
+import { styled, alpha } from '@mui/material/styles';
 import * as Yup from "yup";
 import ContactHeroImage from "../../../public/assets/images/learn-cypto.svg";
 import InputBase from '@mui/material/InputBase';
 import Media from "../../../public/assets/images/media-img.svg";
 import Design from "../../../public/assets/images/design-sys.svg";
 import GenralIcon from "../../../public/assets/images/icons/genralicon.svg";
+import MediaContainer from "../../../public/assets/images/media-container.svg";
 import SubsIcon from "../../../public/assets/images/subscription.svg";
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { styled, alpha } from '@mui/material/styles';
 import Autocomplete from '@mui/material/Autocomplete';
-import { useNavigate } from 'react-router-dom';
-import { West, East } from '@mui/icons-material';
-import { General, Subscriptions } from './Questions';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 import LoadingButton from '@mui/lab/LoadingButton';
 
 
@@ -212,10 +218,30 @@ const Contact = () => {
       </Container >
       {/* Banner Ends */}
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
-        <Box className='newdesignbox'>
-          <Typography textAlign='center' className='body-caption secondary-color'>Before asking for an answer, you may find it in <br /> our learn crypto center</Typography>
-          <Grid container spacing={0} rowSpacing={6} className='newdesignbox-grid'>
-            <Grid item xs={12} sm={3} md={3} >
+        <Box paddingY={7} className='newdesignbox'>
+          <Swiper
+            slidesPerView={4}
+            spaceBetween={0}
+            loop={true}
+            navigation={true}
+            modules={[Navigation]}
+            breakpoints={{
+              480: {
+                slidesPerView: 1,
+              },
+              640: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              1024: {
+                slidesPerView: 4,
+              },
+            }}
+            className="blog-carousel"
+          >
+            <SwiperSlide>
               <Box className='about-crypto'>
                 <Box className=''>
                   <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
@@ -226,9 +252,8 @@ const Contact = () => {
                   <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
                 </Box>
               </Box>
-            </Grid>
-
-            <Grid item xs={12} sm={3} md={3} >
+            </SwiperSlide>
+            <SwiperSlide>
               <Box className='about-crypto'>
                 <Box className=''>
                   <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
@@ -239,9 +264,8 @@ const Contact = () => {
                   <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
                 </Box>
               </Box>
-            </Grid>
-
-            <Grid item xs={12} sm={3} md={3} >
+            </SwiperSlide>
+            <SwiperSlide>
               <Box className='about-crypto'>
                 <Box className=''>
                   <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
@@ -252,9 +276,20 @@ const Contact = () => {
                   <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
                 </Box>
               </Box>
-            </Grid>
-
-            <Grid item xs={12} sm={3} md={3} >
+            </SwiperSlide>
+            <SwiperSlide>
+              <Box className='about-crypto'>
+                <Box className=''>
+                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                  <img src={MediaContainer} />
+                </Box>
+                <Box paddingTop={4} className="inner-con-box">
+                  <Typography fontWeight='500' paddingBottom={2}>Celebrating the new Design System</Typography>
+                  <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
+                </Box>
+              </Box>
+            </SwiperSlide>
+            <SwiperSlide>
               <Box className='about-crypto'>
                 <Box className=''>
                   <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
@@ -265,8 +300,20 @@ const Contact = () => {
                   <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
                 </Box>
               </Box>
-            </Grid>
-          </Grid>
+            </SwiperSlide>
+            <SwiperSlide>
+              <Box className='about-crypto'>
+                <Box className=''>
+                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
+                  <img src={Media} />
+                </Box>
+                <Box paddingTop={4} className="inner-con-box">
+                  <Typography fontWeight='500' paddingBottom={2}>Celebrating the new Design System</Typography>
+                  <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
+                </Box>
+              </Box>
+            </SwiperSlide>
+          </Swiper>
           <Stack direction="row" spacing={3} justifyContent='center'>
             <Box className="slider-icon">
               <West />
@@ -417,16 +464,13 @@ const Contact = () => {
                 <Grid item xs={12}>
                   <Autocomplete
                     required
+                    disablePortal
                     fullWidth
-                    id="email"
-                    placeholder='Email address'
-                    name="email"
-                    autoComplete="off"
+                    id="combo-box-demo"
                     size="small"
-                    className='select-input'
-                    value={formData?.question}
+                    value={formData?.question || ''}
                     options={question}
-                    onChange={(e, props) => reset({ ...formData, question: props?.name })}
+                    onChange={(e, props) => reset({ ...formData, question: props })}
                     renderInput={(params) => <TextField autoFocus {...register('question')} required {...params} InputLabelProps={{ shrink: true }} />}
                   />
                   <div style={{ color: "red" }}>{errors.question?.message}</div>
@@ -511,7 +555,7 @@ const Contact = () => {
                 </Typography>
               </Box>
 
-            </Box>
+            </Box >
             <Box paddingTop='2'>
               <TextField
                 id="outlined-multiline-static"
@@ -545,8 +589,8 @@ const Contact = () => {
                 </LoadingButton>
               </Typography>
             </Box>
-          </Box>
-        </Container>
+          </Box >
+        </Container >
       </Container >
     </>
   )

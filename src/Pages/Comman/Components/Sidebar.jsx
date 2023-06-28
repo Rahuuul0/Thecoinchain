@@ -23,7 +23,19 @@ const Sidebar = (props) => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === "/account") setActiveTab("profile");
+    location.pathname === "/account" || location.pathname === "/account/profile"
+      ? setActiveTab("profile")
+      : location.pathname === "/account/referrals"
+      ? setActiveTab("referrals")
+      : location.pathname === "/account/forecast-subscription"
+      ? setActiveTab("Subscription")
+      : location.pathname === "/account/session-and-history"
+      ? setActiveTab("sessionAndHistory")
+      : location.pathname === "/account/2fa-enable"
+      ? setActiveTab("2fa")
+      : location.pathname === "/account/change-account-password"
+      ? setActiveTab("changePassword")
+      : "profile";
   }, [location]);
 
   return (
@@ -32,7 +44,6 @@ const Sidebar = (props) => {
         <Box sx={{ borderBottom: "1px solid #E6E8EC" }} paddingBottom={2}>
           <Typography
             onClick={(e) => {
-              setActiveTab("profile");
               navigate("/account/profile");
             }}
             className={`left-icon secondary-color ${
@@ -49,7 +60,6 @@ const Sidebar = (props) => {
           </Typography>
           <Typography
             onClick={(e) => {
-              setActiveTab("referrals");
               navigate("/account/referrals");
             }}
             className={`left-icon secondary-color ${
@@ -66,7 +76,6 @@ const Sidebar = (props) => {
           {/* <Typography className='left-icon secondary-color' paddingBottom={2}><span><img src={SubscriptionIcon} /> </span>API keys</Typography> */}
           <Typography
             onClick={() => {
-              setActiveTab("Subscription");
               navigate("/account/forecast-subscription");
             }}
             className={`left-icon secondary-color ${
@@ -84,7 +93,6 @@ const Sidebar = (props) => {
         <Box paddingTop={2}>
           <Typography
             onClick={() => {
-              setActiveTab("sessionAndHistory");
               navigate("/account/session-and-history");
             }}
             className={`left-icon secondary-color ${
@@ -100,7 +108,6 @@ const Sidebar = (props) => {
           </Typography>
           <Typography
             onClick={() => {
-              setActiveTab("2fa");
               navigate("/account/2fa-enable");
             }}
             className={`left-icon secondary-color ${
@@ -116,7 +123,6 @@ const Sidebar = (props) => {
           </Typography>
           <Typography
             onClick={() => {
-              setActiveTab("changePassword");
               navigate("/account/change-account-password");
             }}
             className={`left-icon secondary-color ${

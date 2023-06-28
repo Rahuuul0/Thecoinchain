@@ -104,8 +104,6 @@ const Notifications = () => {
         categoryArr.length>0? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList() 
     }
        
-    console.log(notifications.length,"dfgffffffffffffffffffffff")
-    console.log(loadmore,'4444');
     return (
         <>
            <ThemeProvider theme={theme}>

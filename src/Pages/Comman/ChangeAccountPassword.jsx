@@ -87,7 +87,7 @@ const ChangeAccountPassword = () => {
                                 <Sidebar />
                                 <Box className='subscription-steps-col-details change-password-box'>
                                     <Box className='active-session'>
-                                        <Typography component="h5" variant='h5'>
+                                        <Typography component="h3" variant='h3' className='secondary-font' textAlign={"center"} marginBottom={4}>
                                             New password
                                         </Typography>
                                     </Box>

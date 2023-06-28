@@ -322,7 +322,7 @@ const LearnCyptoDetail = () => {
               );
             })}
           </Grid>
-          <Typography textAlign="center" paddingTop={10}>
+          <Typography textAlign="center" paddingTop={{ xs: 3, sm: 10 }}>
             <Button
               className="btn-outlined-secondary"
               endIcon={<ArrowDropDown />}
@@ -332,7 +332,7 @@ const LearnCyptoDetail = () => {
             </Button>
           </Typography>
         </Box>
-      </Container>
+      </Container >
     </>
   );
 };

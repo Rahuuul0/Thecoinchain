@@ -5,7 +5,7 @@ import { Box, Container, Typography, Button, Breadcrumbs, Stack } from '@mui/mat
 import SubsImage from '../../../public/assets/images/subs.svg';
 import { NavigateNext } from '@mui/icons-material/';
 import Sidebar from './Components/Sidebar';
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { subscriptionActions, } from '../../_actions';
 import { forecastSubAtom } from '../../_state';
 import { useRecoilValue } from "recoil";
@@ -163,15 +163,7 @@ const ForecastSubscriptions = () => {
                                                     </Typography>
                                                     <Button onClick={() => { setExpandFirst(false); unsubscribedUserFun() }} variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribe</Button>
                                                 </Box>
-                                            </Box>) : (<Box className='subscription-plan'>
-                                                <AccordionSummary
-                                                    aria-controls="panel1bh-content"
-                                                    id="panel1bh-header"
-                                                >
-                                                    <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                                                        Details
-                                                    </Typography>
-                                                </AccordionSummary>
+                                            </Box>) : (<Box>
                                                 <Box className="subscription-plan-card">
                                                     <Typography component="h4" variant='h4' className='plan-title'>
                                                         Free Plan

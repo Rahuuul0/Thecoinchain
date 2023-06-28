@@ -12,9 +12,9 @@ import {
   TextField,
 } from "@mui/material";
 import { NavigateNext } from "@mui/icons-material/";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Sidebar from './Components/Sidebar';
-import {authAtom } from '../../_state/'
+import { authAtom } from '../../_state/'
 import { useRecoilValue } from "recoil";
 
 const ITEM_HEIGHT = 48;
@@ -72,7 +72,7 @@ const Referrals = () => {
   const handleLink = () => {
     navigator.clipboard.writeText(
       "http://dly1vyq5d0op3.cloudfront.net/create-account/" +
-        userDetail.referral_code
+      userDetail.referral_code
     );
     setLinkCopy(true);
     setTimeout(() => {
@@ -101,7 +101,7 @@ const Referrals = () => {
                 Referrals
               </Typography>
 
-              <Box className="" sx={{ color: "#777E90", fontWeight: "500" , paddingTop: {xs: '10px', md: '0px'} }}>
+              <Box className="" sx={{ color: "#777E90", fontWeight: "500", paddingTop: { xs: '10px', md: '0px' } }}>
                 <Box>
                   <Breadcrumbs
                     separator={<NavigateNext fontSize="small" />}
@@ -140,7 +140,7 @@ const Referrals = () => {
                         {userDetail.total_earning !== ""
                           ? Number(userDetail.total_earning)?.toFixed(2) + " "
                           : "0.00"}
-                        <span className="green-color">USD</span>
+                        <span className="green-color secondary-font">USD</span>
                       </Typography>
                       <Typography
                         component="p"
@@ -203,7 +203,7 @@ const Referrals = () => {
                               // placeholder='link'
                               name="link"
                               autoComplete="off"
-                              // size="small"
+                            // size="small"
                             />
                           </Grid>
                           <Grid item xs={12} sm={6}>
@@ -234,7 +234,7 @@ const Referrals = () => {
                               name="code"
                               autoComplete="off"
 
-                              // size="small"
+                            // size="small"
                             />
                           </Grid>
                         </Grid>

@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
-import { Box, Container, Typography, Grid, Button, } from '@mui/material';
+import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { guidesAnalysisActions, analyticsActions } from "../../_actions";
 import { guidesAtom, analyticAtom } from "../../_state";
 import { useRecoilValue, useRecoilState } from "recoil";
@@ -18,6 +18,11 @@ import Tab from "@mui/material/Tab";
 import { useNavigate } from "react-router-dom";
 
 const GuidesAnalysis = (props) => {
+    const [guidesFilter, setGuidesFilter] = useState("");
+
+    const handleChangeGuidesFilter = (event) => {
+        setGuidesFilter(event.target.value);
+    };
     const navigate = useNavigate();
     const guidesActions = guidesAnalysisActions();
     const AnalyticActions = analyticsActions();
@@ -138,22 +143,36 @@ const GuidesAnalysis = (props) => {
                                                     </Grid>
 
                                                     <TabContext value={valueTab2}>
-                                                        <AppBar position="static">
+                                                        <Tabs className='for-desktop'
+                                                            value={valueTab2}
+                                                            onChange={handleChangeTab2}
+                                                            indicatorColor="secondary"
+                                                            textColor="inherit"
+                                                        >
+                                                            <Tab label="All" {...a11yProps(0)} />
+                                                            <Tab label="Blockchain" {...a11yProps(1)} />
+                                                            <Tab label="Trading" {...a11yProps(3)} />
+                                                            <Tab label="Cryptocurrency" {...a11yProps(4)} />
+                                                        </Tabs>
 
-                                                            <Tabs
-                                                                value={valueTab2}
-                                                                onChange={handleChangeTab2}
-                                                                indicatorColor="secondary"
-                                                                textColor="inherit"
-                                                                aria-label="full width tabs example"
-                                                            >
-                                                                <Tab label="All" {...a11yProps(0)} />
-                                                                <Tab label="Blockchain" {...a11yProps(1)} />
-                                                                <Tab label="Trading" {...a11yProps(3)} />
-                                                                <Tab label="Cryptocurrency" {...a11yProps(4)} />
-
-                                                            </Tabs>
-                                                        </AppBar>
+                                                        <Box className="for-mobile dropdown-mobile">
+                                                            <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                                                                <Select
+                                                                    value={guidesFilter}
+                                                                    onChange={handleChangeGuidesFilter}
+                                                                    displayEmpty
+                                                                    inputProps={{ "aria-label": "Without label" }}
+                                                                >
+                                                                    <MenuItem value="">
+                                                                        <em>None</em>
+                                                                    </MenuItem>
+                                                                    <MenuItem value={10}>All</MenuItem>
+                                                                    <MenuItem value={20}>Blockchain</MenuItem>
+                                                                    <MenuItem value={30}>Trading</MenuItem>
+                                                                    <MenuItem value={40}>Cryptocurrency</MenuItem>
+                                                                </Select>
+                                                            </FormControl>
+                                                        </Box>
                                                         <SwipeableViews
                                                             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                                                             index={valueTab2}
@@ -763,9 +782,9 @@ const GuidesAnalysis = (props) => {
 
 
                 {/* section starts */}
-                <Container maxWidth="fluid" sx={{ backgroundColor: "#F4F5F6" }}>
+                <Box className="global-community">
                     <Container>
-                        <Box paddingBottom={12} paddingTop={12}>
+                        <Box>
                             <Box textAlign="center">
                                 <img src={DarkLogo} />
                                 <Typography
@@ -786,8 +805,8 @@ const GuidesAnalysis = (props) => {
                             <Box className="crypto-box">
                                 <Grid
                                     container
-                                    spacing={{ xs: 2, md: 3 }}
-                                    columns={{ xs: 4, sm: 8, md: 12 }}
+                                    spacing={{ xs: 8, md: 3 }}
+                                    columns={{ xs: 12, sm: 8, md: 12 }}
                                     className="flow-reverse-mobile"
                                 >
                                     <Grid
@@ -795,24 +814,27 @@ const GuidesAnalysis = (props) => {
                                         xs={12}
                                         sm={6}
                                         md={6}
-                                        paddingRight={6}
-                                        className="padding-0-mobile"
                                     >
                                         <Typography
                                             className="small-caption secondary-color"
                                             sx={{ textTransform: "uppercase" }}
-                                            paddingBottom={3}
+                                            paddingBottom={2}
                                         >
                                             Crypto news
                                         </Typography>
-                                        <Typography paddingBottom={3} className="body-large">
+                                        <Typography component="h4" variant="h4" paddingBottom={3}>
                                             Be Part of our Global Community
                                         </Typography>
-                                        <Typography className="secondary-color" paddingBottom={14}>
+                                        <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
                                             Let’s stay in touch. Join our communities to keep up with
                                             the BitCloud team and our traders from across the world.
                                         </Typography>
-                                        <Button onClick={() => navigate("/community")} className="btn-outlined-secondary">Join now</Button>
+                                        <Button
+                                            className="btn-outlined-secondary"
+                                            onClick={() => navigate("/community")}
+                                        >
+                                            Join now
+                                        </Button>
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={6} textAlign="right">
                                         <img src={Globe} />
@@ -821,7 +843,7 @@ const GuidesAnalysis = (props) => {
                             </Box>
                         </Box>
                     </Container>
-                </Container>
+                </Box>
                 {/* section ends */}
             </ThemeProvider>
         </>

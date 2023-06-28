@@ -121,7 +121,7 @@ function Header(props) {
           </Box>
           <Box display='flex' alignItems='center' >
 
-            <Box>
+            {/* <Box>
               <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
                 size="small"
                 sx={{ ml: 2 }}
@@ -132,15 +132,15 @@ function Header(props) {
                   <NotificationsNone color="action" />
                 </IconButton>
               </Badge>
-            </Box>
-
+            </Box> */}
+            {/* 
             <Box className=''>
               <IconButton
                 size="small"
                 sx={{ ml: 2, }} className='icon-avatar-img btnicon mobile-avatar' aria-label="flash" color="primary">
                 <img src={UserAvatar} />
               </IconButton>
-            </Box>
+            </Box> */}
             <Box className='close'><p>+</p></Box>
           </Box>
         </Box>

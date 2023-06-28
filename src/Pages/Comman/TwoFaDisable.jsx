@@ -4,7 +4,7 @@ import { theme } from "../../_common/app.constants"
 import { Box, Container, Grid, Typography, Button, Breadcrumbs, InputAdornment, IconButton, TextField } from '@mui/material';
 import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
 import ScanImg from '../../../public/assets/images/scan-img.png';
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Sidebar from './Components/Sidebar';
 
 const TwoFaDisable = () => {
@@ -53,7 +53,7 @@ const TwoFaDisable = () => {
                                     <Box className="">
                                         <Box className='fa-heading-box'>
                                             <Box sx={{ paddingBottom: { xs: '20px', md: '5px' } }}>
-                                                <Typography component="h3" variant='h3' className='fa-disabled secondary-font' paddingY={3} sx={{ fontWeight: '600', }} >2FA <span >Disabled</span></Typography>
+                                                <Typography component="h3" variant='h3' className='fa-disabled secondary-font' paddingY={3} sx={{ fontWeight: '600', }} >2FA <span className='secondary-font'>Disabled</span></Typography>
                                                 <Typography component="p" variant='body2' className='secondary-color small-caption  '>If you want to turn on 2FA, input your account password and the six-digit code provided by the Google Authenticator app below, then click <span className='color-dark font-500' fontWeight={500}>"Enable 2FA".</span></Typography>
                                             </Box>
                                         </Box>
@@ -100,7 +100,7 @@ const TwoFaDisable = () => {
                                                 justifyContent='center'
 
                                                 className='scanner'
-                                                sx={{ mt: '24px' }}
+                                                sx={{ mt: { xs: '24px', sm: '32px' } }}
                                             >
                                                 <Box className='scanner-inner' >
                                                     <img src={ScanImg} alt='scanner' />
@@ -109,7 +109,7 @@ const TwoFaDisable = () => {
                                         </Grid>
                                     </Grid>
 
-                                    <Typography textAlign='right' paddingY={3}>
+                                    <Typography textAlign='right' paddingTop={{ xs: '24px', sm: '32px' }}>
                                         <Button className='btn btn-success btn-success mobile-w-100' color='success' sx={{ margin: '0 auto' }} onClick={() => { navigate("../2fa-enable") }}>Enable 2FA</Button>
                                     </Typography>
                                 </Box>

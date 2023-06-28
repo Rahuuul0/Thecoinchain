@@ -69,9 +69,13 @@ const Notifications = () => {
     categoryArr.length>0? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList() 
        flag ? setChecked(true):setChecked(false)
     }
-  
+//   console.log(notifications.length % 5 , "remiander")
     const handleLoadmore =() =>{
-         setLoadmore(loadmore +5)
+        if (notifications.length % 5 < 5){
+         setLoadmore(loadmore + (notifications.length - loadmore))
+        }else{
+            setLoadmore(loadmore + 5)
+        }
    }
 
      useEffect(() =>{
@@ -152,7 +156,7 @@ const Notifications = () => {
                                         }
                                         }):<span>No New Notifications Available</span>}
                                        
-                                        {notifications.length>0 && notifications.length !== loadmore &&
+                                        {notifications.length>0 && notifications.length !== loadmore && notifications.length > 10 &&
                                         <Button onClick={handleLoadmore}  variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>}
                             
                                     </Box>

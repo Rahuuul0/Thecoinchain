@@ -11,7 +11,6 @@ import {
   Select,
   MenuItem,
   FormControl,
-
 } from "@mui/material";
 import {
   ArrowCircleDownSharp,
@@ -86,10 +85,10 @@ const Home = () => {
       newValue === "2"
         ? "Bitcoin"
         : newValue === "3"
-          ? "Blogchain"
-          : newValue === "4"
-            ? "Tutorial"
-            : "";
+        ? "Blogchain"
+        : newValue === "4"
+        ? "Tutorial"
+        : "";
     newValue === "1"
       ? setTutorialList(tutorialsData)
       : handleTutorials(tutorialCategory);
@@ -155,7 +154,11 @@ const Home = () => {
                 variant="body2"
                 component="div"
                 className="hero-para primary-font secondary-color"
-                sx={{ paddingBottom: { xs: '30px', md: '50px' }, paddingTop: { xs: '20px' } }} >
+                sx={{
+                  paddingBottom: { xs: "30px", md: "50px" },
+                  paddingTop: { xs: "20px" },
+                }}
+              >
                 we bring clarity to the volatile world of crypto!
               </Typography>
               <Typography paddingBottom={2}>
@@ -188,10 +191,10 @@ const Home = () => {
               <img className="heroImage" src={HeroImage} />
             </Grid>
           </Grid>
-        </Box >
-      </Container >
+        </Box>
+      </Container>
       {/* Banner Ends */}
-      < Container >
+      <Container>
         <Box
           sx={{ alignItems: "center" }}
           className="grid-bit"
@@ -199,9 +202,7 @@ const Home = () => {
           padding={3}
           borderRadius={6}
         >
-          <Grid
-            container
-          >
+          <Grid container>
             {cardCoinsList?.map((item, index) => {
               if (index < 4) {
                 return (
@@ -247,12 +248,12 @@ const Home = () => {
                       {item?.price > 1
                         ? item.price?.toFixed(2)
                         : item?.price < 1 && item?.price >= 0.1
-                          ? item.price?.toFixed(4)
-                          : item?.price < 0.1 && item?.price > 0.01
-                            ? item.price?.toFixed(6)
-                            : item?.price < 0.01
-                              ? item.price?.toFixed(8)
-                              : item?.price}
+                        ? item.price?.toFixed(4)
+                        : item?.price < 0.1 && item?.price > 0.01
+                        ? item.price?.toFixed(6)
+                        : item?.price < 0.01
+                        ? item.price?.toFixed(8)
+                        : item?.price}
                     </Typography>
                     <Typography
                       variant="h6"
@@ -269,7 +270,7 @@ const Home = () => {
             })}
           </Grid>
         </Box>
-      </Container >
+      </Container>
       <Container>
         <Box className="learn-crypto-home">
           <Grid
@@ -393,9 +394,9 @@ const Home = () => {
                   })}
                   <Grid item xs={6}>
                     {tutorialsList?.slice(1, 4).map((item) => {
-                      let discription = item.discription;
-                      if (discription.length > 10) {
-                        discription =
+                      let description = item.discription;
+                      if (description.length > 10) {
+                        description =
                           item.discription.substring(0, 150) + "...";
                       }
                       return (
@@ -418,7 +419,7 @@ const Home = () => {
                                 sx={{ fontSize: "14px !important" }}
                                 className="secondary-color primary-font"
                               >
-                                {discription}
+                                {description}
                               </Typography>
                             </Stack>
                             <Typography
@@ -479,70 +480,63 @@ const Home = () => {
                   modules={[Navigation]}
                   className="mySwiper"
                 >
-                  <SwiperSlide>
-                    <Box className='about-crypto'>
-                      <img width="100%" src={Leveraged} />
-                      <Typography
-                        fontSize={16}
-                        paddingY={2}
-                        fontWeight={700}
-                        className="body-large primary-font"
-                      >
-                        Leveraged tokens now available
-                      </Typography>
-                      <Typography
-                        sx={{ fontSize: "14px !important" }}
-                        className="secondary-color primary-font"
-                      >
-                        Good things come in 3s. Get 3x Leveraged tokens now.
-                      </Typography>
-                    </Box>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <Box className='about-crypto'>
-                      <img width="100%" src={Leveraged} />
-                      <Typography
-                        fontSize={16}
-                        paddingY={2}
-                        fontWeight={700}
-                        className="body-large primary-font"
-                      >
-                        Leveraged tokens now available
-                      </Typography>
-                      <Typography
-                        sx={{ fontSize: "14px !important" }}
-                        className="secondary-color primary-font"
-                      >
-                        Good things come in 3s. Get 3x Leveraged tokens now.
-                      </Typography>
-                    </Box>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <Box className='about-crypto'>
-                      <img width="100%" src={Leveraged} />
-                      <Typography
-                        fontSize={16}
-                        paddingY={2}
-                        fontWeight={700}
-                        className="body-large primary-font"
-                      >
-                        Leveraged tokens now available
-                      </Typography>
-                      <Typography
-                        sx={{ fontSize: "14px !important" }}
-                        className="secondary-color primary-font"
-                      >
-                        Good things come in 3s. Get 3x Leveraged tokens now.
-                      </Typography>
-                    </Box>
-                  </SwiperSlide>
+                  {tutorialsList?.slice(0, 3).map((item) => {
+                    let description = item.discription;
+                    if (description.length > 10) {
+                      description = item.discription.substring(0, 150) + "...";
+                    }
+                    return (
+                      <SwiperSlide>
+                        <Box className="about-crypto">
+                          {/* <img width="100%" src={Leveraged} /> */}
+                          <Box
+                            className="cypto-video"
+                            sx={{ width: "100% !important" }}
+                          >
+                            <ReactPlayer
+                              url={item.video_link}
+                              controls={true}
+                              light={item.image_link}
+                              playing={true}
+                              // poster={Learn01}
+                              width="100%"
+                              height="100%"
+                            />
+                          </Box>
+                          <Typography
+                            fontSize={16}
+                            paddingY={2}
+                            fontWeight={700}
+                            className="body-large primary-font"
+                          >
+                            {item.title}
+                          </Typography>
+                          <Typography
+                            sx={{ fontSize: "14px !important" }}
+                            className="secondary-color primary-font"
+                          >
+                            {description}
+                          </Typography>
+                        </Box>
+                      </SwiperSlide>
+                    );
+                  })}
                 </Swiper>
-              </Box >
-            </Box >
+              </Box>
+            </Box>
             <Button
               variant="outlined"
               className="btn btn-outlined-secondary"
-              sx={{ borderRadius: "90px", width: "100%", display: { xs: "block !important", sm: "none !important", md: "none !important", lg: "none !important" } }}
+              sx={{
+                borderRadius: "90px",
+                width: "100%",
+                display: {
+                  xs: "block !important",
+                  sm: "none !important",
+                  md: "none !important",
+                  lg: "none !important",
+                },
+              }}
               onClick={() => {
                 window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
                 navigate("./learn-cypto");
@@ -550,18 +544,17 @@ const Home = () => {
             >
               View more
             </Button>
-          </Box >
-        </Box >
-      </Container >
+          </Box>
+        </Box>
+      </Container>
 
       {/* learn cypto star*/}
-      < Container >
+      <Container>
         <Box className="market-trend">
           <Box
             sx={{ display: { xs: "block", md: "flex" } }}
             justifyContent="space-between"
             alignItems="center"
-
           >
             <Typography
               component="h2"
@@ -574,7 +567,10 @@ const Home = () => {
               className=""
               variant="p"
               component="p"
-              sx={{ display: { xs: "block", sm: "none", md: "none" }, marginBottom: { xs: 4, sm: 0 } }}
+              sx={{
+                display: { xs: "block", sm: "none", md: "none" },
+                marginBottom: { xs: 4, sm: 0 },
+              }}
             >
               <span className="gold-color">Subscribe</span> to gain complete
               access to the most precise short and long-term predictions of
@@ -676,7 +672,16 @@ const Home = () => {
           <Button
             variant="outlined"
             className="btn btn-outlined-secondary"
-            sx={{ borderRadius: "90px", width: "100%", display: { xs: "block !important", sm: "none !important", md: "none !important", lg: "none !important" } }}
+            sx={{
+              borderRadius: "90px",
+              width: "100%",
+              display: {
+                xs: "block !important",
+                sm: "none !important",
+                md: "none !important",
+                lg: "none !important",
+              },
+            }}
             onClick={() => {
               window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
               navigate("./learn-cypto");
@@ -685,9 +690,9 @@ const Home = () => {
             View more
           </Button>
         </Box>
-      </Container >
+      </Container>
 
-      <Box className="become-crypto" >
+      <Box className="become-crypto">
         <Container>
           <Box>
             <Typography
@@ -695,14 +700,13 @@ const Home = () => {
               component="h2"
               className="secondary-font font-40"
               textAlign="center"
-              sx={{ fontWeight: "700", maxWidth: "500px", margin: 'auto' }}
+              sx={{ fontWeight: "700", maxWidth: "500px", margin: "auto" }}
             >
-              Become a crypto
-              trader in seconds
+              Become a crypto trader in seconds
             </Typography>
             <Typography
               className="secondary-color"
-              sx={{ textAlign: { xs: 'left', md: 'center' } }}
+              sx={{ textAlign: { xs: "left", md: "center" } }}
               paddingTop={2}
             >
               We've got everything you need to start trading.
@@ -728,7 +732,9 @@ const Home = () => {
                       customers.
                     </Typography>
                     <Button
-                      onClick={() => { navigate("/contentnotfound") }}
+                      onClick={() => {
+                        navigate("/contentnotfound");
+                      }}
                       className="btn btn-outlined-secondary"
                       sx={{ margin: "0 auto" }}
                     >
@@ -751,7 +757,9 @@ const Home = () => {
                       customers.
                     </Typography>
                     <Button
-                      onClick={() => { navigate("/contentnotfound") }}
+                      onClick={() => {
+                        navigate("/contentnotfound");
+                      }}
                       className="btn btn-outlined-secondary"
                       sx={{ margin: "0 auto" }}
                     >
@@ -802,14 +810,18 @@ const Home = () => {
               Contact Us
             </Button>
           </Box>
-        </Container >
-      </Box >
+        </Container>
+      </Box>
 
       {/* learn cypto end */}
 
       {/* Informed decision starts*/}
       <Container>
-        <Box className="app-store" paddingBottom={{ md: 10, sm: 8, xs: 4 }} sx={{ paddingTop: { md: "80px", sm: "20px" } }}>
+        <Box
+          className="app-store"
+          paddingBottom={{ md: 10, sm: 8, xs: 4 }}
+          sx={{ paddingTop: { md: "80px", sm: "20px" } }}
+        >
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}
@@ -817,7 +829,7 @@ const Home = () => {
             className="flow-reverse-mobile"
           >
             <Grid item xs={12} sm={5} md={5}>
-              <Box sx={{ paddingBottom: { xs: '15px', md: '50px' } }}>
+              <Box sx={{ paddingBottom: { xs: "15px", md: "50px" } }}>
                 <Typography
                   variant="h2"
                   marginBottom={2}
@@ -826,7 +838,10 @@ const Home = () => {
                 >
                   Make informed decisions
                 </Typography>
-                <Typography className="secondary-color" sx={{ paddingBottom: { xs: '15px', md: '25px' } }}>
+                <Typography
+                  className="secondary-color"
+                  sx={{ paddingBottom: { xs: "15px", md: "25px" } }}
+                >
                   with our expert insights and analysis of the crypto market!
                 </Typography>
               </Box>
@@ -921,13 +936,13 @@ const Home = () => {
                   </Box>
                 </Stack>
               </Box>
-            </Grid >
+            </Grid>
             <Grid item xs={12} sm={7} md={7}>
               <img src={InformedCypto} />
             </Grid>
-          </Grid >
-        </Box >
-      </Container >
+          </Grid>
+        </Box>
+      </Container>
       {/* Informed decision ends*/}
 
       {/* section starts */}
@@ -958,12 +973,7 @@ const Home = () => {
                 columns={{ xs: 12, sm: 8, md: 12 }}
                 className="flow-reverse-mobile"
               >
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={6}
-                >
+                <Grid item xs={12} sm={6} md={6}>
                   <Typography
                     className="small-caption secondary-color"
                     sx={{ textTransform: "uppercase" }}
@@ -974,7 +984,10 @@ const Home = () => {
                   <Typography component="h4" variant="h4" paddingBottom={3}>
                     Be Part of our Global Community
                   </Typography>
-                  <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
+                  <Typography
+                    className="secondary-color"
+                    paddingBottom={{ xs: 8, sm: 12 }}
+                  >
                     Let’s stay in touch. Join our communities to keep up with
                     the BitCloud team and our traders from across the world.
                   </Typography>
@@ -992,12 +1005,15 @@ const Home = () => {
             </Box>
           </Box>
         </Container>
-      </Box >
+      </Box>
       {/* section ends */}
       {/* how it works section starts */}
       <Box className="how-it-work">
         <Container>
-          <Box textAlign="center" paddingBottom={{ xs: 10, sm: 8, md: 8, lg: 10 }}>
+          <Box
+            textAlign="center"
+            paddingBottom={{ xs: 10, sm: 8, md: 8, lg: 10 }}
+          >
             <Typography
               variant="h2"
               component="h2"
@@ -1020,116 +1036,135 @@ const Home = () => {
           >
             <Grid item xs={6} sm={6} md={3}>
               <Box
-                sx={{ textAlign: { xs: 'left', md: 'center' } }}
-                className="howworks-box contact-line ">
+                sx={{ textAlign: { xs: "left", md: "center" } }}
+                className="howworks-box contact-line "
+              >
                 <img src={Market} width={96} />
                 <Typography
                   className="small-caption secondary-color "
                   paddingTop={{ sx: 4, sm: 6 }}
                   paddingBottom={3}
-                  sx={{ textAlign: { xs: 'left', md: 'center' } }}
+                  sx={{ textAlign: { xs: "left", md: "center" } }}
                 >
                   Step 1
                 </Typography>
                 <Typography
                   className=""
-                  sx={{ textAlign: { xs: 'left', md: 'center' } }}
+                  sx={{ textAlign: { xs: "left", md: "center" } }}
                   fontWeight="500"
                   paddingBottom={3}
                 >
                   Subscribe
                 </Typography>
-                <Typography component="div" variant="p" className="body-caption">
-                  Stacks is a production-ready library of stackable content blocks
-                  built in React Native.
+                <Typography
+                  component="div"
+                  variant="p"
+                  className="body-caption"
+                >
+                  Stacks is a production-ready library of stackable content
+                  blocks built in React Native.
                 </Typography>
               </Box>
             </Grid>
             <Grid item xs={6} sm={6} md={3}>
               <Box
-                sx={{ textAlign: { xs: 'left', md: 'center' } }}
-                className="howworks-box contact-line ">
+                sx={{ textAlign: { xs: "left", md: "center" } }}
+                className="howworks-box contact-line "
+              >
                 <img src={Wallet} width={96} />
                 <Typography
                   className="small-caption secondary-color "
                   paddingTop={6}
                   paddingBottom={3}
-                  sx={{ textAlign: { xs: 'left', md: 'center' } }}
+                  sx={{ textAlign: { xs: "left", md: "center" } }}
                 >
                   Step 2
                 </Typography>
                 <Typography
                   className=""
-                  sx={{ textAlign: { xs: 'left', md: 'center' } }}
+                  sx={{ textAlign: { xs: "left", md: "center" } }}
                   fontWeight="500"
                   paddingBottom={3}
                 >
                   Connect wallet
                 </Typography>
-                <Typography component="div" variant="p" className="body-caption">
-                  Stacks is a production-ready library of stackable content blocks
-                  built in React Native.
+                <Typography
+                  component="div"
+                  variant="p"
+                  className="body-caption"
+                >
+                  Stacks is a production-ready library of stackable content
+                  blocks built in React Native.
                 </Typography>
               </Box>
             </Grid>
             <Grid item xs={6} sm={6} md={3}>
               <Box
-                sx={{ textAlign: { xs: 'left', md: 'center' } }}
-                className="howworks-box contact-line ">
+                sx={{ textAlign: { xs: "left", md: "center" } }}
+                className="howworks-box contact-line "
+              >
                 <img src={Treding} width={96} />
                 <Typography
                   className="small-caption secondary-color "
                   paddingTop={6}
                   paddingBottom={3}
-                  sx={{ textAlign: { xs: 'left', md: 'center' } }}
+                  sx={{ textAlign: { xs: "left", md: "center" } }}
                 >
                   Step 3
                 </Typography>
                 <Typography
                   className=""
-                  sx={{ textAlign: { xs: 'left', md: 'center' } }}
+                  sx={{ textAlign: { xs: "left", md: "center" } }}
                   fontWeight="500"
                   paddingBottom={3}
                 >
                   Start trading
                 </Typography>
-                <Typography component="div" variant="p" className="body-caption">
-                  Stacks is a production-ready library of stackable content blocks
-                  built in React Native.
+                <Typography
+                  component="div"
+                  variant="p"
+                  className="body-caption"
+                >
+                  Stacks is a production-ready library of stackable content
+                  blocks built in React Native.
                 </Typography>
               </Box>
             </Grid>
             <Grid item xs={6} sm={6} md={3}>
               <Box
-                sx={{ textAlign: { xs: 'left', md: 'center' } }}
-                className="howworks-box ">
+                sx={{ textAlign: { xs: "left", md: "center" } }}
+                className="howworks-box "
+              >
                 <img src={Money} width={96} />
                 <Typography
                   className="small-caption secondary-color "
                   paddingTop={6}
                   paddingBottom={3}
-                  sx={{ textAlign: { xs: 'left', md: 'center' } }}
+                  sx={{ textAlign: { xs: "left", md: "center" } }}
                 >
                   Step 4
                 </Typography>
                 <Typography
                   className=""
-                  sx={{ textAlign: { xs: 'left', md: 'center' } }}
-
+                  sx={{ textAlign: { xs: "left", md: "center" } }}
                   fontWeight="500"
                   paddingBottom={3}
                 >
                   Earn money
                 </Typography>
-                <Typography component="div" variant="p" className="body-caption">
-                  Stacks is a production-ready library of stackable content blocks
-                  built in React Native.
+                <Typography
+                  component="div"
+                  variant="p"
+                  className="body-caption"
+                >
+                  Stacks is a production-ready library of stackable content
+                  blocks built in React Native.
                 </Typography>
               </Box>
             </Grid>
-          </Grid >
-        </Container >
-      </Box >
+          </Grid>
+        </Container>
+      </Box>
       {/* how it works section ends */}
       {/* logo slider starts */}
       <Container maxWidth="fluid">

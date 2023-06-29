@@ -205,7 +205,7 @@ const Home = () => {
             {cardCoinsList?.map((item, index) => {
               if (index < 4) {
                 return (
-                  <Grid item xs={12} sm={3} md={3} className="gridBox">
+                  <Grid item xs={12} sm={4} md={4} lg={3} className="gridBox">
                     <img
                       src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}
                       alt={item.symbol}
@@ -574,13 +574,14 @@ const Home = () => {
               className=""
               variant="p"
               component="p"
-              sx={{ display: { xs: "block", md: "none" }, marginBottom: { xs: 4, sm: 0 } }}
+              sx={{ display: { xs: "block", sm: "none", md: "none" }, marginBottom: { xs: 4, sm: 0 } }}
             >
               <span className="gold-color">Subscribe</span> to gain complete
               access to the most precise short and long-term predictions of
               cryptocurrency prices.
             </Typography>
             <Button
+              sx={{ display: { xs: "block", sm: "none", md: "none" } }}
               className="btn btn-outlined-secondary mobile-none"
               onClick={() => {
                 navigate("/market");
@@ -815,7 +816,7 @@ const Home = () => {
             columns={{ xs: 4, sm: 8, md: 12 }}
             className="flow-reverse-mobile"
           >
-            <Grid item xs={12} sm={5}>
+            <Grid item xs={12} sm={5} md={5}>
               <Box sx={{ paddingBottom: { xs: '15px', md: '50px' } }}>
                 <Typography
                   variant="h2"
@@ -921,7 +922,7 @@ const Home = () => {
                 </Stack>
               </Box>
             </Grid >
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={12} sm={7} md={7}>
               <img src={InformedCypto} />
             </Grid>
           </Grid >

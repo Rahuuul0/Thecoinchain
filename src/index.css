@@ -933,7 +933,26 @@ input[type="number"] {
 .orange-btn {
   background-color: #ff6838 !important;
   color: #fff !important;
+}
 
+.purple-btn {
+  background-color: #9757D7 !important;
+  color: #fff !important;
+}
+
+.green-btn {
+  background-color: #58BD7D !important;
+  color: #fff !important;
+}
+
+.balck-btn {
+  background-color: #23262F !important;
+  color: #fff !important;
+}
+
+.blue-btn {
+  background-color: #3772FF !important;
+  color: #fff !important;
 }
 
 .contact-new {
@@ -981,8 +1000,8 @@ input[type="number"] {
 }
 
 .learn-cypto-tab .cypto-video {
-  width: 264px;
-  height: 264px;
+  width: 220px;
+  height: 220px;
 }
 
 .learn-cypto-tab .MuiTabPanel-root {
@@ -3085,6 +3104,10 @@ video[poster] {
 @media (max-width: 1024.98px) {
   .app-nav button.MuiButtonBase-root {
     margin-left: 10px;
+  }
+
+  .gridBox:last-child {
+    display: none;
   }
 
   nav .MuiButtonBase-root {

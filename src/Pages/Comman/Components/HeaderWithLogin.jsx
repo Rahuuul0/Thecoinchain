@@ -114,34 +114,13 @@ function Header(props) {
 
 
   const drawer = (
-    <Box className='mobile-nav-box' onClick={handleDrawerToggle} sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
+    <Box className='mobile-nav-box' sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
       <Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Box>
             <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
           </Box>
-          <Box display='flex' alignItems='center' >
-
-            {/* <Box>
-              <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
-                size="small"
-                sx={{ ml: 2 }}
-                aria-controls={openAnchorbtn ? 'account-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
-                <IconButton>
-                  <NotificationsNone color="action" />
-                </IconButton>
-              </Badge>
-            </Box> */}
-            {/* 
-            <Box className=''>
-              <IconButton
-                size="small"
-                sx={{ ml: 2, }} className='icon-avatar-img btnicon mobile-avatar' aria-label="flash" color="primary">
-                <img src={UserAvatar} />
-              </IconButton>
-            </Box> */}
+          <Box display='flex' alignItems='center' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}>
             <Box className='close'><p>+</p></Box>
           </Box>
         </Box>
@@ -155,7 +134,6 @@ function Header(props) {
             >
               <Button
                 id="acedamy-btn"
-
               >
                 Academy
               </Button>
@@ -369,19 +347,19 @@ function Header(props) {
             <IconButton aria-label="sunny" color="primary " className=' mobile-none'>
               <WbSunnyOutlined />
             </IconButton>
-              
-             <Tooltip arrow title={userDetails.user_name ? userDetails.user_name: userDetails.email.split("@")[0]}>
-            <IconButton onClick={handleClickAnchor}  
+
+            <Tooltip arrow title={userDetails.user_name ? userDetails.user_name : userDetails.email.split("@")[0]}>
+              <IconButton onClick={handleClickAnchor}
 
 
-            
-              size="small"
-              sx={{ ml: 2 }}
-              aria-controls={openAnchor ? 'account-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img btnicon' aria-label="flash" color="primary">
-              <img src={UserAvatar} />
-            </IconButton>
+
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={openAnchor ? 'account-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img btnicon' aria-label="flash" color="primary">
+                <img src={UserAvatar} />
+              </IconButton>
             </Tooltip>
             <Menu
               anchorEl={anchorElAnchor}

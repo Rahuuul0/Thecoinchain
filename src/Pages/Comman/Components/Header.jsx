@@ -77,8 +77,8 @@ function Header(props) {
 
   const drawer = (
     <>
-      <Box className='mobile-nav-box' onClick={handleDrawerToggle} sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
-        <Box className='close-btn'><p>+</p></Box>
+      <Box className='mobile-nav-box' sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
+        <Box className='close-btn' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}><p>+</p></Box>
         <Box>
           <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
           <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>

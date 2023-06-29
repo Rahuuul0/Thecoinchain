@@ -217,7 +217,7 @@ const Contact = () => {
       </Container >
       {/* Banner Ends */}
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
-        <Box paddingTop={7} className='newdesignbox'>
+        <Box paddingTop={7} className='newdesignbox swiper-styles'>
           <Swiper
             slidesPerView={1}
             navigation={true}

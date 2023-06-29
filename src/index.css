@@ -2756,8 +2756,9 @@ video[poster] {
   border: 1px solid #e6e8ec;
 }
 
-.icon-btn {
+.MuiBadge-root.icon-btn {
   padding: 6px 5px !important;
+  margin-left: 0;
 }
 
 .coming-out-box {
@@ -3015,24 +3016,28 @@ video[poster] {
   border: 1px solid #3772FF;
 }
 
-.newdesignbox .swiper {
+.swiper-styles .swiper {
+  padding-bottom: 40px;
+}
+
+.newdesignbox.swiper-styles .swiper {
   padding-bottom: 80px;
 }
 
-.newdesignbox .swiper-button-next:after {
+.swiper-styles .swiper-button-next:after {
   content: "➜";
   color: #23262F;
   font-size: 21px;
 }
 
-.newdesignbox .swiper-button-prev:after {
+.swiper-styles .swiper-button-prev:after {
   content: "➜";
   transform: rotate(-180deg);
   color: #23262F;
   font-size: 21px;
 }
 
-.newdesignbox .swiper-button-next {
+.swiper-styles .swiper-button-next {
   right: -webkit-calc(49vw - 27px);
   right: -moz-calc(49vw - 27px);
   right: calc(49vw - 27px);
@@ -3040,11 +3045,27 @@ video[poster] {
   bottom: 20px;
 }
 
-.newdesignbox .swiper-button-prev {
+.swiper-styles .swiper-button-prev {
   left: -webkit-calc(49vw - 27px);
   left: -moz-calc(49vw - 27px);
   left: calc(49vw - 27px);
   top: auto;
+  bottom: 20px;
+}
+
+.swiper-home.swiper-styles .swiper-button-next {
+  right: auto;
+  left: 40px;
+  bottom: 0px;
+}
+
+.swiper-home.swiper-styles .swiper-button-prev {
+  left: 0px;
+  bottom: 0px;
+}
+
+.newdesignbox.swiper-styles .swiper-button-prev,
+.newdesignbox.swiper-styles .swiper-button-next {
   bottom: 20px;
 }
 
@@ -3062,6 +3083,14 @@ video[poster] {
 @media (max-width: 1199.98px) {}
 
 @media (max-width: 1024.98px) {
+  .app-nav button.MuiButtonBase-root {
+    margin-left: 10px;
+  }
+
+  nav .MuiButtonBase-root {
+    padding: 6px 12px;
+  }
+
   .global-community {
     padding: 112px 0;
   }

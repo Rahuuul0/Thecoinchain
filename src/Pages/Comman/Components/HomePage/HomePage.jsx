@@ -55,6 +55,10 @@ import {
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const Home = () => {
   const [marketTrend, setMarketTrend] = useState("");
@@ -448,60 +452,91 @@ const Home = () => {
               </TabPanel>
             </TabContext>
 
-            <Box className="ipad-visible">
+            <Box className="ipad-visible swiper-styles swiper-home">
               <Box paddingBottom={{ xs: 4, sm: 10 }}>
-                <Grid
-                  container
-                  columnSpacing={{ xs: 1, sm: 4 }}
-                  className="flex-between-box"
-                  marginBottom={3}
+                <Swiper
+                  slidesPerView={1}
+                  navigation={true}
+                  spaceBetween={30}
+                  breakpoints={{
+                    480: {
+                      slidesPerView: 1,
+                      spaceBetween: 0,
+                    },
+                    640: {
+                      slidesPerView: 2,
+                      spaceBetween: 20,
+                    },
+                    768: {
+                      slidesPerView: 2,
+                      spaceBetween: 30,
+                    },
+                    1080: {
+                      slidesPerView: 2,
+                      spaceBetween: 30,
+                    },
+                  }}
+                  modules={[Navigation]}
+                  className="mySwiper"
                 >
-                  <Grid item xs={12} sm={6}>
-                    <img width="100%" src={Leveraged} />
-                    <Typography
-                      fontSize={16}
-                      paddingY={2}
-                      fontWeight={700}
-                      className="body-large primary-font"
-                    >
-                      Leveraged tokens now available
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: "14px !important" }}
-                      className="secondary-color primary-font"
-                    >
-                      Good things come in 3s. Get 3x Leveraged tokens now.
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <img width="100%" src={Leveraged} />
-                    <Typography
-                      fontSize={16}
-                      paddingY={2}
-                      fontWeight={700}
-                      className="body-large primary-font"
-                    >
-                      Leveraged tokens now available
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: "14px !important" }}
-                      className="secondary-color primary-font"
-                    >
-                      Good things come in 3s. Get 3x Leveraged tokens now.
-                    </Typography>
-                  </Grid>
-                </Grid>
-
-                <Box>
-                  <Stack direction="row" spacing={1} sx={{ justifyContent: { xs: 'center', md: 'left ' } }} >
-                    <Box className="slider-icon">
-                      <West />
+                  <SwiperSlide>
+                    <Box className='about-crypto'>
+                      <img width="100%" src={Leveraged} />
+                      <Typography
+                        fontSize={16}
+                        paddingY={2}
+                        fontWeight={700}
+                        className="body-large primary-font"
+                      >
+                        Leveraged tokens now available
+                      </Typography>
+                      <Typography
+                        sx={{ fontSize: "14px !important" }}
+                        className="secondary-color primary-font"
+                      >
+                        Good things come in 3s. Get 3x Leveraged tokens now.
+                      </Typography>
                     </Box>
-                    <Box className="slider-icon active-slider-icon">
-                      <East />
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <Box className='about-crypto'>
+                      <img width="100%" src={Leveraged} />
+                      <Typography
+                        fontSize={16}
+                        paddingY={2}
+                        fontWeight={700}
+                        className="body-large primary-font"
+                      >
+                        Leveraged tokens now available
+                      </Typography>
+                      <Typography
+                        sx={{ fontSize: "14px !important" }}
+                        className="secondary-color primary-font"
+                      >
+                        Good things come in 3s. Get 3x Leveraged tokens now.
+                      </Typography>
                     </Box>
-                  </Stack>
-                </Box>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <Box className='about-crypto'>
+                      <img width="100%" src={Leveraged} />
+                      <Typography
+                        fontSize={16}
+                        paddingY={2}
+                        fontWeight={700}
+                        className="body-large primary-font"
+                      >
+                        Leveraged tokens now available
+                      </Typography>
+                      <Typography
+                        sx={{ fontSize: "14px !important" }}
+                        className="secondary-color primary-font"
+                      >
+                        Good things come in 3s. Get 3x Leveraged tokens now.
+                      </Typography>
+                    </Box>
+                  </SwiperSlide>
+                </Swiper>
               </Box >
             </Box >
             <Button

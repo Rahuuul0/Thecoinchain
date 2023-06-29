@@ -218,6 +218,11 @@ const Contact = () => {
       {/* Banner Ends */}
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
         <Box paddingTop={7} className='newdesignbox swiper-styles'>
+          <Container maxWidth="xs">
+            <Typography variant='body1' component="p" className='hero-para secondary-color' textAlign={"center"} paddingBottom={5}>
+              Before asking for an answer, you may find it in our learn crypto center
+            </Typography>
+          </Container>
           <Swiper
             slidesPerView={1}
             navigation={true}
@@ -430,7 +435,7 @@ const Contact = () => {
       </Container >
 
       <Container maxWidth='fluid' sx={{ backgroundColor: '#F8F8F9' }}>
-        <Container className='smallwidth'>
+        <Container className='smallwidth' padding={'0'}>
           <Box className="topic-que">
             <Box
               noValidate

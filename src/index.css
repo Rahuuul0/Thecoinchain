@@ -1323,6 +1323,7 @@ input[type="number"] {
 
 .newdesignbox .about-crypto {
   margin-bottom: 0;
+  background-color: #FCFCFD;
 }
 
 .about-crypto .tutorial-preview {
@@ -1433,12 +1434,12 @@ input[type="number"] {
   border-radius: 12px;
 }
 
-.topic-que .MuiBox-root .select-input .MuiInputBase-root input {
-  padding: 0;
+.topic-que .MuiBox-root .select-input.Mui-focused .MuiInputBase-root {
+  border-color: #3772FF;
 }
 
-.select-input.Mui-focused .MuiInputBase-root {
-  border-color: #3772FF;
+.topic-que .MuiBox-root .select-input .MuiInputBase-root input {
+  padding: 0;
 }
 
 #root .topic-que .MuiSelect-select p {
@@ -2849,7 +2850,7 @@ video[poster] {
 }
 
 #root .button-img .btn.active {
-  background-color: #FCFCFD;
+  background-color: #FCFCFD !important;
   border: 2px solid #3772FF;
 }
 
@@ -3014,56 +3015,49 @@ video[poster] {
   border: 1px solid #3772FF;
 }
 
-.rcs_buttonSet {
-
-  left: 50% !important;
-  bottom: 0px !important;
-  transform: translate(-50%, 0%) !important;
-  height: 400px;
-  align-items: end;
+.newdesignbox .swiper {
+  padding-bottom: 80px;
 }
 
-.rcs_slideCon .itemWrapper {
-  width: 25% !important;
-  margin: 0 0 !important;
-  padding: 0px !important;
+.newdesignbox .swiper-button-next:after {
+  content: "➜";
+  color: #23262F;
+  font-size: 21px;
 }
 
-.rcs_slideCon .itemWrapper img {
-  width: 283px !important;
-  min-width: 251px !important;
+.newdesignbox .swiper-button-prev:after {
+  content: "➜";
+  transform: rotate(-180deg);
+  color: #23262F;
+  font-size: 21px;
 }
 
-.swiper {
-  width: 100%;
-  height: 100%;
+.newdesignbox .swiper-button-next {
+  right: -webkit-calc(49vw - 27px);
+  right: -moz-calc(49vw - 27px);
+  right: calc(49vw - 27px);
+  top: auto;
+  bottom: 20px;
 }
 
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
-
-  /* Center slide text vertically */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.swiper {
-  margin-left: auto;
-  margin-right: auto;
+.newdesignbox .swiper-button-prev {
+  left: -webkit-calc(49vw - 27px);
+  left: -moz-calc(49vw - 27px);
+  left: calc(49vw - 27px);
+  top: auto;
+  bottom: 20px;
 }
 
 /* Media Queries  */
-@media (max-width: 1399.98px) {}
+@media (max-width: 1399.98px) {
+  /* .newdesignbox .swiper-button-next {
+    right: 47%;
+  }
+
+  .newdesignbox .swiper-button-prev {
+    left: 47%;
+  } */
+}
 
 @media (max-width: 1199.98px) {}
 
@@ -3250,6 +3244,14 @@ video[poster] {
 }
 
 @media (max-width: 991.98px) {
+  /* .newdesignbox .swiper-button-next {
+    right: 46%;
+  }
+
+  .newdesignbox .swiper-button-prev {
+    left: 46%;
+  } */
+
   .faq-box {
     padding-top: 112px;
     padding-bottom: 112px;
@@ -3988,6 +3990,15 @@ video[poster] {
   .market-prediction-faq-items {
     grid-template-columns: repeat(1, 1fr);
   }
+
+  /* 
+  .newdesignbox .swiper-button-next {
+    right: 45%;
+  }
+
+  .newdesignbox .swiper-button-prev {
+    left: 45%;
+  } */
 }
 
 @media (max-width: 575.98px) {
@@ -4020,6 +4031,15 @@ video[poster] {
   .for-mobile {
     width: 100%;
   }
+
+  /* 
+  .newdesignbox .swiper-button-next {
+    right: 43%;
+  }
+
+  .newdesignbox .swiper-button-prev {
+    left: 43%;
+  } */
 
   .tutorials-grid .MuiSelect-select {
     padding-top: 12px;

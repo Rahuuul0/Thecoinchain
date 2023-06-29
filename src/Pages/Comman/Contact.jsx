@@ -42,7 +42,6 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Autocomplete from '@mui/material/Autocomplete';
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
 import LoadingButton from '@mui/lab/LoadingButton';
 
@@ -218,13 +217,11 @@ const Contact = () => {
       </Container >
       {/* Banner Ends */}
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
-        <Box paddingY={7} className='newdesignbox'>
+        <Box paddingTop={7} className='newdesignbox'>
           <Swiper
-            slidesPerView={4}
-            spaceBetween={0}
-            loop={true}
+            slidesPerView={1}
             navigation={true}
-            modules={[Navigation]}
+            spaceBetween={0}
             breakpoints={{
               480: {
                 slidesPerView: 1,
@@ -235,11 +232,12 @@ const Contact = () => {
               768: {
                 slidesPerView: 3,
               },
-              1024: {
+              1080: {
                 slidesPerView: 4,
               },
             }}
-            className="blog-carousel"
+            modules={[Navigation]}
+            className="mySwiper"
           >
             <SwiperSlide>
               <Box className='about-crypto'>
@@ -314,14 +312,6 @@ const Contact = () => {
               </Box>
             </SwiperSlide>
           </Swiper>
-          <Stack direction="row" spacing={3} justifyContent='center'>
-            <Box className="slider-icon">
-              <West />
-            </Box>
-            <Box className="slider-icon active-slider-icon">
-              <East />
-            </Box>
-          </Stack>
         </Box>
       </Container >
 
@@ -468,12 +458,13 @@ const Contact = () => {
                     fullWidth
                     id="combo-box-demo"
                     size="small"
+                    className='select-input'
                     value={formData?.question || ''}
                     options={question}
                     onChange={(e, props) => reset({ ...formData, question: props })}
                     renderInput={(params) => <TextField autoFocus {...register('question')} required {...params} InputLabelProps={{ shrink: true }} />}
                   />
-                  <div style={{ color: "red" }}>{errors.question?.message}</div>
+                  <div className='frm-message'>{errors.question?.message}</div>
                 </Grid>
               </Box>
 
@@ -497,7 +488,7 @@ const Contact = () => {
                   {...register("email")}
                   onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                 />
-                <div style={{ color: "red" }}>{errors.email?.message}</div>
+                <div className='frm-message'>{errors.email?.message}</div>
               </Box>
 
               <Box paddingBottom={2}>
@@ -518,7 +509,7 @@ const Contact = () => {
                   {...register("subject")}
                   onChange={(e) => reset({ ...formData, subject: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                 />
-                <div style={{ color: "red" }}>{errors.subject?.message}</div>
+                <div className='frm-message'>{errors.subject?.message}</div>
               </Box>
 
               <Box paddingTop='2'>
@@ -538,7 +529,7 @@ const Contact = () => {
                   {...register("msg")}
                   onChange={(e) => reset({ ...formData, msg: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
                 />
-                <div style={{ color: "red" }}>{errors.msg?.message}</div>
+                <div className='frm-message'>{errors.msg?.message}</div>
               </Box>
               <Box paddingTop='2'>
                 <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
@@ -556,39 +547,6 @@ const Contact = () => {
               </Box>
 
             </Box >
-            <Box paddingTop='2'>
-              <TextField
-                id="outlined-multiline-static"
-                label="Message *"
-                variant="standard"
-                className="form-control"
-                placeholder='Say something'
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                multiline
-                rows={4}
-                maxlength={10}
-                fullWidth
-                {...register("msg")}
-                onChange={(e) => reset({ ...formData, msg: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-              />
-              <div style={{ color: "red" }}>{errors.msg?.message}</div>
-            </Box>
-            <Box paddingTop='2'>
-              <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
-                <LoadingButton
-                  type='submit'
-                  loading={isSubmitting}
-                  loadingPosition="end"
-                  className='btn btn-primary'
-                  sx={{ float: 'right', minWidth: "160px" }}
-                  disabled={isSubmitting}
-                  variant='contained'>
-                  {isSubmitting ? <span className="spinner-border ">Loading</span> : " Send message "}
-                </LoadingButton>
-              </Typography>
-            </Box>
           </Box >
         </Container >
       </Container >

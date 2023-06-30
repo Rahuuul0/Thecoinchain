@@ -31,13 +31,6 @@ const Notifications = () => {
           notificationAction.clearNotifications();
         };
 
-    const singleRead = async (notId) =>{
-            let userId = userDetails.id
-            notificationAction.notificationSingleread(notId, userId)
-         
-        }
-     
-    //   Filter selectAll and UnselectAll function
     const handleSelectAll =(flag) =>{
         let categoryArr = categoryArray;
          if(flag){
@@ -135,7 +128,7 @@ console.log(categoryArr,'444');
 
                                             return(
                                              
-                                                <Box onClick={()=> singleRead(item.ct_notiy_id)} className='notification-list-itm'>
+                                                <Box  className='notification-list-itm'>
                                                     <Box className='notification-icon'>
                                                         <BoltOutlinedIcon />
                                                     </Box>

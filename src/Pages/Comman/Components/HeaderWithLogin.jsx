@@ -20,7 +20,6 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Tooltip from '@mui/material/Tooltip';
 
 const drawerWidth = '100%';
 const drawerHeight = '100vh';
@@ -32,13 +31,9 @@ function Header(props) {
   const userDetails = useRecoilValue(authAtom);
   const notificaionCount = useRecoilValue(notificationCountAtom);
 
-
   const handleClear = async () => {
     let notId = notifications.slice(0, 5).map((item, index) => { return (item.ct_notiy_id) })
-    // let notId = notifications.slice(0,5).map((item,index) => {return( item.ct_notiy_id )})
-    console.log(notId, "6666666666666")
     notificationAction.clearNotifications(notId);
-    console.log(Array.isArray(notId), "8888888")
   };
 
   useEffect(() => {
@@ -51,7 +46,6 @@ function Header(props) {
     let userId = userDetails.id
 
     notificationAction.notificationSingleread(notId, userId)
-
   }
 
   const navItems = [
@@ -292,56 +286,16 @@ function Header(props) {
                   <>
                     <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
 
-                    {notifications?.map((item, index) => {
-                      if (index < 5) {
-                        return (
-                          <>
-                            <MenuItem onClick={() => singleRead(item.ct_notiy_id)} sx={{ padding: '0' }}>
-                              <span className='outer-div-menu'>
-                                <span className='inner-div-menu'>
-                                  <span className='head-menu'>{item.ct_notify_title}</span>
-                                  <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                                </span>
-                                <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.ct_notify_created_At}</Typography>
-                              </span>
-                            </MenuItem>
-                            <Divider />
-                          </>
-                        )
-                      }
-                    })}
-
-                    {notifications?.map((item, index) => {
-                      if (index < 5) {
-                        return (
-                          <>
-
-                            <MenuItem onClick={() => singleRead(item.ct_notiy_id)} sx={{ padding: '0' }}>
-                              <span className='outer-div-menu'>
-                                <span className='inner-div-menu'>
-                                  <span className='head-menu'>{item.ct_notify_title}</span>
-                                  <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                                </span>
-                                <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.ct_notify_created_At}</Typography>
-                              </span>
-                            </MenuItem>
-                            <Divider />
-                          </>
-                        )
-                      }
-                    })}
-
 
                     <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
-                      <Button onClick={() => { navigate('/notifications') }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
+                      <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
                         View all
                       </Button>
                       <Button onClick={handleClear} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
                         Clear all
                       </Button>
                     </Box>
-                  </>
-                  : <span>No New Notifications Available</span>
+                  </> : <span>No New Notifications Available</span>
                 }
 
               </Box>
@@ -353,19 +307,15 @@ function Header(props) {
               <WbSunnyOutlined />
             </IconButton>
 
-            <Tooltip arrow title={userDetails.user_name ? userDetails.user_name : userDetails.email.split("@")[0]}>
-              <IconButton onClick={handleClickAnchor}
+            <IconButton onClick={handleClickAnchor}
 
-
-
-                size="small"
-                sx={{ ml: 2 }}
-                aria-controls={openAnchor ? 'account-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img btnicon' aria-label="flash" color="primary">
-                <img src={UserAvatar} />
-              </IconButton>
-            </Tooltip>
+              size="small"
+              sx={{ ml: 2 }}
+              aria-controls={openAnchor ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img btnicon' aria-label="flash" color="primary">
+              <img src={UserAvatar} />
+            </IconButton>
             <Menu
               anchorEl={anchorElAnchor}
               id="account-menu"

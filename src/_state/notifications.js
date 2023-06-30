@@ -1,23 +1,29 @@
 import { atom } from 'recoil';
 
 
-const selectAtom =atom({
+const selectAtom = atom({
     key: 'selectAtom',
-    default: true,  
+    default: true,
 })
 
 const notificationAtom = atom({
     key: 'notificationAtom',
     default: [
-                                    
-            ]
-        
+
+    ]
+
 });
 const notificationCountAtom = atom({
     key: 'notificationCountAtom',
     default: 0
-    
+
 });
 
 
-export { notificationAtom, notificationCountAtom };
+const notificationViewAtom = atom({
+    key: 'notificationCountAtom',
+    default: 0
+
+});
+
+export { notificationAtom, notificationCountAtom, notificationViewAtom };

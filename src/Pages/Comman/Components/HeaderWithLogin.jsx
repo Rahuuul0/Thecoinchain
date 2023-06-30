@@ -32,13 +32,18 @@ function Header(props) {
   const userDetails = useRecoilValue(authAtom);
   const notificaionCount = useRecoilValue(notificationCountAtom);
 
+
   const handleClear = async () => {
-    let notId = notifications.map((item, index) => { if (index < 5) { return (item.ct_notiy_id) } })
+    let notId = notifications.slice(0, 5).map((item, index) => { return (item.ct_notiy_id) })
+    // let notId = notifications.slice(0,5).map((item,index) => {return( item.ct_notiy_id )})
+    console.log(notId, "6666666666666")
     notificationAction.clearNotifications(notId);
+    console.log(Array.isArray(notId), "8888888")
   };
 
   useEffect(() => {
     notificationAction.notificationList()
+    notificationAction.notificationList_View()
 
   }, [])
 

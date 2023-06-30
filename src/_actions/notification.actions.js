@@ -68,8 +68,8 @@ const notificationActions = () => {
     }
 
     const clearNotifications = (notId) => {
-    
-        return fetchWrapper.post(Apis.Notification_All_Clear,notId )
+        console.log(notId, "data")
+        return fetchWrapper.post(Apis.Notification_All_Clear, { 'notifications' : notId})
         
             .then((res) => {
                 if (res.statusCode === 200) {  

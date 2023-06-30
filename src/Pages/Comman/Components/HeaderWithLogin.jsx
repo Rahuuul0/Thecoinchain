@@ -20,7 +20,6 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Tooltip from '@mui/material/Tooltip';
 
 const drawerWidth = '100%';
 const drawerHeight = '100vh';
@@ -33,11 +32,8 @@ function Header(props) {
   const notificaionCount = useRecoilValue(notificationCountAtom);
  
   const handleClear = async() => {
-    let notId = notifications.slice(0,5).map((item,index) => {return( `notifications[${index}] : ${item.ct_notiy_id}` )})
-    // let notId = notifications.slice(0,5).map((item,index) => {return( item.ct_notiy_id )})
-      console.log(notId, "6666666666666")
+    let notId = notifications.slice(0,5).map((item,index) => {return( item.ct_notiy_id )})
       notificationAction.clearNotifications(notId);
-      console.log(Array.isArray(notId) ,"8888888")
   };
 
 useEffect(()=>{
@@ -351,12 +347,9 @@ const singleRead = async (notId) =>{
             <IconButton aria-label="sunny" color="primary " className=' mobile-none'>
               <WbSunnyOutlined />
             </IconButton>
-              
-             <Tooltip arrow title={userDetails.user_name ? userDetails.user_name: userDetails.email.split("@")[0]}>
-            <IconButton onClick={handleClickAnchor}  
 
+            <IconButton onClick={handleClickAnchor}
 
-            
               size="small"
               sx={{ ml: 2 }}
               aria-controls={openAnchor ? 'account-menu' : undefined}
@@ -364,7 +357,6 @@ const singleRead = async (notId) =>{
               aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img btnicon' aria-label="flash" color="primary">
               <img src={UserAvatar} />
             </IconButton>
-            </Tooltip>
             <Menu
               anchorEl={anchorElAnchor}
               id="account-menu"

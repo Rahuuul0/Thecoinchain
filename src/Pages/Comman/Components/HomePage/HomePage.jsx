@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Container,
@@ -26,14 +26,14 @@ import InformedCypto from "../../../../../public/assets/images/informed-cypto.sv
 import DarkLogo from "../../../../../public/assets/images/logo.svg";
 import Globe from "../../../../../public/assets/images/globe.svg";
 import Wallet from "../../../../../public/assets/images/wallet-home.svg";
-import Money from "../../../../../public/assets/images/money.svg";  
-import Treding from "../../../../../public/assets/images/treding.svg";  
+import Money from "../../../../../public/assets/images/money.svg";
+import Treding from "../../../../../public/assets/images/treding.svg";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Marquee from "react-fast-marquee";
 import CryptoTable from "../../CryptoTable";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   useCoinActions,
@@ -63,15 +63,46 @@ const Home = () => {
   const loader = useSetRecoilState(loaderAtom);
   const bannerList = useRecoilValue(bannerListAtom);
   const bannerActions = bannerListActions();
+  const [tutorialsList, setTutorialList] = useState(tutorialsData);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    let tutorialCategory = "";
+    tutorialCategory =
+      newValue === "2"
+        ? "Bitcoin"
+        : newValue === "3"
+        ? "Blogchain"
+        : newValue === "4"
+        ? "Tutorial"
+        : "";
+    newValue === "1"
+      ? setTutorialList(tutorialsData)
+      : handleTutorials(tutorialCategory);
   };
-  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }, []);
+
+  const handleTutorials = (tutorialCategory) => {
+    let tutorialsArr = [];
+    tutorialsArr = tutorialsData
+      .filter((items) => {
+        return items.category === tutorialCategory;
+      })
+      .slice(0, 3);
+
+    setTutorialList(tutorialsArr);
+  };
+
+  useEffect(() => {
+    if (value === "1") setTutorialList(tutorialsData);
+  }, [tutorialsData]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
   const getFirstLetters = (str) => {
     const firstLetters = str.replace("Portfolio", "");
     return firstLetters;
-  }
+  };
 
   //subscribedUser Api
   useEffect(() => {
@@ -81,7 +112,6 @@ const Home = () => {
       res;
     });
   }, []);
-  
 
   return (
     <>
@@ -90,7 +120,16 @@ const Home = () => {
       <Container>
         <Box paddingBottom={8}>
           <Grid container sx={{ alignItems: "center" }}>
-            <Grid item xs={12} sm={6} md={6} sx={{paddingRight: {xs:'0px',  md: '50px'}, paddingTop : {xs: '50px' , md: '0px'}}} >
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={6}
+              sx={{
+                paddingRight: { xs: "0px", md: "50px" },
+                paddingTop: { xs: "50px", md: "0px" },
+              }}
+            >
               <Typography
                 variant="h1"
                 component="div"
@@ -102,8 +141,10 @@ const Home = () => {
                 variant="body2"
                 component="div"
                 className="hero-para primary-font secondary-color"
-                sx={{paddingBottom: {xs:'30px',  md: '50px'} , paddingTop : {xs: '20px'}}}
-                
+                sx={{
+                  paddingBottom: { xs: "30px", md: "50px" },
+                  paddingTop: { xs: "20px" },
+                }}
               >
                 we bring clarity to the volatile world of crypto!
               </Typography>
@@ -153,10 +194,23 @@ const Home = () => {
             {cardCoinsList?.map((item, index) => {
               if (index < 4) {
                 return (
-                  <Grid item xs={12} sm={3} md={3} className='gridBox'>
-                    <img src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`} alt={item.symbol} width="33px" />
-                    <Stack direction="row" spacing={2} alignItems='center' paddingTop={1} paddingBottom={1}>
-                      <Typography className='top-head' sx={{ fontSize: '12px !important' }}>
+                  <Grid item xs={12} sm={3} md={3} className="gridBox">
+                    <img
+                      src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}
+                      alt={item.symbol}
+                      width="33px"
+                    />
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      alignItems="center"
+                      paddingTop={1}
+                      paddingBottom={1}
+                    >
+                      <Typography
+                        className="top-head"
+                        sx={{ fontSize: "12px !important" }}
+                      >
                         {item.symbol}/USDT
                       </Typography>
                       <Button
@@ -199,14 +253,13 @@ const Home = () => {
                       {item.volume_24h?.toFixed(2)}
                     </Typography>
                   </Grid>
-                )
+                );
               }
             })}
           </Grid>
         </Box>
       </Container>
 
-      
       <Container>
         <Box paddingTop={12}>
           <Grid
@@ -261,13 +314,16 @@ const Home = () => {
                   <Tab label="Tutorial" value="4" />
                 </TabList>
               </Box>
-              <TabPanel value="1" sx={{ paddingRight: "0", paddingLeft: "0" }}>
+              <TabPanel
+                value={value}
+                sx={{ paddingRight: "0", paddingLeft: "0" }}
+              >
                 <Grid
                   container
                   columnSpacing={{ xs: 1, sm: 4 }}
                   className="ipad-none"
                 >
-                  {tutorialsData?.slice(0, 1).map((item) => {
+                  {tutorialsList?.slice(0, 1).map((item) => {
                     let discription = item.discription.substring(0, 50) + "...";
                     let title = item.title.substring(0, 20) + "...";
                     return (
@@ -327,7 +383,7 @@ const Home = () => {
                     );
                   })}
                   <Grid item xs={6}>
-                    {tutorialsData?.slice(1, 4).map((item) => {
+                    {tutorialsList?.slice(1, 4).map((item) => {
                       let discription = item.discription;
                       if (discription.length > 10) {
                         discription =
@@ -385,405 +441,6 @@ const Home = () => {
                   </Grid>
                 </Grid>
               </TabPanel>
-              <TabPanel value="2" sx={{ paddingRight: "0", paddingLeft: "0" }}>
-                <Grid
-                  container
-                  columnSpacing={{ xs: 1, sm: 4 }}
-                  className="ipad-none"
-                >
-                  {tutorialsData
-                    ?.filter((blog) => {
-                      return blog.category === "Bitcoin";
-                    })
-                    .slice(0, 1)
-                    .map((item) => {
-                      let discription =
-                        item.discription.substring(0, 50) + "...";
-                      let title = item.title.substring(0, 20) + "...";
-                      return (
-                        <Grid item xs={6}>
-                          {/* <img src={Leveragedv3} /> */}
-                          <ReactPlayer
-                            url={item.video_link}
-                            controls={true}
-                            light={item.image_link}
-                            playing={true}
-                            width="100%"
-                            height="510px"
-                          />
-                          <Stack
-                            direction="row"
-                            spacing={2}
-                            justifyContent="space-between"
-                            paddingTop={3}
-                          >
-                            <Box>
-                              <Typography
-                                variant="h3"
-                                component="div"
-                                fontSize={32}
-                                fontWeight={700}
-                                className="secondary-font"
-                              >
-                                {title}
-                              </Typography>
-                              <Typography
-                                fontSize={16}
-                                component="div"
-                                paddingTop={2}
-                                paddingBottom={2}
-                                className="secondary-color primary-font"
-                              >
-                                {discription}
-                              </Typography>
-                            </Box>
-                            <Button
-                              variant="outline"
-                              className="btn btn-outline"
-                              endIcon={<KeyboardArrowRight />}
-                              sx={{
-                                border: "1px solid #E6E8EC",
-                                height: "50px",
-                                whiteSpace: "nowrap",
-                              }}
-                              onClick={() => {
-                                navigate("./learn-cypto");
-                              }}
-                            >
-                              Learn more
-                            </Button>
-                          </Stack>
-                        </Grid>
-                      );
-                    })}
-
-                  <Grid item xs={6}>
-                    {tutorialsData
-                      ?.filter((blog) => {
-                        return blog.category === "Bitcoin";
-                      })
-                      .slice(1, 3)
-                      .map((item) => {
-                        let discription =
-                          item.discription.substring(0, 50) + "...";
-                        let title = item.title.substring(0, 20) + "...";
-                        return (
-                          <Grid
-                            container
-                            columnSpacing={{ xs: 1, sm: 4 }}
-                            className="flex-between-box"
-                            marginBottom={3}
-                          >
-                            <Grid item xs={6} paddingRight={3}>
-                              <Stack spacing={2} justifyContent="space-between">
-                                <Typography
-                                  fontSize={16}
-                                  className="primary-font"
-                                >
-                                  {title}
-                                </Typography>
-                                <Typography
-                                  sx={{ fontSize: "14px !important" }}
-                                  className="secondary-color primary-font"
-                                >
-                                  {discription}
-                                </Typography>
-                              </Stack>
-                              <Typography
-                                sx={{ fontSize: "14px !important" }}
-                                fontWeight={400}
-                                className="secondary-color primary-font"
-                              >
-                                {dayjs(item.created_at).format("MMM DD,YYYY")}
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                              <Box className="cypto-video">
-                                <ReactPlayer
-                                  url={item.video_link}
-                                  controls={true}
-                                  light={item.image_link}
-                                  playing={true}
-                                  // poster={Learn01}
-                                  width="100%"
-                                  height="100%"
-                                />
-                              </Box>
-                            </Grid>
-                          </Grid>
-                        );
-                      })}
-
-                    {/* 1st box end */}
-                  </Grid>
-                </Grid>
-              </TabPanel>
-              <TabPanel value="3" sx={{ paddingRight: "0", paddingLeft: "0" }}>
-                <Grid
-                  container
-                  columnSpacing={{ xs: 1, sm: 4 }}
-                  className="ipad-none"
-                >
-                  {tutorialsData
-                    ?.filter((blog) => {
-                      return blog.category === "Blogchain";
-                    })
-                    .slice(0, 1)
-                    .map((item) => {
-                      let discription =
-                        item.discription.substring(0, 50) + "...";
-                      let title = item.title.substring(0, 20) + "...";
-                      return (
-                        <Grid item xs={6}>
-                          {/* <img src={Leveragedv3} /> */}
-                          <ReactPlayer
-                            url={item.video_link}
-                            controls={true}
-                            light={item.image_link}
-                            playing={true}
-                            width="100%"
-                            height="510px"
-                          />
-                          <Stack
-                            direction="row"
-                            spacing={2}
-                            justifyContent="space-between"
-                            paddingTop={3}
-                          >
-                            <Box>
-                              <Typography
-                                variant="h3"
-                                component="div"
-                                fontSize={32}
-                                fontWeight={700}
-                                className="secondary-font"
-                              >
-                                {title}
-                              </Typography>
-                              <Typography
-                                fontSize={16}
-                                component="div"
-                                paddingTop={2}
-                                paddingBottom={2}
-                                className="secondary-color primary-font"
-                              >
-                                {discription}
-                              </Typography>
-                            </Box>
-                            <Button
-                              variant="outline"
-                              className="btn btn-outline"
-                              endIcon={<KeyboardArrowRight />}
-                              sx={{
-                                border: "1px solid #E6E8EC",
-                                height: "50px",
-                                whiteSpace: "nowrap",
-                              }}
-                              onClick={() => {
-                                navigate("./learn-cypto");
-                              }}
-                            >
-                              Learn more
-                            </Button>
-                          </Stack>
-                        </Grid>
-                      );
-                    })}
-
-                  <Grid item xs={6}>
-                    {tutorialsData
-                      ?.filter((blog) => {
-                        return blog.category === "Blogchain";
-                      })
-                      .slice(1, 3)
-                      .map((item) => {
-                        let discription =
-                          item.discription.substring(0, 50) + "...";
-                        let title = item.title.substring(0, 20) + "...";
-                        return (
-                          <Grid
-                            container
-                            columnSpacing={{ xs: 1, sm: 4 }}
-                            className="flex-between-box"
-                            marginBottom={3}
-                          >
-                            <Grid item xs={6} paddingRight={3}>
-                              <Stack spacing={2} justifyContent="space-between">
-                                <Typography
-                                  fontSize={16}
-                                  className="primary-font"
-                                >
-                                  {title}
-                                </Typography>
-                                <Typography
-                                  sx={{ fontSize: "14px !important" }}
-                                  className="secondary-color primary-font"
-                                >
-                                  {discription}
-                                </Typography>
-                              </Stack>
-                              <Typography
-                                sx={{ fontSize: "14px !important" }}
-                                fontWeight={400}
-                                className="secondary-color primary-font"
-                              >
-                                {dayjs(item.created_at).format("MMM DD,YYYY")}
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                              <Box className="cypto-video">
-                                <ReactPlayer
-                                  url={item.video_link}
-                                  controls={true}
-                                  light={item.image_link}
-                                  playing={true}
-                                  // poster={Learn01}
-                                  width="100%"
-                                  height="100%"
-                                />
-                              </Box>
-                            </Grid>
-                          </Grid>
-                        );
-                      })}
-
-                    {/* 1st box end */}
-                  </Grid>
-                </Grid>
-              </TabPanel>
-              <TabPanel value="4" sx={{ paddingRight: "0", paddingLeft: "0" }}>
-                <Grid
-                  container
-                  columnSpacing={{ xs: 1, sm: 4 }}
-                  className="ipad-none"
-                >
-                  {tutorialsData
-                    ?.filter((blog) => {
-                      return blog.category === "Tutorial";
-                    })
-                    .slice(0, 1)
-                    .map((item) => {
-                      let discription =
-                        item.discription.substring(0, 50) + "...";
-                      let title = item.title.substring(0, 20) + "...";
-                      return (
-                        <Grid item xs={6}>
-                          {/* <img src={Leveragedv3} /> */}
-                          <ReactPlayer
-                            url={item.video_link}
-                            controls={true}
-                            light={item.image_link}
-                            playing={true}
-                            width="100%"
-                            height="510px"
-                          />
-                          <Stack
-                            direction="row"
-                            spacing={2}
-                            justifyContent="space-between"
-                            paddingTop={3}
-                          >
-                            <Box>
-                              <Typography
-                                variant="h3"
-                                component="div"
-                                fontSize={32}
-                                fontWeight={700}
-                                className="secondary-font"
-                              >
-                                {title}
-                              </Typography>
-                              <Typography
-                                fontSize={16}
-                                component="div"
-                                paddingTop={2}
-                                paddingBottom={2}
-                                className="secondary-color primary-font"
-                              >
-                                {discription}
-                              </Typography>
-                            </Box>
-                            <Button
-                              variant="outline"
-                              className="btn btn-outline"
-                              endIcon={<KeyboardArrowRight />}
-                              sx={{
-                                border: "1px solid #E6E8EC",
-                                height: "50px",
-                                whiteSpace: "nowrap",
-                              }}
-                              onClick={() => {
-                                navigate("./learn-cypto");
-                              }}
-                            >
-                              Learn more
-                            </Button>
-                          </Stack>
-                        </Grid>
-                      );
-                    })}
-
-                  <Grid item xs={6}>
-                    {tutorialsData
-                      ?.filter((blog) => {
-                        return blog.category === "Tutorial";
-                      })
-                      .slice(1, 3)
-                      .map((item) => {
-                        let discription =
-                          item.discription.substring(0, 150) + "...";
-                        let title = item.title.substring(0, 20) + "...";
-                        return (
-                          <Grid
-                            container
-                            columnSpacing={{ xs: 1, sm: 4 }}
-                            className="flex-between-box"
-                            marginBottom={3}
-                          >
-                            <Grid item xs={6} paddingRight={3}>
-                              <Stack spacing={2} justifyContent="space-between">
-                                <Typography
-                                  fontSize={16}
-                                  className="primary-font"
-                                >
-                                  {title}
-                                </Typography>
-                                <Typography
-                                  sx={{ fontSize: "14px !important" }}
-                                  className="secondary-color primary-font"
-                                >
-                                  {discription}
-                                </Typography>
-                              </Stack>
-                              <Typography
-                                sx={{ fontSize: "14px !important" }}
-                                fontWeight={400}
-                                className="secondary-color primary-font"
-                              >
-                                {item.created_at.substring(0, 10)}
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                              <Box className="cypto-video">
-                                <ReactPlayer
-                                  url={item.video_link}
-                                  controls={true}
-                                  light={item.image_link}
-                                  playing={true}
-                                  // poster={Learn01}
-                                  width="100%"
-                                  height="100%"
-                                />
-                              </Box>
-                            </Grid>
-                          </Grid>
-                        );
-                      })}
-
-                    {/* 1st box end */}
-                  </Grid>
-                </Grid>
-              </TabPanel>
             </TabContext>
 
             <Box className="ipad-visible">
@@ -831,7 +488,11 @@ const Home = () => {
                 </Grid>
 
                 <Box>
-                  <Stack direction="row" spacing={1} sx={{justifyContent: {xs: 'center', md : 'left '} }} >
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    sx={{ justifyContent: { xs: "center", md: "left " } }}
+                  >
                     <Box className="slider-icon">
                       <West />
                     </Box>
@@ -847,7 +508,6 @@ const Home = () => {
       </Container>
 
       {/* learn cypto star*/}
-
 
       <Container>
         <Box
@@ -867,7 +527,10 @@ const Home = () => {
             className=""
             variant="p"
             component="p"
-            sx={{ display: { xs: "block", md: "none" } ,paddingLeft: {xs: '30px', md: '0px'} }}
+            sx={{
+              display: { xs: "block", md: "none" },
+              paddingLeft: { xs: "30px", md: "0px" },
+            }}
           >
             <span className="gold-color">Subscribe</span> to gain complete
             access to the most precise short and long-term predictions of
@@ -948,7 +611,14 @@ const Home = () => {
         <CryptoTable isIt={false} />
       </Container>
 
-      <Container maxWidth='fluid' className='' sx={{ backgroundColor: '#F4F5F6', paddingTop: { md: '80px', sm: '20px' }, }} >
+      <Container
+        maxWidth="fluid"
+        className=""
+        sx={{
+          backgroundColor: "#F4F5F6",
+          paddingTop: { md: "80px", sm: "20px" },
+        }}
+      >
         <Container>
           <Box paddingTop={5} paddingBottom={15} className="become-crypto">
             <Typography
@@ -956,14 +626,13 @@ const Home = () => {
               component="h2"
               className="secondary-font font-40"
               textAlign="center"
-              sx={{ fontWeight: "700" , paddingX: {xs: '0px', md: '250px'} }}
+              sx={{ fontWeight: "700", paddingX: { xs: "0px", md: "250px" } }}
             >
-              Become a crypto 
-              trader in seconds
+              Become a crypto trader in seconds
             </Typography>
             <Typography
               className="secondary-color"
-              sx={{textAlign: {xs: 'left' , md: 'center'}}}
+              sx={{ textAlign: { xs: "left", md: "center" } }}
               paddingTop={3}
               paddingBottom={4}
             >
@@ -990,7 +659,9 @@ const Home = () => {
                       customers.
                     </Typography>
                     <Button
-                      onClick={()=>{navigate("/contentnotfound")}} 
+                      onClick={() => {
+                        navigate("/contentnotfound");
+                      }}
                       className="btn btn-outlined-secondary"
                       sx={{ margin: "0 auto" }}
                     >
@@ -1013,7 +684,9 @@ const Home = () => {
                       customers.
                     </Typography>
                     <Button
-                      onClick={()=>{navigate("/contentnotfound")}} 
+                      onClick={() => {
+                        navigate("/contentnotfound");
+                      }}
                       className="btn btn-outlined-secondary"
                       sx={{ margin: "0 auto" }}
                     >
@@ -1079,7 +752,7 @@ const Home = () => {
             className="flow-reverse-mobile"
           >
             <Grid item xs={12} sm={6}>
-              <Box  sx={{paddingBottom: {xs:'15px', md: '50px'}}}>
+              <Box sx={{ paddingBottom: { xs: "15px", md: "50px" } }}>
                 <Typography
                   variant="h2"
                   fontWeight={700}
@@ -1087,7 +760,10 @@ const Home = () => {
                 >
                   Make informed decisions
                 </Typography>
-                <Typography className="secondary-color" sx={{paddingBottom: {xs:'15px', md: '25px'}}}>
+                <Typography
+                  className="secondary-color"
+                  sx={{ paddingBottom: { xs: "15px", md: "25px" } }}
+                >
                   with our expert insights and analysis of the crypto market!
                 </Typography>
               </Box>
@@ -1194,7 +870,7 @@ const Home = () => {
       {/* section starts */}
       <Container maxWidth="fluid" sx={{ backgroundColor: "#F4F5F6" }}>
         <Container>
-          <Box sx={{paddingY: {xs:'50px', md: '120px'}}}>
+          <Box sx={{ paddingY: { xs: "50px", md: "120px" } }}>
             <Box textAlign="center">
               <img src={DarkLogo} />
               <Typography
@@ -1236,7 +912,9 @@ const Home = () => {
                     the BitCloud team and our traders from across the world.
                   </Typography>
                   <Button
-                    onClick={()=>{navigate("/community")}} 
+                    onClick={() => {
+                      navigate("/community");
+                    }}
                     className="btn-outlined-secondary"
                     sx={{ textTransform: "capitalize" }}
                   >
@@ -1277,21 +955,22 @@ const Home = () => {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           <Grid item xs={6} sm={6} md={3}>
-            <Box 
-              sx={{ textAlign :{xs: 'left', md : 'center'}}}
-            className="howworks-box contact-line ">
+            <Box
+              sx={{ textAlign: { xs: "left", md: "center" } }}
+              className="howworks-box contact-line "
+            >
               <img src={Market} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}
-                paddingBottom={3}                
-                sx={{ textAlign :{xs: 'left', md : 'center'}}}
+                paddingBottom={3}
+                sx={{ textAlign: { xs: "left", md: "center" } }}
               >
                 Step 1
               </Typography>
               <Typography
-                className=""                
-                sx={{ textAlign :{xs: 'left', md : 'center'}}}
+                className=""
+                sx={{ textAlign: { xs: "left", md: "center" } }}
                 fontWeight="500"
                 paddingBottom={3}
               >
@@ -1304,21 +983,22 @@ const Home = () => {
             </Box>
           </Grid>
           <Grid item xs={6} sm={6} md={3}>
-            <Box 
-              sx={{ textAlign :{xs: 'left', md : 'center'}}}
-            className="howworks-box contact-line ">
+            <Box
+              sx={{ textAlign: { xs: "left", md: "center" } }}
+              className="howworks-box contact-line "
+            >
               <img src={Wallet} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}
-                paddingBottom={3}                
-                sx={{ textAlign :{xs: 'left', md : 'center'}}}
+                paddingBottom={3}
+                sx={{ textAlign: { xs: "left", md: "center" } }}
               >
                 Step 2
               </Typography>
               <Typography
-                className=""                
-                sx={{ textAlign :{xs: 'left', md : 'center'}}}
+                className=""
+                sx={{ textAlign: { xs: "left", md: "center" } }}
                 fontWeight="500"
                 paddingBottom={3}
               >
@@ -1331,21 +1011,22 @@ const Home = () => {
             </Box>
           </Grid>
           <Grid item xs={6} sm={6} md={3}>
-            <Box 
-              sx={{ textAlign :{xs: 'left', md : 'center'}}}
-            className="howworks-box contact-line ">
+            <Box
+              sx={{ textAlign: { xs: "left", md: "center" } }}
+              className="howworks-box contact-line "
+            >
               <img src={Treding} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}
-                paddingBottom={3}                
-                sx={{ textAlign :{xs: 'left', md : 'center'}}}
+                paddingBottom={3}
+                sx={{ textAlign: { xs: "left", md: "center" } }}
               >
                 Step 3
               </Typography>
               <Typography
-                className=""                
-                sx={{ textAlign :{xs: 'left', md : 'center'}}}
+                className=""
+                sx={{ textAlign: { xs: "left", md: "center" } }}
                 fontWeight="500"
                 paddingBottom={3}
               >
@@ -1358,22 +1039,22 @@ const Home = () => {
             </Box>
           </Grid>
           <Grid item xs={6} sm={6} md={3}>
-            <Box 
-              sx={{ textAlign :{xs: 'left', md : 'center'}}}
-            className="howworks-box ">
+            <Box
+              sx={{ textAlign: { xs: "left", md: "center" } }}
+              className="howworks-box "
+            >
               <img src={Money} width={96} />
               <Typography
                 className="small-caption secondary-color "
                 paddingTop={6}
-                paddingBottom={3}                
-                sx={{ textAlign :{xs: 'left', md : 'center'}}}
+                paddingBottom={3}
+                sx={{ textAlign: { xs: "left", md: "center" } }}
               >
                 Step 4
               </Typography>
               <Typography
-                className=""                
-                  sx={{ textAlign :{xs: 'left', md : 'center'}}}
-
+                className=""
+                sx={{ textAlign: { xs: "left", md: "center" } }}
                 fontWeight="500"
                 paddingBottom={3}
               >

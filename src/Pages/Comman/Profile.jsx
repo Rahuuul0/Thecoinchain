@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import { NavigateNext } from "@mui/icons-material/";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { useUserActions, subscriptionActions } from "../../_actions";
@@ -31,8 +31,7 @@ import { useRecoilValue } from "recoil";
 import { userAtom, authAtom, forecastSubAtom } from "../../_state";
 import dayjs from "dayjs";
 import MuiPhoneNumber from "material-ui-phone-number";
-import LoadingButton from '@mui/lab/LoadingButton';
-
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -147,12 +146,7 @@ const Profile = (props) => {
     );
   };
   const breadcrumbs = [
-    <Link
-      underline="hover"
-      key="1"
-      color="inherit"
-      to="/"
-    >
+    <Link underline="hover" key="1" color="inherit" to="/">
       Home
     </Link>,
     <Typography key="3" color="text.primary">
@@ -184,7 +178,14 @@ const Profile = (props) => {
               <Typography component="h2" variant="h2">
                 Profile info
               </Typography>
-              <Box className="" sx={{ color: "#777E90", fontWeight: "500",  paddingTop: {xs: '10px', md: '0px'} }}>
+              <Box
+                className=""
+                sx={{
+                  color: "#777E90",
+                  fontWeight: "500",
+                  paddingTop: { xs: "10px", md: "0px" },
+                }}
+              >
                 <Box>
                   <Breadcrumbs
                     separator={<NavigateNext fontSize="small" />}
@@ -238,6 +239,7 @@ const Profile = (props) => {
                                 marginTop: "30px",
                                 marginBottom: "20px",
                                 borderRadius: "90px !important",
+                                cursor: "default",
                               }}
                             >
                               {subscription?.status === "running"
@@ -505,11 +507,16 @@ const Profile = (props) => {
                         loading={isSubmitting}
                         loadingPosition="end"
                         className="btn btn-primary"
-                        sx={{ marginLeft: "auto",minWidth: "160px" }}
+                        sx={{ marginLeft: "auto", minWidth: "160px" }}
                         disabled={isSubmitting}
-                      
                       >
-                       {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Save Settings"}
+                        {isSubmitting ? (
+                          <span className="spinner-border spinner-border-sm mr-1">
+                            Loading
+                          </span>
+                        ) : (
+                          "Save Settings"
+                        )}
                       </LoadingButton>
                     </Typography>
                   </Box>

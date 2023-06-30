@@ -57,20 +57,45 @@ const LearnCypto = () => {
   const tutorialAction = useTutorialActions();
   const blogsData = useRecoilValue(blogAtom);
   const tutorialsData = useRecoilValue(tutorialAtom);
-  const displayVideo = tutorialsData[0]?.video_link;
-  const displayImage = tutorialsData[0]?.image_link;
   const [value, setValue] = useState("1");
   const [tutorialTab, setTutorialTab] = useState("1");
   const theme = useTheme();
   const [personName, setPersonName] = useState([]);
-  const [visibleVideos, setVisibleVideos] = useState(6);
   const [videoUrl, setVideoUrl] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const loader = useRecoilValue(loaderAtom);
- 
+  const [blogList, setBlogList] = useState(blogsData);
+
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
+
+    let blogCategory = "";
+    blogCategory =
+      newValue === "1"
+        ? "2D Design"
+        : newValue === "2"
+        ? "3D Design"
+        : newValue === "3"
+        ? "Blockchain"
+        : "2D Design";
+
+    handleBlogs(blogCategory);
   };
+
+  const handleBlogs = (blogCategory) => {
+    let blogsArr = [];
+    blogsArr = blogsData
+      .filter((blog) => {
+        return blog.category === blogCategory;
+      })
+      .slice(0, 3);
+
+    setBlogList(blogsArr);
+  };
+
+  useEffect(() => {
+    handleBlogs("2D Design");
+  }, [blogsData]);
 
   const handleChangeTutorialTab = (event, newValue) => {
     setTutorialTab(newValue);
@@ -103,7 +128,6 @@ const LearnCypto = () => {
   useEffect(() => {
     setVideoUrl(tutorialsData[0]?.video_link);
     setImageUrl(tutorialsData[0]?.image_link);
-
   }, [tutorialsData]);
 
   const handleLoadMore = () => {
@@ -212,186 +236,59 @@ const LearnCypto = () => {
                   </Grid>
                 </Grid>
               </AppBar>
-
-              <TabPanel value="1">
+              <TabPanel value={value}>
                 <Box>
-                  {blogsData
-                    .filter((blog) => {
-                      return blog.category === "2D Design";
-                    })
-                    .slice(0, 3)
-                    .map((item) => {
-                      return (
-                        <Box paddingBottom={3}>
-                          <Grid container>
-                            <Grid item xs={12} sm={5} md={5}>
-                              <Box
-                                className="blog-box"
-                                display="flex"
-                                flexDirection="column"
-                                justifyContent="space-between"
-                              >
-                                <Box height="50">
-                                  <Typography
-                                    textTransform="uppercase"
-                                    sx={{ marginBottom: "50px" }}
-                                    className="orange-btn small-btn small-new-btn"
-                                  >
-                                    New
-                                  </Typography>
-                                </Box>
-                                <Box className="" paddingBottom={5}>
-                                  <Typography
-                                    variant="h4"
-                                    fontWeight="700"
-                                    className="secondary-font"
-                                    paddingBottom={2}
-                                  >
-                                    {item.title}
-                                  </Typography>
-                                  <Typography paddingBottom={5}>
-                                    {item.category}
-                                  </Typography>
-                                  <Typography className="body-caption secondary-color">
-                                    {item.blog_description}
-                                  </Typography>
-                                </Box>
-                                <Box>
-                                  <ArrowRightAlt />
-                                </Box>
+                  {blogList?.map((item) => {
+                    return (
+                      <Box paddingBottom={3}>
+                        <Grid container>
+                          <Grid item xs={12} sm={5} md={5}>
+                            <Box
+                              className="blog-box"
+                              display="flex"
+                              flexDirection="column"
+                              justifyContent="space-between"
+                            >
+                              <Box height="50">
+                                <Typography
+                                  textTransform="uppercase"
+                                  sx={{ marginBottom: "50px" }}
+                                  className="orange-btn small-btn small-new-btn"
+                                >
+                                  New
+                                </Typography>
                               </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={7} md={7}>
-                              <img
-                                className="tutorial-preview"
-                                sx={{ maxWidth: "100%" }}
-                                src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
-                              />
-                            </Grid>
-                          </Grid>
-                        </Box>
-                      );
-                    })}
-                </Box>
-              </TabPanel>
-              <TabPanel value="2">
-                <Box>
-                  {blogsData
-                    .filter((blog) => {
-                      return blog.category === "3D Design";
-                    })
-                    .slice(0, 3)
-                    .map((item) => {
-                      return (
-                        <Box paddingBottom={3}>
-                          <Grid container>
-                            <Grid item xs={12} sm={5} md={5}>
-                              <Box
-                                className="blog-box"
-                                display="flex"
-                                flexDirection="column"
-                                justifyContent="space-between"
-                              >
-                                <Box height="50">
-                                  <Typography
-                                    textTransform="uppercase"
-                                    sx={{ marginBottom: "50px" }}
-                                    className="orange-btn small-btn small-new-btn"
-                                  >
-                                    New
-                                  </Typography>
-                                </Box>
-                                <Box className="" paddingBottom={5}>
-                                  <Typography
-                                    variant="h4"
-                                    fontWeight="700"
-                                    className="secondary-font"
-                                    paddingBottom={2}
-                                  >
-                                    {item.title}
-                                  </Typography>
-                                  <Typography paddingBottom={5}>
-                                    {item.category}
-                                  </Typography>
-                                  <Typography className="body-caption secondary-color">
-                                    {item.blog_description}
-                                  </Typography>
-                                </Box>
-                                <Box>
-                                  <ArrowRightAlt />
-                                </Box>
+                              <Box className="" paddingBottom={5}>
+                                <Typography
+                                  variant="h4"
+                                  fontWeight="700"
+                                  className="secondary-font"
+                                  paddingBottom={2}
+                                >
+                                  {item.title}
+                                </Typography>
+                                <Typography paddingBottom={5}>
+                                  {item.category}
+                                </Typography>
+                                <Typography className="body-caption secondary-color">
+                                  {item.blog_description}
+                                </Typography>
                               </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={7} md={7}>
-                              <img
-                                sx={{ maxWidth: "100%" }}
-                                src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
-                              />
-                            </Grid>
-                          </Grid>
-                        </Box>
-                      );
-                    })}
-                </Box>
-              </TabPanel>
-              <TabPanel value="3">
-                <Box>
-                  {blogsData
-                    .filter((blog) => {
-                      return blog.category === "Bitcoin";
-                    })
-                    .slice(0, 3)
-                    .map((item) => {
-                      return (
-                        <Box paddingBottom={3}>
-                          <Grid container>
-                            <Grid item xs={12} sm={5} md={5}>
-                              <Box
-                                className="blog-box"
-                                display="flex"
-                                flexDirection="column"
-                                justifyContent="space-between"
-                              >
-                                <Box height="50">
-                                  <Typography
-                                    textTransform="uppercase"
-                                    sx={{ marginBottom: "50px" }}
-                                    className="orange-btn small-btn small-new-btn"
-                                  >
-                                    New
-                                  </Typography>
-                                </Box>
-                                <Box className="" paddingBottom={5}>
-                                  <Typography
-                                    variant="h4"
-                                    fontWeight="700"
-                                    className="secondary-font"
-                                    paddingBottom={2}
-                                  >
-                                    {item.title}
-                                  </Typography>
-                                  <Typography paddingBottom={5}>
-                                    {item.category}
-                                  </Typography>
-                                  <Typography className="body-caption secondary-color">
-                                    {item.blog_description}
-                                  </Typography>
-                                </Box>
-                                <Box>
-                                  <ArrowRightAlt />
-                                </Box>
+                              <Box>
+                                <ArrowRightAlt />
                               </Box>
-                            </Grid>
-                            <Grid item xs={12} sm={7} md={7}>
-                              <img
-                                sx={{ maxWidth: "100%" }}
-                                src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
-                              />
-                            </Grid>
+                            </Box>
                           </Grid>
-                        </Box>
-                      );
-                    })}
+                          <Grid item xs={12} sm={7} md={7}>
+                            <img
+                              sx={{ maxWidth: "100%" }}
+                              src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Box>
+                    );
+                  })}
                 </Box>
               </TabPanel>
             </TabContext>
@@ -457,17 +354,41 @@ const LearnCypto = () => {
                     onChange={handleChangeTutorialTab}
                     aria-label="lab API tabs example"
                   >
-                    <Tab onClick={()=>{navigate("/contentnotfound")}}  label="Tutorials" value="1" />
-                    <Tab  onClick={()=>{navigate("/contentnotfound")}}  label="Usecase" value="2" />
-                    <Tab  onClick={()=>{navigate("/contentnotfound")}}  label="Trading" value="3" />
-                    <Tab  onClick={()=>{navigate("/contentnotfound")}}  label="Wallet" value="4" />
+                    <Tab
+                      onClick={() => {
+                        navigate("/contentnotfound");
+                      }}
+                      label="Tutorials"
+                      value="1"
+                    />
+                    <Tab
+                      onClick={() => {
+                        navigate("/contentnotfound");
+                      }}
+                      label="Usecase"
+                      value="2"
+                    />
+                    <Tab
+                      onClick={() => {
+                        navigate("/contentnotfound");
+                      }}
+                      label="Trading"
+                      value="3"
+                    />
+                    <Tab
+                      onClick={() => {
+                        navigate("/contentnotfound");
+                      }}
+                      label="Wallet"
+                      value="4"
+                    />
                   </TabList>
                 </Stack>
               </Box>
             </Box>
 
             <Grid container spacing={6} rowSpacing={6}>
-              {tutorialsData?.slice(0, visibleVideos).map((item) => {
+              {tutorialsData?.slice(0, 6).map((item) => {
                 return (
                   <Grid item xs={12} md={6} xl={4}>
                     <Box

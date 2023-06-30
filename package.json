@@ -40,6 +40,7 @@
     "recharts": "^2.5.0",
     "recoil": "^0.7.7",
     "smartystreets-javascript-sdk": "^2.1.2",
+    "swiper": "^9.4.1",
     "web-vitals": "^3.3.1",
     "yup": "^1.1.1"
   },

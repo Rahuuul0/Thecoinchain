@@ -145,8 +145,6 @@ const LearnCypto = () => {
     handleBlogs(blogCategory);
   }, [value]);
 
-  console.log(value, "tabvalue");
-
   return (
     <>
       <Container className="learn-crypto">

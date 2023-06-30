@@ -8,7 +8,7 @@ import DepositImg from '../../../public/assets/images/deposit.svg'
 import TransferImg from '../../../public/assets/images/transfer.svg'
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import {notificationAtom, authAtom,categoryAtom} from '../../_state/';
+import {notificationAtom, authAtom,categoryAtom,notificationViewAtom} from '../../_state/';
 import {notificationActions} from '../../_actions/notification.actions';
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 const Notifications = () => {
     const navigate = useNavigate();
     const notificationAction = notificationActions();
-    const notifications = useRecoilValue(notificationAtom);
+    const notifications = useRecoilValue(notificationViewAtom);
     const userDetails = useRecoilValue(authAtom);
     const [loadmore,setLoadmore] = useState(10);
     const [checked, setChecked] = useState(false)
@@ -66,10 +66,10 @@ const Notifications = () => {
        const where= new URLSearchParams({
         'category': categoryArr,
     }) 
-    categoryArr.length>0? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList() 
+    categoryArr.length>0? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View() 
        flag ? setChecked(true):setChecked(false)
     }
-//   console.log(notifications.length % 5 , "remiander")
+
     const handleLoadmore =() =>{
         if (notifications.length % 5 < 5){
          setLoadmore(loadmore + (notifications.length - loadmore))
@@ -80,6 +80,8 @@ const Notifications = () => {
 
      useEffect(() =>{
         notificationAction.notificationList()
+        notificationAction.notificationList_View()
+
     },[])
 
    const showFilteredNotification = (e,cat)=>{
@@ -101,7 +103,8 @@ const Notifications = () => {
          if(cat==="News")  
            setCheckNews(e.target.checked)
          setCategoryArray(categoryArr)
-        categoryArr.length>0? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList() 
+        categoryArr.length>0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View()
+
     }
        
     return (
@@ -148,7 +151,13 @@ const Notifications = () => {
                                                         <Typography component="small" variant='body2'>
                                                             <span className='n-date'> {item.ct_notify_created_At} </span>
                                                         </Typography>
-                                                        <span className='notification-circle'></span>
+                                                        <span className='notification-circle' 
+                                                        style={{backgroundColor: item.ct_notify_status === 1
+                                                            ?'#777e90' 
+                                                            : '#58bd7d'}}
+                                                        >
+                                                        </span>
+
                                                     </Box>
                                                 </Box>
                                         

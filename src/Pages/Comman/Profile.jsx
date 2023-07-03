@@ -500,7 +500,6 @@ const Profile = (props) => {
                         className="btn btn-primary"
                         sx={{ marginLeft: { xs: "0", sm: "auto" }, minWidth: "160px" }}
                         disabled={isSubmitting}
-
                       >
                         {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Save Settings"}
                       </LoadingButton>

@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 const FooterAddAtom = atom({
-    key: 'addTempAtom',
+    key: 'addTempAtomFooter',
     default: {}
 });
 

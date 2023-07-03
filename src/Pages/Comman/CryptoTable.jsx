@@ -282,13 +282,14 @@ const CryptoTable = (props) => {
                         }}
                       >
                         <TableCell>
-                          {" "}
-                          <img
-                            src={FavoriteIc}
-                            alt="star"
-                            className="favorite-ic"
-                            style={{ cursor: "pointer" }}
-                          />{" "}
+                          {location.pathname === "/prediction-dashboard" && (
+                            <img
+                              src={FavoriteIc}
+                              alt="star"
+                              className="favorite-ic"
+                              style={{ cursor: "pointer" }}
+                            />
+                          )}
                           {index + 1}
                         </TableCell>
                         <TableCell

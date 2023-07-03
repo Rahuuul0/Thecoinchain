@@ -7,7 +7,7 @@ const homeAtom = atom({
 
 
 const userErrorAtom = atom({
-    key: 'userError',
+    key: 'userErrorHome',
     default: false,   
 });
 

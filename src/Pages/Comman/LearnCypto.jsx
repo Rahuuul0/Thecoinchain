@@ -72,18 +72,6 @@ const LearnCypto = () => {
 
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
-
-    let blogCategory = "";
-    blogCategory =
-      newValue === "1"
-        ? "2D Design"
-        : newValue === "2"
-          ? "3D Design"
-          : newValue === "3"
-            ? "Blockchain"
-            : "2D Design";
-
-    handleBlogs(blogCategory);
   };
 
   const handleBlogs = (blogCategory) => {
@@ -137,8 +125,29 @@ const LearnCypto = () => {
   const handleLoadMore = () => {
     setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-
   };
+
+  const handleChangeDropdown = (event) => {
+    setValue(event.target.value);
+  };
+
+  const handleChangeTutorialDropdown = (event) => {
+    setTutorialTab(event.target.value);
+  };
+
+  useEffect(() => {
+    let blogCategory = "";
+    blogCategory =
+      value === "1"
+        ? "2D Design"
+        : value === "2"
+        ? "3D Design"
+        : value === "3"
+        ? "Blockchain"
+        : "2D Design";
+
+    handleBlogs(blogCategory);
+  }, [value]);
 
   return (
     <>
@@ -238,19 +247,18 @@ const LearnCypto = () => {
                     <Tab label="3D Design" value="2" />
                     <Tab label="Bitcoin" value="3" />
                   </TabList>
+
                   <Box className="latest-release-tabs for-mobile dropdown-mobile">
                     <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
                       <Select
-                        onChange={handleChangeTab}
+                        onChange={handleChangeDropdown}
                         displayEmpty
+                        value={value}
                         inputProps={{ "aria-label": "Without label" }}
                       >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>2D Design</MenuItem>
-                        <MenuItem value={20}>3D Design</MenuItem>
-                        <MenuItem value={30}>Bitcoin</MenuItem>
+                        <MenuItem value="1">2D Design</MenuItem>
+                        <MenuItem value="2">3D Design</MenuItem>
+                        <MenuItem value="3">Bitcoin</MenuItem>
                       </Select>
                     </FormControl>
                   </Box>
@@ -327,10 +335,7 @@ const LearnCypto = () => {
               padding={0}
             >
               <Box>
-                <FormControl
-                  className="mobile-w-100"
-                  sx={{ width: 300 }}
-                >
+                <FormControl className="mobile-w-100" sx={{ width: 300 }}>
                   <Select
                     multiple
                     displayEmpty
@@ -363,11 +368,7 @@ const LearnCypto = () => {
                 </FormControl>
               </Box>
               <Box>
-                <Stack
-                  direction="row"
-                  className="filter-btn"
-                  spacing="2"
-                >
+                <Stack direction="row" className="filter-btn" spacing="2">
                   <TabList
                     alignItems="center"
                     className="for-desktop"
@@ -402,28 +403,26 @@ const LearnCypto = () => {
                       label="Wallet"
                       value="4"
                     />
-                  </TabList >
+                  </TabList>
 
                   <Box className="for-mobile dropdown-mobile">
                     <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
                       <Select
-                        onChange={handleChangeTutorialTab}
+                        onChange={handleChangeTutorialDropdown}
                         displayEmpty
+                        value={tutorialTab}
                         inputProps={{ "aria-label": "Without label" }}
                       >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Tutorials</MenuItem>
-                        <MenuItem value={20}>Usecase</MenuItem>
-                        <MenuItem value={30}>Trading</MenuItem>
-                        <MenuItem value={40}>Wallet</MenuItem>
+                        <MenuItem value="1">Tutorials</MenuItem>
+                        <MenuItem value="2">Usecase</MenuItem>
+                        <MenuItem value="3">Trading</MenuItem>
+                        <MenuItem value="4">Wallet</MenuItem>
                       </Select>
                     </FormControl>
                   </Box>
-                </Stack >
-              </Box >
-            </Box >
+                </Stack>
+              </Box>
+            </Box>
             <Box className="tutorials-grid-item">
               <Grid container columnSpacing={4} rowSpacing={0}>
                 {tutorialsData?.slice(0, 6).map((item) => {
@@ -519,11 +518,11 @@ const LearnCypto = () => {
               </Box>
             </Box>
           </Box>
-        </TabContext >
-      </Container >
+        </TabContext>
+      </Container>
 
       {/* section starts */}
-      < Box className="global-community" >
+      <Box className="global-community">
         <Container>
           <Box>
             <Box textAlign="center">
@@ -637,7 +636,7 @@ const LearnCypto = () => {
             </Box>
           </Box>
         </Container>
-      </Box >
+      </Box>
       {/* section ends */}
     </>
   );

@@ -13,8 +13,7 @@ const notificationActions = () => {
     const notificationLists = useSetRecoilState(notificationAtom);
     const notificationLists_View = useSetRecoilState(notificationViewAtom);
     const notificationCount = useSetRecoilState(notificationCountAtom);
-
-
+    
     const notificationList = () => {
         return fetchWrapper.get(Apis.Notifications_List)
             .then(res => {
@@ -68,17 +67,17 @@ const notificationActions = () => {
     }
 
     const clearNotifications = (notId) => {
-        console.log(notId, "data")
-        return fetchWrapper.post(Apis.Notification_All_Clear, { 'notifications': notId })
-
+let data = notId
+        return fetchWrapper.post(Apis.Notification_All_Clear, data)
+        
             .then((res) => {
-                if (res.statusCode === 200) {
-                    notificationList()
+                if (res.statusCode === 200) {  
+                    notificationList_View() 
+                    notificationList()      
                     alertActions.success('Clear all Data Successfully');
                 }
             }).catch((err) => { console.warn(err) })
     }
-
 
     return {
 

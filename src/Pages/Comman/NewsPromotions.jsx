@@ -80,7 +80,7 @@ const NewsPromotions = (props) => {
     const handleChangeIndexTab3= (index3) => {
         setValueTab3(index3);
     };
-    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
+    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) },[]);
     return (
         <>
             <ThemeProvider theme={theme}>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import PropTypes from 'prop-types';
 import { Box, Typography, Stack, Select, MenuItem, FormControl, } from '@mui/material';
@@ -15,8 +15,9 @@ import FaIcon from '../../../../public/assets/images/icons/fa-light.svg';
 import FaDark from '../../../../public/assets/images/icons/fa-dark.svg';
 import Lockbtn from '../../../../public/assets/images/icons/lock-light.svg';
 import LockbtnDark from '../../../../public/assets/images/icons/lock-dark.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { sidebarAtom } from '../../../_state';
+
 
 
 

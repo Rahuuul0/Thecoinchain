@@ -3,7 +3,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Typography, Breadcrumbs } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import BTCIc from "../../../public/assets/images/icons/btc-ic.svg";
 
 
@@ -19,11 +19,11 @@ const MasterCourse = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
+                <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div'>
                     <Container maxWidth="lg">
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>
-                            Master Course
+                                Master Course
                             </Typography>
 
                             <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>

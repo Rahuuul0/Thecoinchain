@@ -178,14 +178,7 @@ const Profile = (props) => {
               <Typography component="h2" variant="h2">
                 Profile info
               </Typography>
-              <Box
-                className=""
-                sx={{
-                  color: "#777E90",
-                  fontWeight: "500",
-                  paddingTop: { xs: "10px", md: "0px" },
-                }}
-              >
+              <Box className="" sx={{ color: "#777E90", fontWeight: "500", paddingTop: { xs: '10px', md: '0px' } }}>
                 <Box>
                   <Breadcrumbs
                     separator={<NavigateNext fontSize="small" />}
@@ -236,7 +229,7 @@ const Profile = (props) => {
                               className="btn btn-outlined-secondary border-rounded"
                               sx={{
                                 color: "#58BD7D !important",
-                                marginTop: "30px",
+                                marginTop: { xs: "12px", sm: "30px" },
                                 marginBottom: "20px",
                                 borderRadius: "90px !important",
                                 cursor: "default",
@@ -245,8 +238,8 @@ const Profile = (props) => {
                               {subscription?.status === "running"
                                 ? "VIP"
                                 : subscription?.status === "expired"
-                                ? "FREE"
-                                : ""}
+                                  ? "FREE"
+                                  : ""}
                             </Button>
                           </Box>
                         </Grid>
@@ -323,7 +316,7 @@ const Profile = (props) => {
                     <Box
                       className="update-profile"
                       sx={{ backgroundColor: "#F1F2F4" }}
-                      padding={5}
+                      padding={4}
                     >
                       <Typography
                         component="h5"
@@ -428,9 +421,8 @@ const Profile = (props) => {
                               autoComplete="password"
                               size="small"
                               {...register("password")}
-                              className={`form-control white-input-box ${
-                                errors.password ? "is-invalid" : ""
-                              }`}
+                              className={`form-control white-input-box ${errors.password ? "is-invalid" : ""
+                                }`}
                               InputProps={{
                                 endAdornment: (
                                   <InputAdornment position="end">
@@ -472,9 +464,8 @@ const Profile = (props) => {
                               }}
                               variant="standard"
                               {...register("confirmpassword")}
-                              className={`form-control white-input-box ${
-                                errors.confirmpassword ? "is-invalid" : ""
-                              }`}
+                              className={`form-control white-input-box ${errors.confirmpassword ? "is-invalid" : ""
+                                }`}
                               InputProps={{
                                 endAdornment: (
                                   <InputAdornment position="end">
@@ -501,22 +492,16 @@ const Profile = (props) => {
                         </>
                       )}
                     </Box>
-                    <Typography textAlign="right" paddingY={3}>
+                    <Typography textAlign="right">
                       <LoadingButton
                         type="submit"
                         loading={isSubmitting}
                         loadingPosition="end"
                         className="btn btn-primary"
-                        sx={{ marginLeft: "auto", minWidth: "160px" }}
+                        sx={{ marginLeft: { xs: "0", sm: "auto" }, minWidth: "160px" }}
                         disabled={isSubmitting}
                       >
-                        {isSubmitting ? (
-                          <span className="spinner-border spinner-border-sm mr-1">
-                            Loading
-                          </span>
-                        ) : (
-                          "Save Settings"
-                        )}
+                        {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Save Settings"}
                       </LoadingButton>
                     </Typography>
                   </Box>

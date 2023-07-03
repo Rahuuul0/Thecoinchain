@@ -49,29 +49,30 @@ const useOptions = () => {
 };
 
 const CheckoutForm = () => {
-  const navigate = useNavigate();
-  const stripe = useStripe();
-  const elements = useElements();
-  const [isProcessing, setProcessingTo] = useState(false);
-  const [checkoutError, setCheckoutError] = useState();
-  const subscribed = subscriptionActions();    
-  const [confirm, setConfirm] = useState({'plan':{},'step':1});
-  const options = useOptions();
-  const [subscriptionData, setSubscriptionData] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [creditCardStatus, setCreditCardStatus] = useState(true);
-  
-  // Subscription action get function   API data call 
-  useEffect(()=>{
-    const get_subscription = async() => {
-      await subscribed.subscription()
-      .then((res)=>{
-        res.reverse()
-        setSubscriptionData( res) })
-    }
-    get_subscription();   
-  },[])
-  
+    const navigate = useNavigate();
+    const stripe = useStripe();
+    const elements = useElements();
+    const [isProcessing, setProcessingTo] = useState(false);
+    const [checkoutError, setCheckoutError] = useState();
+    const subscribed = subscriptionActions();
+    const [confirm, setConfirm] = useState({ 'plan': {}, 'step': 1 });
+    const options = useOptions();
+    const [subscriptionData, setSubscriptionData] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [creditCardStatus, setCreditCardStatus] = useState(true);
+
+    // Subscription action get function   API data call 
+    useEffect(() => {
+        const get_subscription = async () => {
+            await subscribed.subscription()
+                .then((res) => {
+                    res.reverse()
+                    setSubscriptionData(res)
+                })
+        }
+        get_subscription();
+    }, [])
+
     const handleSubmit = async (event) => {
         event.preventDefault()
 
@@ -159,7 +160,7 @@ const CheckoutForm = () => {
                         <Box onClick={() => setConfirm({ ...confirm, "step": 1 })}> {confirm.step === 1 ? "1" : <CheckIcon />} </Box>
                     </Box>
                     <Typography component="p" variant='body2'>
-                   {confirm.step === 1 ? "Select Package" : "Choose plan"}    
+                        {confirm.step === 1 ? "Select Package" : "Choose plan"}
                     </Typography>
                 </Box>
                 <Box className={`subscription-step ${confirm.step === 2 ? "current-step" : confirm.step === 3 ? 'completed-step' : ''}`}>
@@ -224,7 +225,7 @@ const CheckoutForm = () => {
                     <Box className="step-two" style={styled}>
                         <Box className="card-inner-head">
                             <Typography component="h5" variant='body1' className='large-caption'>
-                                 Payment info
+                                Payment info
                             </Typography>
                             <Typography component="h5" variant='body1' className='large-caption invest-smarter'>
                                 Invest smarter, not harder. <img src={BtcImg} alt='BTC' width="24px" />
@@ -247,21 +248,21 @@ const CheckoutForm = () => {
                                         <img src={WalletIc} alt='wallet' width="20px" />
                                     </span>
                                     <Typography component="small" variant='body2'>
-                                    <span className='label'>For</span>
+                                        <span className='label'>For</span>
                                         {confirm.plan.subscription_name}
                                     </Typography>
                                 </Box>
                             </Box>
                             <>
-                                <Box className='payment-plan-box'>     
-                                    <Typography   className={creditCardStatus?'active small-caption':'small-caption'}  onClick={e=>setCreditCardStatus(true)} component="p" variant='body2'  sx={{ color: '#6C757D', mt: '32px' }}>
-                                        Credit Card 
+                                <Box className='payment-plan-box'>
+                                    <Typography className={creditCardStatus ? 'active small-caption' : 'small-caption'} onClick={e => setCreditCardStatus(true)} component="p" variant='body2' sx={{ color: '#6C757D', mt: '32px' }}>
+                                        Credit Card
                                     </Typography>
-                                    <Typography  className={creditCardStatus?'small-caption':'active small-caption'}  onClick={e=>setCreditCardStatus(false)} component="p" variant='body2' sx={{ color: '#6C757D', mt: '32px' }}>
-                                        Paypal 
+                                    <Typography className={creditCardStatus ? 'small-caption' : 'active small-caption'} onClick={e => setCreditCardStatus(false)} component="p" variant='body2' sx={{ color: '#6C757D', mt: '32px' }}>
+                                        Paypal
                                     </Typography>
-                                </Box>  
-                                {creditCardStatus===true  &&  
+                                </Box>
+                                {creditCardStatus === true &&
                                     <>
                                         <Box className='credit-card-head'>
                                             <Typography component="h5" variant='body1' className='large-caption' sx={{ fontWeight: '600' }}>
@@ -294,10 +295,10 @@ const CheckoutForm = () => {
                                                 <Button onClick={e => setConfirm({ ...confirm, step: 3 })} variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} >Continue</Button>
                                             </Box>
                                         </div>
-                                    </>   
-                                } 
-                                {confirm.step===2 && creditCardStatus===false && 
-                                <SubscriptionPaymentPaypal plan={confirm} setOpen={setOpen}  setConfirm={setConfirm} />   
+                                    </>
+                                }
+                                {confirm.step === 2 && creditCardStatus === false &&
+                                    <SubscriptionPaymentPaypal plan={confirm} setOpen={setOpen} setConfirm={setConfirm} />
                                 }
                             </>
                         </Box>
@@ -320,7 +321,7 @@ const CheckoutForm = () => {
                                             <img src={WalletIc} alt='wallet' width="20px" />
                                         </span>
                                         <Typography component="small" variant='body2'>
-                                            
+
                                             <span className='label'>Amount</span>
                                             ${confirm.plan?.subscription_price || 0}.00
                                         </Typography>

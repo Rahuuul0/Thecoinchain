@@ -26,7 +26,7 @@ const Footer = () => {
 
   // form validation rules 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().required("Email Address is required").matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,"Email is invalid")
+    email: Yup.string().required("Email Address is required").matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, "Email is invalid")
       .email("Email must be a valid email")
       .trim(),
   });
@@ -36,32 +36,32 @@ const Footer = () => {
   // get functions to build form with useForm() hook
   const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
   const { errors } = formState;
- 
+
 
   const formData = watch();
 
   useEffect(() => {
-    reset({email: ""})
+    reset({ email: "" })
     errors.email = "";
-  },[location])
+  }, [location])
 
   const handleFormSubmit = (data) => {
-    setTimeout(()=>{reset({email : " "})},2000)
+    setTimeout(() => { reset({ email: " " }) }, 2000)
     return useFooterAddActions.add(data);
-   
+
   }
 
   return (<>
-    <footer className="footer" style={{ backgroundColor: '#FCFCFD', color: '#fff' }}>
+    <footer className="footer" style={{ backgroundColor: '#FCFCFD', color: '#fff', borderTop: "1px solid #E6E8EC" }}>
       <Container>
-        <Box paddingTop={5}>
+        <Box>
           <Grid container sx={{ justifyContent: 'space-between' }}>
-            <Grid item xs={12} sm={12} md={2} paddingTop={4} paddingBottom={4} >
-              <Button onClick={() => { navigate("/"); }}
+            <Grid item xs={12} sm={12} md={2} paddingTop={{ xs: 8, sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
+              <Button sx={{ padding: 0 }} onClick={() => { navigate("/"); }}
               > <img className='logo-cg' src={Darklogo} />
               </Button>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC' }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ md: 4, sm: 3 }} paddingBottom={{ md: 4, sm: 3 }} >
+            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: { sm: "none", md: '1px solid #E6E8EC' }, borderBottom: { xs: "1px solid #E6E8EC", sm: "1px solid #E6E8EC", md: 'none' } }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 0, sm: 0, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
               <Box className="quick-links">
                 <Stack spacing={2}>
                   <RouterLink to={"/contact"}>Contacts</RouterLink>
@@ -72,7 +72,7 @@ const Footer = () => {
                 </Stack>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: '1px solid #E6E8EC', }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ md: 4, sm: 3 }} paddingBottom={{ md: 4, sm: 3 }}  >
+            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: { sm: "none", md: '1px solid #E6E8EC' }, borderBottom: { xs: "1px solid #E6E8EC", sm: "1px solid #E6E8EC", md: 'none' } }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 3, sm: 3, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }}   >
               <Box className="quick-links">
                 <Stack spacing={2}>
                   <RouterLink to={"/prediction-dashboard"} >Price Forecast</RouterLink>
@@ -83,11 +83,10 @@ const Footer = () => {
                 </Stack>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} paddingLeft={{ md: 5, sm: 2 }} paddingTop={{ md: 4, sm: 3 }} paddingBottom={{ md: 4, sm: 3 }} >
+            <Grid item xs={12} sm={12} md={3} paddingLeft={{ md: 5, sm: 2 }} paddingTop={{ xs: 3, sm: 3, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }}   >
               <Box
                 noValidate
                 component="form"
-                sx={{ mt: '24px' }}
                 onSubmit={handleSubmit(handleFormSubmit)}
               >
                 <Typography
@@ -119,10 +118,10 @@ const Footer = () => {
                   margin="normal"
                   required
                   fullWidth
-                  type = "email"
+                  type="email"
                   id="email"
                   placeholder='Enter your email here'
-                  name="email"     
+                  name="email"
                   autoComplete="off"
                   size="small"
                   {...register("email")}
@@ -149,8 +148,7 @@ const Footer = () => {
         </Box>
       </Container>
       <Container maxWidth='fluid'>
-        <Box className='border-bottom'>
-
+        <Box className='border-bottom' sx={{ my: { xs: 3, sm: 0 } }}>
         </Box>
       </Container>
       <Container>
@@ -170,9 +168,8 @@ const Footer = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-              <Box className="copyright-text social-links" paddingTop={3}
-                paddingBottom={3} >
-                <Stack direction="row" spacing={2} sx={{ justifyContent: 'right' }}>
+              <Box className="copyright-text social-links" sx={{ py: { xs: 0, sm: 3 } }} >
+                <Stack direction="row" spacing={2} sx={{ justifyContent: { sm: 'right', xs: "left" } }}>
                   <img className='social-icon' src={FacebookIcon} />
                   <img className='social-icon' src={TwitterIcon} />
                   <img className='social-icon' src={InstagramIcon} />

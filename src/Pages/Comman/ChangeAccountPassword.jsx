@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useUserActions } from "../../_actions/user.actions";
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import SendIcon from '@mui/icons-material/Send';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 const ChangeAccountPassword = () => {
@@ -66,7 +67,7 @@ const ChangeAccountPassword = () => {
                             <Typography component="h2" variant='h2'>
                                 Change password
                             </Typography>
-                            <Box className='' sx={{ color: '#777E90', fontWeight: '500',  paddingTop: {xs: '10px', md: '0px'}}}>
+                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', paddingTop: { xs: '10px', md: '0px' } }}>
                                 <Box  >
                                     <Breadcrumbs
                                         separator={<NavigateNext fontSize="small" />}
@@ -86,8 +87,8 @@ const ChangeAccountPassword = () => {
                                 <Sidebar />
                                 <Box className='subscription-steps-col-details change-password-box'>
                                     <Box className='active-session'>
-                                        <Typography component="h5" variant='h5'>
-                                            Change password
+                                        <Typography component="h3" variant='h3' className='secondary-font' textAlign={"center"} marginBottom={4}>
+                                            New password
                                         </Typography>
                                     </Box>
                                     <Box component="form"
@@ -96,12 +97,12 @@ const ChangeAccountPassword = () => {
                                     >
                                         <Box component="div" className='auth-form' >
                                             <TextField
-                                                label="Old Password"
+                                                label="Current Password"
                                                 margin="normal"
                                                 required
                                                 fullWidth
                                                 id="old_password"
-                                                placeholder='Old Password'
+                                                placeholder='Current Password'
                                                 type={showPassword ? "text" : "password"}
                                                 name="password"
                                                 autoComplete="old_password"
@@ -179,7 +180,6 @@ const ChangeAccountPassword = () => {
                                                         </InputAdornment>
                                                     )
                                                 }}
-
                                             />
                                             <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirm_password?.message}</div>
 
@@ -193,7 +193,7 @@ const ChangeAccountPassword = () => {
                                                 disabled={isSubmitting}
                                                 sx={{ ml: 'auto', mt: { xs: '30px ', md: '30px' } }}
                                             >
-                                            {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Continue"}
+                                                {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Continue"}
                                             </LoadingButton>
                                         </Box>
                                     </Box>

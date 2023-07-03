@@ -5,7 +5,7 @@ import Learn01 from '../../../public/assets/images/learn01.png'
 import Learn02 from '../../../public/assets/images/learn02.png'
 import Learn03 from '../../../public/assets/images/learn03.png'
 import LoadingImg from '../../../public/assets/images/icons/loading.svg'
-import { useNavigate ,Link} from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const LearnNEarn = () => {
 
@@ -24,7 +24,7 @@ const LearnNEarn = () => {
                     <Typography component="h2" variant='h2'>
                         Learn and earn
                     </Typography>
-                    <Typography className='short-subhead' component="p" variant='body1' sx={{ color: '#353945' }} paddingY={2}>
+                    <Typography className='short-subhead' component="p" variant='body1' sx={{ color: '#353945' }} pt={2}>
                         Stacks is a production-ready library of stackablecontent blocks built in React Native.
                     </Typography>
 
@@ -40,11 +40,6 @@ const LearnNEarn = () => {
                                 <MenuItem value={20}>3D Design</MenuItem>
                             </Select>
                         </FormControl>
-                        {/* <Button
-                                variant="outlined"
-                                className='btn btn-outlined-secondary'>
-                                Predict
-                            </Button> */}
                     </Box>
 
                 </Box>
@@ -114,8 +109,8 @@ const LearnNEarn = () => {
                     </Box>
                 </Box>
                 <Button
-                    onClick={() =>   window.scrollTo({ top: 0, left: 0, behavior: "smooth" })}
-                    sx={{ mt: 10, mx: 'auto' }}
+                    onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "smooth" })}
+                    sx={{ mx: 'auto' }}
                     variant="outlined"
                     className='btn btn-outlined-secondary'>
                     <img src={LoadingImg} alt='loading' /> Load more

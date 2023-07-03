@@ -3083,7 +3083,7 @@ video[poster] {
 }
 
 .MuiPopover-paper::before {
-  display: none;
+  display: none !important;
 }
 
 .swiper-global .swiper-button-next,

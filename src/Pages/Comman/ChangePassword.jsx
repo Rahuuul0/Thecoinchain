@@ -71,7 +71,7 @@ const ChangePassword = () => {
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
                         <Box className='auth-wrapper-form' position='relative'>
-                            <Box position='absolute' sx={{ top: { xs: '20px', md: '90px' } }}>
+                            <Box position='absolute' sx={{ top: { xs: '0px', sm: '30px', md: '90px' } }}>
                                 <IconButton aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
                                     <KeyboardArrowLeft />
                                 </IconButton>
@@ -174,17 +174,17 @@ const ChangePassword = () => {
                                         <div className="invalid-feedback" style={{ color: "red" }}>{errors.confirm_password?.message}</div>
 
                                         <LoadingButton
-                                                type="submit"
-                                                loading={isSubmitting}
-                                                loadingPosition="end"
-                                                variant="contained"
-                                                className='btn btn-primary'
-                                                fullWidth
-                                                disabled={isSubmitting}
-                                                sx={{ ml: 'auto', mt: { xs: '30px ', md: '30px' } }}
-                                            >
-                                            {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Continue"}
-                                            </LoadingButton>
+                                            type="submit"
+                                            loading={isSubmitting}
+                                            loadingPosition="end"
+                                            variant="contained"
+                                            className='btn btn-primary'
+                                            fullWidth
+                                            disabled={isSubmitting}
+                                            sx={{ ml: 'auto', mt: { xs: '30px ', md: '30px' } }}
+                                        >
+                                            {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Continue"}
+                                        </LoadingButton>
                                     </Box>
                                 </Box>
                             </Box>

@@ -29,18 +29,20 @@ function Header(props) {
   const notificaionCount = useRecoilValue(notificationCountAtom);
 
   const handleClear = async () => {
-    let notId = notifications.map((item, index) => { if (index < 5) { return (item.ct_notiy_id) } })
+    let notId = notifications.slice(0, 5).map((item, index) => { return (item.ct_notiy_id) })
     notificationAction.clearNotifications(notId);
   };
 
   useEffect(() => {
-    notificationAction.notificationList();
+    notificationAction.notificationList()
+    notificationAction.notificationList_View()
+
   }, [])
 
   const singleRead = async (notId) => {
     let userId = userDetails.id;
     notificationAction.notificationSingleread(notId, userId)
-}
+  }
 
   const navItems = [
     {
@@ -310,7 +312,7 @@ function Header(props) {
 
 
                     <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
-                      <Button onClick={() => { navigate('/notifications') }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
+                      <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
                         View all
                       </Button>
                       <Button onClick={handleClear} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>

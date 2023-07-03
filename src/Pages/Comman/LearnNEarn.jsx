@@ -36,6 +36,9 @@ const LearnNEarn = () => {
                                 displayEmpty
                                 inputProps={{ 'aria-label': 'Without label' }}
                             >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
                                 <MenuItem value={10}>2D Design</MenuItem>
                                 <MenuItem value={20}>3D Design</MenuItem>
                             </Select>

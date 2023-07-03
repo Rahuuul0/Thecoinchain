@@ -5,10 +5,9 @@ import { theme } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { guidesAnalysisActions, analyticsActions } from "../../_actions";
 import { guidesAtom, analyticAtom } from "../../_state";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
-import Blog1 from "../../../public/assets/images/blog-1.svg";
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
 import SwipeableViews from "react-swipeable-views";
@@ -34,7 +33,6 @@ const GuidesAnalysis = (props) => {
     const guides = useRecoilValue(guidesAtom);
     const analytic = useRecoilValue(analyticAtom);
 
-    console.log(analytic, 'ewewrfewe3r')
     // Subscription action get function   API data call 
     useEffect(() => {
         const response = guidesActions.get()
@@ -106,8 +104,6 @@ const GuidesAnalysis = (props) => {
         setGuidesList(guidesArr);
     };
 
-    console.log(guidesList, "guidelist")
-
     useEffect(() => {
         handleGuides("All");
     }, [guides]);
@@ -138,11 +134,8 @@ const GuidesAnalysis = (props) => {
                 return blog.category === analysisCategory;
             })
             .slice(0, 3);
-            console.log(analysisArr, "analysisArr")
         setAnalysisList(analysisArr);
     };
-
-    console.log(analysisList, "analysisList")
 
     useEffect(() => {
         handleAnalysis("All");

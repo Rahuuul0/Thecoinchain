@@ -28,7 +28,8 @@ const Notifications = () => {
     const [checkNews,setCheckNews]=useState(false)
 
     const handleClear = async() => {
-          notificationAction.clearNotifications();
+        let notId = notifications.map((item,index) => {return( item.ct_notiy_id )})
+          notificationAction.clearNotifications(notId);
         };
 
     const handleSelectAll =(flag) =>{
@@ -145,7 +146,7 @@ console.log(categoryArr,'444');
                                                             <span className='n-date'> {item.ct_notify_created_At} </span>
                                                         </Typography>
                                                         <span className='notification-circle' 
-                                                        style={{backgroundColor: item.ct_notify_status === 1
+                                                        style={{backgroundColor: item.ct_notify_status === 0
                                                             ?'#777e90' 
                                                             : '#58bd7d'}}
                                                         >

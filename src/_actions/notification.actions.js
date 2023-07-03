@@ -46,7 +46,7 @@ const notificationActions = () => {
             .then(res => {
                 if (res.statusCode === 200) {
                     notificationList()
-                    notificationList_View()
+                    // notificationList_View()
                     return res.data
                     alertActions.success("Mark all Read Successfully");
                 } else {
@@ -73,7 +73,8 @@ const notificationActions = () => {
         
             .then((res) => {
                 if (res.statusCode === 200) {  
-                    notificationList()       
+                    notificationList()  
+                    notificationList_View()     
                     alertActions.success('Clear all Data Successfully');
                 }
             }).catch((err)=>{console.warn(err)})

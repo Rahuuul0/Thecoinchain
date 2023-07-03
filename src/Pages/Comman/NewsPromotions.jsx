@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
-import { Box, Container, Typography, Grid, Button } from '@mui/material';
+import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
 import { newsListActions, promotionsActions } from '../../_actions';
@@ -18,6 +18,11 @@ import Tab from "@mui/material/Tab";
 import { useNavigate } from 'react-router-dom';
 
 const NewsPromotions = (props) => {
+    const [guidesFilter, setGuidesFilter] = useState("");
+
+    const handleChangeGuidesFilter = (event) => {
+        setValueTab2(event.target.value);
+    };
     const navigate = useNavigate();
     const newsListGetActions = newsListActions();
     const promotionsGetActions = promotionsActions();
@@ -135,23 +140,37 @@ const NewsPromotions = (props) => {
                                                     </Grid>
 
                                                     <TabContext value={valueTab2}>
-                                                        <AppBar position="static">
+                                                        <Tabs
+                                                            className='for-desktop'
+                                                            value={valueTab2}
+                                                            onChange={handleChangeTab2}
+                                                            indicatorColor="secondary"
+                                                            textColor="inherit"
+                                                            aria-label="full width tabs example"
+                                                        >
+                                                            <Tab label="All" {...a11yProps(0)} />
+                                                            <Tab label="Blockchain" {...a11yProps(1)} />
+                                                            <Tab label="Trading" {...a11yProps(3)} />
+                                                            <Tab label="Cryptocurrency" {...a11yProps(4)} />
 
-                                                            <Tabs
-                                                                value={valueTab2}
-                                                                onChange={handleChangeTab2}
-                                                                indicatorColor="secondary"
-                                                                textColor="inherit"
-                                                                aria-label="full width tabs example"
-                                                            >
-                                                                <Tab label="All" {...a11yProps(0)} />
-                                                                <Tab label="Blockchain" {...a11yProps(1)} />
-                                                                <Tab label="Trading" {...a11yProps(3)} />
-                                                                <Tab label="Cryptocurrency" {...a11yProps(4)} />
 
+                                                        </Tabs>
+                                                        <Box className="for-mobile dropdown-mobile">
+                                                            <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                                                                <Select
+                                                                    value={valueTab2}
+                                                                    onChange={handleChangeGuidesFilter}
+                                                                    displayEmpty
+                                                                    inputProps={{ "aria-label": "Without label" }}
+                                                                >
 
-                                                            </Tabs>
-                                                        </AppBar>
+                                                                    <MenuItem value={0}>All</MenuItem>
+                                                                    <MenuItem value={1}>Blockchain</MenuItem>
+                                                                    <MenuItem value={2}>Trading</MenuItem>
+                                                                    <MenuItem value={3}>Cryptocurrency</MenuItem>
+                                                                </Select>
+                                                            </FormControl>
+                                                        </Box>
                                                         <SwipeableViews
                                                             axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                                                             index={valueTab2}
@@ -447,22 +466,36 @@ const NewsPromotions = (props) => {
                                                         </Grid>
 
                                                         <TabContext value={valueTab3}>
-                                                            <AppBar position="static">
+                                                            <Tabs
+                                                                className='for-desktop'
+                                                                value={valueTab3}
+                                                                onChange={handleChangeTab3}
+                                                                indicatorColor="secondary"
+                                                                textColor="inherit"
+                                                                aria-label="full width tabs example"
+                                                            >
+                                                                <Tab label="All" {...a11yProps(0)} />
+                                                                <Tab label="Blockchain" {...a11yProps(1)} />
+                                                                <Tab label="Trading" {...a11yProps(3)} />
+                                                                <Tab label="Cryptocurrency" {...a11yProps(4)} />
 
-                                                                <Tabs
-                                                                    value={valueTab3}
-                                                                    onChange={handleChangeTab3}
-                                                                    indicatorColor="secondary"
-                                                                    textColor="inherit"
-                                                                    aria-label="full width tabs example"
-                                                                >
-                                                                    <Tab label="All" {...a11yProps(0)} />
-                                                                    <Tab label="Blockchain" {...a11yProps(1)} />
-                                                                    <Tab label="Trading" {...a11yProps(3)} />
-                                                                    <Tab label="Cryptocurrency" {...a11yProps(4)} />
+                                                            </Tabs>
+                                                            <Box className="for-mobile dropdown-mobile">
+                                                                <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                                                                    <Select
+                                                                        value={valueTab2}
+                                                                        onChange={handleChangeGuidesFilter}
+                                                                        displayEmpty
+                                                                        inputProps={{ "aria-label": "Without label" }}
+                                                                    >
 
-                                                                </Tabs>
-                                                            </AppBar>
+                                                                        <MenuItem value={0}>All</MenuItem>
+                                                                        <MenuItem value={1}>Blockchain</MenuItem>
+                                                                        <MenuItem value={2}>Trading</MenuItem>
+                                                                        <MenuItem value={3}>Cryptocurrency</MenuItem>
+                                                                    </Select>
+                                                                </FormControl>
+                                                            </Box>
                                                             <SwipeableViews
                                                                 axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                                                                 index={valueTab3}

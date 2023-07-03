@@ -19,5 +19,11 @@ const notificationCountAtom = atom({
     
 });
 
+const notificationViewAtom = atom({
+    key: 'notificationViewAtom',
+    default: 0
+    
+});
 
-export { notificationAtom, notificationCountAtom };
+
+export { notificationAtom, notificationCountAtom, notificationViewAtom };

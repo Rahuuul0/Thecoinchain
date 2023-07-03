@@ -33,7 +33,8 @@ function Header(props) {
  
   const handleClear = async() => {
     let notId = notifications.slice(0,5).map((item,index) => {return( item.ct_notiy_id )})
-      notificationAction.clearNotifications(notId);
+    
+      notificationAction.clearNotifications({notifications : notId});
   };
 
 useEffect(()=>{

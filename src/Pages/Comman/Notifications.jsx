@@ -29,9 +29,15 @@ const Notifications = () => {
 
     const handleClear = async() => {
         let notId = notifications.map((item,index) => {return( item.ct_notiy_id )})
-          notificationAction.clearNotifications(notId);
+        console.log(notId,'fdffdfd');
+          notificationAction.clearNotifications({all_clear: 1});
         };
 
+    const handleMarkall = async() =>{
+        let notId = notifications.map((item,index) => {return( item.ct_notiy_id )})
+        notificationAction.notificationSingleread(notId)
+    }
+    
     const handleSelectAll =(flag) =>{
         let categoryArr = categoryArray;
          if(flag){
@@ -115,7 +121,7 @@ console.log(categoryArr,'444');
                                     {notifications.length>0 && notifications.length === loadmore &&
                                     <Box className='notification-head-cta'>
                                         <Box className="modal-subscribed-cta">
-                                            <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
+                                            <Button onClick={handleMarkall} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
                                             <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Clear all</Button>
                                         </Box>
                                     </Box>}

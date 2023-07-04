@@ -34,12 +34,11 @@ const notificationActions = () => {
             }).catch((err) => { console.warn(err) })
     }
 
-    const notificationSingleread = (notId, userId) => {
+    const notificationSingleread = (notId) => {
         return fetchWrapper.post(Apis.Notifications_Single_Read,
             {
-                "read": "1",
+                "read": 1,
                 "notify_id": `${notId}`,
-                "user_id": `${userId}`
             },
         )
             .then(res => {
@@ -66,8 +65,9 @@ const notificationActions = () => {
             }).catch((err) => { console.warn(err) })
     }
 
-    const clearNotifications = (notId) => {
-let data = notId
+    const clearNotifications = (action) => {
+let data = action
+console.log(data,'dsfdfdsfdsfdf44');
         return fetchWrapper.post(Apis.Notification_All_Clear, data)
         
             .then((res) => {

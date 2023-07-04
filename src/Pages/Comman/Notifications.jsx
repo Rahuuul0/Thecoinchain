@@ -29,11 +29,11 @@ const Notifications = () => {
 
     const handleClear = async(action) => {
           notificationAction.clearNotifications({action});
-        };
+    };
 
     const handleSelectAll =(flag) =>{
         let categoryArr = categoryArray;
-         if(flag){
+        if(flag){
             setCheckCrypto(true)
             setCheckCommunity(true)
             setCheckAcademy(true)
@@ -42,27 +42,27 @@ const Notifications = () => {
                 const index = categoryArray.indexOf(category);
                 if(index === -1)
                 categoryArr.push(category);    
-              })
+                })
         }else{
             setCheckCrypto(false)
             setCheckCommunity(false)
             setCheckAcademy(false)
             setCheckNews(false)
             filterCategory.map((category,idx)=>{
-               const index = categoryArray.indexOf(category);
+                const index = categoryArray.indexOf(category);
                 if(index > -1)
                 categoryArr.splice(index,1);    
             })
         }
-
-        setCategoryArray(categoryArr)
-        const where = new URLSearchParams({
-            'category': categoryArr,
-        })
-        categoryArr.length > 0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList()
-        flag ? setChecked(true) : setChecked(false)
+        
+        setCategoryArray(categoryArr) 
+        const where= new URLSearchParams({
+        'category': categoryArr,
+        }) 
+        categoryArr.length>0? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View() 
+        flag ? setChecked(true):setChecked(false)
     }
-    //   console.log(notifications.length % 5 , "remiander")
+
     const handleLoadmore = () => {
         if (notifications.length % 5 < 5) {
             setLoadmore(loadmore + (notifications.length - loadmore))
@@ -71,12 +71,12 @@ const Notifications = () => {
         }
    }
 
-     useEffect(() =>{
+    useEffect(() =>{
         notificationAction.notificationList()
         notificationAction.notificationList_View()
     }, [])
 
-    const showFilteredNotification = (e, cat) => {
+    const showFilteredNotification = (e,cat)=>{
         let categoryArr = categoryArray
         const index = categoryArray.indexOf(cat);
         if(e.target.checked){
@@ -90,12 +90,13 @@ const Notifications = () => {
            setCheckCrypto(e.target.checked)
          if(cat==="Community")
             setCheckCommunity(e.target.checked)
-        if (cat === "Academy")
-            setCheckAcademy(e.target.checked)
-        if (cat === "News")
-            setCheckNews(e.target.checked)
-        setCategoryArray(categoryArr)
-        categoryArr.length > 0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList()
+         if(cat==="Academy")
+           setCheckAcademy(e.target.checked)
+         if(cat==="News")  
+           setCheckNews(e.target.checked)
+         setCategoryArray(categoryArr)
+        categoryArr.length>0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View()
+
     }
        
     return (

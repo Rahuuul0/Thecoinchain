@@ -30,7 +30,7 @@ const Market = () => {
               <CryptoTable selectedCat={selectedCat} isIt={true} />
 
               <Box className="price-prediction">
-                <Typography component="h2" variant="h2">
+                <Typography component="h2" variant="h2" color={"#3B3B3B"}>
                   Cryptocurrency Price Predictions
                 </Typography>
                 <Typography
@@ -41,7 +41,7 @@ const Market = () => {
                 >
                   Please{" "}
                   <Link to="/subscription" style={{ color: "#FFD166" }}>
-                   <u>Subscribe</u>
+                    <u>Subscribe</u>
                   </Link>{" "}
                   now to gain complete access to the most precise short and
                   long-term predictions of cryptocurrency prices.

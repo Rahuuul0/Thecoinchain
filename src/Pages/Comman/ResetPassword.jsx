@@ -14,11 +14,11 @@ import { Container, Box, TextField, Typography, Link, Button, InputAdornment } f
 import LogoLight from '../../../public/assets/images/logo-light.svg';
 import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
-import {KeyboardArrowLeft} from '@mui/icons-material/';
+import { KeyboardArrowLeft } from '@mui/icons-material/';
 
 const ResetPassword = () => {
     const navigate = useNavigate();
-    const userActions = useUserActions();  
+    const userActions = useUserActions();
     // form validation rules 
     const validationSchema = Yup.object().shape({
         password: Yup.string()
@@ -70,12 +70,12 @@ const ResetPassword = () => {
                         <Box className='auth-wrapper-bg'>
                             <img src={AuthBg} alt='Auth bg' />
                         </Box>
-                        <Box className='auth-wrapper-form'  position='relative'>
-                        <Box position='absolute' sx={{ top: {xs: '0px' , md: '90px'}  }}>
-                            <IconButton aria-label="delete"  className='btn-primary btn' variant="outlined" sx={{padding: '4px 4px !important', margin: '0px !important'}}>
-                                <KeyboardArrowLeft />
-                            </IconButton>
-                        </Box>
+                        <Box className='auth-wrapper-form' position='relative'>
+                            <Box position='absolute' sx={{ top: { xs: '0px', sm: '30px', md: '90px' } }}>
+                                <IconButton aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
+                                    <KeyboardArrowLeft />
+                                </IconButton>
+                            </Box>
                             <Box className='auth-wrapper-form-inner' >
                                 <Typography component="h3" variant="h3">
                                     New Password

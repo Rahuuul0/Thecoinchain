@@ -19,7 +19,7 @@ const PredictMarket = () => {
                         <Container maxWidth="lg">
                             <CryptoTable />
                             <Box className='price-prediction'>
-                                <Typography component="h2" variant='h2'>
+                                <Typography component="h2" variant='h2' color={"#3B3B3B"}>
                                     Cryptocurrency Price Predictions
                                 </Typography>
                                 <Typography component="p" variant='body1' className='body-large' sx={{ color: '#3B3B3B' }}>

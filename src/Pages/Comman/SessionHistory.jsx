@@ -50,14 +50,14 @@ const SessionHistory = () => {
         }
     ];
 
-        // Subscription action get function   API data call 
-    useEffect(()=>{
-        const    response = userHistoryAction.getAll()
-        response.then((res)=>{setHistoryData([...res])})
-        
-     },[])
+    // Subscription action get function   API data call 
+    useEffect(() => {
+        const response = userHistoryAction.getAll()
+        response.then((res) => { setHistoryData([...res]) })
 
-     const historyDataSort = historyData.sort().reverse();
+    }, [])
+
+    const historyDataSort = historyData.sort().reverse();
 
     return (
         <>
@@ -68,7 +68,7 @@ const SessionHistory = () => {
                             <Typography component="h2" variant='h2'>
                                 Sessions & login history
                             </Typography>
-                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', paddingTop: {xs: '10px', md: '0px'} }}>
+                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', paddingTop: { xs: '10px', md: '0px' } }}>
                                 <Box  >
                                     <Breadcrumbs
                                         separator={<NavigateNext fontSize="small" />}
@@ -91,9 +91,9 @@ const SessionHistory = () => {
                                         <Typography component="h5" variant='h5'>
                                             Active sessions
                                         </Typography>
-                                        <Box className='session-list' marginBottom={5}>
-                                            <TableContainer>
-                                                <Table sx={{ minWidth: { xs: '250px', md: '650px' } }} aria-label="simple table">
+                                        <Box className='session-list'>
+                                            <TableContainer sx={{ maxHeight: { xs: 240, sm: 440 }, paddingRight: '18px' }}>
+                                                <Table stickyHeader aria-label="sticky table" sx={{ minWidth: { xs: '250px', md: '650px' } }}>
                                                     <TableHead>
                                                         <TableRow>
                                                             <TableCell>
@@ -114,44 +114,44 @@ const SessionHistory = () => {
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
-                                                    {historyDataSort.map((item, i) => {
-                                                    return (
-                                                        <TableRow
-                                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                         >
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                   {dayjs(item.created_at).format(
-                                                                    "MM/DD/YY - HH:mm:ss"
-                                                                    )}
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                   
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                  {deviceData.device.model}
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                  {deviceData.os.name}
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell align="right">
-                                                                <Button 
-                                                                size='small' 
-                                                                variant='contained' 
-                                                                className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}> 
-                                                                <ReactCountryFlag countryCode={item.country_code} />{item.country_code}
-                                                                </Button>
-                                                            </TableCell>
-                                                        </TableRow>
+                                                        {historyDataSort.map((item, i) => {
+                                                            return (
+                                                                <TableRow
+                                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                                >
+                                                                    <TableCell>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
+                                                                            {dayjs(item.created_at).format(
+                                                                                "MM/DD/YY - HH:mm:ss"
+                                                                            )}
+                                                                        </Typography>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
+
+                                                                        </Typography>
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
+                                                                            {deviceData.device.model}
+                                                                        </Typography>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
+                                                                            {deviceData.os.name}
+                                                                        </Typography>
+                                                                    </TableCell>
+                                                                    <TableCell align="right">
+                                                                        <Button
+                                                                            size='small'
+                                                                            variant='contained'
+                                                                            className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}>
+                                                                            <ReactCountryFlag countryCode={item.country_code} />{item.country_code}
+                                                                        </Button>
+                                                                    </TableCell>
+                                                                </TableRow>
                                                             )
                                                         })}
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                            <Button variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto', marginY: { xs: '40px ', md: '40px' } }}>Log out all other devices</Button>
+                                            <Button variant='outlined' className='btn btn-outlined-secondary' sx={{ ml: 'auto', marginTop: 4 }}>Log out all other devices</Button>
                                         </Box>
                                     </Box>
 
@@ -160,9 +160,8 @@ const SessionHistory = () => {
                                             Login history
                                         </Typography>
                                         <Box className='session-list'>
-
-                                            <TableContainer>
-                                                <Table sx={{ minWidth: { xs: '250px', md: '650px' } }} aria-label="simple table">
+                                            <TableContainer sx={{ maxHeight: { xs: 240, sm: 440 }, paddingRight: '18px' }}>
+                                                <Table stickyHeader aria-label="sticky table" sx={{ minWidth: { xs: '250px', md: '650px' } }}>
                                                     <TableHead>
                                                         <TableRow>
                                                             <TableCell>
@@ -192,9 +191,9 @@ const SessionHistory = () => {
                                                                     <TableCell>
                                                                         <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
                                                                             {dayjs(v.created_at)
-                                                                            .format(
-                                                                             "MM/DD/YY - HH:mm:ss"
-                                                                            )}
+                                                                                .format(
+                                                                                    "MM/DD/YY - HH:mm:ss"
+                                                                                )}
                                                                         </Typography>
                                                                         <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
                                                                             {v.time}
@@ -215,7 +214,7 @@ const SessionHistory = () => {
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                            <Button onClick={() => { navigate('/contact') }} variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto' }}>Contact us</Button>
+                                            <Button onClick={() => { navigate('/contact') }} variant='outlined' className='btn btn-outlined-secondary' sx={{ ml: 'auto', marginTop: 4 }}>Contact us</Button>
                                         </Box>
                                     </Box>
                                 </Box>

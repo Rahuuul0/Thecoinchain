@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Typography, Breadcrumbs } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 
 const PrivacyPolicy = () => {
 
@@ -50,7 +50,7 @@ const PrivacyPolicy = () => {
                             </Box>
 
                             <Box paddingY={2}>
-                                <Typography component='h3' variant='h3' className='secondary-font' paddingY={3}>Definitions</Typography>
+                                <Typography component='h3' variant='h3' className='secondary-font' paddingTop={{ xs: 0, sm: 3 }} paddingBottom={3}>Definitions</Typography>
                                 <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Personal Data</Typography>
                                 <Typography component='p' variant='p' paddingBottom={3}> Personal Data means data about a person that can be correspondingly identified therewith.</Typography>
 
@@ -77,7 +77,7 @@ const PrivacyPolicy = () => {
                             </Box>
 
                             <Box paddingY={2}>
-                                <Typography component='h3' variant='h3' className='secondary-font' paddingY={3}>Information Collection and Use</Typography> <Typography component='p' variant='p' paddingBottom={3}> Personal Data means data about a person that can be correspondingly identified therewith.</Typography>
+                                <Typography component='h3' variant='h3' className='secondary-font' paddingTop={{ xs: 0, sm: 3 }} paddingBottom={3}>Information Collection and Use</Typography> <Typography component='p' variant='p' paddingBottom={3}> Personal Data means data about a person that can be correspondingly identified therewith.</Typography>
                                 <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Personal Data</Typography>
                                 <Typography component='p' variant='p' paddingBottom={3}> Personal Data means data about a person that can be correspondingly identified therewith.</Typography>
 
@@ -98,9 +98,7 @@ const PrivacyPolicy = () => {
                                 <Typography component='p' variant='p' paddingBottom={3}>Data Subject is any individual person who is the subject of Personal Data.</Typography>
 
                                 <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>User</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}> The User is an individual person visiting our Site. The User correlates to the Data Subject, who is the subject of Personal Data.</Typography>
-
-
+                                <Typography component='p' variant='p'> The User is an individual person visiting our Site. The User correlates to the Data Subject, who is the subject of Personal Data.</Typography>
                             </Box>
                         </Container>
                     </Box>

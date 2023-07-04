@@ -27,7 +27,7 @@ const MarketCard = () => {
   const coinActions = useCoinActions();
   const categoryList = useRecoilValue(coinCategoryAtom);
   const selectedCat = useRecoilValue(selectedCategoryAtom);
-  const [tablefilter, setTablefilter] = useState("");
+  const [tablefilter, setTablefilter] = useState(1);
   const cardCoinsList = useRecoilValue(cardCoinsAtom);
   const userDetail = useRecoilValue(authAtom);
   const subscriptionAction = subscriptionActions();
@@ -72,7 +72,8 @@ const MarketCard = () => {
                           varient="body2"
                           className="currency-name"
                         >
-                          {item.symbol}{"/USDT "}
+                          {item.symbol}
+                          {"/USDT "}
                           <span
                             className="status-badge"
                             style={{
@@ -82,7 +83,7 @@ const MarketCard = () => {
                                   : "#58bd7d",
                             }}
                           >
-                            {item.percent_change_24h?.toFixed(2)}
+                            {item.percent_change_24h?.toFixed(2)}%
                           </span>
                         </Typography>
                         <Typography component="h5" varient="h5">
@@ -112,7 +113,7 @@ const MarketCard = () => {
                               ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
                               : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
                         }}
-                        onClick={() => handleChartOpen(item.id)}
+                        // onClick={() => handleChartOpen(item.id)}
                       />
                     </Box>
                   </Box>
@@ -121,12 +122,7 @@ const MarketCard = () => {
             </Box>
             <Box className="market-crypto-tabs for-desktop">
               <TabContext value={value}>
-                <Stack
-                  direction="row"
-                  className="filter-btn"
-                  spacing="2"
-                  paddingTop={5}
-                >
+                <Stack direction="row" className="filter-btn" spacing="2">
                   {selectedCat === 0 ? (
                     <Button
                       variant="contained"
@@ -211,13 +207,62 @@ const MarketCard = () => {
                   displayEmpty
                   inputProps={{ "aria-label": "Without label" }}
                 >
-                  <MenuItem value={10}>Cryptocurrencies</MenuItem>
-                  <MenuItem value={20}>DeFi</MenuItem>
-                  <MenuItem value={30}>Innovation</MenuItem>
-                  <MenuItem value={40}>POS</MenuItem>
-                  <MenuItem value={50}>NFT</MenuItem>
-                  <MenuItem value={60}>POW</MenuItem>
-                  <MenuItem value={70}>Predict</MenuItem>
+                  {selectedCat === 0 ? (
+                    <MenuItem
+                      value={1}
+                      onClick={(e) => {
+                        location.pathname === "/market"
+                          ? coinActions.latestListing(page)
+                          : coinActions.latestListing();
+                      }}
+                    >
+                      All
+                    </MenuItem>
+                  ) : (
+                    <MenuItem
+                      value={1}
+                      onClick={(e) => {
+                        location.pathname === "/market"
+                          ? coinActions.latestListing(page)
+                          : coinActions.latestListing();
+                      }}
+                    >
+                      All
+                    </MenuItem>
+                  )}
+                  {categoryList.length &&
+                    categoryList.map((item, index) => {
+                      if (index < 4) {
+                        if (selectedCat !== 0 && selectedCat === item.id) {
+                          return (
+                            <MenuItem
+                              value={index + 2}
+                              key={index}
+                              onClick={(e) => {
+                                coinActions.coinListbByCategoty(item.id);
+                              }}
+                              title={item.name}
+                            >
+                              {getFirstLetters(item.name)}
+                            </MenuItem>
+                          );
+                        } else {
+                          return (
+                            <MenuItem
+                              value={index + 2}
+                              onClick={(e) => {
+                                coinActions.coinListbByCategoty(item.id);
+                              }}
+                              title={item.name}
+                            >
+                              {getFirstLetters(item.name)}
+                            </MenuItem>
+                          );
+                        }
+                      } else {
+                        return "";
+                      }
+                    })}
                 </Select>
               </FormControl>
               {/* <Button

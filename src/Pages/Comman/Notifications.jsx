@@ -28,16 +28,9 @@ const Notifications = () => {
     const [checkNews,setCheckNews]=useState(false)
 
     const handleClear = async() => {
-        let notId = notifications.map((item,index) => {return( item.ct_notiy_id )})
-        console.log(notId,'fdffdfd');
-          notificationAction.clearNotifications({all_clear: 1});
+          notificationAction.clearNotifications();
         };
 
-    const handleMarkall = async() =>{
-        let notId = notifications.map((item,index) => {return( item.ct_notiy_id )})
-        notificationAction.notificationSingleread(notId)
-    }
-    
     const handleSelectAll =(flag) =>{
         let categoryArr = categoryArray;
          if(flag){
@@ -60,20 +53,20 @@ const Notifications = () => {
                 if(index > -1)
                 categoryArr.splice(index,1);    
             })
-         }
-       
-       setCategoryArray(categoryArr) 
-       const where= new URLSearchParams({
-        'category': categoryArr,
-    }) 
-    categoryArr.length>0? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View() 
-       flag ? setChecked(true):setChecked(false)
-    }
+        }
 
-    const handleLoadmore =() =>{
-        if (notifications.length % 5 < 5){
-         setLoadmore(loadmore + (notifications.length - loadmore))
-        }else{
+        setCategoryArray(categoryArr)
+        const where = new URLSearchParams({
+            'category': categoryArr,
+        })
+        categoryArr.length > 0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList()
+        flag ? setChecked(true) : setChecked(false)
+    }
+    //   console.log(notifications.length % 5 , "remiander")
+    const handleLoadmore = () => {
+        if (notifications.length % 5 < 5) {
+            setLoadmore(loadmore + (notifications.length - loadmore))
+        } else {
             setLoadmore(loadmore + 5)
         }
    }
@@ -81,10 +74,9 @@ const Notifications = () => {
      useEffect(() =>{
         notificationAction.notificationList()
         notificationAction.notificationList_View()
+    }, [])
 
-    },[])
-
-   const showFilteredNotification = (e,cat)=>{
+    const showFilteredNotification = (e, cat) => {
         let categoryArr = categoryArray
         const index = categoryArray.indexOf(cat);
         if(e.target.checked){
@@ -98,13 +90,12 @@ const Notifications = () => {
            setCheckCrypto(e.target.checked)
          if(cat==="Community")
             setCheckCommunity(e.target.checked)
-         if(cat==="Academy")
-           setCheckAcademy(e.target.checked)
-         if(cat==="News")  
-           setCheckNews(e.target.checked)
-         setCategoryArray(categoryArr)
-        categoryArr.length>0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View()
-console.log(categoryArr,'444');
+        if (cat === "Academy")
+            setCheckAcademy(e.target.checked)
+        if (cat === "News")
+            setCheckNews(e.target.checked)
+        setCategoryArray(categoryArr)
+        categoryArr.length > 0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList()
     }
        
     return (
@@ -121,7 +112,7 @@ console.log(categoryArr,'444');
                                     {notifications.length>0 && notifications.length === loadmore &&
                                     <Box className='notification-head-cta'>
                                         <Box className="modal-subscribed-cta">
-                                            <Button onClick={handleMarkall} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
+                                            <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
                                             <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Clear all</Button>
                                         </Box>
                                     </Box>}
@@ -152,7 +143,7 @@ console.log(categoryArr,'444');
                                                             <span className='n-date'> {item.ct_notify_created_At} </span>
                                                         </Typography>
                                                         <span className='notification-circle' 
-                                                        style={{backgroundColor: item.ct_notify_status === 0
+                                                        style={{backgroundColor: item.ct_notify_status === 1
                                                             ?'#777e90' 
                                                             : '#58bd7d'}}
                                                         >

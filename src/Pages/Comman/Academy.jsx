@@ -1,9 +1,9 @@
 import React from "react";
-import { useEffect} from 'react';
+import { useEffect } from 'react';
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../_common/app.constants";
 import { Box, Container, Typography, Breadcrumbs } from "@mui/material";
-import { NavigateNext } from "@mui/icons-material/";
+import { Block, NavigateNext } from "@mui/icons-material/";
 import { Grid, Button, Stack } from "@mui/material";
 import { KeyboardArrowRight } from "@mui/icons-material";
 import { useNavigate, Link } from "react-router-dom";
@@ -34,7 +34,6 @@ const Academy = () => {
         <Box
           component="main"
           className="community-wrapper subscription-wrapper bredcrum-div"
-          sx={{ mt: 8 }}
         >
           <Container maxWidth="lg">
             <Box className="subscription-wrapper-head">
@@ -65,15 +64,16 @@ const Academy = () => {
             <Grid
               container
               columnSpacing={{ xs: 1, sm: 4 }}
-              className="ipad-none"
+              rowSpacing={4}
             >
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6} md={6}>
                 <img src={Leveragedv3} />
                 <Stack
                   direction="row"
                   spacing={2}
                   justifyContent="space-between"
                   paddingTop={3}
+                  sx={{ display: { xs: "block", sm: "block", md: "flex" } }}
                 >
                   <Box>
                     <Typography
@@ -103,6 +103,7 @@ const Academy = () => {
                       border: "1px solid #E6E8EC",
                       height: "50px",
                       whiteSpace: "nowrap",
+                      marginLeft: "0 !important",
                     }}
                     onClick={() => navigate("/academy-about-crypto")}
                     master-course
@@ -111,13 +112,14 @@ const Academy = () => {
                   </Button>
                 </Stack>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6} md={6}>
                 <img src={Leveragedv3} />
                 <Stack
                   direction="row"
                   spacing={2}
                   justifyContent="space-between"
                   paddingTop={3}
+                  sx={{ display: { xs: "block", sm: "block", md: "flex" } }}
                 >
                   <Box>
                     <Typography
@@ -127,7 +129,7 @@ const Academy = () => {
                       fontWeight={700}
                       className="secondary-font"
                     >
-                       Master Course
+                      Master Course
                     </Typography>
                     <Typography
                       fontSize={16}
@@ -147,6 +149,7 @@ const Academy = () => {
                       border: "1px solid #E6E8EC",
                       height: "50px",
                       whiteSpace: "nowrap",
+                      marginLeft: "0 !important",
                     }}
                     onClick={() => navigate("/master-course")}
                   >

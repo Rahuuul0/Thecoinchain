@@ -1,23 +1,31 @@
-import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import PropTypes from "prop-types";
-import { Box, Typography, Stack } from "@mui/material";
-import UserDark from "../../../../public/assets/images/user.svg";
-import ShareIcon from "../../../../public/assets/images/share-light.svg";
-import UserIcon from "../../../../public/assets/images/user-light.svg";
-import ShareDark from "../../../../public/assets/images/share-dark.svg";
-import SessionIcon from "../../../../public/assets/images/session-light.svg";
-import SessionDark from "../../../../public/assets/images/session-dark.svg";
-import SubscriptionIcon from "../../../../public/assets/images/api.svg";
-import SubscriptionDark from "../../../../public/assets/images/subs-dark.svg";
-import FaIcon from "../../../../public/assets/images/fa-light.svg";
-import FaDark from "../../../../public/assets/images/fa-dark.svg";
-import Lockbtn from "../../../../public/assets/images/lock-light.svg";
-import LockbtnDark from "../../../../public/assets/images/lock-dark.svg";
-import { useNavigate, useLocation } from "react-router-dom";
-import { sidebarAtom } from "../../../_state";
+import * as React from 'react';
+import { useState,useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import PropTypes from 'prop-types';
+import { Box, Typography, Stack, Select, MenuItem, FormControl, } from '@mui/material';
+import UserDark from '../../../../public/assets/images/icons/user.svg';
+import ShareIcon from '../../../../public/assets/images/icons/share-light.svg';
+import UserIcon from '../../../../public/assets/images/icons/user-light.svg';
+import ShareDark from '../../../../public/assets/images/icons/share-dark.svg';
+import SessionIcon from '../../../../public/assets/images/icons/session-light.svg';
+import SessionDark from '../../../../public/assets/images/icons/session-dark.svg';
+import SubscriptionIcon from '../../../../public/assets/images/icons/subs-ic.svg';
+import SubscriptionDark from '../../../../public/assets/images/icons/subs-ic-dark.svg';
+import FaIcon from '../../../../public/assets/images/icons/fa-light.svg';
+import FaDark from '../../../../public/assets/images/icons/fa-dark.svg';
+import Lockbtn from '../../../../public/assets/images/icons/lock-light.svg';
+import LockbtnDark from '../../../../public/assets/images/icons/lock-dark.svg';
+import { useNavigate,useLocation } from 'react-router-dom';
+import { sidebarAtom } from '../../../_state';
+
+
 
 const Sidebar = (props) => {
+  const [sidebarFilter, setSidebarFilter] = useState("");
+
+  const handleChangeSidebar = (event) => {
+    setSidebarFilter(event.target.value);
+  };
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useRecoilState(sidebarAtom);
   const location = useLocation();
@@ -26,16 +34,16 @@ const Sidebar = (props) => {
     location.pathname === "/account" || location.pathname === "/account/profile"
       ? setActiveTab("profile")
       : location.pathname === "/account/referrals"
-      ? setActiveTab("referrals")
-      : location.pathname === "/account/forecast-subscription"
-      ? setActiveTab("Subscription")
-      : location.pathname === "/account/session-and-history"
-      ? setActiveTab("sessionAndHistory")
-      : location.pathname === "/account/2fa-enable"
-      ? setActiveTab("2fa")
-      : location.pathname === "/account/change-account-password"
-      ? setActiveTab("changePassword")
-      : "profile";
+        ? setActiveTab("referrals")
+        : location.pathname === "/account/forecast-subscription"
+          ? setActiveTab("Subscription")
+          : location.pathname === "/account/session-and-history"
+            ? setActiveTab("sessionAndHistory")
+            : location.pathname === "/account/2fa-enable"
+              ? setActiveTab("2fa")
+              : location.pathname === "/account/change-account-password"
+                ? setActiveTab("changePassword")
+                : "profile";
   }, [location]);
 
   return (
@@ -46,9 +54,8 @@ const Sidebar = (props) => {
             onClick={(e) => {
               navigate("/account/profile");
             }}
-            className={`left-icon secondary-color ${
-              activeTab === "profile" ? "text-black" : ""
-            }`}
+            className={`left-icon secondary-color ${activeTab === "profile" ? "text-black" : ""
+              }`}
             paddingBottom={4}
             fontWeight={700}
           >
@@ -62,9 +69,8 @@ const Sidebar = (props) => {
             onClick={(e) => {
               navigate("/account/referrals");
             }}
-            className={`left-icon secondary-color ${
-              activeTab === "referrals" ? "text-black" : ""
-            }`}
+            className={`left-icon secondary-color ${activeTab === "referrals" ? "text-black" : ""
+              }`}
             paddingBottom={4}
           >
             <span>
@@ -78,9 +84,8 @@ const Sidebar = (props) => {
             onClick={() => {
               navigate("/account/forecast-subscription");
             }}
-            className={`left-icon secondary-color ${
-              activeTab === "Subscription" ? "text-black" : ""
-            }`}
+            className={`left-icon secondary-color ${activeTab === "Subscription" ? "text-black" : ""
+              }`}
             paddingBottom={2}
           >
             <span>
@@ -95,9 +100,8 @@ const Sidebar = (props) => {
             onClick={() => {
               navigate("/account/session-and-history");
             }}
-            className={`left-icon secondary-color ${
-              activeTab === "sessionAndHistory" ? "text-black" : ""
-            }`}
+            className={`left-icon secondary-color ${activeTab === "sessionAndHistory" ? "text-black" : ""
+              }`}
             paddingBottom={4}
           >
             <span>
@@ -110,9 +114,8 @@ const Sidebar = (props) => {
             onClick={() => {
               navigate("/account/2fa-enable");
             }}
-            className={`left-icon secondary-color ${
-              activeTab === "2fa" ? "text-black" : ""
-            }`}
+            className={`left-icon secondary-color ${activeTab === "2fa" ? "text-black" : ""
+              }`}
             paddingBottom={4}
           >
             <span>
@@ -125,9 +128,8 @@ const Sidebar = (props) => {
             onClick={() => {
               navigate("/account/change-account-password");
             }}
-            className={`left-icon secondary-color ${
-              activeTab === "changePassword" ? "text-black" : ""
-            }`}
+            className={`left-icon secondary-color ${activeTab === "changePassword" ? "text-black" : ""
+              }`}
             paddingBottom={4}
           >
             <span>
@@ -138,6 +140,27 @@ const Sidebar = (props) => {
           </Typography>
         </Box>
       </Stack>
+      <Box className="sidebar-tabs for-mobile dropdown-mobile">
+        <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+          <Select
+            value={sidebarFilter}
+            onChange={handleChangeSidebar}
+            displayEmpty
+            inputProps={{ "aria-label": "Without label" }}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={10}><span><img src={UserDark} /></span>Profile</MenuItem>
+            <MenuItem value={20}><span><img src={ShareDark} /></span>Referrals</MenuItem>
+            <MenuItem value={30}><span><img src={SubscriptionDark} /></span>Subscriptions</MenuItem>
+            <MenuItem value={40}><span><img src={SessionDark} /></span>Sessions & login history</MenuItem>
+            <MenuItem value={40}><span><img src={FaDark} /></span>2FA</MenuItem>
+            <MenuItem value={40}><span><img src={LockbtnDark} /></span>Change password</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+
     </Box>
   );
 };

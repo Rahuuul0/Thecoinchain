@@ -1,4 +1,19 @@
-import { Container, Typography, Grid, Box, Stack, Button, Tab, Accordion, AccordionSummary, TextField, AccordionDetails } from '@mui/material'
+import {
+  Container,
+  Typography,
+  Grid,
+  Box,
+  Stack,
+  Button,
+  Tab,
+  Accordion,
+  AccordionSummary,
+  TextField,
+  AccordionDetails,
+  FormControl,
+  MenuItem,
+  Select
+} from '@mui/material'
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
@@ -8,28 +23,30 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { contact_AddAtom } from '../../_state';
 import { useRecoilState } from 'recoil';
-import {West, East} from '@mui/icons-material';
+import { West, East } from '@mui/icons-material';
 import { General, Subscriptions } from './Questions';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import { useNavigate } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import * as Yup from "yup";
-import ContactHeroImage from "../../../public/assets/images/contact.svg";
+import ContactHeroImage from "../../../public/assets/images/learn-cypto.svg";
 import InputBase from '@mui/material/InputBase';
 import Media from "../../../public/assets/images/media-img.svg";
 import Design from "../../../public/assets/images/design-sys.svg";
-import MediaContainer from "../../../public/assets/images/media container.svg";
-import GenralIcon from "../../../public/assets/images/genralicon.svg";
+import GenralIcon from "../../../public/assets/images/icons/genralicon.svg";
+import MediaContainer from "../../../public/assets/images/media-container.svg";
 import SubsIcon from "../../../public/assets/images/subscription.svg";
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Autocomplete from '@mui/material/Autocomplete';
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
 import LoadingButton from '@mui/lab/LoadingButton';
+
+
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -98,6 +115,11 @@ function getStyles(name, personName, theme) {
 }
 
 const Contact = () => {
+  const [faqfilter, setFaqfilter] = useState("");
+
+  const handleChangeFAQfilter = (event) => {
+    setFaqfilter(event.target.value);
+  };
   const navigate = useNavigate();
   const useContactAddActions = useContactActions();
   const [value, setValue] = useState('1');
@@ -119,8 +141,8 @@ const Contact = () => {
     question: Yup.string()
       .required('Question is required'),
     msg: Yup.string()
-    .required('Message is required')
-    .max(250)
+      .required('Message is required')
+      .max(250)
   });
 
   //yup validation
@@ -134,15 +156,15 @@ const Contact = () => {
 
   useEffect(() => {
     if (contactError)
-        setIsSubmitting(false)
-}, [contactError])
+      setIsSubmitting(false)
+  }, [contactError])
 
-  const handleFormSubmit = async (data) =>{
+  const handleFormSubmit = async (data) => {
     setIsSubmitting(true)
     setContactError(false)
     data.category = category;
     await useContactAddActions.add(data);
-    reset({email : " ", subject : " ", msg : " "  });
+    reset({ email: " ", subject: " ", msg: " " });
   }
 
   const handleChange = (event, newValue) => {
@@ -158,7 +180,7 @@ const Contact = () => {
 
   useEffect(() => {
     setQuestion(General)
-},[])
+  }, [])
 
   const handleGenral = () => {
     setQuestion(General);
@@ -167,62 +189,65 @@ const Contact = () => {
   const handleSubscription = () => {
     setQuestion(Subscriptions);
   }
-  useEffect(()=> {
+  useEffect(() => {
     reset({ ...formData, question: question[0] })
-  },[question]);
+  }, [question]);
 
   return (
     <>
       {/* Banner starts */}
       <Container>
-        <Box sx={{paddingTop:{ xs: '50px', md: '100px'}}} paddingBottom={10}>
+        <Box className="contact-hero" >
           <Grid container sx={{ alignItems: 'center' }}>
-            <Grid item xs={12} sm={6} md={6} paddingRight={5} className='padding-0-mobile'>
-              <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} >Save your time with Stacks</Typography>
-              <Typography variant='h1' component="div" className='hero-heading primary-color'>
+            <Grid item xs={12} sm={6} md={6} className='padding-0-mobile'>
+              <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} sx={{ fontWeight: 700 }} >Save your time with Stacks</Typography>
+              <Typography variant='h1' component="h1" className='hero-heading primary-color' sx={{ lineHeight: 1, mb: "20px" }}>
                 How can we help
               </Typography>
-              <Typography variant='body2' component="div" className='hero-para secondary-color' paddingBottom={2}>
+              <Typography variant='body1' component="p" className='hero-para secondary-color' paddingBottom={2}>
                 A creative agency that lead and inspire
               </Typography>
-           
+
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
               <img className='contact-hero-image' src={ContactHeroImage} />
             </Grid>
           </Grid>
         </Box>
-      </Container>
+      </Container >
       {/* Banner Ends */}
-      <Typography textAlign='center' className='body-caption secondary-color'>Before asking for an answer, you may find it in <br/> our learn crypto center</Typography>
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
-        <Box paddingY={7} className='newdesignbox'>
+        <Box paddingTop={7} className='newdesignbox swiper-styles'>
+          <Container maxWidth="xs">
+            <Typography variant='body1' component="p" className='hero-para secondary-color' textAlign={"center"} paddingBottom={5}>
+              Before asking for an answer, you may find it in our learn crypto center
+            </Typography>
+          </Container>
           <Swiper
-              slidesPerView={4}
-              spaceBetween={0}
-              loop={true}
-              navigation={true}
-              modules={[Navigation]}
-              breakpoints={{
-                480: {
-                  slidesPerView: 1,
-                },
-                640: {
-                  slidesPerView: 2,
-                },
-                768: {
-                  slidesPerView: 3,
-                },
-                1024: {
-                  slidesPerView: 4,
-                },
-              }}
-              className="blog-carousel"
-            >
-              <SwiperSlide>
+            slidesPerView={1}
+            navigation={true}
+            spaceBetween={0}
+            breakpoints={{
+              480: {
+                slidesPerView: 1,
+              },
+              640: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              1080: {
+                slidesPerView: 4,
+              },
+            }}
+            modules={[Navigation]}
+            className="mySwiper"
+          >
+            <SwiperSlide>
               <Box className='about-crypto'>
                 <Box className=''>
-                <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
+                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Design} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -230,8 +255,8 @@ const Contact = () => {
                   <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
                 </Box>
               </Box>
-              </SwiperSlide>
-              <SwiperSlide>
+            </SwiperSlide>
+            <SwiperSlide>
               <Box className='about-crypto'>
                 <Box className=''>
                   <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
@@ -242,11 +267,11 @@ const Contact = () => {
                   <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
                 </Box>
               </Box>
-              </SwiperSlide>
-              <SwiperSlide>
+            </SwiperSlide>
+            <SwiperSlide>
               <Box className='about-crypto'>
                 <Box className=''>
-                <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
+                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Design} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -254,8 +279,8 @@ const Contact = () => {
                   <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
                 </Box>
               </Box>
-              </SwiperSlide>
-              <SwiperSlide>
+            </SwiperSlide>
+            <SwiperSlide>
               <Box className='about-crypto'>
                 <Box className=''>
                   <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
@@ -266,11 +291,11 @@ const Contact = () => {
                   <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
                 </Box>
               </Box>
-              </SwiperSlide>
-              <SwiperSlide>
+            </SwiperSlide>
+            <SwiperSlide>
               <Box className='about-crypto'>
                 <Box className=''>
-                <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
+                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
                   <img src={Media} />
                 </Box>
                 <Box paddingTop={4} className="inner-con-box">
@@ -278,8 +303,8 @@ const Contact = () => {
                   <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
                 </Box>
               </Box>
-              </SwiperSlide>
-              <SwiperSlide>
+            </SwiperSlide>
+            <SwiperSlide>
               <Box className='about-crypto'>
                 <Box className=''>
                   <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
@@ -290,28 +315,16 @@ const Contact = () => {
                   <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
                 </Box>
               </Box>
-              </SwiperSlide>
-            </Swiper>
-          <Stack direction="row" spacing={3} justifyContent='center'>
-                    <Box className="slider-icon">
-                      <West/>
-                    </Box>
-                    <Box className="slider-icon active-slider-icon">
-                      <East/>
-                    </Box>
-                  </Stack>
-
-          <Typography textAlign='center' paddingTop={10}>
-            <Button onClick={()=>{navigate("/learn-cypto")}} className='btn-outlined-secondary'>Learn More</Button>
-          </Typography>
+            </SwiperSlide>
+          </Swiper>
         </Box>
-      </Container>
+      </Container >
 
 
       {/* Slider ends */}
 
-      <Container>
-        <Box paddingY={10}>
+      < Container >
+        <Box className="faq-box">
           <Box>
             <Box className='smallwidth'>
               <Typography variant='h2' fontWeight='700' textAlign='center' className='secondary-font' paddingBottom={4}>Frequently asked questions</Typography>
@@ -319,16 +332,36 @@ const Contact = () => {
               <Box className="learn-cypto-tab center-tab" sx={{ width: '100%', typography: 'body1' }}>
                 <TabContext value={value}>
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <TabList onChange={handleChange} aria-label="tabs">
+                    <TabList onChange={handleChange} aria-label="tabs" className='for-desktop'>
                       <Tab label="General" value="1" />
                       <Tab label="Support" value="2" />
                       <Tab label="Hosting" value="3" />
                       <Tab label="Product" value="4" />
                     </TabList>
+
+                    <Box className="market-crypto-tabs for-mobile dropdown-mobile">
+                      <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                        <Select
+                          value={faqfilter}
+                          onChange={handleChangeFAQfilter}
+                          displayEmpty
+                          inputProps={{ "aria-label": "Without label" }}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          <MenuItem value={10}>General</MenuItem>
+                          <MenuItem value={20}>Support</MenuItem>
+                          <MenuItem value={30}>Hosting</MenuItem>
+                          <MenuItem value={40}>Product</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+
                   </Box>
                   <TabPanel value="1" sx={{ paddingRight: '0', paddingLeft: '0' }} >
                     <Box className='faq-accordian'>
-                      <Accordion >
+                      <Accordion sx={{ p: 0 }}>
                         <AccordionSummary
                           expandIcon={<ExpandMore />}
                           aria-controls="panel1a-content"
@@ -399,130 +432,129 @@ const Contact = () => {
           </Box>
 
         </Box>
-      </Container>
+      </Container >
 
       <Container maxWidth='fluid' sx={{ backgroundColor: '#F8F8F9' }}>
-        <Container className='smallwidth'>
-          <Box paddingY={10} className="topic-que">
-          <Box
-          noValidate
-          component="form"
-          sx={{ mt: '24px' }}
-          onSubmit={handleSubmit(handleFormSubmit)}
-                                >
-             <Typography component="h5" variant='h5' sx={{ width: '33%', flexShrink: 0 }}>
+        <Container className='smallwidth' padding={'0'}>
+          <Box className="topic-que">
+            <Box
+              noValidate
+              component="form"
+              sx={{ mt: '24px' }}
+              onSubmit={handleSubmit(handleFormSubmit)}
+            >
+              {/* <Typography component="h5" variant='h5' sx={{ width: '33%', flexShrink: 0 }}>
                 Contact-Us
-              </Typography>
-            <Box paddingBottom={2} className='topic-select-radio'>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>Select a topic</Typography>
+              </Typography> */}
+              <Box paddingBottom={2} className='topic-select-radio'>
+                <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>Select a topic</Typography>
 
-              <Stack direction='row' spacing={3} className='button-img' >
-                <Button className={category=="general"?"active btn":"btn"} variant="outlined" onClick={() => { setCategory("general"); handleGenral(); }} > <span><img src={GenralIcon} /></span> General</Button>
-                <Button className={category=="subscriptions"?"active btn":"btn"} variant="outlined" onClick={() => { setCategory("subscriptions"); handleSubscription(); }} > <span><img src={SubsIcon} /></span> Subscription</Button>
-              </Stack>
-            </Box>
-            <Box paddingBottom={2}>
-              <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>What is your issue about? *</Typography>
-              <Grid item xs={12}>
-            <Autocomplete
-                required
-                disablePortal
-                fullWidth
-                id="combo-box-demo"
-                size="small"
-                value={formData?.question || ''}
-                options= {question}
-                onChange={(e, props) => reset({ ...formData, question: props })}
-                renderInput={(params) => <TextField autoFocus {...register('question')} required {...params} InputLabelProps={{ shrink: true }} />}
-            />
-            <div style={{ color: "red" }}>{errors.question?.message}</div>
-        </Grid>
-            </Box>
+                <Stack direction='row' spacing={3} className='button-img' >
+                  <Button className={category == "general" ? "active btn" : "btn"} variant="outlined" onClick={() => { setCategory("general"); handleGenral(); }} > <span><img src={GenralIcon} /></span> General</Button>
+                  <Button className={category == "subscriptions" ? "active btn" : "btn"} variant="outlined" onClick={() => { setCategory("subscriptions"); handleSubscription(); }} > <span><img src={SubsIcon} /></span> Subscription</Button>
+                </Stack>
+              </Box>
+              <Box paddingBottom={2}>
+                <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>What is your issue about? *</Typography>
+                <Grid item xs={12}>
+                  <Autocomplete
+                    required
+                    disablePortal
+                    fullWidth
+                    id="combo-box-demo"
+                    size="small"
+                    className='select-input'
+                    value={formData?.question || ''}
+                    options={question}
+                    onChange={(e, props) => reset({ ...formData, question: props })}
+                    renderInput={(params) => <TextField autoFocus {...register('question')} required {...params} InputLabelProps={{ shrink: true }} />}
+                  />
+                  <div className='frm-message'>{errors.question?.message}</div>
+                </Grid>
+              </Box>
 
-            <Box paddingBottom={2}>
-              <TextField
-                label="Email *"
-                className="form-control"
-                type="email"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="standard"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                placeholder='Email address'
-                name="email"
-                autoComplete="off"
-                size="small"
-                {...register("email")}
-                onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-              />
-              <div style={{ color: "red" }}>{errors.email?.message}</div>
-            </Box>
+              <Box paddingBottom={2}>
+                <TextField
+                  label="Email *"
+                  className="form-control"
+                  type="email"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  placeholder='Email address'
+                  name="email"
+                  autoComplete="off"
+                  size="small"
+                  {...register("email")}
+                  onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                />
+                <div className='frm-message'>{errors.email?.message}</div>
+              </Box>
 
-            <Box paddingBottom={2}>
-              <TextField
-                label="Subject *"
-                className="form-control"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="standard"
-                margin="normal"
-                required
-                fullWidth
-                id="Subject"
-                placeholder='Subject'
-                name="subject"
-                autoComplete="off"
-                {...register("subject")}
-                onChange={(e) => reset({ ...formData, subject: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-              />
-               <div style={{ color: "red" }}>{errors.subject?.message}</div>
-            </Box>
-            <Box paddingTop='2'>
-              <TextField
-                id="outlined-multiline-static"
-                label="Message *"
-                variant="standard"
-                className="form-control"
-                placeholder='Say something'
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                multiline
-                rows={4}
-                maxlength={10}
-                fullWidth
-                {...register("msg")}
-                onChange={(e) => reset({ ...formData, msg: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-              />
-               <div style={{ color: "red" }}>{errors.msg?.message}</div>
-            </Box>
-            <Box paddingTop='2'>
-              <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
-                <LoadingButton 
-                type='submit'
-                loading={isSubmitting}
-                loadingPosition="end"
-                className='btn btn-primary' 
-                sx={{ float: 'right',minWidth: "160px" }} 
-                disabled={isSubmitting}
-                variant='contained'>
-                {isSubmitting? <span  className="spinner-border ">Loading</span>:" Send message "}
-                </LoadingButton>
-              </Typography>
-            </Box>
-          </Box>
-          </Box>
-        </Container>
-      </Container>
+              <Box paddingBottom={2}>
+                <TextField
+                  label="Subject *"
+                  className="form-control"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="Subject"
+                  placeholder='Subject'
+                  name="subject"
+                  autoComplete="off"
+                  {...register("subject")}
+                  onChange={(e) => reset({ ...formData, subject: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                />
+                <div className='frm-message'>{errors.subject?.message}</div>
+              </Box>
 
+              <Box paddingTop='2'>
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Message *"
+                  variant="standard"
+                  className="form-control"
+                  placeholder='Say something'
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  multiline
+                  rows={4}
+                  maxlength={10}
+                  fullWidth
+                  {...register("msg")}
+                  onChange={(e) => reset({ ...formData, msg: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
+                />
+                <div className='frm-message'>{errors.msg?.message}</div>
+              </Box>
+              <Box paddingTop='2'>
+                <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
+                  <LoadingButton
+                    type='submit'
+                    loading={isSubmitting}
+                    loadingPosition="end"
+                    className='btn btn-primary'
+                    sx={{ ml: 'auto' }}
+                    disabled={isSubmitting}
+                    variant='contained'>
+                    {isSubmitting ? <span className="spinner-border ">Loading</span> : " Send message "}
+                  </LoadingButton>
+                </Typography>
+              </Box>
 
-
-
+            </Box >
+          </Box >
+        </Container >
+      </Container >
     </>
   )
 }

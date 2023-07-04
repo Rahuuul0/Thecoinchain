@@ -114,8 +114,7 @@ const ForgotPassword = () => {
                 variant="body2"
                 sx={{ fontSize: "14px", color: "#2B2B2B;" }}
               >
-                Don’t have an account?
-                <Link
+                Don’t have an account? <Link
                   onClick={() => {
                     navigate("/create-account");
                     setSoption(true);
@@ -131,7 +130,7 @@ const ForgotPassword = () => {
               <img src={AuthBg} alt="Auth bg" />
             </Box>
             <Box className="auth-wrapper-form">
-              <Box position="absolute" sx={{ top: {xs: '15px' , md: '90px'}  }}>
+              <Box position="absolute" sx={{ top: { xs: '0px', sm: '30px', md: '90px' } }}>
                 <IconButton
                   onClick={() => {
                     navigate("/login");
@@ -201,7 +200,7 @@ const ForgotPassword = () => {
                         }}
                         {...register("email")}
                       />
-                      <div style={{ color: "red" }}>
+                      <div className="frm-message" style={{ color: "red" }}>
                         {errors.email?.message}
                       </div>
                       <LoadingButton
@@ -212,7 +211,7 @@ const ForgotPassword = () => {
                         className="btn btn-primary"
                         disabled={isSubmitting}
                       >
-                       {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Continue"}
+                        {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Continue"}
                       </LoadingButton>
                       <Typography
                         onClick={() => {

@@ -28,6 +28,10 @@ import { useTutorialActions } from "../../_actions/tutorial.actions";
 import AppBar from "@mui/material/AppBar";
 import Tab from "@mui/material/Tab";
 import { TabContext, TabPanel, TabList } from "@mui/lab/";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -68,18 +72,6 @@ const LearnCypto = () => {
 
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
-
-    let blogCategory = "";
-    blogCategory =
-      newValue === "1"
-        ? "2D Design"
-        : newValue === "2"
-        ? "3D Design"
-        : newValue === "3"
-        ? "Blockchain"
-        : "2D Design";
-
-    handleBlogs(blogCategory);
   };
 
   const handleBlogs = (blogCategory) => {
@@ -133,24 +125,46 @@ const LearnCypto = () => {
   const handleLoadMore = () => {
     setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-
   };
+
+  const handleChangeDropdown = (event) => {
+    setValue(event.target.value);
+  };
+
+  const handleChangeTutorialDropdown = (event) => {
+    setTutorialTab(event.target.value);
+  };
+
+  useEffect(() => {
+    let blogCategory = "";
+    blogCategory =
+      value === "1"
+        ? "2D Design"
+        : value === "2"
+        ? "3D Design"
+        : value === "3"
+        ? "Blockchain"
+        : "2D Design";
+
+    handleBlogs(blogCategory);
+  }, [value]);
 
   return (
     <>
-      <Container sx={{ pt: 14 }}>
+      <Container className="learn-crypto">
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={loader}
         >
           <CircularProgress color="inherit" />
         </Backdrop>
-        <Box paddingBottom={15}>
+        <Box>
           <Typography
             variant="h1"
             className="secondary-font"
             fontWeight="700"
             textAlign="center"
+            marginBottom={{ xs: 2 }}
           >
             Blockchain & Crypto
           </Typography>
@@ -192,9 +206,9 @@ const LearnCypto = () => {
         </Box>
       </Container>
       {/* Our Blog section */}
-      <Container maxWidth="fluid" sx={{ backgroundColor: "#F4F5F6" }}>
+      <Box className="latest-release">
         <Container>
-          <Box paddingTop={15} paddingBottom={3}>
+          <Box>
             <Grid container>
               <Grid item xs={12} sm={5} md={5}>
                 <Typography className="small-caption secondary-color">
@@ -206,11 +220,11 @@ const LearnCypto = () => {
                   variant="h2"
                   className="secondary-font"
                   fontWeight="700"
-                  paddingBottom={4}
+                  paddingBottom="20px"
                 >
                   Latest Releases
                 </Typography>
-                <Typography>
+                <Typography color={"#353945"}>
                   Stacks is a production-ready library of stackable content
                   blocks built in React Native.
                 </Typography>
@@ -220,27 +234,41 @@ const LearnCypto = () => {
         </Container>
         <Container>
           <Box className="right-tab">
-            <TabContext value={value}>
-              <AppBar position="static">
-                <Grid container>
-                  <Grid className="" xs={12} sm={5} md={5}></Grid>
-                  <Grid className="" xs={12} sm={7} md={7}>
-                    <TabList
-                      onChange={handleChangeTab}
-                      aria-label="lab API tabs example"
-                    >
-                      <Tab label="2D Design" value="1" />
-                      <Tab label="3D Design" value="2" />
-                      <Tab label="Bitcoin" value="3" />
-                    </TabList>
-                  </Grid>
+            <TabContext value={value} className="tab-grid">
+              <Grid container>
+                <Grid className="" xs={12} sm={5} md={5}></Grid>
+                <Grid className="" xs={12} sm={7} md={7}>
+                  <TabList
+                    className="for-desktop"
+                    onChange={handleChangeTab}
+                    aria-label="lab API tabs example"
+                  >
+                    <Tab label="2D Design" value="1" />
+                    <Tab label="3D Design" value="2" />
+                    <Tab label="Bitcoin" value="3" />
+                  </TabList>
+
+                  <Box className="latest-release-tabs for-mobile dropdown-mobile">
+                    <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                      <Select
+                        onChange={handleChangeDropdown}
+                        displayEmpty
+                        value={value}
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        <MenuItem value="1">2D Design</MenuItem>
+                        <MenuItem value="2">3D Design</MenuItem>
+                        <MenuItem value="3">Bitcoin</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
                 </Grid>
-              </AppBar>
+              </Grid>
               <TabPanel value={value}>
                 <Box>
                   {blogList?.map((item) => {
                     return (
-                      <Box paddingBottom={3}>
+                      <Box className="right-tab-content">
                         <Grid container>
                           <Grid item xs={12} sm={5} md={5}>
                             <Box
@@ -252,22 +280,21 @@ const LearnCypto = () => {
                               <Box height="50">
                                 <Typography
                                   textTransform="uppercase"
-                                  sx={{ marginBottom: "50px" }}
                                   className="orange-btn small-btn small-new-btn"
                                 >
                                   New
                                 </Typography>
                               </Box>
-                              <Box className="" paddingBottom={5}>
+                              <Box className="blog-box-content">
                                 <Typography
                                   variant="h4"
                                   fontWeight="700"
                                   className="secondary-font"
-                                  paddingBottom={2}
+                                  paddingBottom={1}
                                 >
                                   {item.title}
                                 </Typography>
-                                <Typography paddingBottom={5}>
+                                <Typography paddingBottom={3}>
                                   {item.category}
                                 </Typography>
                                 <Typography className="body-caption secondary-color">
@@ -275,7 +302,7 @@ const LearnCypto = () => {
                                 </Typography>
                               </Box>
                               <Box>
-                                <ArrowRightAlt />
+                                <ArrowRightAlt color="#777E90" />
                               </Box>
                             </Box>
                           </Grid>
@@ -294,24 +321,21 @@ const LearnCypto = () => {
             </TabContext>
           </Box>
         </Container>
-      </Container>
+      </Box>
       {/* blog ends */}
 
       <Container>
         <TabContext value={tutorialTab}>
-          <Box paddingY={7}>
+          <Box className="tutorials-grid">
             <Box
-              sx={{ display: { xs: "block", md: "flex" } }}
+              sx={{ display: { xs: "block", sm: "flex" } }}
               flexDirection="row"
               justifyContent="space-between"
-              paddingTop={3}
-              paddingBottom={8}
+              alignItems="center"
+              padding={0}
             >
               <Box>
-                <FormControl
-                  className="mobile-w-100"
-                  sx={{ m: 1, width: 300, mt: 3 }}
-                >
+                <FormControl className="mobile-w-100" sx={{ width: 300 }}>
                   <Select
                     multiple
                     displayEmpty
@@ -344,13 +368,10 @@ const LearnCypto = () => {
                 </FormControl>
               </Box>
               <Box>
-                <Stack
-                  direction="row"
-                  className="filter-btn"
-                  spacing="2"
-                  paddingTop={5}
-                >
+                <Stack direction="row" className="filter-btn" spacing="2">
                   <TabList
+                    alignItems="center"
+                    className="for-desktop"
                     onChange={handleChangeTutorialTab}
                     aria-label="lab API tabs example"
                   >
@@ -383,95 +404,127 @@ const LearnCypto = () => {
                       value="4"
                     />
                   </TabList>
+
+                  <Box className="for-mobile dropdown-mobile">
+                    <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                      <Select
+                        onChange={handleChangeTutorialDropdown}
+                        displayEmpty
+                        value={tutorialTab}
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        <MenuItem value="1">Tutorials</MenuItem>
+                        <MenuItem value="2">Usecase</MenuItem>
+                        <MenuItem value="3">Trading</MenuItem>
+                        <MenuItem value="4">Wallet</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
                 </Stack>
               </Box>
             </Box>
-
-            <Grid container spacing={6} rowSpacing={6}>
-              {tutorialsData?.slice(0, 6).map((item) => {
-                return (
-                  <Grid item xs={12} md={6} xl={4}>
-                    <Box
-                      className="about-crypto"
-                      onclick={() => {
-                        navigate("../learn-cypto-detail");
-                      }}
-                    >
-                      <Typography
-                        textTransform="uppercase"
-                        className="orange-btn float-img small-btn small-new-btn"
-                      >
-                        New
-                      </Typography>
-
+            <Box className="tutorials-grid-item">
+              <Grid container columnSpacing={4} rowSpacing={0}>
+                {tutorialsData?.slice(0, 6).map((item) => {
+                  return (
+                    <Grid item xs={12} md={6} xl={4}>
                       <Box
-                        className="avatar-rounded"
-                        onClick={() =>
-                          scrollToVideo(
-                            scrollRef,
-                            item.video_link,
-                            item.image_link
-                          )
-                        }
-                        sx={{ cursor: "pointer" }}
+                        className="about-crypto"
+                        onclick={() => {
+                          navigate("../learn-cypto-detail");
+                        }}
                       >
-                        <img
-                          className="tutorial-preview"
-                          src={item.image_link}
-                        />
-                      </Box>
-                      <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        paddingTop={3}
-                      >
-                        <Box display="flex">
-                          <img src={Avatar} />
-                          <Box sx={{ paddingLeft: "15px" }}>
-                            <Typography fontWeight="500">
-                              {item.title}
-                            </Typography>
-                            <Typography
-                              className="small-caption secondary-color"
-                              fontWeight="500"
-                            >
-                              <span>First Name</span> <span>Last Name</span>
-                            </Typography>
+                        <Typography
+                          textTransform="uppercase"
+                          className="orange-btn float-img small-btn small-new-btn"
+                        >
+                          New
+                        </Typography>
+
+                        <Box
+                          className="about-crypto"
+                          onclick={() => {
+                            navigate("../learn-cypto-detail");
+                          }}
+                        >
+                          <Typography
+                            textTransform="uppercase"
+                            className="orange-btn float-img small-btn small-new-btn"
+                          >
+                            New
+                          </Typography>
+
+                          <Box
+                            className="avatar-rounded"
+                            onClick={() =>
+                              scrollToVideo(
+                                scrollRef,
+                                item.video_link,
+                                item.image_link
+                              )
+                            }
+                            sx={{ cursor: "pointer" }}
+                          >
+                            <img
+                              className="tutorial-preview"
+                              src={item.image_link}
+                            />
+                          </Box>
+                          <Box
+                            display="flex"
+                            justifyContent="space-between"
+                            paddingTop={3}
+                          >
+                            <Box display="flex" width="calc(100% - 45px)">
+                              <img src={Avatar} />
+                              <Box sx={{ paddingLeft: "15px" }}>
+                                <Typography fontWeight="500">
+                                  {item.title}
+                                </Typography>
+                                <Typography
+                                  className="small-caption secondary-color"
+                                  fontWeight="500"
+                                >
+                                  <span>First Name</span> <span>Last Name</span>
+                                </Typography>
+                              </Box>
+                            </Box>
+
+                            <Box>
+                              <Typography className="btn btn-green-outlined small-new-btn">
+                                Popular
+                              </Typography>
+                            </Box>
                           </Box>
                         </Box>
+                      </Box>
+                    </Grid>
+                  );
+                })}
+              </Grid>
 
-                        <Box>
-                          <Typography className="btn btn-green-outlined small-new-btn">
-                            Popular
-                          </Typography>
-                        </Box>
-                      </Stack>
-                    </Box>
-                  </Grid>
-                );
-              })}
-            </Grid>
-            <Box paddingTop={8} paddingBottom={15}>
-              <Button
-                sx={{ margin: "0 auto" }}
-                className="btn btn-outlined-secondary"
-                varient="outlined"
-                endIcon={<ArrowDropDown />}
-                onClick={() => {
-                  navigate("/learn-cypto-detail");
-                }}
-              >
-                Learn More
-              </Button>
+              <Box paddingTop={{ xs: 3, sm: 4 }}>
+                <Button
+                  sx={{ margin: "0 auto" }}
+                  className="btn btn-outlined-secondary"
+                  varient="outlined"
+                  endIcon={<ArrowDropDown />}
+                  onClick={() => {
+                    navigate("/learn-cypto-detail");
+                  }}
+                >
+                  Learn More
+                </Button>
+              </Box>
             </Box>
           </Box>
         </TabContext>
       </Container>
 
       {/* section starts */}
-      <Container maxWidth="fluid" sx={{ backgroundColor: "#F4F5F6" }}>
+      <Box className="global-community">
         <Container>
-          <Box paddingBottom={12} paddingTop={12}>
+          <Box>
             <Box textAlign="center">
               <img src={DarkLogo} />
               <Typography
@@ -489,50 +542,101 @@ const LearnCypto = () => {
                 A creative agency that lead and inspire
               </Typography>
             </Box>
-            <Box className="crypto-box">
-              <Grid
-                container
-                spacing={{ xs: 2, md: 3 }}
-                columns={{ xs: 4, sm: 8, md: 12 }}
-                className="flow-reverse-mobile"
+            <Box className="swiper-global">
+              <Swiper
+                slidesPerView={1}
+                navigation={true}
+                spaceBetween={0}
+                modules={[Navigation]}
+                className="mySwiper"
               >
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={6}
-                  paddingRight={6}
-                  className="padding-0-mobile"
-                >
-                  <Typography
-                    className="small-caption secondary-color"
-                    sx={{ textTransform: "uppercase" }}
-                    paddingBottom={3}
-                  >
-                    Crypto news
-                  </Typography>
-                  <Typography paddingBottom={3} className="body-large">
-                    Be Part of our Global Community
-                  </Typography>
-                  <Typography className="secondary-color" paddingBottom={14}>
-                    Let’s stay in touch. Join our communities to keep up with
-                    the BitCloud team and our traders from across the world.
-                  </Typography>
-                  <Button
-                    className="btn-outlined-secondary"
-                    onClick={() => navigate("/community")}
-                  >
-                    Join now
-                  </Button>
-                </Grid>
-                <Grid item xs={12} sm={6} md={6} textAlign="right">
-                  <img src={Globe} />
-                </Grid>
-              </Grid>
+                <SwiperSlide>
+                  <Box className="crypto-box">
+                    <Grid
+                      container
+                      spacing={{ xs: 8, md: 3 }}
+                      columns={{ xs: 12, sm: 8, md: 12 }}
+                      className="flow-reverse-mobile"
+                    >
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        md={6}
+                      >
+                        <Typography
+                          className="small-caption secondary-color"
+                          sx={{ textTransform: "uppercase" }}
+                          paddingBottom={2}
+                        >
+                          Crypto news
+                        </Typography>
+                        <Typography component="h4" variant="h4" paddingBottom={3}>
+                          Be Part of our Global Community
+                        </Typography>
+                        <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
+                          Let’s stay in touch. Join our communities to keep up with
+                          the BitCloud team and our traders from across the world.
+                        </Typography>
+                        <Button
+                          className="btn-outlined-secondary"
+                          onClick={() => navigate("/community")}
+                        >
+                          Join now
+                        </Button>
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6} textAlign="right">
+                        <img src={Globe} />
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <Box className="crypto-box">
+                    <Grid
+                      container
+                      spacing={{ xs: 8, md: 3 }}
+                      columns={{ xs: 12, sm: 8, md: 12 }}
+                      className="flow-reverse-mobile"
+                    >
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        md={6}
+                      >
+                        <Typography
+                          className="small-caption secondary-color"
+                          sx={{ textTransform: "uppercase" }}
+                          paddingBottom={2}
+                        >
+                          Crypto news
+                        </Typography>
+                        <Typography component="h4" variant="h4" paddingBottom={3}>
+                          Be Part of our Global Community
+                        </Typography>
+                        <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
+                          Let’s stay in touch. Join our communities to keep up with
+                          the BitCloud team and our traders from across the world.
+                        </Typography>
+                        <Button
+                          className="btn-outlined-secondary"
+                          onClick={() => navigate("/community")}
+                        >
+                          Join now
+                        </Button>
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6} textAlign="right">
+                        <img src={Globe} />
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </SwiperSlide>
+              </Swiper>
             </Box>
           </Box>
         </Container>
-      </Container>
+      </Box>
       {/* section ends */}
     </>
   );

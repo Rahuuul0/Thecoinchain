@@ -1,20 +1,19 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { ListItem, List, ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid, Switch } from '@mui/material/';
+import { ListItem, List, Tooltip,ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid, Switch } from '@mui/material/';
 import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
-import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
-import galleryImage from '../../../../public/assets/images/gallery.svg';
-import { NotificationsNone, Search, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
-import ShareIcon from '../../../../public/assets/images/share-square.svg';
-import UserIcon from '../../../../public/assets/images/user.svg';
+import { MenuItem, Badge, Box, AppBar, Divider, Drawer } from '@mui/material';
+import galleryImage from '../../../../public/assets/images/icons/gallery.svg';
+import { NotificationsNone, Search, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
+import ShareIcon from '../../../../public/assets/images/icons/share-square.svg';
+import UserIcon from '../../../../public/assets/images/icons/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import { useUserActions } from "../../../_actions/user.actions";
-import {notificationActions} from '../../../_actions/notification.actions';
-import { useState, useEffect } from "react";
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import {notificationAtom, authAtom, notificationCountAtom} from '../../../_state/';
+import { notificationActions } from '../../../_actions/notification.actions';
+import { useEffect } from "react";
+import { notificationAtom, authAtom, notificationCountAtom } from '../../../_state/';
 import { useRecoilValue } from "recoil";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -22,32 +21,28 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const drawerWidth = '100%';
-const drawerHeight = '100vh';
-
 function Header(props) {
   const userActions = useUserActions();
   const notificationAction = notificationActions();
   const notifications = useRecoilValue(notificationAtom);
   const userDetails = useRecoilValue(authAtom);
   const notificaionCount = useRecoilValue(notificationCountAtom);
- 
-  const handleClear = async() => {
-    let notId = notifications.slice(0,5).map((item,index) => {return( item.ct_notiy_id )})
-    
-      notificationAction.clearNotifications({notifications : notId});
+
+  const handleClear = async () => {
+    let notId = notifications.slice(0, 5).map((item, index) => { return (item.ct_notiy_id) })
+    notificationAction.clearNotifications(notId);
   };
 
-useEffect(()=>{
-  notificationAction.notificationList() 
-  notificationAction.notificationList_View()
-     
-},[])
+  useEffect(() => {
+    notificationAction.notificationList()
+    notificationAction.notificationList_View()
 
-const singleRead = async (notId) =>{
-    let userId = userDetails.id
+  }, [])
 
+  const singleRead = async (notId) => {
+    let userId = userDetails.id;
     notificationAction.notificationSingleread(notId, userId)
-}
+  }
 
   const navItems = [
     {
@@ -65,83 +60,52 @@ const singleRead = async (notId) =>{
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
+    setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-        setAnchorEl(null);
-        navigate('/academy-about-crypto')
+    setAnchorEl(null);
+    navigate('/academy-about-crypto')
   };
 
   const handle = () => {
-        setAnchorEl(null);
-        navigate('/master-course')
+    setAnchorEl(null);
+    navigate('/master-course')
   };
-  const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
   const [anchorElAnchor, setAnchorElAnchor] = React.useState(null);
   const openAnchor = Boolean(anchorElAnchor);
   const handleClickAnchor = (event) => {
-        setAnchorElAnchor(event.currentTarget);
+    setAnchorElAnchor(event.currentTarget);
   };
   const handleCloseAnchor = () => {
-        setAnchorElAnchor(null);
+    setAnchorElAnchor(null);
   };
 
   const [anchorElAnchorbtn, setAnchorElAnchorbtn] = React.useState(null);
   const openAnchorbtn = Boolean(anchorElAnchorbtn);
   const handleClickAnchorbtn = (event) => {
-        setAnchorElAnchorbtn(event.currentTarget);
+    setAnchorElAnchorbtn(event.currentTarget);
   };
   const handleCloseAnchorbtn = () => {
-        setAnchorElAnchorbtn(null);
+    setAnchorElAnchorbtn(null);
   };
-  const [anchorElNoti, setAnchorElNoti] = React.useState(null);
-  const openAnchorNoti = Boolean(anchorElNoti);
-  const handleClickAnchorNoti = (event) => {
-        setAnchorElNoti(event.currentTarget);
-  };
-  const handleCloseAnchorNoti = () => {
-        setAnchorElNoti(null);
-  };
-
   const navigate = useNavigate();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
-        setMobileOpen((prevState) => !prevState);
+    setMobileOpen((prevState) => !prevState);
   };
 
 
   const drawer = (
-    <Box className='mobile-nav-box' onClick={handleDrawerToggle} sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
+    <Box className='mobile-nav-box' sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
       <Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Box>
             <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
           </Box>
-          <Box display='flex' alignItems='center' >
-          
-            <Box>
-              <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
-              size="small"
-              sx={{ ml: 2 }}
-              aria-controls={openAnchorbtn ? 'account-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
-              <IconButton>
-              <NotificationsNone color="action" />
-            </IconButton>
-            </Badge>
-            </Box>
-
-            <Box className=''>
-              <IconButton
-                size="small"
-                sx={{ ml: 2, }} className='icon-avatar-img btnicon mobile-avatar' aria-label="flash" color="primary">
-                <img src={UserAvatar} />
-              </IconButton>
-            </Box>
+          <Box display='flex' alignItems='center' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}>
             <Box className='close'><p>+</p></Box>
           </Box>
         </Box>
@@ -155,7 +119,6 @@ const singleRead = async (notId) =>{
             >
               <Button
                 id="acedamy-btn"
-
               >
                 Academy
               </Button>
@@ -205,7 +168,6 @@ const singleRead = async (notId) =>{
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -215,7 +177,7 @@ const singleRead = async (notId) =>{
             variant="h6"
 
             onClick={() => { navigate('/') }}
-            sx={{ flexGrow: 1, display: { xs: 'block', md: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
+            sx={{ flexGrow: 1, display: { xs: 'block', md: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer' }, borderRight: { xs: 'none', sm: '1px solid #E6E8EC' } }}
           >
             <img width='140' src={CoinGuru} alt='Coin Guru' />
           </Typography>
@@ -267,8 +229,8 @@ const singleRead = async (notId) =>{
               aria-haspopup="true"
               aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
               <IconButton>
-              <NotificationsNone color="action" />
-            </IconButton>
+                <NotificationsNone color="action" />
+              </IconButton>
             </Badge>
             <Menu
               anchorEl={anchorElAnchorbtn}
@@ -305,41 +267,62 @@ const singleRead = async (notId) =>{
               }}
             >
               <Box padding={2}>
-               {notifications.length>0?
-                <>
-                <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
-                 
-                {notifications?.map((item,index) =>{
-                   if(index < 5){
-                  return(
-                    <>
-                    <MenuItem  onClick={()=> singleRead(item.ct_notiy_id)} sx={{padding:'0'}}>
-                     <span className='outer-div-menu'>
-                      <span className='inner-div-menu'>
-                        <span className='head-menu'>{item.ct_notify_title}</span>
-                        <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                      </span>
-                      <Typography className='secondary-color' sx={{fontSize:'10px'}}>{item.ct_notify_created_At}</Typography>
-                     </span>
-                   </MenuItem>
-                   <Divider/>
-                  </>
-                  )
-                }
-                })}
+                {notifications.length > 0 ?
+                  <>
+                    <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
 
-                
-                <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex' , justifyContent: 'space-between'}} >
-                  <Button onClick={()=>{ navigate("/notifications")}} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
-                    View all
-                  </Button>
-                  <Button onClick={handleClear} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
-                    Clear all
-                  </Button>
-                </Box>
-                </> :<span>No New Notifications Available</span>
+                    {notifications?.map((item, index) => {
+                      if (index < 5) {
+                        return (
+                          <>
+                            <MenuItem onClick={() => singleRead(item.ct_notiy_id)} sx={{ padding: '0' }}>
+                              <span className='outer-div-menu'>
+                                <span className='inner-div-menu'>
+                                  <span className='head-menu'>{item.ct_notify_title}</span>
+                                  <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                                </span>
+                                <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.ct_notify_created_At}</Typography>
+                              </span>
+                            </MenuItem>
+                            <Divider />
+                          </>
+                        )
+                      }
+                    })}
+
+                    {notifications?.map((item, index) => {
+                      if (index < 5) {
+                        return (
+                          <>
+
+                            <MenuItem onClick={() => singleRead(item.ct_notiy_id)} sx={{ padding: '0' }}>
+                              <span className='outer-div-menu'>
+                                <span className='inner-div-menu'>
+                                  <span className='head-menu'>{item.ct_notify_title}</span>
+                                  <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
+                                </span>
+                                <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.ct_notify_created_At}</Typography>
+                              </span>
+                            </MenuItem>
+                            <Divider />
+                          </>
+                        )
+                      }
+                    })}
+
+
+                    <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
+                      <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
+                        View all
+                      </Button>
+                      <Button onClick={handleClear} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                        Clear all
+                      </Button>
+                    </Box>
+                  </>
+                  : <span>No New Notifications Available</span>
                 }
-              
+
               </Box>
             </Menu>
             <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline mobile-none' sx={{ display: { xs: 'none', md: 'block' }, color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid', }}>
@@ -348,16 +331,16 @@ const singleRead = async (notId) =>{
             <IconButton aria-label="sunny" color="primary " className=' mobile-none'>
               <WbSunnyOutlined />
             </IconButton>
-
-            <IconButton onClick={handleClickAnchor}
-
-              size="small"
-              sx={{ ml: 2 }}
-              aria-controls={openAnchor ? 'account-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img btnicon' aria-label="flash" color="primary">
-              <img src={UserAvatar} />
-            </IconButton>
+            <Tooltip arrow title={userDetails.user_name ? userDetails.user_name : userDetails.email.split("@")[0]}>
+              <IconButton onClick={handleClickAnchor}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={openAnchor ? 'account-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={openAnchor ? 'true' : undefined} s className='icon-avatar-img btnicon' aria-label="flash" color="primary">
+                <img src={UserAvatar} />
+              </IconButton>
+            </Tooltip>
             <Menu
               anchorEl={anchorElAnchor}
               id="account-menu"

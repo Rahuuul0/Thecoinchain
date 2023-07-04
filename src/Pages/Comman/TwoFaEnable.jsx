@@ -1,7 +1,7 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button,  Breadcrumbs, InputAdornment, IconButton, TextField } from '@mui/material';
+import { Box, Container, Grid, Typography, Button, Breadcrumbs, InputAdornment, IconButton, TextField } from '@mui/material';
 import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
 import { useNavigate, Link } from 'react-router-dom';
 import Sidebar from './Components/Sidebar';
@@ -13,7 +13,7 @@ const TwoFaEnable = () => {
 
     const breadcrumbs = [
         <Link underline="hover" key="1" color="inherit" to="/">
-            Home 
+            Home
         </Link>,
         <Typography key="3" color="text.primary">
             2FA
@@ -30,7 +30,7 @@ const TwoFaEnable = () => {
                                 2FA
                             </Typography>
 
-                            <Box className='' sx={{ color: '#777E90', fontWeight: '500',  paddingTop: {xs: '10px', md: '0px'} }}>
+                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', paddingTop: { xs: '10px', md: '0px' } }}>
                                 <Box  >
                                     <Breadcrumbs
                                         separator={<NavigateNext fontSize="small" />}
@@ -55,7 +55,7 @@ const TwoFaEnable = () => {
                                     <Box className="">
                                         <Box className='fa-heading-box'>
                                             <Box sx={{ paddingBottom: { xs: '20px', md: '5px' } }}>
-                                                <Typography component="h3" variant='h3' className='secondary-font faenable-box' paddingY={3} sx={{ fontWeight: '600', }} >2FA <span >Enabled</span></Typography>
+                                                <Typography component="h3" variant='h3' className='secondary-font faenable-box' paddingY={3} sx={{ fontWeight: '600', }} >2FA <span className='secondary-font'>Enabled</span></Typography>
                                                 <Typography component="p" variant='body2' className='secondary-color small-caption  '>If you want to turn off 2FA, input your account password and the six-digit code provided by the Google Authenticator app below, then click <span className='color-dark' fontWeight={500} color='#23262F'>"Disable 2FA"</span>.</Typography>
                                             </Box>
                                         </Box>
@@ -120,7 +120,7 @@ const TwoFaEnable = () => {
                                     </Grid>
 
                                     <Typography textAlign='right' paddingY={3}>
-                                        <Button className='btn orange-btn btn-primary mobile-w-100' onClick={() => { navigate("../2fa-disable") }}>Disable 2FA</Button>
+                                        <Button className='btn orange-btn mobile-w-100' error="error" size="medium" onClick={() => { navigate("../2fa-disable") }}>Disable 2FA</Button>
                                     </Typography>
                                 </Box>
                             </Box>

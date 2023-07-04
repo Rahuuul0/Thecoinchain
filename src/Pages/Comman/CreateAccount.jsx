@@ -172,7 +172,7 @@ const CreateAccount = () => {
               <img src={AuthBg} alt="Auth bg" />
             </Box>
             <Box className="auth-wrapper-form" position="relative">
-              <Box position="absolute" sx={{ top: {xs: '0px' , md: '90px'}  }}>
+              <Box position="absolute" sx={{ top: { xs: '0px', sm: '30px', md: '90px' } }}>
                 <IconButton
                   onClick={() => {
                     navigate("/");
@@ -399,9 +399,8 @@ const CreateAccount = () => {
                       variant="contained"
                       disabled={isSubmitting}
                       className="btn btn-primary"
-                      disabled={isSubmitting}
                     >
-                      {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Sign up"}
+                      {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Sign up"}
                     </LoadingButton>
                   </Box>
                 </Box>

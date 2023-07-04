@@ -27,8 +27,8 @@ const Notifications = () => {
     const [checkAcademy,setCheckAcademy]=useState(false)
     const [checkNews,setCheckNews]=useState(false)
 
-    const handleClear = async() => {
-          notificationAction.clearNotifications();
+    const handleClear = async(action) => {
+          notificationAction.clearNotifications({action});
         };
 
     const handleSelectAll =(flag) =>{
@@ -112,8 +112,8 @@ const Notifications = () => {
                                     {notifications.length>0 && notifications.length === loadmore &&
                                     <Box className='notification-head-cta'>
                                         <Box className="modal-subscribed-cta">
-                                            <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
-                                            <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Clear all</Button>
+                                            <Button onClick={e=>handleClear('all_read')} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
+                                            <Button onClick={e=>handleClear('all_clear')} variant="outlined" className='btn btn-outlined-secondary' >Clear all</Button>
                                         </Box>
                                     </Box>}
                                 </Box>
@@ -143,7 +143,7 @@ const Notifications = () => {
                                                             <span className='n-date'> {item.ct_notify_created_At} </span>
                                                         </Typography>
                                                         <span className='notification-circle' 
-                                                        style={{backgroundColor: item.ct_notify_status === 1
+                                                        style={{backgroundColor: item.ct_notify_read_status === 1
                                                             ?'#777e90' 
                                                             : '#58bd7d'}}
                                                         >

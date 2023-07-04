@@ -28,9 +28,8 @@ function Header(props) {
   const userDetails = useRecoilValue(authAtom);
   const notificaionCount = useRecoilValue(notificationCountAtom);
 
-  const handleClear = async () => {
-    let notId = notifications.slice(0, 5).map((item, index) => { return (item.ct_notiy_id) })
-    notificationAction.clearNotifications(notId);
+  const handleClear = async (action) => {
+    notificationAction.clearNotifications({action});
   };
 
   useEffect(() => {
@@ -315,7 +314,7 @@ function Header(props) {
                       <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
                         View all
                       </Button>
-                      <Button onClick={handleClear} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                      <Button onClick={e=>handleClear('all_read')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
                         Clear all
                       </Button>
                     </Box>

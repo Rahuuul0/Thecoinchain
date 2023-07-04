@@ -269,26 +269,7 @@ function Header(props) {
                 {notifications.length > 0 ?
                   <>
                     <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
-
-                    {notifications?.map((item, index) => {
-                      if (index < 5) {
-                        return (
-                          <>
-                            <MenuItem onClick={() => singleRead(item.ct_notiy_id)} sx={{ padding: '0' }}>
-                              <span className='outer-div-menu'>
-                                <span className='inner-div-menu'>
-                                  <span className='head-menu'>{item.ct_notify_title}</span>
-                                  <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                                </span>
-                                <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.ct_notify_created_At}</Typography>
-                              </span>
-                            </MenuItem>
-                            <Divider />
-                          </>
-                        )
-                      }
-                    })}
-
+ 
                     {notifications?.map((item, index) => {
                       if (index < 5) {
                         return (
@@ -308,7 +289,6 @@ function Header(props) {
                         )
                       }
                     })}
-
 
                     <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
                       <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>

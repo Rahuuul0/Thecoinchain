@@ -363,6 +363,7 @@ const LogIn = () => {
                             value={formData.phone}
                             placeholder="Number"
                             size="small"
+                            autoFocus
                             {...register("phone")}
                             onChange={(value) =>
                               reset({ ...formData, phone: value })

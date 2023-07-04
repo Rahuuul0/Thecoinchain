@@ -65,9 +65,8 @@ const notificationActions = () => {
             }).catch((err) => { console.warn(err) })
     }
 
-    const clearNotifications = (action) => {
-let data = action
-console.log(data,'dsfdfdsfdsfdf44');
+    const clearNotifications = (data) => {
+        
         return fetchWrapper.post(Apis.Notification_All_Clear, data)
         
             .then((res) => {

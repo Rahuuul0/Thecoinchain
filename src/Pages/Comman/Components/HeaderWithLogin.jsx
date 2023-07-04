@@ -268,7 +268,7 @@ function Header(props) {
                 {notifications.length > 0 ?
                   <>
                     <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
-
+ 
                     {notifications?.map((item, index) => {
                       if (index < 5) {
                         return (

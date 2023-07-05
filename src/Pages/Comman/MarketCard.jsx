@@ -189,7 +189,7 @@ const MarketCard = () => {
                 onClick={() => {
                   navigate(
                     !userDetail
-                      ? "/create-account"
+                      ? "/login"
                       : userDetail && subscriptionDetails.status === "running"
                       ? "/prediction-dashboard"
                       : "/subscription"

@@ -912,24 +912,16 @@ const CryptoTable = (props) => {
             className="modal-modal-description"
             sx={{ mt: 2, p: 2 }}
           >
-            <Typography className="crypto-fullname" variant="h5" component="h5">
-              {chartData[0]?.symbol}
-              {/* <span className="badge">1x</span> */}
-            </Typography>
-            <Typography
-              className="crypto-fullname-small"
-              variant="body2"
-              component="small"
-              sx={{ color: "#777E91", fontWeight: "600" }}
-            >
-              {chartData.name}
-            </Typography>
             <Box
               className="value-details"
               sx={{ display: "flex", justifyContent: "space-between" }}
             >
-              <Typography className="crypto-value" variant="h5" component="h5">
-                {chartData[0]?.price}
+              <Typography
+                className="crypto-fullname"
+                variant="h5"
+                component="h5"
+              >
+                {chartData[0]?.symbol}
               </Typography>
               <Select
                 value={timeFrame}
@@ -944,7 +936,20 @@ const CryptoTable = (props) => {
 
                 {/* <KeyboardArrowDownIcon /> */}
               </Select>
+              {/* <span className="badge">1x</span> */}
             </Box>
+            <Typography
+              className="crypto-fullname-small"
+              variant="body2"
+              component="small"
+              sx={{ color: "#777E91", fontWeight: "600" }}
+            >
+              {chartData.name}
+            </Typography>
+
+            <Typography className="crypto-value" variant="h5" component="h5">
+              {chartData[0]?.price}
+            </Typography>
 
             <Line data={data} options={options} />
           </Box>

@@ -370,6 +370,11 @@ img {
   border-radius: 15px;
 }
 
+.icon-avatar-img{
+  padding-right: 0px !important;
+  margin-right: 0px !important;
+}
+
 /* Extra small devices (phones, 767px and down) */
 @media only screen and (max-width: 767px) {
 

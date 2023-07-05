@@ -12,6 +12,8 @@ import {
   Fade,
   Backdrop,
   CircularProgress,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -90,6 +92,7 @@ const CryptoTable = (props) => {
   const [loader, setLoader] = useRecoilState(loaderAtom);
   const historicalAction = quotesHistoricalActions();
   const historicalData = useRecoilValue(historicalAtom);
+  const [timeFrame, setTimeFrame] = useState("15m");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -114,11 +117,21 @@ const CryptoTable = (props) => {
     setChartData("");
   };
 
-  const handleChartOpen = async (id) => {
-    const response = await historicalAction.add(id.symbol);
+  const chartHistory = async (id, time) => {
+    const response = await historicalAction.add(id?.symbol, time);
     console.warn(response);
+  };
+
+  const handleChartOpen = async (id) => {
+    chartHistory(id, "15m");
     setChartOpen(true);
     setChartData(coinsList.filter((item) => item.id === id.id));
+    setTimeFrame("15m");
+  };
+
+  const handleTimeFrame = (event) => {
+    setTimeFrame(event.target.value);
+    chartHistory(chartData[0], event.target.value);
   };
 
   const handleChartClose = (id) => {
@@ -188,7 +201,7 @@ const CryptoTable = (props) => {
             ? getLastestListing()
             : getLatestCategory(selectedCat)
           : getLastestListing();
-      }, 10000);
+      }, 1000000);
       return () => clearInterval(interval);
     }
   }, [intervalCount, selectedCat, subscriptionDetails]);
@@ -245,22 +258,23 @@ const CryptoTable = (props) => {
                     <TableCell>#</TableCell>
                     <TableCell>Name</TableCell>
                     <TableCell align="right">Price</TableCell>
-                    <TableCell align="right">24h Change </TableCell>
                     {location.pathname === "/prediction-dashboard" ? (
                       <>
+                        <TableCell align="right">acc % </TableCell>
+                        <TableCell align="right">15m %</TableCell>
                         <TableCell align="right">1h %</TableCell>
-                        <TableCell align="right">24h %</TableCell>
-                        <TableCell align="right">7d %</TableCell>
-                        <TableCell align="right">30d %</TableCell>
+                        <TableCell align="right">4d %</TableCell>
+                        <TableCell align="right">1d %</TableCell>
                       </>
                     ) : location.pathname === "/market" ? (
                       <>
+                        <TableCell align="right">24h Change </TableCell>
                         <TableCell align="right">7d %</TableCell>
                         <TableCell align="right">Marketcap</TableCell>
                         <TableCell align="right">Volume(24h)</TableCell>
                       </>
                     ) : (
-                      ""
+                      <TableCell align="right">24h Change </TableCell>
                     )}
                     <TableCell align="right">Chart</TableCell>
                     {location.pathname === "/" ? (
@@ -318,18 +332,30 @@ const CryptoTable = (props) => {
                             ? item.price?.toFixed(8)
                             : item?.price}
                         </TableCell>
-                        <TableCell align="right">
-                          <span
-                            className={
-                              item.percent_change_24h < 0 ? "down" : "up"
-                            }
-                          >
-                            {Math.round(
-                              (item.percent_change_24h + Number.EPSILON) * 100
-                            ) / 100}
-                            %
-                          </span>
-                        </TableCell>
+                        {location.pathname !== "/prediction-dashboard" ? (
+                          <TableCell align="right">
+                            <span
+                              className={
+                                item.percent_change_24h < 0 ? "down" : "up"
+                              }
+                            >
+                              {Math.round(
+                                (item.percent_change_24h + Number.EPSILON) * 100
+                              ) / 100}
+                              %
+                            </span>
+                          </TableCell>
+                        ) : (
+                          <TableCell align="right">
+                            <span
+                              className={
+                                item.percent_change_24h < 0 ? "down" : "up"
+                              }
+                            >
+                              {(Math.random() * 100).toFixed(2)}%
+                            </span>
+                          </TableCell>
+                        )}
                         {location.pathname === "/prediction-dashboard" &&
                         subscriptionDetails.status === "expired" ? (
                           <>
@@ -852,8 +878,18 @@ const CryptoTable = (props) => {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        className="backdrop-custom"
       >
         <Box className="modal-dialog modal-crypto-table">
+          <Backdrop
+            sx={{
+              color: "#fff",
+              zIndex: (theme) => theme.zIndex.drawer + 2,
+            }}
+            open={loader}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
           <Button
             onClick={handleChartClose}
             variant="outlined"
@@ -888,17 +924,28 @@ const CryptoTable = (props) => {
             >
               {chartData.name}
             </Typography>
-            <Typography className="crypto-value" variant="h5" component="h5">
-              {chartData[0]?.price}
-            </Typography>
-            <Box className="value-details">
-              <Button
-                variant="outlined"
-                className="btn btn-outlined-secondary btn-round btn-close"
+            <Box
+              className="value-details"
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <Typography className="crypto-value" variant="h5" component="h5">
+                {chartData[0]?.price}
+              </Typography>
+              <Select
+                value={timeFrame}
+                // variant="outlined"
+                className="btn-round btn-close"
+                onChange={handleTimeFrame}
               >
-                <KeyboardArrowDownIcon />
-              </Button>
+                <MenuItem value="15m">15m</MenuItem>
+                <MenuItem value="1h">1h</MenuItem>
+                <MenuItem value="4h">4h</MenuItem>
+                <MenuItem value="1d">1d</MenuItem>
+
+                {/* <KeyboardArrowDownIcon /> */}
+              </Select>
             </Box>
+
             <Line data={data} options={options} />
           </Box>
           <Button

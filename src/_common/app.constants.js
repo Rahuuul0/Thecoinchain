@@ -64,6 +64,7 @@ export const Apis = {
   Quotes_Historical: "quotes-historical",
   Notification_View_All: "get-view-all",
   Notifications_List_view: "get-notification-view-all",
+  Market: "market",
 };
 
 export const theme = createTheme({

@@ -78,7 +78,7 @@ const useCoinActions = () => {
     setSelectedCategory(0);
     categoryList.length <= 0 ? categoriesList() : "";
     return fetchWrapper
-      .post(`${Apis.Latest_Listings}?${params}`)
+      .post(`${Apis.Market}?${params}`)
       .then((res) => {
         loader(false);
         if (res.statusCode === 200) {

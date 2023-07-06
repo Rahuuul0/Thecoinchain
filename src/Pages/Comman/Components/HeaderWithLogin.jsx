@@ -39,8 +39,7 @@ function Header(props) {
   }, [])
 
   const singleRead = async (notId) => {
-    let userId = userDetails.id;
-    notificationAction.notificationSingleread(notId, userId)
+    notificationAction.notificationSingleread(notId)
   }
 
   const navItems = [
@@ -274,7 +273,6 @@ function Header(props) {
                       if (index < 5) {
                         return (
                           <>
-
                             <MenuItem onClick={() => singleRead(item.ct_notiy_id)} sx={{ padding: '0' }}>
                               <span className='outer-div-menu'>
                                 <span className='inner-div-menu'>

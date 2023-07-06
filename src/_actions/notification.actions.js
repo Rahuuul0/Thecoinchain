@@ -72,8 +72,12 @@ const notificationActions = () => {
             .then((res) => {
                 if (res.statusCode === 200) {  
                     notificationList_View() 
-                    notificationList()      
-                    alertActions.success('Clear all Data Successfully');
+                    notificationList()  
+                    console.log(data.action,'5555'); 
+                    data.action === "all_read" ? 
+                        alertActions.success('Mark  all Read Successfully'): 
+                    
+                        alertActions.success('Clear all Data Successfully');
                 }
             }).catch((err) => { console.warn(err) })
     }

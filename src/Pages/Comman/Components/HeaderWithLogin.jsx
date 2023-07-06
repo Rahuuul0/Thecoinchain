@@ -321,6 +321,7 @@ function Header(props) {
             <Menu
               anchorEl={anchorElAnchor}
               id="account-menu"
+              className="headeravatar"
               open={openAnchor}
               onClose={handleCloseAnchor}
               onClick={handleCloseAnchor}

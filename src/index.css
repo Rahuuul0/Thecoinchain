@@ -370,6 +370,36 @@ img,
   width: 100%;
 }
 
+img {
+  border-radius: 15px;
+}
+
+.icon-avatar-img{
+  padding-right: 0px !important;
+  margin-right: 0px !important;
+}
+
+/* Extra small devices (phones, 767px and down) */
+@media only screen and (max-width: 767px) {
+
+  /* footer  */
+  .footer .bg-white {
+    background-color: initial;
+  }
+
+  .footer-subs-form input {
+    border-radius: 20px;
+  }
+
+  .footer .footer-subs-form button {
+    margin-top: 20px;
+  }
+
+  #root .font-40 {
+    font-size: 32px !important;
+  }
+}
+
 /* ******************auth-wrapper********************** */
 main.auth-wrapper {
   /* display: flex; */
@@ -3039,8 +3069,16 @@ video[poster] {
   color: #23262F;
   font-size: 21px;
 }
+.headeravatar .MuiPaper-root::-webkit-scrollbar{
+  display: none;
+}
 
-.swiper-styles .swiper-button-next {
+.headeravatar .MuiPaper-root{
+
+  min-height: 200px;
+  overflow-y: scroll;
+
+}.swiper-styles .swiper-button-next {
   right: -webkit-calc(49vw - 27px);
   right: -moz-calc(49vw - 27px);
   right: calc(49vw - 27px);

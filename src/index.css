@@ -1897,8 +1897,8 @@ video {
   position: absolute;
   top: 0;
   right: 0;
-  width: 30px;
-  max-width: 30px;
+  width: 90px;
+  max-width: 90px;
   min-width: 30px;
   height: 30px;
 }

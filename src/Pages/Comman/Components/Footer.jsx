@@ -52,7 +52,7 @@ const Footer = () => {
   }
 
   return (<>
-    <footer className="footer" style={{ backgroundColor: '#FCFCFD', color: '#fff', borderTop: "1px solid #E6E8EC" }}>
+    <footer className="footer" style={{ backgroundColor: '#FCFCFD', color: '#fff' }}>
       <Container>
         <Box>
           <Grid container sx={{ justifyContent: 'space-between' }}>

@@ -61,7 +61,9 @@ export const Apis = {
   Category_Notifications: "categorized-notification",
   Get_Otp_Phone: "get-otp-phone",
   Create_Payment_Intent_Paypal: "paypal-user-subscription",
-  Quotes_Historical: "quotes-historical"
+  Quotes_Historical: "quotes-historical",
+  Notification_View_All: "get-view-all",
+  Notifications_List_view: "get-notification-view-all",
 };
 
 export const theme = createTheme({

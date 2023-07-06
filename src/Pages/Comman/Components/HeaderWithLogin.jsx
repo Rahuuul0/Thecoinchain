@@ -1,30 +1,26 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { ListItem, List, ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid, Switch } from '@mui/material/';
+import { ListItem, List, Tooltip,ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid, Switch } from '@mui/material/';
 import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
-import { MenuItem, Badge, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Box, AppBar, Divider, Drawer } from '@mui/material';
+import { MenuItem, Badge, Box, AppBar, Divider, Drawer } from '@mui/material';
 import galleryImage from '../../../../public/assets/images/icons/gallery.svg';
-import { NotificationsNone, Search, FlashOnOutlined, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
+import { NotificationsNone, Search, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
 import ShareIcon from '../../../../public/assets/images/icons/share-square.svg';
 import UserIcon from '../../../../public/assets/images/icons/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import { useUserActions } from "../../../_actions/user.actions";
 import { notificationActions } from '../../../_actions/notification.actions';
-import { useState, useEffect } from "react";
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { useEffect } from "react";
 import { notificationAtom, authAtom, notificationCountAtom } from '../../../_state/';
 import { useRecoilValue } from "recoil";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Tooltip from '@mui/material/Tooltip';
 
 const drawerWidth = '100%';
-const drawerHeight = '100vh';
-
 function Header(props) {
   const userActions = useUserActions();
   const notificationAction = notificationActions();
@@ -32,21 +28,19 @@ function Header(props) {
   const userDetails = useRecoilValue(authAtom);
   const notificaionCount = useRecoilValue(notificationCountAtom);
 
-  const handleClear = async () => {
-    let notId = notifications.map((item, index) => { if (index < 5) { return (item.ct_notiy_id) } })
-    notificationAction.clearNotifications(notId);
+  const handleClear = async (action) => {
+    notificationAction.clearNotifications({action});
   };
 
   useEffect(() => {
     notificationAction.notificationList()
+    notificationAction.notificationList_View()
 
   }, [])
 
   const singleRead = async (notId) => {
-    let userId = userDetails.id
-
+    let userId = userDetails.id;
     notificationAction.notificationSingleread(notId, userId)
-
   }
 
   const navItems = [
@@ -76,7 +70,6 @@ function Header(props) {
     setAnchorEl(null);
     navigate('/master-course')
   };
-  const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
   const [anchorElAnchor, setAnchorElAnchor] = React.useState(null);
   const openAnchor = Boolean(anchorElAnchor);
@@ -95,15 +88,6 @@ function Header(props) {
   const handleCloseAnchorbtn = () => {
     setAnchorElAnchorbtn(null);
   };
-  const [anchorElNoti, setAnchorElNoti] = React.useState(null);
-  const openAnchorNoti = Boolean(anchorElNoti);
-  const handleClickAnchorNoti = (event) => {
-    setAnchorElNoti(event.currentTarget);
-  };
-  const handleCloseAnchorNoti = () => {
-    setAnchorElNoti(null);
-  };
-
   const navigate = useNavigate();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -183,7 +167,6 @@ function Header(props) {
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -286,26 +269,7 @@ function Header(props) {
                 {notifications.length > 0 ?
                   <>
                     <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
-
-                    {notifications?.map((item, index) => {
-                      if (index < 5) {
-                        return (
-                          <>
-                            <MenuItem onClick={() => singleRead(item.ct_notiy_id)} sx={{ padding: '0' }}>
-                              <span className='outer-div-menu'>
-                                <span className='inner-div-menu'>
-                                  <span className='head-menu'>{item.ct_notify_title}</span>
-                                  <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                                </span>
-                                <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.ct_notify_created_At}</Typography>
-                              </span>
-                            </MenuItem>
-                            <Divider />
-                          </>
-                        )
-                      }
-                    })}
-
+ 
                     {notifications?.map((item, index) => {
                       if (index < 5) {
                         return (
@@ -325,13 +289,12 @@ function Header(props) {
                         )
                       }
                     })}
-
 
                     <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
-                      <Button onClick={() => { navigate('/notifications') }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
+                      <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
                         View all
                       </Button>
-                      <Button onClick={handleClear} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                      <Button onClick={e=>handleClear('all_read')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
                         Clear all
                       </Button>
                     </Box>
@@ -347,12 +310,8 @@ function Header(props) {
             <IconButton aria-label="sunny" color="primary " className=' mobile-none'>
               <WbSunnyOutlined />
             </IconButton>
-
             <Tooltip arrow title={userDetails.user_name ? userDetails.user_name : userDetails.email.split("@")[0]}>
               <IconButton onClick={handleClickAnchor}
-
-
-
                 size="small"
                 sx={{ ml: 2 }}
                 aria-controls={openAnchor ? 'account-menu' : undefined}

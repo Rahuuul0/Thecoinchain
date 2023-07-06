@@ -60,11 +60,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const Home = () => {
-  const [marketTrend, setMarketTrend] = useState("");
+  const [marketTrend, setMarketTrend] = useState(1);
 
   const handleChangeMarketTrend = (event) => {
     setMarketTrend(event.target.value);
   };
+
   const coinActions = useCoinActions();
   const tutorialsData = useRecoilValue(tutorialAtom);
   const tutorialAction = useTutorialActions();
@@ -335,7 +336,7 @@ const Home = () => {
                 >
                   {tutorialsList?.slice(0, 1).map((item) => {
                     let discription = item.discription.substring(0, 50) + "...";
-                    let title = item.title.substring(0, 20) + "...";
+                    let title = item.title.substring(0, 50) + "...";
                     return (
                       <Grid item xs={6}>
                         {/* <img src={Leveragedv3} /> */}
@@ -657,14 +658,64 @@ const Home = () => {
                 displayEmpty
                 inputProps={{ "aria-label": "Without label" }}
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>All</MenuItem>
+                {/* <MenuItem value={10}>All</MenuItem>
                 <MenuItem value={20}>Bitcoin Ecosystem</MenuItem>
                 <MenuItem value={30}>Paradigm </MenuItem>
                 <MenuItem value={40}>Multicoin Capital </MenuItem>
-                <MenuItem value={40}>Pantera Capital </MenuItem>
+                <MenuItem value={50}>Pantera Capital </MenuItem> */}
+                {selectedCat === 0 ? (
+                  <MenuItem
+                    value={1}
+                    onClick={(e) => {
+                      loader(true);
+                      coinActions.latestListing();
+                    }}
+                  >
+                    All
+                  </MenuItem>
+                ) : (
+                  <MenuItem
+                    value={1}
+                    onClick={(e) => {
+                      loader(true);
+                      coinActions.latestListing();
+                    }}
+                  >
+                    All
+                  </MenuItem>
+                )}
+                {categoryList.length &&
+                  categoryList.map((item, index) => {
+                    if (index < 4) {
+                      if (selectedCat !== 0 && selectedCat === item.id) {
+                        return (
+                          <MenuItem
+                            value={index + 2}
+                            onClick={(e) => {
+                              coinActions.coinListbByCategoty(item.id);
+                            }}
+                            title={item.name}
+                          >
+                            {getFirstLetters(item.name)}
+                          </MenuItem>
+                        );
+                      } else {
+                        return (
+                          <MenuItem
+                            value={index + 2}
+                            onClick={(e) => {
+                              coinActions.coinListbByCategoty(item.id);
+                            }}
+                            title={item.name}
+                          >
+                            {getFirstLetters(item.name)}
+                          </MenuItem>
+                        );
+                      }
+                    } else {
+                      return "";
+                    }
+                  })}
               </Select>
             </FormControl>
           </Box>

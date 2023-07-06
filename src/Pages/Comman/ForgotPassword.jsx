@@ -130,7 +130,7 @@ const ForgotPassword = () => {
               <img src={AuthBg} alt="Auth bg" />
             </Box>
             <Box className="auth-wrapper-form">
-              <Box position="absolute" sx={{ top: { xs: '15px', md: '90px' } }}>
+              <Box position="absolute" sx={{ top: { xs: '0px', sm: '30px', md: '90px' } }}>
                 <IconButton
                   onClick={() => {
                     navigate("/login");
@@ -211,7 +211,7 @@ const ForgotPassword = () => {
                         className="btn btn-primary"
                         disabled={isSubmitting}
                       >
-                       {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Continue"}
+                        {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Continue"}
                       </LoadingButton>
                       <Typography
                         onClick={() => {

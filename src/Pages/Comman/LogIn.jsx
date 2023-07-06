@@ -80,9 +80,9 @@ const LogIn = () => {
   // get functions to build form with useForm() hook
   const { register, handleSubmit, formState, reset, watch } =
     useForm(formOptions);
-  const { errors  } = formState;
+  const { errors } = formState;
   const formData = watch();
- 
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     reset({ email: "", pass: "", phone: "" });
@@ -90,12 +90,12 @@ const LogIn = () => {
 
   useEffect(() => {
     if (userError)
-        setIsSubmitting(false)
-}, [userError])
+      setIsSubmitting(false)
+  }, [userError])
 
 
   const handleFormSubmit = () => {
-    userActions.login(formData );
+    userActions.login(formData);
     setIsSubmitting(true)
     setUserError(false)
   };
@@ -151,7 +151,7 @@ const LogIn = () => {
               <img src={AuthBg} alt="Auth bg" />
             </Box>
             <Box className="auth-wrapper-form" position="relative">
-              <Box position="absolute" sx={{ top: { xs: '0px', md: '90px' } }}>
+              <Box position="absolute" sx={{ top: { xs: '0px', sm: '30px', md: '90px' } }}>
                 <IconButton
                   onClick={() => {
                     navigate("/");
@@ -339,15 +339,15 @@ const LogIn = () => {
                             </Link>
                           </Box>
                           <LoadingButton
-                             type="submit"
+                            type="submit"
                             loading={isSubmitting}
                             loadingPosition="end"
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                             className="btn btn-primary"
-                            disabled={isSubmitting} 
+                            disabled={isSubmitting}
                           >
-                          {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Login"}
+                            {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Login"}
                           </LoadingButton>
                         </TabPanel>
                         <TabPanel value="2" sx={{ p: 0 }}>
@@ -450,9 +450,9 @@ const LogIn = () => {
                             loadingPosition="end"
                             variant="contained"
                             className="btn btn-primary"
-                            disabled={isSubmitting} 
+                            disabled={isSubmitting}
                           >
-                          {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Login"}
+                            {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Login"}
                           </LoadingButton>
                         </TabPanel>
                       </TabContext>

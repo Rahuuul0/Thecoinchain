@@ -74,8 +74,8 @@ ChartJS.register(...registerables);
 
 const CryptoTableCopy = (props) => {
   const coinActions = useCoinActions();
-  const coinsListArr = useRecoilValue(predictionAtom);
-  let coinsList = coinsListArr.data;
+  const coinsList = useRecoilValue(predictionAtom);
+  // let coinsList = coinsListArr.data;
   const userDetail = useRecoilValue(authAtom);
   const navigate = useNavigate();
   const [value, setValue] = useState("1");

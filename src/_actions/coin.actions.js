@@ -115,31 +115,31 @@ const useCoinActions = () => {
   };
 
   const predictionListing = async (params) => {
-    return axios
-      .get("http://192.168.0.101:8000/prediction")
-      .then((res) => {
-        loader(false);
-
-        console.log(res, "response data prediction");
-        // let coinArr = [];
-        // for (let key in res.data) {
-        //   let firstItem = "";
-        //   firstItem = res.data[key];
-        //   if (!Array.isArray(res.data[key])) {
-        //     coinArr.push(firstItem);
-        //   }
-        // }
-        setPrediction(res);
-        loader(false);
-        // if (location.pathname === "/") {
-        //   let homeCoins = coinArr.slice(0, 5);
-        //   setCoinList(homeCoins);
-        // } else setCoinList(coinArr);
-      })
-      .catch((err) => {
-        console.warn(err);
-        loader(false);
-      });
+    loader(false);
+    // return axios
+    //   .get("http://192.168.0.101:8000/prediction")
+    //   .then((res) => {
+    //     loader(false);
+    //     console.log(res, "response data prediction");
+    // let coinArr = [];
+    // for (let key in res.data) {
+    //   let firstItem = "";
+    //   firstItem = res.data[key];
+    //   if (!Array.isArray(res.data[key])) {
+    //     coinArr.push(firstItem);
+    //   }
+    // }
+    // setPrediction(res);
+    // loader(false);
+    // if (location.pathname === "/") {
+    //   let homeCoins = coinArr.slice(0, 5);
+    //   setCoinList(homeCoins);
+    // } else setCoinList(coinArr);
+    // })
+    // .catch((err) => {
+    //   console.warn(err);
+    //   loader(false);
+    // });
   };
 
   return {

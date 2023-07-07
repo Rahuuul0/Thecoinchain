@@ -26,7 +26,7 @@ const Notifications = () => {
     const [checkCommunity,setCheckCommunity]=useState(false)
     const [checkAcademy,setCheckAcademy]=useState(false)
     const [checkNews,setCheckNews]=useState(false)
-
+     
     const handleClear = async(action) => {
           notificationAction.clearNotifications({action});
     };
@@ -76,7 +76,6 @@ const Notifications = () => {
    }
 
     useEffect(() =>{
-        notificationAction.notificationList()
         notificationAction.notificationList_View()
     }, [])
 
@@ -114,7 +113,7 @@ const Notifications = () => {
                                     <Typography component="h4" variant='h4'>
                                         Notifications
                                     </Typography>
-                                    {notifications.length>0 && notifications.length === loadmore &&
+                                    {notifications.length>0 && notifications.length === loadmore && 
                                     <Box className='notification-head-cta'>
                                         <Box className="modal-subscribed-cta">
                                             <Button onClick={e=>handleClear('all_read')} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
@@ -125,12 +124,12 @@ const Notifications = () => {
                                 <Box className="devider" />
                                 <Box className='notification-list-wrapper'>
                                     <Box className='notification-list'>
-                                         
+                                      
                                          {notifications.length>0?notifications?.map((item,index) =>{
                                             if(index < loadmore){
-
-                                            return(
                                              
+                                            return(
+                                            
                                                 <Box onClick={() => singleRead(item.ct_notiy_id)} className='notification-list-itm'>
                                                     <Box className='notification-icon'>
                                                         <BoltOutlinedIcon />
@@ -156,8 +155,8 @@ const Notifications = () => {
 
                                                     </Box>
                                                 </Box>
-                                        
-                                            )
+                                              
+                                          )
                                         }
                                         }):<span>No New Notifications Available</span>}
                                        

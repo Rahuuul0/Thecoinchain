@@ -72,8 +72,7 @@ const notificationActions = () => {
             .then((res) => {
                 if (res.statusCode === 200) {  
                     notificationList_View() 
-                    notificationList()  
-                    console.log(data.action,'5555'); 
+                    notificationList()   
                     data.action === "all_read" ? 
                         alertActions.success('Mark  all Read Successfully'): 
                     

@@ -19,8 +19,12 @@ const useContactActions = () => {
           setContactError(true)
         } else {
           alertActions.error(res.msg);
+          
         }
-      }).catch((err)=>{console.warn(err)})
+      }).catch((err)=>{ 
+          setContactError(true);
+          console.warn(err)
+        })
   };
 
   return {

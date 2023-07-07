@@ -59,6 +59,7 @@ const LearnCyptoDetail = () => {
 
   const handleLoadMore = () => {
     setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
+    navigate('/learn-cypto')
   };
 
   useEffect(() => {
@@ -332,7 +333,7 @@ const LearnCyptoDetail = () => {
             </Button>
           </Typography>
         </Box>
-      </Container >
+      </Container>
     </>
   );
 };

@@ -86,7 +86,7 @@ const Home = () => {
       newValue === "2"
         ? "Bitcoin"
         : newValue === "3"
-        ? "Blogchain"
+        ? "Blockchain"
         : newValue === "4"
         ? "Tutorial"
         : "";

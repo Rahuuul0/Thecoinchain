@@ -122,10 +122,6 @@ const GuidesAnalysis = (props) => {
         handleGuides(guideCategory);
     }, [valueTab2]);
 
-
-
-
-
     const [analysisList, setAnalysisList] = useState(analytic);
     const handleAnalysis = (analysisCategory) => {
         let analysisArr = [];
@@ -141,8 +137,7 @@ const GuidesAnalysis = (props) => {
         handleAnalysis("All");
     }, [analytic]);
 
-    useEffect(() => {
-        
+    useEffect(() => {        
         let analysisCategory = "";
         analysisCategory =
         valueTab3 === 1
@@ -155,9 +150,9 @@ const GuidesAnalysis = (props) => {
 
                         handleAnalysis(analysisCategory);
     }, [valueTab3]);
-
-
-    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
+    useEffect(() => { 
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) 
+    },[]);
     return (
         <>
             <ThemeProvider theme={theme}>

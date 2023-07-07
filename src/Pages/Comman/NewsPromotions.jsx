@@ -118,9 +118,6 @@ const NewsPromotions = (props) => {
                         handleNews(newsCategory);
     }, [valueTab2]);
 
-
-
-
     const [promotion, setPromotionList] = useState(promotionList);
     const handlePromotion = (promotionCategory) => {
         let promotionArr = [];
@@ -151,8 +148,9 @@ const NewsPromotions = (props) => {
                         handlePromotion(promotionCategory);
     }, [valueTab3]);
 
-
-    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
+    useEffect(() => { 
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
+    },[]);
     return (
         <>
             <ThemeProvider theme={theme}>

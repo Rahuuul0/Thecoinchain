@@ -8,8 +8,10 @@ import {
   selectedCategoryAtom,
   cardCoinsAtom,
   loaderAtom,
+  predictionAtom,
 } from "../_state/";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const useCoinActions = () => {
   const fetchWrapper = useFetchWrapper();
@@ -20,6 +22,7 @@ const useCoinActions = () => {
   const location = useLocation();
   const setCardCoins = useSetRecoilState(cardCoinsAtom);
   const loader = useSetRecoilState(loaderAtom);
+  const setPrediction = useSetRecoilState(predictionAtom);
 
   const categoriesList = async () => {
     loader(true);
@@ -62,7 +65,9 @@ const useCoinActions = () => {
             }
             coinsArry.push(coin);
           });
-          setCoinList(coinsArry);
+          setCoinList(
+            location.pathname === "/" ? coinsArry.slice(0, 5) : coinsArry
+          );
         } else {
           alertActions.error(Labels.Error);
         }
@@ -75,10 +80,14 @@ const useCoinActions = () => {
   };
 
   const latestListing = async (params) => {
+    let listUrl =
+      location.pathname === "/prediction-dashboard"
+        ? Apis.Latest_Listings
+        : Apis.Market;
     setSelectedCategory(0);
     categoryList.length <= 0 ? categoriesList() : "";
     return fetchWrapper
-      .post(`${Apis.Market}?${params}`)
+      .post(`${listUrl}?${params}`)
       .then((res) => {
         loader(false);
         if (res.statusCode === 200) {
@@ -105,10 +114,39 @@ const useCoinActions = () => {
       });
   };
 
+  const predictionListing = async (params) => {
+    return axios
+      .get("http://192.168.0.101:8000/prediction")
+      .then((res) => {
+        loader(false);
+
+        console.log(res, "response data prediction");
+        // let coinArr = [];
+        // for (let key in res.data) {
+        //   let firstItem = "";
+        //   firstItem = res.data[key];
+        //   if (!Array.isArray(res.data[key])) {
+        //     coinArr.push(firstItem);
+        //   }
+        // }
+        setPrediction(res);
+        loader(false);
+        // if (location.pathname === "/") {
+        //   let homeCoins = coinArr.slice(0, 5);
+        //   setCoinList(homeCoins);
+        // } else setCoinList(coinArr);
+      })
+      .catch((err) => {
+        console.warn(err);
+        loader(false);
+      });
+  };
+
   return {
     categoriesList,
     coinListbByCategoty,
     latestListing,
+    predictionListing,
   };
 };
 export { useCoinActions };

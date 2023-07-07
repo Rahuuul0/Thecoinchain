@@ -11,7 +11,7 @@ import {
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import TabContext from "@mui/lab/TabContext";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useCoinActions, subscriptionActions } from "../../_actions";
 import {
   coinCategoryAtom,
@@ -20,6 +20,7 @@ import {
   cardCoinsAtom,
   authAtom,
   forecastSubAtom,
+  loaderAtom,
 } from "../../_state";
 const MarketCard = () => {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ const MarketCard = () => {
   const userDetail = useRecoilValue(authAtom);
   const subscriptionAction = subscriptionActions();
   const subscriptionDetails = useRecoilValue(forecastSubAtom);
+  const loader = useSetRecoilState(loaderAtom);
   let page = "page_name=market_page";
 
   const handleChangeTablefilter = (event) => {
@@ -128,6 +130,7 @@ const MarketCard = () => {
                       variant="contained"
                       className="btn btn-secondary"
                       onClick={(e) => {
+                        loader(true);
                         location.pathname === "/market"
                           ? coinActions.latestListing(page)
                           : coinActions.latestListing();
@@ -139,6 +142,7 @@ const MarketCard = () => {
                     <Button
                       className="btn"
                       onClick={(e) => {
+                        loader(true);
                         location.pathname === "/market"
                           ? coinActions.latestListing(page)
                           : coinActions.latestListing();

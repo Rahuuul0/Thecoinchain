@@ -47,6 +47,7 @@ import {
   authAtom,
   loaderAtom,
   historicalAtom,
+  predictionAtom,
 } from "../../_state";
 
 import { TabPanel } from "@mui/lab";
@@ -93,6 +94,9 @@ const CryptoTable = (props) => {
   const historicalAction = quotesHistoricalActions();
   const historicalData = useRecoilValue(historicalAtom);
   const [timeFrame, setTimeFrame] = useState("15m");
+  const predictionData = useRecoilValue(predictionAtom);
+
+  console.log(predictionData, "prediction data");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

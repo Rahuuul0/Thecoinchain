@@ -205,7 +205,7 @@ const CryptoTableCopy = (props) => {
             ? getLastestListing()
             : getLatestCategory(selectedCat)
           : getLastestListing();
-      }, 3000);
+      }, 3000000);
       return () => clearInterval(interval);
     }
   }, [intervalCount, selectedCat, subscriptionDetails]);
@@ -321,7 +321,7 @@ const CryptoTableCopy = (props) => {
                               alt={item.ct_symbol}
                               width="33px"
                             />
-                            {item.name}{" "}
+                            {item.name}
                             <span className="currency_name">
                               {item.ct_symbol}
                             </span>

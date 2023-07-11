@@ -38,8 +38,7 @@ const PredictionDashboard = () => {
               <Typography component="h4" variant="h4">
                 Cryptocurrency Prediction
               </Typography>
-              {/* <CryptoTable /> */}
-              <CryptoTableCopy />
+              <CryptoTable />
             </Container>
             <Box className="market-prediction-faq">
               <Container maxWidth="lg">

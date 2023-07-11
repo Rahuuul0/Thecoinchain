@@ -7,7 +7,6 @@ import { useRecoilValue } from "recoil";
 import { faqAtom } from "../../_state";
 import CryptoTable from "./CryptoTable";
 import { useNavigate } from "react-router-dom";
-import CryptoTableCopy from "./CryptoTableCopy";
 const PredictionDashboard = () => {
   const navigate = useNavigate();
   const faqGetAction = faqActions();
@@ -38,8 +37,7 @@ const PredictionDashboard = () => {
               <Typography component="h4" variant="h4">
                 Cryptocurrency Prediction
               </Typography>
-              {/* <CryptoTable /> */}
-              <CryptoTableCopy />
+              <CryptoTable />
             </Container>
             <Box className="market-prediction-faq">
               <Container maxWidth="lg">

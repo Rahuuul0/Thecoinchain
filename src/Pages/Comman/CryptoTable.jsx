@@ -94,9 +94,6 @@ const CryptoTable = (props) => {
   const historicalAction = quotesHistoricalActions();
   const historicalData = useRecoilValue(historicalAtom);
   const [timeFrame, setTimeFrame] = useState("15m");
-  const predictionData = useRecoilValue(predictionAtom);
-
-  console.log(predictionData, "prediction data");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -152,37 +149,18 @@ const CryptoTable = (props) => {
   //  Latest Listing API call
   useEffect(() => {
     setLoader(true);
-    if (subscriptionDetails.status === "expired") {
-      getLastestListing();
-    } else if (
-      subscriptionDetails.status === "running" &&
-      location.pathname === "/"
-    )
-      getLastestListing();
 
-    if (
-      (location.pathname === "/prediction-dashboard" ||
-        location.pathname === "/market") &&
-      subscriptionDetails.status === "running"
-    ) {
-      getLastestListing();
-    }
+    location.pathname === "/prediction-dashboard"
+      ? coinActions.predictionListing()
+      : getLastestListing();
   }, [subscriptionDetails]);
 
   const getLastestListing = async () => {
     let page = "";
     if (subscriptionDetails.status === "running") {
-      location.pathname === "/prediction-dashboard"
-        ? (page = `page_name=prediction_page`)
-        : location.pathname === "/market"
-        ? (page = `page_name=market_page`)
-        : "";
+      location.pathname === "/market" ? (page = `page_name=market_page`) : "";
     } else {
-      location.pathname === "/prediction-dashboard"
-        ? (page = `page_name=prediction_page`)
-        : location.pathname === "/market"
-        ? (page = "page_name=market_page")
-        : "";
+      location.pathname === "/market" ? (page = "page_name=market_page") : "";
     }
 
     const ress = await coinActions.latestListing(page);
@@ -200,12 +178,15 @@ const CryptoTable = (props) => {
     ) {
       const interval = setInterval(() => {
         setIntervalCount(intervalCount + 1);
-        props.selectedCat
-          ? props.selectedCat === 0
-            ? getLastestListing()
-            : getLatestCategory(selectedCat)
-          : getLastestListing();
-      }, 1000000);
+        if (location.pathname === "/prediction-dashboard")
+          coinActions.predictionListing();
+        else
+          props.selectedCat
+            ? props.selectedCat === 0
+              ? getLastestListing()
+              : getLatestCategory(selectedCat)
+            : getLastestListing();
+      }, 3000);
       return () => clearInterval(interval);
     }
   }, [intervalCount, selectedCat, subscriptionDetails]);
@@ -267,7 +248,7 @@ const CryptoTable = (props) => {
                         <TableCell align="right">acc % </TableCell>
                         <TableCell align="right">15m %</TableCell>
                         <TableCell align="right">1h %</TableCell>
-                        <TableCell align="right">4d %</TableCell>
+                        <TableCell align="right">4h %</TableCell>
                         <TableCell align="right">1d %</TableCell>
                       </>
                     ) : location.pathname === "/market" ? (
@@ -327,13 +308,13 @@ const CryptoTable = (props) => {
                         <TableCell align="right">
                           $
                           {item?.price > 1
-                            ? item.price?.toFixed(2)
+                            ? Math.round(item.price * 100) / 100
                             : item?.price < 1 && item?.price >= 0.1
-                            ? item.price?.toFixed(4)
+                            ? Math.round(item.price * 10000) / 10000
                             : item?.price < 0.1 && item?.price > 0.01
-                            ? item.price?.toFixed(6)
+                            ? Math.round(item.price * 1000000) / 1000000
                             : item?.price < 0.01
-                            ? item.price?.toFixed(8)
+                            ? Math.round(item.price * 100000000) / 100000000
                             : item?.price}
                         </TableCell>
                         {location.pathname !== "/prediction-dashboard" ? (
@@ -350,14 +331,8 @@ const CryptoTable = (props) => {
                             </span>
                           </TableCell>
                         ) : (
-                          <TableCell align="right">
-                            <span
-                              className={
-                                item.percent_change_24h < 0 ? "down" : "up"
-                              }
-                            >
-                              {(Math.random() * 100).toFixed(2)}%
-                            </span>
+                          <TableCell align="right" sx={{ color: "#FFD166" }}>
+                            <span>{item.ct_accuracy?.toFixed(2)}%</span>
                           </TableCell>
                         )}
                         {location.pathname === "/prediction-dashboard" &&
@@ -380,40 +355,66 @@ const CryptoTable = (props) => {
                           subscriptionDetails.status === "running" ? (
                           <>
                             <TableCell align="right">
-                              {/* <span className='up'>{Math.round((item.quote.USD.percent_change_1h + Number.EPSILON) * 100) / 100}%</span> */}
                               <span
                                 className={
-                                  item.percent_change_1h < 0 ? "down" : "up"
+                                  item.ct_min_15_current < item.price
+                                    ? "down"
+                                    : "up"
                                 }
                               >
-                                {item.percent_change_1h?.toFixed(2)}
+                                {(
+                                  ((item.ct_min_15_current - item.price) *
+                                    100) /
+                                  item.price
+                                ).toFixed(2)}
+                                %
                               </span>
                             </TableCell>
                             <TableCell align="right">
                               <span
                                 className={
-                                  item.percent_change_24h < 0 ? "down" : "up"
+                                  item.ct_hour_1_current < item.price
+                                    ? "down"
+                                    : "up"
                                 }
                               >
-                                {item.percent_change_24h?.toFixed(2)}
+                                {(
+                                  ((item.ct_hour_1_current - item.price) *
+                                    100) /
+                                  item.price
+                                ).toFixed(2)}
+                                %
                               </span>
                             </TableCell>
                             <TableCell align="right">
                               <span
                                 className={
-                                  item.percent_change_7d < 0 ? "down" : "up"
+                                  item.ct_hours_4_current < item.price
+                                    ? "down"
+                                    : "up"
                                 }
                               >
-                                {item.percent_change_7d?.toFixed(2)}
+                                {(
+                                  ((item.ct_hours_4_current - item.price) *
+                                    100) /
+                                  item.price
+                                ).toFixed(2)}
+                                %
                               </span>
                             </TableCell>
                             <TableCell align="right">
                               <span
                                 className={
-                                  item.percent_change_30d < 0 ? "down" : "up"
+                                  item.ct_day_1_current < item.price
+                                    ? "down"
+                                    : "up"
                                 }
                               >
-                                {item.percent_change_30d?.toFixed(2)}
+                                {(
+                                  ((item.ct_day_1_current - item.price) * 100) /
+                                  item.price
+                                ).toFixed(2)}
+                                %
                               </span>
                             </TableCell>
                           </>
@@ -449,7 +450,7 @@ const CryptoTable = (props) => {
                               height="33px"
                               style={{
                                 filter:
-                                  item.percent_change_24h < 0
+                                  item.percent_change_7d < 0
                                     ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
                                     : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
                               }}
@@ -470,11 +471,10 @@ const CryptoTable = (props) => {
                                 height="33px"
                                 style={{
                                   filter:
-                                    item.percent_change_24h < 0
+                                    item.percent_change_7d < 0
                                       ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
                                       : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
                                 }}
-                                onClick={() => handleChartOpen(item.id)}
                               />
                             </Fade>
                             {

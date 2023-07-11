@@ -306,7 +306,7 @@ const Home = () => {
                   navigate("./learn-cypto");
                 }}
               >
-                View more
+                View more 
               </Button>
             </Grid>
           </Grid>
@@ -382,12 +382,13 @@ const Home = () => {
                               border: "1px solid #E6E8EC",
                               height: "50px",
                               whiteSpace: "nowrap",
+                              minWidth: "auto",
                             }}
                             onClick={() => {
                               navigate("./learn-cypto");
                             }}
                           >
-                            Learn more
+                            Learn more 
                           </Button>
                         </Stack>
                       </Grid>

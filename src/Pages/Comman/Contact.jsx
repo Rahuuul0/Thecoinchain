@@ -214,7 +214,7 @@ const Contact = () => {
             </Grid>
           </Grid>
         </Box>
-      </Container >
+      </Container>
       {/* Banner Ends */}
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
         <Box paddingTop={7} className='newdesignbox swiper-styles'>
@@ -318,7 +318,7 @@ const Contact = () => {
             </SwiperSlide>
           </Swiper>
         </Box>
-      </Container >
+      </Container>
 
 
       {/* Slider ends */}
@@ -543,7 +543,7 @@ const Contact = () => {
                     loading={isSubmitting}
                     loadingPosition="end"
                     className='btn btn-primary'
-                    sx={{ ml: 'auto' }}
+                    sx={{ marginLeft: { xs: "0", sm: "auto" }, minWidth: "160px" }}
                     disabled={isSubmitting}
                     variant='contained'>
                     {isSubmitting ? <span className="spinner-border ">Loading</span> : " Send message "}
@@ -551,10 +551,10 @@ const Contact = () => {
                 </Typography>
               </Box>
 
-            </Box >
-          </Box >
-        </Container >
-      </Container >
+            </Box>
+          </Box>
+        </Container>
+      </Container>
     </>
   )
 }

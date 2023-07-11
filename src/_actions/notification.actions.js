@@ -27,8 +27,14 @@ const notificationActions = () => {
     const notificationList_View = () => {
         return fetchWrapper.get(Apis.Notifications_List_view)
             .then(res => {
+                let notLength = []
                 if (res.statusCode === 200) {
-                    notificationLists_View([...res.data])
+                    res.data.map((item)=> {
+                        if(item.ct_notify_status_deleted !== 1) notLength.push(1)
+                    })
+                    if(notLength.length > 0){
+                    notificationLists_View([...res.data])}
+                    else notificationLists_View([])
                     notificationList()
                 }
             }).catch((err) => { console.warn(err) })

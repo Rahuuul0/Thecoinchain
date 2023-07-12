@@ -11,14 +11,16 @@ import CheckoutPayment from './Components/CheckoutPayment';
 import { authAtom } from '../../_state';
 import { useRecoilValue } from 'recoil';
 import { useAlertActions } from '../../_actions/alert.actions';
+import { Labels, RoutesName } from '../../_common/app.constants';
 
 const Subscription = () => {
     const navigate = useNavigate();
     const alertActions = useAlertActions();
     const auth = useRecoilValue(authAtom)
     useEffect(()=> {
-        alertActions.error("Please login to subscribe!");
-        if(!auth)navigate('/login')
+        if(!auth){navigate(RoutesName.login)
+        alertActions.error(Labels.Un_Subscribed_User);
+    }
     })
     return (
         <>

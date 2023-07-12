@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
+import { Box, Grid, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Accordion, AccordionDetails, AccordionSummary } from '@mui/material/';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -18,27 +18,31 @@ import Button from '@mui/material/Button';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import galleryImage from '../../../../public/assets/images/gallery.svg';
-import { WallpaperOutlined } from '@mui/icons-material/';
-import connectline from '../../../../public/assets/images/connect-line.svg'
+import galleryImage from '../../../../public/assets/images/icons/gallery.svg';
+import { KeyboardArrowDown, WbSunnyOutlined, Search } from '@mui/icons-material/';
+import USA from '../../../../public/assets/images/icons/usa.svg';
+import japan from '../../../../public/assets/images/icons/japan.svg';
+import Chaina from '../../../../public/assets/images/icons/chaina.svg';
+import { Label } from 'recharts';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
-
-const drawerWidth = 240;
+const drawerWidth = '100%';
+const drawerHeight = '100vh';
 
 function Header(props) {
-
   const navItems = [
     {
-      page: 'Community',
-      icon: '',
-      // link: '/community',
+      page: "Community",
+      icon: "",
+      link: "/community",
     },
     {
-      page: 'Prediction',
-      icon: '',
-      link: '/prediction-dashboard',
+      page: "Prediction",
+      icon: "",
+      link: "/prediction-dashboard",
     },
-  ]
+  ];
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -47,6 +51,20 @@ function Header(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    navigate("/academy-about-crypto");
+  };
+
+  const handle = () => {
+    setAnchorEl(null);
+    navigate("/master-course");
+  };
+  const [anchorElB, setAnchorElB] = React.useState(null);
+  const openB = Boolean(anchorElB);
+  const handleClickB = (event) => {
+    setAnchorElB(event.currentTarget);
+  };
+  const handleCloseB = () => {
+    setAnchorElB(null);
   };
 
   const navigate = useNavigate();
@@ -58,142 +76,239 @@ function Header(props) {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
-      {/* <Typography variant="h6" sx={{ my: 2 }} onClick={() => { navigate('/') }}>
-        <img src={CoinGuru} alt='Coin Guru' />
-      </Typography> */}
-      <Divider />
-      <List>
-        {navItems.map((item, i) => {
-          return (
-            <ListItem key={i} disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                {item.icon &&
-                  <img src={item.icon} alt={item.page} />
-                }
-                <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
-              </ListItemButton>
-            </ListItem>
-          )
-        })}
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText primary="" onClick={() => { navigate(item.link) }}>
-              Search
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: 'center' }}>
-            <ListItemText primary="" onClick={() => { navigate(item.link) }}>
-              Login
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-      </List>
+    <>
+      <Box className='mobile-nav-box' sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
+        <Box className='close-btn' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}><p>+</p></Box>
+        <Box>
+          <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+          <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
+            <Button variant='standard' className='nav-mobile-btn btn'>Crypto</Button>
+            <Accordion className='submenu'>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="acadamy"
+              >
+                <Button
+                  id="acedamy-btn"
 
-    </Box>
+                >
+                  Academy
+                </Button>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
+                <Typography onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+              </AccordionDetails>
+            </Accordion>
+
+            <List sx={{ padding: '0px' }}>
+              {navItems.map((item, i) => {
+                return (
+                  <ListItem key={i} disablePadding>
+                    <ListItemButton >
+                      {item.icon &&
+                        <img src={item.icon} alt={item.page} />
+                      }
+                      <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
+                    </ListItemButton>
+                  </ListItem>
+                )
+              })}
+              <ListItem disablePadding>
+                <ListItemButton >
+                  <ListItemText primary="" onClick={() => { navigate(item.link) }}>
+                    Search
+                  </ListItemText>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton sx={{ textAlign: 'center' }}>
+                  <ListItemText primary="" onClick={() => { navigate(item.link) }}>
+                    Login
+                  </ListItemText>
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </Box>
+        </Box>
+        <Box display='flex' justifyContent='space-between'>
+          {/* <Button variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', borderRadius: '90px' }}>Sign Up</Button> */}
+          {/* <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Login</Button> */}
+          <Button
+            onClick={() => {
+              navigate("/create-account");
+            }}
+            variant="contained" className="btn btn-primary" sx={{ color: '#ffffff', backgroundColor: '#3772FF', borderRadius: '90px' }}
+          >Sign up</Button>
+          <Button
+            onClick={() => {
+              navigate("/login");
+            }}
+            variant="outline" className="btn btn-outline" sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }} >
+            Login</Button>
+
+          <IconButton aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
+          <IconButton aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
+
+
+        </Box>
+
+      </Box>
+    </>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar component="nav" className="app-nav">
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
+        <Toolbar className='mobile-nav'>
+          <Box className='mobile-in-nav' sx={{ display: { sm: 'none' } }}>
+            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
           <Typography
             variant="h6"
-
-            onClick={() => { navigate('/') }}
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer', borderRight: '1px solid #E6E8EC' } }}
+            onClick={() => {
+              navigate("/");
+            }}
+            sx={{
+              flexGrow: 1,
+              display: {
+                xs: "none",
+                sm: "block",
+                lineHeight: "100%",
+                flex: 1,
+                cursor: "pointer",
+              },
+              borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
+            }}
           >
-            <img src={CoinGuru} alt='Coin Guru' />
+            <img src={CoinGuru} alt="Coin Guru" />
           </Typography>
-          <Box className='' sx={{ display: { xs: 'none', sm: 'flex', flex: 2, textAlign: 'left', } }}>
-            <ul className='navItem'>
-              <li >
+          <Box
+            className=""
+            sx={{
+              display: { xs: "none", sm: "flex", flex: 2, textAlign: "left" },
+            }}
+            alignItems="center"
+          >
+            <ul className="navItem">
+              <li>
                 <Button
                   id="demo-positioned-button"
-                  aria-controls={open ? 'demo-positioned-menu' : undefined}
+                  aria-controls={open ? "demo-positioned-menu" : undefined}
                   aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
+                  aria-expanded={open ? "true" : undefined}
                   onClick={handleClick}
+                  endIcon={<KeyboardArrowDown />}
                 >
                   Academy
                 </Button>
                 <Menu
-                  className='dropdown-menu'
+                  className="dropdown-menu"
                   id="demo-positioned-menu"
                   aria-labelledby="demo-positioned-button"
                   anchorEl={anchorEl}
                   open={open}
-                  sx={{ borderRadius: '12px' }}
+                  sx={{ borderRadius: "12px" }}
                   onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
                 >
-                  <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
-                  <MenuItem onClick={handleClose}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
+                  <MenuItem
+                    onClick={handleClose}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <img className="gallery-menu-icon" src={galleryImage} /> All
+                    About Crypto{" "}
+                  </MenuItem>
+                  <MenuItem onClick={handle}>
+                    <img className="gallery-menu-icon" src={galleryImage} />{" "}
+                    Master Course
+                  </MenuItem>
                 </Menu>
               </li>
             </ul>
             {navItems.map((item, i) => (
-
-              <Button onClick={() => { navigate(item.link) }} key={i} sx={{ color: '#fff' }}>
-                {item.icon &&
-                  <img src={item.icon} alt={item.page} />
-                }
+              <Button
+                onClick={() => {
+                  navigate(item.link);
+                }}
+                key={i}
+                sx={{ color: "#fff" }}
+              >
+                {item.icon && <img src={item.icon} alt={item.page} />}
                 {item.page}
               </Button>
             ))}
           </Box>
 
-          <Box sx={{ display: { xs: 'none', sm: 'block', flex: 2, textAlign: 'right' } }}>
-            <Button className='btn' sx={{ color: '#23262F' }}>
-              EN/USD
-            </Button>
-            <Button onClick={() => { navigate('/create-account') }} variant="contained" className='btn btn-primary' sx={{ color: '#fff' }}>
+          <Box
+            sx={{
+              display: { xs: "none", sm: "flex", flex: 2, textAlign: "right" },
+            }}
+            justifyContent="end"
+          >
+
+            <Button
+              onClick={() => {
+                navigate("/create-account");
+              }}
+              variant="contained"
+              className="btn btn-primary"
+              sx={{ color: "#fff" }}
+            >
               Sign up
             </Button>
-            <Button onClick={() => { navigate('/login') }} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+            <Button
+              onClick={() => {
+                navigate("/login");
+              }}
+              variant="outline"
+              className="btn btn-outline"
+              sx={{
+                color: "#23262F",
+                backgroundColor: "#ffffff00",
+                border: "1px solid",
+              }}
+            >
               Login
             </Button>
           </Box>
         </Toolbar>
       </AppBar>
       <Box component="nav">
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
+        <Box>
+
+
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: 'block', sm: 'none' },
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, height: drawerHeight },
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Box>
+
       </Box>
     </Box>
   );

@@ -14,27 +14,7 @@ function GoogleLogin(props) {
         onSuccess: (codeResponse) => {setUser(codeResponse),
               userActions.googleLogin(codeResponse)},
         onError: (error) => console.log('Login Failed:', error),
-    });
-
-    // useEffect(
-    //     () => {
-    //         if (user) {
-    //             // axios
-    //             //     .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-    //             //         headers: {
-    //             //             Authorization: `Bearer ${user.access_token}`,
-    //             //             Accept: 'application/json'
-    //             //         }
-    //             //     })
-    //             //     .then((res) => {
-    //             //         props.setProfile(res.data);
-    //             //     })
-    //             //     .catch((err) => console.log(err));
-               
-    //         }
-    //     },
-    //     [ user ]
-    // );
+    });    
     return ( 
                 <Button onClick={() => login()} variant="contained" className='btn btn-primary'  startIcon={<GoogleIcon />}>Google</Button>
     );

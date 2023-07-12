@@ -1,24 +1,30 @@
 import React from 'react'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button, Modal, Link, Breadcrumbs, Stack, Select, OutlinedInput, MenuItem, Switch, Row } from '@mui/material';
-import User from '../../../public/assets/images/user.svg';
-import Share from '../../../public/assets/images/share-square.svg';
-import Session from '../../../public/assets/images/session.svg';
-import Api from '../../../public/assets/images/api.svg';
-import FA from '../../../public/assets/images/fa.svg';
-import Lockbtn from '../../../public/assets/images/lockbtn.svg';
-import { KeyboardArrowRightIcon, NavigateNext } from '@mui/icons-material/';
+import { useEffect, useState } from 'react';
+import { Box, Container, Typography, Button, Link, Breadcrumbs } from '@mui/material';
+import { NavigateNext } from '@mui/icons-material/';
+import { userLoginHistoryActions } from '../../_actions';
+import { useNavigate } from "react-router-dom";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import USAflag from '../../../public/assets/images/icons/usa.svg';
+import Sidebar from './Components/Sidebar';
+import ReactCountryFlag from "react-country-flag"
+import { useDeviceData, useDeviceSelectors, isMacOs } from "react-device-detect";
+import dayjs from "dayjs";
+
 
 const SessionHistory = () => {
+
+    const userHistoryAction = userLoginHistoryActions();
+    const [historyData, setHistoryData] = useState([]);
+    const navigate = useNavigate();
+    const deviceData = useDeviceData();
 
     const breadcrumbs = [
         <Link underline="hover" key="1" color="inherit" href="/">
@@ -43,6 +49,16 @@ const SessionHistory = () => {
             cta: "NO",
         }
     ];
+
+    // Subscription action get function   API data call 
+    useEffect(() => {
+        const response = userHistoryAction.getAll()
+        response.then((res) => { setHistoryData([...res]) })
+
+    }, [])
+
+    const historyDataSort = historyData.sort().reverse();
+
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -52,7 +68,7 @@ const SessionHistory = () => {
                             <Typography component="h2" variant='h2'>
                                 Sessions & login history
                             </Typography>
-                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
+                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', paddingTop: { xs: '10px', md: '0px' } }}>
                                 <Box  >
                                     <Breadcrumbs
                                         separator={<NavigateNext fontSize="small" />}
@@ -69,24 +85,15 @@ const SessionHistory = () => {
                     <Box className='subscription-steps account-main'>
                         <Container maxWidth="lg">
                             <Box className='subscription-steps-inner '>
-                                <Box className='subscription-steps-col'>
-                                    <Stack spacing={2}>
-                                        <Typography className='left-icon secondary-color'><span><img src={User} /> </span>Profile</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={Share} /> </span>Referrals</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={Api} /> </span>API keys</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={Session} /> </span>Sessions & login history</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={FA} /> </span>2FA</Typography>
-                                        <Typography className='left-icon secondary-color'><span><img src={Lockbtn} /> </span>Change password</Typography>
-                                    </Stack>
-                                </Box>
+                                <Sidebar />
                                 <Box className='subscription-steps-col-details'>
                                     <Box className='active-session'>
                                         <Typography component="h5" variant='h5'>
                                             Active sessions
                                         </Typography>
-                                        <Box className='session-list' marginBottom={5}>
-                                            <TableContainer>
-                                                <Table   sx={{ minWidth : {xs: '250px' , md: '650px'}}} aria-label="simple table">
+                                        <Box className='session-list'>
+                                            <TableContainer sx={{ maxHeight: { xs: 240, sm: 440 }, paddingRight: '18px' }}>
+                                                <Table stickyHeader aria-label="sticky table" sx={{ minWidth: { xs: '250px', md: '650px' } }}>
                                                     <TableHead>
                                                         <TableRow>
                                                             <TableCell>
@@ -107,56 +114,44 @@ const SessionHistory = () => {
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
-                                                        <TableRow
-                                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                        >
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    2021-06-16
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    10:46:09
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    Macbook Pro
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    Mac OS Bigsur
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell align="right">
-                                                                <Button size='small' variant='contained' className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
-                                                            </TableCell>
-                                                        </TableRow>
-                                                        <TableRow
-                                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                        >
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    2021-06-16
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    10:46:09
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                    Macbook Pro
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
-                                                                    Mac OS Bigsur
-                                                                </Typography>
-                                                            </TableCell>
-                                                            <TableCell align="right">
-                                                                <Button size='small' variant='contained' className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}><img src={USAflag} alt='' height="12px" /> USA</Button>
-                                                            </TableCell>
-                                                        </TableRow>
+                                                        {historyDataSort.map((item, i) => {
+                                                            return (
+                                                                <TableRow
+                                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                                >
+                                                                    <TableCell>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
+                                                                            {dayjs(item.created_at).format(
+                                                                                "MM/DD/YY - HH:mm:ss"
+                                                                            )}
+                                                                        </Typography>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
+
+                                                                        </Typography>
+                                                                    </TableCell>
+                                                                    <TableCell>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
+                                                                            {deviceData.device.model}
+                                                                        </Typography>
+                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
+                                                                            {deviceData.os.name}
+                                                                        </Typography>
+                                                                    </TableCell>
+                                                                    <TableCell align="right">
+                                                                        <Button
+                                                                            size='small'
+                                                                            variant='contained'
+                                                                            className='btn btn-secondary btn-table' sx={{ ml: 'auto' }}>
+                                                                            <ReactCountryFlag countryCode={item.country_code} />{item.country_code}
+                                                                        </Button>
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            )
+                                                        })}
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                            <Button variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto' , marginY : {xs: '40px ' , md: '40px'}}}>Log out all other devices</Button>
+                                            <Button variant='outlined' className='btn btn-outlined-secondary' sx={{ ml: 'auto', marginTop: 4 }}>Log out all other devices</Button>
                                         </Box>
                                     </Box>
 
@@ -165,8 +160,8 @@ const SessionHistory = () => {
                                             Login history
                                         </Typography>
                                         <Box className='session-list'>
-                                            <TableContainer>
-                                                <Table sx={{minWidth : {xs: '250px' , md: '650px'}}} aria-label="simple table">
+                                            <TableContainer sx={{ maxHeight: { xs: 240, sm: 440 }, paddingRight: '18px' }}>
+                                                <Table stickyHeader aria-label="sticky table" sx={{ minWidth: { xs: '250px', md: '650px' } }}>
                                                     <TableHead>
                                                         <TableRow>
                                                             <TableCell>
@@ -177,6 +172,7 @@ const SessionHistory = () => {
                                                             <TableCell>
                                                                 <Typography component="small" variant='body2' className='' sx={{ fontWeight: '600' }}>
                                                                     IP address
+
                                                                 </Typography>
                                                             </TableCell>
                                                             <TableCell align="right">
@@ -187,14 +183,17 @@ const SessionHistory = () => {
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
-                                                        {yesNo.map((v, i) => {
+                                                        {historyDataSort.map((v, i) => {
                                                             return (
                                                                 <TableRow
                                                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                                                 >
                                                                     <TableCell>
                                                                         <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                            {v.date}
+                                                                            {dayjs(v.created_at)
+                                                                                .format(
+                                                                                    "MM/DD/YY - HH:mm:ss"
+                                                                                )}
                                                                         </Typography>
                                                                         <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
                                                                             {v.time}
@@ -202,11 +201,11 @@ const SessionHistory = () => {
                                                                     </TableCell>
                                                                     <TableCell>
                                                                         <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
-                                                                            {v.ip}
+                                                                            {v.ip_address}
                                                                         </Typography>
                                                                     </TableCell>
                                                                     <TableCell align="right">
-                                                                        <Button size='small' variant='contained' color={(v.cta === "NO") ? "error" : "success"} className={(v.cta === "NO") ? "btn btn-table btn-error" : "btn btn-table btn-success"} sx={{ ml: 'auto' }}>{v.cta}</Button>
+                                                                        <Button size='small' variant='contained' color={(v.cta === "NO") ? "error" : "success"} className={(v.cta === "NO") ? "btn btn-table btn-error" : "btn btn-table btn-success"} sx={{ ml: 'auto' }}>{v.cta} Yes</Button>
                                                                     </TableCell>
                                                                 </TableRow>
                                                             )
@@ -215,7 +214,7 @@ const SessionHistory = () => {
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                            <Button variant='outlined' className='btn btn-outlined-secondary mobile-w-100' sx={{ ml: 'auto' }}>Contact us</Button>
+                                            <Button onClick={() => { navigate('/contact') }} variant='outlined' className='btn btn-outlined-secondary' sx={{ ml: 'auto', marginTop: 4 }}>Contact us</Button>
                                         </Box>
                                     </Box>
                                 </Box>

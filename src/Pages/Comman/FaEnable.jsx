@@ -1,27 +1,15 @@
 import React from 'react'
-import {  ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Grid, Typography, Button,  Link, Breadcrumbs, Stack,  InputAdornment, IconButton , TextField } from '@mui/material';
-import User from '../../../public/assets/images/user.svg';
-import Share from '../../../public/assets/images/share-square.svg';
-import Session from '../../../public/assets/images/session.svg';
-import Api from '../../../public/assets/images/api.svg';
-import FA from '../../../public/assets/images/fa.svg';
-import Lockbtn from '../../../public/assets/images/lockbtn.svg';
-import { EmailOutlined, NavigateNext ,VisibilityOutlined} from '@mui/icons-material/';
-
-
-function handleClick(event) {
-    event.preventDefault();
-    console.info('You clicked a breadcrumb.');
-}
-
-
+import { Box, Container, Grid, Typography, Button, Breadcrumbs, InputAdornment, IconButton, TextField } from '@mui/material';
+import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
+import { Link } from "react-router-dom"; 
+import Sidebar from './Components/Sidebar';
 
 const FaEnable = () => {
-   
+
     const breadcrumbs = [
-        <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
+        <Link to="/" underline="hover" key="1" color="inherit" >
             Home
         </Link>,
         <Typography key="3" color="text.primary">
@@ -38,14 +26,14 @@ const FaEnable = () => {
                                 2FA
                             </Typography>
 
-                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
+                            <Box className='' sx={{ color: '#777E90', fontWeight: '500',  paddingTop: {xs: '10px', md: '0px'} }}>
                                 <Box  >
                                     <Breadcrumbs
                                         separator={<NavigateNext fontSize="small" />}
                                         aria-label="breadcrumb"
                                         className='center-breadcrum'
                                     >
-                                        {breadcrumbs}
+                                    {breadcrumbs}
                                     </Breadcrumbs>
 
                                 </Box>
@@ -56,29 +44,13 @@ const FaEnable = () => {
                     <Box className='subscription-steps account-main'>
                         <Container maxWidth="lg">
                             <Box className='subscription-steps-inner'>
-                                <Box className='subscription-steps-col'>
-                                    <Stack spacing={2}>
-                                        <Box sx={{ borderBottom: '1px solid #E6E8EC' }} paddingBottom={2}>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4} fontWeight={700}><span><img src={User} /> </span>Profile</Typography>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Share} /> </span>Referrals</Typography>
-                                            <Typography className='left-icon secondary-color' paddingBottom={2}><span><img src={Api} /> </span>API keys</Typography>
-                                        </Box>
-                                        <Box paddingTop={2}>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Session} /> </span>Sessions & login history</Typography>
-                                            <Typography className='left-icon secondary-color' fontWeight={700} color='#23262F' paddingBottom={4}><span><img src={FA} /> </span>2FA</Typography>
-                                            <Typography className='left-icon secondary-color' paddingBottom={4}><span><img src={Lockbtn} /> </span>Change password</Typography>
-                                        </Box>
-
-                                    </Stack>
-
-
-                                </Box>
+                                <Sidebar />
                                 <Box className='subscription-steps-col-details'>
                                     <Box className="step-one">
                                         <Box className='fa-heading-box'>
                                             <Box sx={{ paddingBottom: { xs: '20px', md: '5px' } }}>
-                                                <Typography component="h3" variant='h3' className='fa secondary-font' paddingY={3} sx={{ fontWeight: '600', }} >2FA <span >Enabled</span></Typography>
-                                                <Typography component="p" variant='body2' className='secondary-color small-caption  '>If you want to turn off 2FA, input your account password and the six-digit code provided by the Google Authenticator app below, then click <span className='color-dark' fontWeight={500} color='#23262F'>"Disable 2FA"</span>.</Typography>
+                                                <Typography component="h3" variant='h3' className='fa secondary-font faenable-box' paddingY={3} sx={{ fontWeight: '600', }} >2FA <span >Enabled</span></Typography>
+                                                <Typography component="p" variant='body2' className='secondary-color small-caption  '>If you want to turn off 2FA, input your account password and the six-digit code provided by the Google Authenticator app below, then click <span className='color-dark font-500' fontWeight={500} color='#23262F'>"Disable 2FA"</span>.</Typography>
                                             </Box>
                                         </Box>
                                         <Box >
@@ -86,11 +58,11 @@ const FaEnable = () => {
                                             <Typography className='body-caption' component='p' paddingBottom={3}>Enter your password and the six-digit code provided by the Google Authenticator app to Disable the 2FA verification</Typography>
                                         </Box>
                                         <Box paddingY={2}>
-                                            <Typography><span className='email-icon'><EmailOutlined /></span> schinner@ui8.net</Typography>
+                                            <Typography fontWeight={500}><span className='email-icon'><EmailOutlined /></span> schinner@ui8.net</Typography>
                                         </Box>
                                     </Box>
                                     <Grid container>
-                                        <Grid items xs={12} md ={6  } marginRight={2}>
+                                        <Grid items xs={12} md={6} marginRight={2}>
                                             <TextField
                                                 label="Password"
                                                 className="form-control"
@@ -107,19 +79,19 @@ const FaEnable = () => {
                                                 name="password"
                                                 autoComplete="off"
                                                 size="small"
-                                                autoFocus 
+                                                autoFocus
                                                 InputProps={{
                                                     endAdornment: (
                                                         <InputAdornment position="end">
                                                             <IconButton >
-                                                              <VisibilityOutlined />
+                                                                <VisibilityOutlined />
                                                             </IconButton>
                                                         </InputAdornment>
                                                     ),
                                                 }}
-                                                />
-                                        </Grid> 
-                                        <Grid items xs={12} md ={5}>
+                                            />
+                                        </Grid>
+                                        <Grid items xs={12} md={5}>
                                             <TextField
                                                 label="2FA Code"
                                                 className="form-control"
@@ -137,10 +109,10 @@ const FaEnable = () => {
                                                 autoComplete="off"
                                                 size="small"
                                                 autoFocus
-                                                />
+                                            />
                                         </Grid>
                                     </Grid>
-                             
+
                                     <Typography textAlign='right' paddingY={3}>
                                         <Button className='btn orange-btn btn-primary mobile-w-100' >Disable 2FA</Button>
                                     </Typography>
@@ -149,7 +121,7 @@ const FaEnable = () => {
                         </Container>
                     </Box>
 
-                </Box >
+                </Box>
             </ThemeProvider>
         </>
     )

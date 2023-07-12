@@ -1,17 +1,13 @@
-import React, { useState } from "react";
+import React, { useState,useCallback,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../_common/app.constants";
 import { useUserActions } from "../../_actions/user.actions";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 
 import {
-  Checkbox,
   Container,
   Box,
-  TextField,
   Typography,
   Link,
   Button,
@@ -19,37 +15,69 @@ import {
   FormControl,
   RadioGroup,
   Radio,
-  FormLabel,
 } from "@mui/material";
 import OTPInput, { ResendOTP } from "otp-input-react";
-import IconButton from "@mui/material/IconButton";
 import LogoLight from "../../../public/assets/images/logo-light.svg";
 import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useAlertActions } from '../../_actions/alert.actions';
+import { switchAtom,userErrorAtom } from '../../_state';
+import { useRecoilState } from 'recoil';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const AccountConfirm = () => {
   const navigate = useNavigate();
   const userActions = useUserActions();
-  const [radioOption, setRadioOption] = useState("by_email");
-  const [switchOption, setSwitchOption] = useState(true);
-  const onSubmitFun = async () => {
-    if (radioOption == "by_email") {
-      userActions.getOtp();
-      setSwitchOption(false);
+  const [radioOption, setRadioOption] = useState("email");
+  const [OTP, setOTP] = useState("");
+  const { handleSubmit } = useForm();
+  const alertActions = useAlertActions();
+  const [Soption, setSoption] = useRecoilState(switchAtom);
+  const [userError, setUserError] = useRecoilState(userErrorAtom);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [timer, setTimer] = useState(60);    
+  const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
+  
+  useEffect(() => {
+    timer > 0 && setTimeout(timeOutCallback, 1000);
+  }, [timer, timeOutCallback]);
+  
+  const resetTimer = function () {
+    if (!timer) {
+      setTimer(60);
     }
-    else {
-      // code for 
+  };  
+
+  useEffect(() => {
+    if (userError)
+        setIsSubmitting(false)
+}, [userError])
+
+  const onSubmitFun = async () => {
+  
+    if (radioOption === "email") {
+      userActions.getOtp(); 
+      setIsSubmitting(true)
+      setUserError(false)    
+    }else {
+      userActions.getOtpPhone(localStorage.getItem("phone"));   
+      setIsSubmitting(true)
+      setUserError(false)   
     }
   }
   const handleOtpSubmit = async () => {
-    // await userActions.
+   
+    if (OTP.length !== 4) { 
+      alertActions.error("Fill OTP First"); } 
+    else { 
+      userActions.verifyRegisterOtp(OTP) 
+    
+    }   
   }
-  const [OTP, setOTP] = useState("");
-  const { register, handleSubmit, formState, reset, watch } = useForm();
-  const { errors, isSubmitting } = formState;
-  const alertActions = useAlertActions();
+
+  console.log(Soption,'radioOption')
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -89,7 +117,7 @@ const AccountConfirm = () => {
               <img src={AuthBg} alt="Auth bg" />
             </Box>
             <Box component="div" className="auth-wrapper-form">
-              {switchOption ? (
+              {Soption===true ? (
                 <Box component="div" className="auth-wrapper-form-inner">
                   <Typography component="h3" variant="h3">
                     Let’s confirm it’s really you
@@ -123,27 +151,30 @@ const AccountConfirm = () => {
                           }}
                         >
                           <FormControlLabel
-                            value="by_mobile"
+                            value="phone"
                             control={<Radio />}
                             label={`Get the code by text message (SM) at ${localStorage.getItem("phone")}`}
                           />
                           <Box component="div" className="devider" />
                           <FormControlLabel
-                            value="by_email"
+                            value="email"
                             control={<Radio />}
                             label={`Get the code by email at ${localStorage.getItem("email")}`}
                           />
                         </RadioGroup>
                       </FormControl>
 
-                      <Button
+                      <LoadingButton
                         type="submit"
+                        loading={isSubmitting}
+                        loadingPosition="end"
                         variant="contained"
                         className="btn btn-primary"
+                        disabled={isSubmitting} 
                         endIcon={<KeyboardArrowRightIcon />}
                       >
-                        Continue
-                      </Button>
+                         {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Continue"}
+                      </LoadingButton>
                     </Box>
                   </Box>
                 </Box>
@@ -163,23 +194,29 @@ const AccountConfirm = () => {
                         marginBottom: "20px",
                       }}
                     >
-                      {radioOption !== "by_email"
+                      {Soption !== "email"
                         ? `We have sent the code by text message (SM) at ${localStorage.getItem("phone")}`
                         : `We have sent the code by email at ${localStorage.getItem("email")}`}
                     </Typography>
                   </Box>
-                  <Box noValidate onSubmit={handleOtpSubmit} component="form" sx={{ mt: "24px" }}>
+                  <Box noValidate onSubmit={handleSubmit(handleOtpSubmit)} component="form" sx={{ mt: "24px" }}>
                     <Box component="div" display={"flex"} justifyContent={"center"} className="auth-form auth-otp">
-
                       <OTPInput id="otp1" autoFocus type='number' variant="filled" value={OTP} onChange={setOTP} OTPLength={4} otpType="number" disabled={false} />
-
                     </Box>
-                    <Box component="div" className='auth-otp-cta' >
-                      <Button onClick={() => { userActions.getOtp() }} variant="outlined" className='btn btn-outlined-secondary'>
-                        Resend Code
+                    <Box component="div" className='auth-otp-cta' >                      
+                      {timer>1 &&
+                      <Button disabled style={{"background": "#ccc"}} variant="outlined" className='btn btn-outlined-secondary'>
+                        Resend Code ({timer})
                       </Button>
-                      <Button type="button" variant="contained" className='btn btn-primary' onClick={() => { if (OTP.length !== 4) { alertActions.error("Fill OTP First"); } else { userActions.verifyRegisterOtp(OTP) } }}>
-                        Continue
+                      }
+                      {timer<1 &&
+                      <Button  onClick={() => { (Soption === "email")? userActions.getOtp():userActions.getOtpPhone(localStorage.getItem("phone")); resetTimer() }} variant="outlined" className='btn btn-outlined-secondary'>
+                        Resend Code 
+                      </Button>
+                      }
+                      <Button
+                        type="submit" variant="contained" className='btn btn-primary'  >
+                        Continue 
                       </Button>
 
                     </Box>

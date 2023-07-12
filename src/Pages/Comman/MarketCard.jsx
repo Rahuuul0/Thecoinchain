@@ -1,151 +1,285 @@
-import React, { useState } from 'react';
-import { Box, Container, Grid, Typography, Button, FormControl, MenuItem } from '@mui/material';
-import Tab from '@mui/material/Tab';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import GraphUp from '../../../public/assets/images/chart-up.svg';
-import GraphDown from '../../../public/assets/images/chart-down.svg';
-import BtcIc from '../../../public/assets/images/icons/btc-ic.svg';
-import AtcIc from '../../../public/assets/images/icons/atc-ic.svg';
-import EthIc from '../../../public/assets/images/icons/eth-ic.svg';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Container,
+  Typography,
+  Button,
+  FormControl,
+  MenuItem,
+  Stack,
+} from "@mui/material";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import TabContext from "@mui/lab/TabContext";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useCoinActions, subscriptionActions } from "../../_actions";
+import {
+  coinCategoryAtom,
+  selectedCategoryAtom,
+  coinsAtom,
+  cardCoinsAtom,
+  authAtom,
+  forecastSubAtom,
+  loaderAtom,
+} from "../../_state";
 const MarketCard = () => {
+  const navigate = useNavigate();
+  const [value, setValue] = useState("1");
+  const coinActions = useCoinActions();
+  const categoryList = useRecoilValue(coinCategoryAtom);
+  const selectedCat = useRecoilValue(selectedCategoryAtom);
+  const [tablefilter, setTablefilter] = useState(1);
+  const cardCoinsList = useRecoilValue(cardCoinsAtom);
+  const userDetail = useRecoilValue(authAtom);
+  const subscriptionAction = subscriptionActions();
+  const subscriptionDetails = useRecoilValue(forecastSubAtom);
+  const loader = useSetRecoilState(loaderAtom);
+  let page = "page_name=market_page";
 
-    const navigate = useNavigate();
-    const [value, setValue] = useState('1');
+  const handleChangeTablefilter = (event) => {
+    setTablefilter(event.target.value);
+  };
+  const getFirstLetters = (str) => {
+    const firstLetters = str.replace("Portfolio", "");
+    return firstLetters;
+  };
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+  useEffect(() => {
+    coinActions.latestListing(page);
+    if (userDetail && !subscriptionDetails.id) {
+      subscriptionAction.subscribedUser();
+    }
+  }, []);
 
-
-    const [tablefilter, setTablefilter] = useState('');
-
-    const handleChangeTablefilter = (event) => {
-        setTablefilter(event.target.value);
-    };
-
-
-    return (
-        <>
-            <Box className='market-crypto-card-wrapper'>
-                <Container maxWidth="lg">
-                    <Box className='market-crypto-card-wrapper-inner'>
-                        <Box className='market-crypto-graph'>
-                            <Box className='market-crypto-graph-col'>
-                                <Box className='market-crypto-graph-ic'>
-                                    <img src={BtcIc} alt='' />
-                                </Box>
-                                <Box className='market-crypto-graph-details'>
-                                    <Box className='market-crypto-name'>
-                                        <Typography component="small" varient="body2" className='currency-name'>BTC/USDT <span className='status-badge'>+0.79%</span></Typography>
-                                        <Typography component="h5" varient="h5">36,641.20</Typography>
-                                        <Typography component="small" varient="small-caption">36,641.20</Typography>
-                                    </Box>
-                                </Box>
-                                <Box className='market-crypto-graph-details'>
-                                    <img src={GraphUp} alt='' />
-                                </Box>
-                            </Box>
-                            <Box className='market-crypto-graph-col'>
-                                <Box className='market-crypto-graph-ic'>
-                                    <img src={AtcIc} alt='' />
-                                </Box>
-                                <Box className='market-crypto-graph-details'>
-                                    <Box className='market-crypto-name'>
-                                        <Typography component="small" varient="body2" className='currency-name'>ATC/USDT <span className='status-badge status-down'>-0.79%</span></Typography>
-                                        <Typography component="h5" varient="h5">41.20</Typography>
-                                        <Typography component="small" varient="small-caption">41.20</Typography>
-                                    </Box>
-                                </Box>
-                                <Box className='market-crypto-graph-details'>
-                                    <img src={GraphDown} alt='' />
-                                </Box>
-                            </Box>
-                            <Box className='market-crypto-graph-col'>
-                                <Box className='market-crypto-graph-ic'>
-                                    <img src={EthIc} alt='' />
-                                </Box>
-                                <Box className='market-crypto-graph-details'>
-                                    <Box className='market-crypto-name'>
-                                        <Typography component="small" varient="body2" className='currency-name'>ETH/USDT <span className='status-badge'>+0.54%</span></Typography>
-                                        <Typography component="h5" varient="h5">3,641.20</Typography>
-                                        <Typography component="small" varient="small-caption">3,641.20</Typography>
-                                    </Box>
-                                </Box>
-                                <Box className='market-crypto-graph-details'>
-                                    <img src={GraphUp} alt='' />
-                                </Box>
-                            </Box>
-                        </Box>
-                        <Box className='market-crypto-tabs for-desktop'>
-                            <TabContext value={value}>
-                                <Box>
-                                    <TabList onChange={handleChange} aria-label="Login Tabs">
-                                        <Tab label="Cryptocurrencies" value="1" />
-                                        <Tab label="DeFi" value="2" />
-                                        <Tab label="Innovation" value="3" />
-                                        <Tab label="POS" value="4" />
-                                        <Tab label="NFT" value="5" />
-                                        <Tab label="POW" value="6" />
-                                    </TabList>
-                                </Box>
-                                {/* <TabPanel value="1" sx={{ p: 0 }}>
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            className='btn btn-primary'
-                                            disabled={isSubmitting}>
-                                            Login
-                                            </Button>
-                                            </TabPanel>
-                                    <TabPanel value="2" sx={{ p: 0 }}>
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            className='btn btn-primary'
-                                            disabled={isSubmitting}>
-                                            Login
-                                            </Button>
-                                        </TabPanel> */}
-                            </TabContext>
+  return (
+    <>
+      <Box className="market-crypto-card-wrapper">
+        <Container maxWidth="lg">
+          <Box className="market-crypto-card-wrapper-inner">
+            <Box className="market-crypto-graph">
+              {cardCoinsList?.slice(0, 3).map((item) => {
+                return (
+                  <Box className="market-crypto-graph-col">
+                    <Box className="market-crypto-graph-ic">
+                      <img
+                        src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}
+                        alt={item.symbol}
+                        width="33px"
+                      />
+                    </Box>
+                    <Box className="market-crypto-graph-details">
+                      <Box className="market-crypto-name">
+                        <Typography
+                          component="small"
+                          varient="body2"
+                          className="currency-name"
+                        >
+                          {item.symbol}
+                          {"/USDT "}
+                          <span
+                            className="status-badge"
+                            style={{
+                              backgroundColor:
+                                item.percent_change_24h < 0
+                                  ? "#ff6838"
+                                  : "#58bd7d",
+                            }}
+                          >
+                            {item.percent_change_24h?.toFixed(2)}%
+                          </span>
+                        </Typography>
+                        <Typography component="h5" varient="h5">
+                          {item?.price > 1
+                            ? item.price?.toFixed(2)
+                            : item?.price < 1 && item?.price >= 0.1
+                            ? item.price?.toFixed(4)
+                            : item?.price < 0.1 && item?.price > 0.01
+                            ? item.price?.toFixed(6)
+                            : item?.price < 0.01
+                            ? item.price?.toFixed(8)
+                            : item?.price}
+                        </Typography>
+                        <Typography component="small" varient="small-caption">
+                          {item.volume_24h?.toFixed(2)}
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box className="market-crypto-graph-details">
+                      <img
+                        src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
+                        alt="chart"
+                        height="33px"
+                        style={{
+                          filter:
+                            item.percent_change_24h < 0
+                              ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
+                              : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
+                        }}
+                        // onClick={() => handleChartOpen(item.id)}
+                      />
+                    </Box>
+                  </Box>
+                );
+              })}
+            </Box>
+            <Box className="market-crypto-tabs for-desktop">
+              <TabContext value={value}>
+                <Stack direction="row" className="filter-btn" spacing="2">
+                  {selectedCat === 0 ? (
+                    <Button
+                      variant="contained"
+                      className="btn btn-secondary"
+                      onClick={(e) => {
+                        loader(true);
+                        location.pathname === "/market"
+                          ? coinActions.latestListing(page)
+                          : coinActions.latestListing();
+                      }}
+                    >
+                      All
+                    </Button>
+                  ) : (
+                    <Button
+                      className="btn"
+                      onClick={(e) => {
+                        loader(true);
+                        location.pathname === "/market"
+                          ? coinActions.latestListing(page)
+                          : coinActions.latestListing();
+                      }}
+                    >
+                      All
+                    </Button>
+                  )}
+                  {categoryList.length &&
+                    categoryList.map((item, index) => {
+                      if (index < 4) {
+                        if (selectedCat !== 0 && selectedCat === item.id) {
+                          return (
                             <Button
-                                variant="outlined"
-                                className='btn btn-outlined-secondary' onClick={() => { navigate("../predict-market") }}>
-                                Predict
+                              variant="contained"
+                              className="btn btn-secondary"
+                              key={index}
+                              onClick={(e) => {
+                                coinActions.coinListbByCategoty(item.id);
+                              }}
+                              title={item.name}
+                            >
+                              {getFirstLetters(item.name)}
                             </Button>
-                        </Box>
-                        <Box className='market-crypto-tabs for-mobile dropdown-mobile'>
-                            <FormControl sx={{ m: 0, minWidth: 120, width: '100%' }}>
-                                <Select
-                                    value={tablefilter}
-                                    onChange={handleChangeTablefilter}
-                                    displayEmpty
-                                    inputProps={{ 'aria-label': 'Without label' }}
-                                >
-                                    <MenuItem value={10}>Cryptocurrencies</MenuItem>
-                                    <MenuItem value={20}>DeFi</MenuItem>
-                                    <MenuItem value={30}>Innovation</MenuItem>
-                                    <MenuItem value={40}>POS</MenuItem>
-                                    <MenuItem value={50}>NFT</MenuItem>
-                                    <MenuItem value={60}>POW</MenuItem>
-                                    <MenuItem value={70}>Predict</MenuItem>
-                                </Select>
-                            </FormControl>
-                            {/* <Button
+                          );
+                        } else {
+                          return (
+                            <Button
+                              className="btn"
+                              onClick={(e) => {
+                                coinActions.coinListbByCategoty(item.id);
+                              }}
+                              title={item.name}
+                            >
+                              {getFirstLetters(item.name)}
+                            </Button>
+                          );
+                        }
+                      } else {
+                        return "";
+                      }
+                    })}
+                </Stack>
+              </TabContext>
+              <Button
+                variant="outlined"
+                className="btn btn-outlined-secondary"
+                onClick={() => {
+                  navigate(
+                    !userDetail
+                      ? "/login"
+                      : userDetail && subscriptionDetails.status === "running"
+                      ? "/prediction-dashboard"
+                      : "/subscription"
+                  );
+                }}
+              >
+                Predict
+              </Button>
+            </Box>
+            <Box className="market-crypto-tabs for-mobile dropdown-mobile">
+              <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                <Select
+                  value={tablefilter}
+                  onChange={handleChangeTablefilter}
+                  displayEmpty
+                  inputProps={{ "aria-label": "Without label" }}
+                >
+                  {selectedCat === 0 ? (
+                    <MenuItem
+                      value={1}
+                      onClick={(e) => {
+                        location.pathname === "/market"
+                          ? coinActions.latestListing(page)
+                          : coinActions.latestListing();
+                      }}
+                    >
+                      All
+                    </MenuItem>
+                  ) : (
+                    <MenuItem
+                      value={1}
+                      onClick={(e) => {
+                        location.pathname === "/market"
+                          ? coinActions.latestListing(page)
+                          : coinActions.latestListing();
+                      }}
+                    >
+                      All
+                    </MenuItem>
+                  )}
+                  {categoryList.length &&
+                    categoryList.map((item, index) => {
+                      if (index < 4) {
+                        if (selectedCat !== 0 && selectedCat === item.id) {
+                          return (
+                            <MenuItem
+                              value={index + 2}
+                              key={index}
+                              onClick={(e) => {
+                                coinActions.coinListbByCategoty(item.id);
+                              }}
+                              title={item.name}
+                            >
+                              {getFirstLetters(item.name)}
+                            </MenuItem>
+                          );
+                        } else {
+                          return (
+                            <MenuItem
+                              value={index + 2}
+                              onClick={(e) => {
+                                coinActions.coinListbByCategoty(item.id);
+                              }}
+                              title={item.name}
+                            >
+                              {getFirstLetters(item.name)}
+                            </MenuItem>
+                          );
+                        }
+                      } else {
+                        return "";
+                      }
+                    })}
+                </Select>
+              </FormControl>
+              {/* <Button
                                 variant="outlined"
                                 className='btn btn-outlined-secondary'>
                                 Predict
                             </Button> */}
-                        </Box>
-                    </Box>
-                </Container>
             </Box>
-        </>
-    )
-}
+          </Box>
+        </Container>
+      </Box>
+    </>
+  );
+};
 
-export default MarketCard
+export default MarketCard;

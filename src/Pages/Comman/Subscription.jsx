@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Typography, Button, Link } from '@mui/material'
@@ -8,9 +8,18 @@ import CryptoTrader03 from '../../../public/assets/images/crypto-trader-03.svg'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useNavigate, Link as Links } from 'react-router-dom';
 import CheckoutPayment from './Components/CheckoutPayment';
+import { authAtom } from '../../_state';
+import { useRecoilValue } from 'recoil';
+import { useAlertActions } from '../../_actions/alert.actions';
 
 const Subscription = () => {
     const navigate = useNavigate();
+    const alertActions = useAlertActions();
+    const auth = useRecoilValue(authAtom)
+    useEffect(()=> {
+        alertActions.error("Please login to subscribe!");
+        if(!auth)navigate('/login')
+    })
     return (
         <>
             <ThemeProvider theme={theme}>

@@ -65,6 +65,7 @@ export const Apis = {
   Notification_View_All: "get-view-all",
   Notifications_List_view: "get-notification-view-all",
   Market: "market",
+  Market_Trend: "market-trend"
 };
 
 export const theme = createTheme({

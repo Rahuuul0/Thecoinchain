@@ -11,4 +11,10 @@ const userErrorAtom = atom({
     default: false,   
 });
 
-export { homeAtom };
+const marketTrendAtom = atom({
+    key: 'marketTrendAtom',
+    default: {}
+});
+
+
+export { homeAtom, marketTrendAtom };

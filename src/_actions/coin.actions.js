@@ -81,30 +81,28 @@ const useCoinActions = () => {
   };
 
   const latestListing = async (params) => {
-    let listUrl =
-      location.pathname === "/prediction-dashboard"
-        ? Apis.Latest_Listings
-        : Apis.Market;
     setSelectedCategory(0);
     categoryList.length <= 0 ? categoriesList() : "";
     return fetchWrapper
-      .post(`${listUrl}?${params}`)
+      .post(`${Apis.Market_Trend}?${params}`)
       .then((res) => {
         loader(false);
         if (res.statusCode === 200) {
           coinsArr = [];
-          for (let key in res.data) {
-            let firstItem = "";
-            firstItem = res.data[key];
-            if (!Array.isArray(res.data[key])) {
-              coinsArr.push(firstItem);
-            }
-          }
+          res.data.data.map((itm, key) => {
+            let coin = {};
+            coin.id = itm.id;
+            coin.name = itm.name;
+            coin.symbol = itm.symbol;
+            coin.price = itm.quote.USD.price;
+            coin.percent_change_24h = itm.quote.USD.percent_change_24h;
+            coin.percent_change_7d = itm.quote.USD.percent_change_7d;
+            coin.volume_24h = itm.quote.USD.volume_24h;
+            coin.market_cap = itm.quote.USD.market_cap;
+            coinsArr.push(coin);
+          });
           setCardCoins(coinsArr);
-          if (location.pathname === "/") {
-            let homeCoins = coinsArr.slice(0, 5);
-            setCoinList(homeCoins);
-          } else setCoinList(coinsArr);
+          setCoinList(coinsArr);
         } else {
           alertActions.error(Labels.Error);
         }
@@ -132,6 +130,8 @@ const useCoinActions = () => {
           coin.ct_accuracy = itm.ct_accuracy;
           coin.price = itm.live_data[0].quote.USD.price;
           coin.percent_change_7d = itm.live_data[0].quote.USD.percent_change_7d;
+          coin.percent_change_7d = itm.live_data[0].quote.USD.percent_change_7d;
+          coin.market_cap = itm.live_data[0].quote.USD.market_cap;
 
           coinsArr.push(coin);
         });

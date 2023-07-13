@@ -12,7 +12,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import TabContext from "@mui/lab/TabContext";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { useCoinActions, subscriptionActions } from "../../_actions";
+import { useCoinActions, subscriptionActions, useHomeActions } from "../../_actions";
 import {
   coinCategoryAtom,
   selectedCategoryAtom,
@@ -21,6 +21,7 @@ import {
   authAtom,
   forecastSubAtom,
   loaderAtom,
+  marketTrendAtom
 } from "../../_state";
 const MarketCard = () => {
   const navigate = useNavigate();
@@ -34,6 +35,8 @@ const MarketCard = () => {
   const subscriptionAction = subscriptionActions();
   const subscriptionDetails = useRecoilValue(forecastSubAtom);
   const loader = useSetRecoilState(loaderAtom);
+  const marketTrend = useRecoilValue(marketTrendAtom);
+  const homeActions = useHomeActions();
   let page = "page_name=market_page";
 
   const handleChangeTablefilter = (event) => {
@@ -50,6 +53,14 @@ const MarketCard = () => {
       subscriptionAction.subscribedUser();
     }
   }, []);
+
+    // homeActions get function   API data call 
+    useEffect(() => {
+      const response = homeActions.marketTrend()
+      response.then((res) => {({...res}) })
+  }, [])
+
+  console.log(marketTrend,'marketTrend')
 
   return (
     <>

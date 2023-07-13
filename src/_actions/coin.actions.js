@@ -81,14 +81,10 @@ const useCoinActions = () => {
   };
 
   const latestListing = async (params) => {
-    let listUrl =
-      location.pathname === "/prediction-dashboard"
-        ? Apis.Latest_Listings
-        : Apis.Market;
     setSelectedCategory(0);
     categoryList.length <= 0 ? categoriesList() : "";
     return fetchWrapper
-      .post(`${listUrl}?${params}`)
+      .post(`${Apis.Market}?${params}`)
       .then((res) => {
         loader(false);
         if (res.statusCode === 200) {
@@ -132,6 +128,8 @@ const useCoinActions = () => {
           coin.ct_accuracy = itm.ct_accuracy;
           coin.price = itm.live_data[0].quote.USD.price;
           coin.percent_change_7d = itm.live_data[0].quote.USD.percent_change_7d;
+          coin.percent_change_7d = itm.live_data[0].quote.USD.percent_change_7d;
+          coin.market_cap = itm.live_data[0].quote.USD.market_cap;
 
           coinsArr.push(coin);
         });

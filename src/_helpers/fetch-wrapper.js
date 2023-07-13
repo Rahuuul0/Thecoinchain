@@ -47,32 +47,32 @@ function useFetchWrapper() {
     } else {
       return {};
     }
-  } 
-    
-    function handleResponse(response) {
-        return response.text().then(text => {           
-            const data = text && JSON.parse(text);              
-            if (!response.ok) {                
-                if ([500].includes(response.status) && auth?.access_token) {
-                    // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
-                    localStorage.removeItem('user');
-                    setAuth(null);
-                    navigate(`/login`);
-                } 
-                
-                if (![402].includes(response.status)) {                
-                    const error = (data && data.message) || response.statusText;
-                    alertActions.error(error);                   
-                }
-                return Promise.reject(error);
-            }else{
-                if ([403].includes(data.statusCode) && data.status==='unauthorized' ) {
-                    localStorage.removeItem('user');
-                    setAuth(null);
-                    navigate(`/login`);
-                }
-            }    
-            return data;
-        });
-    }   
+  }
+
+  function handleResponse(response) {
+    return response.text().then((text) => {
+      const data = text && JSON.parse(text);
+      if (!response.ok) {
+        if ([401, 403].includes(response.status) && auth?.access_token) {
+          // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
+          localStorage.removeItem("user");
+          setAuth(null);
+          navigate(`/login`);
+        }
+
+        if (![402, 404].includes(response.status)) {
+          const error = (data && data.message) || response.statusText;
+          alertActions.error(error);
+        }
+        return Promise.reject(error);
+      } else {
+        if ([403].includes(data.statusCode) && data.status === "unauthorized") {
+          localStorage.removeItem("user");
+          setAuth(null);
+          navigate(`/login`);
+        }
+      }
+      return data;
+    });
+  }
 }

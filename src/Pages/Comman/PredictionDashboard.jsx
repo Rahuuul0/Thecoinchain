@@ -7,7 +7,7 @@ import { useRecoilValue } from "recoil";
 import { faqAtom } from "../../_state";
 import CryptoTable from "./CryptoTable";
 import { useNavigate } from "react-router-dom";
-import CryptoTableCopy from "./CryptoTableCopy";
+
 const PredictionDashboard = () => {
   const navigate = useNavigate();
   const faqGetAction = faqActions();

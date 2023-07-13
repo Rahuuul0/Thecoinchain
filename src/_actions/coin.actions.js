@@ -84,23 +84,25 @@ const useCoinActions = () => {
     setSelectedCategory(0);
     categoryList.length <= 0 ? categoriesList() : "";
     return fetchWrapper
-      .post(`${Apis.Market}?${params}`)
+      .post(`${Apis.Market_Trend}?${params}`)
       .then((res) => {
         loader(false);
         if (res.statusCode === 200) {
           coinsArr = [];
-          for (let key in res.data) {
-            let firstItem = "";
-            firstItem = res.data[key];
-            if (!Array.isArray(res.data[key])) {
-              coinsArr.push(firstItem);
-            }
-          }
+          res.data.data.map((itm, key) => {
+            let coin = {};
+            coin.id = itm.id;
+            coin.name = itm.name;
+            coin.symbol = itm.symbol;
+            coin.price = itm.quote.USD.price;
+            coin.percent_change_24h = itm.quote.USD.percent_change_24h;
+            coin.percent_change_7d = itm.quote.USD.percent_change_7d;
+            coin.volume_24h = itm.quote.USD.volume_24h;
+            coin.market_cap = itm.quote.USD.market_cap;
+            coinsArr.push(coin);
+          });
           setCardCoins(coinsArr);
-          if (location.pathname === "/") {
-            let homeCoins = coinsArr.slice(0, 5);
-            setCoinList(homeCoins);
-          } else setCoinList(coinsArr);
+          setCoinList(coinsArr);
         } else {
           alertActions.error(Labels.Error);
         }

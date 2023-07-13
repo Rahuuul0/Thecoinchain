@@ -12,7 +12,11 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import TabContext from "@mui/lab/TabContext";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { useCoinActions, subscriptionActions, useHomeActions } from "../../_actions";
+import {
+  useCoinActions,
+  subscriptionActions,
+  useHomeActions,
+} from "../../_actions";
 import {
   coinCategoryAtom,
   selectedCategoryAtom,
@@ -21,7 +25,7 @@ import {
   authAtom,
   forecastSubAtom,
   loaderAtom,
-  marketTrendAtom
+  marketTrendAtom,
 } from "../../_state";
 const MarketCard = () => {
   const navigate = useNavigate();
@@ -37,7 +41,6 @@ const MarketCard = () => {
   const loader = useSetRecoilState(loaderAtom);
   const marketTrend = useRecoilValue(marketTrendAtom);
   const homeActions = useHomeActions();
-  let page = "page_name=market_page";
 
   const handleChangeTablefilter = (event) => {
     setTablefilter(event.target.value);
@@ -48,19 +51,19 @@ const MarketCard = () => {
   };
 
   useEffect(() => {
-    coinActions.latestListing(page);
+    coinActions.latestListing("limit=10");
     if (userDetail && !subscriptionDetails.id) {
       subscriptionAction.subscribedUser();
     }
   }, []);
 
-    // homeActions get function   API data call 
-    useEffect(() => {
-      const response = homeActions.marketTrend()
-      response.then((res) => {({...res}) })
-  }, [])
-
-  console.log(marketTrend,'marketTrend')
+  // homeActions get function   API data call
+  useEffect(() => {
+    const response = homeActions.marketTrend();
+    response.then((res) => {
+      ({ ...res });
+    });
+  }, []);
 
   return (
     <>
@@ -142,9 +145,7 @@ const MarketCard = () => {
                       className="btn btn-secondary"
                       onClick={(e) => {
                         loader(true);
-                        location.pathname === "/market"
-                          ? coinActions.latestListing(page)
-                          : coinActions.latestListing();
+                        coinActions.latestListing("limit=10");
                       }}
                     >
                       All
@@ -154,9 +155,7 @@ const MarketCard = () => {
                       className="btn"
                       onClick={(e) => {
                         loader(true);
-                        location.pathname === "/market"
-                          ? coinActions.latestListing(page)
-                          : coinActions.latestListing();
+                        coinActions.latestListing("limit=10");
                       }}
                     >
                       All
@@ -226,9 +225,7 @@ const MarketCard = () => {
                     <MenuItem
                       value={1}
                       onClick={(e) => {
-                        location.pathname === "/market"
-                          ? coinActions.latestListing(page)
-                          : coinActions.latestListing();
+                        coinActions.latestListing("limit=10");
                       }}
                     >
                       All
@@ -237,9 +234,7 @@ const MarketCard = () => {
                     <MenuItem
                       value={1}
                       onClick={(e) => {
-                        location.pathname === "/market"
-                          ? coinActions.latestListing(page)
-                          : coinActions.latestListing();
+                        coinActions.latestListing("limit=10");
                       }}
                     >
                       All

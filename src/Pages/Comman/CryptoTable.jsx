@@ -97,8 +97,6 @@ const CryptoTable = (props) => {
   const [timeFrame, setTimeFrame] = useState("15m");
   const date = new Date();
 
-  console.log(dayjs(date).add(15, "m").format("DD/MM/YYYY H:m"), "todays date");
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -159,17 +157,14 @@ const CryptoTable = (props) => {
       : getLastestListing();
   }, [subscriptionDetails]);
 
-  console.log(subscriptionDetails, "subscription details");
-
   const getLastestListing = async () => {
-    let page = "";
-    if (subscriptionDetails.status === "running") {
-      location.pathname === "/market" ? (page = `page_name=market_page`) : "";
-    } else {
-      location.pathname === "/market" ? (page = "page_name=market_page") : "";
-    }
+    let param = "";
 
-    const ress = await coinActions.latestListing(page);
+    location.pathname === "/market"
+      ? (param = `limit=10`)
+      : (param = `limit=5`);
+
+    const ress = await coinActions.latestListing(param);
   };
 
   const getLatestCategory = async () => {
@@ -192,7 +187,7 @@ const CryptoTable = (props) => {
               ? getLastestListing()
               : getLatestCategory(selectedCat)
             : getLastestListing();
-      }, 3000);
+      }, 5000);
       return () => clearInterval(interval);
     }
   }, [intervalCount, selectedCat, subscriptionDetails]);
@@ -320,11 +315,17 @@ const CryptoTable = (props) => {
                           {item?.price > 1
                             ? (Math.round(item.price * 100) / 100)?.toFixed(2)
                             : item?.price < 1 && item?.price >= 0.1
-                            ? Math.round(item.price * 10000) / 10000
+                            ? (Math.round(item.price * 10000) / 10000)?.toFixed(
+                                4
+                              )
                             : item?.price < 0.1 && item?.price > 0.01
-                            ? Math.round(item.price * 1000000) / 1000000
+                            ? (
+                                Math.round(item.price * 1000000) / 1000000
+                              )?.toFixed(6)
                             : item?.price < 0.01
-                            ? Math.round(item.price * 100000000) / 100000000
+                            ? (
+                                Math.round(item.price * 100000000) / 100000000
+                              )?.toFixed(8)
                             : item?.price}
                         </TableCell>
                         {location.pathname !== "/prediction-dashboard" ? (
@@ -694,7 +695,13 @@ const CryptoTable = (props) => {
                         component="small"
                         sx={{ color: "#00C076", fontWeight: "500" }}
                       >
-                        {chartData[0]?.ct_min_15_current - chartData[0]?.price}
+                        {(
+                          Math.round(
+                            (chartData[0]?.ct_min_15_current -
+                              chartData[0]?.price) *
+                              100
+                          ) / 100
+                        )?.toFixed(2)}
                         <span>+1.25%</span>
                       </Typography>
                     </Box>
@@ -745,7 +752,14 @@ const CryptoTable = (props) => {
                         component="small"
                         sx={{ color: "#00C076", fontWeight: "500" }}
                       >
-                        {chartData[0]?.ct_hour_1_current - chartData[0]?.price}
+                        {(
+                          Math.round(
+                            (chartData[0]?.ct_hour_1_current -
+                              chartData[0]?.price) *
+                              100
+                          ) / 100
+                        )?.toFixed(2)}
+
                         <span>+1.25%</span>
                       </Typography>
                     </Box>
@@ -796,7 +810,13 @@ const CryptoTable = (props) => {
                         component="small"
                         sx={{ color: "#00C076", fontWeight: "500" }}
                       >
-                        {chartData[0]?.ct_hours_4_current - chartData[0]?.price}
+                        {(
+                          Math.round(
+                            (chartData[0]?.ct_hours_4_current -
+                              chartData[0]?.price) *
+                              100
+                          ) / 100
+                        )?.toFixed(2)}
                         <span>+1.25%</span>
                       </Typography>
                     </Box>
@@ -847,7 +867,13 @@ const CryptoTable = (props) => {
                         component="small"
                         sx={{ color: "#00C076", fontWeight: "500" }}
                       >
-                        {chartData[0]?.ct_day_1_current - chartData[0]?.price}
+                        {(
+                          Math.round(
+                            (chartData[0]?.ct_day_1_current -
+                              chartData[0]?.price) *
+                              100
+                          ) / 100
+                        )?.toFixed(2)}
                         <span>+1.25%</span>
                       </Typography>
                     </Box>

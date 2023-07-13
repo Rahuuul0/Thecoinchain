@@ -187,7 +187,7 @@ const useUserActions = () => {
       })
       .then((res) => {
         if (res.statusCode === 200) {
-          alertActions.success("Please select an option");
+          alertActions.success(Labels.Create);
           localStorage.setItem("email", res.data.email);
           localStorage.setItem("phone", res.data.phone);
           setSoption(true);
@@ -208,7 +208,7 @@ const useUserActions = () => {
       .then((res) => {
         if (res.statusCode === 200) {
           setSoption("email");
-          alertActions.success("We have sent you the code");
+          alertActions.success(Labels.GetOtp);
         } else {
         
           alertActions.error(Labels.Error);
@@ -229,7 +229,7 @@ const useUserActions = () => {
           navigate("/login");
         } else {
          
-          alertActions.error("Error Verifying");
+          alertActions.error(Labels.verify_Register_Otp_Error);
         }
       })
       .catch((err) => {
@@ -261,7 +261,7 @@ const useUserActions = () => {
       .post(Apis.Change_Password, { old_password, new_password })
       .then((res) => {
         if (res.statusCode === 200) {
-          alertActions.success("Password Reset Successfully");
+          alertActions.success(Labels.Change_Password);
           navigate("/login");
         } else {
           alertActions.error(Labels.Error);
@@ -273,7 +273,7 @@ const useUserActions = () => {
   };
 
   const createPassword = ({ newPassword, confirmPassword }) => {
-    alertActions.success("New Password Created Successfully");
+    alertActions.success(Labels.Create_Password);
     navigate("/login");
   };
 
@@ -289,9 +289,9 @@ const useUserActions = () => {
             ...currentState,
             ...res.data,
           }));
-          alertActions.success("Update User is Successfully");
+          alertActions.success(Labels.Update_User);
         } else {
-          alertActions.error("error");
+          alertActions.error(Labels.Error);
         }
       })
       .catch((err) => {
@@ -302,10 +302,12 @@ const useUserActions = () => {
   const logout = () => {
     // remove user from local storage, set auth state to null and redirect to login page
     localStorage.removeItem(Labels.Local_Storage_User);
-    setAuth(null);
+    navigate("/login");
     alertActions.success(Labels.Logout_Success);
-    navigate("/");
-    subscription({ status: "expired" });
+    setTimeout(() => {
+      setAuth(null);
+      subscription({ status: "expired" });
+    }, 1000);
   };
 
   const getOtpPhone = async (phone) => {
@@ -314,7 +316,7 @@ const useUserActions = () => {
       .then((res) => {
         if (res.statusCode === 200) {
           setSoption("phone");
-          alertActions.success("We have sent you the code");
+          alertActions.success(Labels.get_Otp_Phone);
         } else {
           alertActions.error(Labels.Error);
         }

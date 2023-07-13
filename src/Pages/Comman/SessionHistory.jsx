@@ -6,6 +6,8 @@ import { Box, Container, Typography, Button, Link, Breadcrumbs } from '@mui/mate
 import { NavigateNext } from '@mui/icons-material/';
 import { userLoginHistoryActions } from '../../_actions';
 import { useNavigate } from "react-router-dom";
+import { useDeviceData } from "react-device-detect";
+import { RoutesName } from '../../_common/app.constants';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -15,7 +17,6 @@ import TableRow from '@mui/material/TableRow';
 import USAflag from '../../../public/assets/images/icons/usa.svg';
 import Sidebar from './Components/Sidebar';
 import ReactCountryFlag from "react-country-flag"
-import { useDeviceData, useDeviceSelectors, isMacOs } from "react-device-detect";
 import dayjs from "dayjs";
 
 
@@ -214,7 +215,7 @@ const SessionHistory = () => {
                                                     </TableBody>
                                                 </Table>
                                             </TableContainer>
-                                            <Button onClick={() => { navigate('/contact') }} variant='outlined' className='btn btn-outlined-secondary' sx={{ ml: 'auto', marginTop: 4 }}>Contact us</Button>
+                                            <Button onClick={() => { navigate(RoutesName.Contact_Us) }} variant='outlined' className='btn btn-outlined-secondary' sx={{ ml: 'auto', marginTop: 4 }}>Contact us</Button>
                                         </Box>
                                     </Box>
                                 </Box>

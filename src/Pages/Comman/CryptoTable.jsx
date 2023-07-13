@@ -373,12 +373,13 @@ const CryptoTable = (props) => {
                                     : "up"
                                 }
                               >
-                                {(
+                                {/* {(
                                   ((item.ct_min_15_current - item.price) *
                                     100) /
                                   item.price
                                 ).toFixed(2)}
-                                %
+                                % */}
+                                {item.ct_min_15_current}
                               </span>
                             </TableCell>
                             <TableCell align="right">
@@ -389,12 +390,13 @@ const CryptoTable = (props) => {
                                     : "up"
                                 }
                               >
-                                {(
+                                {/* {(
                                   ((item.ct_hour_1_current - item.price) *
                                     100) /
                                   item.price
                                 ).toFixed(2)}
-                                %
+                                % */}
+                                {item.ct_hour_1_current}
                               </span>
                             </TableCell>
                             <TableCell align="right">
@@ -405,12 +407,14 @@ const CryptoTable = (props) => {
                                     : "up"
                                 }
                               >
-                                {(
+                                {/* {(
                                   ((item.ct_hours_4_current - item.price) *
                                     100) /
                                   item.price
                                 ).toFixed(2)}
-                                %
+                                % */}
+                                {Math.round(item.ct_hours_4_current * 100) /
+                                  100}
                               </span>
                             </TableCell>
                             <TableCell align="right">
@@ -421,11 +425,12 @@ const CryptoTable = (props) => {
                                     : "up"
                                 }
                               >
-                                {(
+                                {/* {(
                                   ((item.ct_day_1_current - item.price) * 100) /
                                   item.price
                                 ).toFixed(2)}
-                                %
+                                % */}
+                                {item.ct_day_1_current}
                               </span>
                             </TableCell>
                           </>

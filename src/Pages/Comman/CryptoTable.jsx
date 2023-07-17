@@ -31,7 +31,7 @@ import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import HttpsIcon from "@mui/icons-material/Https";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { Line, Chart } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
 import {
@@ -672,243 +672,269 @@ const CryptoTable = (props) => {
                     </TabList>
                   ) : (
                     <TabList aria-label="Login Tabs">
-                      <Tab label="15m" value="1" />
+                      <Tab label={<HttpsIcon />} value="1" />
                       <Tab label={<HttpsIcon />}></Tab>
                       <Tab label={<HttpsIcon />}></Tab>
                       <Tab label={<HttpsIcon />}></Tab>
                     </TabList>
                   )}
                 </Box>
+                {subscriptionDetails.status === "running" ? (
+                  <>
+                    <TabPanel value="1">
+                      <Box className="value-with-date">
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />
+                            {dayjs(date)
+                              .add(15, "m")
+                              .format("DD/MM/YYYY HH:mm")}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#00C076", fontWeight: "500" }}
+                          >
+                            {(
+                              Math.round(
+                                (chartData[0]?.ct_min_15_current -
+                                  chartData[0]?.price) *
+                                  100
+                              ) / 100
+                            )?.toFixed(2)}
+                            <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />{" "}
+                            <span>15/10/23</span> 07:45
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#141416", fontWeight: "500" }}
+                          >
+                            37162.00 <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </TabPanel>
+                    <TabPanel value="2">
+                      <Box className="value-with-date">
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />{" "}
+                            {dayjs(date).add(1, "h").format("DD/MM/YYYY HH:mm")}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#00C076", fontWeight: "500" }}
+                          >
+                            {(
+                              Math.round(
+                                (chartData[0]?.ct_hour_1_current -
+                                  chartData[0]?.price) *
+                                  100
+                              ) / 100
+                            )?.toFixed(2)}
 
-                <TabPanel value="1">
-                  <Box className="value-with-date">
-                    <Box className="value-with-date-col">
+                            <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />{" "}
+                            <span>15/10/23</span> 07:45
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#141416", fontWeight: "500" }}
+                          >
+                            37162.00 <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </TabPanel>
+                    <TabPanel value="3">
+                      <Box className="value-with-date">
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />{" "}
+                            {dayjs(date).add(4, "h").format("DD/MM/YYYY HH:mm")}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#00C076", fontWeight: "500" }}
+                          >
+                            {(
+                              Math.round(
+                                (chartData[0]?.ct_hours_4_current -
+                                  chartData[0]?.price) *
+                                  100
+                              ) / 100
+                            )?.toFixed(2)}
+                            <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />{" "}
+                            <span>15/10/23</span> 07:45
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#141416", fontWeight: "500" }}
+                          >
+                            37162.00 <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </TabPanel>
+                    <TabPanel value="4">
+                      <Box className="value-with-date">
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />
+                            {dayjs(date).add(1, "d").format("DD/MM/YYYY HH:mm")}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#00C076", fontWeight: "500" }}
+                          >
+                            {(
+                              Math.round(
+                                (chartData[0]?.ct_day_1_current -
+                                  chartData[0]?.price) *
+                                  100
+                              ) / 100
+                            )?.toFixed(2)}
+                            <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />{" "}
+                            <span>15/10/23</span> 07:45
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#141416", fontWeight: "500" }}
+                          >
+                            37162.00 <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </TabPanel>
+                  </>
+                ) : (
+                  <TabPanel value="1">
+                    <Box>
                       <Typography
                         variant="body2"
                         component="small"
                         sx={{
                           color: "#777E91",
                           fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
                           gap: "5px",
                         }}
                       >
-                        <img src={TimeImg} alt="chart" height="16px" />
-                        {dayjs(date).add(15, "m").format("DD/MM/YYYY HH:mm")}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#00C076", fontWeight: "500" }}
-                      >
-                        {(
-                          Math.round(
-                            (chartData[0]?.ct_min_15_current -
-                              chartData[0]?.price) *
-                              100
-                          ) / 100
-                        )?.toFixed(2)}
-                        <span>+1.25%</span>
+                        Please{" "}
+                        <Link to="/subscription" style={{ color: "#FFD166" }}>
+                          <u>Subscribe</u>
+                        </Link>{" "}
+                        now to gain complete access to the most precise short
+                        and long-term predictions of cryptocurrency prices.
                       </Typography>
                     </Box>
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        <span>15/10/23</span> 07:45
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#141416", fontWeight: "500" }}
-                      >
-                        37162.00 <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                  </Box>
-                </TabPanel>
-                <TabPanel value="2">
-                  <Box className="value-with-date">
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        {dayjs(date).add(1, "h").format("DD/MM/YYYY HH:mm")}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#00C076", fontWeight: "500" }}
-                      >
-                        {(
-                          Math.round(
-                            (chartData[0]?.ct_hour_1_current -
-                              chartData[0]?.price) *
-                              100
-                          ) / 100
-                        )?.toFixed(2)}
-
-                        <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        <span>15/10/23</span> 07:45
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#141416", fontWeight: "500" }}
-                      >
-                        37162.00 <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                  </Box>
-                </TabPanel>
-                <TabPanel value="3">
-                  <Box className="value-with-date">
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        {dayjs(date).add(4, "h").format("DD/MM/YYYY HH:mm")}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#00C076", fontWeight: "500" }}
-                      >
-                        {(
-                          Math.round(
-                            (chartData[0]?.ct_hours_4_current -
-                              chartData[0]?.price) *
-                              100
-                          ) / 100
-                        )?.toFixed(2)}
-                        <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        <span>15/10/23</span> 07:45
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#141416", fontWeight: "500" }}
-                      >
-                        37162.00 <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                  </Box>
-                </TabPanel>
-                <TabPanel value="4">
-                  <Box className="value-with-date">
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />
-                        {dayjs(date).add(1, "d").format("DD/MM/YYYY HH:mm")}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#00C076", fontWeight: "500" }}
-                      >
-                        {(
-                          Math.round(
-                            (chartData[0]?.ct_day_1_current -
-                              chartData[0]?.price) *
-                              100
-                          ) / 100
-                        )?.toFixed(2)}
-                        <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        <span>15/10/23</span> 07:45
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#141416", fontWeight: "500" }}
-                      >
-                        37162.00 <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                  </Box>
-                </TabPanel>
+                  </TabPanel>
+                )}
               </TabContext>
             </Box>
           </Box>

@@ -51,6 +51,7 @@ import {
   cardCoinsAtom,
   loaderAtom,
   bannerListAtom,
+  tutorialCategoryAtom,
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
@@ -78,21 +79,15 @@ const Home = () => {
   const bannerList = useRecoilValue(bannerListAtom);
   const bannerActions = bannerListActions();
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
+  const tutorialCategory = useRecoilValue(tutorialCategoryAtom);
+
+  console.log(tutorialCategory, "category list data");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    let tutorialCategory = "";
-    tutorialCategory =
-      newValue === "2"
-        ? "Bitcoin"
-        : newValue === "3"
-        ? "Blockchain"
-        : newValue === "4"
-        ? "Tutorial"
-        : "";
     newValue === "1"
       ? setTutorialList(tutorialsData)
-      : handleTutorials(tutorialCategory);
+      : handleTutorials(newValue);
   };
 
   const handleTutorials = (tutorialCategory) => {
@@ -121,6 +116,7 @@ const Home = () => {
   //subscribedUser Api
   useEffect(() => {
     tutorialAction.tutorialData();
+    tutorialAction.categoryList();
     const response = bannerActions.get();
     response.then((res) => {
       res;
@@ -320,9 +316,9 @@ const Home = () => {
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <TabList onChange={handleChange} aria-label="tabs">
                   <Tab label="All" value="1" />
-                  <Tab label="Bitcoin" value="2" />
-                  <Tab label="Blockchain" value="3" />
-                  <Tab label="Tutorial" value="4" />
+                  {tutorialCategory?.map((item) => {
+                    return <Tab label={item.title} value={item.title} />;
+                  })}
                 </TabList>
               </Box>
               <TabPanel

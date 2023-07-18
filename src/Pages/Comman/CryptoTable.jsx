@@ -187,7 +187,7 @@ const CryptoTable = (props) => {
               ? getLastestListing()
               : getLatestCategory(selectedCat)
             : getLastestListing();
-      }, 5000);
+      }, 1000);
       return () => clearInterval(interval);
     }
   }, [intervalCount, selectedCat, subscriptionDetails]);
@@ -224,10 +224,6 @@ const CryptoTable = (props) => {
 
   const handleChanges = (event, value) => {
     setPage(paginator(coinsList, value, 3).page);
-  };
-
-  const addMinutes = (date, minutes) => {
-    return new Date(date.getTime() + minutes * 60000);
   };
 
   return (
@@ -297,12 +293,19 @@ const CryptoTable = (props) => {
                           {index + 1}
                         </TableCell>
                         <TableCell
-                          onClick={() => handleOpen(item.id)}
-                          sx={{ cursor: "pointer" }}
+                          onClick={() =>
+                            location.pathname === "/"
+                              ? void 0
+                              : handleOpen(item.id)
+                          }
+                          sx={{
+                            cursor:
+                              location.pathname === "/" ? "default" : "pointer",
+                          }}
                         >
                           <div className="crypto-name">
                             <img
-                              src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}
+                              src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol?.toLowerCase()}.png`}
                               alt={item.symbol}
                               width="33px"
                             />
@@ -313,11 +316,13 @@ const CryptoTable = (props) => {
                         <TableCell align="right">
                           $
                           {item?.price > 1
-                            ? (Math.round(item.price * 100) / 100)?.toFixed(2)
+                            ? (
+                                Math.round(item.price * 100) / 100
+                              )?.toLocaleString()
                             : item?.price < 1 && item?.price >= 0.1
-                            ? (Math.round(item.price * 10000) / 10000)?.toFixed(
-                                4
-                              )
+                            ? (
+                                Math.round(item.price * 10000) / 10000
+                              )?.toLocaleString()
                             : item?.price < 0.1 && item?.price > 0.01
                             ? (
                                 Math.round(item.price * 1000000) / 1000000
@@ -346,8 +351,9 @@ const CryptoTable = (props) => {
                             <span>{item.ct_accuracy?.toFixed(2)}%</span>
                           </TableCell>
                         )}
-                        {location.pathname === "/prediction-dashboard" &&
-                        subscriptionDetails.status === "expired" ? (
+                        {(location.pathname === "/prediction-dashboard" &&
+                          subscriptionDetails.status === "expired") ||
+                        !item.ct_min_15_current ? (
                           <>
                             <TableCell align="right">
                               <HttpsIcon />

@@ -83,11 +83,11 @@ const useCoinActions = () => {
   const latestListing = async (params) => {
     setSelectedCategory(0);
     categoryList.length <= 0 ? categoriesList() : "";
-    return fetchWrapper
-      .post(`${Apis.Market_Trend}?${params}`)
+    return axios
+      .get(Apis.Stock_Live_Data)
       .then((res) => {
         loader(false);
-        if (res.statusCode === 200) {
+        if (res.status === 200) {
           coinsArr = [];
           res.data.data.map((itm, key) => {
             let coin = {};
@@ -104,7 +104,7 @@ const useCoinActions = () => {
           setCardCoins(coinsArr);
           setCoinList(coinsArr);
         } else {
-          alertActions.error(Labels.Error);
+          console.log(Error);
         }
       })
       .catch((err) => {
@@ -117,21 +117,25 @@ const useCoinActions = () => {
     return axios
       .get("http://65.2.129.34:8086/prediction")
       .then((res) => {
+        const mergedList = res.data.live_data.data.map((t1) => ({
+          ...t1,
+          ...res.data.prediction.find((t2) => t2.ct_symbol === t1.symbol),
+        }));
         coinsArr = [];
-        res.data.map((itm, key) => {
+        mergedList.map((itm, key) => {
           let coin = {};
-          coin.id = itm.live_data[0].id;
-          coin.name = itm.live_data[0].name;
+          coin.id = itm.id;
+          coin.name = itm.name;
           coin.symbol = itm.ct_symbol;
           coin.ct_day_1_current = itm.ct_day_1_current;
           coin.ct_hour_1_current = itm.ct_hour_1_current;
           coin.ct_hours_4_current = itm.ct_hours_4_current;
           coin.ct_min_15_current = itm.ct_min_15_current;
           coin.ct_accuracy = itm.ct_accuracy;
-          coin.price = itm.live_data[0].quote.USD.price;
-          coin.percent_change_7d = itm.live_data[0].quote.USD.percent_change_7d;
-          coin.percent_change_7d = itm.live_data[0].quote.USD.percent_change_7d;
-          coin.market_cap = itm.live_data[0].quote.USD.market_cap;
+          coin.price = itm.quote.USD.price;
+          coin.percent_change_7d = itm.quote.USD.percent_change_7d;
+          coin.percent_change_7d = itm.quote.USD.percent_change_7d;
+          coin.market_cap = itm.quote.USD.market_cap;
 
           coinsArr.push(coin);
         });

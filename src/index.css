@@ -2959,7 +2959,7 @@ video[poster] {
   font-size: 13px !important;
   margin: 0;
   padding-left: 0px;
-  line-height: 0.5;
+  line-height: 1.5;
 }
 
 .auth-form button {

@@ -187,7 +187,7 @@ const CryptoTable = (props) => {
               ? getLastestListing()
               : getLatestCategory(selectedCat)
             : getLastestListing();
-      }, 6000);
+      }, 100000);
       return () => clearInterval(interval);
     }
   }, [intervalCount, selectedCat, subscriptionDetails]);

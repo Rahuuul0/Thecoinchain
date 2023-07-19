@@ -3,11 +3,13 @@ import * as React from 'react';
 import { Box, Grid, Container, Typography, Link, Stack, TextField, InputAdornment, IconButton, Button } from '@mui/material';
 import { ArrowRightAlt } from '@mui/icons-material';
 import { useNavigate, Link as RouterLink, useLocation } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useFooterActions } from '../../../_actions';
+import { RoutesName } from '../../../_common/app.constants';
+import { loaderAtom } from '../../../_state';
 import * as Yup from "yup";
 import Darklogo from "../../../../public/assets/images/cg.svg";
 import BehanceIcon from "../../../../public/assets/images/icons/behance.svg";
@@ -15,8 +17,6 @@ import FacebookIcon from "../../../../public/assets/images/icons/facebook.svg";
 import InstagramIcon from "../../../../public/assets/images/icons/instagram.svg";
 import DribbbleIcon from "../../../../public/assets/images/icons/dribbble.svg";
 import TwitterIcon from "../../../../public/assets/images/icons/twitter.svg";
-import { loaderAtom } from '../../../_state';
-
 
 const Footer = () => {
   const useFooterAddActions = useFooterActions()
@@ -64,22 +64,22 @@ const Footer = () => {
             <Grid item xs={12} sm={12} md={3} sx={{ borderRight: { sm: "none", md: '1px solid #E6E8EC' }, borderBottom: { xs: "1px solid #E6E8EC", sm: "1px solid #E6E8EC", md: 'none' } }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 0, sm: 0, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
               <Box className="quick-links">
                 <Stack spacing={2}>
-                  <RouterLink to={"/contact"}>Contacts</RouterLink>
-                  <RouterLink to={"/privacy-policy"}>Privacy Policy</RouterLink>
-                  <RouterLink to={"/terms-of-use"}>Terms of use</RouterLink>
-                  <RouterLink to={"/disclaimer"}>Disclaimers</RouterLink>
-                  <RouterLink to={"/community"}>Join our community</RouterLink>
+                  <RouterLink to={RoutesName.Contact_Us}>Contacts</RouterLink>
+                  <RouterLink to={RoutesName.Privacy_Policy}>Privacy Policy</RouterLink>
+                  <RouterLink to={RoutesName.Terms_of_Use}>Terms of use</RouterLink>
+                  <RouterLink to={RoutesName.Disclaimer}>Disclaimers</RouterLink>
+                  <RouterLink to={RoutesName.Community}>Join our community</RouterLink>
                 </Stack>
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={3} sx={{ borderRight: { sm: "none", md: '1px solid #E6E8EC' }, borderBottom: { xs: "1px solid #E6E8EC", sm: "1px solid #E6E8EC", md: 'none' } }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 3, sm: 3, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }}   >
               <Box className="quick-links">
                 <Stack spacing={2}>
-                  <RouterLink to={"/prediction-dashboard"} >Price Forecast</RouterLink>
-                  <RouterLink to={"/guides-analysis"} >Guides & Analysis</RouterLink>
-                  <RouterLink to={"/academy"}>Academy</RouterLink>
-                  <RouterLink to={"/news-promotions"}>News & Promotions</RouterLink>
-                  <RouterLink to={"/subscription"}>Subscription</RouterLink>
+                  <RouterLink to={RoutesName.Prediction_Dashboard} >Price Forecast</RouterLink>
+                  <RouterLink to={RoutesName.Guides_Analysis} >Guides & Analysis</RouterLink>
+                  <RouterLink to={RoutesName.Academy}>Academy</RouterLink>
+                  <RouterLink to={RoutesName.News_Promotions}>News & Promotions</RouterLink>
+                  <RouterLink to={RoutesName.Subscription}>Subscription</RouterLink>
                 </Stack>
               </Box>
             </Grid>

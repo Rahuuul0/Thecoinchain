@@ -32,7 +32,16 @@ export const RoutesName = {
   login: "/login",
   Change_Password: "/create-password",
   Logout: "/logout",
-  Contact_Us: "/contact"
+  Contact_Us: "/contact",
+  Privacy_Policy: "/privacy-policy",
+  Terms_of_Use: "/terms-of-use",
+  Disclaimer: "/disclaimer",
+  Community: "/community",
+  Prediction_Dashboard: "/prediction-dashboard",
+  Guides_Analysis: "/guides-analysis",
+  Academy: "/academy",
+  News_Promotions: "/news-promotions",
+  Subscription: "/subscription"
 };
 
 export const Apis = {

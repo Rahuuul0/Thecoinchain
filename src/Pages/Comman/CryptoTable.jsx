@@ -171,26 +171,26 @@ const CryptoTable = (props) => {
     const ress = await coinActions.coinListbByCategoty(props.selectedCat);
   };
 
-  useEffect(() => {
-    if (
-      (location.pathname === "/market" ||
-        location.pathname === "/prediction-dashboard") &&
-      subscriptionDetails.status === "running"
-    ) {
-      const interval = setInterval(() => {
-        setIntervalCount(intervalCount + 1);
-        if (location.pathname === "/prediction-dashboard")
-          coinActions.predictionListing();
-        else
-          props.selectedCat
-            ? props.selectedCat === 0
-              ? getLastestListing()
-              : getLatestCategory(selectedCat)
-            : getLastestListing();
-      }, 100000);
-      return () => clearInterval(interval);
-    }
-  }, [intervalCount, selectedCat, subscriptionDetails]);
+  // useEffect(() => {
+  //   if (
+  //     (location.pathname === "/market" ||
+  //       location.pathname === "/prediction-dashboard") &&
+  //     subscriptionDetails.status === "running"
+  //   ) {
+  //     const interval = setInterval(() => {
+  //       setIntervalCount(intervalCount + 1);
+  //       if (location.pathname === "/prediction-dashboard")
+  //         coinActions.predictionListing();
+  //       else
+  //         props.selectedCat
+  //           ? props.selectedCat === 0
+  //             ? getLastestListing()
+  //             : getLatestCategory(selectedCat)
+  //           : getLastestListing();
+  //     }, 100000);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [intervalCount, selectedCat, subscriptionDetails]);
 
   const data = {
     labels: historicalData.time,

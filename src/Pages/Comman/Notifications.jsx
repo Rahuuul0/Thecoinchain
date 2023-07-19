@@ -26,7 +26,7 @@ const Notifications = () => {
     const [checkCommunity,setCheckCommunity]=useState(false)
     const [checkAcademy,setCheckAcademy]=useState(false)
     const [checkNews,setCheckNews]=useState(false)
-     
+
     const handleClear = async(action) => {
           notificationAction.clearNotifications({action});
     };
@@ -63,7 +63,7 @@ const Notifications = () => {
         const where= new URLSearchParams({
         'category': categoryArr,
         }) 
-        categoryArr.length>0? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View() 
+        categoryArr.length >0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View() 
         flag ? setChecked(true):setChecked(false)
     }
 
@@ -98,7 +98,7 @@ const Notifications = () => {
          if(cat==="News")  
            setCheckNews(e.target.checked)
          setCategoryArray(categoryArr)
-        categoryArr.length>0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View()
+        categoryArr.length > 0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View()
 
     }
        
@@ -125,7 +125,7 @@ const Notifications = () => {
                                 <Box className='notification-list-wrapper'>
                                     <Box className='notification-list'>
                                       
-                                         {notifications.length>0?notifications?.map((item,index) =>{
+                                         {notifications.length>0? notifications?.map((item,index) =>{
                                             if(index < loadmore){
                                              
                                             return(
@@ -164,7 +164,7 @@ const Notifications = () => {
                                         <Button onClick={handleLoadmore}  variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>}
                             
                                     </Box>
-                                    {notifications.length>0 &&
+                                  
                                     <Box className='notification-filter for-desktop'>
                                         <Typography component="h5" variant='h5'>
                                             Filters
@@ -192,7 +192,6 @@ const Notifications = () => {
                                          }
                                         </Box>
                                     </Box>
-                                    }
 
                                 </Box>
                             </Box>

@@ -27,6 +27,7 @@ export const Labels = {
 };
 
 export const RoutesName = {
+  User_Dashboard: "/",
   Forgot_Password: "forgot-password",
   Home: "/home",
   login: "/login",

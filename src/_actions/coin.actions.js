@@ -43,7 +43,7 @@ const useCoinActions = () => {
   };
 
   const coinListbByCategoty = async (id) => {
-    loader(true);
+    // loader(true);
     setSelectedCategory(id);
     return fetchWrapper
       .post(Apis.Category_Data, { categories_id: id })
@@ -84,12 +84,12 @@ const useCoinActions = () => {
     setSelectedCategory(0);
     categoryList.length <= 0 ? categoriesList() : "";
     return axios
-      .get(Apis.Stock_Live_Data)
+      .get(Apis.Prediction)
       .then((res) => {
         loader(false);
         if (res.status === 200) {
           coinsArr = [];
-          res.data.data.map((itm, key) => {
+          res.data.live_data.data.map((itm, key) => {
             let coin = {};
             coin.id = itm.id;
             coin.name = itm.name;
@@ -115,7 +115,7 @@ const useCoinActions = () => {
 
   const predictionListing = (params) => {
     return axios
-      .get("http://65.2.129.34:8086/prediction")
+      .get(Apis.Prediction)
       .then((res) => {
         const mergedList = res.data.live_data.data.map((t1) => ({
           ...t1,

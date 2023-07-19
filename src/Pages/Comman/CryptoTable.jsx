@@ -187,7 +187,7 @@ const CryptoTable = (props) => {
               ? getLastestListing()
               : getLatestCategory(selectedCat)
             : getLastestListing();
-      }, 1000);
+      }, 6000);
       return () => clearInterval(interval);
     }
   }, [intervalCount, selectedCat, subscriptionDetails]);
@@ -351,9 +351,9 @@ const CryptoTable = (props) => {
                             <span>{item.ct_accuracy?.toFixed(2)}%</span>
                           </TableCell>
                         )}
-                        {(location.pathname === "/prediction-dashboard" &&
-                          subscriptionDetails.status === "expired") ||
-                        !item.ct_min_15_current ? (
+                        {location.pathname === "/prediction-dashboard" &&
+                        (subscriptionDetails.status === "expired" ||
+                          !item.ct_min_15_current) ? (
                           <>
                             <TableCell align="right">
                               <HttpsIcon />

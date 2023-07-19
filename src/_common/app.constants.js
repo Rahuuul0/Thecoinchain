@@ -67,6 +67,7 @@ export const Apis = {
   Market: "market",
   Market_Trend: "market-trend",
   Stock_Live_Data: "http://65.2.129.34:8086/stock-live-data",
+  Prediction: "http://65.2.129.34:8086/prediction",
 };
 
 export const theme = createTheme({

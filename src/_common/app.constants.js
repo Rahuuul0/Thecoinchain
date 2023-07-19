@@ -75,7 +75,8 @@ export const Apis = {
   Notification_View_All: "get-view-all",
   Notifications_List_view: "get-notification-view-all",
   Market: "market",
-  Market_Trend: "market-trend"
+  Market_Trend: "market-trend",
+  Stock_Live_Data: "http://65.2.129.34:8086/stock-live-data",
 };
 
 export const theme = createTheme({

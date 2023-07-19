@@ -42,7 +42,8 @@ export const RoutesName = {
   Guides_Analysis: "/guides-analysis",
   Academy: "/academy",
   News_Promotions: "/news-promotions",
-  Subscription: "/subscription"
+  Subscription: "/subscription",
+  Market: "/market"
 };
 
 export const Apis = {

@@ -31,7 +31,7 @@ const useCoinActions = () => {
       .get(Apis.Categories_Data)
       .then((res) => {
         if (res.statusCode === 200) {
-          setCoinsCategory([...res.data.data]);
+          setCoinsCategory({...res.data});
         } else {
           alertActions.error(Labels.Error);
         }
@@ -83,13 +83,14 @@ const useCoinActions = () => {
   const latestListing = async (params) => {
     setSelectedCategory(0);
     categoryList.length <= 0 ? categoriesList() : "";
-    return axios
-      .get(Apis.Prediction)
-      .then((res) => {
+    return fetchWrapper.get(Apis.Market_Trend+params).then((res) => {
         loader(false);
-        if (res.status === 200) {
+        if (res.statusCode === 200) {
           coinsArr = [];
-          res.data.live_data.data.map((itm, key) => {
+
+          console.log(' res.data.coin_list')
+
+          res.data.coin_list.map((itm, key) => {
             let coin = {};
             coin.id = itm.id;
             coin.name = itm.name;
@@ -114,10 +115,8 @@ const useCoinActions = () => {
   };
 
   const predictionListing = (params) => {
-    return axios
-      .get(Apis.Prediction)
-      .then((res) => {
-        const mergedList = res.data.live_data.data.map((t1) => ({
+    return fetchWrapper.get(Apis.Market_Trend).then((res) => {
+        const mergedList = res.data.coin_list.map((t1) => ({
           ...t1,
           ...res.data.prediction.find((t2) => t2.ct_symbol === t1.symbol),
         }));

@@ -114,8 +114,8 @@ const Home = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
   const getFirstLetters = (str) => {
-    const firstLetters = str.replace("Portfolio", "");
-    return firstLetters;
+   // const firstLetters = str.replace("Portfolio", "");
+    return firstLetters='';
   };
 
   //subscribedUser Api
@@ -126,6 +126,9 @@ const Home = () => {
       res;
     });
   }, []);
+
+
+  console.log(categoryList,'categoryList')
 
   return (
     <>
@@ -616,9 +619,10 @@ const Home = () => {
                 All
               </Button>
             )}
-            {categoryList.length &&
-              categoryList.map((item, index) => {
-                if (index < 4) {
+            {Object.keys(categoryList).length &&
+              
+              Object.keys(categoryList).map((item, index) => {
+                if (categoryList < 4) {
                   if (selectedCat !== 0 && selectedCat === item.id) {
                     return (
                       <Button

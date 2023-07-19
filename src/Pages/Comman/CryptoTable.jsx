@@ -49,6 +49,7 @@ import {
   historicalAtom,
   predictionAtom,
 } from "../../_state";
+import LoadingImg from '../../../public/assets/images/icons/loading.svg'
 
 import { TabPanel } from "@mui/lab";
 import { Favorite } from "@mui/icons-material";
@@ -86,7 +87,11 @@ const CryptoTable = (props) => {
   const [chartData, setChartData] = useState("");
   const [chartOpen, setChartOpen] = useState(false);
   const count = Math.ceil(coinsList.length / 4);
+
+  const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
+
+  
   const [intervalCount, setIntervalCount] = useState(0);
   const selectedCat = useRecoilValue(selectedCategoryAtom);
   const subscriptionAction = subscriptionActions();
@@ -96,6 +101,8 @@ const CryptoTable = (props) => {
   const historicalData = useRecoilValue(historicalAtom);
   const [timeFrame, setTimeFrame] = useState("15m");
   const date = new Date();
+
+  console.log(count,'count')
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -161,8 +168,8 @@ const CryptoTable = (props) => {
     let param = "";
 
     location.pathname === "/market"
-      ? (param = `limit=10`)
-      : (param = `limit=5`);
+      ? (param = `?limit=10`)
+      : (param = `?limit=5`);
 
     const ress = await coinActions.latestListing(param);
   };
@@ -223,8 +230,13 @@ const CryptoTable = (props) => {
   };
 
   const handleChanges = (event, value) => {
-    setPage(paginator(coinsList, value, 3).page);
+    console.log(value,'value')
+    setLimit(value);
+   // setPage(paginator(coinsList, value, 3).page);
+    
   };
+
+
 
   return (
     <>
@@ -271,7 +283,7 @@ const CryptoTable = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {paginator(coinsList, page, 50).data.map((item, index) => {
+                  {paginator(coinsList, page, limit).data.map((item, index) => {
                     return (
                       <TableRow
                         key={index}
@@ -282,14 +294,14 @@ const CryptoTable = (props) => {
                         }}
                       >
                         <TableCell>
-                          {location.pathname === "/prediction-dashboard" && (
+                          {/* {location.pathname === "/prediction-dashboard" && (
                             <img
                               src={FavoriteIc}
                               alt="star"
                               className="favorite-ic"
                               style={{ cursor: "pointer" }}
                             />
-                          )}
+                          )} */}
                           {index + 1}
                         </TableCell>
                         <TableCell
@@ -577,9 +589,18 @@ const CryptoTable = (props) => {
                     );
                   })}
                 </TableBody>
-              </Table>
+              </Table>             
             </Stack>
-            {/* {location.pathname === "/prediction-dashboard" ? (
+            {location.pathname === "/prediction-dashboard"  && limit < 100 &&
+                <Button
+                    onClick={(e) => handleChanges(e,100) }                   
+                    sx={{width: "160px" , alignItems: "center", margin: "0 auto" }}
+                    variant="outlined"
+                    className='btn btn-outlined-secondary'>
+                    <img src={LoadingImg} alt='loading' /> Load more
+                </Button>
+              }
+             {/* {location.pathname === "/prediction-dashboard" ? (
               <Pagination
                 sx={{ float: "right" }}
                 count={count}
@@ -589,7 +610,7 @@ const CryptoTable = (props) => {
               />
             ) : (
               ""
-            )} */}
+            )}  */}
           </TableContainer>
         </Box>
       </Box>
@@ -917,7 +938,7 @@ const CryptoTable = (props) => {
                           </Typography>
                         </Box>
                       </Box>
-                    </TabPanel>
+                    </TabPanel>                    
                   </>
                 ) : (
                   <TabPanel value="1">
@@ -942,7 +963,7 @@ const CryptoTable = (props) => {
                   </TabPanel>
                 )}
               </TabContext>
-            </Box>
+            </Box>            
           </Box>
           <Button
             fullWidth

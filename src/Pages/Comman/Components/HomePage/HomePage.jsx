@@ -51,6 +51,7 @@ import {
   cardCoinsAtom,
   loaderAtom,
   bannerListAtom,
+  forecastSubAtom,
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
@@ -58,6 +59,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
+import Alert from '@mui/material/Alert';
 
 const Home = () => {
   const [marketTrend, setMarketTrend] = useState(1);
@@ -78,6 +80,8 @@ const Home = () => {
   const bannerList = useRecoilValue(bannerListAtom);
   const bannerActions = bannerListActions();
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
+  const subscribeUser = useRecoilValue(forecastSubAtom);
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -136,6 +140,11 @@ const Home = () => {
       {/* Banner starts */}
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 8 }}>
+          {subscribeUser?.status === "expired"?  
+          <Stack sx={{ width: '42%', marginLeft: 'auto' , marginTop: '22px'}} spacing={2}>
+          <Alert severity="info">You have not current plan, please subscribe for services !</Alert>
+          </Stack>
+          : "" }
           <Grid container sx={{ alignItems: "center" }}>
             <Grid
               item

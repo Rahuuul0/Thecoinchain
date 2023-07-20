@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../_common/app.constants";
-import { Box, Container, Typography, Button } from "@mui/material";
+import { Box, Container, Typography, Button, Stack } from "@mui/material";
 import { faqActions } from "../../_actions";
 import { useRecoilValue } from "recoil";
-import { faqAtom } from "../../_state";
+import { faqAtom,  forecastSubAtom } from "../../_state";
 import CryptoTable from "./CryptoTable";
 import { useNavigate } from "react-router-dom";
+import Alert from '@mui/material/Alert';
 
 const PredictionDashboard = () => {
   const navigate = useNavigate();
   const faqGetAction = faqActions();
   const faq = useRecoilValue(faqAtom);
+  const subscribeUser = useRecoilValue(forecastSubAtom);
 
   // Subscription action get function   API data call
   useEffect(() => {
@@ -34,9 +36,15 @@ const PredictionDashboard = () => {
           sx={{ mt: 8 }}
         >
           <Box className="market-prediction-dashboard-inner">
+          
             <Container maxWidth="lg">
+            {subscribeUser?.status === "expired"?  
+          <Stack sx={{ width: '42%', marginLeft: 'auto'}} spacing={2}>
+          <Alert severity="info">You have not current plan, please subscribe for services !</Alert>
+          </Stack>
+          : "" }
               <Typography component="h4" variant="h4">
-                Cryptocurrency Prediction
+                Cryptocurrency Prediction 
               </Typography>
               <CryptoTable />
             </Container>

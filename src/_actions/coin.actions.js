@@ -71,9 +71,6 @@ const useCoinActions = () => {
       coinsArr.push(coin);
     });
     setCoinList(location.pathname === "/" ? coinsArr.slice(0, 5) : coinsArr);
-    setTimeout(() => {
-      loader(false);
-    }, 200);
   };
 
   // const coinListbByCategoty = async (id) => {

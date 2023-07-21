@@ -59,7 +59,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 
 const Home = () => {
   const [marketTrend, setMarketTrend] = useState(1);
@@ -81,7 +81,6 @@ const Home = () => {
   const bannerActions = bannerListActions();
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
   const subscribeUser = useRecoilValue(forecastSubAtom);
-
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -137,11 +136,18 @@ const Home = () => {
       {/* Banner starts */}
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 8 }}>
-          {subscribeUser?.status === "expired"?  
-          <Stack sx={{ width: '42%', marginLeft: 'auto' , marginTop: '22px'}} spacing={2}>
-          <Alert severity="info">You have not current plan, please subscribe for services !</Alert>
-          </Stack>
-          : "" }
+          {subscribeUser?.status === "expired" ? (
+            <Stack
+              sx={{ width: "42%", marginLeft: "auto", marginTop: "22px" }}
+              spacing={2}
+            >
+              <Alert severity="info">
+                You have not current plan, please subscribe for services !
+              </Alert>
+            </Stack>
+          ) : (
+            ""
+          )}
           <Grid container sx={{ alignItems: "center" }}>
             <Grid
               item
@@ -214,6 +220,16 @@ const Home = () => {
         >
           <Grid container>
             {cardCoinsList?.map((item, index) => {
+              let newPrice =
+                item?.price > 1
+                  ? Math.round(item.price * 100) / 100
+                  : item?.price < 1 && item?.price >= 0.1
+                  ? (Math.round(item.price * 10000) / 10000)?.toFixed(2)
+                  : item?.price < 0.1 && item?.price > 0.01
+                  ? (Math.round(item.price * 1000000) / 1000000)?.toFixed(6)
+                  : item?.price < 0.01
+                  ? (Math.round(item.price * 100000000) / 100000000)?.toFixed(8)
+                  : item?.price;
               if (index < 4) {
                 return (
                   <Grid item xs={12} sm={4} md={4} lg={3} className="gridBox">
@@ -255,15 +271,9 @@ const Home = () => {
                       paddingBottom={1}
                       className="primary-font"
                     >
-                      {item?.price > 1
-                        ? item.price?.toFixed(2)
-                        : item?.price < 1 && item?.price >= 0.1
-                        ? item.price?.toFixed(4)
-                        : item?.price < 0.1 && item?.price > 0.01
-                        ? item.price?.toFixed(6)
-                        : item?.price < 0.01
-                        ? item.price?.toFixed(8)
-                        : item?.price}
+                      {newPrice.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                      })}
                     </Typography>
                     <Typography
                       variant="h6"
@@ -709,7 +719,7 @@ const Home = () => {
                         <MenuItem
                           value={index + 2}
                           onClick={(e) => {
-                            coinActions.coinListbByCategoty(item.id);
+                            coinActions.coinListbByCategoty(item);
                           }}
                           title={item}
                         >

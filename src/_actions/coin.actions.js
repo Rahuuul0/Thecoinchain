@@ -20,22 +20,48 @@ const useCoinActions = () => {
   const alertActions = useAlertActions();
   const setCoinList = useSetRecoilState(coinsAtom);
   const [categoryList, setCoinsCategory] = useRecoilState(coinCategoryAtom);
-  const setSelectedCategory = useSetRecoilState(selectedCategoryAtom);
+  const [selectedCategory, setSelectedCategory] =
+    useRecoilState(selectedCategoryAtom);
   const location = useLocation();
   const setCardCoins = useSetRecoilState(cardCoinsAtom);
   const loader = useSetRecoilState(loaderAtom);
   const prediction = useRecoilValue(predictionAtom);
   const [categoryCoins, setCategoryCoins] = useRecoilState(categoryCoinsAtom);
 
-  const categoriesList = async () => {
+  const categoriesList = async (id) => {
     return fetchWrapper
       .get(Apis.Categories_Data)
       .then((res) => {
         if (res.statusCode === 200) {
-          let categoryList = Object.keys(res.data);
-          setCoinsCategory(categoryList);
+          let listArr = [];
+          for (let key in res.data) {
+            if (res.data[key].length !== 0) listArr.push(key);
+          }
+          // let categoryList = Object.keys(res.data);
+          setCoinsCategory(listArr);
 
-          setCategoryCoins(res.data);
+          if (selectedCategory !== 0) {
+            coinsArr = [];
+            res.data[id]?.map((itm, key) => {
+              let coin = {};
+              coin.id = itm.id;
+              coin.name = itm.name;
+              coin.symbol = itm.symbol;
+              coin.slug = itm.slug;
+              coin.cmc_rank = itm.cmc_rank;
+              coin.price = itm?.quote?.USD?.price;
+              coin.percent_change_24h = itm?.quote?.USD?.percent_change_24h;
+              if (location.pathname === "/market") {
+                coin.percent_change_7d = itm?.quote?.USD?.percent_change_7d;
+                coin.market_cap = itm?.quote?.USD?.market_cap;
+                coin.volume_24h = itm?.quote?.USD?.volume_24h;
+              }
+              coinsArr.push(coin);
+            });
+            setCoinList(
+              location.pathname === "/" ? coinsArr.slice(0, 5) : coinsArr
+            );
+          }
         } else {
           alertActions.error(Labels.Error);
         }
@@ -48,25 +74,25 @@ const useCoinActions = () => {
 
   const coinListbByCategoty = async (id) => {
     setSelectedCategory(id);
-
-    coinsArr = [];
-    categoryCoins[id]?.map((itm, key) => {
-      let coin = {};
-      coin.id = itm.id;
-      coin.name = itm.name;
-      coin.symbol = itm.symbol;
-      coin.slug = itm.slug;
-      coin.cmc_rank = itm.cmc_rank;
-      coin.price = itm?.quote?.USD?.price;
-      coin.percent_change_24h = itm?.quote?.USD?.percent_change_24h;
-      if (location.pathname === "/market") {
-        coin.percent_change_7d = itm?.quote?.USD?.percent_change_7d;
-        coin.market_cap = itm?.quote?.USD?.market_cap;
-        coin.volume_24h = itm?.quote?.USD?.volume_24h;
-      }
-      coinsArr.push(coin);
-    });
-    setCoinList(location.pathname === "/" ? coinsArr.slice(0, 5) : coinsArr);
+    await categoriesList(id);
+    // coinsArr = [];
+    // categoryCoins[id]?.map((itm, key) => {
+    //   let coin = {};
+    //   coin.id = itm.id;
+    //   coin.name = itm.name;
+    //   coin.symbol = itm.symbol;
+    //   coin.slug = itm.slug;
+    //   coin.cmc_rank = itm.cmc_rank;
+    //   coin.price = itm?.quote?.USD?.price;
+    //   coin.percent_change_24h = itm?.quote?.USD?.percent_change_24h;
+    //   if (location.pathname === "/market") {
+    //     coin.percent_change_7d = itm?.quote?.USD?.percent_change_7d;
+    //     coin.market_cap = itm?.quote?.USD?.market_cap;
+    //     coin.volume_24h = itm?.quote?.USD?.volume_24h;
+    //   }
+    //   coinsArr.push(coin);
+    // });
+    // setCoinList(location.pathname === "/" ? coinsArr.slice(0, 5) : coinsArr);
     setTimeout(() => {
       loader(false);
     }, 200);

@@ -72,6 +72,18 @@ const MarketCard = () => {
           <Box className="market-crypto-card-wrapper-inner">
             <Box className="market-crypto-graph">
               {cardCoinsList?.slice(0, 3).map((item) => {
+                let newPrice =
+                  item?.price > 1
+                    ? Math.round(item.price * 100) / 100
+                    : item?.price < 1 && item?.price >= 0.1
+                    ? (Math.round(item.price * 10000) / 10000)?.toFixed(2)
+                    : item?.price < 0.1 && item?.price > 0.01
+                    ? (Math.round(item.price * 1000000) / 1000000)?.toFixed(6)
+                    : item?.price < 0.01
+                    ? (Math.round(item.price * 100000000) / 100000000)?.toFixed(
+                        8
+                      )
+                    : item?.price;
                 return (
                   <Box className="market-crypto-graph-col">
                     <Box className="market-crypto-graph-ic">
@@ -103,15 +115,9 @@ const MarketCard = () => {
                           </span>
                         </Typography>
                         <Typography component="h5" varient="h5">
-                          {item?.price > 1
-                            ? item.price?.toFixed(2)
-                            : item?.price < 1 && item?.price >= 0.1
-                            ? item.price?.toFixed(4)
-                            : item?.price < 0.1 && item?.price > 0.01
-                            ? item.price?.toFixed(6)
-                            : item?.price < 0.01
-                            ? item.price?.toFixed(8)
-                            : item?.price}
+                          {newPrice.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                          })}
                         </Typography>
                         <Typography component="small" varient="small-caption">
                           {item.volume_24h?.toFixed(2)}

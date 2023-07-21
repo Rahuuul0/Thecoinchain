@@ -52,6 +52,7 @@ import {
   loaderAtom,
   bannerListAtom,
   forecastSubAtom,
+  authAtom,
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
@@ -81,7 +82,7 @@ const Home = () => {
   const bannerActions = bannerListActions();
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
   const subscribeUser = useRecoilValue(forecastSubAtom);
-
+  const auth = useRecoilValue(authAtom);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -140,9 +141,9 @@ const Home = () => {
       {/* Banner starts */}
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 8 }}>
-          {subscribeUser?.status === "expired"?  
-          <Stack sx={{ width: '42%', marginLeft: 'auto' , marginTop: '22px'}} spacing={2}>
-          <Alert severity="info">You have not current plan, please subscribe for services !</Alert>
+          {subscribeUser?.status === "expired" && auth !== null ?
+          <Stack sx={{ width: '38%', marginLeft: 'auto' , marginTop: '22px'}} spacing={2}>
+          <Alert severity="info">You don't have any current plan please subscribe !</Alert>
           </Stack>
           : "" }
           <Grid container sx={{ alignItems: "center" }}>

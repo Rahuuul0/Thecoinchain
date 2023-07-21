@@ -29,8 +29,10 @@ const Notifications = () => {
 
     const handleClear = async(action) => {
           notificationAction.clearNotifications({action});
+         
     };
-
+  
+ 
     const singleRead = async (notId) => {
         notificationAction.notificationSingleread(notId)
       }
@@ -100,6 +102,7 @@ const Notifications = () => {
          setCategoryArray(categoryArr)
         categoryArr.length > 0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View()
 
+        console.log(categoryArr,'45854545');
     }
        
     return (
@@ -129,9 +132,10 @@ const Notifications = () => {
                                             if(index < loadmore){
                                              
                                             return(
+                                                <>
                                             
-                                                <Box onClick={() => singleRead(item.ct_notiy_id)} className='notification-list-itm'>
-                                                    <Box className='notification-icon'>
+                                                <Box style={{cursor:(item.ct_notify_read_status!==1)?"pointer":"default"}} onClick={() => {if(item.ct_notify_read_status!==1) {singleRead(item.ct_notiy_id)}}} className='notification-list-itm'>
+                                                    <Box className='notification-icon' >
                                                         <BoltOutlinedIcon />
                                                     </Box>
                                                     <Box className='notification-title'>
@@ -152,10 +156,10 @@ const Notifications = () => {
                                                             : '#58bd7d'}}
                                                         >
                                                         </span>
-
+                                              
                                                     </Box>
                                                 </Box>
-                                              
+                                                </>
                                           )
                                         }
                                         }):<span>No New Notifications Available</span>}

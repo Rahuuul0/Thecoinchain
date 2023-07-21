@@ -39,8 +39,8 @@ const PredictionDashboard = () => {
           
             <Container maxWidth="lg">
             {subscribeUser?.status === "expired"?  
-          <Stack sx={{ width: '42%', marginLeft: 'auto'}} spacing={2}>
-          <Alert severity="info">You have not current plan, please subscribe for services !</Alert>
+          <Stack sx={{ width: '38%', marginLeft: 'auto'}} spacing={2}>
+          <Alert severity="info">You don't have any current plan please subscribe !</Alert>
           </Stack>
           : "" }
               <Typography component="h4" variant="h4">

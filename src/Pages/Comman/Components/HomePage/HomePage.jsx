@@ -119,8 +119,8 @@ const Home = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
   const getFirstLetters = (str) => {
-   // const firstLetters = str.replace("Portfolio", "");
-    return firstLetters='';
+    // const firstLetters = str.replace("Portfolio", "");
+    return (firstLetters = "");
   };
 
   //subscribedUser Api
@@ -131,9 +131,6 @@ const Home = () => {
       res;
     });
   }, []);
-
-
-  console.log(categoryList,'categoryList')
 
   return (
     <>
@@ -319,7 +316,7 @@ const Home = () => {
                   navigate("./learn-cypto");
                 }}
               >
-                View more 
+                View more
               </Button>
             </Grid>
           </Grid>
@@ -401,7 +398,7 @@ const Home = () => {
                               navigate("./learn-cypto");
                             }}
                           >
-                            Learn more 
+                            Learn more
                           </Button>
                         </Stack>
                       </Grid>
@@ -613,7 +610,7 @@ const Home = () => {
                 className="btn btn-secondary"
                 onClick={(e) => {
                   loader(true);
-                  coinActions.latestListing();
+                  coinActions.latestListing("?limit=5");
                 }}
               >
                 All
@@ -623,45 +620,40 @@ const Home = () => {
                 className="btn"
                 onClick={(e) => {
                   loader(true);
-                  coinActions.latestListing();
+                  coinActions.latestListing("?limit=5");
                 }}
               >
                 All
               </Button>
             )}
-            {Object.keys(categoryList).length &&
-              
-              Object.keys(categoryList).map((item, index) => {
-                if (categoryList < 4) {
-                  if (selectedCat !== 0 && selectedCat === item.id) {
-                    return (
-                      <Button
-                        variant="contained"
-                        className="btn btn-secondary"
-                        key={index}
-                        onClick={(e) => {
-                          coinActions.coinListbByCategoty(item.id);
-                        }}
-                        title={item.name}
-                      >
-                        {getFirstLetters(item.name)}
-                      </Button>
-                    );
-                  } else {
-                    return (
-                      <Button
-                        className="btn"
-                        onClick={(e) => {
-                          coinActions.coinListbByCategoty(item.id);
-                        }}
-                        title={item.name}
-                      >
-                        {getFirstLetters(item.name)}
-                      </Button>
-                    );
-                  }
+            {categoryList.length &&
+              categoryList.map((item, index) => {
+                if (selectedCat !== 0 && selectedCat === item) {
+                  return (
+                    <Button
+                      variant="contained"
+                      className="btn btn-secondary"
+                      key={index}
+                      onClick={(e) => {
+                        coinActions.coinListbByCategoty(item);
+                      }}
+                      title={item}
+                    >
+                      {item}
+                    </Button>
+                  );
                 } else {
-                  return "";
+                  return (
+                    <Button
+                      className="btn"
+                      onClick={(e) => {
+                        coinActions.coinListbByCategoty(item);
+                      }}
+                      title={item}
+                    >
+                      {item}
+                    </Button>
+                  );
                 }
               })}
           </Stack>
@@ -683,7 +675,7 @@ const Home = () => {
                     value={1}
                     onClick={(e) => {
                       loader(true);
-                      coinActions.latestListing();
+                      coinActions.latestListing("?limit=5");
                     }}
                   >
                     All
@@ -693,7 +685,7 @@ const Home = () => {
                     value={1}
                     onClick={(e) => {
                       loader(true);
-                      coinActions.latestListing();
+                      coinActions.latestListing("?limit=5");
                     }}
                   >
                     All
@@ -701,34 +693,30 @@ const Home = () => {
                 )}
                 {categoryList.length &&
                   categoryList.map((item, index) => {
-                    if (index < 4) {
-                      if (selectedCat !== 0 && selectedCat === item.id) {
-                        return (
-                          <MenuItem
-                            value={index + 2}
-                            onClick={(e) => {
-                              coinActions.coinListbByCategoty(item.id);
-                            }}
-                            title={item.name}
-                          >
-                            {getFirstLetters(item.name)}
-                          </MenuItem>
-                        );
-                      } else {
-                        return (
-                          <MenuItem
-                            value={index + 2}
-                            onClick={(e) => {
-                              coinActions.coinListbByCategoty(item.id);
-                            }}
-                            title={item.name}
-                          >
-                            {getFirstLetters(item.name)}
-                          </MenuItem>
-                        );
-                      }
+                    if (selectedCat !== 0 && selectedCat === item) {
+                      return (
+                        <MenuItem
+                          value={index + 2}
+                          onClick={(e) => {
+                            coinActions.coinListbByCategoty(item);
+                          }}
+                          title={item}
+                        >
+                          {item}
+                        </MenuItem>
+                      );
                     } else {
-                      return "";
+                      return (
+                        <MenuItem
+                          value={index + 2}
+                          onClick={(e) => {
+                            coinActions.coinListbByCategoty(item.id);
+                          }}
+                          title={item}
+                        >
+                          {item}
+                        </MenuItem>
+                      );
                     }
                   })}
               </Select>

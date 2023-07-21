@@ -45,10 +45,10 @@ const MarketCard = () => {
   const handleChangeTablefilter = (event) => {
     setTablefilter(event.target.value);
   };
-  const getFirstLetters = (str) => {
-    const firstLetters = str.replace("Portfolio", "");
-    return firstLetters;
-  };
+  // const getFirstLetters = (str) => {
+  //   const firstLetters = str.replace("Portfolio", "");
+  //   return firstLetters;
+  // };
 
   useEffect(() => {
     coinActions.latestListing("limit=10");
@@ -145,7 +145,7 @@ const MarketCard = () => {
                       className="btn btn-secondary"
                       onClick={(e) => {
                         loader(true);
-                        coinActions.latestListing("limit=10");
+                        coinActions.latestListing("?limit=10");
                       }}
                     >
                       All
@@ -155,7 +155,7 @@ const MarketCard = () => {
                       className="btn"
                       onClick={(e) => {
                         loader(true);
-                        coinActions.latestListing("limit=10");
+                        coinActions.latestListing("?limit=10");
                       }}
                     >
                       All
@@ -163,36 +163,34 @@ const MarketCard = () => {
                   )}
                   {categoryList.length &&
                     categoryList.map((item, index) => {
-                      if (index < 4) {
-                        if (selectedCat !== 0 && selectedCat === item.id) {
-                          return (
-                            <Button
-                              variant="contained"
-                              className="btn btn-secondary"
-                              key={index}
-                              onClick={(e) => {
-                                coinActions.coinListbByCategoty(item.id);
-                              }}
-                              title={item.name}
-                            >
-                              {getFirstLetters(item.name)}
-                            </Button>
-                          );
-                        } else {
-                          return (
-                            <Button
-                              className="btn"
-                              onClick={(e) => {
-                                coinActions.coinListbByCategoty(item.id);
-                              }}
-                              title={item.name}
-                            >
-                              {getFirstLetters(item.name)}
-                            </Button>
-                          );
-                        }
+                      if (selectedCat !== 0 && selectedCat === item) {
+                        return (
+                          <Button
+                            variant="contained"
+                            className="btn btn-secondary"
+                            key={index}
+                            onClick={(e) => {
+                              loader(true);
+                              coinActions.coinListbByCategoty(item);
+                            }}
+                            title={item}
+                          >
+                            {item}
+                          </Button>
+                        );
                       } else {
-                        return "";
+                        return (
+                          <Button
+                            className="btn"
+                            onClick={(e) => {
+                              loader(true);
+                              coinActions.coinListbByCategoty(item);
+                            }}
+                            title={item}
+                          >
+                            {item}
+                          </Button>
+                        );
                       }
                     })}
                 </Stack>
@@ -225,7 +223,7 @@ const MarketCard = () => {
                     <MenuItem
                       value={1}
                       onClick={(e) => {
-                        coinActions.latestListing("limit=10");
+                        coinActions.latestListing("?limit=10");
                       }}
                     >
                       All
@@ -234,7 +232,7 @@ const MarketCard = () => {
                     <MenuItem
                       value={1}
                       onClick={(e) => {
-                        coinActions.latestListing("limit=10");
+                        coinActions.latestListing("?limit=10");
                       }}
                     >
                       All
@@ -242,35 +240,33 @@ const MarketCard = () => {
                   )}
                   {categoryList.length &&
                     categoryList.map((item, index) => {
-                      if (index < 4) {
-                        if (selectedCat !== 0 && selectedCat === item.id) {
-                          return (
-                            <MenuItem
-                              value={index + 2}
-                              key={index}
-                              onClick={(e) => {
-                                coinActions.coinListbByCategoty(item.id);
-                              }}
-                              title={item.name}
-                            >
-                              {getFirstLetters(item.name)}
-                            </MenuItem>
-                          );
-                        } else {
-                          return (
-                            <MenuItem
-                              value={index + 2}
-                              onClick={(e) => {
-                                coinActions.coinListbByCategoty(item.id);
-                              }}
-                              title={item.name}
-                            >
-                              {getFirstLetters(item.name)}
-                            </MenuItem>
-                          );
-                        }
+                      if (selectedCat !== 0 && selectedCat === item) {
+                        return (
+                          <MenuItem
+                            value={index + 2}
+                            key={index}
+                            onClick={(e) => {
+                              loader(true);
+                              coinActions.coinListbByCategoty(item);
+                            }}
+                            title={item}
+                          >
+                            {item}
+                          </MenuItem>
+                        );
                       } else {
-                        return "";
+                        return (
+                          <MenuItem
+                            value={index + 2}
+                            onClick={(e) => {
+                              loader(true);
+                              coinActions.coinListbByCategoty(item);
+                            }}
+                            title={item}
+                          >
+                            {item}
+                          </MenuItem>
+                        );
                       }
                     })}
                 </Select>

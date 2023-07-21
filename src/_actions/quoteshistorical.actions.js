@@ -24,9 +24,18 @@ const quotesHistoricalActions = () => {
       .post(`${Apis.Quotes_Historical}`, params)
       .then((res) => {
         if (res.statusCode === 200) {
+          let responseArr = [];
+          params.interval === "15m"
+            ? (responseArr = res.data.data_15_min[0])
+            : params.interval === "1h"
+            ? (responseArr = res.data.data_1_hr[0])
+            : params.interval === "4h"
+            ? (responseArr = res.data.data_4_hrs[0])
+            : (responseArr = res.data.data_1_day[0]);
+
           let timeStamp = [];
           let quotePrice = [];
-          res.data.data[coinSymbol][0].quotes.map((item, key) => {
+          responseArr.quotes.map((item, key) => {
             let priceData = item.quote.USD.price;
             quotePrice.push(priceData);
             timeStamp.push(

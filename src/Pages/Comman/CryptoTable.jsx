@@ -49,7 +49,7 @@ import {
   historicalAtom,
   predictionAtom,
 } from "../../_state";
-import LoadingImg from '../../../public/assets/images/icons/loading.svg'
+import LoadingImg from "../../../public/assets/images/icons/loading.svg";
 
 import { TabPanel } from "@mui/lab";
 import { Favorite } from "@mui/icons-material";
@@ -79,7 +79,7 @@ const CryptoTable = (props) => {
   const coinsList = useRecoilValue(coinsAtom);
   const userDetail = useRecoilValue(authAtom);
   const navigate = useNavigate();
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState("3");
   const location = useLocation();
   const [isHovered, setHover] = useState(false);
   const [hoverIndex, setHoverIndex] = useState();
@@ -91,7 +91,6 @@ const CryptoTable = (props) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
 
-  
   const [intervalCount, setIntervalCount] = useState(0);
   const selectedCat = useRecoilValue(selectedCategoryAtom);
   const subscriptionAction = subscriptionActions();
@@ -101,8 +100,6 @@ const CryptoTable = (props) => {
   const historicalData = useRecoilValue(historicalAtom);
   const [timeFrame, setTimeFrame] = useState("15m");
   const date = new Date();
-
-  console.log(count,'count')
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -178,26 +175,33 @@ const CryptoTable = (props) => {
     const ress = await coinActions.coinListbByCategoty(props.selectedCat);
   };
 
-  // useEffect(() => {
-  //   if (
-  //     (location.pathname === "/market" ||
-  //       location.pathname === "/prediction-dashboard") &&
-  //     subscriptionDetails.status === "running"
-  //   ) {
-  //     const interval = setInterval(() => {
-  //       setIntervalCount(intervalCount + 1);
-  //       if (location.pathname === "/prediction-dashboard")
-  //         coinActions.predictionListing();
-  //       else
-  //         props.selectedCat
-  //           ? props.selectedCat === 0
-  //             ? getLastestListing()
-  //             : getLatestCategory(selectedCat)
-  //           : getLastestListing();
-  //     }, 100000);
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [intervalCount, selectedCat, subscriptionDetails]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIntervalCount(intervalCount + 1);
+      if (location.pathname === "/prediction-dashboard")
+        coinActions.predictionListing();
+      else
+        props.selectedCat
+          ? props.selectedCat === 0
+            ? getLastestListing()
+            : getLatestCategory(selectedCat)
+          : getLastestListing();
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [intervalCount, selectedCat, subscriptionDetails]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIntervalCount(intervalCount + 1);
+
+      if (
+        props.selectedCat !== 0 &&
+        location.pathname !== "prediction-dashboard"
+      )
+        coinActions.coinListbByCategoty(props.selectedCat);
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [intervalCount, selectedCat]);
 
   const data = {
     labels: historicalData.time,
@@ -230,13 +234,9 @@ const CryptoTable = (props) => {
   };
 
   const handleChanges = (event, value) => {
-    console.log(value,'value')
     setLimit(value);
-   // setPage(paginator(coinsList, value, 3).page);
-    
+    // setPage(paginator(coinsList, value, 3).page);
   };
-
-
 
   return (
     <>
@@ -250,51 +250,55 @@ const CryptoTable = (props) => {
         <Box className="crypto-list-table">
           <TableContainer>
             <Stack spacing={2}>
-              <Table sx={{ minWidth: 650 }}>
-                <TableHead>
-                  <TableRow hover>
-                    <TableCell>#</TableCell>
-                    <TableCell>Name</TableCell>
-                    <TableCell align="right">Price</TableCell>
-                    {location.pathname === "/prediction-dashboard" ? (
-                      <>
-                        <TableCell align="right">acc % </TableCell>
-                        <TableCell align="right">15m %</TableCell>
-                        <TableCell align="right">1h %</TableCell>
-                        <TableCell align="right">4h %</TableCell>
-                        <TableCell align="right">1d %</TableCell>
-                      </>
-                    ) : location.pathname === "/market" ? (
-                      <>
+              {selectedCat !== 0 && coinsList.length <= 0 ? (
+                <Typography align="center">No Data to Show</Typography>
+              ) : (
+                <Table sx={{ minWidth: 650 }}>
+                  <TableHead>
+                    <TableRow hover>
+                      <TableCell>#</TableCell>
+                      <TableCell>Name</TableCell>
+                      <TableCell align="right">Price</TableCell>
+                      {location.pathname === "/prediction-dashboard" ? (
+                        <>
+                          <TableCell align="right">acc % </TableCell>
+                          {/* <TableCell align="right">15m %</TableCell>
+                          <TableCell align="right">1h %</TableCell> */}
+                          <TableCell align="right">4h %</TableCell>
+                          <TableCell align="right">1d %</TableCell>
+                        </>
+                      ) : location.pathname === "/market" ? (
+                        <>
+                          <TableCell align="right">24h Change </TableCell>
+                          <TableCell align="right">7d %</TableCell>
+                          <TableCell align="right">Marketcap</TableCell>
+                          <TableCell align="right">Volume(24h)</TableCell>
+                        </>
+                      ) : (
                         <TableCell align="right">24h Change </TableCell>
-                        <TableCell align="right">7d %</TableCell>
-                        <TableCell align="right">Marketcap</TableCell>
-                        <TableCell align="right">Volume(24h)</TableCell>
-                      </>
-                    ) : (
-                      <TableCell align="right">24h Change </TableCell>
-                    )}
-                    <TableCell align="right">Chart</TableCell>
-                    {location.pathname === "/" ? (
-                      <TableCell align="right">Predict</TableCell>
-                    ) : (
-                      ""
-                    )}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {paginator(coinsList, page, limit).data.map((item, index) => {
-                    return (
-                      <TableRow
-                        key={index}
-                        divider={index < coinsList.length - 1}
-                        hover
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell>
-                          {/* {location.pathname === "/prediction-dashboard" && (
+                      )}
+                      <TableCell align="right">Chart</TableCell>
+                      {location.pathname === "/" ? (
+                        <TableCell align="right">Predict</TableCell>
+                      ) : (
+                        ""
+                      )}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {paginator(coinsList, page, limit).data.map(
+                      (item, index) => {
+                        return (
+                          <TableRow
+                            key={index}
+                            divider={index < coinsList.length - 1}
+                            hover
+                            sx={{
+                              "&:last-child td, &:last-child th": { border: 0 },
+                            }}
+                          >
+                            <TableCell>
+                              {/* {location.pathname === "/prediction-dashboard" && (
                             <img
                               src={FavoriteIc}
                               alt="star"
@@ -302,305 +306,333 @@ const CryptoTable = (props) => {
                               style={{ cursor: "pointer" }}
                             />
                           )} */}
-                          {index + 1}
-                        </TableCell>
-                        <TableCell
-                          onClick={() =>
-                            location.pathname === "/"
-                              ? void 0
-                              : handleOpen(item.id)
-                          }
-                          sx={{
-                            cursor:
-                              location.pathname === "/" ? "default" : "pointer",
-                          }}
-                        >
-                          <div className="crypto-name">
-                            <img
-                              src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol?.toLowerCase()}.png`}
-                              alt={item.symbol}
-                              width="33px"
-                            />
-                            {item.name}{" "}
-                            <span className="currency_name">{item.symbol}</span>
-                          </div>
-                        </TableCell>
-                        <TableCell align="right">
-                          $
-                          {item?.price > 1
-                            ? (
-                                Math.round(item.price * 100) / 100
-                              )?.toLocaleString()
-                            : item?.price < 1 && item?.price >= 0.1
-                            ? (
-                                Math.round(item.price * 10000) / 10000
-                              )?.toLocaleString()
-                            : item?.price < 0.1 && item?.price > 0.01
-                            ? (
-                                Math.round(item.price * 1000000) / 1000000
-                              )?.toFixed(6)
-                            : item?.price < 0.01
-                            ? (
-                                Math.round(item.price * 100000000) / 100000000
-                              )?.toFixed(8)
-                            : item?.price}
-                        </TableCell>
-                        {location.pathname !== "/prediction-dashboard" ? (
-                          <TableCell align="right">
-                            <span
-                              className={
-                                item.percent_change_24h < 0 ? "down" : "up"
+                              {index + 1}
+                            </TableCell>
+                            <TableCell
+                              onClick={() =>
+                                location.pathname === "/"
+                                  ? void 0
+                                  : handleOpen(item.id)
                               }
+                              sx={{
+                                cursor:
+                                  location.pathname === "/"
+                                    ? "default"
+                                    : "pointer",
+                              }}
                             >
-                              {Math.round(
-                                (item.percent_change_24h + Number.EPSILON) * 100
-                              ) / 100}
-                              %
-                            </span>
-                          </TableCell>
-                        ) : (
-                          <TableCell align="right" sx={{ color: "#FFD166" }}>
-                            <span>{item.ct_accuracy?.toFixed(2)}%</span>
-                          </TableCell>
-                        )}
-                        {location.pathname === "/prediction-dashboard" &&
-                        (subscriptionDetails.status === "expired" ||
-                          !item.ct_min_15_current) ? (
-                          <>
-                            <TableCell align="right">
-                              <HttpsIcon />
+                              <div className="crypto-name">
+                                <img
+                                  src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol?.toLowerCase()}.png`}
+                                  alt={item.symbol}
+                                  width="33px"
+                                />
+                                {item.name}{" "}
+                                <span className="currency_name">
+                                  {item.symbol}
+                                </span>
+                              </div>
                             </TableCell>
                             <TableCell align="right">
-                              <HttpsIcon />
+                              $
+                              {item?.price > 1
+                                ? (
+                                    Math.round(item.price * 100) / 100
+                                  )?.toLocaleString()
+                                : item?.price < 1 && item?.price >= 0.1
+                                ? (
+                                    Math.round(item.price * 10000) / 10000
+                                  )?.toLocaleString()
+                                : item?.price < 0.1 && item?.price > 0.01
+                                ? (
+                                    Math.round(item.price * 1000000) / 1000000
+                                  )?.toFixed(6)
+                                : item?.price < 0.01
+                                ? (
+                                    Math.round(item.price * 100000000) /
+                                    100000000
+                                  )?.toFixed(8)
+                                : item?.price}
                             </TableCell>
-                            <TableCell align="right">
-                              <HttpsIcon />
-                            </TableCell>
-                            <TableCell align="right">
-                              <HttpsIcon />
-                            </TableCell>{" "}
-                          </>
-                        ) : location.pathname === "/prediction-dashboard" &&
-                          subscriptionDetails.status === "running" ? (
-                          <>
-                            <TableCell align="right">
-                              <span
-                                className={
-                                  item.ct_min_15_current < item.price
-                                    ? "down"
-                                    : "up"
-                                }
+                            {location.pathname !== "/prediction-dashboard" ? (
+                              <TableCell align="right">
+                                <span
+                                  className={
+                                    item.percent_change_24h < 0 ? "down" : "up"
+                                  }
+                                >
+                                  {Math.round(
+                                    (item.percent_change_24h + Number.EPSILON) *
+                                      100
+                                  ) / 100}
+                                  %
+                                </span>
+                              </TableCell>
+                            ) : item.ct_accuracy ? (
+                              <TableCell
+                                align="right"
+                                sx={{ color: "#e9b847" }}
                               >
+                                <span>{item.ct_accuracy?.toFixed(2)}%</span>
+                              </TableCell>
+                            ) : (
+                              <TableCell
+                                align="right"
+                                sx={{ color: "#e9b847" }}
+                              >
+                                -
+                              </TableCell>
+                            )}
+
+                            {location.pathname === "/prediction-dashboard" &&
+                            (subscriptionDetails.status === "expired" ||
+                              !item.ct_hours_4_current) ? (
+                              <>
+                                {/* <TableCell align="right">
+                                  <HttpsIcon />
+                                </TableCell>
+                                <TableCell align="right">
+                                  <HttpsIcon />
+                                </TableCell> */}
+                                <TableCell align="right">
+                                  <HttpsIcon />
+                                </TableCell>
+                                <TableCell align="right">
+                                  <HttpsIcon />
+                                </TableCell>{" "}
+                              </>
+                            ) : location.pathname === "/prediction-dashboard" &&
+                              subscriptionDetails.status === "running" ? (
+                              <>
+                                {/* <TableCell align="right">
+                                  <span
+                                    className={
+                                      item.ct_min_15_current < item.price
+                                        ? "down"
+                                        : "up"
+                                    }
+                                  > */}
                                 {/* {(
                                   ((item.ct_min_15_current - item.price) *
                                     100) /
                                   item.price
                                 ).toFixed(2)}
                                 % */}
-                                {item.ct_min_15_current}
-                              </span>
-                            </TableCell>
-                            <TableCell align="right">
-                              <span
-                                className={
-                                  item.ct_hour_1_current < item.price
-                                    ? "down"
-                                    : "up"
-                                }
-                              >
+                                {/* {item.ct_min_15_current}
+                                  </span> */}
+                                {/* </TableCell> */}
+                                {/* <TableCell align="right">
+                                  <span
+                                    className={
+                                      item.ct_hour_1_current < item.price
+                                        ? "down"
+                                        : "up"
+                                    }
+                                  > */}
                                 {/* {(
                                   ((item.ct_hour_1_current - item.price) *
                                     100) /
                                   item.price
                                 ).toFixed(2)}
                                 % */}
-                                {item.ct_hour_1_current}
-                              </span>
-                            </TableCell>
-                            <TableCell align="right">
-                              <span
-                                className={
-                                  item.ct_hours_4_current < item.price
-                                    ? "down"
-                                    : "up"
-                                }
-                              >
-                                {/* {(
+                                {/* {item.ct_hour_1_current}
+                                  </span>
+                                </TableCell> */}
+                                <TableCell align="right">
+                                  <span
+                                    className={
+                                      item.ct_hours_4_current < item.price
+                                        ? "down"
+                                        : "up"
+                                    }
+                                  >
+                                    {/* {(
                                   ((item.ct_hours_4_current - item.price) *
                                     100) /
                                   item.price
                                 ).toFixed(2)}
                                 % */}
-                                {(
-                                  Math.round(item.ct_hours_4_current * 100) /
-                                  100
-                                )?.toFixed(4)}
-                              </span>
-                            </TableCell>
-                            <TableCell align="right">
-                              <span
-                                className={
-                                  item.ct_day_1_current < item.price
-                                    ? "down"
-                                    : "up"
-                                }
-                              >
-                                {/* {(
+                                    {(
+                                      Math.round(
+                                        item.ct_hours_4_current * 100
+                                      ) / 100
+                                    )?.toFixed(4)}
+                                  </span>
+                                </TableCell>
+                                <TableCell align="right">
+                                  <span
+                                    className={
+                                      item.ct_day_1_current < item.price
+                                        ? "down"
+                                        : "up"
+                                    }
+                                  >
+                                    {/* {(
                                   ((item.ct_day_1_current - item.price) * 100) /
                                   item.price
                                 ).toFixed(2)}
                                 % */}
-                                {item.ct_day_1_current}
-                              </span>
-                            </TableCell>
-                          </>
-                        ) : location.pathname === "/market" ? (
-                          <>
-                            <TableCell align="right">
-                              <span
-                                className={
-                                  item.percent_change_7d < 0 ? "down" : "up"
+                                    {item.ct_day_1_current}
+                                  </span>
+                                </TableCell>
+                              </>
+                            ) : location.pathname === "/market" ? (
+                              <>
+                                <TableCell align="right">
+                                  <span
+                                    className={
+                                      item.percent_change_7d < 0 ? "down" : "up"
+                                    }
+                                  >
+                                    {item.percent_change_7d?.toFixed(2)}
+                                  </span>
+                                </TableCell>
+
+                                <TableCell align="right">
+                                  ${item.market_cap?.toFixed(0)}
+                                </TableCell>
+                                <TableCell align="right">
+                                  ${item.volume_24h?.toFixed(0)}
+                                </TableCell>
+                              </>
+                            ) : (
+                              ""
+                            )}
+
+                            {subscriptionDetails.status === "running" &&
+                            location.pathname !== "/" ? (
+                              <TableCell
+                                align="right"
+                                sx={{ cursor: "pointer" }}
+                              >
+                                <img
+                                  src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
+                                  alt="chart"
+                                  height="33px"
+                                  style={{
+                                    filter:
+                                      item.percent_change_7d < 0
+                                        ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
+                                        : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
+                                  }}
+                                  onClick={() => handleChartOpen(item)}
+                                />
+                              </TableCell>
+                            ) : subscriptionDetails.status === "expired" &&
+                              location.pathname !== "/" ? (
+                              <TableCell
+                                align="right"
+                                onMouseOver={() => handleMouseOver(index)}
+                                onMouseLeave={handleMouseLeave}
+                              >
+                                <Fade in={!(isHovered && index === hoverIndex)}>
+                                  <img
+                                    src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
+                                    alt="chart"
+                                    height="33px"
+                                    style={{
+                                      filter:
+                                        item.percent_change_7d < 0
+                                          ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
+                                          : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
+                                    }}
+                                  />
+                                </Fade>
+                                {
+                                  <Fade in={isHovered && index === hoverIndex}>
+                                    <Button
+                                      variant="contained"
+                                      className="btn btn-primary"
+                                      sx={{
+                                        borderRadius: "90px",
+                                        position: "absolute",
+                                        top: "15px",
+                                        right: "5px",
+                                        margin: "auto",
+                                      }}
+                                      onClick={() => {
+                                        userDetail
+                                          ? navigate("/subscription")
+                                          : navigate("/login"),
+                                          window.scrollTo({
+                                            top: 0,
+                                            left: 0,
+                                            behavior: "smooth",
+                                          });
+                                      }}
+                                    >
+                                      {userDetail ? "Subscribe" : "Login"}
+                                    </Button>
+                                  </Fade>
                                 }
-                              >
-                                {item.percent_change_7d?.toFixed(2)}
-                              </span>
-                            </TableCell>
-
-                            <TableCell align="right">
-                              ${item.market_cap?.toFixed(0)}
-                            </TableCell>
-                            <TableCell align="right">
-                              ${item.volume_24h?.toFixed(0)}
-                            </TableCell>
-                          </>
-                        ) : (
-                          ""
-                        )}
-
-                        {subscriptionDetails.status === "running" &&
-                        location.pathname !== "/" ? (
-                          <TableCell align="right" sx={{ cursor: "pointer" }}>
-                            <img
-                              src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
-                              alt="chart"
-                              height="33px"
-                              style={{
-                                filter:
-                                  item.percent_change_7d < 0
-                                    ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
-                                    : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
-                              }}
-                              onClick={() => handleChartOpen(item)}
-                            />
-                          </TableCell>
-                        ) : subscriptionDetails.status === "expired" &&
-                          location.pathname !== "/" ? (
-                          <TableCell
-                            align="right"
-                            onMouseOver={() => handleMouseOver(index)}
-                            onMouseLeave={handleMouseLeave}
-                          >
-                            <Fade in={!(isHovered && index === hoverIndex)}>
-                              <img
-                                src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
-                                alt="chart"
-                                height="33px"
-                                style={{
-                                  filter:
-                                    item.percent_change_7d < 0
-                                      ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
-                                      : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
-                                }}
-                              />
-                            </Fade>
-                            {
-                              <Fade in={isHovered && index === hoverIndex}>
-                                <Button
-                                  variant="contained"
-                                  className="btn btn-primary"
-                                  sx={{
-                                    borderRadius: "90px",
-                                    position: "absolute",
-                                    top: "15px",
-                                    right: "5px",
-                                    margin: "auto",
-                                  }}
-                                  onClick={() => {
-                                    userDetail
-                                      ? navigate("/subscription")
-                                      : navigate("/login"),
-                                      window.scrollTo({
-                                        top: 0,
-                                        left: 0,
-                                        behavior: "smooth",
-                                      });
-                                  }}
+                              </TableCell>
+                            ) : (
+                              ""
+                            )}
+                            {location.pathname === "/" ? (
+                              <>
+                                <TableCell align="right">
+                                  <img
+                                    src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
+                                    alt="chart"
+                                    height="33px"
+                                    style={{
+                                      filter:
+                                        item.percent_change_24h < 0
+                                          ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
+                                          : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
+                                    }}
+                                  />
+                                </TableCell>
+                                <TableCell
+                                  align="right"
+                                  sx={{ cursor: "pointer" }}
                                 >
-                                  {userDetail ? "Subscribe" : "Login"}
-                                </Button>
-                              </Fade>
-                            }
-                          </TableCell>
-                        ) : (
-                          ""
-                        )}
-                        {location.pathname === "/" ? (
-                          <>
-                            <TableCell align="right">
-                              <img
-                                src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
-                                alt="chart"
-                                height="33px"
-                                style={{
-                                  filter:
-                                    item.percent_change_24h < 0
-                                      ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
-                                      : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
-                                }}
-                              />
-                            </TableCell>
-                            <TableCell align="right" sx={{ cursor: "pointer" }}>
-                              <Button
-                                variant="outlined"
-                                sx={{
-                                  borderRadius: "90px",
-                                  marginLeft: "auto",
-                                }}
-                                className="btn-outlined-secondary btn"
-                                onClick={() => {
-                                  navigate(
-                                    !userDetail
-                                      ? "/login"
-                                      : userDetail &&
-                                        subscriptionDetails.status === "running"
-                                      ? "/prediction-dashboard"
-                                      : "/subscription"
-                                  );
-                                }}
-                              >
-                                Predict
-                              </Button>
-                            </TableCell>
-                          </>
-                        ) : (
-                          ""
-                        )}
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>             
+                                  <Button
+                                    variant="outlined"
+                                    sx={{
+                                      borderRadius: "90px",
+                                      marginLeft: "auto",
+                                    }}
+                                    className="btn-outlined-secondary btn"
+                                    onClick={() => {
+                                      navigate(
+                                        !userDetail
+                                          ? "/login"
+                                          : userDetail &&
+                                            subscriptionDetails.status ===
+                                              "running"
+                                          ? "/prediction-dashboard"
+                                          : "/subscription"
+                                      );
+                                    }}
+                                  >
+                                    Predict
+                                  </Button>
+                                </TableCell>
+                              </>
+                            ) : (
+                              ""
+                            )}
+                          </TableRow>
+                        );
+                      }
+                    )}
+                  </TableBody>
+                </Table>
+              )}
             </Stack>
-            {location.pathname === "/prediction-dashboard"  && limit < 100 &&
-                <Button
-                    onClick={(e) => handleChanges(e,100) }                   
-                    sx={{width: "160px" , alignItems: "center", margin: "0 auto" }}
-                    variant="outlined"
-                    className='btn btn-outlined-secondary'>
-                    <img src={LoadingImg} alt='loading' /> Load more
-                </Button>
-              }
-             {/* {location.pathname === "/prediction-dashboard" ? (
+            {location.pathname === "/prediction-dashboard" && limit < 100 && (
+              <Button
+                onClick={(e) => handleChanges(e, 100)}
+                sx={{ width: "160px", alignItems: "center", margin: "0 auto" }}
+                variant="outlined"
+                className="btn btn-outlined-secondary"
+              >
+                <img src={LoadingImg} alt="loading" /> Load more
+              </Button>
+            )}
+            {/* {location.pathname === "/prediction-dashboard" ? (
               <Pagination
                 sx={{ float: "right" }}
                 count={count}
@@ -677,7 +709,8 @@ const CryptoTable = (props) => {
                 component="small"
                 sx={{ color: "#777E91", fontWeight: "600", display: "flex" }}
               >
-                <img src={DollarImg} alt="chart" height="16px" /> 36,641.20
+                <img src={DollarImg} alt="chart" height="16px" />{" "}
+                {chartData[0]?.market_cap}
               </Typography>
               <Typography
                 className="crypto-prection"
@@ -692,23 +725,23 @@ const CryptoTable = (props) => {
                 <Box>
                   {subscriptionDetails.status === "running" ? (
                     <TabList onChange={handleChange} aria-label="Login Tabs">
-                      <Tab label="15m" value="1" />
-                      <Tab label="1h" value="2" />
+                      {/* <Tab label="15m" value="1" />
+                      <Tab label="1h" value="2" /> */}
                       <Tab label="4h" value="3" />
                       <Tab label="1d" value="4" />
                     </TabList>
                   ) : (
                     <TabList aria-label="Login Tabs">
-                      <Tab label={<HttpsIcon />} value="1" />
-                      <Tab label={<HttpsIcon />}></Tab>
-                      <Tab label={<HttpsIcon />}></Tab>
+                      {/* <Tab label={<HttpsIcon />} value="1" />
+                      <Tab label={<HttpsIcon />}></Tab> */}
+                      <Tab label={<HttpsIcon />} value="3"></Tab>
                       <Tab label={<HttpsIcon />}></Tab>
                     </TabList>
                   )}
                 </Box>
                 {subscriptionDetails.status === "running" ? (
                   <>
-                    <TabPanel value="1">
+                    {/* <TabPanel value="1">
                       <Box className="value-with-date">
                         <Box className="value-with-date-col">
                           <Typography
@@ -766,8 +799,8 @@ const CryptoTable = (props) => {
                           </Typography>
                         </Box>
                       </Box>
-                    </TabPanel>
-                    <TabPanel value="2">
+                    </TabPanel> */}
+                    {/* <TabPanel value="2">
                       <Box className="value-with-date">
                         <Box className="value-with-date-col">
                           <Typography
@@ -824,7 +857,7 @@ const CryptoTable = (props) => {
                           </Typography>
                         </Box>
                       </Box>
-                    </TabPanel>
+                    </TabPanel> */}
                     <TabPanel value="3">
                       <Box className="value-with-date">
                         <Box className="value-with-date-col">
@@ -854,7 +887,13 @@ const CryptoTable = (props) => {
                                   100
                               ) / 100
                             )?.toFixed(2)}
-                            <span>+1.25%</span>
+                            <span>
+                              {((chartData[0]?.ct_hours_4_current -
+                                chartData[0]?.price) *
+                                100) /
+                                chartData[0]?.ct_hours_4_current}
+                              %
+                            </span>
                           </Typography>
                         </Box>
                         <Box className="value-with-date-col">
@@ -870,14 +909,15 @@ const CryptoTable = (props) => {
                             }}
                           >
                             <img src={TimeImg} alt="chart" height="16px" />{" "}
-                            <span>15/10/23</span> 07:45
+                            {dayjs(date).add(4, "h").format("DD/MM/YYYY HH:mm")}
                           </Typography>
                           <Typography
                             variant="body2"
                             component="small"
                             sx={{ color: "#141416", fontWeight: "500" }}
                           >
-                            37162.00 <span>+1.25%</span>
+                            {chartData[0]?.ct_hours_4_current}
+                            {/* <span>+1.25%</span> */}
                           </Typography>
                         </Box>
                       </Box>
@@ -911,7 +951,13 @@ const CryptoTable = (props) => {
                                   100
                               ) / 100
                             )?.toFixed(2)}
-                            <span>+1.25%</span>
+                            <span>
+                              {((chartData[0]?.ct_day_1_current -
+                                chartData[0]?.price) *
+                                100) /
+                                chartData[0]?.ct_day_1_current}
+                              %
+                            </span>
                           </Typography>
                         </Box>
                         <Box className="value-with-date-col">
@@ -927,18 +973,18 @@ const CryptoTable = (props) => {
                             }}
                           >
                             <img src={TimeImg} alt="chart" height="16px" />{" "}
-                            <span>15/10/23</span> 07:45
+                            {dayjs(date).add(1, "d").format("DD/MM/YYYY HH:mm")}
                           </Typography>
                           <Typography
                             variant="body2"
                             component="small"
                             sx={{ color: "#141416", fontWeight: "500" }}
                           >
-                            37162.00 <span>+1.25%</span>
+                            {chartData[0]?.ct_day_1_current}
                           </Typography>
                         </Box>
                       </Box>
-                    </TabPanel>                    
+                    </TabPanel>
                   </>
                 ) : (
                   <TabPanel value="1">
@@ -963,7 +1009,7 @@ const CryptoTable = (props) => {
                   </TabPanel>
                 )}
               </TabContext>
-            </Box>            
+            </Box>
           </Box>
           <Button
             fullWidth

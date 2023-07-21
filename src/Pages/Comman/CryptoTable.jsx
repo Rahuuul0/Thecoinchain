@@ -172,7 +172,7 @@ const CryptoTable = (props) => {
   };
 
   const getLatestCategory = async () => {
-    const ress = await coinActions.coinListbByCategoty(props.selectedCat);
+    const ress = await coinActions.categoriesList(props.selectedCat);
   };
 
   useEffect(() => {

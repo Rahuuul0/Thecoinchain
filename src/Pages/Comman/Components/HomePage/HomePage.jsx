@@ -731,7 +731,7 @@ const Home = () => {
               </Select>
             </FormControl>
           </Box>
-          <CryptoTable isIt={false} />
+          <CryptoTable selectedCat={selectedCat} isIt={false} />
           <Button
             variant="outlined"
             className="btn btn-outlined-secondary"

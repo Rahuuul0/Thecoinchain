@@ -27,7 +27,7 @@ const useCoinActions = () => {
   const prediction = useRecoilValue(predictionAtom);
   const [categoryCoins, setCategoryCoins] = useRecoilState(categoryCoinsAtom);
 
-  const categoriesList = async () => {
+  const categoriesList = async (item) => {
     return fetchWrapper
       .get(Apis.Categories_Data)
       .then((res) => {
@@ -36,10 +36,31 @@ const useCoinActions = () => {
           for (let key in res.data) {
             if (res.data[key].length !== 0) listArr.push(key);
           }
-          // let categoryList = Object.keys(res.data);
           setCoinsCategory(listArr);
 
           setCategoryCoins(res.data);
+
+          if (listArr.includes(item)) {
+            res.data[item]?.map((itm, key) => {
+              let coin = {};
+              coin.id = itm.id;
+              coin.name = itm.name;
+              coin.symbol = itm.symbol;
+              coin.slug = itm.slug;
+              coin.cmc_rank = itm.cmc_rank;
+              coin.price = itm?.quote?.USD?.price;
+              coin.percent_change_24h = itm?.quote?.USD?.percent_change_24h;
+              if (location.pathname === "/market") {
+                coin.percent_change_7d = itm?.quote?.USD?.percent_change_7d;
+                coin.market_cap = itm?.quote?.USD?.market_cap;
+                coin.volume_24h = itm?.quote?.USD?.volume_24h;
+              }
+              coinsArr.push(coin);
+            });
+            setCoinList(
+              location.pathname === "/" ? coinsArr.slice(0, 5) : coinsArr
+            );
+          }
         } else {
           alertActions.error(Labels.Error);
         }
@@ -71,6 +92,7 @@ const useCoinActions = () => {
       coinsArr.push(coin);
     });
     setCoinList(location.pathname === "/" ? coinsArr.slice(0, 5) : coinsArr);
+    loader(false);
   };
 
   // const coinListbByCategoty = async (id) => {

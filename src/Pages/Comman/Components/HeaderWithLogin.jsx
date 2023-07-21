@@ -287,18 +287,20 @@ function Header(props) {
                         )
                       }
                     })}
-
-                    <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
-                      <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
-                        View all
-                      </Button>
-                      <Button onClick={e=>handleClear('all_read')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
-                        Clear all
-                      </Button>
-                    </Box>
-                  </>
+                    </>
                   : <span>No New Notifications Available</span>
                 }
+                    <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
+                 
+                      <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
+                        View all
+                      </Button> 
+                      {notifications.length > 0 ?
+                      <Button onClick={e=>handleClear('all_read')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                        Clear all
+                      </Button>: ''}  
+                    </Box>
+                
 
               </Box>
             </Menu>

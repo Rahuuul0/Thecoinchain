@@ -101,8 +101,6 @@ const CryptoTable = (props) => {
   const [timeFrame, setTimeFrame] = useState("15m");
   const date = new Date();
 
-  console.log(coinsList, "coinsList");
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -188,9 +186,22 @@ const CryptoTable = (props) => {
             ? getLastestListing()
             : getLatestCategory(selectedCat)
           : getLastestListing();
-    }, 2000);
+    }, 30000);
     return () => clearInterval(interval);
   }, [intervalCount, selectedCat, subscriptionDetails]);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setIntervalCount(intervalCount + 1);
+
+  //     if (
+  //       props.selectedCat !== 0 &&
+  //       location.pathname !== "prediction-dashboard"
+  //     )
+  //       coinActions.coinListbByCategoty(props.selectedCat);
+  //   }, 30000);
+  //   return () => clearInterval(interval);
+  // }, [intervalCount, selectedCat]);
 
   const data = {
     labels: historicalData.time,

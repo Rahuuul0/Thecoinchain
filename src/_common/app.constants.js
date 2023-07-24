@@ -5,7 +5,7 @@ export const Labels = {
   Error: "error",
   Login_Success: "Login successfully",
   Upload_Success: "Uploaded successfully",
-  Password_Reset_Email: "OTP sent, please check your XXXX successfully",
+  Password_Reset_Email: "OTP sent successfully, please check your XXXX",
   Password_Reset_Success: "Your password has been reset successfully",
   Password_Change_Success: "Your password has been change successfully",
   Logout_Success: "Logout successfully",

@@ -54,6 +54,7 @@ import LoadingImg from "../../../public/assets/images/icons/loading.svg";
 import { TabPanel } from "@mui/lab";
 import { Favorite } from "@mui/icons-material";
 import dayjs from "dayjs";
+import LoadingButton from '@mui/lab/LoadingButton';
 
 ChartJS.register(...registerables);
 
@@ -100,9 +101,10 @@ const CryptoTable = (props) => {
   const historicalData = useRecoilValue(historicalAtom);
   const [timeFrame, setTimeFrame] = useState("15m");
   const date = new Date();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleChange = (event, newValue) => {
     setValue(newValue);
+   
   };
 
   const handleMouseOver = (index) => {
@@ -234,10 +236,12 @@ const CryptoTable = (props) => {
   };
 
   const handleChanges = (event, value) => {
-    setLimit(value);
-    // setPage(paginator(coinsList, value, 3).page);
-  };
 
+    setIsSubmitting(true)
+    setTimeout(() => {
+        setLimit(value);
+  }, 400);
+  }
   return (
     <>
       <Box className="crypto-list" sx={{ py: 2 }}>
@@ -604,14 +608,17 @@ const CryptoTable = (props) => {
               </Table>
             </Stack>
             {location.pathname === "/prediction-dashboard" && limit < 100 && (
-              <Button
+              <LoadingButton
                 onClick={(e) => handleChanges(e, 100)}
+                // loading={isSubmitting}
+                loadingPosition="end"
                 sx={{ width: "160px", alignItems: "center", margin: "0 auto" }}
                 variant="outlined"
                 className="btn btn-outlined-secondary"
+                disabled={isSubmitting}
               >
-                <img src={LoadingImg} alt="loading" /> Load more
-              </Button>
+                {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : "Load more"}
+              </LoadingButton>
             )}
             {/* {location.pathname === "/prediction-dashboard" ? (
               <Pagination

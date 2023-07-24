@@ -1,4 +1,5 @@
 import React from 'react'
+import  { useEffect } from "react";
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Typography, Breadcrumbs } from '@mui/material';
@@ -16,6 +17,9 @@ const MasterCourse = () => {
             Master Course
         </Typography>,
     ];
+    useEffect(() => {
+        window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) 
+       });
     return (
         <>
             <ThemeProvider theme={theme}>

@@ -3128,6 +3128,12 @@ video[poster] {
 .swiper-global .swiper-button-prev {
   top: calc(50% + 20px);
 }
+.loading-img{
+  animation: rotate 1.5s linear infinite; 
+}
+@keyframes rotate{
+  to{ transform: rotate(360deg); }
+}
 
 /* Media Queries  */
 @media (max-width: 1399.98px) {}

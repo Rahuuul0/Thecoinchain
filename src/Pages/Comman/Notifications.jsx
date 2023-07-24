@@ -28,8 +28,10 @@ const Notifications = () => {
     const [checkNews,setCheckNews]=useState(false)
 
     const handleClear = async(action) => {
-          notificationAction.clearNotifications({action});
+          notificationAction.clearNotifications({action});    
+            
     };
+
 
     const singleRead = async (notId) => {
         notificationAction.notificationSingleread(notId)
@@ -68,10 +70,10 @@ const Notifications = () => {
     }
 
     const handleLoadmore = () => {
-        if (notifications.length % 5 < 5) {
+        if (notifications.length % 5  < 5) {
             setLoadmore(loadmore + (notifications.length - loadmore))
         } else {
-            setLoadmore(loadmore + 5)
+            setLoadmore(loadmore + 10)
         }
    }
 
@@ -101,7 +103,9 @@ const Notifications = () => {
         categoryArr.length > 0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View()
 
     }
-       
+    useEffect(() => { 
+        window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) 
+    },[]);
     return (
         <>
            <ThemeProvider theme={theme}>
@@ -113,7 +117,7 @@ const Notifications = () => {
                                     <Typography component="h4" variant='h4'>
                                         Notifications
                                     </Typography>
-                                    {notifications.length>0 && notifications.length === loadmore && 
+                                    {notifications.length>0 && 
                                     <Box className='notification-head-cta'>
                                         <Box className="modal-subscribed-cta">
                                             <Button onClick={e=>handleClear('all_read')} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
@@ -130,8 +134,8 @@ const Notifications = () => {
                                              
                                             return(
                                             
-                                                <Box onClick={() => singleRead(item.ct_notiy_id)} className='notification-list-itm'>
-                                                    <Box className='notification-icon'>
+                                                <Box style={{cursor:(item.ct_notify_read_status!==1)?"pointer":"default"}} onClick={() => {if(item.ct_notify_read_status!==1) {singleRead(item.ct_notiy_id)}}} className='notification-list-itm'>
+                                                    <Box className='notification-icon' >
                                                         <BoltOutlinedIcon />
                                                     </Box>
                                                     <Box className='notification-title'>
@@ -152,19 +156,19 @@ const Notifications = () => {
                                                             : '#58bd7d'}}
                                                         >
                                                         </span>
-
+                                              
                                                     </Box>
                                                 </Box>
-                                              
+                                        
                                           )
                                         }
                                         }):<span>No New Notifications Available</span>}
                                        
-                                        {notifications.length>0 && notifications.length !== loadmore && notifications.length > 10 &&
+                                        {notifications.length>0 && loadmore  >= 10 && 
                                         <Button onClick={handleLoadmore}  variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>}
                             
                                     </Box>
-                                  
+                                  {/* {notifications.length>0 &&    */}
                                     <Box className='notification-filter for-desktop'>
                                         <Typography component="h5" variant='h5'>
                                             Filters
@@ -192,7 +196,7 @@ const Notifications = () => {
                                          }
                                         </Box>
                                     </Box>
-
+                                  {/* } */}
                                 </Box>
                             </Box>
                             <Box className='deposit-transfer'>

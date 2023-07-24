@@ -48,9 +48,10 @@ const CreateAccount = () => {
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
+      .required("Email Address is required")
+      .matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, "Email is invalid")
       .email("Email must be a valid email")
-      .trim()
-      .required("Email Address is required"),
+      .trim(),
     mobile: Yup.string()
       .phoneString()
       .min(8, "Please enter a valid phone number")
@@ -378,7 +379,7 @@ const CreateAccount = () => {
                       className="auth-checkbox"
                       display="flex"
                       control={<Checkbox {...register("agree")} />}
-                      label="* By signing up I agree that I’m 18 <b> years</b> of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent."
+                      label="* By signing up I agree that I’m 18 years of age or older, to the User Agreements, Privacy Policy, Cookie Policy, E-Sign Consent."
                     />
                     <div className="frm-message"> {errors.agree?.message}</div>
                     <ReCAPTCHA

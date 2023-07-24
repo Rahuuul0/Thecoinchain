@@ -302,7 +302,7 @@ const useUserActions = () => {
   const logout = () => {
     // remove user from local storage, set auth state to null and redirect to login page
     localStorage.removeItem(Labels.Local_Storage_User);
-    navigate("/login");
+    navigate("/");
     alertActions.success(Labels.Logout_Success);
     setTimeout(() => {
       setAuth(null);

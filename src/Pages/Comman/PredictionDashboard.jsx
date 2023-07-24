@@ -4,7 +4,7 @@ import { theme } from "../../_common/app.constants";
 import { Box, Container, Typography, Button, Stack } from "@mui/material";
 import { faqActions } from "../../_actions";
 import { useRecoilValue } from "recoil";
-import { faqAtom,  forecastSubAtom } from "../../_state";
+import { faqAtom,  forecastSubAtom,  authAtom } from "../../_state";
 import CryptoTable from "./CryptoTable";
 import { useNavigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
@@ -14,6 +14,7 @@ const PredictionDashboard = () => {
   const faqGetAction = faqActions();
   const faq = useRecoilValue(faqAtom);
   const subscribeUser = useRecoilValue(forecastSubAtom);
+  const auth = useRecoilValue(authAtom);
 
   // Subscription action get function   API data call
   useEffect(() => {
@@ -24,7 +25,7 @@ const PredictionDashboard = () => {
   }, []);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
   }, []);
 
   return (
@@ -38,7 +39,7 @@ const PredictionDashboard = () => {
           <Box className="market-prediction-dashboard-inner">
           
             <Container maxWidth="lg">
-            {subscribeUser?.status === "expired"?  
+            {subscribeUser?.status === "expired" && auth !== null ?  
           <Stack sx={{ width: '38%', marginLeft: 'auto'}} spacing={2}>
           <Alert severity="info">You don't have any current plan please subscribe !</Alert>
           </Stack>

@@ -1,4 +1,5 @@
 import React from 'react'
+import  { useEffect } from "react";
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Typography, Breadcrumbs } from '@mui/material';
@@ -7,14 +8,19 @@ import { Link } from "react-router-dom";
 import BTCIc from "../../../public/assets/images/icons/btc-ic.svg";
 
 const AcademyAboutCrypto = () => {
+  
     const breadcrumbs = [
         <Link to="/" underline="hover" key="1" color="inherit"  >
             Home
         </Link>,
         <Typography key="3" color="text.primary">
-            All About Crypto
+            All About Crypto  
         </Typography>,
     ];
+    
+    useEffect(() => {
+         window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) 
+        });
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -22,7 +28,7 @@ const AcademyAboutCrypto = () => {
                     <Container maxWidth="lg">
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>
-                                All About Crypto
+                                All About Crypto 
                             </Typography>
 
                             <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
@@ -50,4 +56,4 @@ const AcademyAboutCrypto = () => {
     )
 }
 
-export default AcademyAboutCrypto
+export default AcademyAboutCrypto;

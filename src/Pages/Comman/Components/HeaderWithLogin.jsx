@@ -290,8 +290,7 @@ function Header(props) {
                     </>
                   : <span>No New Notifications Available</span>
                 }
-                    <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
-                 
+                    <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >                
                       <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
                         View all
                       </Button> 
@@ -300,7 +299,7 @@ function Header(props) {
                         Clear all
                       </Button>: ''}  
                     </Box>
-                
+               
 
               </Box>
             </Menu>

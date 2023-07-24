@@ -103,6 +103,9 @@ const Notifications = () => {
         categoryArr.length > 0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View()
 
     }
+    useEffect(() => { 
+        window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) 
+    },[]);
     return (
         <>
            <ThemeProvider theme={theme}>
@@ -161,7 +164,7 @@ const Notifications = () => {
                                         }
                                         }):<span>No New Notifications Available</span>}
                                        
-                                        {notifications.length>0 && loadmore  > 10 && 
+                                        {notifications.length>0 && loadmore  >= 10 && 
                                         <Button onClick={handleLoadmore}  variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>}
                             
                                     </Box>

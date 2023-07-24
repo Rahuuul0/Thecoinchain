@@ -191,6 +191,7 @@ const Contact = () => {
   }
   useEffect(() => {
     reset({ ...formData, question: question[0] })
+    window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
   }, [question]);
 
   return (

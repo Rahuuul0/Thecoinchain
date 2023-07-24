@@ -54,9 +54,10 @@ const LogIn = () => {
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
+      .required("Email Address is required")
+      .matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, "Email is invalid")
       .email("Email must be a valid email")
-      .trim()
-      .required("Email Address is required"),
+      .trim(),
     password: Yup.string().trim().required("Password is required"),
   });
   const validationSchemaMobile = Yup.object().shape({

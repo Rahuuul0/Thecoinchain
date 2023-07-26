@@ -65,7 +65,7 @@ const Disclaimer = () => {
                         By subscribing to the ICO Rating subscription with a 100$ monthly charge, the user receives participation in the ICO Rating for one project, and push notifications to inform our site visitors about the new ICO.
                     </Typography>
                     <Typography variant='body2' component="p">
-                        By subscribing to the Crypto-Rating API with a 590$ monthly charge, the user receives unlimited access to high accuracy, professional cryptocurrency API, including cryptocurrency price predictions, and trading signals.
+                        By subscribing to the Coinguru API with a 40$ monthly charge, the user receives unlimited access to high accuracy, professional cryptocurrency API, including cryptocurrency price predictions, and trading signals.
                     </Typography>
                     <Typography variant='body2' component="p">
                         The subscription can be canceled at any moment. The access to the paid content is terminated by the end of the paid subscription period. To regain full access to the content, a new subscription is required.

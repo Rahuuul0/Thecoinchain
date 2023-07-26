@@ -37,7 +37,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Marquee from "react-fast-marquee";
 import CryptoTable from "../../CryptoTable";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   useCoinActions,
@@ -140,7 +140,7 @@ const Home = () => {
         <Box paddingBottom={{ xs: 4, sm: 8 }}>
           {subscribeUser?.status === "expired" && auth !== null ?
           <Stack sx={{ width: '38%', marginLeft: 'auto' , marginTop: '22px'}} spacing={2}>
-          <Alert severity="info">You don't have any current plan please subscribe !</Alert>
+          <Alert severity="info">You don't have any current plan please <Link to={'/subscription'}> <b>subscribe </b></Link> !</Alert>
           </Stack>
           : "" }
           <Grid container sx={{ alignItems: "center" }}>

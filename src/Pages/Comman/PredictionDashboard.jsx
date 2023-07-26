@@ -6,7 +6,7 @@ import { faqActions } from "../../_actions";
 import { useRecoilValue } from "recoil";
 import { faqAtom,  forecastSubAtom,  authAtom } from "../../_state";
 import CryptoTable from "./CryptoTable";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 
 const PredictionDashboard = () => {
@@ -41,7 +41,7 @@ const PredictionDashboard = () => {
             <Container maxWidth="lg">
             {subscribeUser?.status === "expired" && auth !== null ?  
           <Stack sx={{ width: '38%', marginLeft: 'auto'}} spacing={2}>
-          <Alert severity="info">You don't have any current plan please subscribe !</Alert>
+          <Alert severity="info">You don't have any current plan please <Link to={'/subscription'}> <b>subscribe </b></Link> !</Alert>
           </Stack>
           : "" }
               <Typography component="h4" variant="h4">

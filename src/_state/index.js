@@ -19,3 +19,4 @@ export * from "./subscribeplan";
 export * from "./bannerlist";
 export * from "./sidebar";
 export * from "./historical";
+export * from "./community.js";

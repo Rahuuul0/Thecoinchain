@@ -87,6 +87,7 @@ export const Apis = {
   Notifications_List_view: "get-notification-view-all",
   Market: "market",
   Market_Trend: "market-trend",  
+  Community_List: "community-list" 
 };
 
 export const theme = createTheme({

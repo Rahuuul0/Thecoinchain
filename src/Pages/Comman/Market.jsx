@@ -16,7 +16,7 @@ const Market = () => {
   const selectedCat = useRecoilValue(selectedCategoryAtom);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
   }, []);
 
   return (

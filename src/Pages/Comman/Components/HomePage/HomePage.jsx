@@ -37,7 +37,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Marquee from "react-fast-marquee";
 import CryptoTable from "../../CryptoTable";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   useCoinActions,
@@ -51,6 +51,7 @@ import {
   cardCoinsAtom,
   loaderAtom,
   bannerListAtom,
+  tutorialCategoryAtom,
   forecastSubAtom,
   authAtom,
 } from "../../../../_state/";
@@ -81,23 +82,20 @@ const Home = () => {
   const bannerList = useRecoilValue(bannerListAtom);
   const bannerActions = bannerListActions();
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
+  const tutorialCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
+    return item.type === "Tutorial";
+  });
   const subscribeUser = useRecoilValue(forecastSubAtom);
   const auth = useRecoilValue(authAtom);
 
+  console.log(value, 'value')
+
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    let tutorialCategory = "";
-    tutorialCategory =
-      newValue === "2"
-        ? "Bitcoin"
-        : newValue === "3"
-          ? "Blockchain"
-          : newValue === "4"
-            ? "Tutorial"
-            : "";
     newValue === "1"
       ? setTutorialList(tutorialsData)
-      : handleTutorials(tutorialCategory);
+      : handleTutorials(newValue);
   };
 
   const handleTutorials = (tutorialCategory) => {
@@ -106,8 +104,6 @@ const Home = () => {
       .filter((items) => {
         return items.category === tutorialCategory;
       })
-      .slice(0, 3);
-
     setTutorialList(tutorialsArr);
   };
 
@@ -123,9 +119,10 @@ const Home = () => {
     return (firstLetters = "");
   };
 
-  //subscribedUser Api
+  //Category & tutorial Api
   useEffect(() => {
     tutorialAction.tutorialData();
+    tutorialAction.categoryList();
     const response = bannerActions.get();
     response.then((res) => {
       res;
@@ -140,7 +137,7 @@ const Home = () => {
         <Box paddingBottom={{ xs: 4, sm: 8 }}>
           {subscribeUser?.status === "expired" && auth !== null ?
             <Stack sx={{ width: '38%', marginLeft: 'auto', marginTop: '22px' }} spacing={2}>
-              <Alert severity="info">You don't have any current plan please subscribe !</Alert>
+              <Alert severity="info">You don't have any current plan please <Link to={'/subscription'}> <b>subscribe </b></Link> !</Alert>
             </Stack>
             : ""}
           <Grid container sx={{ alignItems: "center" }}>
@@ -334,9 +331,9 @@ const Home = () => {
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <TabList onChange={handleChange} aria-label="tabs">
                   <Tab label="All" value="1" />
-                  <Tab label="Bitcoin" value="2" />
-                  <Tab label="Blockchain" value="3" />
-                  <Tab label="Tutorial" value="4" />
+                  {tutorialCategory?.map((item) => {
+                    return <Tab label={item.title} value={item.title} />;
+                  })}
                 </TabList>
               </Box>
               <TabPanel

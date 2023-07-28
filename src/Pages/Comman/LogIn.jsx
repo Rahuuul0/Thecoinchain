@@ -54,10 +54,9 @@ const LogIn = () => {
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .required("Email Address is required")
-      .matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, "Email is invalid")
       .email("Email must be a valid email")
-      .trim(),
+      .trim()
+      .required("Email Address is required"),
     password: Yup.string().trim().required("Password is required"),
   });
   const validationSchemaMobile = Yup.object().shape({
@@ -92,6 +91,7 @@ const LogIn = () => {
   useEffect(() => {
     if (userError)
       setIsSubmitting(false)
+      window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
   }, [userError])
 
 
@@ -100,7 +100,7 @@ const LogIn = () => {
     setIsSubmitting(true)
     setUserError(false)
   };
-  window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
+ 
   return (
     <>
       <ThemeProvider theme={theme}>

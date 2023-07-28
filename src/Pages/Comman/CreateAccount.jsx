@@ -117,9 +117,9 @@ const CreateAccount = () => {
       localStorage.setItem("refToken", param.id);
       navigate("/create-account");
     }
-   
+    window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
   }, []);
-  window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
+
   return (
     <>
       <ThemeProvider theme={theme}>

@@ -21,7 +21,7 @@ import { useTheme } from "@mui/material/styles";
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
 import ReactPlayer from "react-player";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { tutorialAtom, blogAtom, loaderAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
@@ -302,7 +302,7 @@ const LearnCypto = () => {
                                 </Typography>
                               </Box>
                               <Box>
-                                <ArrowRightAlt color="#777E90" />
+                              <Link to={'../learn-cypto-detail'}>  <ArrowRightAlt sx={{color : "#000000"}}  /> </Link>
                               </Box>
                             </Box>
                           </Grid>

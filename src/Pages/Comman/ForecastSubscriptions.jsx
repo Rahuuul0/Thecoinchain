@@ -7,8 +7,8 @@ import { NavigateNext } from '@mui/icons-material/';
 import Sidebar from './Components/Sidebar';
 import { useNavigate, Link } from 'react-router-dom';
 import { subscriptionActions, } from '../../_actions';
-import { forecastSubAtom } from '../../_state';
-import { useRecoilValue } from "recoil";
+import { forecastSubAtom, planAtom, subplanAtom } from '../../_state';
+import { useRecoilValue, useRecoilState } from "recoil";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -37,15 +37,23 @@ const ForecastSubscriptions = () => {
     const navigate = useNavigate();
     const subscribed = subscriptionActions();
     const User = useRecoilValue(forecastSubAtom);
-
-    console.log(User, 'user');
-
+    const [subscriptionData, setSubscriptionData] = useState([]);
+    const [confirm, setConfirm] = useState({ 'plan': {}, 'step': 2  });
     const [open, setOpen] = useState(false);
+    const [plan, setPlan] = useRecoilState(planAtom);
+    const [subplan, setSubplan] = useRecoilState(subplanAtom);
+
+const Continue =(plan) => {
+    setSubplan(true)
+    setPlan(plan);
+    navigate("/subscription")   
+}
 
     //subscribedUser Api
     useEffect(() => {
         const response = subscribed.subscribedUser()
         response.then((res) => { (res) })
+
     }, [])
 
     //unsubscribedUser Api
@@ -56,8 +64,14 @@ const ForecastSubscriptions = () => {
 
     //subscribedPlan Api
     useEffect(() => {
-        const response = subscribed.subscription()
-        response.then((res) => { (res) })
+        const get_subscription = async () => {
+            await subscribed.subscription()
+                .then((res) => {
+                    res.reverse()
+                    setSubscriptionData(res)
+                })
+        }
+        get_subscription();
     }, [])
 
 
@@ -66,7 +80,7 @@ const ForecastSubscriptions = () => {
 
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-
+    
     const [personName, setPersonName] = React.useState([]);
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -97,7 +111,7 @@ const ForecastSubscriptions = () => {
 
     // Accordion  function call
     const [expandFirst, setExpandFirst] = React.useState(true);
-    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }, [expandFirst]);
+    useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) }, [expandFirst]);
 
     return (
         <>
@@ -137,10 +151,11 @@ const ForecastSubscriptions = () => {
                                             </Typography>
                                         </Box>}
                                         <Box className='subscription-plan forecast-subscription'>
-                                            {User?.status === 'running' ? (<Box expanded={expandFirst}>
+                                            <Box>
+                                                {User?.status === 'running'? 
                                                 <Box className="subscription-plan-card">
                                                     <Typography component="h4" variant='h4' className='plan-title'>
-                                                        {User.plan_type}
+                                                        {User.plan_type }
                                                     </Typography>
                                                     <Box className="subscription-plan-body">
                                                         <Typography component="h4" variant='h4' className='plan-price'>
@@ -148,7 +163,7 @@ const ForecastSubscriptions = () => {
                                                         </Typography>
 
                                                         <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
-                                                            <Typography>Gat all crypto price predictions & Trade with Machine learning</Typography>
+                                                            <Typography>Get all crypto price predictions & Trade with Machine learning</Typography>
                                                         </Typography>
                                                     </Box>
                                                     <Box className="subscription-plan-cta">
@@ -157,35 +172,40 @@ const ForecastSubscriptions = () => {
                                                         </Typography>
                                                     </Box>
                                                 </Box>
+                                                : ""}
+                                                <Box className="subscription-plan-card">
+                                                   
+
+                                                   {subscriptionData.map((plan, i) => (
+                                                   <>
+                                                   {plan.subscription_name!==User.plan_type&&
+                                                        <Box className="subscription-plan-card">
+                                                            <Typography component="h4" variant='h4' className='plan-title'>
+                                                                {plan.subscription_name}
+                                                            </Typography>
+                                                            <Box className="subscription-plan-body">
+                                                                <Typography component="h4" variant='h4' className='plan-price'>
+                                                                    ${plan?.subscription_price || 0}  <span className='plan-days'>/ {plan?.duration} days</span>
+                                                                </Typography>
+                                                                <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
+                                                                    {plan.description}
+                                                                </Typography>
+                                                            </Box>
+                                                            <Box className="subscription-plan-cta">
+                                                                <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={(e) =>Continue(plan)} >Continue</Button>
+                                                            </Box>
+                                                        </Box>}</>
+                                                    ))}
+                                               </Box>
                                                 <Box className="unsubscribe-plan">
                                                     <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
                                                         By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content once your plan finishes. To regain full access to the content, a new subscription is required.
                                                     </Typography>
                                                     <Button onClick={() => { setExpandFirst(false); unsubscribedUserFun() }} variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribe</Button>
                                                 </Box>
-                                            </Box>) : (<Box>
-                                                <Box className="subscription-plan-card">
-                                                    <Typography component="h4" variant='h4' className='plan-title'>
-                                                        Free Plan
-                                                    </Typography>
-                                                    <Box className="subscription-plan-body">
-                                                        <Typography component="h4" variant='h4' className='plan-price'>
-                                                            <span className='plan-days'> Free</span>
-                                                        </Typography>
-
-                                                        <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
-                                                            <Typography>Free market chart view & Tutorials for crypto</Typography>
-                                                        </Typography>
-                                                    </Box>
-                                                    <Box className="subscription-plan-cta">
-                                                        <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
-                                                            <Typography>You are subscribed to this plan</Typography>
-                                                        </Typography>
-                                                    </Box>
-                                                </Box>
-
-                                            </Box>)}
-
+                                            </Box>
+                                                
+                                            
 
 
 

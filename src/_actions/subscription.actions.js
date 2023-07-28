@@ -50,12 +50,12 @@ const subscriptionActions = () => {
     return fetchWrapper
       .get(Apis.Subscribed_User)
       .then((res) => {
+        loader(false);
         if (res.statusCode === 200) {
           setForecastSub(res.data);
         } else {
           console.log(res.msg, "res.msg");
         }
-        loader(false);
       })
       .catch((err) => {
         console.warn(err);
@@ -63,12 +63,13 @@ const subscriptionActions = () => {
       });
   };
 
-  const unsubscribeUser = () => { 
+  const unsubscribeUser = () => {
     loader(true);
-    return fetchWrapper.post(Apis.Unsubscribe_User)
+    return fetchWrapper
+      .post(Apis.Unsubscribe_User)
       .then((res) => {
         if (res.statusCode === 200) {
-          setForecastSub({status: "expired"});
+          setForecastSub({ status: "expired" });
           loader(false);
         } else {
           console.log(res.msg, "res.msg");
@@ -94,7 +95,7 @@ const subscriptionActions = () => {
       .catch((err) => {
         console.warn(err);
       });
-  };  
+  };
 
   return {
     subscription,

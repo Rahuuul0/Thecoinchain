@@ -28,9 +28,8 @@ function Header(props) {
   const userDetails = useRecoilValue(authAtom);
   const notificaionCount = useRecoilValue(notificationCountAtom);
 
-  const handleClear = async () => {
-    let notId = notifications.slice(0, 5).map((item, index) => { return (item.ct_notiy_id) })
-    notificationAction.clearNotifications(notId);
+  const handleClear = async (action) => {
+    notificationAction.clearNotifications({action});
   };
 
   useEffect(() => {
@@ -40,8 +39,7 @@ function Header(props) {
   }, [])
 
   const singleRead = async (notId) => {
-    let userId = userDetails.id;
-    notificationAction.notificationSingleread(notId, userId)
+    notificationAction.notificationSingleread(notId)
   }
 
   const navItems = [
@@ -270,7 +268,7 @@ function Header(props) {
                 {notifications.length > 0 ?
                   <>
                     <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
-
+ 
                     {notifications?.map((item, index) => {
                       if (index < 5) {
                         return (
@@ -289,39 +287,19 @@ function Header(props) {
                         )
                       }
                     })}
-
-                    {notifications?.map((item, index) => {
-                      if (index < 5) {
-                        return (
-                          <>
-
-                            <MenuItem onClick={() => singleRead(item.ct_notiy_id)} sx={{ padding: '0' }}>
-                              <span className='outer-div-menu'>
-                                <span className='inner-div-menu'>
-                                  <span className='head-menu'>{item.ct_notify_title}</span>
-                                  <span className='pl-3 sub-head-menu'><FiberManualRecord /></span>
-                                </span>
-                                <Typography className='secondary-color' sx={{ fontSize: '10px' }}>{item.ct_notify_created_At}</Typography>
-                              </span>
-                            </MenuItem>
-                            <Divider />
-                          </>
-                        )
-                      }
-                    })}
-
-
-                    <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
-                      <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
-                        View all
-                      </Button>
-                      <Button onClick={handleClear} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
-                        Clear all
-                      </Button>
-                    </Box>
-                  </>
+                    </>
                   : <span>No New Notifications Available</span>
                 }
+                    <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >                
+                      <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
+                        View all
+                      </Button> 
+                      {notifications.length > 0 ?
+                      <Button onClick={e=>handleClear('all_read')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                        Clear all
+                      </Button>: ''}  
+                    </Box>
+               
 
               </Box>
             </Menu>
@@ -344,6 +322,7 @@ function Header(props) {
             <Menu
               anchorEl={anchorElAnchor}
               id="account-menu"
+              className="headeravatar"
               open={openAnchor}
               onClose={handleCloseAnchor}
               onClick={handleCloseAnchor}

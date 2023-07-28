@@ -12,6 +12,8 @@ import {
   Fade,
   Backdrop,
   CircularProgress,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -29,7 +31,7 @@ import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import HttpsIcon from "@mui/icons-material/Https";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { Line, Chart } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
 import {
@@ -45,10 +47,14 @@ import {
   authAtom,
   loaderAtom,
   historicalAtom,
+  predictionAtom,
 } from "../../_state";
+import LoadingImg from "../../../public/assets/images/icons/loading.svg";
 
 import { TabPanel } from "@mui/lab";
 import { Favorite } from "@mui/icons-material";
+import dayjs from "dayjs";
+import LoadingButton from '@mui/lab/LoadingButton';
 
 ChartJS.register(...registerables);
 
@@ -74,7 +80,7 @@ const CryptoTable = (props) => {
   const coinsList = useRecoilValue(coinsAtom);
   const userDetail = useRecoilValue(authAtom);
   const navigate = useNavigate();
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState("3");
   const location = useLocation();
   const [isHovered, setHover] = useState(false);
   const [hoverIndex, setHoverIndex] = useState();
@@ -82,7 +88,10 @@ const CryptoTable = (props) => {
   const [chartData, setChartData] = useState("");
   const [chartOpen, setChartOpen] = useState(false);
   const count = Math.ceil(coinsList.length / 4);
+
+  const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
+
   const [intervalCount, setIntervalCount] = useState(0);
   const selectedCat = useRecoilValue(selectedCategoryAtom);
   const subscriptionAction = subscriptionActions();
@@ -90,9 +99,12 @@ const CryptoTable = (props) => {
   const [loader, setLoader] = useRecoilState(loaderAtom);
   const historicalAction = quotesHistoricalActions();
   const historicalData = useRecoilValue(historicalAtom);
-
+  const [timeFrame, setTimeFrame] = useState("15m");
+  const date = new Date();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleChange = (event, newValue) => {
     setValue(newValue);
+   
   };
 
   const handleMouseOver = (index) => {
@@ -114,11 +126,21 @@ const CryptoTable = (props) => {
     setChartData("");
   };
 
-  const handleChartOpen = async (id) => {
-    const response = await historicalAction.add(id.symbol);
+  const chartHistory = async (id, time) => {
+    const response = await historicalAction.add(id?.symbol, time);
     console.warn(response);
+  };
+
+  const handleChartOpen = async (id) => {
+    chartHistory(id, "15m");
     setChartOpen(true);
     setChartData(coinsList.filter((item) => item.id === id.id));
+    setTimeFrame("15m");
+  };
+
+  const handleTimeFrame = (event) => {
+    setTimeFrame(event.target.value);
+    chartHistory(chartData[0], event.target.value);
   };
 
   const handleChartClose = (id) => {
@@ -135,63 +157,53 @@ const CryptoTable = (props) => {
   //  Latest Listing API call
   useEffect(() => {
     setLoader(true);
-    if (subscriptionDetails.status === "expired") {
-      getLastestListing();
-    } else if (
-      subscriptionDetails.status === "running" &&
-      location.pathname === "/"
-    )
-      getLastestListing();
 
-    if (
-      (location.pathname === "/prediction-dashboard" ||
-        location.pathname === "/market") &&
-      subscriptionDetails.status === "running"
-    ) {
-      getLastestListing();
-    }
+    location.pathname === "/prediction-dashboard"
+      ? coinActions.predictionListing()
+      : getLastestListing();
   }, [subscriptionDetails]);
 
   const getLastestListing = async () => {
-    let page = "";
-    if (subscriptionDetails.status === "running") {
-      location.pathname === "/prediction-dashboard"
-        ? (page = `page_name=prediction_page`)
-        : location.pathname === "/market"
-        ? (page = `page_name=market_page`)
-        : "";
-    } else {
-      location.pathname === "/prediction-dashboard"
-        ? (page = `page_name=prediction_page`)
-        : location.pathname === "/market"
-        ? (page = "page_name=market_page")
-        : "";
-    }
+    let param = "";
 
-    const ress = await coinActions.latestListing(page);
+    location.pathname === "/market"
+      ? (param = `?limit=10`)
+      : (param = `?limit=5`);
+
+    const ress = await coinActions.latestListing(param);
   };
 
   const getLatestCategory = async () => {
-    const ress = await coinActions.coinListbByCategoty(props.selectedCat);
+    const ress = await coinActions.categoriesList(props.selectedCat);
   };
 
   useEffect(() => {
-    if (
-      (location.pathname === "/market" ||
-        location.pathname === "/prediction-dashboard") &&
-      subscriptionDetails.status === "running"
-    ) {
-      const interval = setInterval(() => {
-        setIntervalCount(intervalCount + 1);
+    const interval = setInterval(() => {
+      setIntervalCount(intervalCount + 1);
+      if (location.pathname === "/prediction-dashboard")
+        coinActions.predictionListing();
+      else
         props.selectedCat
           ? props.selectedCat === 0
             ? getLastestListing()
             : getLatestCategory(selectedCat)
           : getLastestListing();
-      }, 10000);
-      return () => clearInterval(interval);
-    }
+    }, 30000);
+    return () => clearInterval(interval);
   }, [intervalCount, selectedCat, subscriptionDetails]);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setIntervalCount(intervalCount + 1);
+
+  //     if (
+  //       props.selectedCat !== 0 &&
+  //       location.pathname !== "prediction-dashboard"
+  //     )
+  //       coinActions.coinListbByCategoty(props.selectedCat);
+  //   }, 30000);
+  //   return () => clearInterval(interval);
+  // }, [intervalCount, selectedCat]);
 
   const data = {
     labels: historicalData.time,
@@ -224,9 +236,12 @@ const CryptoTable = (props) => {
   };
 
   const handleChanges = (event, value) => {
-    setPage(paginator(coinsList, value, 3).page);
-  };
 
+    setIsSubmitting(true)
+    setTimeout(() => {
+        setLimit(value);
+  }, 400);
+  }
   return (
     <>
       <Box className="crypto-list" sx={{ py: 2 }}>
@@ -245,22 +260,23 @@ const CryptoTable = (props) => {
                     <TableCell>#</TableCell>
                     <TableCell>Name</TableCell>
                     <TableCell align="right">Price</TableCell>
-                    <TableCell align="right">24h Change </TableCell>
                     {location.pathname === "/prediction-dashboard" ? (
                       <>
-                        <TableCell align="right">1h %</TableCell>
-                        <TableCell align="right">24h %</TableCell>
-                        <TableCell align="right">7d %</TableCell>
-                        <TableCell align="right">30d %</TableCell>
+                        <TableCell align="right">acc % </TableCell>
+                        {/* <TableCell align="right">15m %</TableCell>
+                          <TableCell align="right">1h %</TableCell> */}
+                        <TableCell align="right">4h %</TableCell>
+                        <TableCell align="right">1d %</TableCell>
                       </>
                     ) : location.pathname === "/market" ? (
                       <>
+                        <TableCell align="right">24h Change </TableCell>
                         <TableCell align="right">7d %</TableCell>
                         <TableCell align="right">Marketcap</TableCell>
                         <TableCell align="right">Volume(24h)</TableCell>
                       </>
                     ) : (
-                      ""
+                      <TableCell align="right">24h Change </TableCell>
                     )}
                     <TableCell align="right">Chart</TableCell>
                     {location.pathname === "/" ? (
@@ -271,7 +287,21 @@ const CryptoTable = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {paginator(coinsList, page, 50).data.map((item, index) => {
+                  {paginator(coinsList, page, limit).data.map((item, index) => {
+                    let newPrice =
+                      item?.price > 1
+                        ? Math.round(item.price * 100) / 100
+                        : item?.price < 1 && item?.price >= 0.1
+                        ? (Math.round(item.price * 10000) / 10000)?.toFixed(2)
+                        : item?.price < 0.1 && item?.price > 0.01
+                        ? (Math.round(item.price * 1000000) / 1000000)?.toFixed(
+                            6
+                          )
+                        : item?.price < 0.01
+                        ? (
+                            Math.round(item.price * 100000000) / 100000000
+                          )?.toFixed(8)
+                        : item?.price;
                     return (
                       <TableRow
                         key={index}
@@ -282,23 +312,32 @@ const CryptoTable = (props) => {
                         }}
                       >
                         <TableCell>
-                          {location.pathname === "/prediction-dashboard" && (
+                          {/* {location.pathname === "/prediction-dashboard" && (
                             <img
                               src={FavoriteIc}
                               alt="star"
                               className="favorite-ic"
                               style={{ cursor: "pointer" }}
                             />
-                          )}
+                          )} */}
                           {index + 1}
                         </TableCell>
                         <TableCell
-                          onClick={() => handleOpen(item.id)}
-                          sx={{ cursor: "pointer" }}
+                          onClick={() =>
+                            location.pathname === "/prediction-dashboard"
+                              ? handleOpen(item.id)
+                              : void 0
+                          }
+                          sx={{
+                            cursor:
+                              location.pathname === "/prediction-dashboard"
+                                ? "pointer"
+                                : "default",
+                          }}
                         >
                           <div className="crypto-name">
                             <img
-                              src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}
+                              src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol?.toLowerCase()}.png`}
                               alt={item.symbol}
                               width="33px"
                             />
@@ -308,37 +347,43 @@ const CryptoTable = (props) => {
                         </TableCell>
                         <TableCell align="right">
                           $
-                          {item?.price > 1
-                            ? item.price?.toFixed(2)
-                            : item?.price < 1 && item?.price >= 0.1
-                            ? item.price?.toFixed(4)
-                            : item?.price < 0.1 && item?.price > 0.01
-                            ? item.price?.toFixed(6)
-                            : item?.price < 0.01
-                            ? item.price?.toFixed(8)
-                            : item?.price}
+                          {newPrice.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                          })}
                         </TableCell>
-                        <TableCell align="right">
-                          <span
-                            className={
-                              item.percent_change_24h < 0 ? "down" : "up"
-                            }
-                          >
-                            {Math.round(
-                              (item.percent_change_24h + Number.EPSILON) * 100
-                            ) / 100}
-                            %
-                          </span>
-                        </TableCell>
+                        {location.pathname !== "/prediction-dashboard" ? (
+                          <TableCell align="right">
+                            <span
+                              className={
+                                item.percent_change_24h < 0 ? "down" : "up"
+                              }
+                            >
+                              {Math.round(
+                                (item.percent_change_24h + Number.EPSILON) * 100
+                              ) / 100}
+                              %
+                            </span>
+                          </TableCell>
+                        ) : item.ct_accuracy ? (
+                          <TableCell align="right" sx={{ color: "#e9b847" }}>
+                            <span>{item.ct_accuracy?.toFixed(2)}%</span>
+                          </TableCell>
+                        ) : (
+                          <TableCell align="right" sx={{ color: "#e9b847" }}>
+                            -
+                          </TableCell>
+                        )}
+
                         {location.pathname === "/prediction-dashboard" &&
-                        subscriptionDetails.status === "expired" ? (
+                        (subscriptionDetails.status === "expired" ||
+                          !item.ct_hours_4_current) ? (
                           <>
-                            <TableCell align="right">
-                              <HttpsIcon />
-                            </TableCell>
-                            <TableCell align="right">
-                              <HttpsIcon />
-                            </TableCell>
+                            {/* <TableCell align="right">
+                                  <HttpsIcon />
+                                </TableCell>
+                                <TableCell align="right">
+                                  <HttpsIcon />
+                                </TableCell> */}
                             <TableCell align="right">
                               <HttpsIcon />
                             </TableCell>
@@ -349,41 +394,74 @@ const CryptoTable = (props) => {
                         ) : location.pathname === "/prediction-dashboard" &&
                           subscriptionDetails.status === "running" ? (
                           <>
+                            {/* <TableCell align="right">
+                                  <span
+                                    className={
+                                      item.ct_min_15_current < item.price
+                                        ? "down"
+                                        : "up"
+                                    }
+                                  > */}
+                            {/* {(
+                                  ((item.ct_min_15_current - item.price) *
+                                    100) /
+                                  item.price
+                                ).toFixed(2)}
+                                % */}
+                            {/* {item.ct_min_15_current}
+                                  </span> */}
+                            {/* </TableCell> */}
+                            {/* <TableCell align="right">
+                                  <span
+                                    className={
+                                      item.ct_hour_1_current < item.price
+                                        ? "down"
+                                        : "up"
+                                    }
+                                  > */}
+                            {/* {(
+                                  ((item.ct_hour_1_current - item.price) *
+                                    100) /
+                                  item.price
+                                ).toFixed(2)}
+                                % */}
+                            {/* {item.ct_hour_1_current}
+                                  </span>
+                                </TableCell> */}
                             <TableCell align="right">
-                              {/* <span className='up'>{Math.round((item.quote.USD.percent_change_1h + Number.EPSILON) * 100) / 100}%</span> */}
                               <span
                                 className={
-                                  item.percent_change_1h < 0 ? "down" : "up"
+                                  item.ct_hours_4_current < item.price
+                                    ? "down"
+                                    : "up"
                                 }
                               >
-                                {item.percent_change_1h?.toFixed(2)}
+                                {/* {(
+                                  ((item.ct_hours_4_current - item.price) *
+                                    100) /
+                                  item.price
+                                ).toFixed(2)}
+                                % */}
+                                {(
+                                  Math.round(item.ct_hours_4_current * 100) /
+                                  100
+                                )?.toFixed(4)}
                               </span>
                             </TableCell>
                             <TableCell align="right">
                               <span
                                 className={
-                                  item.percent_change_24h < 0 ? "down" : "up"
+                                  item.ct_day_1_current < item.price
+                                    ? "down"
+                                    : "up"
                                 }
                               >
-                                {item.percent_change_24h?.toFixed(2)}
-                              </span>
-                            </TableCell>
-                            <TableCell align="right">
-                              <span
-                                className={
-                                  item.percent_change_7d < 0 ? "down" : "up"
-                                }
-                              >
-                                {item.percent_change_7d?.toFixed(2)}
-                              </span>
-                            </TableCell>
-                            <TableCell align="right">
-                              <span
-                                className={
-                                  item.percent_change_30d < 0 ? "down" : "up"
-                                }
-                              >
-                                {item.percent_change_30d?.toFixed(2)}
+                                {/* {(
+                                  ((item.ct_day_1_current - item.price) * 100) /
+                                  item.price
+                                ).toFixed(2)}
+                                % */}
+                                {item.ct_day_1_current}
                               </span>
                             </TableCell>
                           </>
@@ -400,10 +478,15 @@ const CryptoTable = (props) => {
                             </TableCell>
 
                             <TableCell align="right">
-                              ${item.market_cap?.toFixed(0)}
+                              $
+                              {Math.round(
+                                (item.market_cap * 100) / 100
+                              )?.toLocaleString()}
                             </TableCell>
                             <TableCell align="right">
-                              ${item.volume_24h?.toFixed(0)}
+                              {Math.round(
+                                (item.volume_24h * 100) / 100
+                              )?.toLocaleString()}
                             </TableCell>
                           </>
                         ) : (
@@ -419,7 +502,7 @@ const CryptoTable = (props) => {
                               height="33px"
                               style={{
                                 filter:
-                                  item.percent_change_24h < 0
+                                  item.percent_change_7d < 0
                                     ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
                                     : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
                               }}
@@ -440,11 +523,10 @@ const CryptoTable = (props) => {
                                 height="33px"
                                 style={{
                                   filter:
-                                    item.percent_change_24h < 0
+                                    item.percent_change_7d < 0
                                       ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
                                       : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
                                 }}
-                                onClick={() => handleChartOpen(item.id)}
                               />
                             </Fade>
                             {
@@ -504,7 +586,7 @@ const CryptoTable = (props) => {
                                 onClick={() => {
                                   navigate(
                                     !userDetail
-                                      ? "/create-account"
+                                      ? "/login"
                                       : userDetail &&
                                         subscriptionDetails.status === "running"
                                       ? "/prediction-dashboard"
@@ -525,6 +607,19 @@ const CryptoTable = (props) => {
                 </TableBody>
               </Table>
             </Stack>
+            {location.pathname === "/prediction-dashboard" && limit < 100 && (
+              <LoadingButton
+                onClick={(e) => handleChanges(e, 100)}
+                // loading={isSubmitting}
+                loadingPosition="end"
+                sx={{ width: "160px", alignItems: "center", margin: "0 auto" }}
+                variant="outlined"
+                className="btn btn-outlined-secondary"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : "Load more"}
+              </LoadingButton>
+            )}
             {/* {location.pathname === "/prediction-dashboard" ? (
               <Pagination
                 sx={{ float: "right" }}
@@ -535,7 +630,7 @@ const CryptoTable = (props) => {
               />
             ) : (
               ""
-            )} */}
+            )}  */}
           </TableContainer>
         </Box>
       </Box>
@@ -566,7 +661,7 @@ const CryptoTable = (props) => {
                 onClick={handleClose}
                 sx={{ cursor: "pointer" }}
               />{" "}
-              BTC
+              {chartData[0]?.symbol}
             </Typography>
           </Box>
           <Box
@@ -602,7 +697,8 @@ const CryptoTable = (props) => {
                 component="small"
                 sx={{ color: "#777E91", fontWeight: "600", display: "flex" }}
               >
-                <img src={DollarImg} alt="chart" height="16px" /> 36,641.20
+                <img src={DollarImg} alt="chart" height="16px" />{" "}
+                {chartData[0]?.market_cap}
               </Typography>
               <Typography
                 className="crypto-prection"
@@ -617,221 +713,293 @@ const CryptoTable = (props) => {
                 <Box>
                   {subscriptionDetails.status === "running" ? (
                     <TabList onChange={handleChange} aria-label="Login Tabs">
-                      <Tab label="15m" value="1" />
-                      <Tab label="1h" value="2" />
+                      {/* <Tab label="15m" value="1" />
+                      <Tab label="1h" value="2" /> */}
                       <Tab label="4h" value="3" />
                       <Tab label="1d" value="4" />
                     </TabList>
                   ) : (
                     <TabList aria-label="Login Tabs">
-                      <Tab label="15m" value="1" />
-                      <Tab label={<HttpsIcon />}></Tab>
-                      <Tab label={<HttpsIcon />}></Tab>
+                      {/* <Tab label={<HttpsIcon />} value="1" />
+                      <Tab label={<HttpsIcon />}></Tab> */}
+                      <Tab label={<HttpsIcon />} value="3"></Tab>
                       <Tab label={<HttpsIcon />}></Tab>
                     </TabList>
                   )}
                 </Box>
+                {subscriptionDetails.status === "running" ? (
+                  <>
+                    {/* <TabPanel value="1">
+                      <Box className="value-with-date">
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />
+                            {dayjs(date)
+                              .add(15, "m")
+                              .format("DD/MM/YYYY HH:mm")}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#00C076", fontWeight: "500" }}
+                          >
+                            {(
+                              Math.round(
+                                (chartData[0]?.ct_min_15_current -
+                                  chartData[0]?.price) *
+                                  100
+                              ) / 100
+                            )?.toFixed(2)}
+                            <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />{" "}
+                            <span>15/10/23</span> 07:45
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#141416", fontWeight: "500" }}
+                          >
+                            37162.00 <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </TabPanel> */}
+                    {/* <TabPanel value="2">
+                      <Box className="value-with-date">
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />{" "}
+                            {dayjs(date).add(1, "h").format("DD/MM/YYYY HH:mm")}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#00C076", fontWeight: "500" }}
+                          >
+                            {(
+                              Math.round(
+                                (chartData[0]?.ct_hour_1_current -
+                                  chartData[0]?.price) *
+                                  100
+                              ) / 100
+                            )?.toFixed(2)}
 
-                <TabPanel value="1">
-                  <Box className="value-with-date">
-                    <Box className="value-with-date-col">
+                            <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />{" "}
+                            <span>15/10/23</span> 07:45
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#141416", fontWeight: "500" }}
+                          >
+                            37162.00 <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </TabPanel> */}
+                    <TabPanel value="3">
+                      <Box className="value-with-date">
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />{" "}
+                            {dayjs(date).add(4, "h").format("DD/MM/YYYY HH:mm")}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#00C076", fontWeight: "500" }}
+                          >
+                            {(
+                              Math.round(
+                                (chartData[0]?.ct_hours_4_current -
+                                  chartData[0]?.price) *
+                                  100
+                              ) / 100
+                            )?.toFixed(2)}
+                            {"  "}
+                            <span>
+                              {Math.round(
+                                (((chartData[0]?.ct_hours_4_current -
+                                  chartData[0]?.price) *
+                                  100) /
+                                  chartData[0]?.ct_hours_4_current) *
+                                  100
+                              ) / 100}
+                              %
+                            </span>
+                          </Typography>
+                        </Box>
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />{" "}
+                            {dayjs(date).add(4, "h").format("DD/MM/YYYY HH:mm")}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#141416", fontWeight: "500" }}
+                          >
+                            {chartData[0]?.ct_hours_4_current}
+                            {/* <span>+1.25%</span> */}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </TabPanel>
+                    <TabPanel value="4">
+                      <Box className="value-with-date">
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />
+                            {dayjs(date).add(1, "d").format("DD/MM/YYYY HH:mm")}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#00C076", fontWeight: "500" }}
+                          >
+                            {(
+                              Math.round(
+                                (chartData[0]?.ct_day_1_current -
+                                  chartData[0]?.price) *
+                                  100
+                              ) / 100
+                            )?.toFixed(2)}
+                            <span>
+                              {((chartData[0]?.ct_day_1_current -
+                                chartData[0]?.price) *
+                                100) /
+                                chartData[0]?.ct_day_1_current}
+                              %
+                            </span>
+                          </Typography>
+                        </Box>
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />{" "}
+                            {dayjs(date).add(1, "d").format("DD/MM/YYYY HH:mm")}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#141416", fontWeight: "500" }}
+                          >
+                            {chartData[0]?.ct_day_1_current}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </TabPanel>
+                  </>
+                ) : (
+                  <TabPanel value="1">
+                    <Box>
                       <Typography
                         variant="body2"
                         component="small"
                         sx={{
                           color: "#777E91",
                           fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
                           gap: "5px",
                         }}
                       >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        <span>15/10/23</span> 07:45
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#00C076", fontWeight: "500" }}
-                      >
-                        520.80 <span>+1.25%</span>
+                        Please{" "}
+                        <Link to="/subscription" style={{ color: "#FFD166" }}>
+                          <u>Subscribe</u>
+                        </Link>{" "}
+                        now to gain complete access to the most precise short
+                        and long-term predictions of cryptocurrency prices.
                       </Typography>
                     </Box>
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        <span>15/10/23</span> 07:45
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#141416", fontWeight: "500" }}
-                      >
-                        37162.00 <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                  </Box>
-                </TabPanel>
-                <TabPanel value="2">
-                  <Box className="value-with-date">
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        <span>15/10/23</span> 07:45
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#00C076", fontWeight: "500" }}
-                      >
-                        520.80 <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        <span>15/10/23</span> 07:45
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#141416", fontWeight: "500" }}
-                      >
-                        37162.00 <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                  </Box>
-                </TabPanel>
-                <TabPanel value="3">
-                  <Box className="value-with-date">
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        <span>15/10/23</span> 07:45
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#00C076", fontWeight: "500" }}
-                      >
-                        520.80 <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        <span>15/10/23</span> 07:45
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#141416", fontWeight: "500" }}
-                      >
-                        37162.00 <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                  </Box>
-                </TabPanel>
-                <TabPanel value="4">
-                  <Box className="value-with-date">
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        <span>15/10/23</span> 07:45
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#00C076", fontWeight: "500" }}
-                      >
-                        520.80 <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                    <Box className="value-with-date-col">
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{
-                          color: "#777E91",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <img src={TimeImg} alt="chart" height="16px" />{" "}
-                        <span>15/10/23</span> 07:45
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        component="small"
-                        sx={{ color: "#141416", fontWeight: "500" }}
-                      >
-                        37162.00 <span>+1.25%</span>
-                      </Typography>
-                    </Box>
-                  </Box>
-                </TabPanel>
+                  </TabPanel>
+                )}
               </TabContext>
             </Box>
           </Box>
@@ -849,11 +1017,21 @@ const CryptoTable = (props) => {
       {/* chartModal */}
       <Modal
         open={chartOpen}
-        onClose={handleClose}
+        onClose={handleChartClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        className="backdrop-custom"
       >
         <Box className="modal-dialog modal-crypto-table">
+          <Backdrop
+            sx={{
+              color: "#fff",
+              zIndex: (theme) => theme.zIndex.drawer + 2,
+            }}
+            open={loader}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
           <Button
             onClick={handleChartClose}
             variant="outlined"
@@ -876,10 +1054,32 @@ const CryptoTable = (props) => {
             className="modal-modal-description"
             sx={{ mt: 2, p: 2 }}
           >
-            <Typography className="crypto-fullname" variant="h5" component="h5">
-              {chartData[0]?.symbol}
+            <Box
+              className="value-details"
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <Typography
+                className="crypto-fullname"
+                variant="h5"
+                component="h5"
+              >
+                {chartData[0]?.symbol}
+              </Typography>
+              <Select
+                value={timeFrame}
+                // variant="outlined"
+                className="btn-round btn-close"
+                onChange={handleTimeFrame}
+              >
+                <MenuItem value="15m">15m</MenuItem>
+                <MenuItem value="1h">1h</MenuItem>
+                <MenuItem value="4h">4h</MenuItem>
+                <MenuItem value="1d">1d</MenuItem>
+
+                {/* <KeyboardArrowDownIcon /> */}
+              </Select>
               {/* <span className="badge">1x</span> */}
-            </Typography>
+            </Box>
             <Typography
               className="crypto-fullname-small"
               variant="body2"
@@ -888,17 +1088,11 @@ const CryptoTable = (props) => {
             >
               {chartData.name}
             </Typography>
+
             <Typography className="crypto-value" variant="h5" component="h5">
               {chartData[0]?.price}
             </Typography>
-            <Box className="value-details">
-              <Button
-                variant="outlined"
-                className="btn btn-outlined-secondary btn-round btn-close"
-              >
-                <KeyboardArrowDownIcon />
-              </Button>
-            </Box>
+
             <Line data={data} options={options} />
           </Box>
           <Button

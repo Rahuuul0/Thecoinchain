@@ -16,7 +16,7 @@ const PrivacyPolicy = () => {
             Privacy Policy
         </Typography>,
     ];
-    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
+    useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) });
     return (
         <>
             <ThemeProvider theme={theme}>

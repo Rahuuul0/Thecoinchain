@@ -27,13 +27,19 @@ const Notifications = () => {
     const [checkAcademy,setCheckAcademy]=useState(false)
     const [checkNews,setCheckNews]=useState(false)
 
-    const handleClear = async() => {
-          notificationAction.clearNotifications();
-        };
+    const handleClear = async(action) => {
+          notificationAction.clearNotifications({action});    
+            
+    };
 
+
+    const singleRead = async (notId) => {
+        notificationAction.notificationSingleread(notId)
+      }
+      
     const handleSelectAll =(flag) =>{
         let categoryArr = categoryArray;
-         if(flag){
+        if(flag){
             setCheckCrypto(true)
             setCheckCommunity(true)
             setCheckAcademy(true)
@@ -42,41 +48,40 @@ const Notifications = () => {
                 const index = categoryArray.indexOf(category);
                 if(index === -1)
                 categoryArr.push(category);    
-              })
+                })
         }else{
             setCheckCrypto(false)
             setCheckCommunity(false)
             setCheckAcademy(false)
             setCheckNews(false)
             filterCategory.map((category,idx)=>{
-               const index = categoryArray.indexOf(category);
+                const index = categoryArray.indexOf(category);
                 if(index > -1)
                 categoryArr.splice(index,1);    
             })
         }
-
-        setCategoryArray(categoryArr)
-        const where = new URLSearchParams({
-            'category': categoryArr,
-        })
-        categoryArr.length > 0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList()
-        flag ? setChecked(true) : setChecked(false)
+        
+        setCategoryArray(categoryArr) 
+        const where= new URLSearchParams({
+        'category': categoryArr,
+        }) 
+        categoryArr.length >0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View() 
+        flag ? setChecked(true):setChecked(false)
     }
-    //   console.log(notifications.length % 5 , "remiander")
+
     const handleLoadmore = () => {
-        if (notifications.length % 5 < 5) {
+        if (notifications.length % 5  < 5) {
             setLoadmore(loadmore + (notifications.length - loadmore))
         } else {
-            setLoadmore(loadmore + 5)
+            setLoadmore(loadmore + 10)
         }
    }
 
-     useEffect(() =>{
-        notificationAction.notificationList()
+    useEffect(() =>{
         notificationAction.notificationList_View()
     }, [])
 
-    const showFilteredNotification = (e, cat) => {
+    const showFilteredNotification = (e,cat)=>{
         let categoryArr = categoryArray
         const index = categoryArray.indexOf(cat);
         if(e.target.checked){
@@ -90,14 +95,17 @@ const Notifications = () => {
            setCheckCrypto(e.target.checked)
          if(cat==="Community")
             setCheckCommunity(e.target.checked)
-        if (cat === "Academy")
-            setCheckAcademy(e.target.checked)
-        if (cat === "News")
-            setCheckNews(e.target.checked)
-        setCategoryArray(categoryArr)
-        categoryArr.length > 0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList()
+         if(cat==="Academy")
+           setCheckAcademy(e.target.checked)
+         if(cat==="News")  
+           setCheckNews(e.target.checked)
+         setCategoryArray(categoryArr)
+        categoryArr.length > 0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View()
+
     }
-       
+    useEffect(() => { 
+        window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) 
+    },[]);
     return (
         <>
            <ThemeProvider theme={theme}>
@@ -109,25 +117,25 @@ const Notifications = () => {
                                     <Typography component="h4" variant='h4'>
                                         Notifications
                                     </Typography>
-                                    {notifications.length>0 && notifications.length === loadmore &&
+                                    {notifications.length>0 && 
                                     <Box className='notification-head-cta'>
                                         <Box className="modal-subscribed-cta">
-                                            <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
-                                            <Button onClick={handleClear} variant="outlined" className='btn btn-outlined-secondary' >Clear all</Button>
+                                            <Button onClick={e=>handleClear('all_read')} variant="outlined" className='btn btn-outlined-secondary' >Mark all as read</Button>
+                                            <Button onClick={e=>handleClear('all_clear')} variant="outlined" className='btn btn-outlined-secondary' >Clear all</Button>
                                         </Box>
                                     </Box>}
                                 </Box>
                                 <Box className="devider" />
                                 <Box className='notification-list-wrapper'>
                                     <Box className='notification-list'>
-                                         
-                                         {notifications.length>0?notifications?.map((item,index) =>{
+                                      
+                                         {notifications.length>0? notifications?.map((item,index) =>{
                                             if(index < loadmore){
-
-                                            return(
                                              
-                                                <Box  className='notification-list-itm'>
-                                                    <Box className='notification-icon'>
+                                            return(
+                                            
+                                                <Box style={{cursor:(item.ct_notify_read_status!==1)?"pointer":"default"}} onClick={() => {if(item.ct_notify_read_status!==1) {singleRead(item.ct_notiy_id)}}} className='notification-list-itm'>
+                                                    <Box className='notification-icon' >
                                                         <BoltOutlinedIcon />
                                                     </Box>
                                                     <Box className='notification-title'>
@@ -143,24 +151,24 @@ const Notifications = () => {
                                                             <span className='n-date'> {item.ct_notify_created_At} </span>
                                                         </Typography>
                                                         <span className='notification-circle' 
-                                                        style={{backgroundColor: item.ct_notify_status === 1
+                                                        style={{backgroundColor: item.ct_notify_read_status === 1
                                                             ?'#777e90' 
                                                             : '#58bd7d'}}
                                                         >
                                                         </span>
-
+                                              
                                                     </Box>
                                                 </Box>
                                         
-                                            )
+                                          )
                                         }
                                         }):<span>No New Notifications Available</span>}
                                        
-                                        {notifications.length>0 && notifications.length !== loadmore && notifications.length > 10 &&
+                                        {notifications.length>0 && loadmore  >= 10 && 
                                         <Button onClick={handleLoadmore}  variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>}
                             
                                     </Box>
-                                    {notifications.length>0 &&
+                                  {/* {notifications.length>0 &&    */}
                                     <Box className='notification-filter for-desktop'>
                                         <Typography component="h5" variant='h5'>
                                             Filters
@@ -188,8 +196,7 @@ const Notifications = () => {
                                          }
                                         </Box>
                                     </Box>
-                                    }
-
+                                  {/* } */}
                                 </Box>
                             </Box>
                             <Box className='deposit-transfer'>

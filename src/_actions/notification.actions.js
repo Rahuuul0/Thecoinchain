@@ -27,19 +27,24 @@ const notificationActions = () => {
     const notificationList_View = () => {
         return fetchWrapper.get(Apis.Notifications_List_view)
             .then(res => {
+                let notLength = []
                 if (res.statusCode === 200) {
-                    notificationLists_View([...res.data])
+                    res.data.map((item)=> {
+                        if(item.ct_notify_status_deleted !== 1) notLength.push(1)
+                    })
+                    if(notLength.length > 0){
+                    notificationLists_View([...res.data])}
+                    else notificationLists_View([])
                     notificationList()
                 }
             }).catch((err) => { console.warn(err) })
     }
 
-    const notificationSingleread = (notId, userId) => {
+    const notificationSingleread = (notId) => {
         return fetchWrapper.post(Apis.Notifications_Single_Read,
             {
-                "read": "1",
+                "read": 1,
                 "notify_id": `${notId}`,
-                "user_id": `${userId}`
             },
         )
             .then(res => {
@@ -66,21 +71,18 @@ const notificationActions = () => {
             }).catch((err) => { console.warn(err) })
     }
 
-    const clearNotifications = (notId) => {
-let data = notId
-        return fetchWrapper.post(Apis.Notification_All_Clear, data)
-        
+    const clearNotifications = (data) => {        
+        return fetchWrapper.post(Apis.Notification_All_Clear, data)        
             .then((res) => {
                 if (res.statusCode === 200) {  
                     notificationList_View() 
-                    notificationList()      
+                    notificationList()   
                     alertActions.success('Clear all Data Successfully');
                 }
             }).catch((err) => { console.warn(err) })
     }
 
     return {
-
         notificationList,
         notificationSingleread,
         clearNotifications,

@@ -18,7 +18,7 @@ const Community = () => {
             Community
         </Typography>,
     ];
-    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
+    useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) });
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -119,7 +119,7 @@ const Community = () => {
                                 <Typography component='p' variant='p'> Bitcoin reached the 20-day exponential moving average (EMA) of $27,278 on May 23, but the bulls could not pierce this resistance. The failure to do that attracted aggressive selling by the bears on May 24. The bears are trying to sustain the price below the immediate support at $26,631. If they are successful, the BTC/USDT pair could plummet to the vital support at $25,250. This level may again witness a tough battle between the bulls and the bears. If the bears come out on top, the selling could intensify, and the pair may collapse to the psychologically important level of $20,000. The 20-day EMA remains the key resistance for the bulls to conquer if they want to start a sustained recovery. A short-term trend change is likely to be signaled after the bulls kick the price above the resistance line. </Typography>
                             </Box>
                         </Box>
-                        <Typography component='p' variant='p' className='small-caption' sx={{ mt: 3 }}> * Crypto Rating accepts no liability for content of the comments or reviews made by the site users. The entire responsibility for the contents rests with the authors.</Typography>
+                        <Typography component='p' variant='p' className='small-caption' sx={{ mt: 3 }}> * Coin Guru accepts no liability for content of the comments or reviews made by the site users. The entire responsibility for the contents rests with the authors.</Typography>
                     </Container>
                 </Box >
             </ThemeProvider >

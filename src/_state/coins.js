@@ -24,10 +24,22 @@ const cardCoinsAtom = atom({
   default: [],
 });
 
+const predictionAtom = atom({
+  key: "predictionAtom",
+  default: [],
+});
+
+const categoryCoinsAtom = atom({
+  key: "categoryCoinsAtom",
+  default: [],
+});
+
 export {
   coinsAtom,
   coinsErrorAtom,
   coinCategoryAtom,
   selectedCategoryAtom,
   cardCoinsAtom,
+  predictionAtom,
+  categoryCoinsAtom,
 };

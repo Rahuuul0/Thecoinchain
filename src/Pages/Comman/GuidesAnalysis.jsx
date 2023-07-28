@@ -3,18 +3,19 @@ import { useState, useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
-import { guidesAnalysisActions, analyticsActions } from "../../_actions";
-import { guidesAtom, analyticAtom } from "../../_state";
+import { guidesAnalysisActions, analyticsActions, useTutorialActions } from "../../_actions";
+import { guidesAtom, analyticAtom, tutorialCategoryAtom } from "../../_state";
 import { useRecoilValue } from "recoil";
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
+import { useNavigate } from "react-router-dom";
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
 import SwipeableViews from "react-swipeable-views";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { useNavigate } from "react-router-dom";
+import TabList from "@mui/lab/TabList";
 
 const GuidesAnalysis = (props) => {
 
@@ -30,8 +31,74 @@ const GuidesAnalysis = (props) => {
     const navigate = useNavigate();
     const guidesActions = guidesAnalysisActions();
     const AnalyticActions = analyticsActions();
+    const categoryActions = useTutorialActions();
     const guides = useRecoilValue(guidesAtom);
     const analytic = useRecoilValue(analyticAtom);
+    const guidesCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
+        return item.type === "Guide";
+    });;
+    const [guidesCategoryList, setGuidesCategoryList] = useState(guides);
+    const [value, setValue] = React.useState("1");
+
+    const analyticsCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
+        return item.type === "Analytics";
+    });;
+    const [analyticCategoryList, setAnalyticCategoryList] = useState(analytic);
+    const [valueTemp, setValueTemp] = React.useState("1");
+
+    console.log(guidesCategory,'guidesCategory');
+    console.log(value,'value');
+    console.log(guidesCategoryList,'guidesCategoryList')
+
+    // *GuidesCategoryList*
+    const handleChange = (e) => {
+        setValue(e.target.value);
+        e.target.value == 1
+            ? setGuidesCategoryList(guides)
+            : handleTutorials(e.target.value);
+    };
+
+    const handleChanges = (value) => {
+        setValue(value);
+        value == 1
+            ? setGuidesCategoryList(guides)
+            : handleTutorials(value);
+    };
+
+    const handleTutorials = (guidesCategory) => {
+
+        let tutorialsArr = [];
+        tutorialsArr = guides
+            .filter((items) => {
+                return items.category === guidesCategory;
+            })
+
+            setGuidesCategoryList(tutorialsArr);
+    };
+
+    // *AnalyticCategoryList*
+    const handleCategory = (e) => {
+        setValueTemp(e.target.value);
+        e.target.value == 1
+            ? setAnalyticCategoryList(analytic)
+            : handleOption(e.target.value);
+    };
+
+    const handleCategorys = (valueTemp) => {
+        setValueTemp(valueTemp);
+        valueTemp == 1
+            ? setAnalyticCategoryList(analytic)
+            : handleOption(valueTemp);
+    };
+
+    const handleOption = (analyticCategory) => {
+        let tutorialsArr = [];
+        tutorialsArr = analytic
+            .filter((items) => {
+                return items.category === analyticCategory;
+            })
+            setAnalyticCategoryList(tutorialsArr);
+    };
 
     // Subscription action get function   API data call 
     useEffect(() => {
@@ -44,6 +111,12 @@ const GuidesAnalysis = (props) => {
         const response = AnalyticActions.get()
         response.then((res) => { (res) })
     }, [])
+
+    // Category Api
+    useEffect(() => {
+        const response = categoryActions.categoryList();
+        response.then((res) => { (res) })
+    }, []);
 
     function a11yProps(index) {
         return {
@@ -150,6 +223,15 @@ const GuidesAnalysis = (props) => {
 
                         handleAnalysis(analysisCategory);
     }, [valueTab3]);
+
+    useEffect(() => {
+        setGuidesCategoryList(guides)
+    }, [guides]);
+
+    useEffect(() => {
+        setAnalyticCategoryList(analytic)
+    }, [analytic]);
+
     useEffect(() => { 
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) 
     },[]);
@@ -205,37 +287,44 @@ const GuidesAnalysis = (props) => {
                                                         </Grid>
                                                     </Grid>
 
-                                                    <TabContext value={valueTab2}>
-                                                        <Tabs className='for-desktop'
-                                                            value={valueTab2}
-                                                            onChange={handleChangeTab2}
-                                                            indicatorColor="secondary"
-                                                            textColor="inherit"
-                                                        >
-                                                            <Tab label="All" {...a11yProps(0)} />
-                                                            <Tab label="Blockchain" {...a11yProps(1)} />
-                                                            <Tab label="Trading" {...a11yProps(3)} />
-                                                            <Tab label="Cryptocurrency" {...a11yProps(4)} />
-                                                        </Tabs>
-
-                                                        <Box className="for-mobile dropdown-mobile">
-                                                            <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
-                                                                <Select
-                                                                    value={valueTab2}
-                                                                    onChange={handleChangeGuidesFilter}
-                                                                    displayEmpty
-                                                                    inputProps={{ "aria-label": "Without label" }}
-                                                                >
-                                                                    <MenuItem value={0}>All</MenuItem>
-                                                                    <MenuItem value={1}>Blockchain</MenuItem>
-                                                                    <MenuItem value={2}>Trading</MenuItem>
-                                                                    <MenuItem value={3}>Cryptocurrency</MenuItem>
-                                                                </Select>
-                                                            </FormControl>
+                                                    <TabContext value={value}>
+                                                        <Box className='for-desktop' sx={{ borderBottom: 1, borderColor: "divider" }}>
+                                                            <TabList
+                                                                value={value}
+                                                                aria-label="tabs">
+                                                                <Tab
+                                                                label="All" 
+                                                                value="1" 
+                                                                onClick={e => handleChanges(1)} 
+                                                                indicatorColor="secondary"
+                                                                textColor="inherit" />
+                                                                {guidesCategory?.map((item) => {
+                                                                    return <Tab onClick={e => handleChanges(item.title)} label={item.title} key={item.id} value={item.title} />;
+                                                                })}
+                                                            </TabList>
                                                         </Box>
+                                                        <TabPanel
+                                                            value={value}
+                                                            sx={{ paddingRight: "0", paddingLeft: "0" }}
+                                                        >
 
-                                                        <TabPanel value={valueTab2} index2={0} dir={theme.direction} sx={{ padding: '0px' }}>
-                                                            {guidesList?.map((items) => {
+                                                             <Box className="for-mobile dropdown-mobile">
+                                                                <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                                                                    <Select
+                                                                        value={value}
+                                                                        onChange={e => handleChange(e)}
+                                                                        displayEmpty
+                                                                        inputProps={{ "aria-label": "Without label" }}
+                                                                    >
+                                                                        <MenuItem value="1" >All</MenuItem>
+                                                                        {guidesCategory?.map((item) => {
+                                                                            return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
+                                                                            )
+                                                                        })}
+                                                                    </Select>
+                                                                </FormControl>
+                                                            </Box>
+                                                            {guidesCategoryList?.map((items) => {
                                                                 return (
                                                                     <Box padding={0} sx={{ marginBottom: { xs: '30px', md: '0px' } }}>
                                                                         <Grid container>
@@ -303,40 +392,42 @@ const GuidesAnalysis = (props) => {
                                                     </Grid>
                                                 </Grid>
 
-                                                <TabContext value={valueTab3}>
-                                                    <Tabs
-                                                        className='for-desktop'
-                                                        value={valueTab3}
-                                                        onChange={handleChangeTab3}
-                                                        indicatorColor="secondary"
-                                                        textColor="inherit"
-                                                        aria-label="full width tabs example"
-                                                    >
-                                                        <Tab label="All" {...a11yProps(0)} />
-                                                        <Tab label="Blockchain" {...a11yProps(1)} />
-                                                        <Tab label="Trading" {...a11yProps(3)} />
-                                                        <Tab label="Cryptocurrency" {...a11yProps(4)} />
-
-                                                    </Tabs>
-                                                    <Box className="for-mobile dropdown-mobile">
-                                                        <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
-                                                            <Select
-                                                                value={valueTab3}
-                                                                onChange={handleChangeAnalysisFilter}
-                                                                displayEmpty
-                                                                inputProps={{ "aria-label": "Without label" }}
+                                                <TabContext value={valueTemp}>
+                                                            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                                                                <TabList className='for-desktop' onChange={handleCategory} aria-label="tabs">
+                                                                    <Tab label="All" value="1" onClick={e => handleCategorys(1)}  />
+                                                                    {analyticsCategory?.map((item) => {
+                                                                        return <Tab 
+                                                                        indicatorColor="secondary"
+                                                                        textColor="inherit"
+                                                                        onClick={e => handleCategorys(item.title)}  
+                                                                        label={item.title} value={item.title} />;
+                                                                    })}
+                                                                </TabList>
+                                                            </Box>
+                                                            <TabPanel
+                                                                value={valueTemp}
+                                                                sx={{ paddingRight: "0", paddingLeft: "0" }}
                                                             >
-
-                                                                <MenuItem value={0}>All</MenuItem>
-                                                                <MenuItem value={1}>Blockchain</MenuItem>
-                                                                <MenuItem value={2}>Trading</MenuItem>
-                                                                <MenuItem value={3}>Cryptocurrency</MenuItem>
-                                                            </Select>
-                                                        </FormControl>
-                                                    </Box>
+                                                                <Box className="for-mobile dropdown-mobile">
+                                                                    <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                                                                        <Select
+                                                                            value={valueTemp}
+                                                                            onChange={e => handleCategory(e)}
+                                                                            displayEmpty
+                                                                            inputProps={{ "aria-label": "Without label" }}
+                                                                        >
+                                                                             <MenuItem value="1" >All</MenuItem>
+                                                                            {analyticsCategory?.map((item) => {
+                                                                                return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
+                                                                                )
+                                                                            })}
+                                                                        </Select>
+                                                                    </FormControl>
+                                                                </Box>
                                                   
-                                                        <TabPanel value={valueTab3} index3={0} dir={theme.direction} sx={{ padding: '0px !important' }}>
-                                                            {analysisList?.map((items) => {
+                                                     
+                                                            {analyticCategoryList?.map((items) => {
                                                                     return (
                                                                         <Box sx={{ padding: '0px !important' }}>
                                                                             <Grid container>
@@ -386,8 +477,6 @@ const GuidesAnalysis = (props) => {
                                                                     )
                                                                 })}
                                                         </TabPanel>
-             
-
                                                 </TabContext>
 
                                             </Box>

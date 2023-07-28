@@ -86,6 +86,7 @@ export const Apis = {
   Notification_View_All: "get-view-all",
   Notifications_List_view: "get-notification-view-all",
   Market: "market",
+  Category_List: "category-list",
   Market_Trend: "market-trend",  
   Community_List: "community-list" 
 };

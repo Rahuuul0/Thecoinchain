@@ -212,7 +212,6 @@ const NewsPromotions = (props) => {
                                                                     return <Tab onClick={e => handleChanges(item.title)} label={item.title} key={item.id} value={item.title} />;
                                                                 })}
                                                             </TabList>
-                                                            <p>Selected option: {value}</p>
                                                         </Box>
                                                         <TabPanel
                                                             value={value}

@@ -141,10 +141,10 @@ const LearnCypto = () => {
       value === "1"
         ? "2D Design"
         : value === "2"
-        ? "3D Design"
-        : value === "3"
-        ? "Blockchain"
-        : "2D Design";
+          ? "3D Design"
+          : value === "3"
+            ? "Blockchain"
+            : "2D Design";
 
     handleBlogs(blogCategory);
   }, [value]);
@@ -307,8 +307,7 @@ const LearnCypto = () => {
                             </Box>
                           </Grid>
                           <Grid item xs={12} sm={7} md={7}>
-                            <img
-                              sx={{ maxWidth: "100%" }}
+                            <img style={{ height: "100%", maxWidth: "100%" }}
                               src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
                             />
                           </Grid>

@@ -374,7 +374,7 @@ img {
   border-radius: 15px;
 }
 
-.icon-avatar-img{
+.icon-avatar-img {
   padding-right: 0px !important;
   margin-right: 0px !important;
 }
@@ -958,7 +958,7 @@ input[type="number"] {
   color: #fff !important;
 }
 
-.balck-btn {
+.black-btn {
   background-color: #23262F !important;
   color: #fff !important;
 }
@@ -1513,7 +1513,7 @@ input[type="number"] {
 
 .faq-accordian .Mui-expanded {
   min-height: 24px !important;
-  margin: 5px 0px 15px 0px;
+  margin: 5px 0px 15px 0px !important;
 }
 
 .faq-accordian .css-1elwnq4-MuiPaper-root-MuiAccordion-root:before {
@@ -1569,6 +1569,7 @@ input[type="number"] {
 
 .newdesignbox img {
   width: 100%;
+  border-radius: 0;
 }
 
 .newdesignbox .inner-con-box {
@@ -1837,13 +1838,18 @@ video {
 .market-prediction-faq-item {
   display: flex;
   gap: 20px;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .market-prediction-faq-item-img {
   width: 128px;
   min-width: 128px;
   height: auto;
+  min-height: 96px;
+}
+
+.market-prediction-faq-item-img img {
+  height: 100%;
 }
 
 /* Modal style */
@@ -3069,16 +3075,19 @@ video[poster] {
   color: #23262F;
   font-size: 21px;
 }
-.headeravatar .MuiPaper-root::-webkit-scrollbar{
+
+.headeravatar .MuiPaper-root::-webkit-scrollbar {
   display: none;
 }
 
-.headeravatar .MuiPaper-root{
+.headeravatar .MuiPaper-root {
 
   min-height: 200px;
   overflow-y: scroll;
 
-}.swiper-styles .swiper-button-next {
+}
+
+.swiper-styles .swiper-button-next {
   right: -webkit-calc(49vw - 27px);
   right: -moz-calc(49vw - 27px);
   right: calc(49vw - 27px);
@@ -3128,11 +3137,21 @@ video[poster] {
 .swiper-global .swiper-button-prev {
   top: calc(50% + 20px);
 }
-.loading-img{
-  animation: rotate 1.5s linear infinite; 
+
+.loading-img {
+  animation: rotate 1.5s linear infinite;
 }
-@keyframes rotate{
-  to{ transform: rotate(360deg); }
+
+.subscribe-notification {
+  position: absolute;
+  top: 150px;
+  right: 30px;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Media Queries  */
@@ -3412,8 +3431,20 @@ video[poster] {
 }
 
 @media (max-width: 767.98px) {
+  .market-prediction-faq-item {
+    flex-wrap: wrap;
+  }
+
+  .market-prediction-faq-item-img {
+    width: 100%;
+  }
+
   body {
     overflow-x: hidden !important;
+  }
+
+  #root .extra-wrapper h3 {
+    font-size: 32px;
   }
 
   .footer {

@@ -1,7 +1,7 @@
 import { Container, Typography, Box, Breadcrumbs, } from '@mui/material';
 import React from 'react';
 import { useEffect } from 'react';
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
 
 const Disclaimer = () => {
@@ -17,7 +17,7 @@ const Disclaimer = () => {
     useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) });
     return (
         <>
-            <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
+            <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8, mb: { xs: 0, sm: 8, md: 8, lg: 8 } }}>
                 <Container maxWidth="lg">
                     <Box className='subscription-wrapper-head'>
                         <Typography component="h2" variant='h2'>
@@ -38,19 +38,19 @@ const Disclaimer = () => {
                         </Box>
                     </Box>
                     <Typography variant='body2' component="p">
-                       Coinguru.org makes no warranties whatsoever regarding reliability, accuracy or completeness of any text or graphical information available on the website. Any reference you place on this information remains strictly at your own risk. Price Predictions, Forecasts, Texts provided byCoinguru.org is for information purposes only.
+                        Coinguru.org makes no warranties whatsoever regarding reliability, accuracy or completeness of any text or graphical information available on the website. Any reference you place on this information remains strictly at your own risk. Price Predictions, Forecasts, Texts provided byCoinguru.org is for information purposes only.
                     </Typography>
                     <Typography variant='body2' component="p">
-                       Coinguru.org bears no liability for any loss or damage arising from loss of data or profits in direct or indirect connection with the use of this website.
+                        Coinguru.org bears no liability for any loss or damage arising from loss of data or profits in direct or indirect connection with the use of this website.
                     </Typography>
                     <Typography variant='body2' component="p">
-                       Coinguru.org declines responsibility for the content of the site visitors’ reviews, commentaries, questions and other personal notes of any kind. Site visitors are made responsible for any content they publish on Coinguru.org.
+                        Coinguru.org declines responsibility for the content of the site visitors’ reviews, commentaries, questions and other personal notes of any kind. Site visitors are made responsible for any content they publish on Coinguru.org.
                     </Typography>
                     <Typography variant='body2' component="p">
-                       Coinguru.org provides an opportunity of linking to other websites which are not in any way related to Coinguru.org and are not subject to control by Coinguru.org. We bear no responsibility for nature and content of these sites. Provision of any third party links on Coinguru.org does not imply concurrence with the third party ideas, methods, strategies and all the other content.
+                        Coinguru.org provides an opportunity of linking to other websites which are not in any way related to Coinguru.org and are not subject to control by Coinguru.org. We bear no responsibility for nature and content of these sites. Provision of any third party links on Coinguru.org does not imply concurrence with the third party ideas, methods, strategies and all the other content.
                     </Typography>
                     <Typography variant='body2' component="p">
-                       Coinguru.org undertakes every effort to keep the site running smoothly and with no interruptions. However, Coinguru.org bears no responsibility for the website being temporarily unavailable due to outer technical issues.
+                        Coinguru.org undertakes every effort to keep the site running smoothly and with no interruptions. However, Coinguru.org bears no responsibility for the website being temporarily unavailable due to outer technical issues.
                     </Typography>
                     <Typography variant='body2' component="p">
                         You agree not to reproduce, retransmit, disseminate, sell, distribute, publish, broadcast, circulate or commercially exploit the information available on Coinguru.org in any manner without the express written consent of Coinguru.org, nor to use the information available on the site for any unlawful purpose.

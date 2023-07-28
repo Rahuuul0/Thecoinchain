@@ -91,10 +91,10 @@ const Home = () => {
       newValue === "2"
         ? "Bitcoin"
         : newValue === "3"
-        ? "Blockchain"
-        : newValue === "4"
-        ? "Tutorial"
-        : "";
+          ? "Blockchain"
+          : newValue === "4"
+            ? "Tutorial"
+            : "";
     newValue === "1"
       ? setTutorialList(tutorialsData)
       : handleTutorials(tutorialCategory);
@@ -139,10 +139,10 @@ const Home = () => {
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 8 }}>
           {subscribeUser?.status === "expired" && auth !== null ?
-          <Stack sx={{ width: '38%', marginLeft: 'auto' , marginTop: '22px'}} spacing={2}>
-          <Alert severity="info">You don't have any current plan please subscribe !</Alert>
-          </Stack>
-          : "" }
+            <Stack sx={{ width: '38%', marginLeft: 'auto', marginTop: '22px' }} spacing={2}>
+              <Alert severity="info">You don't have any current plan please subscribe !</Alert>
+            </Stack>
+            : ""}
           <Grid container sx={{ alignItems: "center" }}>
             <Grid
               item
@@ -219,12 +219,12 @@ const Home = () => {
                 item?.price > 1
                   ? Math.round(item.price * 100) / 100
                   : item?.price < 1 && item?.price >= 0.1
-                  ? (Math.round(item.price * 10000) / 10000)?.toFixed(2)
-                  : item?.price < 0.1 && item?.price > 0.01
-                  ? (Math.round(item.price * 1000000) / 1000000)?.toFixed(6)
-                  : item?.price < 0.01
-                  ? (Math.round(item.price * 100000000) / 100000000)?.toFixed(8)
-                  : item?.price;
+                    ? (Math.round(item.price * 10000) / 10000)?.toFixed(2)
+                    : item?.price < 0.1 && item?.price > 0.01
+                      ? (Math.round(item.price * 1000000) / 1000000)?.toFixed(6)
+                      : item?.price < 0.01
+                        ? (Math.round(item.price * 100000000) / 100000000)?.toFixed(8)
+                        : item?.price;
               if (index < 4) {
                 return (
                   <Grid item xs={12} sm={4} md={4} lg={3} className="gridBox">
@@ -427,6 +427,7 @@ const Home = () => {
                               <Typography
                                 fontSize={16}
                                 className="primary-font"
+                                sx={{ fontWeight: "500" }}
                               >
                                 {item.title}
                                 {item.category}

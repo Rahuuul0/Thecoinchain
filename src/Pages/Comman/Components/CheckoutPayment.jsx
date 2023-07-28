@@ -20,6 +20,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 import SubscriptionPaymentPaypal from '../Components/SubscriptionPaymentPaypal';
 import CheckIcon from '@mui/icons-material/Check';
+import { planAtom, subplanAtom } from "../../../_state/"
+import { useRecoilState } from "recoil";
 
 const stripePromise = loadStripe('pk_test_51NAt8fSGQOsMaWjbyOBmlRhFwSdDQt1wIWSMIyzzg16p9Qq2PjfKN1uS2UDP20EyvqxVIzECtgwU7erWue7zZQfm00LxmWF4sK');
 
@@ -55,19 +57,26 @@ const CheckoutForm = () => {
     const [isProcessing, setProcessingTo] = useState(false);
     const [checkoutError, setCheckoutError] = useState();
     const subscribed = subscriptionActions();
-    const [confirm, setConfirm] = useState({ 'plan': {}, 'step': 1 });
+    const [confirm, setConfirm] = useState({ 'plan' : {}, 'step': 1 });
     const options = useOptions();
     const [subscriptionData, setSubscriptionData] = useState([]);
     const [open, setOpen] = useState(false);
     const [creditCardStatus, setCreditCardStatus] = useState(true);
+    const [plan, setPlan] = useRecoilState(planAtom);
+    const [subplan, setSubplan] = useRecoilState(subplanAtom);
 
     // Subscription action get function   API data call 
     useEffect(() => {
+            if(subplan === true){
+                setConfirm({ "plan":plan, "step": 2 })
+            }
+       
         const get_subscription = async () => {
             await subscribed.subscription()
                 .then((res) => {
                     res.reverse()
                     setSubscriptionData(res)
+                    setSubplan(false)
                 })
         }
         get_subscription();
@@ -193,7 +202,7 @@ const CheckoutForm = () => {
                                 {subscriptionData.map((plan, i) => (
                                     <Box className="subscription-plan-card">
                                         <Typography component="h4" variant='h4' className='plan-title'>
-                                            {plan.subscription_name}
+                                            {plan?.subscription_name}
                                         </Typography>
                                         <Box className="subscription-plan-body">
                                             <Typography component="h4" variant='h4' className='plan-price'>
@@ -249,7 +258,7 @@ const CheckoutForm = () => {
                                     </span>
                                     <Typography component="small" variant='body2'>
                                         <span className='label'>For</span>
-                                        {confirm.plan.subscription_name}
+                                        {confirm.plan?.subscription_name}
                                     </Typography>
                                 </Box>
                             </Box>
@@ -431,7 +440,7 @@ const CheckoutForm = () => {
                         </Button>
                     </Box>
                 </Box>
-            </Modal >
+            </Modal>
         </Box>
     );
 };

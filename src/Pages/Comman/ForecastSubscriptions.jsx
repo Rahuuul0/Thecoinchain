@@ -7,8 +7,8 @@ import { NavigateNext } from '@mui/icons-material/';
 import Sidebar from './Components/Sidebar';
 import { useNavigate, Link } from 'react-router-dom';
 import { subscriptionActions, } from '../../_actions';
-import { forecastSubAtom } from '../../_state';
-import { useRecoilValue } from "recoil";
+import { forecastSubAtom, planAtom, subplanAtom } from '../../_state';
+import { useRecoilValue, useRecoilState } from "recoil";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -38,10 +38,16 @@ const ForecastSubscriptions = () => {
     const subscribed = subscriptionActions();
     const User = useRecoilValue(forecastSubAtom);
     const [subscriptionData, setSubscriptionData] = useState([]);
-
-    console.log(subscriptionData, 'user');
-
+    const [confirm, setConfirm] = useState({ 'plan': {}, 'step': 2  });
     const [open, setOpen] = useState(false);
+    const [plan, setPlan] = useRecoilState(planAtom);
+    const [subplan, setSubplan] = useRecoilState(subplanAtom);
+
+const Continue =(plan) => {
+    setSubplan(true)
+    setPlan(plan);
+    navigate("/subscription")   
+}
 
     //subscribedUser Api
     useEffect(() => {
@@ -74,7 +80,7 @@ const ForecastSubscriptions = () => {
 
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-
+    
     const [personName, setPersonName] = React.useState([]);
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -186,7 +192,7 @@ const ForecastSubscriptions = () => {
                                                                 </Typography>
                                                             </Box>
                                                             <Box className="subscription-plan-cta">
-                                        
+                                                                <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={(e) =>Continue(plan)} >Continue</Button>
                                                             </Box>
                                                         </Box>}</>
                                                     ))}

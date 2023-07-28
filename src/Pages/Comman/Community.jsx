@@ -8,8 +8,9 @@ import { NavigateNext } from '@mui/icons-material/';
 import { Link } from "react-router-dom";
 import BTCIc from "../../../public/assets/images/icons/btc-ic.svg";
 import {  communityAtom } from '../../_state/';
-import {communityActions} from "../../_actions/"
-
+import {communityActions} from "../../_actions/";
+import ReactReadMoreReadLess from "react-read-more-read-less";
+import dayjs from "dayjs";
 
 const Community = () => {
     const communityAction = communityActions();
@@ -58,17 +59,27 @@ const Community = () => {
                                  <Box className="community-card">
                                     <Box className="community-card-head">
                                         <Box className="community-ic">
-                                            <img src={item.image} alt='' /> 
+                                            <img src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} alt='' /> 
                                         </Box>
                                         <Box className="community-details">
                                             <Box className="community-details-head">
                                                 <Typography component='small' variant='body2' className='small-caption community-category'> {item.title} </Typography>
-                                                <Typography component='small' variant='body2' className='small-caption'> {item.created_at} </Typography>
+                                                <Typography component='small' variant='body2' className='small-caption'>  {dayjs(item.created_at).format("MMM/DD/YYYY" )} </Typography>
                                             </Box>
                                             <Typography component='h5' variant='h5'> {item.exp_review} </Typography>
                                         </Box>
                                     </Box>
-                                    <Typography component='p' variant='p'> {item.decription} </Typography>
+                                    
+                                    <Typography component='p' variant='p'>
+                                        <ReactReadMoreReadLess
+                                            charLimit={300}
+                                            readMoreText={" Read more ▼"} 
+                                            readLessText={" ...Read less ▲"}
+                                        
+                                        >
+                                        {item.decription}
+                                        </ReactReadMoreReadLess>
+                                     </Typography>
                                 </Box>  
                             )
                         }) }

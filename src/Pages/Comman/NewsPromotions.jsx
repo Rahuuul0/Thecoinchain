@@ -40,7 +40,6 @@ const NewsPromotions = (props) => {
 
     // *NewsCategoryList*
     const handleChange = (e) => {
-        console.log("newValue", e.target.value)
         setValue(e.target.value);
         e.target.value == 1
             ? setNewsCategoryList(newsList)
@@ -48,7 +47,6 @@ const NewsPromotions = (props) => {
     };
 
     const handleChanges = (value) => {
-        //  console.log("newValue",value)
         setValue(value);
         value == 1
             ? setNewsCategoryList(newsList)
@@ -106,7 +104,6 @@ const NewsPromotions = (props) => {
     useEffect(() => {
         const response = categoryActions.categoryList();
         response.then((res) => { (res) })
-        console.log(response, 'response')
     }, []);
 
     function a11yProps(index) {
@@ -147,7 +144,6 @@ const NewsPromotions = (props) => {
     useEffect(() => {
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
     }, []);
-    console.log(newsList, newsCategoryList, "newsCategoryList")
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -236,7 +232,6 @@ const NewsPromotions = (props) => {
                                                                             )
                                                                         })}
                                                                     </Select>
-                                                                    <p>Selected option: {value}</p>
                                                                 </FormControl>
                                                             </Box>
                                                             {newsCategoryList?.map((item) => {
@@ -339,7 +334,6 @@ const NewsPromotions = (props) => {
                                                                                 )
                                                                             })}
                                                                         </Select>
-                                                                        <p>Selected option: {valueTemp}</p>
                                                                     </FormControl>
                                                                 </Box>
 

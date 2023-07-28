@@ -14,8 +14,10 @@ import {
 import { NavigateNext } from "@mui/icons-material/";
 import { useNavigate, Link } from "react-router-dom";
 import Sidebar from './Components/Sidebar';
-import { authAtom } from '../../_state/'
+import { authAtom } from '../../_state/';
 import { useRecoilValue } from "recoil";
+import { RoutesName } from "../../_common/app.constants";
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -237,7 +239,7 @@ const Referrals = () => {
                       </Box>
                       <Button
                         onClick={() => {
-                          navigate("/");
+                          navigate(RoutesName.User_Dashboard);
                         }}
                         variant="outlined"
                         sx={{ marginY: "30px" }}

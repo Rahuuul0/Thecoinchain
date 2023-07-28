@@ -52,6 +52,8 @@ import {
   loaderAtom,
   bannerListAtom,
   tutorialCategoryAtom,
+  forecastSubAtom,
+  authAtom,
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
@@ -59,6 +61,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
+import Alert from "@mui/material/Alert";
 
 const Home = () => {
   const [marketTrend, setMarketTrend] = useState(1);
@@ -79,9 +82,14 @@ const Home = () => {
   const bannerList = useRecoilValue(bannerListAtom);
   const bannerActions = bannerListActions();
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
-  const tutorialCategory = useRecoilValue(tutorialCategoryAtom);
+  const tutorialCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
+    return item.type === "Tutorial";
+  });
+  const subscribeUser = useRecoilValue(forecastSubAtom);
+  const auth = useRecoilValue(authAtom);
 
-  console.log(tutorialCategory, "category list data");
+  console.log(value,'value')
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -96,8 +104,6 @@ const Home = () => {
       .filter((items) => {
         return items.category === tutorialCategory;
       })
-      .slice(0, 3);
-
     setTutorialList(tutorialsArr);
   };
 
@@ -109,11 +115,11 @@ const Home = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
   const getFirstLetters = (str) => {
-    const firstLetters = str.replace("Portfolio", "");
-    return firstLetters;
+    // const firstLetters = str.replace("Portfolio", "");
+    return (firstLetters = "");
   };
 
-  //subscribedUser Api
+  //Category & tutorial Api
   useEffect(() => {
     tutorialAction.tutorialData();
     tutorialAction.categoryList();
@@ -129,6 +135,11 @@ const Home = () => {
       {/* Banner starts */}
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 8 }}>
+          {subscribeUser?.status === "expired" && auth !== null ?
+          <Stack sx={{ width: '38%', marginLeft: 'auto' , marginTop: '22px'}} spacing={2}>
+          <Alert severity="info">You don't have any current plan please subscribe !</Alert>
+          </Stack>
+          : "" }
           <Grid container sx={{ alignItems: "center" }}>
             <Grid
               item
@@ -201,6 +212,16 @@ const Home = () => {
         >
           <Grid container>
             {cardCoinsList?.map((item, index) => {
+              let newPrice =
+                item?.price > 1
+                  ? Math.round(item.price * 100) / 100
+                  : item?.price < 1 && item?.price >= 0.1
+                  ? (Math.round(item.price * 10000) / 10000)?.toFixed(2)
+                  : item?.price < 0.1 && item?.price > 0.01
+                  ? (Math.round(item.price * 1000000) / 1000000)?.toFixed(6)
+                  : item?.price < 0.01
+                  ? (Math.round(item.price * 100000000) / 100000000)?.toFixed(8)
+                  : item?.price;
               if (index < 4) {
                 return (
                   <Grid item xs={12} sm={4} md={4} lg={3} className="gridBox">
@@ -242,15 +263,9 @@ const Home = () => {
                       paddingBottom={1}
                       className="primary-font"
                     >
-                      {item?.price > 1
-                        ? item.price?.toFixed(2)
-                        : item?.price < 1 && item?.price >= 0.1
-                        ? item.price?.toFixed(4)
-                        : item?.price < 0.1 && item?.price > 0.01
-                        ? item.price?.toFixed(6)
-                        : item?.price < 0.01
-                        ? item.price?.toFixed(8)
-                        : item?.price}
+                      {newPrice.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                      })}
                     </Typography>
                     <Typography
                       variant="h6"
@@ -378,6 +393,7 @@ const Home = () => {
                               border: "1px solid #E6E8EC",
                               height: "50px",
                               whiteSpace: "nowrap",
+                              minWidth: "auto",
                             }}
                             onClick={() => {
                               navigate("./learn-cypto");
@@ -595,7 +611,7 @@ const Home = () => {
                 className="btn btn-secondary"
                 onClick={(e) => {
                   loader(true);
-                  coinActions.latestListing();
+                  coinActions.latestListing("?limit=5");
                 }}
               >
                 All
@@ -605,7 +621,7 @@ const Home = () => {
                 className="btn"
                 onClick={(e) => {
                   loader(true);
-                  coinActions.latestListing();
+                  coinActions.latestListing("?limit=5");
                 }}
               >
                 All
@@ -613,36 +629,32 @@ const Home = () => {
             )}
             {categoryList.length &&
               categoryList.map((item, index) => {
-                if (index < 4) {
-                  if (selectedCat !== 0 && selectedCat === item.id) {
-                    return (
-                      <Button
-                        variant="contained"
-                        className="btn btn-secondary"
-                        key={index}
-                        onClick={(e) => {
-                          coinActions.coinListbByCategoty(item.id);
-                        }}
-                        title={item.name}
-                      >
-                        {getFirstLetters(item.name)}
-                      </Button>
-                    );
-                  } else {
-                    return (
-                      <Button
-                        className="btn"
-                        onClick={(e) => {
-                          coinActions.coinListbByCategoty(item.id);
-                        }}
-                        title={item.name}
-                      >
-                        {getFirstLetters(item.name)}
-                      </Button>
-                    );
-                  }
+                if (selectedCat !== 0 && selectedCat === item) {
+                  return (
+                    <Button
+                      variant="contained"
+                      className="btn btn-secondary"
+                      key={index}
+                      onClick={(e) => {
+                        coinActions.coinListbByCategoty(item);
+                      }}
+                      title={item}
+                    >
+                      {item}
+                    </Button>
+                  );
                 } else {
-                  return "";
+                  return (
+                    <Button
+                      className="btn"
+                      onClick={(e) => {
+                        coinActions.coinListbByCategoty(item);
+                      }}
+                      title={item}
+                    >
+                      {item}
+                    </Button>
+                  );
                 }
               })}
           </Stack>
@@ -664,7 +676,7 @@ const Home = () => {
                     value={1}
                     onClick={(e) => {
                       loader(true);
-                      coinActions.latestListing();
+                      coinActions.latestListing("?limit=5");
                     }}
                   >
                     All
@@ -674,7 +686,7 @@ const Home = () => {
                     value={1}
                     onClick={(e) => {
                       loader(true);
-                      coinActions.latestListing();
+                      coinActions.latestListing("?limit=5");
                     }}
                   >
                     All
@@ -682,40 +694,36 @@ const Home = () => {
                 )}
                 {categoryList.length &&
                   categoryList.map((item, index) => {
-                    if (index < 4) {
-                      if (selectedCat !== 0 && selectedCat === item.id) {
-                        return (
-                          <MenuItem
-                            value={index + 2}
-                            onClick={(e) => {
-                              coinActions.coinListbByCategoty(item.id);
-                            }}
-                            title={item.name}
-                          >
-                            {getFirstLetters(item.name)}
-                          </MenuItem>
-                        );
-                      } else {
-                        return (
-                          <MenuItem
-                            value={index + 2}
-                            onClick={(e) => {
-                              coinActions.coinListbByCategoty(item.id);
-                            }}
-                            title={item.name}
-                          >
-                            {getFirstLetters(item.name)}
-                          </MenuItem>
-                        );
-                      }
+                    if (selectedCat !== 0 && selectedCat === item) {
+                      return (
+                        <MenuItem
+                          value={index + 2}
+                          onClick={(e) => {
+                            coinActions.coinListbByCategoty(item);
+                          }}
+                          title={item}
+                        >
+                          {item}
+                        </MenuItem>
+                      );
                     } else {
-                      return "";
+                      return (
+                        <MenuItem
+                          value={index + 2}
+                          onClick={(e) => {
+                            coinActions.coinListbByCategoty(item);
+                          }}
+                          title={item}
+                        >
+                          {item}
+                        </MenuItem>
+                      );
                     }
                   })}
               </Select>
             </FormControl>
           </Box>
-          <CryptoTable isIt={false} />
+          <CryptoTable selectedCat={selectedCat} isIt={false} />
           <Button
             variant="outlined"
             className="btn btn-outlined-secondary"

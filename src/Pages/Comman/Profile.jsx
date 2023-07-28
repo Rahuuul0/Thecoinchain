@@ -158,7 +158,6 @@ const Profile = (props) => {
 
   const submitFunction = async () => {
     await profileUpdate.updateUser(formData);
-    navigate("/");
   };
 
   useEffect(() => {

@@ -5,33 +5,90 @@ import { theme } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
-import { newsListActions, promotionsActions } from '../../_actions';
-import { newsListAtom, promotionAtom } from "../../_state";
+import { newsListActions, promotionsActions, useTutorialActions } from '../../_actions';
+import { newsListAtom, promotionAtom, tutorialCategoryAtom } from "../../_state";
 import { useRecoilValue } from "recoil";
-import Blog1 from "../../../public/assets/images/blog-1.svg";
+import { useNavigate } from 'react-router-dom';
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
 import SwipeableViews from "react-swipeable-views";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { useNavigate } from 'react-router-dom';
+import TabList from "@mui/lab/TabList";
+
 
 const NewsPromotions = (props) => {
-    const [guidesFilter, setGuidesFilter] = useState("");
-
-    const handleChangeNewsFilter = (event) => {
-        setValueTab2(event.target.value);
-    };
-
-    const handleChangePromotionsFilter = (event) => {
-        setValueTab3(event.target.value);
-    };
+  
     const navigate = useNavigate();
     const newsListGetActions = newsListActions();
     const promotionsGetActions = promotionsActions();
+    const categoryActions = useTutorialActions();
     const newsList = useRecoilValue(newsListAtom);
-    const promotionList = useRecoilValue(promotionAtom)
+    const promotionList = useRecoilValue(promotionAtom);
+    const newsCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
+        return item.type === "News";
+    });;
+    const [newsCategoryList, setNewsCategoryList] = useState(newsList);
+    const [value, setValue] = React.useState("1");
+
+    const promotionCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
+        return item.type === "Promotions";
+    });;
+    const [promotionCategoryList, setPromotionCategoryList] = useState(promotionList);
+    const [valueTemp, setValueTemp] = React.useState("1");
+
+    // *NewsCategoryList*
+    const handleChange = (e) => {
+        console.log("newValue", e.target.value)
+        setValue(e.target.value);
+        e.target.value == 1
+            ? setNewsCategoryList(newsList)
+            : handleTutorials(e.target.value);
+    };
+
+    const handleChanges = (value) => {
+        //  console.log("newValue",value)
+        setValue(value);
+        value == 1
+            ? setNewsCategoryList(newsList)
+            : handleTutorials(value);
+    };
+
+    const handleTutorials = (newsCategory) => {
+
+        let tutorialsArr = [];
+        tutorialsArr = newsList
+            .filter((items) => {
+                return items.category === newsCategory;
+            })
+
+        setNewsCategoryList(tutorialsArr);
+    };
+
+    // *PromotionCategoryList*
+    const handleCategory = (e) => {
+        setValueTemp(e.target.value);
+        e.target.value == 1
+            ? setPromotionCategoryList(promotionList)
+            : handleOption(e.target.value);
+    };
+
+    const handleCategorys = (valueTemp) => {
+        setValueTemp(valueTemp);
+        valueTemp == 1
+            ? setPromotionCategoryList(promotionList)
+            : handleOption(valueTemp);
+    };
+
+    const handleOption = (promotionCategory) => {
+        let tutorialsArr = [];
+        tutorialsArr = promotionList
+            .filter((items) => {
+                return items.category === promotionCategory;
+            })
+        setPromotionCategoryList(tutorialsArr);
+    };
 
     // Subscription action get function   API data call 
     useEffect(() => {
@@ -44,6 +101,13 @@ const NewsPromotions = (props) => {
         const response = promotionsGetActions.get()
         response.then((res) => { (res) })
     }, [])
+
+    // Category Api
+    useEffect(() => {
+        const response = categoryActions.categoryList();
+        response.then((res) => { (res) })
+        console.log(response, 'response')
+    }, []);
 
     function a11yProps(index) {
         return {
@@ -71,86 +135,19 @@ const NewsPromotions = (props) => {
     const handleChangeIndex = (index) => {
         setValueTab(index);
     };
-    const [valueTab2, setValueTab2] = React.useState(0);
-
-    const handleChangeTab2 = (event, newValue2) => {
-        setValueTab2(newValue2);
-    };
-    const handleChangeIndexTab = (index2) => {
-        setValueTab2(index2);
-    };
-    const [valueTab3, setValueTab3] = React.useState(0);
-
-    const handleChangeTab3 = (event, newValue3) => {
-        setValueTab3(newValue3);
-    };
-    const handleChangeIndexTab3 = (index3) => {
-        setValueTab3(index3);
-    };
-
-    const [news, setNewsList] = useState(newsList);
-    const handleNews = (newsCategory) => {
-        let newsArr = [];
-        newsArr = newsList
-            .filter((blog) => {
-                return blog.category === newsCategory;
-            })
-            .slice(0, 3);
-
-            setNewsList(newsArr);
-    };
 
     useEffect(() => {
-        handleNews("All");
-    }, [newsList]);
-
-    useEffect(() => {
-        let newsCategory = "";
-        newsCategory =
-            valueTab2 === 1
-                ? "Blockchain"
-                : valueTab2 === 2
-                    ? "Trading"
-                    : valueTab2 === 3
-                        ? "Cryptocurrency"
-                        : "All";
-
-                        handleNews(newsCategory);
-    }, [valueTab2]);
-
-    const [promotion, setPromotionList] = useState(promotionList);
-    const handlePromotion = (promotionCategory) => {
-        let promotionArr = [];
-        promotionArr = promotionList
-            .filter((blog) => {
-                return blog.category === promotionCategory;
-            })
-            .slice(0, 3);
-        setPromotionList(promotionArr);
-    };
-
-    useEffect(() => {
-        handlePromotion("All");
+        setPromotionCategoryList(promotionList)
     }, [promotionList]);
 
     useEffect(() => {
-        
-        let promotionCategory = "";
-        promotionCategory =
-        valueTab3 === 1
-                ? "Blockchain"
-                : valueTab3 === 2
-                    ? "Trading"
-                    : valueTab3 === 3
-                        ? "Cryptocurrency"
-                        : "All";
+        setNewsCategoryList(newsList)
+    }, [newsList]);
 
-                        handlePromotion(promotionCategory);
-    }, [valueTab3]);
-
-    useEffect(() => { 
-        window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
-    },[]);
+    useEffect(() => {
+        window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
+    }, []);
+    console.log(newsList, newsCategoryList, "newsCategoryList")
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -204,41 +201,150 @@ const NewsPromotions = (props) => {
                                                         </Grid>
                                                     </Grid>
 
-                                                    <TabContext value={valueTab2}>
-                                                        <Tabs
-                                                            className='for-desktop'
-                                                            value={valueTab2}
-                                                            onChange={handleChangeTab2}
-                                                            indicatorColor="secondary"
-                                                            textColor="inherit"
-                                                            aria-label="full width tabs example"
+                                                    <TabContext value={value}>
+                                                        <Box className='for-desktop' sx={{ borderBottom: 1, borderColor: "divider" }}>
+                                                            <TabList
+                                                                value={value}
+                                                                aria-label="tabs">
+                                                                <Tab
+                                                                label="All" 
+                                                                value="1" 
+                                                                onClick={e => handleChanges(1)} 
+                                                                indicatorColor="secondary"
+                                                                textColor="inherit" />
+                                                                {newsCategory?.map((item) => {
+                                                                    return <Tab onClick={e => handleChanges(item.title)} label={item.title} key={item.id} value={item.title} />;
+                                                                })}
+                                                            </TabList>
+                                                            <p>Selected option: {value}</p>
+                                                        </Box>
+                                                        <TabPanel
+                                                            value={value}
+                                                            sx={{ paddingRight: "0", paddingLeft: "0" }}
                                                         >
-                                                            <Tab label="All" {...a11yProps(0)} />
-                                                            <Tab label="Blockchain" {...a11yProps(1)} />
-                                                            <Tab label="Trading" {...a11yProps(3)} />
-                                                            <Tab label="Cryptocurrency" {...a11yProps(4)} />
+                                                            <Box className="for-mobile dropdown-mobile">
+                                                                <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                                                                    <Select
+                                                                        value={value}
+                                                                        onChange={e => handleChange(e)}
+                                                                        displayEmpty
+                                                                        inputProps={{ "aria-label": "Without label" }}
+                                                                    >
+                                                                        <MenuItem value="1" >All</MenuItem>
+                                                                        {newsCategory?.map((item) => {
+                                                                            return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
+                                                                            )
+                                                                        })}
+                                                                    </Select>
+                                                                    <p>Selected option: {value}</p>
+                                                                </FormControl>
+                                                            </Box>
+                                                            {newsCategoryList?.map((item) => {
+                                                                return (
+                                                                    <Box paddingBottom={3}>
+                                                                        <Grid container>
+                                                                            <Grid item xs={12} sm={5} md={5}>
+                                                                                <Box
+                                                                                    className="blog-box"
+                                                                                    display="flex"
+                                                                                    flexDirection="column"
+                                                                                    justifyContent="space-between"
+                                                                                >
+                                                                                    <Box height="50">
+                                                                                        <Typography
+                                                                                            textTransform="uppercase"
+                                                                                            sx={{ marginBottom: "50px" }}
+                                                                                            className="orange-btn small-btn small-new-btn"
+                                                                                        >
+                                                                                            New
+                                                                                        </Typography>
+                                                                                    </Box>
+                                                                                    <Box className="" paddingBottom={5}>
+                                                                                        <Typography
+                                                                                            variant="h4"
+                                                                                            fontWeight="700"
+                                                                                            className="secondary-font"
+                                                                                            paddingBottom={2}
+                                                                                        >
+                                                                                            {item.name}
+                                                                                        </Typography>
+                                                                                        <Typography paddingBottom={5}>
+                                                                                            {item.category}
+                                                                                        </Typography>
+                                                                                        <Typography className="body-caption secondary-color">
+                                                                                            {item.description}
+                                                                                        </Typography>
+                                                                                    </Box>
+                                                                                    <Box>
+                                                                                        <ArrowRightAlt />
+                                                                                    </Box>
+                                                                                </Box>
+                                                                            </Grid>
+                                                                            <Grid item xs={12} sm={7} md={7}>
+                                                                                <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.ctn_image}`} />
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                    </Box>
+                                                                )
+                                                            })}
+                                                        </TabPanel>
 
+                                                    </TabContext>
 
-                                                        </Tabs>
-                                                        <Box className="for-mobile dropdown-mobile">
-                                                            <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
-                                                                <Select
-                                                                    value={valueTab2}
-                                                                    onChange={handleChangeNewsFilter}
-                                                                    displayEmpty
-                                                                    inputProps={{ "aria-label": "Without label" }}
-                                                                >
+                                                </Box>
+                                            </Box>
+                                        </TabPanel>
+                                        <TabPanel value={valueTab} index={1} dir={theme.direction}>
+                                            <Box paddingBottom={3}>
+                                                <Box>
+                                                    <Box paddingBottom={3}>
+                                                        <Grid container>
+                                                            <Grid item xs={12} sm={5} md={5}>
+                                                                <Typography variant='h2' component='h2' className='secondary-font' >Promotions</Typography>
+                                                                <Typography variant='p' component='p' paddingTop={4} paddingBottom={4}>New to crypto? Not for long — start with these guides and explainers</Typography>
 
-                                                                    <MenuItem value={0}>All</MenuItem>
-                                                                    <MenuItem value={1}>Blockchain</MenuItem>
-                                                                    <MenuItem value={2}>Trading</MenuItem>
-                                                                    <MenuItem value={3}>Cryptocurrency</MenuItem>
-                                                                </Select>
-                                                            </FormControl>
-                                                         </Box>
-                                                       
-                                                            <TabPanel value={valueTab2} index2={0} dir={theme.direction}>
-                                                                {news.map((item) => {
+                                                            </Grid>
+                                                            <Grid item xs={12} sm={7} md={7}>
+                                                            </Grid>
+                                                        </Grid>
+
+                                                        <TabContext value={valueTemp}>
+                                                            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                                                                <TabList className='for-desktop' onChange={handleCategory} aria-label="tabs">
+                                                                    <Tab label="All" value="1" onClick={e => handleCategorys(1)}  />
+                                                                    {promotionCategory?.map((item) => {
+                                                                        return <Tab 
+                                                                        indicatorColor="secondary"
+                                                                        textColor="inherit"
+                                                                        onClick={e => handleCategorys(item.title)}  
+                                                                        label={item.title} value={item.title} />;
+                                                                    })}
+                                                                </TabList>
+                                                            </Box>
+                                                            <TabPanel
+                                                                value={valueTemp}
+                                                                sx={{ paddingRight: "0", paddingLeft: "0" }}
+                                                            >
+                                                                <Box className="for-mobile dropdown-mobile">
+                                                                    <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                                                                        <Select
+                                                                            value={valueTemp}
+                                                                            onChange={e => handleCategory(e)}
+                                                                            displayEmpty
+                                                                            inputProps={{ "aria-label": "Without label" }}
+                                                                        >
+                                                                             <MenuItem value="1" >All</MenuItem>
+                                                                            {promotionCategory?.map((item) => {
+                                                                                return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
+                                                                                )
+                                                                            })}
+                                                                        </Select>
+                                                                        <p>Selected option: {valueTemp}</p>
+                                                                    </FormControl>
+                                                                </Box>
+
+                                                                <TabPanel value={valueTemp} index3={0} dir={theme.direction}>
+                                                                    {promotionCategoryList.map((item) => {
                                                                         return (
                                                                             <Box paddingBottom={3}>
                                                                                 <Grid container>
@@ -265,13 +371,13 @@ const NewsPromotions = (props) => {
                                                                                                     className="secondary-font"
                                                                                                     paddingBottom={2}
                                                                                                 >
-                                                                                                    {item.name}
+                                                                                                    {item.title}
                                                                                                 </Typography>
                                                                                                 <Typography paddingBottom={5}>
                                                                                                     {item.category}
                                                                                                 </Typography>
                                                                                                 <Typography className="body-caption secondary-color">
-                                                                                                    {item.description}
+                                                                                                    {item.descriptions}
                                                                                                 </Typography>
                                                                                             </Box>
                                                                                             <Box>
@@ -280,115 +386,14 @@ const NewsPromotions = (props) => {
                                                                                         </Box>
                                                                                     </Grid>
                                                                                     <Grid item xs={12} sm={7} md={7}>
-                                                                                        <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.ctn_image}`} />
+                                                                                        <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                                                                                     </Grid>
                                                                                 </Grid>
                                                                             </Box>
                                                                         )
                                                                     })}
-                                                            </TabPanel>
-
-                                                    </TabContext>
-
-                                                </Box>
-                                            </Box>
-                                        </TabPanel>
-                                        <TabPanel value={valueTab} index={1} dir={theme.direction}>
-                                            <Box paddingBottom={3}>
-                                                <Box>
-                                                    <Box paddingBottom={3}>
-                                                        <Grid container>
-                                                            <Grid item xs={12} sm={5} md={5}>
-                                                                <Typography variant='h2' component='h2' className='secondary-font' >Promotions</Typography>
-                                                                <Typography variant='p' component='p' paddingTop={4} paddingBottom={4}>New to crypto? Not for long — start with these guides and explainers</Typography>
-
-                                                            </Grid>
-                                                            <Grid item xs={12} sm={7} md={7}>
-                                                            </Grid>
-                                                        </Grid>
-
-                                                        <TabContext value={valueTab3}>
-                                                            <Tabs
-                                                                className='for-desktop'
-                                                                value={valueTab3}
-                                                                onChange={handleChangeTab3}
-                                                                indicatorColor="secondary"
-                                                                textColor="inherit"
-                                                                aria-label="full width tabs example"
-                                                            >
-                                                                <Tab label="All" {...a11yProps(0)} />
-                                                                <Tab label="Blockchain" {...a11yProps(1)} />
-                                                                <Tab label="Trading" {...a11yProps(3)} />
-                                                                <Tab label="Cryptocurrency" {...a11yProps(4)} />
-
-                                                            </Tabs>
-                                                            <Box className="for-mobile dropdown-mobile">
-                                                                <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
-                                                                    <Select
-                                                                        value={valueTab3}
-                                                                        onChange={handleChangePromotionsFilter}
-                                                                        displayEmpty
-                                                                        inputProps={{ "aria-label": "Without label" }}
-                                                                    >
-
-                                                                        <MenuItem value={0}>All</MenuItem>
-                                                                        <MenuItem value={1}>Blockchain</MenuItem>
-                                                                        <MenuItem value={2}>Trading</MenuItem>
-                                                                        <MenuItem value={3}>Cryptocurrency</MenuItem>
-                                                                    </Select>
-                                                                </FormControl>
-                                                            </Box>
-                            
-                                                                <TabPanel value={valueTab3} index3={0} dir={theme.direction}>
-                                                                    {promotion.map((item) => {
-                                                                            return (
-                                                                                <Box paddingBottom={3}>
-                                                                                    <Grid container>
-                                                                                        <Grid item xs={12} sm={5} md={5}>
-                                                                                            <Box
-                                                                                                className="blog-box"
-                                                                                                display="flex"
-                                                                                                flexDirection="column"
-                                                                                                justifyContent="space-between"
-                                                                                            >
-                                                                                                <Box height="50">
-                                                                                                    <Typography
-                                                                                                        textTransform="uppercase"
-                                                                                                        sx={{ marginBottom: "50px" }}
-                                                                                                        className="orange-btn small-btn small-new-btn"
-                                                                                                    >
-                                                                                                        New
-                                                                                                    </Typography>
-                                                                                                </Box>
-                                                                                                <Box className="" paddingBottom={5}>
-                                                                                                    <Typography
-                                                                                                        variant="h4"
-                                                                                                        fontWeight="700"
-                                                                                                        className="secondary-font"
-                                                                                                        paddingBottom={2}
-                                                                                                    >
-                                                                                                        {item.title}
-                                                                                                    </Typography>
-                                                                                                    <Typography paddingBottom={5}>
-                                                                                                        {item.category}
-                                                                                                    </Typography>
-                                                                                                    <Typography className="body-caption secondary-color">
-                                                                                                        {item.descriptions}
-                                                                                                    </Typography>
-                                                                                                </Box>
-                                                                                                <Box>
-                                                                                                    <ArrowRightAlt />
-                                                                                                </Box>
-                                                                                            </Box>
-                                                                                        </Grid>
-                                                                                        <Grid item xs={12} sm={7} md={7}>
-                                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                </Box>
-                                                                            )
-                                                                        })}
                                                                 </TabPanel>
+                                                            </TabPanel>
                                                         </TabContext>
 
                                                     </Box>

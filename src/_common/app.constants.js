@@ -5,24 +5,45 @@ export const Labels = {
   Error: "error",
   Login_Success: "Login successfully",
   Upload_Success: "Uploaded successfully",
-  Password_Reset_Email: "OTP sent, please check your XXXX successfully",
+  Password_Reset_Email: "OTP sent successfully, please check your XXXX",
   Password_Reset_Success: "Your password has been reset successfully",
   Password_Change_Success: "Your password has been change successfully",
   Logout_Success: "Logout successfully",
   Verified: "Verified Successfully ",
   Footer_Email: "Thank you for subscribe ",
+  Un_Subscribed_User: "Please login to subscribe!",
+  Create: "Please select an option",
+  GetOtp: "We have sent you the code",
+  verify_Register_Otp_Error: "Error Verifying",
+  Change_Password: "Password Reset Successfully",
+  Create_Password: "New Password Created Successfully",
+  Update_User: "Update User is Successfully",
+  get_Otp_Phone: "We have sent you the code",
+  Local_Storage_User: "user",
   Replce_Text: "XXXX",
   Success_Status_Code: 200,
   Error_Status_Code: 500,
-  Local_Storage_User: "user",
+  
 };
 
 export const RoutesName = {
+  User_Dashboard: "/",
   Forgot_Password: "forgot-password",
   Home: "/home",
   login: "/login",
   Change_Password: "/create-password",
   Logout: "/logout",
+  Contact_Us: "/contact",
+  Privacy_Policy: "/privacy-policy",
+  Terms_of_Use: "/terms-of-use",
+  Disclaimer: "/disclaimer",
+  Community: "/community",
+  Prediction_Dashboard: "/prediction-dashboard",
+  Guides_Analysis: "/guides-analysis",
+  Academy: "/academy",
+  News_Promotions: "/news-promotions",
+  Subscription: "/subscription",
+  Market: "/market"
 };
 
 export const Apis = {
@@ -66,6 +87,7 @@ export const Apis = {
   Notifications_List_view: "get-notification-view-all",
   Market: "market",
   Category_List: "category-list",
+  Market_Trend: "market-trend",  
 };
 
 export const theme = createTheme({

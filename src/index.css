@@ -2959,7 +2959,7 @@ video[poster] {
   font-size: 13px !important;
   margin: 0;
   padding-left: 0px;
-  line-height: 0.5;
+  line-height: 1.5;
 }
 
 .auth-form button {
@@ -3127,6 +3127,12 @@ video[poster] {
 .swiper-global .swiper-button-next,
 .swiper-global .swiper-button-prev {
   top: calc(50% + 20px);
+}
+.loading-img{
+  animation: rotate 1.5s linear infinite; 
+}
+@keyframes rotate{
+  to{ transform: rotate(360deg); }
 }
 
 /* Media Queries  */

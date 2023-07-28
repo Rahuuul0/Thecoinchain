@@ -12,7 +12,11 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import TabContext from "@mui/lab/TabContext";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { useCoinActions, subscriptionActions } from "../../_actions";
+import {
+  useCoinActions,
+  subscriptionActions,
+  useHomeActions,
+} from "../../_actions";
 import {
   coinCategoryAtom,
   selectedCategoryAtom,
@@ -21,6 +25,7 @@ import {
   authAtom,
   forecastSubAtom,
   loaderAtom,
+  marketTrendAtom,
 } from "../../_state";
 const MarketCard = () => {
   const navigate = useNavigate();
@@ -34,21 +39,30 @@ const MarketCard = () => {
   const subscriptionAction = subscriptionActions();
   const subscriptionDetails = useRecoilValue(forecastSubAtom);
   const loader = useSetRecoilState(loaderAtom);
-  let page = "page_name=market_page";
+  const marketTrend = useRecoilValue(marketTrendAtom);
+  const homeActions = useHomeActions();
 
   const handleChangeTablefilter = (event) => {
     setTablefilter(event.target.value);
   };
-  const getFirstLetters = (str) => {
-    const firstLetters = str.replace("Portfolio", "");
-    return firstLetters;
-  };
+  // const getFirstLetters = (str) => {
+  //   const firstLetters = str.replace("Portfolio", "");
+  //   return firstLetters;
+  // };
 
   useEffect(() => {
-    coinActions.latestListing(page);
+    coinActions.latestListing("limit=10");
     if (userDetail && !subscriptionDetails.id) {
       subscriptionAction.subscribedUser();
     }
+  }, []);
+
+  // homeActions get function   API data call
+  useEffect(() => {
+    const response = homeActions.marketTrend();
+    response.then((res) => {
+      ({ ...res });
+    });
   }, []);
 
   return (
@@ -58,6 +72,18 @@ const MarketCard = () => {
           <Box className="market-crypto-card-wrapper-inner">
             <Box className="market-crypto-graph">
               {cardCoinsList?.slice(0, 3).map((item) => {
+                let newPrice =
+                  item?.price > 1
+                    ? Math.round(item.price * 100) / 100
+                    : item?.price < 1 && item?.price >= 0.1
+                    ? (Math.round(item.price * 10000) / 10000)?.toFixed(2)
+                    : item?.price < 0.1 && item?.price > 0.01
+                    ? (Math.round(item.price * 1000000) / 1000000)?.toFixed(6)
+                    : item?.price < 0.01
+                    ? (Math.round(item.price * 100000000) / 100000000)?.toFixed(
+                        8
+                      )
+                    : item?.price;
                 return (
                   <Box className="market-crypto-graph-col">
                     <Box className="market-crypto-graph-ic">
@@ -89,15 +115,9 @@ const MarketCard = () => {
                           </span>
                         </Typography>
                         <Typography component="h5" varient="h5">
-                          {item?.price > 1
-                            ? item.price?.toFixed(2)
-                            : item?.price < 1 && item?.price >= 0.1
-                            ? item.price?.toFixed(4)
-                            : item?.price < 0.1 && item?.price > 0.01
-                            ? item.price?.toFixed(6)
-                            : item?.price < 0.01
-                            ? item.price?.toFixed(8)
-                            : item?.price}
+                          {newPrice.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                          })}
                         </Typography>
                         <Typography component="small" varient="small-caption">
                           {item.volume_24h?.toFixed(2)}
@@ -131,9 +151,7 @@ const MarketCard = () => {
                       className="btn btn-secondary"
                       onClick={(e) => {
                         loader(true);
-                        location.pathname === "/market"
-                          ? coinActions.latestListing(page)
-                          : coinActions.latestListing();
+                        coinActions.latestListing("?limit=10");
                       }}
                     >
                       All
@@ -143,9 +161,7 @@ const MarketCard = () => {
                       className="btn"
                       onClick={(e) => {
                         loader(true);
-                        location.pathname === "/market"
-                          ? coinActions.latestListing(page)
-                          : coinActions.latestListing();
+                        coinActions.latestListing("?limit=10");
                       }}
                     >
                       All
@@ -153,36 +169,34 @@ const MarketCard = () => {
                   )}
                   {categoryList.length &&
                     categoryList.map((item, index) => {
-                      if (index < 4) {
-                        if (selectedCat !== 0 && selectedCat === item.id) {
-                          return (
-                            <Button
-                              variant="contained"
-                              className="btn btn-secondary"
-                              key={index}
-                              onClick={(e) => {
-                                coinActions.coinListbByCategoty(item.id);
-                              }}
-                              title={item.name}
-                            >
-                              {getFirstLetters(item.name)}
-                            </Button>
-                          );
-                        } else {
-                          return (
-                            <Button
-                              className="btn"
-                              onClick={(e) => {
-                                coinActions.coinListbByCategoty(item.id);
-                              }}
-                              title={item.name}
-                            >
-                              {getFirstLetters(item.name)}
-                            </Button>
-                          );
-                        }
+                      if (selectedCat !== 0 && selectedCat === item) {
+                        return (
+                          <Button
+                            variant="contained"
+                            className="btn btn-secondary"
+                            key={index}
+                            onClick={(e) => {
+                              loader(true);
+                              coinActions.coinListbByCategoty(item);
+                            }}
+                            title={item}
+                          >
+                            {item}
+                          </Button>
+                        );
                       } else {
-                        return "";
+                        return (
+                          <Button
+                            className="btn"
+                            onClick={(e) => {
+                              loader(true);
+                              coinActions.coinListbByCategoty(item);
+                            }}
+                            title={item}
+                          >
+                            {item}
+                          </Button>
+                        );
                       }
                     })}
                 </Stack>
@@ -215,9 +229,7 @@ const MarketCard = () => {
                     <MenuItem
                       value={1}
                       onClick={(e) => {
-                        location.pathname === "/market"
-                          ? coinActions.latestListing(page)
-                          : coinActions.latestListing();
+                        coinActions.latestListing("?limit=10");
                       }}
                     >
                       All
@@ -226,9 +238,7 @@ const MarketCard = () => {
                     <MenuItem
                       value={1}
                       onClick={(e) => {
-                        location.pathname === "/market"
-                          ? coinActions.latestListing(page)
-                          : coinActions.latestListing();
+                        coinActions.latestListing("?limit=10");
                       }}
                     >
                       All
@@ -236,35 +246,33 @@ const MarketCard = () => {
                   )}
                   {categoryList.length &&
                     categoryList.map((item, index) => {
-                      if (index < 4) {
-                        if (selectedCat !== 0 && selectedCat === item.id) {
-                          return (
-                            <MenuItem
-                              value={index + 2}
-                              key={index}
-                              onClick={(e) => {
-                                coinActions.coinListbByCategoty(item.id);
-                              }}
-                              title={item.name}
-                            >
-                              {getFirstLetters(item.name)}
-                            </MenuItem>
-                          );
-                        } else {
-                          return (
-                            <MenuItem
-                              value={index + 2}
-                              onClick={(e) => {
-                                coinActions.coinListbByCategoty(item.id);
-                              }}
-                              title={item.name}
-                            >
-                              {getFirstLetters(item.name)}
-                            </MenuItem>
-                          );
-                        }
+                      if (selectedCat !== 0 && selectedCat === item) {
+                        return (
+                          <MenuItem
+                            value={index + 2}
+                            key={index}
+                            onClick={(e) => {
+                              loader(true);
+                              coinActions.coinListbByCategoty(item);
+                            }}
+                            title={item}
+                          >
+                            {item}
+                          </MenuItem>
+                        );
                       } else {
-                        return "";
+                        return (
+                          <MenuItem
+                            value={index + 2}
+                            onClick={(e) => {
+                              loader(true);
+                              coinActions.coinListbByCategoty(item);
+                            }}
+                            title={item}
+                          >
+                            {item}
+                          </MenuItem>
+                        );
                       }
                     })}
                 </Select>

@@ -1,5 +1,5 @@
 import { useFetchWrapper } from "../_helpers";
-import { tutorialAtom, blogAtom, loaderAtom } from "../_state";
+import { tutorialAtom, blogAtom, loaderAtom, tutorialCategoryAtom } from "../_state";
 import { Apis } from "../_common/app.constants";
 import { useSetRecoilState } from "recoil";
 
@@ -8,6 +8,7 @@ const useTutorialActions = () => {
   const setTutorialData = useSetRecoilState(tutorialAtom);
   const setBlogData = useSetRecoilState(blogAtom);
   const loader = useSetRecoilState(loaderAtom);
+  const tutorialCategory = useSetRecoilState(tutorialCategoryAtom);
 
   const tutorialData = () => {
     loader(true);
@@ -41,9 +42,26 @@ const useTutorialActions = () => {
       });
   };
 
+  const categoryList = () => {
+    loader(true);
+    return fetchWrapper
+      .get(Apis.Category_List)
+      .then((res) => {
+        if (res.statusCode === 200) {
+          tutorialCategory(res.data);
+        }
+        loader(false);
+      })
+      .catch((err) => {
+        console.warn(err);
+        loader(false);
+      });
+  };
+
   return {
     tutorialData,
     blogData,
+    categoryList
   };
 };
 export { useTutorialActions };

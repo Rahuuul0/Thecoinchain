@@ -2,14 +2,15 @@ import {  useSetRecoilState } from 'recoil';
 import { useFetchWrapper } from '../_helpers';
 import { useAlertActions } from './alert.actions';
 import { Labels, Apis, RoutesName } from '../_common/app.constants'
-import { homePageAtom } from '../_state';
+import { homePageAtom, marketTrendAtom } from '../_state';
 import {homeAtom} from '../_state/home';
 
 const useHomeActions = () => {
   const fetchWrapper = useFetchWrapper();
   const alertActions = useAlertActions();
-  const setHomePageData = useSetRecoilState(homePageAtom);
-  const   sethome = useSetRecoilState(homeAtom);
+  const setmarketTrend = useSetRecoilState(homePageAtom);
+  const sethome = useSetRecoilState(homeAtom);
+  const setMarketTrend = useSetRecoilState(marketTrendAtom);
 
   const categoriesData = async () => {
       
@@ -43,10 +44,23 @@ const useHomeActions = () => {
          } 
      }).catch((err)=>{console.warn(err)})
   }
+
+  const marketTrend = async () => {
+    return  fetchWrapper.get(Apis.Market_Trend)
+         .then(res => {
+          if (res.statusCode === 200) {
+            setMarketTrend(res.data);
+          } else {
+              alertActions.error(Labels.Error);
+          } 
+      }).catch((err)=>{console.warn(err)})
+   }
+
   return {
     categoriesData,
     categoryData,
-    latestListing
+    latestListing,
+    marketTrend
   }
 
 }

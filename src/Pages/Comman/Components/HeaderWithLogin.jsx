@@ -57,9 +57,11 @@ function Header(props) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  
   const handleClose = () => {
     setAnchorEl(null);
     navigate('/academy-about-crypto')
@@ -69,6 +71,10 @@ function Header(props) {
     setAnchorEl(null);
     navigate('/master-course')
   };
+
+  const click = () => {
+    setAnchorEl(null);
+  }
 
   const [anchorElAnchor, setAnchorElAnchor] = React.useState(null);
   const openAnchor = Boolean(anchorElAnchor);
@@ -201,7 +207,7 @@ function Header(props) {
                   anchorEl={anchorEl}
                   open={open}
                   sx={{ borderRadius: '12px' }}
-                  onClose={handleClose}
+                  onClose={click}
                 >
                   <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
                   <MenuItem onClick={handle}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>

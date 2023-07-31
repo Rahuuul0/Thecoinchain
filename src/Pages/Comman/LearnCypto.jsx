@@ -23,7 +23,7 @@ import Globe from "../../../public/assets/images/globe.svg";
 import ReactPlayer from "react-player";
 import { useNavigate, Link } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tutorialAtom, blogAtom, loaderAtom } from "../../_state";
+import { tutorialAtom, blogAtom, loaderAtom, blogListAtom, blogimgAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import AppBar from "@mui/material/AppBar";
 import Tab from "@mui/material/Tab";
@@ -69,11 +69,19 @@ const LearnCypto = () => {
   const [imageUrl, setImageUrl] = useState("");
   const loader = useRecoilValue(loaderAtom);
   const [blogList, setBlogList] = useState(blogsData);
+  const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
+  const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
 
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
   };
 
+
+  const imgLink =(data) =>{
+      navigate("../learn-cypto-detail")
+      setBlogimg(data)
+      setBlognew(true)
+  }
   const handleBlogs = (blogCategory) => {
     let blogsArr = [];
     blogsArr = blogsData
@@ -286,17 +294,21 @@ const LearnCypto = () => {
                                 </Typography>
                               </Box>
                               <Box className="blog-box-content">
+                              
                                 <Typography
                                   variant="h4"
                                   fontWeight="700"
                                   className="secondary-font"
                                   paddingBottom={1}
+                                  onClick={() => imgLink(item)}
+                                  sx={{ cursor: "pointer" }}
                                 >
                                   {item.title}
                                 </Typography>
                                 <Typography paddingBottom={3}>
                                   {item.category}
                                 </Typography>
+                             
                                 <Typography className="body-caption secondary-color">
                                   {item.blog_description}
                                 </Typography>
@@ -306,11 +318,15 @@ const LearnCypto = () => {
                               </Box>
                             </Box>
                           </Grid>
-                          <Grid item xs={12} sm={7} md={7}>
+                          <Grid item xs={12} sm={7} md={7} 
+                              onClick={() => imgLink(item)}
+                              sx={{ cursor: "pointer" }}
+                          >
                             <img
                               sx={{ maxWidth: "100%" }}
                               src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
                             />
+                              
                           </Grid>
                         </Grid>
                       </Box>

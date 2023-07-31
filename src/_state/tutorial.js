@@ -10,4 +10,14 @@ const blogAtom = atom({
   default: [],
 });
 
-export { tutorialAtom, blogAtom };
+const blogListAtom = atom({
+  key: "blogListAtom",
+  default: [],
+});
+
+const blogimgAtom = atom({
+  key: "blogimgAtom",
+  default: false,
+});
+
+export { tutorialAtom, blogAtom, blogListAtom, blogimgAtom };

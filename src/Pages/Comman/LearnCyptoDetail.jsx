@@ -52,7 +52,7 @@ const LearnCyptoDetail = () => {
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
 
-console.log(blogNew,'2225');
+
 
   const scrollToVideo = (e, videoLink) => {
     e.current.scrollIntoView({
@@ -62,7 +62,7 @@ console.log(blogNew,'2225');
     setBlognew(false)
   };
 
-// useEffect(() =>{ blogNew === true? setBlognew(true): setBlognew(false) },[] )
+  
 
   const handleLoadMore = () => {
     setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
@@ -155,7 +155,7 @@ console.log(blogNew,'2225');
                 marginBottom={4}
                 paddingBottom={4}
               >
-                Introduction
+                {blogNew === true? "Description" : "Introduction"}
               </Typography>
               {blogNew === true? 
                 <Typography
@@ -164,7 +164,7 @@ console.log(blogNew,'2225');
                 component="p"
                 paddingBottom={3}
                 >
-                {blogImg.blog_description}
+                {blogImg.description}
                 </Typography>
               : 
               

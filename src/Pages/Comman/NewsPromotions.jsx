@@ -6,8 +6,8 @@ import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
 import { newsListActions, promotionsActions, useTutorialActions } from '../../_actions';
-import { newsListAtom, promotionAtom, tutorialCategoryAtom } from "../../_state";
-import { useRecoilValue } from "recoil";
+import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom } from "../../_state";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { useNavigate } from 'react-router-dom';
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
@@ -26,6 +26,9 @@ const NewsPromotions = (props) => {
     const categoryActions = useTutorialActions();
     const newsList = useRecoilValue(newsListAtom);
     const promotionList = useRecoilValue(promotionAtom);
+    const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
+    const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+
     const newsCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "News";
     });;
@@ -52,6 +55,14 @@ const NewsPromotions = (props) => {
             ? setNewsCategoryList(newsList)
             : handleTutorials(value);
     };
+
+            console.log(blogImg,'888');
+
+    const imgLink = (data) => {
+        navigate("../learn-cypto-detail")
+        setBlogimg(data)
+        setBlognew(true)
+    }
 
     const handleTutorials = (newsCategory) => {
 
@@ -250,7 +261,7 @@ const NewsPromotions = (props) => {
                                                                                             sx={{ marginBottom: "50px" }}
                                                                                             className="orange-btn small-btn small-new-btn"
                                                                                         >
-                                                                                            New
+                                                                                            New 
                                                                                         </Typography>
                                                                                     </Box>
                                                                                     <Box className="" paddingBottom={5}>
@@ -259,8 +270,10 @@ const NewsPromotions = (props) => {
                                                                                             fontWeight="700"
                                                                                             className="secondary-font"
                                                                                             paddingBottom={2}
+                                                                                            onClick={() => imgLink(item)}
+                                                                                            sx={{ cursor: "pointer" }}
                                                                                         >
-                                                                                            {item.name}
+                                                                                            {item.title}
                                                                                         </Typography>
                                                                                         <Typography paddingBottom={5}>
                                                                                             {item.category}
@@ -274,8 +287,10 @@ const NewsPromotions = (props) => {
                                                                                     </Box>
                                                                                 </Box>
                                                                             </Grid>
-                                                                            <Grid item xs={12} sm={7} md={7}>
-                                                                                <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.ctn_image}`} />
+                                                                            <Grid item xs={12} sm={7} md={7}
+                                                                            onClick={() => imgLink(item)}
+                                                                            >
+                                                                                <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Box>

@@ -310,7 +310,7 @@ const LearnCypto = () => {
                                 </Typography>
                              
                                 <Typography className="body-caption secondary-color">
-                                  {item.blog_description}
+                                  {item.description}
                                 </Typography>
                               </Box>
                               <Box>

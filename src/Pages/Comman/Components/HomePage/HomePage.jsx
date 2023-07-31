@@ -51,6 +51,7 @@ import {
   cardCoinsAtom,
   loaderAtom,
   bannerListAtom,
+  tutorialCategoryAtom,
   forecastSubAtom,
   authAtom,
 } from "../../../../_state/";
@@ -81,23 +82,20 @@ const Home = () => {
   const bannerList = useRecoilValue(bannerListAtom);
   const bannerActions = bannerListActions();
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
+  const tutorialCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
+    return item.type === "Tutorial";
+  });
   const subscribeUser = useRecoilValue(forecastSubAtom);
   const auth = useRecoilValue(authAtom);
 
+  console.log(value,'value')
+
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    let tutorialCategory = "";
-    tutorialCategory =
-      newValue === "2"
-        ? "Bitcoin"
-        : newValue === "3"
-        ? "Blockchain"
-        : newValue === "4"
-        ? "Tutorial"
-        : "";
     newValue === "1"
       ? setTutorialList(tutorialsData)
-      : handleTutorials(tutorialCategory);
+      : handleTutorials(newValue);
   };
 
   const handleTutorials = (tutorialCategory) => {
@@ -106,8 +104,6 @@ const Home = () => {
       .filter((items) => {
         return items.category === tutorialCategory;
       })
-      .slice(0, 3);
-
     setTutorialList(tutorialsArr);
   };
 
@@ -123,9 +119,10 @@ const Home = () => {
     return (firstLetters = "");
   };
 
-  //subscribedUser Api
+  //Category & tutorial Api
   useEffect(() => {
     tutorialAction.tutorialData();
+    tutorialAction.categoryList();
     const response = bannerActions.get();
     response.then((res) => {
       res;
@@ -334,9 +331,9 @@ const Home = () => {
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <TabList onChange={handleChange} aria-label="tabs">
                   <Tab label="All" value="1" />
-                  <Tab label="Bitcoin" value="2" />
-                  <Tab label="Blockchain" value="3" />
-                  <Tab label="Tutorial" value="4" />
+                  {tutorialCategory?.map((item) => {
+                    return <Tab label={item.title} value={item.title} />;
+                  })}
                 </TabList>
               </Box>
               <TabPanel

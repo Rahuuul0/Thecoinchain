@@ -58,6 +58,11 @@ function Header(props) {
     setAnchorEl(null);
     navigate("/master-course");
   };
+
+  const click = () => {
+    setAnchorEl(null);
+  }
+
   const [anchorElB, setAnchorElB] = React.useState(null);
   const openB = Boolean(anchorElB);
   const handleClickB = (event) => {
@@ -224,7 +229,7 @@ function Header(props) {
                   anchorEl={anchorEl}
                   open={open}
                   sx={{ borderRadius: "12px" }}
-                  onClose={handleClose}
+                  onClose={click}
                 >
                   <MenuItem
                     onClick={handleClose}

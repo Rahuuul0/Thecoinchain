@@ -241,8 +241,6 @@ const GuidesAnalysis = (props) => {
     useEffect(() => { 
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) 
     },[]);
-
-
     return (
         <>
             <ThemeProvider theme={theme}>

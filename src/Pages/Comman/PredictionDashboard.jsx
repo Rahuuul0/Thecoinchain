@@ -33,8 +33,7 @@ const PredictionDashboard = () => {
   const imgLink = (data) => {
     navigate("../learn-cypto-detail")
     setBlogimg(data)
-    setBlognew(true)
-   
+    setBlognew(true) 
 } 
 
   return (

@@ -249,15 +249,12 @@ const NewsPromotions = (props) => {
                                                                              onClick={() => imgLink(item)}
                                                                             sx={{ cursor: "pointer" }}
                                                                         >
-                                                                            <Grid item xs={12} sm={5} md={5}
-                                                                            
-                                                                            >
+                                                                            <Grid item xs={12} sm={5} md={5}>
                                                                                 <Box
                                                                                     className="blog-box"
                                                                                     display="flex"
                                                                                     flexDirection="column"
-                                                                                    justifyContent="space-between"
-                                                                                    
+                                                                                    justifyContent="space-between"                           
                                                                                 >
                                                                                     <Box height="50">
                                                                                         <Typography
@@ -290,7 +287,7 @@ const NewsPromotions = (props) => {
                                                                                     </Box>
                                                                                 </Box>
                                                                             </Grid>
-                                                                            <Grid item xs={12} sm={7} md={7} >
+                                                                            <Grid item xs={12} sm={7} md={7}>
                                                                                 <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                                                                             </Grid>
                                                                         </Grid>

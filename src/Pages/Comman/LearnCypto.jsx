@@ -13,19 +13,16 @@ import {
   CircularProgress,
 } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
-import Blog1 from "../../../public/assets/images/blog-1.svg";
 import Avatar from "../../../public/assets/images/avatar.svg";
-import GridImage from "../../../public/assets/images/grid.svg";
-import { Search, ArrowRightAlt, ArrowDropDown } from "@mui/icons-material";
+import {  ArrowRightAlt, ArrowDropDown } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
 import ReactPlayer from "react-player";
 import { useNavigate, Link } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tutorialAtom, blogAtom, loaderAtom, blogListAtom, blogimgAtom } from "../../_state";
+import { tutorialAtom, blogAtom, loaderAtom, blogListAtom, blogimgAtom,tutorialCategoryAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
-import AppBar from "@mui/material/AppBar";
 import Tab from "@mui/material/Tab";
 import { TabContext, TabPanel, TabList } from "@mui/lab/";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -59,29 +56,52 @@ const LearnCypto = () => {
   const navigate = useNavigate();
   const scrollRef = useRef();
   const tutorialAction = useTutorialActions();
-  const blogsData = useRecoilValue(blogAtom);
   const tutorialsData = useRecoilValue(tutorialAtom);
-  const [value, setValue] = useState("1");
   const [tutorialTab, setTutorialTab] = useState("1");
   const theme = useTheme();
   const [personName, setPersonName] = useState([]);
   const [videoUrl, setVideoUrl] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const loader = useRecoilValue(loaderAtom);
+  const blogsData = useRecoilValue(blogAtom);
+  const BlogCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
+    return item.type === "Blog";
+  });
   const [blogList, setBlogList] = useState(blogsData);
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
-
-  const handleChangeTab = (event, newValue) => {
-    setValue(newValue);
+  const [value, setValue] = useState("1");
+  // *BlogCategoryList*
+  const handleBlogChange = (e) => {
+      setValue(e.target.value);
+      e.target.value == 1
+          ? setBlogList(blogsData)
+          : handleTutorials(e.target.value);
   };
 
+  const handleChanges = (value) => {
+          setValue(value);
+          value == 1
+              ? setBlogList(blogsData)
+              : handleTutorials(value);
+      };
+
+  const handleTutorials = (BlogCategory) => {
+      let tutorialsArr = [];
+      tutorialsArr = blogsData
+          .filter((items) => {
+              return items.category === BlogCategory;
+          })
+
+          setBlogList(tutorialsArr);
+  };
 
   const imgLink =(data) =>{
       navigate("../learn-cypto-detail")
       setBlogimg(data)
       setBlognew(true)
   }
+
   const handleBlogs = (blogCategory) => {
     let blogsArr = [];
     blogsArr = blogsData
@@ -89,7 +109,6 @@ const LearnCypto = () => {
         return blog.category === blogCategory;
       })
       .slice(0, 3);
-
     setBlogList(blogsArr);
   };
 
@@ -125,37 +144,24 @@ const LearnCypto = () => {
     tutorialAction.tutorialData();
   }, []);
 
+  // Category Api
+  useEffect(() => {
+      const response = tutorialAction.categoryList();
+      response.then((res) => { (res) })
+  }, []);
+
   useEffect(() => {
     setVideoUrl(tutorialsData[0]?.video_link);
     setImageUrl(tutorialsData[0]?.image_link);
   }, [tutorialsData]);
-
-  const handleLoadMore = () => {
-    setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  };
-
-  const handleChangeDropdown = (event) => {
-    setValue(event.target.value);
-  };
 
   const handleChangeTutorialDropdown = (event) => {
     setTutorialTab(event.target.value);
   };
 
   useEffect(() => {
-    let blogCategory = "";
-    blogCategory =
-      value === "1"
-        ? "2D Design"
-        : value === "2"
-        ? "3D Design"
-        : value === "3"
-        ? "Blockchain"
-        : "2D Design";
-
-    handleBlogs(blogCategory);
-  }, [value]);
+    setBlogList(blogsData)
+}, [blogsData]);
 
   return (
     <>
@@ -241,37 +247,45 @@ const LearnCypto = () => {
           </Box>
         </Container>
         <Container>
-          <Box className="right-tab">
-            <TabContext value={value} className="tab-grid">
-              <Grid container>
+              <Box className="right-tab">
+                <TabContext value={value} className="tab-grid">
+                <Grid container>
                 <Grid className="" xs={12} sm={5} md={5}></Grid>
                 <Grid className="" xs={12} sm={7} md={7}>
-                  <TabList
-                    className="for-desktop"
-                    onChange={handleChangeTab}
-                    aria-label="lab API tabs example"
-                  >
-                    <Tab label="2D Design" value="1" />
-                    <Tab label="3D Design" value="2" />
-                    <Tab label="Bitcoin" value="3" />
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <TabList className='for-desktop' onChange={handleBlogChange} aria-label="tabs">
+                  <Tab 
+                    label="All" 
+                    value="1"
+                    onClick={e => handleChanges(1)}  />
+                      {BlogCategory?.map((item) => {
+                          return <Tab 
+                          indicatorColor="secondary"
+                          textColor="inherit"
+                          onClick={e => handleChanges(item.title)}  
+                          label={item.title} value={item.title} />;
+                      })}
                   </TabList>
+                </Box>
 
-                  <Box className="latest-release-tabs for-mobile dropdown-mobile">
-                    <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                <Box className="for-mobile dropdown-mobile">
+                  <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
                       <Select
-                        onChange={handleChangeDropdown}
-                        displayEmpty
-                        value={value}
-                        inputProps={{ "aria-label": "Without label" }}
+                          value={value}
+                          onChange={e => handleBlogChange(e)}
+                          displayEmpty
+                          inputProps={{ "aria-label": "Without label" }}
                       >
-                        <MenuItem value="1">2D Design</MenuItem>
-                        <MenuItem value="2">3D Design</MenuItem>
-                        <MenuItem value="3">Bitcoin</MenuItem>
+                          <MenuItem value="1" >All</MenuItem>
+                          {BlogCategory?.map((item) => {
+                              return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
+                              )
+                          })}
                       </Select>
-                    </FormControl>
-                  </Box>
+                  </FormControl>
+              </Box>
+                  </Grid>
                 </Grid>
-              </Grid>
               <TabPanel value={value}>
                 <Box>
                   {blogList?.map((item) => {

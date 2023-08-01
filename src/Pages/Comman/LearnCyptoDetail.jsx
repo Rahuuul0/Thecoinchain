@@ -72,10 +72,10 @@ const LearnCyptoDetail = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     tutorialAction.tutorialData();
+
   }, []);
 
   useEffect(() => {
-    
     setVideoUrl(displayVideo);
   }, [displayVideo]);
 
@@ -173,8 +173,7 @@ const LearnCyptoDetail = () => {
                   className="secondary-color"
                   variant="p"
                   component="p"
-                  paddingBottom={3}
-                
+                  paddingBottom={3}               
                 >
                   For traders who love technical analysis, robust charting tools
                   are essential. TradingView is one option for both amateur and

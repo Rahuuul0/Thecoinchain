@@ -132,7 +132,8 @@ const Contact = () => {
   // form validation rules 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .email("Email must be a valid email")
+      .required("Email Address is required")
+      .matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, "Email is invalid")
       .trim()
       .required('Email is required'),
     subject: Yup.string()

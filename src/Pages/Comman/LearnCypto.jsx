@@ -277,7 +277,10 @@ const LearnCypto = () => {
                   {blogList?.map((item) => {
                     return (
                       <Box className="right-tab-content">
-                        <Grid container>
+                        <Grid container
+                            onClick={() => imgLink(item)}
+                            sx={{ cursor: "pointer" }}
+                        >
                           <Grid item xs={12} sm={5} md={5}>
                             <Box
                               className="blog-box"
@@ -300,8 +303,7 @@ const LearnCypto = () => {
                                   fontWeight="700"
                                   className="secondary-font"
                                   paddingBottom={1}
-                                  onClick={() => imgLink(item)}
-                                  sx={{ cursor: "pointer" }}
+                                  sx={{maxHeight: '80px', overflow: 'hidden' }}
                                 >
                                   {item.title}
                                 </Typography>
@@ -309,7 +311,7 @@ const LearnCypto = () => {
                                   {item.category}
                                 </Typography>
                              
-                                <Typography className="body-caption secondary-color">
+                                <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
                                   {item.description}
                                 </Typography>
                               </Box>
@@ -318,10 +320,7 @@ const LearnCypto = () => {
                               </Box>
                             </Box>
                           </Grid>
-                          <Grid item xs={12} sm={7} md={7} 
-                              onClick={() => imgLink(item)}
-                              sx={{ cursor: "pointer" }}
-                          >
+                          <Grid item xs={12} sm={7} md={7}  >
                             <img
                               sx={{ maxWidth: "100%" }}
                               src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}

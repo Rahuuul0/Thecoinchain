@@ -4,8 +4,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { guidesAnalysisActions, analyticsActions, useTutorialActions } from "../../_actions";
-import { guidesAtom, analyticAtom, tutorialCategoryAtom } from "../../_state";
-import { useRecoilValue } from "recoil";
+import { guidesAtom, analyticAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom } from "../../_state";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
 import { useNavigate } from "react-router-dom";
@@ -34,6 +34,9 @@ const GuidesAnalysis = (props) => {
     const categoryActions = useTutorialActions();
     const guides = useRecoilValue(guidesAtom);
     const analytic = useRecoilValue(analyticAtom);
+    const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
+    const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+
     const guidesCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "Guide";
     });;
@@ -45,10 +48,6 @@ const GuidesAnalysis = (props) => {
     });;
     const [analyticCategoryList, setAnalyticCategoryList] = useState(analytic);
     const [valueTemp, setValueTemp] = React.useState("1");
-
-    console.log(guidesCategory,'guidesCategory');
-    console.log(value,'value');
-    console.log(guidesCategoryList,'guidesCategoryList')
 
     // *GuidesCategoryList*
     const handleChange = (e) => {
@@ -64,6 +63,13 @@ const GuidesAnalysis = (props) => {
             ? setGuidesCategoryList(guides)
             : handleTutorials(value);
     };
+
+    const imgLink = (data) => {
+        navigate("../learn-cypto-detail")
+        setBlogimg(data)
+        setBlognew(true)
+       
+    }
 
     const handleTutorials = (guidesCategory) => {
 
@@ -235,6 +241,8 @@ const GuidesAnalysis = (props) => {
     useEffect(() => { 
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) 
     },[]);
+
+
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -327,7 +335,10 @@ const GuidesAnalysis = (props) => {
                                                             {guidesCategoryList?.map((items) => {
                                                                 return (
                                                                     <Box padding={0} sx={{ marginBottom: { xs: '30px', md: '0px' } }}>
-                                                                        <Grid container>
+                                                                        <Grid container 
+                                                                            onClick={() => imgLink(items)}
+                                                                            sx={{ cursor: "pointer" }}
+                                                                        >
                                                                             <Grid item xs={12} sm={5} md={5} >
                                                                                 <Box
                                                                                     sx={{ paddingRight: { xs: '30px', md: '50px' } }}
@@ -350,14 +361,14 @@ const GuidesAnalysis = (props) => {
                                                                                             variant="h4"
                                                                                             fontWeight="700"
                                                                                             className="secondary-font"
-                                                                                            sx={{ paddingBottom: { xs: '10px', md: '50px' } }}
+                                                                                            sx={{ paddingBottom: { xs: '10px', md: '50px' },maxHeight: '80px', overflow: 'hidden' }}
                                                                                         >
                                                                                             {items.title}
                                                                                         </Typography>
                                                                                         <Typography sx={{ marginBottom: { xs: '10px', md: '50px' } }}>
                                                                                             {items.category}
                                                                                         </Typography>
-                                                                                        <Typography className="body-caption secondary-color" >
+                                                                                        <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
                                                                                             {items.description}
                                                                                         </Typography>
                                                                                     </Box>
@@ -430,7 +441,10 @@ const GuidesAnalysis = (props) => {
                                                             {analyticCategoryList?.map((items) => {
                                                                     return (
                                                                         <Box sx={{ padding: '0px !important' }}>
-                                                                            <Grid container>
+                                                                            <Grid container
+                                                                                onClick={() => imgLink(items)}
+                                                                                sx={{ cursor: "pointer" }}
+                                                                            >
                                                                                 <Grid item xs={12} sm={5} md={5}>
                                                                                     <Box
                                                                                         sx={{ paddingRight: { xs: '30px', md: '50px' } }}
@@ -454,14 +468,15 @@ const GuidesAnalysis = (props) => {
                                                                                                 fontWeight="700"
                                                                                                 className="secondary-font"
                                                                                                 paddingBottom={2}
+                                                                                                sx={{maxHeight: '80px', overflow: 'hidden' }}
                                                                                             >
                                                                                                 {items.title}
                                                                                             </Typography>
                                                                                             <Typography paddingBottom={5}>
                                                                                                 {items.category}
                                                                                             </Typography>
-                                                                                            <Typography className="body-caption secondary-color">
-                                                                                                {items.discriptions}
+                                                                                            <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
+                                                                                                {items.description}
                                                                                             </Typography>
                                                                                         </Box>
                                                                                         <Box>

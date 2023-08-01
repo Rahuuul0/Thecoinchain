@@ -53,7 +53,7 @@ const LearnCyptoDetail = () => {
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
 
 
-
+  
   const scrollToVideo = (e, videoLink) => {
     e.current.scrollIntoView({
       behavior: "smooth",
@@ -72,10 +72,10 @@ const LearnCyptoDetail = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     tutorialAction.tutorialData();
-    
   }, []);
 
   useEffect(() => {
+    
     setVideoUrl(displayVideo);
   }, [displayVideo]);
 
@@ -124,14 +124,14 @@ const LearnCyptoDetail = () => {
         <Box paddingBottom={{ xs: 4, sm: 10 }}>
           <Box>
           {blogNew === true ? 
-            <Box paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }} 
+            <Box sx={{maxWidth: "100%",justifyContent:"center","display":"flex" }} paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }} 
                   >
                     <img
-                      sx={{ maxWidth: "100%" }}
+                      sx={{ maxWidth: "100%",}}
                       src={`${process.env.REACT_APP_IMAGE_URL}/${blogImg.image}`}
                     />
                       
-                  </Box>
+            </Box>
            :
            <Box paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}>
               <ReactPlayer
@@ -174,6 +174,7 @@ const LearnCyptoDetail = () => {
                   variant="p"
                   component="p"
                   paddingBottom={3}
+                
                 >
                   For traders who love technical analysis, robust charting tools
                   are essential. TradingView is one option for both amateur and

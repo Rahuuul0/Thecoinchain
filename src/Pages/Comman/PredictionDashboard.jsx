@@ -3,8 +3,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../_common/app.constants";
 import { Box, Container, Typography, Button, Stack } from "@mui/material";
 import { faqActions } from "../../_actions";
-import { useRecoilValue } from "recoil";
-import { faqAtom,  forecastSubAtom,  authAtom } from "../../_state";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { faqAtom,  forecastSubAtom,  authAtom, blogListAtom, blogimgAtom} from "../../_state";
 import CryptoTable from "./CryptoTable";
 import { useNavigate, Link } from "react-router-dom";
 import Alert from '@mui/material/Alert';
@@ -15,7 +15,9 @@ const PredictionDashboard = () => {
   const faq = useRecoilValue(faqAtom);
   const subscribeUser = useRecoilValue(forecastSubAtom);
   const auth = useRecoilValue(authAtom);
-
+  const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
+  const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+  
   // Subscription action get function   API data call
   useEffect(() => {
     const response = faqGetAction.get();
@@ -27,6 +29,13 @@ const PredictionDashboard = () => {
   useEffect(() => {
     window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
   }, []);
+
+  const imgLink = (data) => {
+    navigate("../learn-cypto-detail")
+    setBlogimg(data)
+    setBlognew(true)
+   
+} 
 
   return (
     <>
@@ -64,7 +73,10 @@ const PredictionDashboard = () => {
                   <Box className="market-prediction-faq-items">
                     {faq.map((item) => {
                       return (
-                        <Box className="market-prediction-faq-item">
+                        <Box className="market-prediction-faq-item"
+                            onClick={() => imgLink(item)}
+                            sx={{ cursor: "pointer" }}
+                        >
                           <Box className="market-prediction-faq-item-img">
                             <img
                               src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}

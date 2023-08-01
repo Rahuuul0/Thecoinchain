@@ -56,8 +56,6 @@ const NewsPromotions = (props) => {
             : handleTutorials(value);
     };
 
-            console.log(blogImg,'888');
-
     const imgLink = (data) => {
         navigate("../learn-cypto-detail")
         setBlogimg(data)
@@ -247,13 +245,19 @@ const NewsPromotions = (props) => {
                                                             {newsCategoryList?.map((item) => {
                                                                 return (
                                                                     <Box paddingBottom={3}>
-                                                                        <Grid container>
-                                                                            <Grid item xs={12} sm={5} md={5}>
+                                                                        <Grid container
+                                                                             onClick={() => imgLink(item)}
+                                                                            sx={{ cursor: "pointer" }}
+                                                                        >
+                                                                            <Grid item xs={12} sm={5} md={5}
+                                                                            
+                                                                            >
                                                                                 <Box
                                                                                     className="blog-box"
                                                                                     display="flex"
                                                                                     flexDirection="column"
                                                                                     justifyContent="space-between"
+                                                                                    
                                                                                 >
                                                                                     <Box height="50">
                                                                                         <Typography
@@ -270,15 +274,14 @@ const NewsPromotions = (props) => {
                                                                                             fontWeight="700"
                                                                                             className="secondary-font"
                                                                                             paddingBottom={2}
-                                                                                            onClick={() => imgLink(item)}
-                                                                                            sx={{ cursor: "pointer" }}
+                                                                                            sx={{maxHeight: '80px', overflow: 'hidden' }}
                                                                                         >
                                                                                             {item.title}
                                                                                         </Typography>
                                                                                         <Typography paddingBottom={5}>
                                                                                             {item.category}
                                                                                         </Typography>
-                                                                                        <Typography className="body-caption secondary-color">
+                                                                                        <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
                                                                                             {item.description}
                                                                                         </Typography>
                                                                                     </Box>
@@ -287,9 +290,7 @@ const NewsPromotions = (props) => {
                                                                                     </Box>
                                                                                 </Box>
                                                                             </Grid>
-                                                                            <Grid item xs={12} sm={7} md={7}
-                                                                            onClick={() => imgLink(item)}
-                                                                            >
+                                                                            <Grid item xs={12} sm={7} md={7} >
                                                                                 <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                                                                             </Grid>
                                                                         </Grid>
@@ -355,7 +356,10 @@ const NewsPromotions = (props) => {
                                                                     {promotionCategoryList.map((item) => {
                                                                         return (
                                                                             <Box paddingBottom={3}>
-                                                                                <Grid container>
+                                                                                <Grid container  
+                                                                                    onClick={() => imgLink(item)}
+                                                                                    sx={{ cursor: "pointer" }}
+                                                                                 >
                                                                                     <Grid item xs={12} sm={5} md={5}>
                                                                                         <Box
                                                                                             className="blog-box"
@@ -378,14 +382,15 @@ const NewsPromotions = (props) => {
                                                                                                     fontWeight="700"
                                                                                                     className="secondary-font"
                                                                                                     paddingBottom={2}
+                                                                                                    sx={{height: '80px', overflow: 'hidden' }}
                                                                                                 >
                                                                                                     {item.title}
                                                                                                 </Typography>
                                                                                                 <Typography paddingBottom={5}>
                                                                                                     {item.category}
                                                                                                 </Typography>
-                                                                                                <Typography className="body-caption secondary-color">
-                                                                                                    {item.descriptions}
+                                                                                                <Typography className="body-caption secondary-color"  sx={{height: '45px', overflow: 'hidden'}}>
+                                                                                                    {item.description}
                                                                                                 </Typography>
                                                                                             </Box>
                                                                                             <Box>

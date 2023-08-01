@@ -23,7 +23,7 @@ import Globe from "../../../public/assets/images/globe.svg";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tutorialAtom, blogAtom, loaderAtom } from "../../_state";
+import { tutorialAtom, blogAtom, loaderAtom, tutorialCategoryAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import AppBar from "@mui/material/AppBar";
 import Tab from "@mui/material/Tab";
@@ -59,35 +59,53 @@ const LearnCypto = () => {
   const navigate = useNavigate();
   const scrollRef = useRef();
   const tutorialAction = useTutorialActions();
-  const blogsData = useRecoilValue(blogAtom);
   const tutorialsData = useRecoilValue(tutorialAtom);
-  const [value, setValue] = useState("1");
   const [tutorialTab, setTutorialTab] = useState("1");
   const theme = useTheme();
   const [personName, setPersonName] = useState([]);
   const [videoUrl, setVideoUrl] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const loader = useRecoilValue(loaderAtom);
+  const blogsData = useRecoilValue(blogAtom);
+  const BlogCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
+    return item.type === "Blog";
+});
   const [blogList, setBlogList] = useState(blogsData);
+  const [value, setValue] = useState("1");
+
+     console.log(BlogCategory,'BlogCategory');
+     console.log(blogsData,'blogsData');
+     console.log(value,'value');
+     console.log(blogList,'blogList')
+
+      // *BlogCategoryList*
+      const handleBlogChange = (e) => {
+        setValue(e.target.value);
+        e.target.value == 1
+            ? setBlogList(blogsData)
+            : handleTutorials(e.target.value);
+    };
+
+    const handleChanges = (value) => {
+            setValue(value);
+            value == 1
+                ? setBlogList(blogsData)
+                : handleTutorials(value);
+        };
+
+    const handleTutorials = (BlogCategory) => {
+        let tutorialsArr = [];
+        tutorialsArr = blogsData
+            .filter((items) => {
+                return items.category === BlogCategory;
+            })
+
+            setBlogList(tutorialsArr);
+    };
 
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
   };
-
-  const handleBlogs = (blogCategory) => {
-    let blogsArr = [];
-    blogsArr = blogsData
-      .filter((blog) => {
-        return blog.category === blogCategory;
-      })
-      .slice(0, 3);
-
-    setBlogList(blogsArr);
-  };
-
-  useEffect(() => {
-    handleBlogs("2D Design");
-  }, [blogsData]);
 
   const handleChangeTutorialTab = (event, newValue) => {
     setTutorialTab(newValue);
@@ -117,6 +135,12 @@ const LearnCypto = () => {
     tutorialAction.tutorialData();
   }, []);
 
+     // Category Api
+     useEffect(() => {
+      const response = tutorialAction.categoryList();
+      response.then((res) => { (res) })
+  }, []);
+
   useEffect(() => {
     setVideoUrl(tutorialsData[0]?.video_link);
     setImageUrl(tutorialsData[0]?.image_link);
@@ -136,18 +160,8 @@ const LearnCypto = () => {
   };
 
   useEffect(() => {
-    let blogCategory = "";
-    blogCategory =
-      value === "1"
-        ? "2D Design"
-        : value === "2"
-        ? "3D Design"
-        : value === "3"
-        ? "Blockchain"
-        : "2D Design";
-
-    handleBlogs(blogCategory);
-  }, [value]);
+    setBlogList(blogsData)
+}, [blogsData]);
 
   return (
     <>
@@ -233,37 +247,45 @@ const LearnCypto = () => {
           </Box>
         </Container>
         <Container>
-          <Box className="right-tab">
-            <TabContext value={value} className="tab-grid">
-              <Grid container>
+              <Box className="right-tab">
+                <TabContext value={value} className="tab-grid">
+                <Grid container>
                 <Grid className="" xs={12} sm={5} md={5}></Grid>
                 <Grid className="" xs={12} sm={7} md={7}>
-                  <TabList
-                    className="for-desktop"
-                    onChange={handleChangeTab}
-                    aria-label="lab API tabs example"
-                  >
-                    <Tab label="2D Design" value="1" />
-                    <Tab label="3D Design" value="2" />
-                    <Tab label="Bitcoin" value="3" />
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <TabList className='for-desktop' onChange={handleBlogChange} aria-label="tabs">
+                  <Tab 
+                    label="All" 
+                    value="1"
+                    onClick={e => handleChanges(1)}  />
+                      {BlogCategory?.map((item) => {
+                          return <Tab 
+                          indicatorColor="secondary"
+                          textColor="inherit"
+                          onClick={e => handleChanges(item.title)}  
+                          label={item.title} value={item.title} />;
+                      })}
                   </TabList>
+                </Box>
 
-                  <Box className="latest-release-tabs for-mobile dropdown-mobile">
-                    <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                <Box className="for-mobile dropdown-mobile">
+                  <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
                       <Select
-                        onChange={handleChangeDropdown}
-                        displayEmpty
-                        value={value}
-                        inputProps={{ "aria-label": "Without label" }}
+                          value={value}
+                          onChange={e => handleBlogChange(e)}
+                          displayEmpty
+                          inputProps={{ "aria-label": "Without label" }}
                       >
-                        <MenuItem value="1">2D Design</MenuItem>
-                        <MenuItem value="2">3D Design</MenuItem>
-                        <MenuItem value="3">Bitcoin</MenuItem>
+                          <MenuItem value="1" >All</MenuItem>
+                          {BlogCategory?.map((item) => {
+                              return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
+                              )
+                          })}
                       </Select>
-                    </FormControl>
-                  </Box>
+                  </FormControl>
+              </Box>
+                  </Grid>
                 </Grid>
-              </Grid>
               <TabPanel value={value}>
                 <Box>
                   {blogList?.map((item) => {
@@ -298,7 +320,7 @@ const LearnCypto = () => {
                                   {item.category}
                                 </Typography>
                                 <Typography className="body-caption secondary-color">
-                                  {item.blog_description}
+                                  {item.description}
                                 </Typography>
                               </Box>
                               <Box>

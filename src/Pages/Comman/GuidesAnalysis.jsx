@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../_common/app.constants";
+import { theme, RoutesName } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { guidesAnalysisActions, analyticsActions, useTutorialActions } from "../../_actions";
 import { guidesAtom, analyticAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom } from "../../_state";
@@ -65,7 +65,7 @@ const GuidesAnalysis = (props) => {
     };
 
     const imgLink = (data) => {
-        navigate("../learn-cypto-detail")
+        navigate(RoutesName.learn_Crypto_Details)
         setBlogimg(data)
         setBlognew(true)
        

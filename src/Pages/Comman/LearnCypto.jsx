@@ -18,6 +18,7 @@ import Avatar from "../../../public/assets/images/avatar.svg";
 import GridImage from "../../../public/assets/images/grid.svg";
 import { Search, ArrowRightAlt, ArrowDropDown } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
+import { RoutesName } from "../../_common/app.constants";
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
 import ReactPlayer from "react-player";
@@ -78,7 +79,7 @@ const LearnCypto = () => {
 
 
   const imgLink =(data) =>{
-      navigate("../learn-cypto-detail")
+    navigate(RoutesName.learn_Crypto_Details)
       setBlogimg(data)
       setBlognew(true)
   }
@@ -123,6 +124,7 @@ const LearnCypto = () => {
   useEffect(() => {
     tutorialAction.blogData();
     tutorialAction.tutorialData();
+     window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
   }, []);
 
   useEffect(() => {
@@ -132,7 +134,7 @@ const LearnCypto = () => {
 
   const handleLoadMore = () => {
     setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
   };
 
   const handleChangeDropdown = (event) => {
@@ -202,6 +204,7 @@ const LearnCypto = () => {
                 Video Tutorial{" "}
               </Button>
             </Stack>
+            
             <ReactPlayer
               url={videoUrl}
               controls={true}
@@ -446,7 +449,7 @@ const LearnCypto = () => {
                       <Box
                         className="about-crypto"
                         onclick={() => {
-                          navigate("../learn-cypto-detail");
+                          navigate(RoutesName.learn_Crypto_Details);
                         }}
                       >
                         <Typography
@@ -459,7 +462,7 @@ const LearnCypto = () => {
                         <Box
                           className="about-crypto"
                           onclick={() => {
-                            navigate("../learn-cypto-detail");
+                            navigate(RoutesName.learn_Crypto_Details);
                           }}
                         >
                           <Typography
@@ -525,7 +528,7 @@ const LearnCypto = () => {
                   varient="outlined"
                   endIcon={<ArrowDropDown />}
                   onClick={() => {
-                    navigate("/learn-cypto-detail");
+                    navigate(RoutesName.learn_Crypto_Details);
                   }}
                 >
                   Learn More

@@ -69,9 +69,12 @@ const LearnCypto = () => {
     return item.type === "Blog";
   });
   const [blogList, setBlogList] = useState(blogsData);
-  const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
-  const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+  const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
+  const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
+  const [imgBlog, setImgblog] = useState([]);
+  const [titleblog, setTitleblog] = useState(false);
   const [value, setValue] = useState("1");
+
   // *BlogCategoryList*
   const handleBlogChange = (e) => {
       setValue(e.target.value);
@@ -132,12 +135,14 @@ const LearnCypto = () => {
     );
   };
 
-  const scrollToVideo = (e, videoLink, imageLink) => {
+  const scrollToVideo = (e, videoLink, imageLink, data) => {
     e.current.scrollIntoView({
       behavior: "smooth",
     });
     setVideoUrl(videoLink);
     setImageUrl(imageLink);
+    setImgblog(data);
+    setTitleblog(true)
   };
 
   useEffect(() => {
@@ -184,16 +189,26 @@ const LearnCypto = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
         <Box>
-          <Typography
+        {titleblog === true?
+            <Typography
+              variant="h2"
+              className="secondary-font"
+              fontWeight="500"
+              textAlign="center"
+              marginBottom={{ xs: 2 }}
+            >
+              {imgBlog.title}
+            </Typography>
+            :
+            <Typography
             variant="h1"
             className="secondary-font"
             fontWeight="700"
             textAlign="center"
             marginBottom={{ xs: 2 }}
-          >
+            >
             Blockchain & Crypto
-          </Typography>
-
+            </Typography> }
           <Typography textAlign="center" className="secondary-color body-large">
             A creative agency that lead and inspire
           </Typography>
@@ -219,7 +234,6 @@ const LearnCypto = () => {
                 Video Tutorial{" "}
               </Button>
             </Stack>
-            
             <ReactPlayer
               url={videoUrl}
               controls={true}
@@ -228,6 +242,26 @@ const LearnCypto = () => {
               width="100%"
               height="640px"
             />
+            {titleblog === true? <> 
+             <Typography
+                variant="h2"
+                fontWeight="700"
+                component="div"
+                className="secondary-font font-40 bottom-border"
+                marginBottom={1}
+                padding={1}
+              >
+               Description
+              </Typography>
+              <Typography
+                className="secondary-color"
+                variant="p"
+                component="p"
+                paddingBottom={1}
+                >
+                {imgBlog.discription}
+                </Typography></>
+                : ""}
           </Box>
         </Box>
       </Container>
@@ -501,7 +535,8 @@ const LearnCypto = () => {
                               scrollToVideo(
                                 scrollRef,
                                 item.video_link,
-                                item.image_link
+                                item.image_link,
+                                item
                               )
                             }
                             sx={{ cursor: "pointer" }}

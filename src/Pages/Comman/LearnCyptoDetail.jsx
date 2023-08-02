@@ -51,15 +51,19 @@ const LearnCyptoDetail = () => {
   const navigate = useNavigate();
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+  const [imgBlog, setImgblog] = useState([]);
+  const [titleblog, setTitleblog] = useState(false);
 
-
+  console.log(imgBlog,'7777')
   
-  const scrollToVideo = (e, videoLink) => {
+  const scrollToVideo = (e, videoLink, data) => {
     e.current.scrollIntoView({
       behavior: "smooth",
     });
     setVideoUrl(videoLink);
-    setBlognew(false)
+    setBlognew(false);
+    setImgblog(data);
+    setTitleblog(true);
   };
 
   
@@ -101,13 +105,13 @@ const LearnCyptoDetail = () => {
           </Typography>
         : <Typography
             paddingBottom={3}
-            variant="h1"
+            variant="h2"
             className="secondary-font"
             fontWeight="700"
             textAlign="center"
           >
-             A beginner’s guide to <br />
-            trading view
+            {titleblog === true ? `${imgBlog.title}` : `A beginner’s guide to 
+            trading view ` }
           </Typography> }
           <Breadcrumbs
             separator={<NavigateNext fontSize="small" />}
@@ -155,16 +159,16 @@ const LearnCyptoDetail = () => {
                 marginBottom={4}
                 paddingBottom={4}
               >
-                {blogNew === true? "Description" : "Introduction"}
+                {blogNew === true || titleblog === true ?  "Description" : "Introduction"}
               </Typography>
-              {blogNew === true? 
+              {blogNew === true || titleblog === true ? 
                 <Typography
                 className="secondary-color"
                 variant="p"
                 component="p"
                 paddingBottom={3}
                 >
-                {blogImg.description}
+                {blogNew === true ?  `${blogImg.description}`: `${imgBlog.discription}` } 
                 </Typography>
               : 
               
@@ -334,7 +338,7 @@ const LearnCyptoDetail = () => {
 
                     <Box
                       className="avatar-rounded"
-                      onClick={() => scrollToVideo(scrollRef, item.video_link)}
+                      onClick={() => scrollToVideo(scrollRef, item.video_link, item)}
                       sx={{ cursor: "pointer" }}
                     >
                       <img className="tutorial-preview" src={item.image_link} />

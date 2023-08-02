@@ -53,8 +53,6 @@ const LearnCyptoDetail = () => {
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
   const [imgBlog, setImgblog] = useState([]);
   const [titleblog, setTitleblog] = useState(false);
-
-  console.log(imgBlog,'7777')
   
   const scrollToVideo = (e, videoLink, data) => {
     e.current.scrollIntoView({

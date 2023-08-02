@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
-import { theme } from "../../_common/app.constants";
+import { theme, RoutesName } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
@@ -470,7 +470,7 @@ const NewsPromotions = (props) => {
                                         </Typography>
                                         <Button
                                             className="btn-outlined-secondary"
-                                            onClick={() => navigate("/community")}
+                                            onClick={() => navigate(RoutesName.Community)}
                                         >
                                             Join now
                                         </Button>

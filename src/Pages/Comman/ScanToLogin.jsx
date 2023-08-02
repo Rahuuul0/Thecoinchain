@@ -1,16 +1,18 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants";
-import { Container, Box, TextField, Typography, Link, Button, InputAdornment } from '@mui/material';
+import { Container, Box, Typography, Link, Button } from '@mui/material';
+import { RoutesName } from '../../_common/app.constants';
+import { KeyboardArrowLeft } from '@mui/icons-material/';
 import LogoLight from '../../../public/assets/images/logo-light.svg';
 import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
 import Lock from '../../../public/assets/images/icons/lock.svg';
 import ScanImg from '../../../public/assets/images/scan-img.png';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { KeyboardArrowLeft } from '@mui/icons-material/';
 import IconButton from "@mui/material/IconButton";
+
 
 const ScanToLogin = () => {
     const navigate = useNavigate();
@@ -41,8 +43,8 @@ const ScanToLogin = () => {
                         </Box>
                         <Box className='auth-wrapper-form' position='relative'>
                             <Box position='absolute' sx={{ top: { xs: '0px', sm: '30px', md: '90px' } }}>
-                                <IconButton aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
-                                    <KeyboardArrowLeft />
+                                <IconButton onClick={() => { navigate(RoutesName.login) }} aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
+                                    <KeyboardArrowLeft />                 
                                 </IconButton>
                             </Box>
                             <Box className='auth-wrapper-form-inner' >
@@ -71,7 +73,7 @@ const ScanToLogin = () => {
                                         <img src={ScanImg} alt='scanner' />
                                     </Box>
                                 </Box>
-                                <Button onClick={() => { navigate("/login"); }} variant="contained" className='btn btn-primary' startIcon={<ChevronLeftIcon />}>
+                                <Button onClick={() => { navigate(RoutesName.login); }} variant="contained" className='btn btn-primary' startIcon={<ChevronLeftIcon />}>
                                     Go Back
                                 </Button>
                             </Box>

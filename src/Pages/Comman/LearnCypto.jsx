@@ -71,8 +71,6 @@ const LearnCypto = () => {
   const [blogList, setBlogList] = useState(blogsData);
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
-  const [imgBlog, setImgblog] = useState([]);
-  const [titleblog, setTitleblog] = useState(false);
   const [value, setValue] = useState("1");
 
   // *BlogCategoryList*
@@ -141,8 +139,8 @@ const LearnCypto = () => {
     });
     setVideoUrl(videoLink);
     setImageUrl(imageLink);
-    setImgblog(data);
-    setTitleblog(true)
+    setBlogimg(data);
+    setBlognew(true)
   };
 
   useEffect(() => {
@@ -189,26 +187,16 @@ const LearnCypto = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
         <Box>
-        {titleblog === true?
-            <Typography
+          <Typography
               variant="h2"
               className="secondary-font"
               fontWeight="500"
               textAlign="center"
               marginBottom={{ xs: 2 }}
             >
-              {imgBlog.title}
-            </Typography>
-            :
-            <Typography
-            variant="h1"
-            className="secondary-font"
-            fontWeight="700"
-            textAlign="center"
-            marginBottom={{ xs: 2 }}
-            >
-            Blockchain & Crypto
-            </Typography> }
+             {blogNew === true? `${blogImg.title}`: ` Blockchain & Crypto` } 
+          </Typography>
+
           <Typography textAlign="center" className="secondary-color body-large">
             A creative agency that lead and inspire
           </Typography>
@@ -242,14 +230,14 @@ const LearnCypto = () => {
               width="100%"
               height="640px"
             />
-            {titleblog === true? <> 
+            {blogNew === true? <> 
              <Typography
                 variant="h2"
                 fontWeight="700"
                 component="div"
                 className="secondary-font font-40 bottom-border"
                 marginBottom={1}
-                padding={1}
+                padding={2}
               >
                Description
               </Typography>
@@ -259,7 +247,7 @@ const LearnCypto = () => {
                 component="p"
                 paddingBottom={1}
                 >
-                {imgBlog.description}
+                {blogImg.description}
                 </Typography></>
                 : ""}
           </Box>
@@ -293,43 +281,43 @@ const LearnCypto = () => {
           </Box>
         </Container>
         <Container>
-              <Box className="right-tab">
+            <Box className="right-tab">
                 <TabContext value={value} className="tab-grid">
                 <Grid container>
-                <Grid className="" xs={12} sm={5} md={5}></Grid>
-                <Grid className="" xs={12} sm={7} md={7}>
-                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                  <TabList className='for-desktop' onChange={handleBlogChange} aria-label="tabs">
-                  <Tab 
-                    label="All" 
-                    value="1"
-                    onClick={e => handleChanges(1)}  />
-                      {BlogCategory?.map((item) => {
-                          return <Tab 
-                          indicatorColor="secondary"
-                          textColor="inherit"
-                          onClick={e => handleChanges(item.title)}  
-                          label={item.title} value={item.title} />;
-                      })}
-                  </TabList>
-                </Box>
+                  <Grid className="" xs={12} sm={5} md={5}></Grid>
+                  <Grid className="" xs={12} sm={7} md={7}>
+                      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                        <TabList className='for-desktop' onChange={handleBlogChange} aria-label="tabs">
+                        <Tab 
+                          label="All" 
+                          value="1"
+                          onClick={e => handleChanges(1)}  />
+                            {BlogCategory?.map((item) => {
+                                return <Tab 
+                                indicatorColor="secondary"
+                                textColor="inherit"
+                                onClick={e => handleChanges(item.title)}  
+                                label={item.title} value={item.title} />;
+                            })}
+                        </TabList>
+                      </Box>
 
-                <Box className="for-mobile dropdown-mobile">
-                  <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
-                      <Select
-                          value={value}
-                          onChange={e => handleBlogChange(e)}
-                          displayEmpty
-                          inputProps={{ "aria-label": "Without label" }}
-                      >
-                          <MenuItem value="1" >All</MenuItem>
-                          {BlogCategory?.map((item) => {
-                              return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
-                              )
-                          })}
-                      </Select>
-                  </FormControl>
-              </Box>
+                      <Box className="for-mobile dropdown-mobile">
+                        <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                            <Select
+                                value={value}
+                                onChange={e => handleBlogChange(e)}
+                                displayEmpty
+                                inputProps={{ "aria-label": "Without label" }}
+                            >
+                                <MenuItem value="1" >All</MenuItem>
+                                {BlogCategory?.map((item) => {
+                                    return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </FormControl>
+                      </Box>
                   </Grid>
                 </Grid>
               <TabPanel value={value}>

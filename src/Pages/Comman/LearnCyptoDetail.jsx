@@ -93,9 +93,9 @@ const LearnCyptoDetail = () => {
 
           <Typography
               paddingBottom={3}
-              variant="h2"
+              variant="h1"
               className="secondary-font"
-              fontWeight="500"
+              fontWeight="700"
               textAlign="center"
           >
             {blogNew === true? `${blogImg.title}`:`A beginner’s guide to 

@@ -188,13 +188,13 @@ const LearnCypto = () => {
         </Backdrop>
         <Box>
           <Typography
-              variant="h2"
+              variant="h1"
               className="secondary-font"
-              fontWeight="500"
+              fontWeight="700"
               textAlign="center"
               marginBottom={{ xs: 2 }}
             >
-             {blogNew === true? `${blogImg.title}`: ` Blockchain & Crypto` } 
+             {blogNew === true? `${  blogImg.title}`: ` Blockchain & Crypto` } 
           </Typography>
 
           <Typography textAlign="center" className="secondary-color body-large">

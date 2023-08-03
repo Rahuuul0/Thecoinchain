@@ -4203,3 +4203,10 @@ video[poster] {
   background-color: #353945;
   color: #fff;
 }
+.react-swipeable-view-container > div[aria-hidden="false"] {
+  height: 100%;
+}
+
+.react-swipeable-view-container > div[aria-hidden="true"] {
+  height: 0;
+}

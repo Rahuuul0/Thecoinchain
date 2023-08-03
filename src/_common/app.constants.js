@@ -1,7 +1,7 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export const Labels = {
-  Success: "success",
+  Success: "Success..!",
   Error: "error",
   Login_Success: "Login successfully",
   Upload_Success: "Uploaded successfully",

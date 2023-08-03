@@ -4199,7 +4199,7 @@ video[poster] {
   }
 }
 
-.tab-selected {
+.MuiButtonBase-root {
   background-color: #353945;
   color: #fff;
 }

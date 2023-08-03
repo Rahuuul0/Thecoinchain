@@ -177,6 +177,10 @@ const LearnCypto = () => {
     setBlogList(blogsData)
 }, [blogsData]);
 
+useEffect(() => {
+  window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
+}, []);
+
   return (
     <>
       <Container className="learn-crypto">

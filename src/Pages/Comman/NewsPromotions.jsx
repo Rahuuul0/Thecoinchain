@@ -470,7 +470,7 @@ const NewsPromotions = (props) => {
                                         </Typography>
                                         <Button
                                             className="btn-outlined-secondary"
-                                            onClick={() => navigate("/community")}
+                                            onClick={() => navigate(RoutesName.Community)}
                                         >
                                             Join now
                                         </Button>

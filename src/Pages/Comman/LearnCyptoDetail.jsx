@@ -51,16 +51,15 @@ const LearnCyptoDetail = () => {
   const navigate = useNavigate();
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
-  const [imgBlog, setImgblog] = useState([]);
   const [titleblog, setTitleblog] = useState(false);
-  
+
   const scrollToVideo = (e, videoLink, data) => {
     e.current.scrollIntoView({
       behavior: "smooth",
     });
     setVideoUrl(videoLink);
-    setBlognew(false);
-    setImgblog(data);
+    setBlognew(true);
+    setBlogimg(data);
     setTitleblog(true);
   };
 
@@ -91,26 +90,18 @@ const LearnCyptoDetail = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
         <Box ref={scrollRef}>
-        {blogNew === true? 
+
           <Typography
-            paddingBottom={3}
-            variant="h2"
-            className="secondary-font"
-            fontWeight="500"
-            textAlign="center"
+              paddingBottom={3}
+              variant="h2"
+              className="secondary-font"
+              fontWeight="500"
+              textAlign="center"
           >
-            {blogImg.title}
+            {blogNew === true? `${blogImg.title}`:`A beginner’s guide to 
+            trading view ` }  
           </Typography>
-        : <Typography
-            paddingBottom={3}
-            variant="h2"
-            className="secondary-font"
-            fontWeight="700"
-            textAlign="center"
-          >
-            {titleblog === true ? `${imgBlog.title}` : `A beginner’s guide to 
-            trading view ` }
-          </Typography> }
+
           <Breadcrumbs
             separator={<NavigateNext fontSize="small" />}
             aria-label="breadcrumb"
@@ -125,7 +116,7 @@ const LearnCyptoDetail = () => {
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 10 }}>
           <Box>
-          {blogNew === true ? 
+          {blogNew === true  && titleblog !== true ? 
             <Box sx={{maxWidth: "100%",justifyContent:"center","display":"flex" }} paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }} 
                   >
                     <img
@@ -157,16 +148,17 @@ const LearnCyptoDetail = () => {
                 marginBottom={4}
                 paddingBottom={4}
               >
-                {blogNew === true || titleblog === true ?  "Description" : "Introduction"}
+                {blogNew === true?  "Description" : "Introduction"}
               </Typography>
-              {blogNew === true || titleblog === true ? 
+
+              {blogNew === true ? 
                 <Typography
                 className="secondary-color"
                 variant="p"
                 component="p"
                 paddingBottom={3}
                 >
-                {blogNew === true ?  `${blogImg.description}`: `${imgBlog.discription}` } 
+                {blogImg.description}
                 </Typography>
               : 
               

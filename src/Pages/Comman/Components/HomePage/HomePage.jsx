@@ -346,7 +346,7 @@ const Home = () => {
                   className="ipad-none"
                 >
                   {tutorialsList?.slice(0, 1).map((item) => {
-                    let discription = item.discription.substring(0, 50) + "...";
+                    let description = item.description.substring(0, 50) + "...";
                     let title = item.title.substring(0, 50) + "...";
                     return (
                       <Grid item xs={6}>
@@ -382,7 +382,7 @@ const Home = () => {
                               paddingBottom={2}
                               className="secondary-color primary-font"
                             >
-                              {discription}
+                              {description}
                             </Typography>
                           </Box>
                           <Button
@@ -407,10 +407,10 @@ const Home = () => {
                   })}
                   <Grid item xs={6}>
                     {tutorialsList?.slice(1, 4).map((item) => {
-                      let description = item.discription;
+                      let description = item.description;
                       if (description.length > 10) {
                         description =
-                          item.discription.substring(0, 150) + "...";
+                          item.description.substring(0, 150) + "...";
                       }
                       return (
                         <Grid
@@ -494,9 +494,9 @@ const Home = () => {
                   className="mySwiper"
                 >
                   {tutorialsList?.slice(0, 3).map((item) => {
-                    let description = item.discription;
+                    let description = item.description;
                     if (description.length > 10) {
-                      description = item.discription.substring(0, 150) + "...";
+                      description = item.description.substring(0, 150) + "...";
                     }
                     return (
                       <SwiperSlide>

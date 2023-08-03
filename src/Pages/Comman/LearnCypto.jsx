@@ -259,7 +259,7 @@ const LearnCypto = () => {
                 component="p"
                 paddingBottom={1}
                 >
-                {imgBlog.discription}
+                {imgBlog.description}
                 </Typography></>
                 : ""}
           </Box>

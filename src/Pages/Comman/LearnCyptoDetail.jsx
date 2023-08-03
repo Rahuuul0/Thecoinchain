@@ -51,15 +51,16 @@ const LearnCyptoDetail = () => {
   const navigate = useNavigate();
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+  const [titleblog, setTitleblog] = useState(false);
 
-
-  
-  const scrollToVideo = (e, videoLink) => {
+  const scrollToVideo = (e, videoLink, data) => {
     e.current.scrollIntoView({
       behavior: "smooth",
     });
     setVideoUrl(videoLink);
-    setBlognew(false)
+    setBlognew(true);
+    setBlogimg(data);
+    setTitleblog(true);
   };
 
   
@@ -70,7 +71,7 @@ const LearnCyptoDetail = () => {
   };
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
     tutorialAction.tutorialData();
 
   }, []);
@@ -89,26 +90,18 @@ const LearnCyptoDetail = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
         <Box ref={scrollRef}>
-        {blogNew === true? 
+
           <Typography
-            paddingBottom={3}
-            variant="h2"
-            className="secondary-font"
-            fontWeight="500"
-            textAlign="center"
+              paddingBottom={3}
+              variant="h1"
+              className="secondary-font"
+              fontWeight="700"
+              textAlign="center"
           >
-            {blogImg.title}
+            {blogNew === true? `${blogImg.title}`:`A beginner’s guide to 
+            trading view ` }  
           </Typography>
-        : <Typography
-            paddingBottom={3}
-            variant="h1"
-            className="secondary-font"
-            fontWeight="700"
-            textAlign="center"
-          >
-             A beginner’s guide to <br />
-            trading view
-          </Typography> }
+
           <Breadcrumbs
             separator={<NavigateNext fontSize="small" />}
             aria-label="breadcrumb"
@@ -123,7 +116,7 @@ const LearnCyptoDetail = () => {
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 10 }}>
           <Box>
-          {blogNew === true ? 
+          {blogNew === true  && titleblog !== true ? 
             <Box sx={{maxWidth: "100%",justifyContent:"center","display":"flex" }} paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }} 
                   >
                     <img
@@ -155,9 +148,10 @@ const LearnCyptoDetail = () => {
                 marginBottom={4}
                 paddingBottom={4}
               >
-                {blogNew === true? "Description" : "Introduction"}
+                {blogNew === true?  "Description" : "Introduction"}
               </Typography>
-              {blogNew === true? 
+
+              {blogNew === true ? 
                 <Typography
                 className="secondary-color"
                 variant="p"
@@ -334,7 +328,7 @@ const LearnCyptoDetail = () => {
 
                     <Box
                       className="avatar-rounded"
-                      onClick={() => scrollToVideo(scrollRef, item.video_link)}
+                      onClick={() => scrollToVideo(scrollRef, item.video_link, item)}
                       sx={{ cursor: "pointer" }}
                     >
                       <img className="tutorial-preview" src={item.image_link} />

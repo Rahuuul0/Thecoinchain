@@ -43,7 +43,8 @@ export const RoutesName = {
   Academy: "/academy",
   News_Promotions: "/news-promotions",
   Subscription: "/subscription",
-  Market: "/market"
+  Market: "/market",
+  learn_Crypto_Details: "../learn-cypto-detail",
 };
 
 export const Apis = {

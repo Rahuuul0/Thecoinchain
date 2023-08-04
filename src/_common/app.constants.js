@@ -10,7 +10,7 @@ export const Labels = {
   Password_Change_Success: "Your password has been change successfully",
   Logout_Success: "Logout successfully",
   Verified: "Verified Successfully ",
-  Footer_Email: "Thank you for subscribe ",
+  Footer_Email: "please check your email",
   Un_Subscribed_User: "Please login to subscribe!",
   Create: "Please select an option",
   GetOtp: "We have sent you the code",

@@ -301,7 +301,7 @@ const GuidesAnalysis = (props) => {
                                                                 <Tab
                                                                 label="All" 
                                                                 value="1" 
-                                                                onClick={e => handleChanges(1)} 
+                                                                onClick={e => handleChanges('1')} 
                                                                 indicatorColor="secondary"
                                                                 textColor="inherit" />
                                                                 {guidesCategory?.map((item) => {
@@ -404,7 +404,7 @@ const GuidesAnalysis = (props) => {
                                                 <TabContext value={valueTemp}>
                                                             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                                                                 <TabList className='for-desktop' onChange={handleCategory} aria-label="tabs">
-                                                                    <Tab label="All" value="1" onClick={e => handleCategorys(1)}  />
+                                                                    <Tab label="All" value="1" onClick={e => handleCategorys('1')}  />
                                                                     {analyticsCategory?.map((item) => {
                                                                         return <Tab 
                                                                         indicatorColor="secondary"

@@ -216,7 +216,7 @@ const NewsPromotions = (props) => {
                                                                 className='tab-selected'
                                                                 label="All" 
                                                                 value="1" 
-                                                                onClick={e => handleChanges(1)} 
+                                                                onClick={e => handleChanges('1')} 
                                                                 indicatorColor="secondary"
                                                                 textColor="inherit" />
                                                                 {newsCategory?.map((item) => {
@@ -320,7 +320,7 @@ const NewsPromotions = (props) => {
                                                         <TabContext value={valueTemp}>
                                                             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                                                                 <TabList className='for-desktop' onChange={handleCategory} aria-label="tabs">
-                                                                    <Tab label="All" value="1" onClick={e => handleCategorys(1)}  />
+                                                                    <Tab label="All" value="1" onClick={e => handleCategorys('1')}  />
                                                                     {promotionCategory?.map((item) => {
                                                                         return <Tab 
                                                                         indicatorColor="secondary"

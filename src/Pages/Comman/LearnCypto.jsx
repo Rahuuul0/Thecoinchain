@@ -296,7 +296,7 @@ useEffect(() => {
                         <Tab 
                           label="All" 
                           value="1"
-                          onClick={e => handleChanges(1)}  />
+                          onClick={e => handleChanges('1')}  />
                             {BlogCategory?.map((item) => {
                                 return <Tab 
                                 indicatorColor="secondary"

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "../../_common/app.constants";
+import { theme, RoutesName } from "../../_common/app.constants";
 import { Box, Container, Typography, Button, Stack } from "@mui/material";
 import { faqActions } from "../../_actions";
 import { useRecoilValue, useRecoilState } from "recoil";
@@ -31,7 +31,7 @@ const PredictionDashboard = () => {
   }, []);
 
   const imgLink = (data) => {
-    navigate("../learn-cypto-detail")
+    navigate(RoutesName.learn_Crypto_Details)
     setBlogimg(data)
     setBlognew(true) 
 } 

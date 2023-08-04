@@ -57,7 +57,7 @@ const NewsPromotions = (props) => {
     };
 
     const imgLink = (data) => {
-        navigate("../learn-cypto-detail")
+        navigate(RoutesName.learn_Crypto_Details)
         setBlogimg(data)
         setBlognew(true)
     }

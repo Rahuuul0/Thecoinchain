@@ -16,6 +16,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Avatar from "../../../public/assets/images/avatar.svg";
 import {  ArrowRightAlt, ArrowDropDown } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
+import { RoutesName } from "../../_common/app.constants";
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
 import ReactPlayer from "react-player";
@@ -68,9 +69,10 @@ const LearnCypto = () => {
     return item.type === "Blog";
   });
   const [blogList, setBlogList] = useState(blogsData);
-  const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
-  const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+  const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
+  const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
   const [value, setValue] = useState("1");
+
   // *BlogCategoryList*
   const handleBlogChange = (e) => {
       setValue(e.target.value);
@@ -97,7 +99,7 @@ const LearnCypto = () => {
   };
 
   const imgLink =(data) =>{
-      navigate("../learn-cypto-detail")
+    navigate(RoutesName.learn_Crypto_Details)
       setBlogimg(data)
       setBlognew(true)
   }
@@ -131,17 +133,20 @@ const LearnCypto = () => {
     );
   };
 
-  const scrollToVideo = (e, videoLink, imageLink) => {
+  const scrollToVideo = (e, videoLink, imageLink, data) => {
     e.current.scrollIntoView({
       behavior: "smooth",
     });
     setVideoUrl(videoLink);
     setImageUrl(imageLink);
+    setBlogimg(data);
+    setBlognew(true)
   };
 
   useEffect(() => {
     tutorialAction.blogData();
     tutorialAction.tutorialData();
+     window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
   }, []);
 
   // Category Api
@@ -154,6 +159,15 @@ const LearnCypto = () => {
     setVideoUrl(tutorialsData[0]?.video_link);
     setImageUrl(tutorialsData[0]?.image_link);
   }, [tutorialsData]);
+
+  const handleLoadMore = () => {
+    setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
+    window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
+  };
+
+  const handleChangeDropdown = (event) => {
+    setValue(event.target.value);
+  };
 
   const handleChangeTutorialDropdown = (event) => {
     setTutorialTab(event.target.value);
@@ -178,13 +192,13 @@ useEffect(() => {
         </Backdrop>
         <Box>
           <Typography
-            variant="h1"
-            className="secondary-font"
-            fontWeight="700"
-            textAlign="center"
-            marginBottom={{ xs: 2 }}
-          >
-            Blockchain & Crypto
+              variant="h1"
+              className="secondary-font"
+              fontWeight="700"
+              textAlign="center"
+              marginBottom={{ xs: 2 }}
+            >
+             {blogNew === true? `${  blogImg.title}`: ` Blockchain & Crypto` } 
           </Typography>
 
           <Typography textAlign="center" className="secondary-color body-large">
@@ -220,6 +234,26 @@ useEffect(() => {
               width="100%"
               height="640px"
             />
+            {blogNew === true? <> 
+             <Typography
+                variant="h2"
+                fontWeight="700"
+                component="div"
+                className="secondary-font font-40 bottom-border"
+                marginBottom={1}
+                padding={2}
+              >
+               Description
+              </Typography>
+              <Typography
+                className="secondary-color"
+                variant="p"
+                component="p"
+                paddingBottom={1}
+                >
+                {blogImg.description}
+                </Typography></>
+                : ""}
           </Box>
         </Box>
       </Container>
@@ -251,43 +285,43 @@ useEffect(() => {
           </Box>
         </Container>
         <Container>
-              <Box className="right-tab">
+            <Box className="right-tab">
                 <TabContext value={value} className="tab-grid">
                 <Grid container>
-                <Grid className="" xs={12} sm={5} md={5}></Grid>
-                <Grid className="" xs={12} sm={7} md={7}>
-                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                  <TabList className='for-desktop' onChange={handleBlogChange} aria-label="tabs">
-                  <Tab 
-                    label="All" 
-                    value="1"
-                    onClick={e => handleChanges(1)}  />
-                      {BlogCategory?.map((item) => {
-                          return <Tab 
-                          indicatorColor="secondary"
-                          textColor="inherit"
-                          onClick={e => handleChanges(item.title)}  
-                          label={item.title} value={item.title} />;
-                      })}
-                  </TabList>
-                </Box>
+                  <Grid className="" xs={12} sm={5} md={5}></Grid>
+                  <Grid className="" xs={12} sm={7} md={7}>
+                      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                        <TabList className='for-desktop' onChange={handleBlogChange} aria-label="tabs">
+                        <Tab 
+                          label="All" 
+                          value="1"
+                          onClick={e => handleChanges(1)}  />
+                            {BlogCategory?.map((item) => {
+                                return <Tab 
+                                indicatorColor="secondary"
+                                textColor="inherit"
+                                onClick={e => handleChanges(item.title)}  
+                                label={item.title} value={item.title} />;
+                            })}
+                        </TabList>
+                      </Box>
 
-                <Box className="for-mobile dropdown-mobile">
-                  <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
-                      <Select
-                          value={value}
-                          onChange={e => handleBlogChange(e)}
-                          displayEmpty
-                          inputProps={{ "aria-label": "Without label" }}
-                      >
-                          <MenuItem value="1" >All</MenuItem>
-                          {BlogCategory?.map((item) => {
-                              return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
-                              )
-                          })}
-                      </Select>
-                  </FormControl>
-              </Box>
+                      <Box className="for-mobile dropdown-mobile">
+                        <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                            <Select
+                                value={value}
+                                onChange={e => handleBlogChange(e)}
+                                displayEmpty
+                                inputProps={{ "aria-label": "Without label" }}
+                            >
+                                <MenuItem value="1" >All</MenuItem>
+                                {BlogCategory?.map((item) => {
+                                    return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </FormControl>
+                      </Box>
                   </Grid>
                 </Grid>
               <TabPanel value={value}>
@@ -464,7 +498,7 @@ useEffect(() => {
                       <Box
                         className="about-crypto"
                         onclick={() => {
-                          navigate("../learn-cypto-detail");
+                          navigate(RoutesName.learn_Crypto_Details);
                         }}
                       >
                         <Typography
@@ -477,7 +511,7 @@ useEffect(() => {
                         <Box
                           className="about-crypto"
                           onclick={() => {
-                            navigate("../learn-cypto-detail");
+                            navigate(RoutesName.learn_Crypto_Details);
                           }}
                         >
                           <Typography
@@ -493,7 +527,8 @@ useEffect(() => {
                               scrollToVideo(
                                 scrollRef,
                                 item.video_link,
-                                item.image_link
+                                item.image_link,
+                                item
                               )
                             }
                             sx={{ cursor: "pointer" }}
@@ -543,7 +578,7 @@ useEffect(() => {
                   varient="outlined"
                   endIcon={<ArrowDropDown />}
                   onClick={() => {
-                    navigate("/learn-cypto-detail");
+                    navigate(RoutesName.learn_Crypto_Details);
                   }}
                 >
                   Learn More

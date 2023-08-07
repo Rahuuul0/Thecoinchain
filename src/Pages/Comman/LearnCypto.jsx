@@ -301,7 +301,7 @@ useEffect(() => {
                                 indicatorColor="secondary"
                                 textColor="inherit"
                                 onClick={e => handleChanges(item.title)}  
-                                label={item.title} value={item.title} />;
+                                label={item.title} value={item.title} />
                             })}
                         </TabList>
                       </Box>

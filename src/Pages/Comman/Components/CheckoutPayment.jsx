@@ -64,6 +64,9 @@ const CheckoutForm = () => {
     const [creditCardStatus, setCreditCardStatus] = useState(true);
     const [plan, setPlan] = useRecoilState(planAtom);
     const [subplan, setSubplan] = useRecoilState(subplanAtom);
+    const [cardComplete, setCardComplete] = useState({
+        cardNumber: false, cardExpiry: false, cardCvc: false
+    })
 
     // Subscription action get function   API data call 
     useEffect(() => {
@@ -146,14 +149,16 @@ const CheckoutForm = () => {
         }
 
     }
-
-
+    
+    
     const handleCardDetailsChange = event => {
+        setCardComplete({ ...cardComplete, [event.elementType]: event.complete })
         event.error ? setCheckoutError(event.error.message) : setCheckoutError();
     };
 
     const styled = (confirm.step === 2) ? { "height": '100%', "opacity": "1" } : { "height": '0px', "opacity": "0", "display": "none" }
-    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
+    useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) },[]);
+
     return (
         <Box className='subscription-steps-inner'>
             <Backdrop
@@ -301,7 +306,10 @@ const CheckoutForm = () => {
                                             {/* {!checkoutError && <CheckoutError>{checkoutError}</CheckoutError>} */}
                                             <Box className="subscription-plan-cta">
                                                 <Button variant='outlined' className='btn btn-outlined-secondary' onClick={e => setConfirm({ ...confirm, step: 1 })}>Cancel</Button>
+
+                                                {cardComplete.cardNumber === true && cardComplete.cardExpiry === true && cardComplete.cardCvc === true ? 
                                                 <Button onClick={e => setConfirm({ ...confirm, step: 3 })} variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} >Continue</Button>
+                                                : <Button onClick={e => setConfirm({ ...confirm, step: 3 })} variant='contained' className='btn' sx={{ ml: 'auto' }} disabled > Continue</Button>}
                                             </Box>
                                         </div>
                                     </>

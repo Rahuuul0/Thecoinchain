@@ -53,6 +53,11 @@ function Header(props) {
       icon: '',
       link: '/prediction-dashboard',
     },
+    {
+      page: 'Market',
+      icon: '',
+      link: '/market',
+    },
   ]
 
   const [anchorEl, setAnchorEl] = React.useState(null);

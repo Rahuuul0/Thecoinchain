@@ -201,7 +201,9 @@ const Continue =(plan) => {
                                                     <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
                                                         By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content once your plan finishes. To regain full access to the content, a new subscription is required.
                                                     </Typography>
+                                                    {User?.status === 'running'?  
                                                     <Button onClick={() => { setExpandFirst(false); unsubscribedUserFun() }} variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribe</Button>
+                                                    : ''}
                                                 </Box>
                                             </Box>
                                                 

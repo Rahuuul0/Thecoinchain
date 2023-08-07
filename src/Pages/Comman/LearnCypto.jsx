@@ -221,6 +221,7 @@ useEffect(() => {
                 className="btn btn-outlined-secondary"
                 onClick={() => {
                   navigate("../learn-cypto-detail");
+                  setBlognew(false);
                 }}
               >
                 Video Tutorial{" "}

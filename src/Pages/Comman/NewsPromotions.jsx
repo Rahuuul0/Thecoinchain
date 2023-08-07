@@ -189,6 +189,7 @@ const NewsPromotions = (props) => {
                                         </Tabs>
                                     </AppBar>
                                     <SwipeableViews
+                                    // animateHeight
                                         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                                         index={valueTab}
                                         onChangeIndex={handleChangeIndex}
@@ -212,6 +213,7 @@ const NewsPromotions = (props) => {
                                                                 value={value}
                                                                 aria-label="tabs">
                                                                 <Tab
+                                                                className='tab-selected'
                                                                 label="All" 
                                                                 value="1" 
                                                                 onClick={e => handleChanges('1')} 

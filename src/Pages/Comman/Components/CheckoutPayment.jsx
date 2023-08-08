@@ -179,7 +179,7 @@ const CheckoutForm = () => {
                 </Box>
                 <Box className={`subscription-step ${confirm.step === 2 ? "current-step" : confirm.step === 3 ? 'completed-step' : ''}`}>
                     <Box component="span" className='number-circle'>
-                        <Box onClick={() => setConfirm({ ...confirm, "step": 2 })}>{confirm.step === 2 ? "2" : confirm.step === 3 ? <CheckIcon /> : '2'}</Box>
+                        <Box onClick={() => setConfirm({ ...confirm, "step": 2 })}>{confirm.step === 2 ? "2" :confirm.step === 3 ? <CheckIcon /> : '2' }</Box>
                     </Box>
                     <Typography component="p" variant='body2'>
                         Payment info
@@ -187,7 +187,7 @@ const CheckoutForm = () => {
                 </Box>
                 <Box className={`subscription-step ${confirm.step === 3 ? "current-step" : ''}`}>
                     <Box component="span" className='number-circle'>
-                        <Box onClick={() => setConfirm({ ...confirm, "step": 3 })}>3</Box>
+                        <Box    onClick={() =>   cardComplete.cardNumber === true ? setConfirm({ ...confirm, "step": 3 }) :"" } >3</Box>
                     </Box>
                     <Typography component="p" variant='body2'>
                         Confirm order

@@ -689,7 +689,9 @@ const CryptoTable = (props) => {
                 <KeyboardArrowDownIcon />
               </Button> */}
               <Typography className="crypto-value" variant="h5" component="h5">
-                {chartData[0]?.price.toFixed(2)}
+                {chartData[0]?.price.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                })}
               </Typography>
               <Typography
                 className="crypto-fullname-small"

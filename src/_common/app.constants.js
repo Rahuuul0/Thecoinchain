@@ -89,7 +89,8 @@ export const Apis = {
   Market: "market",
   Category_List: "category-list",
   Market_Trend: "market-trend",  
-  Community_List: "community-list" 
+  Community_List: "community-list" ,
+  Contact_Faq_List: "contact_faq-list",
 };
 
 export const theme = createTheme({

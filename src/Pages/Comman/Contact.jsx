@@ -18,11 +18,11 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { ArrowRightAlt, ExpandMore } from '@mui/icons-material';
-import { useContactActions } from '../../_actions/contact.actions';
+import { useContactActions, useTutorialActions } from '../../_actions';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { contact_AddAtom } from '../../_state';
-import { useRecoilState } from 'recoil';
+import { contact_AddAtom, contactListAtom, tutorialCategoryAtom } from '../../_state';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { West, East } from '@mui/icons-material';
 import { General, Subscriptions } from './Questions';
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -122,12 +122,20 @@ const Contact = () => {
   };
   const navigate = useNavigate();
   const useContactAddActions = useContactActions();
-  const [value, setValue] = useState('1');
+  const categoryActions = useTutorialActions();
   const theme = useTheme();
   const [personName, setPersonName] = useState([]);
   const [contactError, setContactError] = useRecoilState(contact_AddAtom)
   const [question, setQuestion] = useState("");
   const [category, setCategory] = useState("general");
+  const contactLists = useRecoilValue(contactListAtom);
+
+  const contactCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
+    return item.type === "Contact_Faq";
+});
+
+const [contactCategoryList, setContactCategoryList] = useState(contactLists);
+const [value, setValue] = React.useState(0);
 
   // form validation rules 
   const validationSchema = Yup.object().shape({
@@ -168,8 +176,8 @@ const Contact = () => {
     reset({ email: " ", subject: " ", msg: " " });
   }
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleChange = (event) => {
+  
     const {
       target: { value },
     } = event;
@@ -178,7 +186,7 @@ const Contact = () => {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
-
+  
   useEffect(() => {
     setQuestion(General)
     window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
@@ -194,6 +202,41 @@ const Contact = () => {
   useEffect(() => {
     reset({ ...formData, question: question[0] })
   }, [question]);
+
+     // *ConactCategoryList*
+const handleChanges = (value) => {
+     setValue(value);
+       handleTutorials(value);
+};
+
+const handleTutorials = (contactCategory) => {
+    let tutorialsArr = [];
+    tutorialsArr = contactLists
+        .filter((items) => {
+            return items.category === contactCategory;
+        })
+      setContactCategoryList(tutorialsArr);
+};
+
+   // Category Api
+
+   useEffect(() => {
+    const contact = contactLists.filter((items) => {
+      return items.category === "General";
+  })
+    setContactCategoryList(contact)
+ 
+}, [contactLists]);
+
+   useEffect(() => {
+    const response = categoryActions.categoryList();
+    response.then((res) => { (res) })
+}, []);
+
+   useEffect(() => {
+    const response = useContactAddActions.contactList();
+    response.then((res) => { (res) })
+}, []);
 
   return (
     <>
@@ -333,101 +376,41 @@ const Contact = () => {
               {/* tabs starts */}
               <Box className="learn-cypto-tab center-tab" sx={{ width: '100%', typography: 'body1' }}>
                 <TabContext value={value}>
-                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <TabList onChange={handleChange} aria-label="tabs" className='for-desktop'>
-                      <Tab label="General" value="1" />
-                      <Tab label="Support" value="2" />
-                      <Tab label="Hosting" value="3" />
-                      <Tab label="Product" value="4" />
-                    </TabList>
 
-                    <Box className="market-crypto-tabs for-mobile dropdown-mobile">
-                      <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
-                        <Select
-                          value={faqfilter}
-                          onChange={handleChangeFAQfilter}
-                          displayEmpty
-                          inputProps={{ "aria-label": "Without label" }}
-                        >
-                          <MenuItem value="">
-                            <em>None</em>
-                          </MenuItem>
-                          <MenuItem value={10}>General</MenuItem>
-                          <MenuItem value={20}>Support</MenuItem>
-                          <MenuItem value={30}>Hosting</MenuItem>
-                          <MenuItem value={40}>Product</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Box>
+                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                      <TabList
+                          value={value}
+                           aria-label="tabs">
+                    
+                          {contactCategory?.map((item, idx) => {
+                              return <Tab   className='tab-selected' indicatorColor="secondary" textColor="inherit"   onClick={e => handleChanges( item.title)} label={item.title} key={item.id} value={idx === value ? value : item.title} />;
+                          })}
+                      </TabList>
 
                   </Box>
-                  <TabPanel value="1" sx={{ paddingRight: '0', paddingLeft: '0' }} >
+                  <TabPanel value={value} sx={{ paddingRight: '0', paddingLeft: '0' }} >
                     <Box className='faq-accordian'>
-                      <Accordion sx={{ p: 0 }}>
-                        <AccordionSummary
-                          expandIcon={<ExpandMore />}
-                          aria-controls="panel1a-content"
-                          id="panel1a-header"
-                        >
-                          <Typography><span className='faq-count'>01</span> How does it work?</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
-
-                      <Accordion >
-                        <AccordionSummary
-                          expandIcon={<ExpandMore />}
-                          aria-controls="panel1a-content"
-                          id="panel1a-header"
-                        >
-                          <Typography><span className='faq-count'>02</span> How can i set up a new website?</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
-
-                      <Accordion >
-                        <AccordionSummary
-                          expandIcon={<ExpandMore />}
-                          aria-controls="panel1a-content"
-                          id="panel1a-header"
-                        >
-                          <Typography><span className='faq-count'>03</span> How does it work?</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
-
-                      <Accordion >
-                        <AccordionSummary
-                          expandIcon={<ExpandMore />}
-                          aria-controls="panel1a-content"
-                          id="panel1a-header"
-                        >
-                          <Typography><span className='faq-count'>04</span> How does it work?</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
+                      {contactCategoryList.map((items) =>{
+                        return(
+                          <Accordion sx={{ p: 0 }}>
+                            <AccordionSummary
+                              expandIcon={<ExpandMore />}
+                              aria-controls="panel1a-content"
+                              id="panel1a-header"
+                            >
+                              <Typography><span className='faq-count'></span>{items.question}</Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                              <Typography>
+                                {items.answer}
+                              </Typography>
+                            </AccordionDetails>
+                          </Accordion>
+                        )
+                      })}
 
                     </Box>
                   </TabPanel>
-                  <TabPanel value="2">Support</TabPanel>
-                  <TabPanel value="3">Hosting</TabPanel>
-                  <TabPanel value="4">Product</TabPanel>
                 </TabContext>
               </Box>
             </Box>

@@ -5,4 +5,8 @@ const contact_AddAtom = atom({
     default: {}
 });
 
-export { contact_AddAtom };
+const contactListAtom = atom({
+    key: "contactListAtom",
+    default: [],
+  });
+export { contact_AddAtom, contactListAtom };

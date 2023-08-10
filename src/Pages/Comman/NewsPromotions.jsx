@@ -31,13 +31,13 @@ const NewsPromotions = (props) => {
 
     const newsCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "News";
-    });;
+    });
     const [newsCategoryList, setNewsCategoryList] = useState(newsList);
     const [value, setValue] = React.useState("1");
 
     const promotionCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "Promotions";
-    });;
+    });
     const [promotionCategoryList, setPromotionCategoryList] = useState(promotionList);
     const [valueTemp, setValueTemp] = React.useState("1");
 
@@ -55,12 +55,6 @@ const NewsPromotions = (props) => {
             ? setNewsCategoryList(newsList)
             : handleTutorials(value);
     };
-
-    const imgLink = (data) => {
-        navigate(RoutesName.learn_Crypto_Details)
-        setBlogimg(data)
-        setBlognew(true)
-    }
 
     const handleTutorials = (newsCategory) => {
 
@@ -141,7 +135,7 @@ const NewsPromotions = (props) => {
     const handleChangeIndex = (index) => {
         setValueTab(index);
     };
-
+    
     useEffect(() => {
         setPromotionCategoryList(promotionList)
     }, [promotionList]);
@@ -150,9 +144,15 @@ const NewsPromotions = (props) => {
         setNewsCategoryList(newsList)
     }, [newsList]);
 
+    const imgLink = (data) => {
+        navigate(RoutesName.learn_Crypto_Details)
+        setBlogimg(data)
+        setBlognew(true)
+    } 
     useEffect(() => {
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
     }, []);
+
     return (
         <>
             <ThemeProvider theme={theme}>

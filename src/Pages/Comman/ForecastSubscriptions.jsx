@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Typography, Button, Breadcrumbs, Stack } from '@mui/material';
+import { Box, Container, Typography, Button, Link, Breadcrumbs, Stack } from '@mui/material';
 import SubsImage from '../../../public/assets/images/subs.svg';
 import { NavigateNext } from '@mui/icons-material/';
 import Sidebar from './Components/Sidebar';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { subscriptionActions, } from '../../_actions';
-import { forecastSubAtom, planAtom, subplanAtom } from '../../_state';
-import { useRecoilValue, useRecoilState } from "recoil";
+import { forecastSubAtom } from '../../_state';
+import { useRecoilValue } from "recoil";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+function handleClick(event) {
+    event.preventDefault();
+    console.info('You clicked a breadcrumb.');
+}
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -37,23 +41,15 @@ const ForecastSubscriptions = () => {
     const navigate = useNavigate();
     const subscribed = subscriptionActions();
     const User = useRecoilValue(forecastSubAtom);
-    const [subscriptionData, setSubscriptionData] = useState([]);
-    const [confirm, setConfirm] = useState({ 'plan': {}, 'step': 2  });
-    const [open, setOpen] = useState(false);
-    const [plan, setPlan] = useRecoilState(planAtom);
-    const [subplan, setSubplan] = useRecoilState(subplanAtom);
 
-const Continue =(plan) => {
-    setSubplan(true)
-    setPlan(plan);
-    navigate("/subscription")   
-}
+    console.log(User, 'user');
+
+    const [open, setOpen] = useState(false);
 
     //subscribedUser Api
     useEffect(() => {
         const response = subscribed.subscribedUser()
         response.then((res) => { (res) })
-
     }, [])
 
     //unsubscribedUser Api
@@ -64,14 +60,8 @@ const Continue =(plan) => {
 
     //subscribedPlan Api
     useEffect(() => {
-        const get_subscription = async () => {
-            await subscribed.subscription()
-                .then((res) => {
-                    res.reverse()
-                    setSubscriptionData(res)
-                })
-        }
-        get_subscription();
+        const response = subscribed.subscription()
+        response.then((res) => { (res) })
     }, [])
 
 
@@ -80,7 +70,7 @@ const Continue =(plan) => {
 
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-    
+
     const [personName, setPersonName] = React.useState([]);
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -93,7 +83,7 @@ const Continue =(plan) => {
         );
     };
     const breadcrumbs = [
-        <Link underline="hover" key="1" color="inherit" to="/" >
+        <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
             Home
         </Link>,
         <Typography key="3" color="text.primary">
@@ -111,7 +101,7 @@ const Continue =(plan) => {
 
     // Accordion  function call
     const [expandFirst, setExpandFirst] = React.useState(true);
-    useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) }, [expandFirst]);
+    useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) }, [expandFirst]);
 
     return (
         <>
@@ -123,7 +113,7 @@ const Continue =(plan) => {
                                 Subscriptions
                             </Typography>
 
-                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', paddingTop: { xs: '10px', md: '0px' } }}>
+                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
                                 <Box  >
                                     <Breadcrumbs
                                         separator={<NavigateNext fontSize="small" />}
@@ -150,20 +140,67 @@ const Continue =(plan) => {
                                                 <span>Forecast </span> Subscriptions
                                             </Typography>
                                         </Box>}
-                                        <Box className='subscription-plan forecast-subscription'>
-                                            <Box>
-                                                {User?.status === 'running'? 
+                                        <Box className='subscription-plan'>
+                                            {User?.status === 'running' ? (<Accordion expanded={expandFirst}>
+                                                <AccordionSummary
+                                                    // expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1bh-content"
+                                                    id="panel1bh-header"
+                                                >
+                                                    <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                                                        Plan Details
+                                                    </Typography>
+                                                </AccordionSummary>
+                                                <AccordionDetails>
+                                                    <Box className="subscription-plan-card">
+                                                        <Typography component="h4" variant='h4' className='plan-title'>
+                                                            {User.plan_type}
+                                                        </Typography>
+                                                        <Box className="subscription-plan-body">
+                                                            <Typography component="h4" variant='h4' className='plan-price'>
+                                                                {User.amount} <span className='plan-days'>/ {User.plan_type}</span>
+                                                            </Typography>
+
+                                                            <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
+                                                                <Typography>Gat all crypto price predictions & Trade with Machine learning</Typography>
+                                                            </Typography>
+                                                        </Box>
+                                                        <Box className="subscription-plan-cta">
+                                                            <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
+                                                                <Typography>You are subscribed to this plan</Typography>
+                                                            </Typography>
+
+                                                        </Box>
+
+                                                        <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
+                                                            By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content once your plan finishes. To regain full access to the content, a new subscription is required.
+                                                        </Typography>
+
+                                                    </Box>
+                                                    <Box className="subscription-plan-cta">
+                                                        <Button onClick={() => { setExpandFirst(false); unsubscribedUserFun() }} variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribe</Button>
+                                                    </Box>
+                                                </AccordionDetails>
+                                            </Accordion>) : (<Box className='subscription-plan'>
+                                            <AccordionSummary
+                                                    aria-controls="panel1bh-content"
+                                                    id="panel1bh-header"
+                                                >
+                                                    <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                                                      Details
+                                                    </Typography>
+                                                </AccordionSummary>
                                                 <Box className="subscription-plan-card">
                                                     <Typography component="h4" variant='h4' className='plan-title'>
-                                                        {User.plan_type }
+                                                        Free Plan
                                                     </Typography>
                                                     <Box className="subscription-plan-body">
                                                         <Typography component="h4" variant='h4' className='plan-price'>
-                                                            ${User.amount} <span className='plan-days'>/ {User.plan_type}</span>
+                                                            <span className='plan-days'> Free</span>
                                                         </Typography>
 
                                                         <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
-                                                            <Typography>Get all crypto price predictions & Trade with Machine learning</Typography>
+                                                            <Typography>Free market chart view & Tutorials for crypto</Typography>
                                                         </Typography>
                                                     </Box>
                                                     <Box className="subscription-plan-cta">
@@ -171,43 +208,13 @@ const Continue =(plan) => {
                                                             <Typography>You are subscribed to this plan</Typography>
                                                         </Typography>
                                                     </Box>
+                                                    <Box className="subscription-plan-cta">
+                                                                <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={() => navigate("/subscription")} >Upgrade</Button>
+                                                    </Box>
                                                 </Box>
-                                                : ""}
-                                                <Box className="subscription-plan-card">
-                                                   
 
-                                                   {subscriptionData.map((plan, i) => (
-                                                   <>
-                                                   {plan.subscription_name!==User.plan_type&&
-                                                        <Box className="subscription-plan-card">
-                                                            <Typography component="h4" variant='h4' className='plan-title'>
-                                                                {plan.subscription_name}
-                                                            </Typography>
-                                                            <Box className="subscription-plan-body">
-                                                                <Typography component="h4" variant='h4' className='plan-price'>
-                                                                    ${plan?.subscription_price || 0}  <span className='plan-days'>/ {plan?.duration} days</span>
-                                                                </Typography>
-                                                                <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
-                                                                    {plan.description}
-                                                                </Typography>
-                                                            </Box>
-                                                            <Box className="subscription-plan-cta">
-                                                                <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={(e) =>Continue(plan)} >Continue</Button>
-                                                            </Box>
-                                                        </Box>}</>
-                                                    ))}
-                                               </Box>
-                                                <Box className="unsubscribe-plan">
-                                                    <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
-                                                        By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content once your plan finishes. To regain full access to the content, a new subscription is required.
-                                                    </Typography>
-                                                    {User?.status === 'running'?  
-                                                    <Button onClick={() => { setExpandFirst(false); unsubscribedUserFun() }} variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribe</Button>
-                                                    : ''}
-                                                </Box>
-                                            </Box>
-                                                
-                                            
+                                            </Box>)}
+
 
 
 
@@ -233,4 +240,4 @@ const Continue =(plan) => {
     )
 }
 
-export default ForecastSubscriptions
+export default ForecastSubscriptions;

@@ -9,4 +9,9 @@ const contactListAtom = atom({
     key: "contactListAtom",
     default: [],
   });
-export { contact_AddAtom, contactListAtom };
+
+  const contactBlogListAtom = atom({
+    key: "contactBlogListAtom",
+    default: [],
+  });
+export { contact_AddAtom, contactListAtom, contactBlogListAtom };

@@ -91,6 +91,8 @@ export const Apis = {
   Market_Trend: "market-trend",  
   Community_List: "community-list" ,
   Contact_Faq_List: "contact_faq-list",
+  About_Crypto_List: "about_crypto-list",
+  master_Course_List: "master_coures-list",
 };
 
 export const theme = createTheme({

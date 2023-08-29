@@ -18,8 +18,9 @@ import { NavigateNext, ArrowDropDown } from "@mui/icons-material";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { tutorialAtom, loaderAtom, blogListAtom, blogimgAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
-import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
+import {Helmet} from "react-helmet";
+import ReactPlayer from "react-player";
 import ShareIcon from "../../../public/assets/images/icons/share.svg";
 import LikeIcon from "../../../public/assets/images/icons/love.svg";
 
@@ -82,6 +83,10 @@ const LearnCyptoDetail = () => {
 
   return (
     <>
+            <Helmet>
+                <title>My Title</title>
+                <link rel="canonical" href="http://mysite.com/example" />
+            </Helmet>
       <Container className="learn-crypto-details">
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

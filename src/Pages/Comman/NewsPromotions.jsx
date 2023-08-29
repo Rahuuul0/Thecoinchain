@@ -145,7 +145,9 @@ const NewsPromotions = (props) => {
     }, [newsList]);
 
     const imgLink = (data) => {
-        navigate(RoutesName.learn_Crypto_Details)
+        console.log(data,'data')
+        let newsSeo = data.title.trim().toLowerCase().replace(/[\W_]+/g, '-').replace(/^-+|-+$/g, '');
+        navigate(`${RoutesName.learn_Crypto_Details}/${newsSeo}`)
         setBlogimg(data)
         setBlognew(true)
     } 

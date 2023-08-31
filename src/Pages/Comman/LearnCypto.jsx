@@ -30,6 +30,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
+import ReactHtmlParser from 'react-html-parser';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -328,6 +329,7 @@ useEffect(() => {
               <TabPanel value={value}>
                 <Box>
                   {blogList?.map((item) => {
+                    let description = item.description;
                     return (
                       <Box className="right-tab-content">
                         <Grid container
@@ -365,7 +367,7 @@ useEffect(() => {
                                 </Typography>
                              
                                 <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
-                                  {item.description}
+                                  {ReactHtmlParser(description)}
                                 </Typography>
                               </Box>
                               <Box>

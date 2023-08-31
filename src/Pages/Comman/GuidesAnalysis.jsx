@@ -16,6 +16,7 @@ import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabList from "@mui/lab/TabList";
+import ReactHtmlParser from 'react-html-parser';
 
 const GuidesAnalysis = (props) => {
 
@@ -331,6 +332,7 @@ const GuidesAnalysis = (props) => {
                                                                 </FormControl>
                                                             </Box>
                                                             {guidesCategoryList?.map((items) => {
+                                                                let description = items.description;
                                                                 return (
                                                                     <Box padding={0} sx={{ marginBottom: { xs: '30px', md: '0px' } }}>
                                                                         <Grid container 
@@ -367,7 +369,7 @@ const GuidesAnalysis = (props) => {
                                                                                             {items.category}
                                                                                         </Typography>
                                                                                         <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
-                                                                                            {items.description}
+                                                                                            {ReactHtmlParser(description)}
                                                                                         </Typography>
                                                                                     </Box>
                                                                                     <Box>
@@ -437,6 +439,7 @@ const GuidesAnalysis = (props) => {
                                                   
                                                      
                                                             {analyticCategoryList?.map((items) => {
+                                                                  let description = items.description;
                                                                     return (
                                                                         <Box sx={{ padding: '0px !important' }}>
                                                                             <Grid container
@@ -474,7 +477,7 @@ const GuidesAnalysis = (props) => {
                                                                                                 {items.category}
                                                                                             </Typography>
                                                                                             <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
-                                                                                                {items.description}
+                                                                                                {ReactHtmlParser(description)}
                                                                                             </Typography>
                                                                                         </Box>
                                                                                         <Box>

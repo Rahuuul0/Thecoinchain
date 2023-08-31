@@ -51,7 +51,7 @@ const MasterCourse = () => {
                     </Box>
                     {masterCourse?.map((items) => {
                         let title = items.title;
-                        let decription = items.decription;
+                        let description = items.decription;
                         return (
                             <Container maxWidth="lg">
                                 <Box className='subscription-wrapper-head'>
@@ -63,7 +63,7 @@ const MasterCourse = () => {
                                 </Box>
                                 <Box className='page-inner'>
                                     <Typography component="p" variant='body2'>
-                                        {ReactHtmlParser(decription)}
+                                        {ReactHtmlParser(description)}
                                     </Typography>
                                 </Box>
                             </Container>

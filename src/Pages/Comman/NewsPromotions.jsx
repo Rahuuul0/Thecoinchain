@@ -16,6 +16,7 @@ import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabList from "@mui/lab/TabList";
+import ReactHtmlParser from 'react-html-parser';
 
 
 const NewsPromotions = (props) => {
@@ -245,6 +246,7 @@ const NewsPromotions = (props) => {
                                                                 </FormControl>
                                                             </Box>
                                                             {newsCategoryList?.map((item) => {
+                                                                let description = item.description;
                                                                 return (
                                                                     <Box paddingBottom={3}>
                                                                         <Grid container
@@ -281,7 +283,7 @@ const NewsPromotions = (props) => {
                                                                                             {item.category}
                                                                                         </Typography>
                                                                                         <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
-                                                                                            {item.description}
+                                                                                            {ReactHtmlParser(description)}
                                                                                         </Typography>
                                                                                     </Box>
                                                                                     <Box>
@@ -353,6 +355,7 @@ const NewsPromotions = (props) => {
 
                                                                 <TabPanel value={valueTemp} index3={0} dir={theme.direction}>
                                                                     {promotionCategoryList.map((item) => {
+                                                                        let description = item.description;
                                                                         return (
                                                                             <Box paddingBottom={3}>
                                                                                 <Grid container  
@@ -389,7 +392,7 @@ const NewsPromotions = (props) => {
                                                                                                     {item.category}
                                                                                                 </Typography>
                                                                                                 <Typography className="body-caption secondary-color"  sx={{height: '45px', overflow: 'hidden'}}>
-                                                                                                    {item.description}
+                                                                                                    {ReactHtmlParser(description)}
                                                                                                 </Typography>
                                                                                             </Box>
                                                                                             <Box>

@@ -22,6 +22,7 @@ import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import ShareIcon from "../../../public/assets/images/icons/share.svg";
 import LikeIcon from "../../../public/assets/images/icons/love.svg";
+import ReactHtmlParser from 'react-html-parser';
 
 function handleClick(event) {
   event.preventDefault();
@@ -158,7 +159,7 @@ const LearnCyptoDetail = () => {
                 component="p"
                 paddingBottom={3}
                 >
-                {blogImg.description}
+                {ReactHtmlParser(blogImg.description)}
                 </Typography>
               : 
               

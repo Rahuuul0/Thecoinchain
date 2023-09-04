@@ -16,7 +16,7 @@ import Avatar from "../../../public/assets/images/avatar.svg";
 import GridImage from "../../../public/assets/images/grid.svg";
 import { NavigateNext, ArrowDropDown } from "@mui/icons-material";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tutorialAtom, loaderAtom, blogListAtom, blogimgAtom } from "../../_state";
+import { tutorialAtom, loaderAtom, blogListAtom, blogimgAtom, blogVideoAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
@@ -51,7 +51,9 @@ const LearnCyptoDetail = () => {
   const navigate = useNavigate();
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+  const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom)
   const [titleblog, setTitleblog] = useState(false);
+
 
   const scrollToVideo = (e, videoLink, data) => {
     e.current.scrollIntoView({
@@ -59,6 +61,7 @@ const LearnCyptoDetail = () => {
     });
     setVideoUrl(videoLink);
     setBlognew(true);
+    setBlogvideo(true);
     setBlogimg(data);
     setTitleblog(true);
   };
@@ -119,11 +122,20 @@ const LearnCyptoDetail = () => {
           {blogNew === true  && titleblog !== true ? 
             <Box sx={{maxWidth: "100%",justifyContent:"center","display":"flex" }} paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }} 
                   >
+                  {blogVideo === true ? 
+                
+                  <video poster={VideoImg} width="100%" height="100%" controls>
+                    <source  src={blogImg.video_link} type="video/mp4" />
+                   
+                  </video>  
+                  :
                     <img
                       sx={{ maxWidth: "100%",}}
                       src={`${process.env.REACT_APP_IMAGE_URL}/${blogImg.image}`}
                     />
-                      
+
+                  }
+               
             </Box>
            :
            <Box paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}>
@@ -148,7 +160,7 @@ const LearnCyptoDetail = () => {
                 marginBottom={4}
                 paddingBottom={4}
               >
-                {blogNew === true?  "Description" : "Introduction"}
+                {blogNew === true && blogVideo !== true?  "Description" : "Introduction"}
               </Typography>
 
               {blogNew === true ? 

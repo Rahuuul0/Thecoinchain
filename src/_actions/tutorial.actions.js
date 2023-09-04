@@ -1,5 +1,5 @@
 import { useFetchWrapper } from "../_helpers";
-import { tutorialAtom, blogAtom, loaderAtom, tutorialCategoryAtom } from "../_state";
+import { tutorialAtom, blogAtom, loaderAtom, tutorialCategoryAtom, marketBlogListAtom } from "../_state";
 import { Apis } from "../_common/app.constants";
 import { useSetRecoilState } from "recoil";
 
@@ -9,6 +9,7 @@ const useTutorialActions = () => {
   const setBlogData = useSetRecoilState(blogAtom);
   const loader = useSetRecoilState(loaderAtom);
   const tutorialCategory = useSetRecoilState(tutorialCategoryAtom);
+  const marketBlogLists = useSetRecoilState(marketBlogListAtom);
 
   const tutorialData = () => {
     loader(true);
@@ -58,10 +59,27 @@ const useTutorialActions = () => {
       });
   };
 
+  const marketBlogList = () => {
+    loader(true);
+    return fetchWrapper
+      .get(Apis.Market_Blog_List)
+      .then((res) => {
+        if (res.statusCode === 200) {
+          marketBlogLists(res.data);
+        }
+        loader(false);
+      })
+      .catch((err) => {
+        console.warn(err);
+        loader(false);
+      });
+  };
+
   return {
     tutorialData,
     blogData,
-    categoryList
+    categoryList,
+    marketBlogList,
   };
 };
 export { useTutorialActions };

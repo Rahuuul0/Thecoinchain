@@ -92,6 +92,7 @@ export const Apis = {
   Community_List: "community-list" ,
   Contact_Faq_List: "contact_faq-list",
   Contact_Blog_List: "contact_blog-list",
+  Market_Blog_List: "market_blog-list",
 };
 
 export const theme = createTheme({

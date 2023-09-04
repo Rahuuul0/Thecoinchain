@@ -10,7 +10,7 @@ import MarketHero from "./MarketHero";
 import { useEffect } from "react";
 
 import { useRecoilValue } from "recoil";
-import { selectedCategoryAtom } from "../../_state";
+import { selectedCategoryAtom, marketBlogListAtom } from "../../_state";
 
 const Market = () => {
   const selectedCat = useRecoilValue(selectedCategoryAtom);

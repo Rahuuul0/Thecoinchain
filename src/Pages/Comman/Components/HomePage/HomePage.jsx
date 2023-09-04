@@ -88,9 +88,6 @@ const Home = () => {
   const subscribeUser = useRecoilValue(forecastSubAtom);
   const auth = useRecoilValue(authAtom);
 
-  console.log(value,'value')
-
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
     newValue === "1"

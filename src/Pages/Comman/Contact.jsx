@@ -21,7 +21,7 @@ import { ArrowRightAlt, ExpandMore } from '@mui/icons-material';
 import { useContactActions, useTutorialActions } from '../../_actions';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { contact_AddAtom, contactListAtom, tutorialCategoryAtom } from '../../_state';
+import { contact_AddAtom, contactListAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, contactBlogListAtom, blogVideoAtom } from '../../_state';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { West, East } from '@mui/icons-material';
 import { General, Subscriptions } from './Questions';
@@ -44,6 +44,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import "swiper/css";
 import "swiper/css/navigation";
 import LoadingButton from '@mui/lab/LoadingButton';
+import { RoutesName } from "../../_common/app.constants";
 
 
 
@@ -129,7 +130,12 @@ const Contact = () => {
   const [question, setQuestion] = useState("");
   const [category, setCategory] = useState("general");
   const contactLists = useRecoilValue(contactListAtom);
+  const contactBlogLists = useRecoilValue(contactBlogListAtom);
+  const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
+  const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
+  const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
 
+  console.log(contactBlogLists, 'contactBlogLists');
   const contactCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
     return item.type === "Contact_Faq";
 });
@@ -233,10 +239,23 @@ const handleTutorials = (contactCategory) => {
     response.then((res) => { (res) })
 }, []);
 
+useEffect(() => {
+  const response = useContactAddActions.contactBlogList();
+  response.then((res) => { (res) })
+}, []);
+
    useEffect(() => {
     const response = useContactAddActions.contactList();
     response.then((res) => { (res) })
 }, []);
+
+const imgLink = (data) => {
+  navigate(RoutesName.learn_Crypto_Details)
+  setBlogimg(data)
+  setBlognew(true)
+  setBlogvideo(false)
+} 
+
 
   return (
     <>
@@ -289,78 +308,24 @@ const handleTutorials = (contactCategory) => {
             modules={[Navigation]}
             className="mySwiper"
           >
-            <SwiperSlide>
-              <Box className='about-crypto'>
-                <Box className=''>
-                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
-                  <img src={Design} />
-                </Box>
-                <Box paddingTop={4} className="inner-con-box">
-                  <Typography fontWeight='500' paddingBottom={2}>Celebrating the new Design System</Typography>
-                  <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
-                </Box>
-              </Box>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Box className='about-crypto'>
-                <Box className=''>
-                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
-                  <img src={Media} />
-                </Box>
-                <Box paddingTop={4} className="inner-con-box">
-                  <Typography fontWeight='500' paddingBottom={2}>Celebrating the new Design System</Typography>
-                  <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
-                </Box>
-              </Box>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Box className='about-crypto'>
-                <Box className=''>
-                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
-                  <img src={Design} />
-                </Box>
-                <Box paddingTop={4} className="inner-con-box">
-                  <Typography fontWeight='500' paddingBottom={2}>Celebrating the new Design System</Typography>
-                  <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
-                </Box>
-              </Box>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Box className='about-crypto'>
-                <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
-                  <img src={MediaContainer} />
-                </Box>
-                <Box paddingTop={4} className="inner-con-box">
-                  <Typography fontWeight='500' paddingBottom={2}>Celebrating the new Design System</Typography>
-                  <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
-                </Box>
-              </Box>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Box className='about-crypto'>
-                <Box className=''>
-                  <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
-                  <img src={Media} />
-                </Box>
-                <Box paddingTop={4} className="inner-con-box">
-                  <Typography fontWeight='500' paddingBottom={2}>Celebrating the new Design System</Typography>
-                  <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
-                </Box>
-              </Box>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Box className='about-crypto'>
-                <Box className=''>
-                  <Button textTransform='uppercase' className='orange-btn float-right'>New</Button>
-                  <img src={Media} />
-                </Box>
-                <Box paddingTop={4} className="inner-con-box">
-                  <Typography fontWeight='500' paddingBottom={2}>Celebrating the new Design System</Typography>
-                  <Typography className='body-caption secondary-color'>Stack solves business problems from simple to complex</Typography>
-                </Box>
-              </Box>
-            </SwiperSlide>
+          {contactBlogLists.map((item) =>{
+            return(
+              <SwiperSlide>
+                  <Box className='about-crypto'
+                    onClick={() => imgLink(item)}
+                  >
+                    <Box className=''>
+                      <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
+                      <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                    </Box>
+                    <Box paddingTop={4} className="inner-con-box">
+                      <Typography fontWeight='500' paddingBottom={2}>{item.title}</Typography>
+                      <Typography className='body-caption secondary-color'>{item.description}</Typography>
+                    </Box>
+                  </Box>
+              </SwiperSlide>
+            )
+          })}
           </Swiper>
         </Box>
       </Container>
@@ -368,7 +333,7 @@ const handleTutorials = (contactCategory) => {
 
       {/* Slider ends */}
 
-      < Container >
+      <Container>
         <Box className="faq-box">
           <Box>
             <Box className='smallwidth'>
@@ -417,7 +382,7 @@ const handleTutorials = (contactCategory) => {
           </Box>
 
         </Box>
-      </Container >
+      </Container>
 
       <Container maxWidth='fluid' sx={{ backgroundColor: '#F8F8F9' }}>
         <Container className='smallwidth' padding={'0'}>

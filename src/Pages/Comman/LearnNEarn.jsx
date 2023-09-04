@@ -7,22 +7,28 @@ import Learn03 from '../../../public/assets/images/learn03.png'
 import LoadingImg from '../../../public/assets/images/icons/loading.svg'
 import { useNavigate, Link } from 'react-router-dom';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { tutorialAtom } from "../../_state/";
-import { useRecoilValue } from "recoil";
+import { tutorialAtom, marketBlogListAtom, blogListAtom, blogimgAtom, blogVideoAtom } from "../../_state/";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { useTutorialActions } from "../../_actions/";
+import { RoutesName } from "../../_common/app.constants";
+import dayjs from "dayjs";
+
 const LearnNEarn = () => {
 
     const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [learnEarn, setLearnEarn] = useState('');
-    const tutorialsData = useRecoilValue(tutorialAtom);
+    const marketBlogLists = useRecoilValue(marketBlogListAtom);
+    const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
+    const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+    const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom)
     const [loadmore, setloadmore] = useState(3);
     const tutorialAction = useTutorialActions();
 
-    console.log(tutorialsData,'tutorialsData');
+    console.log(marketBlogLists,'tutorialsData');
 
     useEffect(() =>{
-        tutorialAction.tutorialData();
+        tutorialAction.marketBlogList();
         setIsSubmitting(false)
     },[])
     const handleChangeLearn = (event) => {
@@ -35,7 +41,14 @@ const LearnNEarn = () => {
         setTimeout(() => {
             setloadmore(loadmore +3 )
       }, 400);
-      }
+    }
+
+    const imgLink = (data) => {
+        navigate(RoutesName.learn_Crypto_Details)
+        setBlogimg(data)
+        setBlognew(true)
+        setBlogvideo(true)
+    } 
     return (
         <>
             <Box className='learn-n-earn'>
@@ -69,28 +82,30 @@ const LearnNEarn = () => {
                 <Grid container columnSpacing={4} rowSpacing={0}>
                 
                  
-                    {tutorialsData.map((item, index) =>{
+                    {marketBlogLists.map((item, index) =>{
                         if(index < loadmore){
                         return(
                             <Grid item xs={12} md={4} xl={4}> 
-                                <Box className='learn-n-earn-card'>
+                                <Box className='learn-n-earn-card'
+                                 onClick={() => imgLink(item)}
+                                >
                                     <Box className='learn-n-earn-video-wrapper'>
                                         <video poster={Learn01} width="100%" height="100%" controls>
-                                        <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
-                                            Your browser does not support the video tag.
+                                        <source src={item.video_link} type="video/mp4" />
+                                            {/* {item.title} */}
                                         </video>
                                     </Box>
-                                    <span className='learn-badge'>Learn & Earn</span>
+                                    <span className='learn-badge'>{item.tag}</span>
                                     <Typography component="p" variant='body1' className='body-large'>
-                                        Learn about UI8 coin and earn an All-Access Pass
+                                        {item.title}
                                     </Typography>
                                     <Box className='learn-n-earn-by'>
                                         <span className='circle'></span>
                                         <Typography component="small" variant='body2' className='body-caption'>
-                                            Floyd Buckridge
+                                            {item.created_by}
                                         </Typography>
                                         <Typography component="small" variant='body2' className='body-caption' sx={{ marginLeft: 'auto' }}>
-                                            Feb 03, 2021
+                                              {dayjs(item.created_at).format("MMM DD, YYYY" )} 
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -102,7 +117,7 @@ const LearnNEarn = () => {
                     </Grid>
 
                 </Box>
-                {tutorialsData.length >= 3 &&  loadmore <= 3 &&
+                {marketBlogLists.length >= 3 &&  loadmore <= 3 &&
                 <LoadingButton
                     onClick={(e) => handleChanges(e, 3)}
                     // loadingPosition="end"

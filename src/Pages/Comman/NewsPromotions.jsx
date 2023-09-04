@@ -6,7 +6,7 @@ import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
 import { newsListActions, promotionsActions, useTutorialActions } from '../../_actions';
-import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom } from "../../_state";
+import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom } from "../../_state";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useNavigate } from 'react-router-dom';
 import DarkLogo from "../../../public/assets/images/logo.svg";
@@ -27,8 +27,9 @@ const NewsPromotions = (props) => {
     const categoryActions = useTutorialActions();
     const newsList = useRecoilValue(newsListAtom);
     const promotionList = useRecoilValue(promotionAtom);
-    const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
-    const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+    const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
+    const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
+    const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
 
     const newsCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "News";
@@ -149,6 +150,7 @@ const NewsPromotions = (props) => {
         navigate(RoutesName.learn_Crypto_Details)
         setBlogimg(data)
         setBlognew(true)
+        setBlogvideo(false)
     } 
     useEffect(() => {
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" })

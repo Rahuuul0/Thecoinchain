@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme, RoutesName } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { guidesAnalysisActions, analyticsActions, useTutorialActions } from "../../_actions";
-import { guidesAtom, analyticAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom } from "../../_state";
+import { guidesAtom, analyticAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom } from "../../_state";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
@@ -35,8 +35,9 @@ const GuidesAnalysis = (props) => {
     const categoryActions = useTutorialActions();
     const guides = useRecoilValue(guidesAtom);
     const analytic = useRecoilValue(analyticAtom);
-    const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
-    const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+    const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
+    const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
+    const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
 
     const guidesCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "Guide";
@@ -68,7 +69,8 @@ const GuidesAnalysis = (props) => {
     const imgLink = (data) => {
         navigate(RoutesName.learn_Crypto_Details)
         setBlogimg(data)
-        setBlognew(true)
+        setBlognew(true);
+        setBlogvideo(false);
        
     }
 

@@ -1423,6 +1423,10 @@ input[type="number"] {
   margin: 0;
 }
 
+.right-breadcrum ol{
+  justify-content: end;
+}
+
 .smallwidth {
   max-width: 728px !important;
   margin: 0 auto !important;

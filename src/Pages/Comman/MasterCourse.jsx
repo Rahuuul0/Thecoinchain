@@ -38,16 +38,15 @@ const MasterCourse = () => {
             <ThemeProvider theme={theme}>
                 <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div'>
                     <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
-                        <Box  >
+                        <Container maxWidth="lg">
                             <Breadcrumbs
                                 separator={<NavigateNext fontSize="small" />}
                                 aria-label="breadcrumb"
-                                className='center-breadcrum'
+                                className='right-breadcrum'
                             >
                                 {breadcrumbs}
                             </Breadcrumbs>
-
-                        </Box>
+                        </Container>
                     </Box>
                     {masterCourse?.map((items) => {
                         let title = items.title;

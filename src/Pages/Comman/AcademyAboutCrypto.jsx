@@ -36,17 +36,17 @@ const AcademyAboutCrypto = () => {
         <>
             <ThemeProvider theme={theme}>
                 <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div'>
-                    <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
-                        <Box  >
+                    <Box sx={{ color: '#777E90', fontWeight: '500', }}>
+                    <Container maxWidth="lg">
                             <Breadcrumbs
                                 separator={<NavigateNext fontSize="small" />}
                                 aria-label="breadcrumb"
-                                className='center-breadcrum'
+                                className='right-breadcrum'
                             >
                                 {breadcrumbs}
                             </Breadcrumbs>
 
-                        </Box>
+                        </Container>
                     </Box>
                     {allAbout?.map((items) => {
                         let title = items.title;

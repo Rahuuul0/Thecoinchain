@@ -21,7 +21,7 @@ import { ArrowRightAlt, ExpandMore } from '@mui/icons-material';
 import { useContactActions, useTutorialActions } from '../../_actions';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { contact_AddAtom, contactListAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, contactBlogListAtom } from '../../_state';
+import { contact_AddAtom, contactListAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, contactBlogListAtom, blogVideoAtom } from '../../_state';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { West, East } from '@mui/icons-material';
 import { General, Subscriptions } from './Questions';
@@ -131,8 +131,9 @@ const Contact = () => {
   const [category, setCategory] = useState("general");
   const contactLists = useRecoilValue(contactListAtom);
   const contactBlogLists = useRecoilValue(contactBlogListAtom);
-  const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
-  const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+  const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
+  const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
+  const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
 
   console.log(contactBlogLists, 'contactBlogLists');
   const contactCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
@@ -252,6 +253,7 @@ const imgLink = (data) => {
   navigate(RoutesName.learn_Crypto_Details)
   setBlogimg(data)
   setBlognew(true)
+  setBlogvideo(false)
 } 
 
 

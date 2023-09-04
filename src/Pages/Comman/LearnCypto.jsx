@@ -22,7 +22,7 @@ import Globe from "../../../public/assets/images/globe.svg";
 import ReactPlayer from "react-player";
 import { useNavigate, Link } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tutorialAtom, blogAtom, loaderAtom, blogListAtom, blogimgAtom,tutorialCategoryAtom } from "../../_state";
+import { tutorialAtom, blogAtom, loaderAtom, blogListAtom, blogimgAtom, tutorialCategoryAtom, blogVideoAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import Tab from "@mui/material/Tab";
 import { TabContext, TabPanel, TabList } from "@mui/lab/";
@@ -71,6 +71,8 @@ const LearnCypto = () => {
   const [blogList, setBlogList] = useState(blogsData);
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
+  const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
+
   const [value, setValue] = useState("1");
 
   // *BlogCategoryList*
@@ -102,6 +104,7 @@ const LearnCypto = () => {
     navigate(RoutesName.learn_Crypto_Details)
       setBlogimg(data)
       setBlognew(true)
+      setBlogvideo(false)
   }
 
   const handleBlogs = (blogCategory) => {

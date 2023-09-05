@@ -147,7 +147,15 @@ const NewsPromotions = (props) => {
     const imgLink = (data) => {
         console.log(data,'data')
         let newsSeo = data.title.trim().toLowerCase().replace(/[\W_]+/g, '-').replace(/^-+|-+$/g, '');
-        navigate(`${RoutesName.learn_Crypto_Details}/${newsSeo}`)
+        navigate(`${RoutesName.learn_Crypto_Details}/newsletter/${newsSeo}`)
+        setBlogimg(data)
+        setBlognew(true)
+    } 
+
+    const imgpromo = (data) => {
+        console.log(data,'data')
+        let newsSeo = data.title.trim().toLowerCase().replace(/[\W_]+/g, '-').replace(/^-+|-+$/g, '');
+        navigate(`${RoutesName.learn_Crypto_Details}/newspromotions/${newsSeo}`)
         setBlogimg(data)
         setBlognew(true)
     } 
@@ -358,7 +366,7 @@ const NewsPromotions = (props) => {
                                                                         return (
                                                                             <Box paddingBottom={3}>
                                                                                 <Grid container  
-                                                                                    onClick={() => imgLink(item)}
+                                                                                    onClick={() => imgpromo(item)}
                                                                                     sx={{ cursor: "pointer" }}
                                                                                  >
                                                                                     <Grid item xs={12} sm={5} md={5}>

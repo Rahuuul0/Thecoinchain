@@ -19,17 +19,43 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { tutorialAtom, loaderAtom, blogListAtom, blogimgAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import { useNavigate } from "react-router-dom";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 import ReactPlayer from "react-player";
 import ShareIcon from "../../../public/assets/images/icons/share.svg";
 import LikeIcon from "../../../public/assets/images/icons/love.svg";
-
+import { useParams } from "react-router-dom";
 function handleClick(event) {
   event.preventDefault();
   console.info("You clicked a breadcrumb.");
 }
 
 const LearnCyptoDetail = () => {
+  const params = useParams();
+
+  useEffect(() => {
+    console.log(params.title, params.page)
+    switch (params.page) {
+      case "newsletter":
+        console.log("the newsletter page caall api")
+        break;
+
+      case "newspromotions":
+        console.log("the newspromotions page call api")
+        break;
+
+      case "guides":
+        console.log("the guidesanalysis page call api")
+        break;
+
+        case "guideanalytics":
+          console.log("the guidesanalysis page call api")
+          break;
+
+          case "learncypto":
+            console.log("the guidesanalysis page call api")
+            break;
+    }
+  })
   const breadcrumbs = [
     <Link underline="hover" key="1" color="inherit" href="/learn-cypto">
       Learn crypto
@@ -64,7 +90,7 @@ const LearnCyptoDetail = () => {
     setTitleblog(true);
   };
 
-  
+
 
   const handleLoadMore = () => {
     setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
@@ -83,10 +109,10 @@ const LearnCyptoDetail = () => {
 
   return (
     <>
-            <Helmet>
-                <title>My Title</title>
-                <link rel="canonical" href="http://mysite.com/example" />
-            </Helmet>
+      <Helmet>
+        <title>My Title</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <Container className="learn-crypto-details">
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -97,14 +123,14 @@ const LearnCyptoDetail = () => {
         <Box ref={scrollRef}>
 
           <Typography
-              paddingBottom={3}
-              variant="h1"
-              className="secondary-font"
-              fontWeight="700"
-              textAlign="center"
+            paddingBottom={3}
+            variant="h1"
+            className="secondary-font"
+            fontWeight="700"
+            textAlign="center"
           >
-            {blogNew === true? `${blogImg.title}`:`A beginner’s guide to 
-            trading view ` }  
+            {blogNew === true ? `${blogImg.title}` : `A beginner’s guide to 
+            trading view ` }
           </Typography>
 
           <Breadcrumbs
@@ -121,28 +147,28 @@ const LearnCyptoDetail = () => {
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 10 }}>
           <Box>
-          {blogNew === true  && titleblog !== true ? 
-            <Box sx={{maxWidth: "100%",justifyContent:"center","display":"flex" }} paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }} 
-                  >
-                    <img
-                      sx={{ maxWidth: "100%",}}
-                      src={`${process.env.REACT_APP_IMAGE_URL}/${blogImg.image}`}
-                    />
-                      
-            </Box>
-           :
-           <Box paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}>
-              <ReactPlayer
-                url={videoUrl}
-                controls={true}
-                light={displayImage}
-                playing={true}
-                width="100%"
-                height="550px"
-              // style={{ border: "1px solid black" }}
-              />
-            </Box>
-           }
+            {blogNew === true && titleblog !== true ?
+              <Box sx={{ maxWidth: "100%", justifyContent: "center", "display": "flex" }} paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}
+              >
+                <img
+                  sx={{ maxWidth: "100%", }}
+                  src={`${process.env.REACT_APP_IMAGE_URL}/${blogImg.image}`}
+                />
+
+              </Box>
+              :
+              <Box paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}>
+                <ReactPlayer
+                  url={videoUrl}
+                  controls={true}
+                  light={displayImage}
+                  playing={true}
+                  width="100%"
+                  height="550px"
+                // style={{ border: "1px solid black" }}
+                />
+              </Box>
+            }
 
             <Box className="smallwidth">
               <Typography
@@ -153,56 +179,56 @@ const LearnCyptoDetail = () => {
                 marginBottom={4}
                 paddingBottom={4}
               >
-                {blogNew === true?  "Description" : "Introduction"}
+                {blogNew === true ? "Description" : "Introduction"}
               </Typography>
 
-              {blogNew === true ? 
-                <Typography
-                className="secondary-color"
-                variant="p"
-                component="p"
-                paddingBottom={3}
-                >
-                {blogImg.description}
-                </Typography>
-              : 
-              
-              (<Box>
-                  <Typography
-                  className="secondary-color"
-                  variant="p"
-                  component="p"
-                  paddingBottom={3}               
-                >
-                  For traders who love technical analysis, robust charting tools
-                  are essential. TradingView is one option for both amateur and
-                  experienced traders. It offers numerous trading and charting
-                  tools and also a free membership option. Let’s face it... not
-                  everyone has the money or need for a Bloomberg terminal
-                  subscription.
-                </Typography>
+              {blogNew === true ?
                 <Typography
                   className="secondary-color"
                   variant="p"
                   component="p"
                   paddingBottom={3}
                 >
-                  The Stacks series of products: Stacks: Landing Page Kit, Stacks:
-                  Portfolio Kit, Stacks: eCommerce Kit. "Stacks is a
-                  production-ready library of stackable content blocks built in
-                  React Native.{" "}
+                  {blogImg.description}
                 </Typography>
-                <Typography
-                  className="secondary-color"
-                  variant="p"
-                  component="p"
-                  paddingBottom={{ xs: 4, sm: 10 }}
-                >
-                  Mix-and-match dozens of responsive elements to quickly configure
-                  your favorite landing page layouts or hit the ground running
-                  with 10 pre-built templates, all in light or dark mode."{" "}
-                </Typography> 
-              </Box>)
+                :
+
+                (<Box>
+                  <Typography
+                    className="secondary-color"
+                    variant="p"
+                    component="p"
+                    paddingBottom={3}
+                  >
+                    For traders who love technical analysis, robust charting tools
+                    are essential. TradingView is one option for both amateur and
+                    experienced traders. It offers numerous trading and charting
+                    tools and also a free membership option. Let’s face it... not
+                    everyone has the money or need for a Bloomberg terminal
+                    subscription.
+                  </Typography>
+                  <Typography
+                    className="secondary-color"
+                    variant="p"
+                    component="p"
+                    paddingBottom={3}
+                  >
+                    The Stacks series of products: Stacks: Landing Page Kit, Stacks:
+                    Portfolio Kit, Stacks: eCommerce Kit. "Stacks is a
+                    production-ready library of stackable content blocks built in
+                    React Native.{" "}
+                  </Typography>
+                  <Typography
+                    className="secondary-color"
+                    variant="p"
+                    component="p"
+                    paddingBottom={{ xs: 4, sm: 10 }}
+                  >
+                    Mix-and-match dozens of responsive elements to quickly configure
+                    your favorite landing page layouts or hit the ground running
+                    with 10 pre-built templates, all in light or dark mode."{" "}
+                  </Typography>
+                </Box>)
               }
               <Typography
                 variant="h2"
@@ -234,7 +260,7 @@ const LearnCyptoDetail = () => {
                 your favorite landing page layouts or hit the ground running
                 with 10 pre-built templates, all in light or dark mode."
               </Typography>
-              
+
             </Box>
           </Box>
           <Box className="smallwidth">

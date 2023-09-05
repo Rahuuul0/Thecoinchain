@@ -65,11 +65,20 @@ const GuidesAnalysis = (props) => {
     };
 
     const imgLink = (data) => {
-        navigate(RoutesName.learn_Crypto_Details)
+        console.log(data,'data')
+        let guideSeo = data.title.trim().toLowerCase().replace(/[\W_]+/g, '-').replace(/^-+|-+$/g, '');
+        navigate(`${RoutesName.learn_Crypto_Details}/guides/${guideSeo}`)
         setBlogimg(data)
         setBlognew(true)
-       
-    }
+    } 
+
+    const imgAna = (data) => {
+        console.log(data,'data')
+        let guideSeo = data.title.trim().toLowerCase().replace(/[\W_]+/g, '-').replace(/^-+|-+$/g, '');
+        navigate(`${RoutesName.learn_Crypto_Details}/guideanalytics/${guideSeo}`)
+        setBlogimg(data)
+        setBlognew(true)
+    } 
 
     const handleTutorials = (guidesCategory) => {
 
@@ -440,7 +449,7 @@ const GuidesAnalysis = (props) => {
                                                                     return (
                                                                         <Box sx={{ padding: '0px !important' }}>
                                                                             <Grid container
-                                                                                onClick={() => imgLink(items)}
+                                                                                onClick={() => imgAna(items)}
                                                                                 sx={{ cursor: "pointer" }}
                                                                             >
                                                                                 <Grid item xs={12} sm={5} md={5}>

@@ -98,11 +98,13 @@ const LearnCypto = () => {
           setBlogList(tutorialsArr);
   };
 
-  const imgLink =(data) =>{
-    navigate(RoutesName.learn_Crypto_Details)
-      setBlogimg(data)
-      setBlognew(true)
-  }
+  const imgLink = (data) => {
+    console.log(data,'data')
+    let learnSeo = data.title.trim().toLowerCase().replace(/[\W_]+/g, '-').replace(/^-+|-+$/g, '');
+    navigate(`${RoutesName.learn_Crypto_Details}/learncypto/${learnSeo}`)
+    setBlogimg(data)
+    setBlognew(true)
+} 
 
   const handleBlogs = (blogCategory) => {
     let blogsArr = [];

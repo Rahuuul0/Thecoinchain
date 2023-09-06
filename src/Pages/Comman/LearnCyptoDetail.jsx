@@ -54,7 +54,6 @@ const LearnCyptoDetail = () => {
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
   const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom)
   const [titleblog, setTitleblog] = useState(false);
-
   
   const scrollToVideo = (e, videoLink, data) => {
     e.current.scrollIntoView({
@@ -65,8 +64,6 @@ const LearnCyptoDetail = () => {
     setBlogimg(data);
     setTitleblog(true);
   };
-
-  
 
   const handleLoadMore = () => {
     setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
@@ -129,11 +126,15 @@ const LearnCyptoDetail = () => {
                       src={`${process.env.REACT_APP_IMAGE_URL}/${blogImg.image}`}
                     /> 
                   :
-                  <video poster={VideoImg} width="100%" height="100%" controls>
-                    <source  src={blogImg.video_link} type="video/mp4" />
-                   
-                  </video> 
-
+                      <ReactPlayer
+                        url={blogImg.video_link}
+                        controls={true}
+                        // light={displayImage}
+                        playing={true}
+                        width="100%"
+                        height="550px"
+                      // style={{ border: "1px solid black" }}
+                      />
                   }
                
             </Box>
@@ -160,10 +161,10 @@ const LearnCyptoDetail = () => {
                 marginBottom={4}
                 paddingBottom={4}
               >
-                {blogNew === true && blogVideo !== true?  "Description" : "Introduction"}
+                {blogNew === true && blogVideo === true?  "Description" : "Introduction"}
               </Typography>
 
-              {blogNew === true ? 
+              {blogNew === true && blogVideo === true ? 
                 <Typography
                 className="secondary-color"
                 variant="p"
@@ -211,180 +212,12 @@ const LearnCyptoDetail = () => {
                 </Typography> 
               </Box>)
               }
-              <Typography
-                variant="h2"
-                fontWeight="700"
-                component="div"
-                className="secondary-font font-40 bottom-border"
-                marginBottom={4}
-                paddingBottom={4}
-              >
-                What does TradingView do?
-              </Typography>
-              <Typography
-                className="secondary-color"
-                variant="p"
-                component="p"
-                paddingBottom={4}
-              >
-                The Stacks series of products: Stacks: Landing Page Kit, Stacks:
-                Portfolio Kit, Stacks: eCommerce Kit. "Stacks is a
-                production-ready library of stackable content blocks built in
-                React Native.
-              </Typography>
-              <Typography
-                className="secondary-color"
-                variant="p"
-                component="p"
-              >
-                Mix-and-match dozens of responsive elements to quickly configure
-                your favorite landing page layouts or hit the ground running
-                with 10 pre-built templates, all in light or dark mode."
-              </Typography>
               
             </Box>
           </Box>
-          <Box className="smallwidth">
-            <Box paddingY={{ xs: 4, sm: 10 }} textAlign="center">
-              <img src={VideoImg} className="w-100" />
-            </Box>
-            <Box>
-              <Typography
-                variant="h2"
-                fontWeight="700"
-                component="div"
-                className="secondary-font font-40 bottom-border"
-                marginBottom={4}
-                paddingBottom={4}
-              >
-                How expensive is TradingView?
-              </Typography>
-              <Typography
-                className="secondary-color"
-                variant="p"
-                component="p"
-                paddingBottom={4}
-              >
-                The Stacks series of products: Stacks: Landing Page Kit, Stacks:
-                Portfolio Kit, Stacks: eCommerce Kit. "Stacks is a
-                production-ready library of stackable content blocks built in
-                React Native.
-              </Typography>
-              <Typography
-                className="secondary-color"
-                variant="p"
-                component="p"
-              >
-                {" "}
-                Mix-and-match dozens of responsive elements to quickly configure
-                your favorite landing page layouts or hit the ground running
-                with 10 pre-built templates, all in light or dark mode."{" "}
-              </Typography>
-            </Box>
-            <Box paddingTop={{ xs: 4, sm: 10 }}>
-              <Typography
-                variant="h2"
-                fontWeight="700"
-                component="div"
-                className="secondary-font font-40 bottom-border"
-                marginBottom={4}
-                paddingBottom={4}
-              >
-                Understanding the TradingView UI
-              </Typography>
-              <Typography
-                className="secondary-color"
-                variant="p"
-                component="p"
-                paddingBottom={4}
-              >
-                The Stacks series of products: Stacks: Landing Page Kit, Stacks:
-                Portfolio Kit, Stacks: eCommerce Kit. "Stacks is a
-                production-ready library of stackable content blocks built in
-                React Native.{" "}
-              </Typography>
-              <Typography
-                className="secondary-color"
-                variant="p"
-                component="p"
-              >
-                Mix-and-match dozens of responsive elements to quickly configure
-                your favorite landing page layouts or hit the ground running
-                with 10 pre-built templates, all in light or dark mode."{" "}
-              </Typography>
-            </Box>
-          </Box>
         </Box>
       </Container>
-      <Container>
-        <Stack direction='row' justifyContent='center' spacing={3} marginBottom={{ xs: "64px", sm: "64px", md: "112px", lg: "136px" }} >
-          <img src={ShareIcon} />
-          <img src={LikeIcon} />
-        </Stack>
-      </Container>
-
-      <Container>
-        <Box paddingBottom={{ xs: "64px", sm: "64px", md: "112px", lg: "136px" }}>
-          <Grid container spacing={6} rowSpacing={6}>
-            {tutorialsData?.slice(0, visibleVideos).map((item) => {
-              let title = item.title.substring(0, 20) + "...";
-              return (
-                <Grid item xs={12} sm={6} md={6} lg={4}>
-                  <Box className="about-crypto">
-                    <Typography
-                      textTransform="uppercase"
-                      className="orange-btn float-img small-btn small-new-btn"
-                    >
-                      New
-                    </Typography>
-
-                    <Box
-                      className="avatar-rounded"
-                      onClick={() => scrollToVideo(scrollRef, item.video_link, item)}
-                      sx={{ cursor: "pointer" }}
-                    >
-                      <img className="tutorial-preview" src={item.image_link} />
-                    </Box>
-                    <Stack
-                      direction="row"
-                      justifyContent="space-between"
-                      paddingTop={3}
-                    >
-                      <Box display="flex">
-                        <img src={Avatar} />
-                        <Box sx={{ paddingLeft: "15px" }}>
-                          <Typography fontWeight="500">{title}</Typography>
-                          <Typography
-                            className="small secondary-color"
-                            fontWeight="500"
-                          >
-                            <span>First Name</span> <span>Last Name</span>
-                          </Typography>
-                        </Box>
-                      </Box>
-
-                      <Box>
-                        <Typography className="btn btn-green-outlined">
-                          Popular
-                        </Typography>
-                      </Box>
-                    </Stack>
-                  </Box>
-                </Grid>
-              );
-            })}
-          </Grid>
-          <Typography textAlign="center" paddingTop={{ xs: 3, sm: 10 }}>
-            <Button
-              className="btn-outlined-secondary"
-              endIcon={<ArrowDropDown />}
-              onClick={handleLoadMore}
-            >
-              Learn More
-            </Button>
-          </Typography>
-        </Box>
-      </Container>
+    
     </>
   );
 };

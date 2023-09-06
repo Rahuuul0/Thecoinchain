@@ -1613,7 +1613,8 @@ input[type="number"] {
 
 .learn-n-earn-card {
   flex: 1;
-  padding-bottom: 58px;
+  padding-bottom: 50px;
+  padding-top: 20px;
   border-bottom: 2px solid #e6e8ec;
 }
 

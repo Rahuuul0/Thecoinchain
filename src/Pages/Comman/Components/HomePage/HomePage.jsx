@@ -38,7 +38,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import Marquee from "react-fast-marquee";
 import CryptoTable from "../../CryptoTable";
 import { useNavigate,Link } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import {
   useCoinActions,
   useTutorialActions,
@@ -54,6 +54,9 @@ import {
   tutorialCategoryAtom,
   forecastSubAtom,
   authAtom,
+  blogListAtom,
+  blogimgAtom,
+  blogVideoAtom,
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
@@ -63,6 +66,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Alert from "@mui/material/Alert";
 import ReactHtmlParser from 'react-html-parser';
+import { RoutesName } from "../../../../_common/app.constants";
 
 const Home = () => {
   const [marketTrend, setMarketTrend] = useState(1);
@@ -83,6 +87,11 @@ const Home = () => {
   const bannerList = useRecoilValue(bannerListAtom);
   const bannerActions = bannerListActions();
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
+
+  const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
+  const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
+  const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
+
   const tutorialCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
     return item.type === "Tutorial";
   });
@@ -126,7 +135,14 @@ const Home = () => {
       res;
     });
   }, []);
-  
+
+  const imgLink = (data) => {
+    navigate(RoutesName.learn_Crypto_Details)
+    setBlogimg(data)
+    setBlognew(true)
+    setBlogvideo(true)
+}
+
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
@@ -347,7 +363,9 @@ const Home = () => {
                     let description = item.description.substring(0, 50) + "...";
                     let title = item.title.substring(0, 50) + "...";
                     return (
-                      <Grid item xs={6}>
+                      <Grid item xs={6}
+                       onClick={() => imgLink(item)}
+                      >
                         {/* <img src={Leveragedv3} /> */}
                         <ReactPlayer
                           url={item.video_link}
@@ -363,7 +381,7 @@ const Home = () => {
                           justifyContent="space-between"
                           paddingTop={3}
                         >
-                          <Box>
+                          <Box  sx={{ cursor: "pointer" }}>
                             <Typography
                               variant="h3"
                               component="div"
@@ -416,8 +434,9 @@ const Home = () => {
                           columnSpacing={{ xs: 1, sm: 4 }}
                           className="flex-between-box"
                           marginBottom={3}
+                          onClick={() => imgLink(item)}
                         >
-                          <Grid item xs={6}>
+                          <Grid item xs={6}  sx={{ cursor: "pointer" }}>
                             <Stack spacing={2} justifyContent="space-between">
                               <Typography
                                 fontSize={16}

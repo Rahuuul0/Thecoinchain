@@ -6,7 +6,7 @@ import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
 import { newsListActions, promotionsActions, useTutorialActions } from '../../_actions';
-import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom } from "../../_state";
+import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom } from "../../_state";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useNavigate } from 'react-router-dom';
 import DarkLogo from "../../../public/assets/images/logo.svg";
@@ -16,6 +16,7 @@ import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabList from "@mui/lab/TabList";
+import ReactHtmlParser from 'react-html-parser';
 
 
 const NewsPromotions = (props) => {
@@ -26,8 +27,9 @@ const NewsPromotions = (props) => {
     const categoryActions = useTutorialActions();
     const newsList = useRecoilValue(newsListAtom);
     const promotionList = useRecoilValue(promotionAtom);
-    const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
-    const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+    const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
+    const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
+    const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
 
     const newsCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "News";
@@ -146,7 +148,7 @@ const NewsPromotions = (props) => {
 
     const imgLink = (data) => {
         console.log(data,'data')
-        let newsSeo = data.title.trim().toLowerCase().replace(/[\W_]+/g, '-').replace(/^-+|-+$/g, '');
+        let newsSeo = data.slug
         navigate(`${RoutesName.learn_Crypto_Details}/newsletter/${newsSeo}`)
         setBlogimg(data)
         setBlognew(true)
@@ -154,7 +156,7 @@ const NewsPromotions = (props) => {
 
     const imgpromo = (data) => {
         console.log(data,'data')
-        let newsSeo = data.title.trim().toLowerCase().replace(/[\W_]+/g, '-').replace(/^-+|-+$/g, '');
+        let newsSeo = data.slug
         navigate(`${RoutesName.learn_Crypto_Details}/newspromotions/${newsSeo}`)
         setBlogimg(data)
         setBlognew(true)
@@ -255,6 +257,7 @@ const NewsPromotions = (props) => {
                                                                 </FormControl>
                                                             </Box>
                                                             {newsCategoryList?.map((item) => {
+                                                                let description = item.description;
                                                                 return (
                                                                     <Box paddingBottom={3}>
                                                                         <Grid container
@@ -291,7 +294,7 @@ const NewsPromotions = (props) => {
                                                                                             {item.category}
                                                                                         </Typography>
                                                                                         <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
-                                                                                            {item.description}
+                                                                                            {ReactHtmlParser(description)}
                                                                                         </Typography>
                                                                                     </Box>
                                                                                     <Box>
@@ -363,6 +366,7 @@ const NewsPromotions = (props) => {
 
                                                                 <TabPanel value={valueTemp} index3={0} dir={theme.direction}>
                                                                     {promotionCategoryList.map((item) => {
+                                                                        let description = item.description;
                                                                         return (
                                                                             <Box paddingBottom={3}>
                                                                                 <Grid container  
@@ -399,7 +403,7 @@ const NewsPromotions = (props) => {
                                                                                                     {item.category}
                                                                                                 </Typography>
                                                                                                 <Typography className="body-caption secondary-color"  sx={{height: '45px', overflow: 'hidden'}}>
-                                                                                                    {item.description}
+                                                                                                    {ReactHtmlParser(description)}
                                                                                                 </Typography>
                                                                                             </Box>
                                                                                             <Box>

@@ -5,4 +5,10 @@ const promotionAtom = atom({
   default: [],
 });
 
-export { promotionAtom };
+const promotionAtomSingle = atom({
+  key: "promotionSingle",
+  default: [],
+});
+
+
+export { promotionAtom, promotionAtomSingle };

@@ -22,7 +22,7 @@ import Globe from "../../../public/assets/images/globe.svg";
 import ReactPlayer from "react-player";
 import { useNavigate, Link } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tutorialAtom, blogAtom, loaderAtom, blogListAtom, blogimgAtom,tutorialCategoryAtom } from "../../_state";
+import { tutorialAtom, blogAtom, loaderAtom, blogListAtom, blogimgAtom, tutorialCategoryAtom, blogVideoAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import Tab from "@mui/material/Tab";
 import { TabContext, TabPanel, TabList } from "@mui/lab/";
@@ -30,6 +30,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
+import ReactHtmlParser from 'react-html-parser';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -71,6 +72,8 @@ const LearnCypto = () => {
   const [blogList, setBlogList] = useState(blogsData);
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
+  const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
+
   const [value, setValue] = useState("1");
 
   // *BlogCategoryList*
@@ -100,10 +103,20 @@ const LearnCypto = () => {
 
   const imgLink = (data) => {
     console.log(data,'data')
-    let learnSeo = data.title.trim().toLowerCase().replace(/[\W_]+/g, '-').replace(/^-+|-+$/g, '');
+    let learnSeo = data.slug
     navigate(`${RoutesName.learn_Crypto_Details}/learncypto/${learnSeo}`)
     setBlogimg(data)
     setBlognew(true)
+    setBlogvideo(false)
+} 
+
+const vidLink = (data) => {
+  console.log(data,'data')
+  let learnSeo = data.slug
+  navigate(`${RoutesName.learn_Crypto_Details}/learncyptovideo/${learnSeo}`)
+  setBlogimg(data)
+  setBlognew(true)
+  setBlogvideo(true)
 } 
 
   const handleBlogs = (blogCategory) => {
@@ -304,7 +317,7 @@ useEffect(() => {
                                 indicatorColor="secondary"
                                 textColor="inherit"
                                 onClick={e => handleChanges(item.title)}  
-                                label={item.title} value={item.title} />;
+                                label={item.title} value={item.title} />
                             })}
                         </TabList>
                       </Box>
@@ -330,6 +343,7 @@ useEffect(() => {
               <TabPanel value={value}>
                 <Box>
                   {blogList?.map((item) => {
+                    let description = item.description;
                     return (
                       <Box className="right-tab-content">
                         <Grid container
@@ -367,7 +381,7 @@ useEffect(() => {
                                 </Typography>
                              
                                 <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
-                                  {item.description}
+                                  {ReactHtmlParser(description)}
                                 </Typography>
                               </Box>
                               <Box>
@@ -513,10 +527,10 @@ useEffect(() => {
 
                         <Box
                           className="about-crypto"
-                          onclick={() => {
-                            navigate(RoutesName.learn_Crypto_Details);
-                          }}
+                          onClick={() => vidLink(item)}
+                          sx={{ cursor: "pointer" }}
                         >
+                        
                           <Typography
                             textTransform="uppercase"
                             className="orange-btn float-img small-btn small-new-btn"

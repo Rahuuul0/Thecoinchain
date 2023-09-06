@@ -16,46 +16,86 @@ import Avatar from "../../../public/assets/images/avatar.svg";
 import GridImage from "../../../public/assets/images/grid.svg";
 import { NavigateNext, ArrowDropDown } from "@mui/icons-material";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tutorialAtom, loaderAtom, blogListAtom, blogimgAtom } from "../../_state";
-import { useTutorialActions } from "../../_actions/tutorial.actions";
+import { tutorialAtom, 
+  loaderAtom, 
+  blogListAtom, 
+  blogimgAtom, 
+  blogVideoAtom, 
+  newsListAtomSingle, 
+  promotionAtomSingle,
+  guideListSingleAtom,
+  analyticListSingleAtom,
+  blogListSingleAtom} from "../../_state";
+import {
+  useTutorialActions, 
+  newsListActions, 
+  promotionsActions, 
+  guidesAnalysisActions, 
+  analyticsActions } from "../../_actions";
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
+// import { Helmet } from "react-helmet";
 import ReactPlayer from "react-player";
 import ShareIcon from "../../../public/assets/images/icons/share.svg";
 import LikeIcon from "../../../public/assets/images/icons/love.svg";
 import { useParams } from "react-router-dom";
+import ReactHtmlParser from 'react-html-parser';
+
 function handleClick(event) {
   event.preventDefault();
   console.info("You clicked a breadcrumb.");
 }
 
 const LearnCyptoDetail = () => {
+  const [newsListSingle, setNewsListSingle] = useRecoilState(newsListAtomSingle);
+  const [promotionSingle, setPromotionSingle] = useRecoilState(promotionAtomSingle);
+  const [guideListSingle, setGuideListSingle] = useRecoilState(guideListSingleAtom);
+  const [analyticListSingle, setAnalyticListSingle] = useRecoilState(analyticListSingleAtom);
+  const [blogListSingle, setBlogListSingle] = useRecoilState(blogListSingleAtom);
   const params = useParams();
-
+  const newsListGetActions = newsListActions();
+  const promotionsGetActions = promotionsActions();
+  const guidesGetActions = guidesAnalysisActions();
+  const analyticsGetActions = analyticsActions();
+  
   useEffect(() => {
-    console.log(params.title, params.page)
     switch (params.page) {
       case "newsletter":
-        console.log("the newsletter page caall api")
-        break;
+        {
+           newsListGetActions.getSingle(params.title)
+           break;
+        }
 
       case "newspromotions":
-        console.log("the newspromotions page call api")
-        break;
+           promotionsGetActions.getSingle(params.title)
+           break;
 
       case "guides":
-        console.log("the guidesanalysis page call api")
+            guidesGetActions.getSingle(params.title)
         break;
 
-        case "guideanalytics":
-          console.log("the guidesanalysis page call api")
-          break;
+      case "guideanalytics":
+          analyticsGetActions.getSingle(params.title)
+        break;
 
-          case "learncypto":
-            console.log("the guidesanalysis page call api")
-            break;
+      case "learncypto":
+        tutorialAction.getSingle(params.title)
+        break;
+
+      case "learncyptovideo":
+        tutorialAction.getSingleVideo(params.title)
+        setTitleblog(true);
+        break;
+      
+      case "learnandearn":
+        tutorialAction.getSingleMarket(params.title)
+        break;
+
+      default : {
+        console.warn("error")
+      }
     }
-  })
+   
+  },[blogImg])
   const breadcrumbs = [
     <Link underline="hover" key="1" color="inherit" href="/learn-cypto">
       Learn crypto
@@ -78,7 +118,9 @@ const LearnCyptoDetail = () => {
   const navigate = useNavigate();
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+  const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom)
   const [titleblog, setTitleblog] = useState(false);
+
 
   const scrollToVideo = (e, videoLink, data) => {
     e.current.scrollIntoView({
@@ -105,14 +147,15 @@ const LearnCyptoDetail = () => {
 
   useEffect(() => {
     setVideoUrl(displayVideo);
+    
   }, [displayVideo]);
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>My Title</title>
         <link rel="canonical" href="http://mysite.com/example" />
-      </Helmet>
+      </Helmet> */}
       <Container className="learn-crypto-details">
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -129,8 +172,7 @@ const LearnCyptoDetail = () => {
             fontWeight="700"
             textAlign="center"
           >
-            {blogNew === true ? `${blogImg.title}` : `A beginner’s guide to 
-            trading view ` }
+            {blogNew === true ? `${blogImg.title}` : "" }
           </Typography>
 
           <Breadcrumbs
@@ -150,10 +192,19 @@ const LearnCyptoDetail = () => {
             {blogNew === true && titleblog !== true ?
               <Box sx={{ maxWidth: "100%", justifyContent: "center", "display": "flex" }} paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}
               >
-                <img
-                  sx={{ maxWidth: "100%", }}
-                  src={`${process.env.REACT_APP_IMAGE_URL}/${blogImg.image}`}
-                />
+                {blogVideo === false ?
+
+                  <img
+                    sx={{ maxWidth: "100%", }}
+                    src={`${process.env.REACT_APP_IMAGE_URL}/${blogImg.image}`}
+                  />
+                  :
+                  <video poster={VideoImg} width="100%" height="100%" controls>
+                    <source src={blogImg.video_link} type="video/mp4" />
+
+                  </video>
+
+                }
 
               </Box>
               :
@@ -179,7 +230,7 @@ const LearnCyptoDetail = () => {
                 marginBottom={4}
                 paddingBottom={4}
               >
-                {blogNew === true ? "Description" : "Introduction"}
+                {blogNew === true && blogVideo !== true ? "Description" : "Introduction"}
               </Typography>
 
               {blogNew === true ?
@@ -189,7 +240,7 @@ const LearnCyptoDetail = () => {
                   component="p"
                   paddingBottom={3}
                 >
-                  {blogImg.description}
+                  {ReactHtmlParser(blogImg.description)}
                 </Typography>
                 :
 
@@ -262,6 +313,7 @@ const LearnCyptoDetail = () => {
               </Typography>
 
             </Box>
+
           </Box>
           <Box className="smallwidth">
             <Box paddingY={{ xs: 4, sm: 10 }} textAlign="center">

@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme, RoutesName } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { guidesAnalysisActions, analyticsActions, useTutorialActions } from "../../_actions";
-import { guidesAtom, analyticAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom } from "../../_state";
+import { guidesAtom, analyticAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom } from "../../_state";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
@@ -16,6 +16,7 @@ import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabList from "@mui/lab/TabList";
+import ReactHtmlParser from 'react-html-parser';
 
 const GuidesAnalysis = (props) => {
 
@@ -34,8 +35,9 @@ const GuidesAnalysis = (props) => {
     const categoryActions = useTutorialActions();
     const guides = useRecoilValue(guidesAtom);
     const analytic = useRecoilValue(analyticAtom);
-    const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
-    const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+    const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
+    const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
+    const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
 
     const guidesCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "Guide";
@@ -65,16 +67,14 @@ const GuidesAnalysis = (props) => {
     };
 
     const imgLink = (data) => {
-        console.log(data,'data')
-        let guideSeo = data.title.trim().toLowerCase().replace(/[\W_]+/g, '-').replace(/^-+|-+$/g, '');
+        let guideSeo = data.slug
         navigate(`${RoutesName.learn_Crypto_Details}/guides/${guideSeo}`)
         setBlogimg(data)
         setBlognew(true)
     } 
 
     const imgAna = (data) => {
-        console.log(data,'data')
-        let guideSeo = data.title.trim().toLowerCase().replace(/[\W_]+/g, '-').replace(/^-+|-+$/g, '');
+        let guideSeo = data.slug
         navigate(`${RoutesName.learn_Crypto_Details}/guideanalytics/${guideSeo}`)
         setBlogimg(data)
         setBlognew(true)
@@ -340,6 +340,7 @@ const GuidesAnalysis = (props) => {
                                                                 </FormControl>
                                                             </Box>
                                                             {guidesCategoryList?.map((items) => {
+                                                                let description = items.description;
                                                                 return (
                                                                     <Box padding={0} sx={{ marginBottom: { xs: '30px', md: '0px' } }}>
                                                                         <Grid container 
@@ -376,7 +377,7 @@ const GuidesAnalysis = (props) => {
                                                                                             {items.category}
                                                                                         </Typography>
                                                                                         <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
-                                                                                            {items.description}
+                                                                                            {ReactHtmlParser(description)}
                                                                                         </Typography>
                                                                                     </Box>
                                                                                     <Box>
@@ -446,6 +447,7 @@ const GuidesAnalysis = (props) => {
                                                   
                                                      
                                                             {analyticCategoryList?.map((items) => {
+                                                                  let description = items.description;
                                                                     return (
                                                                         <Box sx={{ padding: '0px !important' }}>
                                                                             <Grid container
@@ -483,7 +485,7 @@ const GuidesAnalysis = (props) => {
                                                                                                 {items.category}
                                                                                             </Typography>
                                                                                             <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
-                                                                                                {items.description}
+                                                                                                {ReactHtmlParser(description)}
                                                                                             </Typography>
                                                                                         </Box>
                                                                                         <Box>

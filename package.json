@@ -34,6 +34,7 @@
     "react-google-recaptcha": "^2.1.0",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.43.9",
+    "react-html-parser": "^2.0.2",
     "react-player": "^2.12.0",
     "react-read-more-read-less": "^1.0.7",
     "react-router-dom": "^6.11.1",

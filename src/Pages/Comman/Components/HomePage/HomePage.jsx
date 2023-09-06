@@ -62,6 +62,7 @@ import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import Alert from "@mui/material/Alert";
+import ReactHtmlParser from 'react-html-parser';
 
 const Home = () => {
   const [marketTrend, setMarketTrend] = useState(1);
@@ -87,9 +88,6 @@ const Home = () => {
   });
   const subscribeUser = useRecoilValue(forecastSubAtom);
   const auth = useRecoilValue(authAtom);
-
-  console.log(value,'value')
-
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -128,7 +126,7 @@ const Home = () => {
       res;
     });
   }, []);
-
+  
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
@@ -382,7 +380,7 @@ const Home = () => {
                               paddingBottom={2}
                               className="secondary-color primary-font"
                             >
-                              {description}
+                              {ReactHtmlParser(description)}
                             </Typography>
                           </Box>
                           <Button
@@ -432,7 +430,7 @@ const Home = () => {
                                 sx={{ fontSize: "14px !important" }}
                                 className="secondary-color primary-font"
                               >
-                                {description}
+                                {ReactHtmlParser(description)}
                               </Typography>
                             </Stack>
                             <Typography
@@ -528,7 +526,7 @@ const Home = () => {
                             sx={{ fontSize: "14px !important" }}
                             className="secondary-color primary-font"
                           >
-                            {description}
+                            {ReactHtmlParser(description)}
                           </Typography>
                         </Box>
                       </SwiperSlide>

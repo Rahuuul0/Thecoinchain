@@ -52,6 +52,7 @@ import AcademyAboutCrypto from "./AcademyAboutCrypto";
 import SubscriptionPaymentPaypal from "./SubscriptionPaymentPaypal";
 import ForgotPasswordPhone from "./ForgotPasswordPhone";
 import ContentNotFound from "./ContentNotFound";
+import PageNotFound from "./PageNotFound";
 
 const Customer = () => {
   const auth = useRecoilValue(authAtom);
@@ -88,6 +89,7 @@ const Customer = () => {
           <Route path={`/`} exact element={<Home />} />
           <Route path={`/learn-cypto`} element={<LearnCypto />} />
           <Route path={`/learn-cypto-detail/:page/:title`} element={<LearnCyptoDetail />} />
+          <Route path='*' element={<PageNotFound/>} />
           <Route path={`/contact`} element={<Contact />} />
           <Route path={`/market`} exact element={<Market />} />
           <Route path={`/predict-market`} exact element={<PredictMarket />} />

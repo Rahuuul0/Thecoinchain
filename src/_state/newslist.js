@@ -5,4 +5,9 @@ const newsListAtom = atom({
   default: [],
 });
 
-export { newsListAtom };
+const newsListAtomSingle = atom({
+  key: "newsListSingle",
+  default: [],
+});
+
+export { newsListAtom, newsListAtomSingle };

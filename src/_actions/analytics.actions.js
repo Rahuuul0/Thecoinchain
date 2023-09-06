@@ -1,32 +1,46 @@
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from '../_helpers';
 import { Apis } from '../_common/app.constants';
-import {  analyticAtom } from '../_state';
+import { analyticAtom, analyticListSingleAtom, blogListAtom, blogimgAtom, blogVideoAtom } from '../_state';
+import { useRecoilValue, useRecoilState } from "recoil";
 import { useAlertActions } from '../_actions/alert.actions';
 
 const analyticsActions = () => {
     const navigate = useNavigate()
+    const setBlogimg = useSetRecoilState(blogListAtom);
+    const setBlognew = useSetRecoilState(blogimgAtom);
+    const setBlogvideo = useSetRecoilState(blogVideoAtom);
     const fetchWrapper = useFetchWrapper();
     const alertActions = useAlertActions();
-    const [analyticList, setAnalytic] = useRecoilState(analyticAtom);
+    const setAnalytic = useSetRecoilState(analyticAtom);
+    const setAnalyticsListSingle = useSetRecoilState(analyticListSingleAtom);
 
-    const get =  () => {
+    const get = () => {
         return fetchWrapper.get(Apis.Analytics)
             .then(res => {
                 if (res.statusCode === 200) {
                     setAnalytic([...res.data])
-                    // alertActions.success("Logged In Successfully");
-                    // navigate("/")
-                } else {
-                    // alertActions.error(res.msg);
+
                 }
-            }).catch((err)=>{console.warn(err)})
+            }).catch((err) => { console.warn(err) })
     }
-       
-    return{
-        get
+
+    const getSingle = (title) => {
+        return fetchWrapper.get(`${Apis.Analytics}?slug=${title}`)
+            .then(res => {
+                if (res.statusCode === 200) {
+                    setBlogimg(res.data)
+                    setBlognew(true)
+                    setBlogvideo(false)
+                }
+            }).catch((err) => { navigate("/PageNotFound"); console.warn(err) })
+    }
+
+    return {
+        get,
+        getSingle
     }
 }
 
-export{ analyticsActions }
+export { analyticsActions }

@@ -5,4 +5,9 @@ const analyticAtom = atom({
   default: [],
 });
 
-export { analyticAtom };
+const analyticListSingleAtom = atom({
+  key: "analyticListSingle",
+  default: [],
+});
+
+export { analyticAtom, analyticListSingleAtom };

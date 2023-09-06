@@ -5,4 +5,9 @@ const guidesAtom = atom({
   default: [],
 });
 
-export { guidesAtom };
+const guideListSingleAtom = atom({
+  key: "guideListSingle",
+  default: [],
+});
+
+export { guidesAtom, guideListSingleAtom };

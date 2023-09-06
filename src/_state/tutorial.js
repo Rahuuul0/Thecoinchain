@@ -15,9 +15,25 @@ const blogListAtom = atom({
   default: [],
 });
 
+const marketBlogListAtom = atom({
+  key: "marketBlogListAtom",
+  default: [],
+});
+
 const blogimgAtom = atom({
   key: "blogimgAtom",
   default: false,
 });
 
-export { tutorialAtom, blogAtom, blogListAtom, blogimgAtom };
+const blogVideoAtom = atom({
+  key: "blogVideoAtom",
+  default: false,
+});
+
+
+const blogListSingleAtom = atom({
+  key: "blogListSingle",
+  default: [],
+});
+
+export { tutorialAtom, blogAtom, blogListAtom, blogimgAtom, marketBlogListAtom, blogVideoAtom, blogListSingleAtom };

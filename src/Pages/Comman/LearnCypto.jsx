@@ -256,7 +256,7 @@ useEffect(() => {
                 component="p"
                 paddingBottom={1}
                 >
-                {blogImg.description}
+                {ReactHtmlParser (blogImg.description)}
                 </Typography></>
                 : ""}
           </Box>
@@ -559,7 +559,7 @@ useEffect(() => {
                                   className="small-caption secondary-color"
                                   fontWeight="500"
                                 >
-                                  <span>First Name</span> <span>Last Name</span>
+                                  {/* <span>Robert</span> <span>Smith</span> */}
                                 </Typography>
                               </Box>
                             </Box>

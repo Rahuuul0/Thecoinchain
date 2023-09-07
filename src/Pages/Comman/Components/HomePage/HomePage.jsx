@@ -404,7 +404,7 @@ const Home = () => {
                           <Button
                             variant="outline"
                             className="btn btn-outline"
-                            endIcon={<KeyboardArrowRight />}
+                            endIcon={<KeyboardArrowRight sx={{ color : "#777E90"}} />}
                             sx={{
                               border: "1px solid #E6E8EC",
                               height: "50px",
@@ -440,13 +440,14 @@ const Home = () => {
                             <Stack spacing={2} justifyContent="space-between">
                               <Typography
                                 fontSize={16}
+                                sx={{maxHeight: '45px', overflow: 'hidden'}}
                                 className="primary-font"
                               >
                                 {item.title}
                                 {item.category}
                               </Typography>
                               <Typography
-                                sx={{ fontSize: "14px !important" }}
+                                sx={{ fontSize: "14px !important" ,maxHeight: '110px', overflow: 'hidden'}}
                                 className="secondary-color primary-font"
                               >
                                 {ReactHtmlParser(description)}
@@ -640,7 +641,7 @@ const Home = () => {
                   coinActions.latestListing("?limit=5");
                 }}
               >
-                All
+                All 
               </Button>
             )}
             {categoryList.length &&
@@ -705,7 +706,7 @@ const Home = () => {
                       coinActions.latestListing("?limit=5");
                     }}
                   >
-                    All
+                    All 
                   </MenuItem>
                 )}
                 {categoryList.length &&

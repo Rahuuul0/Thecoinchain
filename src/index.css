@@ -1755,6 +1755,7 @@ video {
 .crypto-list-table table th,
 .crypto-list-table table td {
   padding: 17px 10px;
+  text-align :inherit ;
 }
 
 .crypto-list-table table tr:hover th,

@@ -97,7 +97,7 @@ const useTutorialActions = () => {
           setBlognew(true)
           setBlogvideo(true)
         }
-      }).catch((err) => {navigate("/PageNotFound"); console.warn(err) })
+      }).catch((err) => {navigate("/page-not-found"); console.warn(err) })
   }
   const getSingle = (title) => {
     console.log(title,'title')
@@ -108,7 +108,7 @@ const useTutorialActions = () => {
           setBlognew(true)
           setBlogvideo(false)
         }
-      }).catch((err) => { navigate("/PageNotFound"); console.warn(err) })
+      }).catch((err) => { navigate("/page-not-found"); console.warn(err) })
   }
   const getSingleVideo = (title) => {
     return fetchWrapper.get(`${Apis.Tutorial_Video}?slug=${title}`)
@@ -118,7 +118,7 @@ const useTutorialActions = () => {
           setBlognew(true)
           setBlogvideo(true)
         }
-      }).catch((err) => { navigate("/PageNotFound"); console.warn(err) })
+      }).catch((err) => { navigate("/page-not-found"); console.warn(err) })
   }
 
   return {

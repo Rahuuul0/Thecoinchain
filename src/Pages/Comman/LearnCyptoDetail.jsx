@@ -31,7 +31,8 @@ import {
   newsListActions, 
   promotionsActions, 
   guidesAnalysisActions, 
-  analyticsActions } from "../../_actions";
+  analyticsActions,
+  useContactActions } from "../../_actions";
 import { useNavigate } from "react-router-dom";
 // import { Helmet } from "react-helmet";
 import ReactPlayer from "react-player";
@@ -56,6 +57,7 @@ const LearnCyptoDetail = () => {
   const promotionsGetActions = promotionsActions();
   const guidesGetActions = guidesAnalysisActions();
   const analyticsGetActions = analyticsActions();
+  const useContactAddActions = useContactActions();
   
   useEffect(() => {
     switch (params.page) {
@@ -90,6 +92,10 @@ const LearnCyptoDetail = () => {
         tutorialAction.getSingleMarket(params.title)
         break;
 
+      case "contact":
+        useContactAddActions.getSingleContact(params.title)
+        break;
+
       default : {
         console.warn("error")
       }
@@ -109,8 +115,8 @@ const LearnCyptoDetail = () => {
   ];
   const scrollRef = useRef();
   const tutorialsData = useRecoilValue(tutorialAtom);
-  const displayVideo = tutorialsData[0]?.video_link;
-  const displayImage = tutorialsData[0]?.image_link;
+  // const displayVideo = tutorialsData[0]?.video_link;
+  // const displayImage = blogImg?.image_link;
   const [videoUrl, setVideoUrl] = useState("");
   const [visibleVideos, setVisibleVideos] = useState(6);
   const tutorialAction = useTutorialActions();
@@ -122,15 +128,15 @@ const LearnCyptoDetail = () => {
   const [titleblog, setTitleblog] = useState(false);
 
 
-  const scrollToVideo = (e, videoLink, data) => {
-    e.current.scrollIntoView({
-      behavior: "smooth",
-    });
-    setVideoUrl(videoLink);
-    setBlognew(true);
-    setBlogimg(data);
-    setTitleblog(true);
-  };
+  // const scrollToVideo = (e, videoLink, data) => {
+  //   e.current.scrollIntoView({
+  //     behavior: "smooth",
+  //   });
+  //   setVideoUrl(videoLink);
+  //   setBlognew(true);
+  //   setBlogimg(data);
+  //   setTitleblog(true);
+  // };
 
 
 
@@ -145,10 +151,10 @@ const LearnCyptoDetail = () => {
 
   }, []);
 
-  useEffect(() => {
-    setVideoUrl(displayVideo);
+  // useEffect(() => {
+  //   setVideoUrl(displayVideo);
     
-  }, [displayVideo]);
+  // }, [displayVideo]);
 
   return (
     <>
@@ -210,9 +216,9 @@ const LearnCyptoDetail = () => {
               :
               <Box paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}>
                 <ReactPlayer
-                  url={videoUrl}
+                  url={blogImg?.video_link}
                   controls={true}
-                  light={displayImage}
+                  light={blogImg?.image_link}
                   playing={true}
                   width="100%"
                   height="550px"

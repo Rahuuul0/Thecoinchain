@@ -136,7 +136,6 @@ const Contact = () => {
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
   const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
 
-  console.log(contactBlogLists, 'contactBlogLists');
   const contactCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
     return item.type === "Contact_Faq";
 });
@@ -251,12 +250,11 @@ useEffect(() => {
 }, []);
 
 const imgLink = (data) => {
-  navigate(RoutesName.learn_Crypto_Details)
+  let newsSeo = data.slug
+  navigate(`${RoutesName.learn_Crypto_Details}/contact/${newsSeo}`)
   setBlogimg(data)
   setBlognew(true)
-  setBlogvideo(false)
 } 
-
 
   return (
     <>

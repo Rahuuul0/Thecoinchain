@@ -136,12 +136,13 @@ const Home = () => {
     });
   }, []);
 
-  const imgLink = (data) => {
-    navigate(RoutesName.learn_Crypto_Details)
-    setBlogimg(data)
-    setBlognew(true)
-    setBlogvideo(true)
-}
+const videoLink = (data) => {
+  let learnSeo = data.slug
+  navigate(`${RoutesName.learn_Crypto_Details}/learncyptovideo/${learnSeo}`)
+  setBlogimg(data)
+  setBlognew(true)
+  setBlogvideo(true)
+} 
 
   return (
     <>
@@ -364,7 +365,7 @@ const Home = () => {
                     let title = item.title.substring(0, 50) + "...";
                     return (
                       <Grid item xs={6}
-                       onClick={() => imgLink(item)}
+                       onClick={() => videoLink(item)}
                       >
                         {/* <img src={Leveragedv3} /> */}
                         <ReactPlayer
@@ -434,7 +435,7 @@ const Home = () => {
                           columnSpacing={{ xs: 1, sm: 4 }}
                           className="flex-between-box"
                           marginBottom={3}
-                          onClick={() => imgLink(item)}
+                          onClick={() => videoLink(item)}
                         >
                           <Grid item xs={6}  sx={{ cursor: "pointer" }}>
                             <Stack spacing={2} justifyContent="space-between">

@@ -1,8 +1,9 @@
 import { useFetchWrapper } from '../_helpers';
 import { useAlertActions } from './alert.actions';
 import { Labels, Apis } from '../_common/app.constants'
-import { contact_AddAtom, contactListAtom, contactBlogListAtom } from '../_state';
+import { contact_AddAtom, contactListAtom, contactBlogListAtom, blogListAtom, blogimgAtom, blogVideoAtom } from '../_state';
 import { useSetRecoilState, useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 
 
 const useContactActions = () => {
@@ -11,6 +12,10 @@ const useContactActions = () => {
   const setContactError = useSetRecoilState(contact_AddAtom);
   const [contactLists, setContactList] = useRecoilState(contactListAtom);
   const [contactBlogLists, setContactBlogList] = useRecoilState(contactBlogListAtom);
+  const setBlogimg = useSetRecoilState(blogListAtom);
+  const setBlognew = useSetRecoilState(blogimgAtom);
+  const setBlogvideo = useSetRecoilState(blogVideoAtom);
+  const navigate = useNavigate();
 
   const add = (data) => {
   console.log(data, "data")
@@ -35,26 +40,36 @@ const useContactActions = () => {
             if (res.statusCode === 200) {
               setContactList([...res.data])
 
-            } else {
-                // alertActions.error(res.msg);
-            }
+            } 
         }).catch((err)=>{console.warn(err)})
 }
+
 const contactBlogList =  () => {
   return fetchWrapper.get(Apis.Contact_Blog_List)
       .then(res => {
           if (res.statusCode === 200) {
             setContactBlogList([...res.data])
 
-          } else {
-              // alertActions.error(res.msg);
-          }
+          } 
       }).catch((err)=>{console.warn(err)})
 }
+
+const getSingleContact = (title) => {
+  return fetchWrapper.get(`${Apis.Contact_Blog_List}?slug=${title}`)
+      .then(res => {
+          if (res.statusCode === 200) {
+              setBlogimg(res.data)
+              setBlognew(true)
+              setBlogvideo(false)
+          }
+      }).catch((err) => { navigate("/PageNotFound"); console.warn(err) })
+}
+
   return {
     add,
     contactList,
     contactBlogList,
+    getSingleContact
   }
 
 }

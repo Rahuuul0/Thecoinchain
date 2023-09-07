@@ -236,7 +236,7 @@ const LearnCyptoDetail = () => {
                 marginBottom={4}
                 paddingBottom={4}
               >
-                {blogNew === true && blogVideo !== true ? "Description" : "Introduction"}
+                {blogNew === true  ? "Description" : "Introduction"}
               </Typography>
 
               {blogNew === true ?

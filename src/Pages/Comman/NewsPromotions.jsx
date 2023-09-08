@@ -147,7 +147,6 @@ const NewsPromotions = (props) => {
     }, [newsList]);
 
     const imgLink = (data) => {
-        console.log(data,'data')
         let newsSeo = data.slug
         navigate(`${RoutesName.learn_Crypto_Details}/newsletter/${newsSeo}`)
         setBlogimg(data)
@@ -155,7 +154,6 @@ const NewsPromotions = (props) => {
     } 
 
     const imgpromo = (data) => {
-        console.log(data,'data')
         let newsSeo = data.slug
         navigate(`${RoutesName.learn_Crypto_Details}/newspromotions/${newsSeo}`)
         setBlogimg(data)

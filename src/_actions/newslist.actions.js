@@ -33,7 +33,7 @@ const newsListActions = () => {
                     setBlognew(true)
                     setBlogvideo(false)
                 }
-            }).catch((err) => { navigate("/PageNotFound"); console.warn(err) })
+            }).catch((err) => { navigate("/page-not-found"); console.warn(err) })
     }
 
     return {

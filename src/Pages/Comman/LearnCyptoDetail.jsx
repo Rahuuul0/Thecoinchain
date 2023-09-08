@@ -130,7 +130,7 @@ const LearnCyptoDetail = () => {
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
   const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom)
   const [titleblog, setTitleblog] = useState(false);
-
+  
 
   useEffect(() => {
     window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
@@ -237,7 +237,7 @@ const LearnCyptoDetail = () => {
                 marginBottom={4}
                 paddingBottom={4}
               >
-                {blogNew === true  ? "Description" : "Introduction"}
+                {blogNew === true  ? (<>{ params.page === "learnandearn" ? "" : "Description" }</>): "Introduction"}
               </Typography>
 
               {blogNew === true ?

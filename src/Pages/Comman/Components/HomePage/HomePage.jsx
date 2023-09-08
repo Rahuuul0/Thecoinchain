@@ -365,10 +365,11 @@ const videoLink = (data) => {
                     let title = item.title.substring(0, 50) + "...";
                     return (
                       <Grid item xs={6}
-                       onClick={() => videoLink(item)}
+                       
                       >
                         {/* <img src={Leveragedv3} /> */}
                         <ReactPlayer
+                          onClick={() => videoLink(item)}
                           url={item.video_link}
                           controls={true}
                           light={item.image_link}
@@ -382,7 +383,9 @@ const videoLink = (data) => {
                           justifyContent="space-between"
                           paddingTop={3}
                         >
-                          <Box  sx={{ cursor: "pointer" }}>
+                          <Box  sx={{ cursor: "pointer" }}
+                              onClick={() => videoLink(item)}
+                          >
                             <Typography
                               variant="h3"
                               component="div"
@@ -1039,42 +1042,99 @@ const videoLink = (data) => {
                 A creative agency that lead and inspire
               </Typography>
             </Box>
-            <Box className="crypto-box">
-              <Grid
-                container
-                spacing={{ xs: 8, md: 3 }}
-                columns={{ xs: 12, sm: 8, md: 12 }}
-                className="flow-reverse-mobile"
+            <Box className="swiper-global">
+              <Swiper
+                slidesPerView={1}
+                navigation={true}
+                spaceBetween={0}
+                modules={[Navigation]}
+                className="mySwiper"
               >
-                <Grid item xs={12} sm={6} md={6}>
-                  <Typography
-                    className="small-caption secondary-color"
-                    sx={{ textTransform: "uppercase" }}
-                    paddingBottom={2}
-                  >
-                    Crypto news
-                  </Typography>
-                  <Typography component="h4" variant="h4" paddingBottom={3}>
-                    Be Part of our Global Community
-                  </Typography>
-                  <Typography
-                    className="secondary-color"
-                    paddingBottom={{ xs: 8, sm: 12 }}
-                  >
-                    Let’s stay in touch. Join our communities to keep up with
-                    the BitCloud team and our traders from across the world.
-                  </Typography>
-                  <Button
-                    className="btn-outlined-secondary"
-                    onClick={() => navigate("/community")}
-                  >
-                    Join now
-                  </Button>
-                </Grid>
-                <Grid item xs={12} sm={6} md={6} textAlign="right">
-                  <img src={Globe} />
-                </Grid>
-              </Grid>
+                <SwiperSlide>
+                  <Box className="crypto-box">
+                    <Grid
+                      container
+                      spacing={{ xs: 8, md: 3 }}
+                      columns={{ xs: 12, sm: 8, md: 12 }}
+                      className="flow-reverse-mobile"
+                    >
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        md={6}
+                      >
+                        <Typography
+                          className="small-caption secondary-color"
+                          sx={{ textTransform: "uppercase" }}
+                          paddingBottom={2}
+                        >
+                          Crypto news
+                        </Typography>
+                        <Typography component="h4" variant="h4" paddingBottom={3}>
+                          Be Part of our Global Community
+                        </Typography>
+                        <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
+                          Let’s stay in touch. Join our communities to keep up with
+                          the BitCloud team and our traders from across the world.
+                        </Typography>
+                        <Button
+                           sx={{ textTransform: "capitalize" }}
+                          className="btn-outlined-secondary"
+                          onClick={() => navigate("/community")}
+                        >
+                          Join now
+                        </Button>
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6} textAlign="right">
+                        <img src={Globe} />
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </SwiperSlide>
+                <SwiperSlide>
+                  <Box className="crypto-box">
+                    <Grid
+                      container
+                      spacing={{ xs: 8, md: 3 }}
+                      columns={{ xs: 12, sm: 8, md: 12 }}
+                      className="flow-reverse-mobile"
+                    >
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        md={6}
+                      >
+                        <Typography
+                          className="small-caption secondary-color"
+                          sx={{ textTransform: "uppercase" }}
+                          paddingBottom={2}
+                        >
+                          Crypto news
+                        </Typography>
+                        <Typography component="h4" variant="h4" paddingBottom={3}>
+                          Be Part of our Global Community
+                        </Typography>
+                        <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
+                          Let’s stay in touch. Join our communities to keep up with
+                          the BitCloud team and our traders from across the world.
+                        </Typography>
+                        <Button
+                          sx={{ textTransform: "capitalize" }}
+                          className="btn-outlined-secondary"
+                          onClick={() => navigate("/community")}
+                        >
+                          Join now
+                        </Button>
+                      </Grid>
+                      <Grid item xs={12} sm={6} md={6} textAlign="right">
+                        <img src={Globe} />
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </SwiperSlide>
+              </Swiper>
             </Box>
           </Box>
         </Container>

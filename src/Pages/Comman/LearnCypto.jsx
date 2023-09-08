@@ -14,7 +14,8 @@ import {
 } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 import Avatar from "../../../public/assets/images/avatar.svg";
-import {  ArrowRightAlt, ArrowDropDown } from "@mui/icons-material";
+import {  ArrowRightAlt } from "@mui/icons-material";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useTheme } from "@mui/material/styles";
 import { RoutesName } from "../../_common/app.constants";
 import DarkLogo from "../../../public/assets/images/logo.svg";
@@ -593,9 +594,10 @@ const details = `learn_Crypto_Details`;
                   sx={{ margin: "0 auto" }}
                   className="btn btn-outlined-secondary"
                   varient="outlined"
-                  endIcon={<ArrowDropDown />}
+                  endIcon={<KeyboardArrowDownIcon sx={{ color : "#777E90" }} />}
                   onClick={() => {
-                    navigate(RoutesName.learn_Crypto_Details);
+                    window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
+                    navigate('/learn-cypto');
                   }}
                 >
                   Learn More
@@ -664,6 +666,7 @@ const details = `learn_Crypto_Details`;
                           the BitCloud team and our traders from across the world.
                         </Typography>
                         <Button
+                          sx={{ textTransform: "capitalize" }}
                           className="btn-outlined-secondary"
                           onClick={() => navigate("/community")}
                         >
@@ -705,10 +708,11 @@ const details = `learn_Crypto_Details`;
                           the BitCloud team and our traders from across the world.
                         </Typography>
                         <Button
+                           sx={{ textTransform: "capitalize" }}
                           className="btn-outlined-secondary"
                           onClick={() => navigate("/community")}
                         >
-                          Join now
+                          Join now 
                         </Button>
                       </Grid>
                       <Grid item xs={12} sm={6} md={6} textAlign="right">

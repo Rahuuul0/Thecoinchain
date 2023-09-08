@@ -128,7 +128,7 @@ const LearnNEarn = () => {
                     className="btn btn-outlined-secondary"
                     disabled={isSubmitting}
                 >
-                    {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : "Load more"}
+                    {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : (<> <img src={LoadingImg}  alt="loading"/> Load more </> )}
               </LoadingButton>
                 }
             </Box>

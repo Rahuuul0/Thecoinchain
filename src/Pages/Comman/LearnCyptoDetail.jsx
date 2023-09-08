@@ -32,7 +32,8 @@ import {
   promotionsActions, 
   guidesAnalysisActions, 
   analyticsActions,
-  useContactActions } from "../../_actions";
+  useContactActions,
+  faqActions } from "../../_actions";
 import { useNavigate } from "react-router-dom";
 // import { Helmet } from "react-helmet";
 import ReactPlayer from "react-player";
@@ -58,6 +59,7 @@ const LearnCyptoDetail = () => {
   const guidesGetActions = guidesAnalysisActions();
   const analyticsGetActions = analyticsActions();
   const useContactAddActions = useContactActions();
+  const faqGetAction = faqActions();
   
   useEffect(() => {
     switch (params.page) {
@@ -95,6 +97,10 @@ const LearnCyptoDetail = () => {
       case "contact":
         useContactAddActions.getSingleContact(params.title)
         break;
+        
+      case "predictionDashboard":
+        faqGetAction.get(params.title)
+        break;
 
       default : {
         console.warn("error")
@@ -115,8 +121,6 @@ const LearnCyptoDetail = () => {
   ];
   const scrollRef = useRef();
   const tutorialsData = useRecoilValue(tutorialAtom);
-  // const displayVideo = tutorialsData[0]?.video_link;
-  // const displayImage = blogImg?.image_link;
   const [videoUrl, setVideoUrl] = useState("");
   const [visibleVideos, setVisibleVideos] = useState(6);
   const tutorialAction = useTutorialActions();
@@ -128,40 +132,15 @@ const LearnCyptoDetail = () => {
   const [titleblog, setTitleblog] = useState(false);
 
 
-  // const scrollToVideo = (e, videoLink, data) => {
-  //   e.current.scrollIntoView({
-  //     behavior: "smooth",
-  //   });
-  //   setVideoUrl(videoLink);
-  //   setBlognew(true);
-  //   setBlogimg(data);
-  //   setTitleblog(true);
-  // };
-
-
-
-  const handleLoadMore = () => {
-    setVisibleVideos((prevVisibleVideos) => prevVisibleVideos + 6);
-    navigate('/learn-cypto')
-  };
-
   useEffect(() => {
     window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
     tutorialAction.tutorialData();
 
   }, []);
 
-  // useEffect(() => {
-  //   setVideoUrl(displayVideo);
-    
-  // }, [displayVideo]);
 
   return (
     <>
-      {/* <Helmet>
-        <title>My Title</title>
-        <link rel="canonical" href="http://mysite.com/example" />
-      </Helmet> */}
       <Container className="learn-crypto-details">
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -178,7 +157,8 @@ const LearnCyptoDetail = () => {
             fontWeight="700"
             textAlign="center"
           >
-            {blogNew === true ? `${blogImg.title}` : "" }
+            {blogNew === true? `${blogImg.title}` : `A beginner’s guide to 
+            trading view `}
           </Typography>
 
           <Breadcrumbs
@@ -215,15 +195,36 @@ const LearnCyptoDetail = () => {
               </Box>
               :
               <Box paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}>
-                <ReactPlayer
-                  url={blogImg?.video_link}
-                  controls={true}
-                  light={blogImg?.image_link}
-                  playing={true}
-                  width="100%"
-                  height="550px"
-                // style={{ border: "1px solid black" }}
-                />
+                  { blogNew === true && titleblog === true ? 
+                  <ReactPlayer
+                    url={blogImg?.video_link}
+                    controls={true}
+                    light={blogImg?.image_link}
+                    playing={true}
+                    width="100%"
+                    height="550px"
+                  // style={{ border: "1px solid black" }}
+                  />
+                  :(<>
+                    {tutorialsData.map((item ,index) => {
+                      
+                        if( index < 1 ){
+                        return(
+                          <ReactPlayer
+                            url={item.video_link}
+                            controls={true}
+                            light={item.image_link}
+                            playing={true}
+                            width="100%"
+                            height="550px"
+                          // style={{ border: "1px solid black" }}
+                          />)
+                        }
+                   
+                    } )}
+                  
+                  </>)
+                  }
               </Box>
             }
 

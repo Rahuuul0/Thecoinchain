@@ -195,7 +195,7 @@ const vidLink = (data) => {
 useEffect(() => {
   window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
 }, []);
-
+const details = `learn_Crypto_Details`;
   return (
     <>
       <Container className="learn-crypto">
@@ -235,7 +235,7 @@ useEffect(() => {
                 variant="outlined"
                 className="btn btn-outlined-secondary"
                 onClick={() => {
-                  navigate("../learn-cypto-detail");
+                  navigate(`${'/learn-cypto-detail/:page/:title'}, ${details}`);
                   setBlognew(false);
                 }}
               >

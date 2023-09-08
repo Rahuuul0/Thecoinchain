@@ -31,7 +31,8 @@ const PredictionDashboard = () => {
   }, []);
 
   const imgLink = (data) => {
-    navigate(RoutesName.learn_Crypto_Details)
+    let learnSeo = data.slug
+    navigate(`${RoutesName.learn_Crypto_Details}/predictionDashboard/${learnSeo}`)
     setBlogimg(data)
     setBlognew(true) 
 } 

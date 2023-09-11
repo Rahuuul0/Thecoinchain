@@ -90,6 +90,7 @@ const LearnNEarn = () => {
                             <Grid item xs={12} md={4} xl={4}> 
                                 <Box className='learn-n-earn-card'
                                  onClick={() => imgLink(item)}
+                                 sx={{ cursor: "pointer" }}
                                 >
                                     <Box className='learn-n-earn-video-wrapper'>
                                         <video poster={Learn01} width="100%" height="100%" controls>

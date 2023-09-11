@@ -1286,6 +1286,15 @@ input[type="number"] {
   padding-bottom: 136px;
 }
 
+.market-trend .crypto-list-table table tr th,.market-trend .crypto-list-table table tr td{
+  text-align: left;
+}
+.market-trend .crypto-list-table table tr th button,.market-trend .crypto-list-table table tr td button{
+  margin-left: 0;
+}
+
+
+
 /* Homepage Ends */
 /* Learn Cypto Page */
 .center-tab .MuiTabs-flexContainer {
@@ -1755,7 +1764,6 @@ video {
 .crypto-list-table table th,
 .crypto-list-table table td {
   padding: 17px 10px;
-  text-align :inherit ;
 }
 
 .crypto-list-table table tr:hover th,

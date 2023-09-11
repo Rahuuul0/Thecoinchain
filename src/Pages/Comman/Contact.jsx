@@ -312,6 +312,7 @@ const imgLink = (data) => {
               <SwiperSlide>
                   <Box className='about-crypto'
                     onClick={() => imgLink(item)}
+                    sx={{ cursor: "pointer" }}
                   >
                     <Box className=''>
                       <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>

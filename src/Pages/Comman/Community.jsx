@@ -11,6 +11,7 @@ import {  communityAtom } from '../../_state/';
 import {communityActions} from "../../_actions/";
 import ReactReadMoreReadLess from "react-read-more-read-less";
 import dayjs from "dayjs";
+import ReactHtmlParser from 'react-html-parser';
 
 const Community = () => {
     const communityAction = communityActions();
@@ -71,14 +72,15 @@ const Community = () => {
                                     </Box>
                                     
                                     <Typography component='p' variant='p'>
-                                        <ReactReadMoreReadLess
+                                            {ReactHtmlParser (item.decription)}
+                                        {/* <ReactReadMoreReadLess
                                             charLimit={300}
                                             readMoreText={" Read more ▼"} 
                                             readLessText={" ...Read less ▲"}
                                         
                                         >
                                         {item.decription}
-                                        </ReactReadMoreReadLess>
+                                        </ReactReadMoreReadLess> */}
                                      </Typography>
                                 </Box>  
                             )

@@ -25,8 +25,6 @@ const LearnNEarn = () => {
     const [loadmore, setloadmore] = useState(3);
     const tutorialAction = useTutorialActions();
 
-    console.log(marketBlogLists,'tutorialsData');
-
     useEffect(() =>{
         tutorialAction.marketBlogList();
         setIsSubmitting(false)
@@ -44,7 +42,6 @@ const LearnNEarn = () => {
     }
 
     const imgLink = (data) => {
-        console.log(data,'data')
         let guideSeo = data.slug
         navigate(`${RoutesName.learn_Crypto_Details}/learnandearn/${guideSeo}`)
         setBlogimg(data)

@@ -103,7 +103,6 @@ const LearnCypto = () => {
   };
 
   const imgLink = (data) => {
-    console.log(data,'data')
     let learnSeo = data.slug
     navigate(`${RoutesName.learn_Crypto_Details}/learncypto/${learnSeo}`)
     setBlogimg(data)
@@ -112,7 +111,6 @@ const LearnCypto = () => {
 } 
 
 const vidLink = (data) => {
-  console.log(data,'data')
   let learnSeo = data.slug
   navigate(`${RoutesName.learn_Crypto_Details}/learncyptovideo/${learnSeo}`)
   setBlogimg(data)

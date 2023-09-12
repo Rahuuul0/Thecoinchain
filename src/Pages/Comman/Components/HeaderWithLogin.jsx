@@ -233,7 +233,7 @@ function Header(props) {
 
             <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
               size="small"
-              sx={{ ml: 2 }}
+              sx={{ ml: 2 , cursor: "pointer"}}
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">

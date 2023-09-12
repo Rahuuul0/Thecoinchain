@@ -96,7 +96,7 @@ const LearnNEarn = () => {
                                         </video>
                                     </Box>
                                     <span className='learn-badge'>{item.tag}</span>
-                                    <Typography component="p" variant='body1' className='body-large'>
+                                    <Typography sx={{minHeight: '70px', maxHeight: '70px', overflow: 'hidden'}} component="p" variant='body1' className='body-large'>
                                         {item.title}
                                     </Typography>
                                     <Box className='learn-n-earn-by'>

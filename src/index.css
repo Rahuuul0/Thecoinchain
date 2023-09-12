@@ -4226,8 +4226,7 @@ video[poster] {
 }
 
 .elip_typo { 
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: auto;
   height: 200px;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;

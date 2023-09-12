@@ -96,7 +96,7 @@ const PredictionDashboard = () => {
                               component="p"
                               variant="body1"
                               className="body-caption"
-                              sx={{ fontWeight: "500" }}
+                              sx={{ fontWeight: "500",  maxHeight: '25px', overflow: 'hidden' }}
                             >
                               {item.title}
                             </Typography>

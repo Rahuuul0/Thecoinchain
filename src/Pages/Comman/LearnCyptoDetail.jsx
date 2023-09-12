@@ -237,7 +237,7 @@ const LearnCyptoDetail = () => {
                 marginBottom={4}
                 paddingBottom={4}
               >
-                {blogNew === true  ? (<>{ params.page === "learnandearn" ? "" : "Description" }</>): "Introduction"}
+                {blogNew === true  ? "Description" : "Introduction"}
               </Typography>
 
               {blogNew === true ?

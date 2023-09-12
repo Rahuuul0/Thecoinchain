@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import BTCIc from "../../../public/assets/images/icons/btc-ic.svg";
 import {  communityAtom } from '../../_state/';
 import {communityActions} from "../../_actions/";
-import ReactReadMoreReadLess from "react-read-more-read-less";
 import dayjs from "dayjs";
 import ReactHtmlParser from 'react-html-parser';
 
@@ -71,16 +70,9 @@ const Community = () => {
                                         </Box>
                                     </Box>
                                     
-                                    <Typography component='p' variant='p'>
-                                            {ReactHtmlParser (item.decription)}
-                                        {/* <ReactReadMoreReadLess
-                                            charLimit={300}
-                                            readMoreText={" Read more ▼"} 
-                                            readLessText={" ...Read less ▲"}
-                                        
-                                        >
-                                        {item.decription}
-                                        </ReactReadMoreReadLess> */}
+                                    <Typography className="elip_typo" component='p' variant='p'>
+                                         
+                                        {ReactHtmlParser (item.decription) }
                                      </Typography>
                                 </Box>  
                             )

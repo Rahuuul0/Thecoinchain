@@ -374,6 +374,7 @@ const Profile = (props) => {
                           {errors.email?.message}
                         </div>
                       </Box>
+                          {auth.is_profile_completed === 1 && (
                       <Box className="" paddingY={1}>
                         <MuiPhoneNumber
                            disabled
@@ -402,9 +403,38 @@ const Profile = (props) => {
                         >
                           {errors.mobile?.message}
                         </div>
-                      </Box>
+                      </Box> )}
                       {auth.is_profile_completed === 0 && (
                         <>
+                        <Box className="" paddingY={1}>
+                        <MuiPhoneNumber
+                          //  disabled
+                          //  disableDropdown
+                          label="Mobile *"
+                          className="form-control white-input-box"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          variant="standard"
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="mobile"
+                          autoComplete="off"
+                          defaultCountry={"us"}
+                          {...register("mobile")}
+                          value={formData.mobile}
+                          onChange={(value) =>
+                            reset({ ...formData, mobile: value })
+                          }
+                        />
+                        <div
+                          className="invalid-feedback"
+                          style={{ color: "red" }}
+                        >
+                          {errors.mobile?.message}
+                        </div>
+                      </Box>
                           <Box className="" paddingY={1}>
                             <TextField
                               required

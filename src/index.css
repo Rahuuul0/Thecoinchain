@@ -4233,3 +4233,13 @@ video[poster] {
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
+.newdesignbox .crypto-center {
+  width: 100%;
+  max-width: 338px;
+  height: 168px;
+  object-fit: contain;
+  background-color: #f2f2f2;
+}
+.iframe-video iframe{
+  border-radius: 16px;
+}

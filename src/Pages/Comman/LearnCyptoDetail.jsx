@@ -175,22 +175,13 @@ const LearnCyptoDetail = () => {
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 10 }}>
           <Box>
-            {blogNew === true && titleblog !== true ?
+            {blogNew === true && titleblog !== true && blogVideo === false ?
               <Box sx={{ maxWidth: "100%", justifyContent: "center", "display": "flex" }} paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}
               >
-                {blogVideo === false ?
-
-                  <img
+                <img
                     sx={{ maxWidth: "100%", }}
                     src={`${process.env.REACT_APP_IMAGE_URL}/${blogImg.image}`}
                   />
-                  :
-                  <video poster={VideoImg} width="100%" height="100%" controls>
-                    <source src={blogImg.video_link} type="video/mp4" />
-
-                  </video>
-
-                }
 
               </Box>
               :

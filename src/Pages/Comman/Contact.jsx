@@ -316,7 +316,7 @@ const imgLink = (data) => {
                   >
                     <Box className=''>
                       <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
-                      <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                      <img className="crypto-center" sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                     </Box>
                     <Box paddingTop={4} className="inner-con-box">
                       <Typography fontWeight='500' paddingBottom={2}>{item.title}</Typography>

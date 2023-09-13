@@ -11,6 +11,7 @@ import { tutorialAtom, marketBlogListAtom, blogListAtom, blogimgAtom, blogVideoA
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useTutorialActions } from "../../_actions/";
 import { RoutesName } from "../../_common/app.constants";
+import ReactPlayer from "react-player";
 import dayjs from "dayjs";
 
 const LearnNEarn = () => {
@@ -37,11 +38,11 @@ const LearnNEarn = () => {
       
         setIsSubmitting(true)
         setTimeout(() => {
-            setloadmore(loadmore +3 )
+            setloadmore(loadmore + 50)
       }, 400);
     }
 
-    const imgLink = (data) => {
+    const videoLink = (data) => {
         let guideSeo = data.slug
         navigate(`${RoutesName.learn_Crypto_Details}/learnandearn/${guideSeo}`)
         setBlogimg(data)
@@ -86,14 +87,20 @@ const LearnNEarn = () => {
                         return(
                             <Grid item xs={12} md={4} xl={4}> 
                                 <Box className='learn-n-earn-card'
-                                 onClick={() => imgLink(item)}
+                                   onClick={() => videoLink(item)}
                                  sx={{ cursor: "pointer" }}
                                 >
-                                    <Box className='learn-n-earn-video-wrapper'>
-                                        <video poster={Learn01} width="100%" height="100%" controls>
-                                        <source src={item.video_link} type="video/mp4" />
-                                            {/* {item.title} */}
-                                        </video>
+                                    <Box className='learn-n-earn-video-wrapper iframe-video' sx={{ cursor: "pointer" }}>
+                        
+                                        <ReactPlayer
+                                            onClick={() => videoLink(item)}
+                                            url={item.video_link}
+                                            controls={true}
+                                            light={item.image_link}
+                                            playing={false}
+                                            width="100%"
+                                            height="200px"
+                                        />
                                     </Box>
                                     <span className='learn-badge'>{item.tag}</span>
                                     <Typography sx={{minHeight: '70px', maxHeight: '70px', overflow: 'hidden'}} component="p" variant='body1' className='body-large'>

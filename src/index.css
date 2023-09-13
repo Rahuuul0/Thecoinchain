@@ -4233,6 +4233,11 @@ video[poster] {
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
+.elip_typo::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #d3d0d0;
+}
 .newdesignbox .crypto-center {
   width: 100%;
   max-width: 338px;

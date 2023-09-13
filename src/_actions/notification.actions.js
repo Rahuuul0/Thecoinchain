@@ -71,13 +71,20 @@ const notificationActions = () => {
             }).catch((err) => { console.warn(err) })
     }
 
-    const clearNotifications = (data) => {        
-        return fetchWrapper.post(Apis.Notification_All_Clear, data)        
+    const clearNotifications = (data) => {         
+        return fetchWrapper.post(Apis.Notification_All_Clear, data) 
             .then((res) => {
                 if (res.statusCode === 200) {  
                     notificationList_View() 
-                    notificationList()   
-                    alertActions.success('Clear all Data Successfully');
+                    notificationList()  
+                    if(data.action=="all_read")
+                    {
+                        alertActions.success('Mark all as Read Data Successfully');
+                    }
+                    else 
+                    {
+                        alertActions.success('Clear all Data Successfully');
+                    }
                 }
             }).catch((err) => { console.warn(err) })
     }

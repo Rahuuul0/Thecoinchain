@@ -373,7 +373,7 @@ const videoLink = (data) => {
                           url={item.video_link}
                           controls={true}
                           light={item.image_link}
-                          playing={true}
+                          playing={false}
                           width="100%"
                           height="510px"
                         />

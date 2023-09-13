@@ -245,7 +245,7 @@ const details = `learn_Crypto_Details`;
               url={videoUrl}
               controls={true}
               light={imageUrl}
-              playing={true}
+              playing={false}
               width="100%"
               height="640px"
             />

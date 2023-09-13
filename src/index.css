@@ -2783,6 +2783,8 @@ video[poster] {
 #root .community-card p {
   font-size: 14px;
   color: #777e90;
+  padding-right: 10px;
+  text-align: justify;
 }
 
 .react-player__preview {
@@ -4236,7 +4238,7 @@ video[poster] {
 .elip_typo::-webkit-scrollbar
 {
 	width: 5px;
-	background-color: #d3d0d0;
+	background-color: #777e90;
 }
 .newdesignbox .crypto-center {
   width: 100%;

@@ -319,8 +319,8 @@ const imgLink = (data) => {
                       <img className="crypto-center" sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                     </Box>
                     <Box paddingTop={4} className="inner-con-box">
-                      <Typography fontWeight='500' paddingBottom={2}>{item.title}</Typography>
-                      <Typography className='body-caption secondary-color'>{ReactHtmlParser(item.description)}</Typography>
+                      <Typography fontWeight='500' paddingBottom={2}  sx={{maxHeight: '30px', overflow: 'hidden'}}>{item.title}</Typography>
+                      <Typography className='body-caption secondary-color'  sx={{maxHeight: '85px', overflow: 'hidden'}}>{ReactHtmlParser(item.description)}</Typography>
                     </Box>
                   </Box>
               </SwiperSlide>

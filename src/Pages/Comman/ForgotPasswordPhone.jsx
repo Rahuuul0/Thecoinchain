@@ -27,8 +27,8 @@ import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import OTPInput from "otp-input-react";
 import { KeyboardArrowLeft } from "@mui/icons-material/";
-import MuiPhoneNumber from "material-ui-phone-number";
 import LoadingButton from '@mui/lab/LoadingButton';
+import PhoneInput, { formatPhoneNumber,isPossiblePhoneNumber, formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input';
 
 
 const ForgotPasswordPhone = () => {
@@ -38,11 +38,13 @@ const ForgotPasswordPhone = () => {
   const [Soption, setSoption] = useRecoilState(switchAtom);
   const [loginData, setLoginData] = useRecoilState(loginDataAtom);
   const [OTP, setOTP] = useState("");
+  const [mobile_value, setMobile_value] = useState();
+  const [phone_hide, setPhone_hide] = useState(false);
   const [timer, setTimer] = useState(60);
 
   // form validation rules
   const validationSchema = Yup.object().shape({
-    phone: Yup.string().trim().required("Phone number is required"),
+    // phone: Yup.string().trim().required("Phone number is required"),
   });
 
   const formOptions = { resolver: yupResolver(validationSchema) };
@@ -51,9 +53,12 @@ const ForgotPasswordPhone = () => {
   const { errors, isSubmitting } = formState;
 
   const onSubmitFun = async () => {
+    if(mobile_value && isValidPhoneNumber(mobile_value)) {
+      formData.phone = mobile_value;
     setLoginData({ ...loginData, phone: formData.phone, email: "" });
     await userActions.forgotPassword({ phone: formData.phone });
   };
+  }
 
   const onSubmitFunOTP = async () => {
     if (OTP.length < 4) {
@@ -176,26 +181,16 @@ const ForgotPasswordPhone = () => {
                     noValidate
                   >
                     <Box className="auth-form">
-                      <MuiPhoneNumber
-                        label="Enter the account Phone Number"
-                        className="form-control white-input-box"
-                        fullWidth
-                        variant="standard"
-                        margin="normal"
-                        required
-                        autoComplete="off"
-                        defaultCountry={"us"}
-                        value={formData.phone}
-                        placeholder="Number"
-                        size="small"
-                        {...register("phone")}
-                        onChange={(value) =>
-                          reset({ ...formData, phone: value })
-                        }
+                      <PhoneInput
+                        placeholder="Enter phone number"
+                        value={mobile_value}
+                        onChange={(e)=>{setMobile_value(e);setPhone_hide(true)}}
+                        error={mobile_value ? (isValidPhoneNumber(mobile_value) ? undefined : 'Invalid phone number') : 'Phone number required'}
                       />
-                      <div style={{ color: "red" }}>
-                        {errors.phone?.message}
-                      </div>
+                       {phone_hide&&<div className="frm-message" style={{color:"red"}}>
+                            {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value>0?'Entered mobile number is not valid.':'Enter mobile number.'}
+                            </div> 
+                        }
                       <LoadingButton
                         type="submit"
                         loading={isSubmitting}

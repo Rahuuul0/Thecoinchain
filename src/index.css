@@ -4242,11 +4242,81 @@ video[poster] {
 }
 .newdesignbox .crypto-center {
   width: 100%;
-  max-width: 338px;
-  height: 168px;
-  object-fit: contain;
+  max-width: 99%;
+  height: 170px;
+  object-fit: fill;
   background-color: #f2f2f2;
 }
 .iframe-video iframe{
   border-radius: 16px;
+}
+.PhoneInput {
+  display: flex;
+  align-items: center;margin-top: 24px;
+  padding: 11.5px 5px 11.5px 16px;
+  border: 2px solid #e6e8ec;
+  background: #fff;
+  border-radius: 12px;
+}
+
+.PhoneInputCountry {
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  margin-right: 0.35em;
+  margin-right: 0.35em;
+}
+
+.PhoneInputCountrySelect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.PhoneInputCountryIcon {
+  width: calc(1em * 1.5);
+  height: 1.2em;
+}
+
+.PhoneInputCountrySelectArrow {
+  display: block;
+  content: '';
+  width: 0.3em;
+  height: 0.3em;
+  margin-left: 0.35em;
+  border-style: solid;
+  border-color: currentColor;
+  border-top-width: 0;
+  border-bottom-width: 1px;
+  border-left-width: 0;
+  border-right-width: 1px;
+  transform: rotate(45deg);
+  opacity: 0.45;
+}
+.PhoneInput input:not(.react-phone-number-input__input) {
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 0;
+  border: 0px;
+  background-color: transparent;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.PhoneInput img{
+  border-radius: 0px;
+}
+.PhoneInputInput {
+  flex: 1;
+  min-width: 0;
 }

@@ -34,14 +34,16 @@ import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import Lock from "../../../public/assets/images/icons/lock.svg";
 import GoogleLogin from "./GoogleLogin.jsx";
 import AppleIcon from "@mui/icons-material/Apple";
-import MuiPhoneNumber from "material-ui-phone-number";
 import LoadingButton from '@mui/lab/LoadingButton';
+import PhoneInput, { formatPhoneNumber,isPossiblePhoneNumber, formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
 
 
 const LogIn = () => {
   const [value, setValue] = useState("1");
   const [userError, setUserError] = useRecoilState(userErrorAtom);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mobile_value, setMobile_value] = useState();
+  const [phone_hide, setPhone_hide] = useState(false);
   const userActions = useUserActions();
   const navigate = useNavigate();
   const alertActions = useAlertActions();
@@ -60,11 +62,6 @@ const LogIn = () => {
     password: Yup.string().trim().required("Password is required"),
   });
   const validationSchemaMobile = Yup.object().shape({
-    phone: Yup.string()
-      .trim()
-      .phoneString()
-      .required("Mobile number is required")
-      .min(8, "Please enter a valid phone number"),
     password: Yup.string().trim().required("Password is required"),
   });
 
@@ -96,9 +93,20 @@ const LogIn = () => {
 
 
   const handleFormSubmit = () => {
-    userActions.login(formData);
-    setIsSubmitting(true)
-    setUserError(false)
+    if(value != 1 ) {
+      if(mobile_value && isValidPhoneNumber(mobile_value)) {
+      formData.phone = mobile_value;
+      userActions.login(formData);
+      setIsSubmitting(true)
+      setUserError(false)
+    }
+  }else
+  {
+    formData.mobile = mobile_value;
+      userActions.login(formData);
+      setIsSubmitting(true)
+      setUserError(false)
+  }
   };
  
   return (
@@ -353,28 +361,16 @@ const LogIn = () => {
                           </LoadingButton>
                         </TabPanel>
                         <TabPanel value="2" sx={{ p: 0 }}>
-                          <MuiPhoneNumber
-                            label="Mobile *"
-                            className="form-control white-input-box"
-                            fullWidth
-                            variant="standard"
-                            margin="normal"
-                            required
-                            autoComplete="off"
-                            defaultCountry={"us"}
-                            value={formData.phone}
-                            placeholder="Number"
-                            size="small"
-                            autoFocus
-                            {...register("phone")}
-                            onChange={(value) =>
-                              reset({ ...formData, phone: value })
+                          <PhoneInput
+                            placeholder="Enter phone number"
+                            value={mobile_value}
+                            onChange={(e)=>{setMobile_value(e);setPhone_hide(true)}}
+                            error={mobile_value ? (isValidPhoneNumber(mobile_value) ? undefined : 'Invalid phone number') : 'Phone number required'}
+                            />
+                            {phone_hide&&<div className="frm-message" style={{color:"red"}}>
+                              {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value>0?'Entered mobile number is not valid.':'Enter mobile number.'}
+                              </div> 
                             }
-                          />
-                          <div className="frm-message">
-                            {" "}
-                            {errors.phone?.message}
-                          </div>
                           <TextField
                             label="Password *"
                             className="form-control"

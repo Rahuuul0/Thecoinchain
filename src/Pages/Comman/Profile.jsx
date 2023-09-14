@@ -378,7 +378,7 @@ const Profile = (props) => {
                       <Box className="" paddingY={1}>
                         <MuiPhoneNumber
                            disabled
-                           disableDropdown
+                          sx={{pointerEvents: "none"}}
                           label="Mobile *"
                           className="form-control white-input-box"
                           InputLabelProps={{

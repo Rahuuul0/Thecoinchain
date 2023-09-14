@@ -28,15 +28,14 @@ import LogoDark from "../../../public/assets/images/logo.svg";
 import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import AppleIcon from "@mui/icons-material/Apple";
 import ReCAPTCHA from "react-google-recaptcha";
-import MuiPhoneNumber from "material-ui-phone-number";
 import GoogleAuth from "./GoogleAuth.jsx";
 import LoadingButton from '@mui/lab/LoadingButton';
+import PhoneInput, { formatPhoneNumber,isPossiblePhoneNumber, formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
 
 const CreateAccount = () => {
   const navigate = useNavigate();
   const userActions = useUserActions();
   const alertActions = useAlertActions();
-  const [phone, setPhone] = useState("");
   const captchaRef = useRef(null);
   const param = useParams();
 
@@ -52,11 +51,6 @@ const CreateAccount = () => {
       .matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, "Email is invalid")
       .email("Email must be a valid email")
       .trim(),
-    mobile: Yup.string()
-      .phoneString()
-      .min(8, "Please enter a valid phone number")
-      .max(15, "Phone must be at most 15 characters")
-      .required("Mobile Number is required"),
     password: Yup.string()
       .trim()
       .required("Password is required")
@@ -74,8 +68,11 @@ const CreateAccount = () => {
 
   //password eye IconButton
   const [showPassword, setShowPassword] = useState(false);
+  const [mobile_value, setMobile_value] = useState();
+  const [phone_hide, setPhone_hide] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const [showCnfrmPassword, setShowCnfrmPassword] = useState(false);
+
 
   const handleClickShowCnfrmPassword = () =>
     setShowCnfrmPassword((show) => !show);
@@ -93,23 +90,23 @@ const CreateAccount = () => {
     console.log("Captcha value:", value);
   };
 
-  // Mobile contry code
-  const handlePhone = (newPhone) => {
-    setPhone(newPhone);
-  };
-
   const asyncScriptOnLoad = () => {
     console.log("scriptLoad - reCaptcha Ref-");
   };
 
   const submitForm = () => {
-    const token = captchaRef.current.getValue();
-    if (token) {
-      captchaRef.current.reset();
-      return userActions.create(formData);
-    } else {
-      alertActions.error("reCAPTCHA is mandatory");
+    if(mobile_value && isValidPhoneNumber(mobile_value)) {
+      
+      const token = captchaRef.current.getValue();
+      if (token) {
+        captchaRef.current.reset();
+        formData.mobile = mobile_value;
+        return userActions.create(formData);
+      } else {
+        alertActions.error("reCAPTCHA is mandatory");
+      }
     }
+
   };
 
   useEffect(() => {
@@ -271,21 +268,16 @@ const CreateAccount = () => {
                       }
                     />
                     <div className="frm-message">{errors.email?.message}</div>
-                    <MuiPhoneNumber
-                      label="Mobile *"
-                      className="form-control white-input-box"
-                      fullWidth
-                      variant="standard"
-                      margin="normal"
-                      required
-                      autoComplete="off"
-                      defaultCountry={"us"}
-                      value={formData.mobile}
-                      onChange={(value) =>
-                        reset({ ...formData, mobile: value })
-                      }
-                    />
-                    <div className="frm-message"> {errors.mobile?.message}</div>
+
+                    <PhoneInput
+                      placeholder="Enter phone number"
+                      value={mobile_value}
+                      onChange={(e)=>{setMobile_value(e);setPhone_hide(true)}}
+                      error={mobile_value ? (isValidPhoneNumber(mobile_value) ? undefined : 'Invalid phone number') : 'Phone number required'}
+                      />
+                      
+                 {phone_hide&&<div className="frm-message" style={{color:"red"}}> {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value>0?'Entered mobile number is not valid.':'Enter mobile number.'}</div> }
+
                     <TextField
                       margin="normal"
                       required

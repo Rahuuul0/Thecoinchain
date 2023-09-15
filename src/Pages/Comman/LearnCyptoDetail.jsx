@@ -87,7 +87,7 @@ const LearnCyptoDetail = () => {
 
       case "learncyptovideo":
         tutorialAction.getSingleVideo(params.title)
-        setTitleblog(true);
+        
         break;
       
       case "learnandearn":
@@ -129,8 +129,8 @@ const LearnCyptoDetail = () => {
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
   const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom)
-  const [titleblog, setTitleblog] = useState(false);
-  
+ 
+console.log(blogImg,'blogImg');
 
   useEffect(() => {
     window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
@@ -175,7 +175,7 @@ const LearnCyptoDetail = () => {
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 10 }}>
           <Box>
-            {blogNew === true && titleblog !== true && blogVideo === false ?
+            {blogNew === true  && blogVideo === false ?
               <Box sx={{ maxWidth: "100%", justifyContent: "center", "display": "flex" }} paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}
               >
                 <img
@@ -186,7 +186,7 @@ const LearnCyptoDetail = () => {
               </Box>
               :
               <Box paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}>
-                  { blogNew === true && titleblog === true ? 
+                  { blogNew === true? 
                   <ReactPlayer
                     url={blogImg?.video_link}
                     controls={true}

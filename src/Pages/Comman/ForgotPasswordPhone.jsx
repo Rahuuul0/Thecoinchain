@@ -198,6 +198,7 @@ const ForgotPasswordPhone = () => {
                         variant="contained"
                         className="btn btn-primary"
                         disabled={isSubmitting}
+                        onClick={()=>{setPhone_hide(true)}}
                       >
                         {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Continue"}
                       </LoadingButton>

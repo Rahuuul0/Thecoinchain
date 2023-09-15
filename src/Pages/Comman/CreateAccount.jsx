@@ -393,6 +393,7 @@ const CreateAccount = () => {
                       variant="contained"
                       disabled={isSubmitting}
                       className="btn btn-primary"
+                      onClick={()=>{setPhone_hide(true)}}
                     >
                       {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Sign up"}
                     </LoadingButton>

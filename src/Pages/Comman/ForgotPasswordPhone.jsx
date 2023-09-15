@@ -183,7 +183,7 @@ const ForgotPasswordPhone = () => {
                     <Box className="auth-form">
                       <div className="custom-mobile">
                         <PhoneInput
-                          className="PhoneInput2"
+                           className="PhoneInput2"
                           placeholder="Enter Mobile number"
                           value={mobile_value}
                           onChange={(e)=>{setMobile_value(e);setPhone_hide(true)}}

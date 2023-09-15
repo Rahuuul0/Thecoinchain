@@ -276,6 +276,7 @@ const CreateAccount = () => {
                       onChange={(e)=>{setMobile_value(e);setPhone_hide(true)}}
                       error={mobile_value ? (isValidPhoneNumber(mobile_value) ? undefined : 'Invalid Mobile number') : 'Mobile number is required'}
                       />
+                      
                       {phone_hide&&<div className="frm-message" style={{color:"red"}}> {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value>0?'Mobile number is not valid.':'Mobile number is required.'}</div> }
                       <label id="phone_label_id">Mobile *</label>
                     </div> 

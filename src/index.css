@@ -4327,6 +4327,7 @@ video[poster] {
   font-weight: 700;    
   text-transform: uppercase;
   color: #b1b5c4;
+  order: 1;
 }
 
 .PhoneInput2:focus-within {
@@ -4339,6 +4340,13 @@ video[poster] {
 
 .custom-mobile {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   margin-top: 4px;
+}
+.custom-mobile .frm-message{
+  order: 3;
+  margin-top: 7px;
+}
+.custom-mobile .PhoneInput{
+  order: 2;
 }

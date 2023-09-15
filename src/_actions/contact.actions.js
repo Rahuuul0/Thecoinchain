@@ -18,7 +18,6 @@ const useContactActions = () => {
   const navigate = useNavigate();
 
   const add = (data) => {
-  console.log(data, "data")
     return fetchWrapper.post(Apis.Contact, data)
       .then(res => {
         if (res.statusCode === 200) {

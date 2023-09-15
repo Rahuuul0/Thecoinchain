@@ -130,7 +130,6 @@ const LearnCyptoDetail = () => {
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
   const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom)
  
-console.log(blogImg,'blogImg');
 
   useEffect(() => {
     window.scrollTo({ top: 1, left: 1, behavior: "smooth" });

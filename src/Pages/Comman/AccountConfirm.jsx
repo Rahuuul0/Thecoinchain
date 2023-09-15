@@ -77,7 +77,6 @@ const AccountConfirm = () => {
     }   
   }
 
-  console.log(Soption,'radioOption')
   return (
     <>
       <ThemeProvider theme={theme}>

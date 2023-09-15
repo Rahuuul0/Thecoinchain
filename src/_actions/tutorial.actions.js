@@ -100,7 +100,6 @@ const useTutorialActions = () => {
       }).catch((err) => {navigate("/page-not-found"); console.warn(err) })
   }
   const getSingle = (title) => {
-    console.log(title,'title')
     return fetchWrapper.get(`${Apis.Blog_List}?slug=${title}`)
       .then(res => {
         if (res.statusCode === 200) {

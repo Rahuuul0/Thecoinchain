@@ -4252,7 +4252,8 @@ video[poster] {
 }
 .PhoneInput {
   display: flex;
-  align-items: center;margin-top: 24px;
+  align-items: center;
+  margin-top: 12px;
   padding: 11.5px 5px 11.5px 16px;
   border: 2px solid #e6e8ec;
   background: #fff;
@@ -4319,4 +4320,25 @@ video[poster] {
 .PhoneInputInput {
   flex: 1;
   min-width: 0;
+}
+.custom-mobile label{
+  font-size: 9px;
+  font-family: var(--primary-font) !important;
+  font-weight: 700;    
+  text-transform: uppercase;
+  color: #b1b5c4;
+}
+
+.PhoneInput2:focus-within {
+  border: 2px solid rgb(94, 115, 235) !important;
+}
+
+.PhoneInput2:focus-within + #phone_label_id {
+  color: rgb(84, 107, 238) !important;
+}
+
+.custom-mobile {
+  display: flex;
+  flex-direction: column-reverse;
+  margin-top: 4px;
 }

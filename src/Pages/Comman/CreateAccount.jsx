@@ -255,7 +255,7 @@ const CreateAccount = () => {
                       name="email"
                       autoComplete="off"
                       size="small"
-                      autoFocus
+                      
                       {...register("email")}
                       onChange={(e) =>
                         reset({
@@ -268,16 +268,17 @@ const CreateAccount = () => {
                       }
                     />
                     <div className="frm-message">{errors.email?.message}</div>
-
+                     <div className="custom-mobile" >
                     <PhoneInput
-                      placeholder="Enter phone number"
+                      className="PhoneInput2"
+                      placeholder="Enter Mobile number"
                       value={mobile_value}
                       onChange={(e)=>{setMobile_value(e);setPhone_hide(true)}}
-                      error={mobile_value ? (isValidPhoneNumber(mobile_value) ? undefined : 'Invalid phone number') : 'Phone number required'}
+                      error={mobile_value ? (isValidPhoneNumber(mobile_value) ? undefined : 'Invalid Mobile number') : 'Mobile number is required'}
                       />
-                      
-                 {phone_hide&&<div className="frm-message" style={{color:"red"}}> {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value>0?'Entered mobile number is not valid.':'Enter mobile number.'}</div> }
-
+                      {phone_hide&&<div className="frm-message" style={{color:"red"}}> {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value>0?'Mobile number is not valid.':'Mobile number is required.'}</div> }
+                      <label id="phone_label_id">Mobile *</label>
+                    </div> 
                     <TextField
                       margin="normal"
                       required

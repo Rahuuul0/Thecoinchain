@@ -181,16 +181,20 @@ const ForgotPasswordPhone = () => {
                     noValidate
                   >
                     <Box className="auth-form">
-                      <PhoneInput
-                        placeholder="Enter phone number"
-                        value={mobile_value}
-                        onChange={(e)=>{setMobile_value(e);setPhone_hide(true)}}
-                        error={mobile_value ? (isValidPhoneNumber(mobile_value) ? undefined : 'Invalid phone number') : 'Phone number required'}
-                      />
-                       {phone_hide&&<div className="frm-message" style={{color:"red"}}>
-                            {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value>0?'Entered mobile number is not valid.':'Enter mobile number.'}
-                            </div> 
+                      <div className="custom-mobile">
+                        <PhoneInput
+                          className="PhoneInput2"
+                          placeholder="Enter Mobile number"
+                          value={mobile_value}
+                          onChange={(e)=>{setMobile_value(e);setPhone_hide(true)}}
+                          error={mobile_value ? (isValidPhoneNumber(mobile_value) ? undefined : 'Invalid Mobile number') : 'Mobile number is required'}
+                        />
+                        {phone_hide&&<div className="frm-message" style={{color:"red"}}>
+                              {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value>0?'Mobile number is not valid.':'Mobile number is required.'}
+                              </div> 
                         }
+                        <label id="phone_label_id">Mobile *</label>
+                      </div>
                       <LoadingButton
                         type="submit"
                         loading={isSubmitting}

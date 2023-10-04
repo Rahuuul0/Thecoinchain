@@ -9,7 +9,7 @@ import { academyActions } from "../../_actions";
 import { academyAtom } from "../../_state";
 import { useRecoilValue } from 'recoil';
 import ReactHtmlParser from 'react-html-parser';
-
+import Leveragedv2 from "../../../public/assets/images/leveragedv2.svg";
 const AcademyAboutCrypto = () => {
     const academyActionsList = academyActions();
     const allAbout = useRecoilValue(academyAtom);
@@ -32,6 +32,8 @@ const AcademyAboutCrypto = () => {
     useEffect(() => {
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
     });
+
+    console.log(allAbout,'allAbout')
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -51,6 +53,7 @@ const AcademyAboutCrypto = () => {
                     {allAbout?.map((items) => {
                         let title = items.title;
                         let description = items.description;
+                        let image = items.image;
                         return (
                             <Container maxWidth="lg">
                                 <Box className='subscription-wrapper-head'>
@@ -59,6 +62,8 @@ const AcademyAboutCrypto = () => {
                                     </Typography>
                                 </Box>
                                 <Box className='page-inner'>
+                                    {/* <img src={image} /> */}
+                                    <img src={`${process.env.REACT_APP_IMAGE_URL}/${image}`} /> 
                                     <Typography component="p" variant='body2'>
                                         {ReactHtmlParser(description)}
                                     </Typography>

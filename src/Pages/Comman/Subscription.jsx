@@ -33,7 +33,7 @@ const Subscription = () => {
                             </Typography>
 
                             <Typography component="small" variant='body2' className='' sx={{ color: '#777E90', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                How to buy crypto on Bitcloud <Links to={'/learn-cypto'} className='v-center' sx={{ color: '#353945', display: 'flex', alignItems: 'center' }}>Learn now <KeyboardArrowRightIcon sx={{ width: '16px' }} /></Links>
+                                How to buy crypto on Coinguru <Links to={'/learn-cypto'} className='v-center' sx={{ color: '#353945', display: 'flex', alignItems: 'center' }}>Learn now <KeyboardArrowRightIcon sx={{ width: '16px' }} /></Links>
                             </Typography>
                         </Box>
                     </Container>

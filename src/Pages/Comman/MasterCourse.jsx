@@ -9,6 +9,7 @@ import { academyActions } from "../../_actions";
 import { masterAtom } from "../../_state";
 import { useRecoilValue } from 'recoil';
 import ReactHtmlParser from 'react-html-parser';
+import Levagedv2 from "../../../public/assets/images/leveragedv2.svg";
 
 const MasterCourse = () => {
     const masterActionList = academyActions();
@@ -51,6 +52,7 @@ const MasterCourse = () => {
                     {masterCourse?.map((items) => {
                         let title = items.title;
                         let description = items.decription;
+                        let image = items.image;
                         return (
                             <Container maxWidth="lg">
                                 <Box className='subscription-wrapper-head'>
@@ -61,6 +63,7 @@ const MasterCourse = () => {
 
                                 </Box>
                                 <Box className='page-inner'>
+                                <img src={`${process.env.REACT_APP_IMAGE_URL}/${image}`} /> 
                                     <Typography component="p" variant='body2'>
                                         {ReactHtmlParser(description)}
                                     </Typography>

@@ -68,7 +68,7 @@ const Referrals = () => {
 
   const handleLink = () => {
     navigator.clipboard.writeText(
-      "http://dly1vyq5d0op3.cloudfront.net/create-account/" +
+      "http://d72bnggublbyp.cloudfront.net/create-account/" +
       userDetail.referral_code
     );
     setLinkCopy(true);

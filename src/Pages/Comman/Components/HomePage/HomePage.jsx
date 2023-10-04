@@ -360,79 +360,14 @@ const videoLink = (data) => {
                   columnSpacing={{ xs: 1, sm: 4 }}
                   className="ipad-none"
                 >
-                  {tutorialsList?.slice(0, 1).map((item) => {
-                    let description = item.description.substring(0, 50) + "...";
-                    let title = item.title.substring(0, 50) + "...";
-                    return (
-                      <Grid item xs={6}
-                       
-                      >
-                        {/* <img src={Leveragedv3} /> */}
-                        <ReactPlayer
-                          onClick={() => videoLink(item)}
-                          url={item.video_link}
-                          controls={true}
-                          light={item.image_link}
-                          playing={false}
-                          width="100%"
-                          height="510px"
-                        />
-                        <Stack
-                          direction="row"
-                          spacing={2}
-                          justifyContent="space-between"
-                          paddingTop={3}
-                        >
-                          <Box  sx={{ cursor: "pointer" }}
-                              onClick={() => videoLink(item)}
-                          >
-                            <Typography
-                              variant="h3"
-                              component="div"
-                              fontSize={32}
-                              fontWeight={700}
-                              className="secondary-font"
-                            >
-                              {title}
-                            </Typography>
-                            <Typography
-                              fontSize={16}
-                              component="div"
-                              paddingTop={2}
-                              paddingBottom={2}
-                              className="secondary-color primary-font"
-                            >
-                              {ReactHtmlParser(description)}
-                            </Typography>
-                          </Box>
-                          <Button
-                            variant="outline"
-                            className="btn btn-outline"
-                            endIcon={<KeyboardArrowRight sx={{ color : "#777E90"}} />}
-                            sx={{
-                              border: "1px solid #E6E8EC",
-                              height: "50px",
-                              whiteSpace: "nowrap",
-                              minWidth: "auto",
-                            }}
-                            onClick={() => {
-                              navigate("./learn-cypto");
-                            }}
-                          >
-                            Learn more
-                          </Button>
-                        </Stack>
-                      </Grid>
-                    );
-                  })}
-                  <Grid item xs={6}>
-                    {tutorialsList?.slice(1, 4).map((item) => {
+                    {tutorialsList?.slice(0).map((item) => {
                       let description = item.description;
                       if (description.length > 10) {
                         description =
                           item.description.substring(0, 150) + "...";
                       }
                       return (
+                 <Grid item xs={6}>
                         <Grid
                           container
                           columnSpacing={{ xs: 1, sm: 4 }}
@@ -477,14 +412,32 @@ const videoLink = (data) => {
                                 height="100%"
                               />
                             </Box>
+                         
                           </Grid>
                         </Grid>
+
+                  </Grid>
                       );
                     })}
-
-                    {/* 1st box end */}
-                  </Grid>
+                   
                 </Grid>
+                <Button
+                      variant="outline"
+                      className="btn btn-outline"
+                      endIcon={<KeyboardArrowRight sx={{ color : "#777E90"}} />}
+                      sx={{
+                        border: "1px solid #E6E8EC",
+                        height: "50px",
+                        whiteSpace: "nowrap",
+                        minWidth: "auto",
+                        // marginLeft : "25px",
+                      }}
+                      onClick={() => {
+                        navigate("./learn-cypto");
+                      }}
+                    >
+                      Learn more
+                    </Button>
               </TabPanel>
             </TabContext>
 

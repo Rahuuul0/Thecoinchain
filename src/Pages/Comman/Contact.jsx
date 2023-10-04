@@ -15,7 +15,7 @@ import {
   Select
 } from '@mui/material'
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { ArrowRightAlt, ExpandMore } from '@mui/icons-material';
 import { useContactActions, useTutorialActions } from '../../_actions';
@@ -44,8 +44,10 @@ import Autocomplete from '@mui/material/Autocomplete';
 import "swiper/css";
 import "swiper/css/navigation";
 import LoadingButton from '@mui/lab/LoadingButton';
+import ReCAPTCHA from "react-google-recaptcha";
 import { RoutesName } from "../../_common/app.constants";
 import ReactHtmlParser from 'react-html-parser';
+import { useAlertActions } from "../../_actions/alert.actions";
 
 
 
@@ -135,6 +137,8 @@ const Contact = () => {
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
   const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
+  const captchaRef = useRef(null);
+  const alertActions = useAlertActions();
 
   const contactCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
     return item.type === "Contact_Faq";
@@ -175,11 +179,19 @@ const [value, setValue] = React.useState(0);
   }, [contactError])
 
   const handleFormSubmit = async (data) => {
-    setIsSubmitting(true)
-    setContactError(false)
-    data.category = category;
+   
+    const token = captchaRef.current.getValue();
+    if (token) {
+      captchaRef.current.reset();
+      data.category = category;
+      setIsSubmitting(true)
+      setContactError(false)
     await useContactAddActions.add(data);
     reset({ email: " ", subject: " ", msg: " " });
+    } else {
+      alertActions.error("reCAPTCHA is mandatory");
+    }
+ 
   }
 
   const handleChange = (event) => {
@@ -255,6 +267,17 @@ const imgLink = (data) => {
   setBlogimg(data)
   setBlognew(true)
 } 
+
+const SITE_KEY = process.env.REACT_APP_reCAPTCHA_SITE_KEY;
+
+const handleRecaptch = (value) => {
+  console.log("Captcha value:", value);
+};
+
+const asyncScriptOnLoad = () => {
+  console.log("scriptLoad - reCaptcha Ref-");
+};
+
 
   return (
     <>
@@ -488,12 +511,24 @@ const imgLink = (data) => {
               </Box>
               <Box paddingTop='2'>
                 <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
+                  <ReCAPTCHA
+                    style={{
+                      // margin: "10px auto",
+                      display: "flex",
+                      // justifyContent: "center",
+                    }}
+                    theme="light"
+                    ref={captchaRef}
+                    sitekey={SITE_KEY}
+                    onChange={handleRecaptch}
+                    asyncScriptOnLoad={asyncScriptOnLoad}
+                  />
                   <LoadingButton
                     type='submit'
                     loading={isSubmitting}
                     loadingPosition="end"
                     className='btn btn-primary'
-                    sx={{ marginLeft: { xs: "0", sm: "auto" }, minWidth: "160px" }}
+                    sx={{ marginLeft: { xs: "0", sm: "auto" }, minWidth: "160px",  }}
                     disabled={isSubmitting}
                     variant='contained'>
                     {isSubmitting ? <span className="spinner-border ">Loading</span> : " Send message "}

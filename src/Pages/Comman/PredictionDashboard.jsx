@@ -107,7 +107,7 @@ const PredictionDashboard = () => {
                   </Box>
                   <Button
                     onClick={() => {
-                      navigate("/contact");
+                      // navigate("/contact");
                     }}
                     sx={{ mt: 2 }}
                     variant="outlined"

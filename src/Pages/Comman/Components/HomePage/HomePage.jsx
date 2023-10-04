@@ -406,7 +406,7 @@ const videoLink = (data) => {
                                 url={item.video_link}
                                 controls={true}
                                 light={item.image_link}
-                                playing={true}
+                                playing={false}
                                 // poster={Learn01}
                                 width="100%"
                                 height="100%"
@@ -570,7 +570,7 @@ const videoLink = (data) => {
                 navigate("/market");
               }}
             >
-              View More
+              Load more
             </Button>
           </Box>
           <Stack

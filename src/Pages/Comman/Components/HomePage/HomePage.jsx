@@ -617,7 +617,7 @@ const videoLink = (data) => {
                 navigate("/market");
               }}
             >
-              View More
+              Load more
             </Button>
           </Box>
           <Stack

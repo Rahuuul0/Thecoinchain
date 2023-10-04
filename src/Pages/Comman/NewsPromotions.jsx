@@ -480,7 +480,7 @@ const NewsPromotions = (props) => {
                                         </Typography>
                                         <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
                                             Let’s stay in touch. Join our communities to keep up with
-                                            the BitCloud team and our traders from across the world.
+                                            the Coinguru team and our traders from across the world.
                                         </Typography>
                                         <Button
                                             className="btn-outlined-secondary"

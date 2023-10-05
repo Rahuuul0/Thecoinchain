@@ -83,14 +83,11 @@ const subscriptionActions = () => {
   }; 
 
   const unsubscribes = (data) => {
-    loader(true);
     return fetchWrapper
       .post(Apis.Unsubscribe, data)
       .then((res) => {
         if (res.statusCode === 200) {
-          console.log(res.data,'252555525');
-          // setForecastSub({ status: "expired" });
-          // loader(false);
+         
           alertActions.success(Labels.Unsubscribe);
         } else {
           console.log(res.msg, "res.msg");

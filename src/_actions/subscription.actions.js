@@ -63,6 +63,7 @@ const subscriptionActions = () => {
       });
   };
 
+
   const unsubscribeUser = () => {
     loader(true);
     return fetchWrapper
@@ -71,6 +72,26 @@ const subscriptionActions = () => {
         if (res.statusCode === 200) {
           setForecastSub({ status: "expired" });
           loader(false);
+        } else {
+          console.log(res.msg, "res.msg");
+          loader(false);
+        }
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  }; 
+
+  const unsubscribes = (data) => {
+    loader(true);
+    return fetchWrapper
+      .post(Apis.Unsubscribe, data)
+      .then((res) => {
+        if (res.statusCode === 200) {
+          console.log(res.data,'252555525');
+          // setForecastSub({ status: "expired" });
+          // loader(false);
+          alertActions.success(Labels.Unsubscribe);
         } else {
           console.log(res.msg, "res.msg");
           loader(false);
@@ -103,6 +124,7 @@ const subscriptionActions = () => {
     subscribedUser,
     unsubscribeUser,
     createPaymentIntentPaypal,
+    unsubscribes,
   };
 };
 

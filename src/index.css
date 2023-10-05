@@ -4350,3 +4350,21 @@ video[poster] {
 .custom-mobile .PhoneInput{
   order: 2;
 }
+
+.unsubscribe-form-wrapper{
+  min-height: calc(100vh - 492px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.unsubscribe-form-wrapper .unsubscribe-form{
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
+}
+
+.unsubscribe-form-wrapper button{
+  max-width: 200px;
+  margin: auto;
+}

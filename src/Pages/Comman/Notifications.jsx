@@ -134,7 +134,7 @@ const Notifications = () => {
                                              
                                             return(
                                             
-                                                <Box style={{cursor:(item.ct_notify_read_status!==1)?"pointer":"default"}} onClick={() => {if(item.ct_notify_read_status!==1) {singleRead(item.ct_notiy_id)}}} className='notification-list-itm'>
+                                                <Box style={{cursor:(item.ct_notify_read_status == null)?"pointer":"default"}} onClick={() => {if(item.ct_notify_read_status == null ) {singleRead(item.ct_notiy_id)}}} className='notification-list-itm'>
                                                     <Box className='notification-icon' >
                                                         <BoltOutlinedIcon />
                                                     </Box>
@@ -151,12 +151,12 @@ const Notifications = () => {
                                                             <span className='n-date'> {item.ct_notify_created_At} </span>
                                                         </Typography>
                                                         <span className='notification-circle' 
-                                                        style={{backgroundColor: item.ct_notify_read_status === 1
+                                                        style={{backgroundColor: item.ct_notify_read_status !=null
                                                             ?'#777e90' 
                                                             : '#58bd7d'}}
                                                         >
                                                         </span>
-                                              
+                                                     
                                                     </Box>
                                                 </Box>
                                         
@@ -164,7 +164,7 @@ const Notifications = () => {
                                         }
                                         }):<span>No New Notifications Available</span>}
                                        
-                                        {notifications.length>0 && loadmore  >= 10 && 
+                                        {notifications.length>0 && loadmore  >= 10 &&   notifications.length > loadmore &&
                                         <Button onClick={handleLoadmore}  variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>}
                             
                                     </Box>

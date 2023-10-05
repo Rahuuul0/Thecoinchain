@@ -53,6 +53,7 @@ import SubscriptionPaymentPaypal from "./SubscriptionPaymentPaypal";
 import ForgotPasswordPhone from "./ForgotPasswordPhone";
 import ContentNotFound from "./ContentNotFound";
 import PageNotFound from "./PageNotFound";
+import UnSubscribe from "./UnSubscribe";
 
 const Customer = () => {
   const auth = useRecoilValue(authAtom);
@@ -113,6 +114,7 @@ const Customer = () => {
           <Route path={`news-promotions`} exact element={<NewsPromotions />} />
           <Route path={`academy`} exact element={<Academy />} />
           <Route path={`contentnotfound`} exact element={<ContentNotFound />} />
+          <Route path={`unsubscribe`} exact element={<UnSubscribe />} />
 
           <Route
             path={`academy-about-crypto`}

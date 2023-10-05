@@ -1042,14 +1042,15 @@ const CryptoTable = (props) => {
             <CloseIcon />
           </Button>
           <Box className="modal-head">
-            <Typography
+            <Button
               id="modal-modal-title"
               className="modal-modal-title"
               variant="h6"
               component="h2"
+              onClick={handleChartClose}
             >
-              <NavigateBeforeIcon /> BTC
-            </Typography>
+              <NavigateBeforeIcon />
+            </Button>
           </Box>
           <Box
             id="modal-modal-description"

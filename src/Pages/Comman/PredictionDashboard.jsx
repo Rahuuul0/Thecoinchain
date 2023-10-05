@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme, RoutesName } from "../../_common/app.constants";
 import { Box, Container, Typography, Button, Stack } from "@mui/material";
@@ -17,6 +17,7 @@ const PredictionDashboard = () => {
   const auth = useRecoilValue(authAtom);
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
+  const [loadmore,setLoadmore] = useState(6);
   
   // Subscription action get function   API data call
   useEffect(() => {
@@ -33,9 +34,13 @@ const PredictionDashboard = () => {
   const imgLink = (data) => {
     let learnSeo = data.slug
     navigate(`${RoutesName.learn_Crypto_Details}/predictionDashboard/${learnSeo}`)
-    setBlogimg(data)
-    setBlognew(true) 
+    setBlogimg(data);
+    setBlognew(true);
 } 
+
+  const handleLoadmore = () => {
+    setLoadmore(loadmore + 20);
+  }
 
   return (
     <>
@@ -71,7 +76,8 @@ const PredictionDashboard = () => {
               <Box className="market-prediction-faq-items-wrapper">
                 <Container maxWidth="lg">
                   <Box className="market-prediction-faq-items">
-                    {faq.map((item) => {
+                    {faq.map((item, index) => {
+                      if(index < loadmore){
                       return (
                         <Box className="market-prediction-faq-item"
                             onClick={() => imgLink(item)}
@@ -103,18 +109,19 @@ const PredictionDashboard = () => {
                           </Box>
                         </Box>
                       );
+                      }
                     })}
                   </Box>
+                  {faq.length >6 &&  faq.length > loadmore &&
                   <Button
-                    onClick={() => {
-                      // navigate("/contact");
-                    }}
+                    onClick={handleLoadmore}
                     sx={{ mt: 2 }}
                     variant="outlined"
                     className="btn btn-outlined-secondary"
                   >
                     View All
                   </Button>
+                  }
                 </Container>
               </Box>
             </Box>

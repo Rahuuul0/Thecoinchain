@@ -23,6 +23,7 @@ export const Labels = {
   Replce_Text: "XXXX",
   Success_Status_Code: 200,
   Error_Status_Code: 500,
+  Unsubscribe: "Unsubscribe Successfully ",
   
 };
 
@@ -95,6 +96,8 @@ export const Apis = {
   master_Course_List: "master_coures-list",
   Contact_Blog_List: "contact_blog-list",
   Market_Blog_List: "market_blog-list",
+  Unsubscribe : "unsubscribe",
+ 
 };
 
 export const theme = createTheme({

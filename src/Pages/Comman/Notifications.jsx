@@ -164,7 +164,7 @@ const Notifications = () => {
                                         }
                                         }):<span>No New Notifications Available</span>}
                                        
-                                        {notifications.length>0 && loadmore  >= 10 && 
+                                        {notifications.length>0 && loadmore  >= 10 &&   notifications.length > loadmore &&
                                         <Button onClick={handleLoadmore}  variant="outlined" className='btn btn-outlined-secondary' sx={{ mx: 'auto' }}>Load more <img src={LoadMoreIc} alt='' /> </Button>}
                             
                                     </Box>

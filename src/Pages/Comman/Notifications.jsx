@@ -223,7 +223,7 @@ const Notifications = () => {
                                             Transfer
                                         </Typography>
                                         <Typography component="p" variant='body1' className='body-caption'>
-                                            Internal transfers are free on Bitcloud.
+                                            Internal transfers are free on Coinguru.
                                         </Typography>
                                         <Button onClick={()=>{navigate("/contentnotfound")}} size='small' variant="outlined" className='btn btn-outlined-secondary' endIcon={<ArrowRightAltOutlinedIcon />}>Transfer coin</Button>
                                     </Box>

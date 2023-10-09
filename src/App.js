@@ -8,8 +8,11 @@ const App = () => {
    const open = useRecoilValue(alertAtom);
    // setup fake backend
    fakeBackend();
+
+   const loc = window.location || {};
    return (
-      <Router>
+     
+      <Router basename={loc.pathname || 'foobar'}>
          <SnackbarProvider
             autoHideDuration={1000}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}

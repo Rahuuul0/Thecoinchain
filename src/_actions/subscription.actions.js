@@ -1,7 +1,7 @@
 import { useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from "../_helpers";
-import { Apis } from "../_common/app.constants";
+import { Apis, Labels } from "../_common/app.constants";
 import { forecastSubAtom, loaderAtom, setUnsubscribeAtom } from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
 
@@ -89,6 +89,7 @@ const subscriptionActions = () => {
         if (res.statusCode === 200) {
          
           alertActions.success(Labels.Unsubscribe);
+          navigate('/')
         } else {
           console.log(res.msg, "res.msg");
           loader(false);

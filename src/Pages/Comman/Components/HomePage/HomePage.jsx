@@ -91,6 +91,7 @@ const Home = () => {
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
   const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
+  const [loadmore,setLoadmore] = useState(4);
 
   const tutorialCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
     return item.type === "Tutorial";
@@ -143,6 +144,10 @@ const videoLink = (data) => {
   setBlognew(true)
   setBlogvideo(true)
 } 
+
+const handleLoadmore = () => {
+  setLoadmore(loadmore + 20);
+}
 
   return (
     <>
@@ -312,7 +317,7 @@ const videoLink = (data) => {
                 fontWeight={700}
                 className="secondary-font mobile-text-center"
               >
-                Learn crypto
+                Learn crypto 
               </Typography>
             </Grid>
             <Grid
@@ -360,8 +365,10 @@ const videoLink = (data) => {
                   columnSpacing={{ xs: 1, sm: 4 }}
                   className="ipad-none"
                 >
-                    {tutorialsList?.slice(0).map((item) => {
+                    {tutorialsList?.slice(0).map((item, index) => {
                       let description = item.description;
+                        if(index < loadmore){
+
                       if (description.length > 10) {
                         description =
                           item.description.substring(0, 150) + "...";
@@ -418,9 +425,11 @@ const videoLink = (data) => {
 
                   </Grid>
                       );
+                    }
                     })}
                    
                 </Grid>
+                { tutorialsList.length > 4 && tutorialsList.length > loadmore && 
                 <Button
                       variant="outline"
                       className="btn btn-outline"
@@ -432,12 +441,11 @@ const videoLink = (data) => {
                         minWidth: "auto",
                         // marginLeft : "25px",
                       }}
-                      onClick={() => {
-                        navigate("./learn-cypto");
-                      }}
+                      onClick={handleLoadmore}
                     >
-                      Learn more
+                      Load more 
                     </Button>
+                }
               </TabPanel>
             </TabContext>
 
@@ -468,8 +476,9 @@ const videoLink = (data) => {
                   modules={[Navigation]}
                   className="mySwiper"
                 >
-                  {tutorialsList?.slice(0, 3).map((item) => {
+                  {tutorialsList?.slice(0, 3).map((item, index) => {
                     let description = item.description;
+                    if( index <loadmore){
                     if (description.length > 10) {
                       description = item.description.substring(0, 150) + "...";
                     }
@@ -508,6 +517,7 @@ const videoLink = (data) => {
                         </Box>
                       </SwiperSlide>
                     );
+                    }
                   })}
                 </Swiper>
               </Box>
@@ -570,7 +580,7 @@ const videoLink = (data) => {
                 navigate("/market");
               }}
             >
-              Load more
+             Learn more 
             </Button>
           </Box>
           <Stack

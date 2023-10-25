@@ -3158,6 +3158,18 @@ video[poster] {
   object-fit: cover;
   border-radius: 50%;
 }
+
+.height400{
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 15px;
+}
+.market-prediction-faq-item-img img {
+  object-fit: cover;
+  height: 120px;
+}
 @keyframes rotate {
   to {
     transform: rotate(360deg);

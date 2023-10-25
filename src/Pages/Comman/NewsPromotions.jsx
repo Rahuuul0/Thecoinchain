@@ -275,7 +275,7 @@ const NewsPromotions = (props) => {
                                                                                 </Box>
                                                                             </Grid>
                                                                             <Grid item xs={12} sm={7} md={7}>
-                                                                                <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.ctn_image}`} />
+                                                                                <img className='height400' sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.ctn_image}`} />
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Box>

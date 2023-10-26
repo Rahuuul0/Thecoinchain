@@ -11,7 +11,6 @@ export * from "./guidesanalysis";
 export * from "./newslist.actions";
 export * from "./promotions.action";
 export * from "./analytics.actions";
-export * from "./bannerlist.actions";
 export * from "./quoteshistorical.actions";
 export * from './community.actions.js';
 export * from "./category.actions";

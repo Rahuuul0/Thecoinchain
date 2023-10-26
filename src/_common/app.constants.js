@@ -97,6 +97,7 @@ export const Apis = {
   Contact_Blog_List: "contact_blog-list",
   Market_Blog_List: "market_blog-list",
   Unsubscribe : "unsubscribe",
+  Terms_List : "terms-list"
  
 };
 

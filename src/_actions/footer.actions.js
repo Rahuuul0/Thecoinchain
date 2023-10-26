@@ -1,7 +1,7 @@
 import { useFetchWrapper } from '../_helpers';
 import { useAlertActions } from './alert.actions';
 import { Labels, Apis } from '../_common/app.constants'
-import { FooterAddAtom, loaderAtom } from '../_state';
+import { FooterAddAtom, loaderAtom, TermsListAtom } from '../_state';
 import { useSetRecoilState } from 'recoil';
 
 
@@ -10,6 +10,7 @@ const useFooterActions = () => {
   const alertActions = useAlertActions();
   const setFooterError = useSetRecoilState(FooterAddAtom);
   const loader = useSetRecoilState(loaderAtom)
+  const setTermsList = useSetRecoilState(TermsListAtom);
 
   const add = (data) => {
     loader(true)
@@ -27,8 +28,19 @@ const useFooterActions = () => {
       })
   };
 
+  const TermsList =  () => {
+    return fetchWrapper.get(Apis.Terms_List)
+        .then(res => {
+            if (res.statusCode === 200) {
+              setTermsList([...res.data])
+
+            } 
+        }).catch((err)=>{console.warn(err)})
+}
+
   return {
     add,
+    TermsList
   }
 
 }

@@ -44,13 +44,13 @@ const TermsOfUse = () => {
                             </Box>
                         </Box>
                 {termsList ?.map((items) => {
-                        // let title = items.title;
+                        let title = items.title;
                         let description = items.description;
                      return (
                 <Container maxWidth="lg">
                     <Box className='subscription-wrapper-head'>
                         <Typography component="h2" variant='h2'>
-                           {/* {title} */}
+                           {title}
                         </Typography>
                     </Box>
                     <Typography variant='body2' component="p">

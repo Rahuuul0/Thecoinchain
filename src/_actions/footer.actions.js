@@ -1,7 +1,7 @@
 import { useFetchWrapper } from '../_helpers';
 import { useAlertActions } from './alert.actions';
 import { Labels, Apis } from '../_common/app.constants'
-import { FooterAddAtom, loaderAtom, TermsListAtom, DisclaimersListAtom } from '../_state';
+import { FooterAddAtom, loaderAtom, TermsListAtom, DisclaimersListAtom, PrivacyListAtom } from '../_state';
 import { useSetRecoilState } from 'recoil';
 
 
@@ -12,6 +12,7 @@ const useFooterActions = () => {
   const loader = useSetRecoilState(loaderAtom)
   const setTermsList = useSetRecoilState(TermsListAtom);
   const setDisclaimersList = useSetRecoilState(DisclaimersListAtom);
+  const setPrivacyList = useSetRecoilState(PrivacyListAtom);
 
   const add = (data) => {
     loader(true)
@@ -49,10 +50,21 @@ const DisclaimersList =  () => {
       }).catch((err)=>{console.warn(err)})
 }
 
+const PrivacyList =  () => {
+  return fetchWrapper.get(Apis.Privacy_List)
+      .then(res => {
+          if (res.statusCode === 200) {
+            setPrivacyList([...res.data])
+
+          } 
+      }).catch((err)=>{console.warn(err)})
+}
+
   return {
     add,
     TermsList,
-    DisclaimersList
+    DisclaimersList,
+    PrivacyList
   }
 
 }

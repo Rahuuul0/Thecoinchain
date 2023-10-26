@@ -98,7 +98,8 @@ export const Apis = {
   Market_Blog_List: "market_blog-list",
   Unsubscribe : "unsubscribe",
   Terms_List : "terms-list",
-  Disclaimers_List: "disclaimers-list"
+  Disclaimers_List: "disclaimers-list",
+  Privacy_List: "privacy-list"
  
 };
 

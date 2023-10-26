@@ -1,11 +1,23 @@
-import { Container, Typography, Box, Breadcrumbs, } from '@mui/material';
 import React from 'react';
+import { Container, Typography, Box, Breadcrumbs, } from '@mui/material';
 import { useEffect } from 'react';
 import { Link } from "react-router-dom"; 
 import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
+import { useFooterActions } from '../../_actions';
+import { TermsListAtom } from '../../_state';
+import { useRecoilValue } from 'recoil';
+import ReactHtmlParser from 'react-html-parser';
 
 
 const TermsOfUse = () => {
+
+    const TermsListAction = useFooterActions();
+    const termsList = useRecoilValue(TermsListAtom);
+
+    useEffect(() => {
+        const response = TermsListAction.TermsList();
+        response.then((res) => {(res) })
+    }, []);
 
     const breadcrumbs = [
         <Link to="/" underline="hover" key="1" color="inherit" >
@@ -16,16 +28,11 @@ const TermsOfUse = () => {
         </Typography>,
     ];
     useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) });
+    console.log(termsList,'termsList')
     return (
         <>
             <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
-                <Container maxWidth="lg">
-                    <Box className='subscription-wrapper-head'>
-                        <Typography component="h2" variant='h2'>
-                            Terms of use
-                        </Typography>
-
-                        <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
+            <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
                             <Box  >
                                 <Breadcrumbs
                                     separator={<NavigateNext fontSize="small" />}
@@ -34,14 +41,24 @@ const TermsOfUse = () => {
                                 >
                                     {breadcrumbs}
                                 </Breadcrumbs>
-
                             </Box>
                         </Box>
+                {termsList ?.map((items) => {
+                        let title = items.title;
+                        let description = items.description;
+                     return (
+                <Container maxWidth="lg">
+                    <Box className='subscription-wrapper-head'>
+                        <Typography component="h2" variant='h2'>
+                           {title}
+                        </Typography>
                     </Box>
                     <Typography variant='body2' component="p">
-                        The usage of this website constitutes acceptance of the following legal information. Any contracts of financial instruments offered to conclude bear high risks and may result in the full loss of the deposited funds. Prior to making transactions one should get acquainted with the risks to which they relate. All the information featured on the website, including information about the cryptocurrencies and bitcoin is intended solely for informational purposes, is not a means of advertising them, and doesn't imply direct instructions for investing. Coin Guru shall not be liable for any loss, including unlimited loss of funds, which may arise directly or indirectly from the usage of this information. The editorial staff of the website does not bear any responsibility whatsoever for the content of the comments or reviews made by the site users about cryptocurrencies. The entire responsibility for the contents rests with the authors. Reprint of the materials is available only with the permission of the editorial staff.
+                    {ReactHtmlParser(description)}
                     </Typography>
                 </Container>
+                 )
+                })}
             </Box>
         </>
     )

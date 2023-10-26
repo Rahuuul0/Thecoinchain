@@ -5,8 +5,20 @@ import { theme } from "../../_common/app.constants"
 import { Box, Container, Typography, Breadcrumbs } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
 import { Link } from "react-router-dom";
+import { useFooterActions } from '../../_actions';
+import { PrivacyListAtom } from '../../_state';
+import { useRecoilValue } from 'recoil';
+import ReactHtmlParser from 'react-html-parser';
 
 const PrivacyPolicy = () => {
+
+    const privacyActions = useFooterActions();
+    const DisclaimersList = useRecoilValue(PrivacyListAtom);
+
+    useEffect(() => {
+        const response = privacyActions.PrivacyList();
+        response.then((res) => { (res) })
+    }, []);
 
     const breadcrumbs = [
         <Link to="/" underline="hover" key="1" color="inherit" >
@@ -17,90 +29,44 @@ const PrivacyPolicy = () => {
         </Typography>,
     ];
     useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) });
+
+    console.log(DisclaimersList,'DisclaimersList')
     return (
         <>
             <ThemeProvider theme={theme}>
                 <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
-                    <Container maxWidth="lg">
-                        <Box className='subscription-wrapper-head'>
-                            <Typography component="h2" variant='h2'>
-                                Privacy Policy
-                            </Typography>
+                    <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
+                        <Box  >
+                            <Breadcrumbs
+                                separator={<NavigateNext fontSize="small" />}
+                                aria-label="breadcrumb"
+                                className='center-breadcrum'
+                            >
+                                {breadcrumbs}
+                            </Breadcrumbs>
 
-                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
-                                <Box  >
-                                    <Breadcrumbs
-                                        separator={<NavigateNext fontSize="small" />}
-                                        aria-label="breadcrumb"
-                                        className='center-breadcrum'
-                                    >
-                                        {breadcrumbs}
-                                    </Breadcrumbs>
+                        </Box>
+                    </Box>
+                    <Box>
+                        {DisclaimersList?.map((items) => {
+                            let title = items.title;
+                            let description = items.description;
+                            return(
+                            <Container maxWidth="lg">
+                                <Box className='subscription-wrapper-head'>
+                                    <Typography component="h2" variant='h2'>
+                                      {title}
+                                    </Typography>
+                                </Box>
+                                <Box>
+                                    <Typography component='p' variant='p' paddingTop={1}>
+                                    {ReactHtmlParser(description)}
+                                    </Typography>
 
                                 </Box>
-                            </Box>
-                        </Box>
-                    </Container>
-                    <Box>
-                        <Container maxWidth="lg">
-                            <Box>
-                                <Typography component='p' variant='p' paddingTop={1}> coinguru.org (“we” or “us”) operates the <a href='https://www.coinguru.org/'> https://www.coinguru.org/</a> website (the “Site”).</Typography>
-                                <Typography component='p' variant='p' paddingY={1}> Hereby we inform you as our Site visitor of the policies regarding the collection, use, and disclosure of personal data when browsing our Site and the options the Site visitors have in relation with this data.</Typography>
-                                <Typography component='p' variant='p' paddingBottom={1}> We use your data to provide and improve the Site. By using the Site you give your consent to the collection and use of data in accordance with this policy.</Typography>
-                            </Box>
-
-                            <Box paddingY={2}>
-                                <Typography component='h3' variant='h3' className='secondary-font' paddingTop={{ xs: 0, sm: 3 }} paddingBottom={3}>Definitions</Typography>
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Personal Data</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}> Personal Data means data about a person that can be correspondingly identified therewith.</Typography>
-
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Usage Data</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}> Usage Data is data collected automatically, it is either generated by the use of the Site or from the Site infrastructure (for instance, by the duration of a page visit).</Typography>
-
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Cookies</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}> Cookies are small pieces of data stored on a User’s device.</Typography>
-
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Data Controller</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}> Data Controller means a person who (either alone or jointly or in common with other persons) determines the purposes for which and the manner in which any personal data are, or are to be, processed.</Typography>
-
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Data Processor (or Providers)</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}> Data Processor (or Provider) means any person (other than an employee of the Data Controller) who processes the data on behalf of the Data Controller. We may use the Sites of various Site Providers in order to process your data more effectively.</Typography>
-
-
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Data Subject</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}>Data Subject is any individual person who is the subject of Personal Data.</Typography>
-
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>User</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}> The User is an individual person visiting our Site. The User correlates to the Data Subject, who is the subject of Personal Data.</Typography>
-
-
-                            </Box>
-
-                            <Box paddingY={2}>
-                                <Typography component='h3' variant='h3' className='secondary-font' paddingTop={{ xs: 0, sm: 3 }} paddingBottom={3}>Information Collection and Use</Typography> <Typography component='p' variant='p' paddingBottom={3}> Personal Data means data about a person that can be correspondingly identified therewith.</Typography>
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Personal Data</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}> Personal Data means data about a person that can be correspondingly identified therewith.</Typography>
-
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Usage Data</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}> Usage Data is data collected automatically, it is either generated by the use of the Site or from the Site infrastructure (for instance, by the duration of a page visit).</Typography>
-
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Cookies</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}> Cookies are small pieces of data stored on a User’s device.</Typography>
-
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Data Controller</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}> Data Controller means a person who (either alone or jointly or in common with other persons) determines the purposes for which and the manner in which any personal data are, or are to be, processed.</Typography>
-
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Data Processor (or Providers)</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}> Data Processor (or Provider) means any person (other than an employee of the Data Controller) who processes the data on behalf of the Data Controller. We may use the Sites of various Site Providers in order to process your data more effectively.</Typography>
-
-
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>Data Subject</Typography>
-                                <Typography component='p' variant='p' paddingBottom={3}>Data Subject is any individual person who is the subject of Personal Data.</Typography>
-
-                                <Typography component='h5' variant='h5' fontWeight={700} className='secondary-font' paddingBottom={1}>User</Typography>
-                                <Typography component='p' variant='p'> The User is an individual person visiting our Site. The User correlates to the Data Subject, who is the subject of Personal Data.</Typography>
-                            </Box>
-                        </Container>
+                            </Container>
+                           )
+                        })}
                     </Box>
 
                 </Box>
@@ -108,5 +74,6 @@ const PrivacyPolicy = () => {
         </>
     )
 }
+
 
 export default PrivacyPolicy

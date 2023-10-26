@@ -5,4 +5,19 @@ const FooterAddAtom = atom({
     default: {}
 });
 
-export { FooterAddAtom };
+const TermsListAtom = atom({
+    key: 'TermsList',
+    default: []
+});
+
+const DisclaimersListAtom = atom({
+    key: 'DisclaimersList',
+    default: []
+});
+
+const PrivacyListAtom = atom({
+    key: 'PrivacyList',
+    default: []
+});
+
+export { FooterAddAtom, TermsListAtom, DisclaimersListAtom, PrivacyListAtom };

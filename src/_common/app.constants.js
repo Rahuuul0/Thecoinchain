@@ -99,6 +99,9 @@ export const Apis = {
   Unsubscribe : "unsubscribe",
   Crypto_Trader : "crypto_trader-list",
   Crypto_News : "cryto_news-list",
+  Terms_List : "terms-list",
+  Disclaimers_List: "disclaimers-list",
+  Privacy_List: "privacy-list"
  
 };
 

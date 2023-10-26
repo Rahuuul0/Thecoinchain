@@ -156,13 +156,13 @@ const handleLoadmore = () => {
   setLoadmore(loadmore + 20);
 }
 
-const handleButton = (soonButton) => {
-    if(soonButton == "Learn now"){
-      navigate("./learn-cypto");
-    }else{
-      navigate("/contentnotfound");
-    }
-}
+// const handleButton = (soonButton) => {
+//     if(soonButton == "Learn now"){
+//       navigate("./learn-cypto");
+//     }else{
+//       navigate("/contentnotfound");
+//     }
+// }
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
@@ -785,16 +785,20 @@ const handleButton = (soonButton) => {
                           >
                             {ReactHtmlParser(description)}
                           </Typography>
+                          <Link to={item.link}>
                           <Button
-                            onClick={() => {
-                              handleButton(item.button)
-                            }}
+                            // onClick={() => {
+                            //   handleButton(item.button)
+                            // }}
                             className="btn btn-outlined-secondary"
                             sx={{ margin: "0 auto" }}
                           >
-                            {/* Coming Soon */}
-                            {item.link}
+                            Coming Soon
                           </Button>
+                                
+                           
+                          </Link>
+
                         </Box>
                       </Grid>
                     )

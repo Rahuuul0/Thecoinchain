@@ -97,6 +97,8 @@ export const Apis = {
   Contact_Blog_List: "contact_blog-list",
   Market_Blog_List: "market_blog-list",
   Unsubscribe : "unsubscribe",
+  Crypto_Trader : "crypto_trader-list",
+  Crypto_News : "cryto_news-list",
   Terms_List : "terms-list",
   Disclaimers_List: "disclaimers-list",
   Privacy_List: "privacy-list",

@@ -42,7 +42,8 @@ import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import {
   useCoinActions,
   useTutorialActions,
-  bannerListActions,
+  useHomeActions,
+  bannerListActions
 } from "../../../../_actions";
 import {
   coinCategoryAtom,
@@ -57,7 +58,9 @@ import {
   blogListAtom,
   blogimgAtom,
   blogVideoAtom,
-  homeBannerAtom
+  homeBannerAtom,
+  cryptoNewsAtom,
+  cryptoTraderAtom,
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
@@ -77,6 +80,8 @@ const Home = () => {
   };
 
   const coinActions = useCoinActions();
+  const homeActions = useHomeActions();
+  const bannerActions = bannerListActions();
   const tutorialsData = useRecoilValue(tutorialAtom);
   const tutorialAction = useTutorialActions();
   const navigate = useNavigate();
@@ -85,14 +90,17 @@ const Home = () => {
   const selectedCat = useRecoilValue(selectedCategoryAtom);
   const cardCoinsList = useRecoilValue(cardCoinsAtom);
   const loader = useSetRecoilState(loaderAtom);
-  const bannerList = useRecoilValue(bannerListAtom);
-  const bannerActions = bannerListActions();
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
-  const homeBannerList = useRecoilValue(homeBannerAtom);
+  const homeBannerData = useRecoilValue(homeBannerAtom);
 
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
   const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
+
+  const crypotTraderList = useRecoilValue(cryptoTraderAtom);
+  const cryptoNewsList = useRecoilValue(cryptoNewsAtom);
+
+  const [loadmore,setLoadmore] = useState(4);
 
   const tutorialCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
     return item.type === "Tutorial";
@@ -132,10 +140,9 @@ const Home = () => {
   useEffect(() => {
     tutorialAction.tutorialData();
     tutorialAction.categoryList();
-    const response = bannerActions.get();
-    response.then((res) => {
-      res;
-    });
+    homeActions.cryptoTrader()
+    homeActions.cryptoNews()
+ 
   }, []);
  // Api home_banner-list
   useEffect(() => {
@@ -152,11 +159,22 @@ const videoLink = (data) => {
   setBlogvideo(true)
 } 
 
+const handleLoadmore = () => {
+  setLoadmore(loadmore + 20);
+}
+
+// const handleButton = (soonButton) => {
+//     if(soonButton == "Learn now"){
+//       navigate("./learn-cypto");
+//     }else{
+//       navigate("/contentnotfound");
+//     }
+// }
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
       {/* Banner starts */}
-      {homeBannerList ?.map((items)=>{
+      {homeBannerData ?.map((items)=>{
         let title = items.title;
         let decription = items.decription;
         let image = items.image;
@@ -327,7 +345,7 @@ const videoLink = (data) => {
                 fontWeight={700}
                 className="secondary-font mobile-text-center"
               >
-                Learn crypto
+                Learn crypto 
               </Typography>
             </Grid>
             <Grid
@@ -375,8 +393,10 @@ const videoLink = (data) => {
                   columnSpacing={{ xs: 1, sm: 4 }}
                   className="ipad-none"
                 >
-                    {tutorialsList?.slice(0).map((item) => {
+                    {tutorialsList?.slice(0).map((item, index) => {
                       let description = item.description;
+                        if(index < loadmore){
+
                       if (description.length > 10) {
                         description =
                           item.description.substring(0, 150) + "...";
@@ -433,9 +453,11 @@ const videoLink = (data) => {
 
                   </Grid>
                       );
+                    }
                     })}
                    
                 </Grid>
+                { tutorialsList.length > 4 && tutorialsList.length > loadmore && 
                 <Button
                       variant="outline"
                       className="btn btn-outline"
@@ -447,12 +469,11 @@ const videoLink = (data) => {
                         minWidth: "auto",
                         // marginLeft : "25px",
                       }}
-                      onClick={() => {
-                        navigate("./learn-cypto");
-                      }}
+                      onClick={handleLoadmore}
                     >
-                      Learn more
+                      Load more 
                     </Button>
+                }
               </TabPanel>
             </TabContext>
 
@@ -483,8 +504,9 @@ const videoLink = (data) => {
                   modules={[Navigation]}
                   className="mySwiper"
                 >
-                  {tutorialsList?.slice(0, 3).map((item) => {
+                  {tutorialsList?.slice(0, 3).map((item, index) => {
                     let description = item.description;
+                    if( index <loadmore){
                     if (description.length > 10) {
                       description = item.description.substring(0, 150) + "...";
                     }
@@ -523,6 +545,7 @@ const videoLink = (data) => {
                         </Box>
                       </SwiperSlide>
                     );
+                    }
                   })}
                 </Swiper>
               </Box>
@@ -585,7 +608,7 @@ const videoLink = (data) => {
                 navigate("/market");
               }}
             >
-              Load more
+             Learn more 
             </Button>
           </Box>
           <Stack
@@ -761,86 +784,39 @@ const videoLink = (data) => {
                 rowSpacing={1}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
               >
-                <Grid item xs={12} sm={4}>
-                  <Box textAlign="center" className="grid-cypto-trade">
-                    <img src={BuyCypto} paddingBottom={3} />
-                    <Typography variant="h6" paddingBottom={3}>
-                      Buy & Sell Crypto
-                    </Typography>
-                    <Typography
-                      className="body-caption secondary-color"
-                      paddingBottom={3}
-                    >
-                      We realize ideas from simple to complex, everything
-                      becomes easy to use and reach the most potential
-                      customers.
-                    </Typography>
-                    <Button
-                      onClick={() => {
-                        navigate("/contentnotfound");
-                      }}
-                      className="btn btn-outlined-secondary"
-                      sx={{ margin: "0 auto" }}
-                    >
-                      Coming Soon
-                    </Button>
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <Box textAlign="center" className="grid-cypto-trade">
-                    <img src={Market} paddingBottom={3} />
-                    <Typography variant="h6" paddingBottom={3}>
-                      Trade Assets
-                    </Typography>
-                    <Typography
-                      className="body-caption secondary-color"
-                      paddingBottom={3}
-                    >
-                      We realize ideas from simple to complex, everything
-                      becomes easy to use and reach the most potential
-                      customers.
-                    </Typography>
-                    <Button
-                      onClick={() => {
-                        navigate("/contentnotfound");
-                      }}
-                      className="btn btn-outlined-secondary"
-                      sx={{ margin: "0 auto" }}
-                    >
-                      Coming Soon
-                    </Button>
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                  <Box textAlign="center" className="grid-cypto-trade">
-                    <img src={LearnCypto} paddingBottom={3} />
-                    <Typography variant="h6" paddingBottom={3}>
-                      Learn crypto
-                    </Typography>
-                    <Typography
-                      className="body-caption secondary-color"
-                      paddingBottom={3}
-                    >
-                      We realize ideas from simple to complex, everything
-                      becomes easy to use and reach the most potential
-                      customers.
-                    </Typography>
-                    <Button
-                      className="btn btn-outlined-secondary"
-                      sx={{ margin: "0 auto" }}
-                      onClick={() => {
-                        navigate("./learn-cypto");
-                        window.scrollTo({
-                          top: 2550,
-                          left: 0,
-                          behavior: "smooth",
-                        });
-                      }}
-                    >
-                      Learn now
-                    </Button>
-                  </Box>
-                </Grid>
+                {crypotTraderList?.map((item) => {
+                  let description = item.description;
+                    return(
+                      <Grid item xs={12} sm={4}>
+                        <Box textAlign="center" className="grid-cypto-trade">
+                          <img  src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} paddingBottom={3} />
+                          <Typography variant="h6" paddingBottom={3}>
+                            {item.title}
+                          </Typography>
+                          <Typography
+                            className="body-caption secondary-color"
+                            paddingBottom={3}
+                          >
+                            {ReactHtmlParser(description)}
+                          </Typography>
+                          <Link to={item.link}>
+                          <Button
+                            // onClick={() => {
+                            //   handleButton(item.button)
+                            // }}
+                            className="btn btn-outlined-secondary"
+                            sx={{ margin: "0 auto" }}
+                          >
+                            Coming Soon
+                          </Button>
+                                
+                           
+                          </Link>
+
+                        </Box>
+                      </Grid>
+                    )
+                })}
               </Grid>
             </Box>
             <Button
@@ -872,118 +848,122 @@ const videoLink = (data) => {
             columns={{ xs: 4, sm: 8, md: 12 }}
             className="flow-reverse-mobile"
           >
-            <Grid item xs={12} sm={5} md={5}>
-              <Box sx={{ paddingBottom: { xs: "15px", md: "50px" } }}>
-                <Typography
-                  variant="h2"
-                  marginBottom={2}
-                  fontWeight={700}
-                  className="secondary-font"
-                >
-                  Make informed decisions
-                </Typography>
-                <Typography
-                  className="secondary-color"
-                  sx={{ paddingBottom: { xs: "15px", md: "25px" } }}
-                >
-                  with our expert insights and analysis of the crypto market!
-                </Typography>
-              </Box>
-              <Box>
-                <Typography className="secondary-color">App’s</Typography>
-                <Typography
-                  className=""
-                  variant="h5"
-                  fontSize={24}
-                  paddingBottom={5}
-                >
-                  Coming soon...
-                </Typography>
-
-                <Stack
-                  direction="row"
-                  spacing={2}
-                  sx={{
-                    borderBottom: "1px solid #E6E8EC",
-                    paddingBottom: "20px",
-                    paddingTop: "20px",
-                  }}
-                >
-                  <img src={GoogleIcon} />
-                  <Box>
+        
+                <Grid item xs={12} sm={5} md={5}>
+                  <Box sx={{ paddingBottom: { xs: "15px", md: "50px" } }}>
                     <Typography
-                      variant=""
-                      component="div"
-                      className="body-caption secondary-color"
+                      variant="h2"
+                      marginBottom={2}
+                      fontWeight={700}
+                      className="secondary-font"
                     >
-                      Download from
+                      Make informed decisions
                     </Typography>
                     <Typography
-                      variant=""
-                      component="div"
-                      className="body-large "
+                      className="secondary-color"
+                      sx={{ paddingBottom: { xs: "15px", md: "25px" } }}
                     >
-                      Google Play
+                      with our expert insights and analysis of the crypto market!
                     </Typography>
                   </Box>
-                </Stack>
-
-                <Stack
-                  direction="row"
-                  spacing={2}
-                  sx={{
-                    borderBottom: "1px solid #E6E8EC",
-                    paddingBottom: "20px",
-                    paddingTop: "20px",
-                  }}
-                >
-                  <img src={Appleicon} />
                   <Box>
+                    <Typography className="secondary-color">app's</Typography>
                     <Typography
-                      variant=""
-                      component="div"
-                      className="body-caption secondary-color"
+                      className=""
+                      variant="h5"
+                      fontSize={24}
+                      paddingBottom={5}
                     >
-                      Download from
+                      Coming soon...
                     </Typography>
-                    <Typography
-                      variant=""
-                      component="div"
-                      className="body-large "
-                    >
-                      Appstore
-                    </Typography>
-                  </Box>
-                </Stack>
 
-                <Stack
-                  direction="row"
-                  spacing={2}
-                  sx={{ paddingBottom: "20px", paddingTop: "20px" }}
-                >
-                  <img src={Appleicon} />
-                  <Box>
-                    <Typography
-                      variant=""
-                      component="div"
-                      className="body-caption secondary-color"
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      sx={{
+                        borderBottom: "1px solid #E6E8EC",
+                        paddingBottom: "20px",
+                        paddingTop: "20px",
+                      }}
                     >
-                      Download for
-                    </Typography>
-                    <Typography
-                      variant=""
-                      component="div"
-                      className="body-large "
+                      <img src={GoogleIcon} />
+                      <Box>
+                        <Typography
+                          variant=""
+                          component="div"
+                          className="body-caption secondary-color"
+                        >
+                          Download from
+                          
+                        </Typography>
+                        <Typography
+                          variant=""
+                          component="div"
+                          className="body-large "
+                        >
+                          Google Play
+                        </Typography>
+                      </Box>
+                    </Stack>
+
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      sx={{
+                        borderBottom: "1px solid #E6E8EC",
+                        paddingBottom: "20px",
+                        paddingTop: "20px",
+                      }}
                     >
-                      Mac OS
-                    </Typography>
+                      <img src={Appleicon} />
+                      <Box>
+                        <Typography
+                          variant=""
+                          component="div"
+                          className="body-caption secondary-color"
+                        >
+                          Download from
+                        </Typography>
+                        <Typography
+                          variant=""
+                          component="div"
+                          className="body-large "
+                        >
+                          Appstore
+                        </Typography>
+                      </Box>
+                    </Stack>
+
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      sx={{ paddingBottom: "20px", paddingTop: "20px" }}
+                    >
+                      <img src={Appleicon} />
+                      <Box>
+                        <Typography
+                          variant=""
+                          component="div"
+                          className="body-caption secondary-color"
+                        >
+                          Download for
+                        </Typography>
+                        <Typography
+                          variant=""
+                          component="div"
+                          className="body-large "
+                        >
+                          Mac OS
+                        </Typography>
+                      </Box>
+                    </Stack>
                   </Box>
-                </Stack>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={7} md={7}>
-              <img src={InformedCypto} />
-            </Grid>
+                </Grid>
+                <Grid item xs={12} sm={7} md={7}>
+                  <img src={InformedCypto} />
+                </Grid>
+
+
           </Grid>
         </Box>
       </Container>
@@ -1018,90 +998,55 @@ const videoLink = (data) => {
                 modules={[Navigation]}
                 className="mySwiper"
               >
-                <SwiperSlide>
-                  <Box className="crypto-box">
-                    <Grid
-                      container
-                      spacing={{ xs: 8, md: 3 }}
-                      columns={{ xs: 12, sm: 8, md: 12 }}
-                      className="flow-reverse-mobile"
-                    >
-                      <Grid
-                        item
-                        xs={12}
-                        sm={6}
-                        md={6}
-                      >
-                        <Typography
-                          className="small-caption secondary-color"
-                          sx={{ textTransform: "uppercase" }}
-                          paddingBottom={2}
-                        >
-                          Crypto news
-                        </Typography>
-                        <Typography component="h4" variant="h4" paddingBottom={3}>
-                          Be Part of our Global Community
-                        </Typography>
-                        <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
-                          Let’s stay in touch. Join our communities to keep up with
-                          the Coinguru team and our traders from across the world.
-                        </Typography>
-                        <Button
-                           sx={{ textTransform: "capitalize" }}
-                          className="btn-outlined-secondary"
-                          onClick={() => navigate("/community")}
-                        >
-                          Join now
-                        </Button>
-                      </Grid>
-                      <Grid item xs={12} sm={6} md={6} textAlign="right">
-                        <img src={Globe} />
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Box className="crypto-box">
-                    <Grid
-                      container
-                      spacing={{ xs: 8, md: 3 }}
-                      columns={{ xs: 12, sm: 8, md: 12 }}
-                      className="flow-reverse-mobile"
-                    >
-                      <Grid
-                        item
-                        xs={12}
-                        sm={6}
-                        md={6}
-                      >
-                        <Typography
-                          className="small-caption secondary-color"
-                          sx={{ textTransform: "uppercase" }}
-                          paddingBottom={2}
-                        >
-                          Crypto news
-                        </Typography>
-                        <Typography component="h4" variant="h4" paddingBottom={3}>
-                          Be Part of our Global Community
-                        </Typography>
-                        <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
-                          Let’s stay in touch. Join our communities to keep up with
-                          the Coinguru team and our traders from across the world.
-                        </Typography>
-                        <Button
-                          sx={{ textTransform: "capitalize" }}
-                          className="btn-outlined-secondary"
-                          onClick={() => navigate("/community")}
-                        >
-                          Join now
-                        </Button>
-                      </Grid>
-                      <Grid item xs={12} sm={6} md={6} textAlign="right">
-                        <img src={Globe} />
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </SwiperSlide>
+               {cryptoNewsList.map((item) => {
+                let description = item.description;
+                  return(
+                    <SwiperSlide>
+                      <Box className="crypto-box">
+                    
+                          <Grid
+                          container
+                          spacing={{ xs: 8, md: 3 }}
+                          columns={{ xs: 12, sm: 8, md: 12 }}
+                          className="flow-reverse-mobile"
+                          >
+                          
+                            <Grid
+                              item
+                              xs={12}
+                              sm={6}
+                              md={6}
+                            >
+                              <Typography
+                                className="small-caption secondary-color"
+                                sx={{ textTransform: "uppercase" }}
+                                paddingBottom={2}
+                              >
+                                Crypto news
+                              </Typography>
+                              <Typography component="h4" variant="h4" paddingBottom={3}>
+                                {item.title}
+                              </Typography>
+                              <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
+                                 {ReactHtmlParser(description)}
+                              </Typography>
+                              <Button
+                                sx={{ textTransform: "capitalize" }}
+                                className="btn-outlined-secondary"
+                                onClick={() => navigate("/community")}
+                              >
+                                Join now
+                              </Button>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={6} textAlign="right">
+                              <img src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}  />
+                            </Grid>
+                        
+                          </Grid>
+                      </Box>
+                    </SwiperSlide>
+                  )
+                } )}
               </Swiper>
             </Box>
           </Box>
@@ -1267,24 +1212,7 @@ const videoLink = (data) => {
         </Container>
       </Box>
       {/* how it works section ends */}
-      {/* logo slider starts */}
-      <Container maxWidth="fluid">
-        <Marquee>
-          {bannerList.map((item) => {
-            return (
-              <Box paddingTop={8} paddingBottom={8}>
-                <Stack direction="row" spacing={8}>
-                  <img
-                    className="margin10"
-                    src={`${process.env.REACT_APP_IMAGE_URL}/${item.image_url}`}
-                  />
-                </Stack>
-              </Box>
-            );
-          })}
-        </Marquee>
-      </Container>
-      {/* logo slider ends */}
+ 
     </>
   );
 };

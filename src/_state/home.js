@@ -17,4 +17,14 @@ const marketTrendAtom = atom({
 });
 
 
-export { homeAtom, marketTrendAtom };
+const cryptoTraderAtom = atom({
+    key: 'cryptoTraderAtom',
+    default: []
+});
+
+const cryptoNewsAtom = atom({
+    key: 'cryptoNewsAtom',
+    default: []
+});
+
+export { homeAtom, marketTrendAtom, cryptoTraderAtom, cryptoNewsAtom };

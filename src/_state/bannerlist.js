@@ -5,4 +5,9 @@ const bannerListAtom = atom({
     default: []
 });
 
-export { bannerListAtom };
+const homeBannerAtom = atom({
+    key: 'marketBanner',
+    default: []
+});
+
+export { bannerListAtom, homeBannerAtom };

@@ -99,8 +99,9 @@ export const Apis = {
   Unsubscribe : "unsubscribe",
   Terms_List : "terms-list",
   Disclaimers_List: "disclaimers-list",
-  Privacy_List: "privacy-list"
- 
+  Privacy_List: "privacy-list",
+  Market_Banner_List: "market_banner-list",
+  Home_Banner_List: "home_banner-list"
 };
 
 export const theme = createTheme({

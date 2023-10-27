@@ -57,6 +57,7 @@ import {
   blogListAtom,
   blogimgAtom,
   blogVideoAtom,
+  homeBannerAtom
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
@@ -87,6 +88,7 @@ const Home = () => {
   const bannerList = useRecoilValue(bannerListAtom);
   const bannerActions = bannerListActions();
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
+  const homeBannerList = useRecoilValue(homeBannerAtom);
 
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
@@ -135,6 +137,12 @@ const Home = () => {
       res;
     });
   }, []);
+ // Api home_banner-list
+  useEffect(() => {
+    const response = bannerActions.homeBannerList();
+    response.then((res) => {(res) })
+}, []);
+
 
 const videoLink = (data) => {
   let learnSeo = data.slug
@@ -148,6 +156,11 @@ const videoLink = (data) => {
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
       {/* Banner starts */}
+      {homeBannerList ?.map((items)=>{
+        let title = items.title;
+        let decription = items.decription;
+        let image = items.image;
+        return (
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 8 }}>
           {subscribeUser?.status === "expired" && auth !== null ?
@@ -171,7 +184,7 @@ const videoLink = (data) => {
                 component="div"
                 className="hero-heading primary-color"
               >
-                Predictive analysis at its best
+                {title}
               </Typography>
               <Typography
                 variant="body2"
@@ -182,7 +195,7 @@ const videoLink = (data) => {
                   paddingTop: { xs: "20px" },
                 }}
               >
-                we bring clarity to the volatile world of crypto!
+                 {ReactHtmlParser(decription)}
               </Typography>
               <Typography paddingBottom={2}>
                 <Button
@@ -211,11 +224,13 @@ const videoLink = (data) => {
               </IconButton>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-              <img className="heroImage" src={HeroImage} />
+              <img className="heroImage" src={`${process.env.REACT_APP_IMAGE_URL}/${image}`}  />
             </Grid>
           </Grid>
         </Box>
       </Container>
+         )
+        })}
       {/* Banner Ends */}
       <Container>
         <Box

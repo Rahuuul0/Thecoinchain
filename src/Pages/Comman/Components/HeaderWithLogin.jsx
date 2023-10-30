@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { ListItem, List, Tooltip,ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid, Switch } from '@mui/material/';
+import { ListItem, List, Tooltip, ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid, Switch } from '@mui/material/';
 import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import { MenuItem, Badge, Box, AppBar, Divider, Drawer } from '@mui/material';
@@ -29,7 +29,7 @@ function Header(props) {
   const notificaionCount = useRecoilValue(notificationCountAtom);
 
   const handleClear = async (action) => {
-    notificationAction.clearNotifications({action});
+    notificationAction.clearNotifications({ action });
   };
 
   useEffect(() => {
@@ -66,7 +66,7 @@ function Header(props) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleClose = () => {
     setAnchorEl(null);
     navigate('/academy-about-crypto')
@@ -233,7 +233,7 @@ function Header(props) {
 
             <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
               size="small"
-              sx={{ ml: 2 , cursor: "pointer"}}
+              sx={{ ml: 2, cursor: "pointer" }}
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
@@ -279,7 +279,7 @@ function Header(props) {
                 {notifications.length > 0 ?
                   <>
                     <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
- 
+
                     {notifications?.map((item, index) => {
                       if (index < 5) {
                         return (
@@ -298,19 +298,19 @@ function Header(props) {
                         )
                       }
                     })}
-                    </>
+                  </>
                   : <span>No New Notifications Available</span>
                 }
-                    <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >                
-                      <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
-                        View all
-                      </Button> 
-                      {notifications.length > 0 ?
-                      <Button onClick={e=>handleClear('all_read')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
-                        Clear all
-                      </Button>: ''}  
-                    </Box>
-               
+                <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
+                  <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
+                    View all
+                  </Button>
+                  {notifications.length > 0 ?
+                    <Button onClick={e => handleClear('all_read')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                      Clear all
+                    </Button> : ''}
+                </Box>
+
 
               </Box>
             </Menu>

@@ -51,27 +51,27 @@ const MasterCourse = () => {
 
                             </Box>
                         </Box>
-                    {masterCourse?.map((items) => {
-                        let title = items.title;
-                        let description = items.decription;
-                        let image = items.image;
-                        return (
-                        <>
-                            <Box className='subscription-wrapper-head'>
-                                <Typography component="h2" variant='h2'>
-                                    {title}
-                                </Typography>
-                            </Box>
-                            <Box className='page-inner'>
-                                <img src={`${process.env.REACT_APP_IMAGE_URL}/${image}`} /> 
-                                    <Typography component="p" variant='body2'>
-                                        {ReactHtmlParser(description)}
+                        {masterCourse?.map((items) => {
+                            let title = items.title;
+                            let description = items.decription;
+                            let image = items.image;
+                            return (
+                            <>
+                                <Box className='subscription-wrapper-head'>
+                                    <Typography component="h2" variant='h2'>
+                                        {title}
                                     </Typography>
-                            </Box>
-                        </>
-                        )
-                    })}
-                 
+                                </Box>
+                                <Box className='page-inner'>
+                                    <img src={`${process.env.REACT_APP_IMAGE_URL}/${image}`} /> 
+                                        <Typography component="p" variant='body2'>
+                                            {ReactHtmlParser(description)}
+                                        </Typography>
+                                </Box>
+                            </>
+                            )
+                        })}
+                    
                     </Container>
                 </Box>
             </ThemeProvider>

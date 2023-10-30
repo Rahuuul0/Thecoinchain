@@ -69,7 +69,7 @@ const PrivacyPolicy = () => {
                                 </Box>
                                 </>
                             )
-                        })}
+                    })}
                 </Container>
                 </Box>
             </ThemeProvider>

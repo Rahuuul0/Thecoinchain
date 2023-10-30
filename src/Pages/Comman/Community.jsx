@@ -54,29 +54,29 @@ const Community = () => {
                         </Box>
                         <Box className="community-wrapper-inner">
 
-                        { communityList?.map((item) => {
-                            return (
-                                 <Box className="community-card">
-                                    <Box className="community-card-head">
-                                        <Box className="community-ic community-ic-img   ">
-                                            <img src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} alt='' /> 
-                                        </Box>
-                                        <Box className="community-details">
-                                            <Box className="community-details-head">
-                                                <Typography component='small' variant='body2' className='small-caption community-category'> {item.title} </Typography>
-                                                <Typography component='small' variant='body2' className='small-caption'>  {dayjs(item.created_at).format("MMM/DD/YYYY" )} </Typography>
+                            { communityList?.map((item) => {
+                                return (
+                                    <Box className="community-card">
+                                        <Box className="community-card-head">
+                                            <Box className="community-ic community-ic-img  ">
+                                                <img src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} alt='' /> 
                                             </Box>
-                                            <Typography component='h5' variant='h5'> {item.exp_review} </Typography>
+                                            <Box className="community-details">
+                                                <Box className="community-details-head">
+                                                    <Typography component='small' variant='body2' className='small-caption community-category'> {item.title} </Typography>
+                                                    <Typography component='small' variant='body2' className='small-caption'>  {dayjs(item.created_at).format("MMM/DD/YYYY" )} </Typography>
+                                                </Box>
+                                                <Typography component='h5' variant='h5'> {item.exp_review} </Typography>
+                                            </Box>
                                         </Box>
-                                    </Box>
-                                    
-                                    <Typography className="elip_typo" component='p' variant='p'>
-                                         
-                                        {ReactHtmlParser (item.decription) }
-                                     </Typography>
-                                </Box>  
-                            )
-                        }) }
+                                        
+                                        <Typography className="elip_typo" component='p' variant='p'>
+                                            
+                                            {ReactHtmlParser (item.decription) }
+                                        </Typography>
+                                    </Box>  
+                                )
+                            }) }
                                    
                         </Box>
                         <Typography component='p' variant='p' className='small-caption' sx={{ mt: 3 }}> * Coin Guru accepts no liability for content of the comments or reviews made by the site users. The entire responsibility for the contents rests with the authors.</Typography>

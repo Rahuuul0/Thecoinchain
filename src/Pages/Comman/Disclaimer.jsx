@@ -1,4 +1,4 @@
-import { Container, Typography, Box, Breadcrumbs, } from '@mui/material';
+import { Container, Typography, Box, Breadcrumbs } from '@mui/material';
 import React from 'react';
 import { useEffect } from 'react';
 import { Link } from "react-router-dom";
@@ -33,8 +33,9 @@ const Disclaimer = () => {
     return (
         <>
             <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
-                <Box className='subscription-wrapper-head'>
-                    <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
+
+                <Container maxWidth="lg">
+                    <Box className='right-breadcrum ol' sx={{ color: '#777E90', fontWeight: '500', }}>
                         <Box >
                             <Breadcrumbs
                                 separator={<NavigateNext fontSize="small" />}
@@ -46,22 +47,26 @@ const Disclaimer = () => {
 
                         </Box>
                     </Box>
-                </Box>
-                {DisclaimersList?.map((items) => {
-                    let title = items.title;
-                    let description = items.description;
-                    return (
-                        <Container maxWidth="lg">
-                            <Typography component="h2" variant='h2'>
-                                {title}
-                            </Typography>
+                    {DisclaimersList?.map((items) => {
+                        let title = items.title;
+                        let description = items.description;
+                        return (
+                        <>
+                            <Box className='subscription-wrapper-head'>
+                                <Typography component="h2" variant='h2'>
+                                    {title}
+                                </Typography>
+                            </Box>
+                            
                             <Typography variant='body2' component="p">
                                 {ReactHtmlParser(description)}
                             </Typography>
-                        </Container>
-                    )
-                })}
-            </Box >
+                            
+                        </>
+                        )
+                    })}
+                </Container>
+            </Box>
         </>
     )
 }

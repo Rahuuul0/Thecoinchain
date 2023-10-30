@@ -28,11 +28,12 @@ const TermsOfUse = () => {
         </Typography>,
     ];
     useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) });
-
+    console.log(termsList,'termsList')
     return (
         <>
             <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
-            <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
+                <Container maxWidth="lg">
+                    <Box className='right-breadcrum ol' sx={{ color: '#777E90', fontWeight: '500', }}>
                             <Box  >
                                 <Breadcrumbs
                                     separator={<NavigateNext fontSize="small" />}
@@ -41,27 +42,35 @@ const TermsOfUse = () => {
                                 >
                                     {breadcrumbs}
                                 </Breadcrumbs>
+
                             </Box>
                         </Box>
-                {termsList ?.map((items) => {
-                        let title = items.title;
-                        let description = items.description;
-                     return (
-                <Container maxWidth="lg">
-                    <Box className='subscription-wrapper-head'>
-                        <Typography component="h2" variant='h2'>
-                           {title}
-                        </Typography>
-                    </Box>
-                    <Typography variant='body2' component="p">
-                    {ReactHtmlParser(description)}
-                    </Typography>
+                        {termsList ?.map((items) => {
+                                let title = items.title;
+                                let description = items.description;
+                            return (<>
+
+                                <Box className='subscription-wrapper-head'>
+                                    <Typography component="h2" variant='h2'>
+                                        {title}
+                                    </Typography>
+
+                                    
+                                </Box>
+                                <Typography variant='body2' component="p">
+                                    {ReactHtmlParser(description)}
+                                </Typography>
+
+                            </>  
+                    
+                        )
+                        })}
+
                 </Container>
-                 )
-                })}
             </Box>
         </>
     )
 }
 
+        
 export default TermsOfUse

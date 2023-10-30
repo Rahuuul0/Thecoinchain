@@ -18,7 +18,7 @@ const AcademyAboutCrypto = () => {
         <Link to="/" underline="hover" key="1" color="inherit"  >
             Home
         </Link>,
-        <Typography key="3" color="text.primary">
+        <Typography  key="3" color="text.primary" sx={{ m: "0!important" }}>
             All About Crypto
         </Typography>,
     ];
@@ -37,43 +37,43 @@ const AcademyAboutCrypto = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div'>
-                    <Box sx={{ color: '#777E90', fontWeight: '500', }}>
+                <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div' >
                     <Container maxWidth="lg">
-                            <Breadcrumbs
-                                separator={<NavigateNext fontSize="small" />}
-                                aria-label="breadcrumb"
-                                className='right-breadcrum'
-                            >
-                                {breadcrumbs}
-                            </Breadcrumbs>
+                        <Box className='right-breadcrum ol' sx={{ color: '#777E90', fontWeight: '500', marginTop: '-100px !important' }}>
+                            <Box  className='about-bread'>
+                                <Breadcrumbs
+                                    separator={<NavigateNext fontSize="small" />}
+                                    aria-label="breadcrumb"
+                                    className='center-breadcrum'
+                                >
+                                    {breadcrumbs}
+                                </Breadcrumbs>
 
-                        </Container>
-                    </Box>
-                    {allAbout?.map((items) => {
-                        let title = items.title;
-                        let description = items.description;
-                        let image = items.image;
-                        return (
-                            <Container maxWidth="lg">
+                            </Box>
+                        </Box>
+                        {allAbout?.map((items) => {
+                            let title = items.title;
+                            let description = items.description;
+                            let image = items.image;
+                            return (
+                            <>
                                 <Box className='subscription-wrapper-head'>
                                     <Typography component="h2" variant='h2'>
                                         {title}
                                     </Typography>
                                 </Box>
                                 <Box className='page-inner'>
-                                    {/* <img src={image} /> */}
                                     <img src={`${process.env.REACT_APP_IMAGE_URL}/${image}`} /> 
                                     <Typography component="p" variant='body2'>
                                         {ReactHtmlParser(description)}
                                     </Typography>
                                 </Box>
-                            </Container>
-                        )
-                    })}
+                            </>
+                            )
+                        })}  
+                      
+                    </Container>
                 </Box>
-
-
             </ThemeProvider>
         </>
     )

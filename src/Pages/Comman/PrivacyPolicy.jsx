@@ -35,7 +35,8 @@ const PrivacyPolicy = () => {
         <>
             <ThemeProvider theme={theme}>
                 <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
-                    <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
+                <Container maxWidth="lg"> 
+                    <Box className='right-breadcrum ol' sx={{ color: '#777E90', fontWeight: '500', }}>
                         <Box  >
                             <Breadcrumbs
                                 separator={<NavigateNext fontSize="small" />}
@@ -46,29 +47,30 @@ const PrivacyPolicy = () => {
                             </Breadcrumbs>
 
                         </Box>
-                    </Box>
-                    <Box>
-                        {DisclaimersList?.map((items) => {
+                    </Box>  
+                    {DisclaimersList?.map((items) => {
                             let title = items.title;
                             let description = items.description;
                             return(
-                            <Container maxWidth="lg">
+                                <>
                                 <Box className='subscription-wrapper-head'>
                                     <Typography component="h2" variant='h2'>
-                                      {title}
-                                    </Typography>
+                                        {title}
+                                    </Typography> 
                                 </Box>
                                 <Box>
-                                    <Typography component='p' variant='p' paddingTop={1}>
-                                    {ReactHtmlParser(description)}
-                                    </Typography>
-
+                                    <Container maxWidth="lg">
+                                        <Box>
+                                            <Typography component='p' variant='p' paddingTop={1}>
+                                                {ReactHtmlParser(description)}
+                                            </Typography>
+                                        </Box>
+                                    </Container>
                                 </Box>
-                            </Container>
-                           )
+                                </>
+                            )
                         })}
-                    </Box>
-
+                </Container>
                 </Box>
             </ThemeProvider>
         </>

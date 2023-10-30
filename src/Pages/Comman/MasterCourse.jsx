@@ -38,39 +38,41 @@ const MasterCourse = () => {
         <>
             <ThemeProvider theme={theme}>
                 <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div'>
-                    <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
-                        <Container maxWidth="lg">
-                            <Breadcrumbs
-                                separator={<NavigateNext fontSize="small" />}
-                                aria-label="breadcrumb"
-                                className='right-breadcrum'
-                            >
-                                {breadcrumbs}
-                            </Breadcrumbs>
-                        </Container>
-                    </Box>
+                    <Container maxWidth="lg">
+                        <Box className='right-breadcrum ol' sx={{ color: '#777E90', fontWeight: '500', marginTop: '-100px !important'}}>
+                            <Box  >
+                                <Breadcrumbs
+                                    separator={<NavigateNext fontSize="small" />}
+                                    aria-label="breadcrumb"
+                                    className='center-breadcrum'
+                                >
+                                    {breadcrumbs}
+                                </Breadcrumbs>
+
+                            </Box>
+                        </Box>
                     {masterCourse?.map((items) => {
                         let title = items.title;
                         let description = items.decription;
                         let image = items.image;
                         return (
-                            <Container maxWidth="lg">
-                                <Box className='subscription-wrapper-head'>
-                                    <Typography component="h2" variant='h2'>
-                                        {title}
-                                    </Typography>
-
-
-                                </Box>
-                                <Box className='page-inner'>
+                        <>
+                            <Box className='subscription-wrapper-head'>
+                                <Typography component="h2" variant='h2'>
+                                    {title}
+                                </Typography>
+                            </Box>
+                            <Box className='page-inner'>
                                 <img src={`${process.env.REACT_APP_IMAGE_URL}/${image}`} /> 
                                     <Typography component="p" variant='body2'>
                                         {ReactHtmlParser(description)}
                                     </Typography>
-                                </Box>
-                            </Container>
+                            </Box>
+                        </>
                         )
                     })}
+                 
+                    </Container>
                 </Box>
             </ThemeProvider>
         </>

@@ -9,6 +9,7 @@ import { useRecoilValue } from 'recoil';
 import ReactHtmlParser from 'react-html-parser';
 
 
+
 const Disclaimer = () => {
 
     const DisclaimersActions = useFooterActions();

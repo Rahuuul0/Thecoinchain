@@ -22,3 +22,5 @@ export * from "./community.js";
 export * from "./categories";
 export * from "./plan.js";
 export * from "./academy";
+export * from "./bannerlist";
+

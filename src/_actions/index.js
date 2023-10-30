@@ -15,3 +15,4 @@ export * from "./quoteshistorical.actions";
 export * from './community.actions.js';
 export * from "./category.actions";
 export * from "./academy";
+export * from "./bannerlist.actions";

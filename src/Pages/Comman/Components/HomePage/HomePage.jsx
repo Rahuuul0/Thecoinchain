@@ -42,7 +42,8 @@ import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import {
   useCoinActions,
   useTutorialActions,
-  useHomeActions
+  useHomeActions,
+  bannerListActions
 } from "../../../../_actions";
 import {
   coinCategoryAtom,
@@ -57,6 +58,7 @@ import {
   blogListAtom,
   blogimgAtom,
   blogVideoAtom,
+  homeBannerAtom,
   cryptoNewsAtom,
   cryptoTraderAtom,
 } from "../../../../_state/";
@@ -78,7 +80,8 @@ const Home = () => {
   };
 
   const coinActions = useCoinActions();
-  const homeActions = useHomeActions()
+  const homeActions = useHomeActions();
+  const bannerActions = bannerListActions();
   const tutorialsData = useRecoilValue(tutorialAtom);
   const tutorialAction = useTutorialActions();
   const navigate = useNavigate();
@@ -88,6 +91,7 @@ const Home = () => {
   const cardCoinsList = useRecoilValue(cardCoinsAtom);
   const loader = useSetRecoilState(loaderAtom);
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
+  const homeBannerData = useRecoilValue(homeBannerAtom);
 
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
@@ -97,9 +101,6 @@ const Home = () => {
   const cryptoNewsList = useRecoilValue(cryptoNewsAtom);
 
   const [loadmore,setLoadmore] = useState(4);
-
-  console.log(cryptoNewsList,'cryptoNewsList 5555555555');
-
 
   const tutorialCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
     return item.type === "Tutorial";
@@ -143,6 +144,12 @@ const Home = () => {
     homeActions.cryptoNews()
  
   }, []);
+ // Api home_banner-list
+  useEffect(() => {
+    const response = bannerActions.homeBannerList();
+    response.then((res) => {(res) })
+}, []);
+
 
 const videoLink = (data) => {
   let learnSeo = data.slug
@@ -166,8 +173,13 @@ const handleLoadmore = () => {
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
-     {/* Banner starts */}
-     <Container>
+      {/* Banner starts */}
+      {homeBannerData ?.map((items)=>{
+        let title = items.title;
+        let decription = items.decription;
+        let image = items.image;
+        return (
+      <Container>
         <Box paddingBottom={{ xs: 4, sm: 8 }}>
           {subscribeUser?.status === "expired" && auth !== null ?
           <Stack sx={{ width: '38%', marginLeft: 'auto' , marginTop: '22px'}} spacing={2}>
@@ -190,7 +202,7 @@ const handleLoadmore = () => {
                 component="div"
                 className="hero-heading primary-color"
               >
-                Predictive analysis at its best
+                {title}
               </Typography>
               <Typography
                 variant="body2"
@@ -201,7 +213,7 @@ const handleLoadmore = () => {
                   paddingTop: { xs: "20px" },
                 }}
               >
-                we bring clarity to the volatile world of crypto!
+                 {ReactHtmlParser(decription)}
               </Typography>
               <Typography paddingBottom={2}>
                 <Button
@@ -230,11 +242,13 @@ const handleLoadmore = () => {
               </IconButton>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-              <img className="heroImage" src={HeroImage} />
+              <img className="heroImage" src={`${process.env.REACT_APP_IMAGE_URL}/${image}`}  />
             </Grid>
           </Grid>
         </Box>
       </Container>
+         )
+        })}
       {/* Banner Ends */}
       <Container>
         <Box

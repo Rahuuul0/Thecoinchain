@@ -28,7 +28,7 @@ const TermsOfUse = () => {
         </Typography>,
     ];
     useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) });
-    console.log(termsList,'termsList')
+
     return (
         <>
             <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' >

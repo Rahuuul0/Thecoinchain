@@ -32,41 +32,41 @@ const TermsOfUse = () => {
     return (
         <>
             <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
-            <Container maxWidth="lg">
-            <Box className='right-breadcrum ol' sx={{ color: '#777E90', fontWeight: '500', }}>
-                    <Box  >
-                        <Breadcrumbs
-                            separator={<NavigateNext fontSize="small" />}
-                            aria-label="breadcrumb"
-                            className='center-breadcrum'
-                        >
-                            {breadcrumbs}
-                        </Breadcrumbs>
+                <Container maxWidth="lg">
+                    <Box className='right-breadcrum ol' sx={{ color: '#777E90', fontWeight: '500', }}>
+                            <Box  >
+                                <Breadcrumbs
+                                    separator={<NavigateNext fontSize="small" />}
+                                    aria-label="breadcrumb"
+                                    className='center-breadcrum'
+                                >
+                                    {breadcrumbs}
+                                </Breadcrumbs>
 
-                    </Box>
-                </Box>
-                {termsList ?.map((items) => {
-                        let title = items.title;
-                        let description = items.description;
-                     return (<>
-
-                        <Box className='subscription-wrapper-head'>
-                            <Typography component="h2" variant='h2'>
-                                {title}
-                            </Typography>
-
-                            
+                            </Box>
                         </Box>
-                        <Typography variant='body2' component="p">
-                            {ReactHtmlParser(description)}
-                        </Typography>
+                        {termsList ?.map((items) => {
+                                let title = items.title;
+                                let description = items.description;
+                            return (<>
 
-                    </>  
-               
-                 )
-                })}
+                                <Box className='subscription-wrapper-head'>
+                                    <Typography component="h2" variant='h2'>
+                                        {title}
+                                    </Typography>
 
-            </Container>
+                                    
+                                </Box>
+                                <Typography variant='body2' component="p">
+                                    {ReactHtmlParser(description)}
+                                </Typography>
+
+                            </>  
+                    
+                        )
+                        })}
+
+                </Container>
             </Box>
         </>
     )

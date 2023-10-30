@@ -105,6 +105,19 @@ function Header(props) {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+  const [isDark, setIsDark] = useState(false)
+  const handleDarkMode = () => {
+    setIsDark(!isDark)
+  }
+
+  useEffect(() => {
+    const body = document.body;
+    if(isDark) {
+      body.classList.add('dark-theme');
+    } else {
+      body.classList.remove('dark-theme');
+    }
+  }, [isDark])
 
 
   const drawer = (
@@ -317,7 +330,7 @@ function Header(props) {
             <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline mobile-none' sx={{ display: { xs: 'none', md: 'block' }, color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid', }}>
               Account
             </Button>
-            <IconButton aria-label="sunny" color="primary " className=' mobile-none'>
+            <IconButton onClick={handleDarkMode} aria-label="sunny" color="primary " className=' mobile-none'>
               <WbSunnyOutlined />
             </IconButton>
             <Tooltip arrow title={userDetails.user_name ? userDetails.user_name : userDetails.email.split("@")[0]}>

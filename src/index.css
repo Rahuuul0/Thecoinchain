@@ -78,6 +78,7 @@
   --table-td: #23262F;
   --form-control: #23262f;
   --two-fa-icon: #777E90;
+  --mui-disabled: #353945;
 }
 
 .dark-theme {
@@ -143,6 +144,7 @@
   --table-th: #B1B5C3;
   --table-td: #FCFCFD;
   --form-control: #FCFCFD;
+  --mui-disabled: #FCFCFD;
 }
 
 .navItem li {
@@ -2589,6 +2591,10 @@ p.left-icon img {
   background-color: var(--refferal-form-input);
 }
 
+.MuiFormControl-root .MuiInputBase-root input.Mui-disabled {
+  -webkit-text-fill-color: var(--mui-disabled);
+}
+
 /* 
  .update-profile input {
     background-color: var(--color_light) !important;
@@ -2897,12 +2903,12 @@ p.left-icon img {
 }
 
 .update-profile .MuiFormControl-root label {
-  color: var(--color-5);
+  color: var(--color-6);
   transform: none;
 }
 
 .update-profile .MuiFormControl-root label.Mui-focused {
-  color: var(--color-5);
+  color: var(--primary-color);
   transform: none;
 }
 

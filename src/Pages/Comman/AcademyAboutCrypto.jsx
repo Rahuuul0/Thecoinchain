@@ -18,7 +18,7 @@ const AcademyAboutCrypto = () => {
         <Link to="/" underline="hover" key="1" color="inherit"  >
             Home
         </Link>,
-        <Typography key="3" color="text.primary">
+        <Typography key="3">
             All About Crypto
         </Typography>,
     ];
@@ -33,13 +33,13 @@ const AcademyAboutCrypto = () => {
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
     });
 
-    console.log(allAbout,'allAbout')
+    console.log(allAbout, 'allAbout')
     return (
         <>
             <ThemeProvider theme={theme}>
                 <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div'>
                     <Box sx={{ color: '#777E90', fontWeight: '500', }}>
-                    <Container maxWidth="lg">
+                        <Container maxWidth="lg">
                             <Breadcrumbs
                                 separator={<NavigateNext fontSize="small" />}
                                 aria-label="breadcrumb"
@@ -63,7 +63,7 @@ const AcademyAboutCrypto = () => {
                                 </Box>
                                 <Box className='page-inner'>
                                     {/* <img src={image} /> */}
-                                    <img src={`${process.env.REACT_APP_IMAGE_URL}/${image}`} /> 
+                                    <img src={`${process.env.REACT_APP_IMAGE_URL}/${image}`} />
                                     <Typography component="p" variant='body2'>
                                         {ReactHtmlParser(description)}
                                     </Typography>

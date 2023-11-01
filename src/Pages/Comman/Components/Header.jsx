@@ -90,7 +90,7 @@ function Header(props) {
       <Box className='mobile-nav-box' sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
         <Box className='close-btn' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}><p>+</p></Box>
         <Box>
-          <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+          <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
           <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
             <Button variant='standard' className='nav-mobile-btn btn'>Crypto</Button>
             <Accordion className='submenu'>
@@ -184,13 +184,14 @@ function Header(props) {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}
+              sx={{ mr: 2, display: { md: 'none' } }}
             >
               <MenuIcon />
             </IconButton>
           </Box>
           <Typography
             variant="h6"
+            className='header-logo-border'
             onClick={() => {
               navigate("/");
             }}
@@ -203,7 +204,7 @@ function Header(props) {
                 flex: 1,
                 cursor: "pointer",
               },
-              borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
+              // borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
             }}
           >
             <img src={CoinGuru} alt="Coin Guru" />
@@ -311,7 +312,7 @@ function Header(props) {
               keepMounted: true, // Better open performance on mobile.
             }}
             sx={{
-              display: { xs: 'block', sm: 'none' },
+              display: { xs: 'block', sm: 'block', md: 'block', lg: 'none' },
               '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, height: drawerHeight },
             }}
           >

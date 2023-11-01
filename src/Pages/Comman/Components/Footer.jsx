@@ -52,16 +52,16 @@ const Footer = () => {
   }
 
   return (<>
-    <footer className="footer" style={{ backgroundColor: '#FCFCFD', color: '#fff' }}>
+    <footer className="footer">
       <Container>
         <Box>
           <Grid container sx={{ justifyContent: 'space-between' }}>
             <Grid item xs={12} sm={12} md={2} paddingTop={{ xs: 8, sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
               <Button sx={{ padding: 0 }} onClick={() => { navigate("/"); }}
-              > <img className='logo-cg' src={Darklogo} />
+              > <img src={Darklogo} className="coinguru-logo logo-cg" />
               </Button>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: { sm: "none", md: '1px solid #E6E8EC' }, borderBottom: { xs: "1px solid #E6E8EC", sm: "1px solid #E6E8EC", md: 'none' } }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 0, sm: 0, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
+            <Grid item xs={12} sm={12} md={3} className='footer-col' paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 0, sm: 0, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
               <Box className="quick-links">
                 <Stack spacing={2}>
                   <RouterLink to={RoutesName.Contact_Us}>Contacts</RouterLink>
@@ -72,7 +72,7 @@ const Footer = () => {
                 </Stack>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} sx={{ borderRight: { sm: "none", md: '1px solid #E6E8EC' }, borderBottom: { xs: "1px solid #E6E8EC", sm: "1px solid #E6E8EC", md: 'none' } }} paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 3, sm: 3, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }}   >
+            <Grid item xs={12} sm={12} md={3} className='footer-col' paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 3, sm: 3, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }}   >
               <Box className="quick-links">
                 <Stack spacing={2}>
                   <RouterLink to={RoutesName.Prediction_Dashboard} >Price Forecast</RouterLink>
@@ -83,10 +83,11 @@ const Footer = () => {
                 </Stack>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} paddingLeft={{ md: 5, sm: 2 }} paddingTop={{ xs: 3, sm: 3, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }}   >
+            <Grid item xs={12} sm={12} md={3} className='footer-col' paddingLeft={{ md: 5, sm: 2 }} paddingTop={{ xs: 3, sm: 3, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }}   >
               <Box
                 noValidate
                 component="form"
+                className='newsletter-form'
                 onSubmit={handleSubmit(handleFormSubmit)}
               >
                 <Typography
@@ -94,7 +95,6 @@ const Footer = () => {
 
                   paddingBottom={4}
                   fontWeight="700"
-                  color="#23262F"
                   textTransform='uppercase'
                   fontSize='16px !important'
                   fontFamily="var(--secondary-font) !important"
@@ -102,9 +102,7 @@ const Footer = () => {
                 </Typography>
                 <Typography
                   variant='body1'
-
-                  className='para-gray body-caption'
-                  color="#23262F"
+                  className='body-caption'
                 >Crypto currency forecast and analysis straight to your inbox! No b.s.!
                 </Typography>
 

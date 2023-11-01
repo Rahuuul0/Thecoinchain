@@ -12,7 +12,7 @@
 
 /* color pallete */
 :root {
-  --color_light: #fff;
+  --color_light: #FCFCFD;
   --color_dark: #23262f;
   --caption_label_text: rgba(133, 133, 132, 1);
   --background: rgba(43, 43, 43, 1);
@@ -48,11 +48,37 @@
   --color-dark3: #212529;
   --color-cc: #cccccc;
   --error-dark: #9e2146;
+  --tab-bg: #353945;
+  --tab-color: #FCFCFD;
+  --table-txt-color: #23262F;
+  --table-devider: #E6E8EC;
+  --become-crypto-card-bg: #FCFCFD;
+  --become-crypto-bg: #F4F5F6;
+  --make-informed-devider: #E6E8EC;
+  --btn-primary-txt: #FCFCFD;
+  --global-community-bg: #F4F5F6;
+  --how-it-work-bg: #FCFCFD;
+  --footer-bg: #FCFCFD;
+  --footer-border: #E6E8EC;
+  --market-hero-bg: #DECBE9;
+  --market-hero-para: #353945;
+  --price-prediction-title: #3B3B3B;
+  --learn-n-earn-title: #23262F;
+  --learn-n-earn-para: #353945;
+  --breadcrumb-color: #777E90;
+  --breadcrumb-color-active: #353945;
+  --subscription-steps-color: #F4F5F6;
+  --forecast-subscription-card: #FCFCFD;
+  --subscription-plan-card: #fff;
+  --subscription-plan-card-title: rgba(0, 0, 0, 0.03);
+  --refferal-form: #F1F2F4;
 }
 
 .dark-theme {
-  --color_light: #fff;
-  --color_dark: #23262f;
+  --color_light: #23262f;
+  --color_dark: #fff;
+  --bg-light: #353945;
+  --bg-dark: #FCFCFD;
   --caption_label_text: rgba(133, 133, 132, 1);
   --background: rgba(43, 43, 43, 1);
   --gold: rgba(255, 215, 0, 1);
@@ -65,9 +91,9 @@
   --primary-color: #3772ff;
   --secondary-color: #777e90;
   --color-grey: rgba(119, 126, 144, 1);
-  --color-2: #e6e8ec;
+  --color-2: #353945;
   --color-3: #858584;
-  --color-4: #f4f5f6;
+  --color-4: #23262F;
   --color-5: #353945;
   --color-6: #b1b5c4;
   --color-7: #f2f2f2;
@@ -76,7 +102,7 @@
   --color-10: #e5e5e5;
   --color-11: #eee;
   --color-12: #f1f2f4;
-  --body-grey: #fcfcfd;
+  --body-grey: #141416;
   --copyright-grey: #6c757d;
   --color-gold: #ffd700;
   --btn-error: #ff6838;
@@ -87,8 +113,31 @@
   --color-dark3: #212529;
   --color-cc: #cccccc;
   --error-dark: #9e2146;
+  --table-txt-color: #FCFCFD;
+  --table-devider: #353945;
+  --become-crypto-card-bg: #23262F;
+  --become-crypto-bg: #18191D;
+  --make-informed-devider: #353945;
+  --global-community-bg: #141416;
+  --how-it-work-bg: #141416;
+  --footer-bg: #141416;
+  --footer-border: #353945;
+  --market-hero-bg: #18191D;
+  --market-hero-para: #B1B5C3;
+  --price-prediction-title: #FCFCFD;
+  --learn-n-earn-title: #FCFCFD;
+  --learn-n-earn-para: #FCFCFD;
+  --breadcrumb-color-active: #F4F5F6;
+  --subscription-steps-color: #141416;
+  --forecast-subscription-card: #23262F;
+  --subscription-plan-card: #353945;
+  --subscription-plan-card-title: rgba(0, 0, 0, 0.03);
+  --refferal-form: #353945;
 }
 
+.navItem li {
+  list-style-type: none !important;
+}
 
 .color-dark {
   color: var(--color_dark);
@@ -137,7 +186,7 @@ body .modal-dialog * {
 #root .btn-primary,
 .modal-dialog .btn-primary {
   background-color: var(--primary-color) !important;
-  color: var(--color_light);
+  color: var(--btn-primary-txt);
   padding: 10px 15px;
 }
 
@@ -151,7 +200,7 @@ body .modal-dialog * {
 }
 
 #root .btn-success {
-  background-color: var(var(--btn-green));
+  background-color: var(--btn-green);
   color: var(--color_light);
 }
 
@@ -333,7 +382,7 @@ img,
 }
 
 .green-bg-badge .MuiBadge-badge {
-  background-color: var(var(--btn-green))
+  background-color: var(--btn-green)
 }
 
 .end-flex {
@@ -359,7 +408,16 @@ img,
 /* Footer Page */
 
 .footer {
-  border-top: 1px solid var(--color-2);
+  border-top: 1px solid var(--footer-border);
+  background-color: var(--footer-bg);
+}
+
+.footer .footer-col {
+  border-right: 1px solid var(--footer-border);
+}
+
+.footer .footer-col:last-child {
+  border: none;
 }
 
 #root .quick-links a:hover {
@@ -517,7 +575,7 @@ nav .MuiButtonBase-root:hover {
 }
 
 .outer-div-menu svg {
-  color: var(var(--btn-green))
+  color: var(--btn-green)
 }
 
 .inner-div-menu .head-menu {
@@ -576,7 +634,7 @@ nav .MuiButtonBase-root:hover {
 
 .ensure-link {
   border-radius: 50px;
-  background: var(var(--color-4));
+  background: var(--color-4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -587,7 +645,7 @@ nav .MuiButtonBase-root:hover {
 }
 
 .ensure-link span {
-  color: var(var(--btn-green))
+  color: var(--btn-green)
 }
 
 .devider {
@@ -661,8 +719,12 @@ nav .MuiButtonBase-root:hover {
   border-color: var(--primary-color);
 }
 
+.refferal-form {
+  background-color: var(--refferal-form);
+}
+
 .refferal-form .MuiFormControl-root label.Mui-focused+.MuiInputBase-root {
-  border-color: var(var(--btn-green))
+  border-color: var(--btn-green)
 }
 
 .MuiFormControl-root .MuiInputBase-root input {
@@ -738,7 +800,7 @@ nav .MuiButtonBase-root:hover {
   align-items: flex-start;
   padding: 64px 64px 0px;
   gap: 10px;
-  background: var(var(--color-4));
+  background: var(--color-4);
   border-radius: 16px;
 }
 
@@ -772,8 +834,8 @@ nav .MuiButtonBase-root:hover {
 .auth-otp>div input {
   margin: 0 !important;
   padding: 30px 15px;
-  background: var(var(--color-4));
-  border: 1px solid var(var(--color-4));
+  background: var(--color-4);
+  border: 1px solid var(--color-4);
   border-radius: 8px;
   text-align: center;
   font-size: 24px;
@@ -917,6 +979,10 @@ input[type="number"] {
   color: var(--secondary-color);
 }
 
+.header-logo-border {
+  border-right: 1px solid var(--footer-border);
+}
+
 .language-dropdown {
   width: 100%;
   padding: 15px 15px 0px 15px !important;
@@ -934,6 +1000,7 @@ input[type="number"] {
 #root .app-nav .btn {
   height: 46px;
   color: var(--color_dark);
+  border-color: var(--color-2);
 }
 
 #root .app-nav .btn-primary {
@@ -966,11 +1033,20 @@ input[type="number"] {
   border-radius: 40px;
 }
 
+.rounded-input .MuiInputBase-root.Mui-focused {
+  border-color: var(--primary-color);
+}
+
 .rounded-input button {
   background-color: var(--primary-color);
   color: var(--color_light);
   width: 32px;
   height: 32px;
+}
+
+.rounded-input button:hover {
+  background-color: var(--primary-color);
+  color: var(--color_light);
 }
 
 #root .border-rounded.btn-green-outlined {
@@ -990,7 +1066,7 @@ input[type="number"] {
 }
 
 .footer .border-bottom {
-  border-bottom: 1px solid var(--color-2);
+  border-bottom: 1px solid var(--footer-border);
 }
 
 /* Footer Ends */
@@ -1015,7 +1091,7 @@ input[type="number"] {
 }
 
 .green-btn {
-  background-color: var(var(--btn-green)) !important;
+  background-color: var(--btn-green) !important;
   color: var(--color_light) !important;
 }
 
@@ -1043,7 +1119,7 @@ input[type="number"] {
 }
 
 .gridBox:hover {
-  background-color: var(--color_light);
+  background-color: var(--bg-light);
   border-radius: 32px;
   box-shadow: 0px 40px 24px rgba(15 15 15/ 0.1);
 }
@@ -1062,7 +1138,7 @@ input[type="number"] {
 
 .gridBox .green-btn,
 .gridBox .green-btn:hover {
-  background-color: var(var(--btn-green));
+  background-color: var(--btn-green);
   color: var(--color_light);
 }
 
@@ -1087,7 +1163,7 @@ input[type="number"] {
 
 /* Market page */
 .market-hero {
-  background-color: var(--color-8);
+  background-color: var(--market-hero-bg);
   padding: 0;
   /* background-image: url("../public/assets/images/market-hero.svg"); */
   background-size: contain;
@@ -1099,6 +1175,10 @@ input[type="number"] {
   align-items: center;
   display: flex;
   overflow: hidden;
+}
+
+.market-hero .body-large {
+  color: var(--market-hero-para);
 }
 
 .flex-between-box .MuiGrid-root {
@@ -1152,7 +1232,7 @@ input[type="number"] {
   content: "";
   width: 100%;
   height: 40%;
-  background-color: var(--color-8);
+  background-color: var(--market-hero-bg);
   z-index: -1;
   position: absolute;
   top: 0;
@@ -1161,7 +1241,7 @@ input[type="number"] {
 
 .market-crypto-card-wrapper-inner {
   background: var(--body-grey);
-  border: 1px solid var(var(--color-4));
+  border: 1px solid var(--color-4);
   box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
   box-shadow: 0px 64px 64px -48px #0f0f0f1a;
   border-radius: 24px;
@@ -1199,7 +1279,7 @@ input[type="number"] {
 
 .market-crypto-name .currency-name .status-badge {
   margin-left: 10px;
-  background: var(var(--btn-green));
+  background: var(--btn-green);
   border-radius: 24px;
   color: var(--color_light);
   padding: 2px 8px;
@@ -1262,7 +1342,7 @@ input[type="number"] {
 .grid-cypto-trade {
   padding: 40px 30px;
   border-radius: 15px;
-  background-color: var(--color_light);
+  background-color: var(--become-crypto-card-bg);
   box-shadow: 0px 6px 25px rgb(15 15 15 / 10%);
 }
 
@@ -1303,7 +1383,7 @@ input[type="number"] {
 }
 
 .latest-release {
-  background-color: var(var(--color-4));
+  background-color: var(--color-4);
   padding: 136px 0;
 }
 
@@ -1378,6 +1458,12 @@ input[type="number"] {
   margin-right: 2px;
 }
 
+#root .filter-btn .btn.btn-secondary {
+  background-color: var(--tab-bg) !important;
+  color: var(--tab-color) !important;
+
+}
+
 .filter-btn .MuiTabs-root button {
   font-family: var(--secondary-font) !important;
 }
@@ -1387,8 +1473,8 @@ input[type="number"] {
 }
 
 .MuiTabs-root button.MuiTab-root.Mui-selected {
-  background-color: var(--color-5);
-  color: var(--color_light);
+  background-color: var(--tab-bg);
+  color: var(--tab-color) !important;
   min-height: 28px;
 }
 
@@ -1408,9 +1494,9 @@ input[type="number"] {
 }
 
 #root .btn-green-outlined {
-  color: var(var(--btn-green)) !important;
+  color: var(--btn-green) !important;
   background-color: var(--color-black) !important;
-  border: 1px solid var(var(--btn-green)) !important;
+  border: 1px solid var(--btn-green) !important;
   padding: 6px 12px !important;
   height: 26px;
   border-radius: 5px !important;
@@ -1476,8 +1562,19 @@ input[type="number"] {
   /* margin-bottom: 20px; */
 }
 
+.right-breadcrum .MuiBreadcrumbs-ol .MuiBreadcrumbs-li a,
+.right-breadcrum .MuiBreadcrumbs-separator svg,
+.center-breadcrum .MuiBreadcrumbs-li a,
+.center-breadcrum .MuiBreadcrumbs-separator svg {
+  color: var(--breadcrumb-color) !important;
+}
+
+.right-breadcrum .MuiBreadcrumbs-li p,
+.center-breadcrum .MuiBreadcrumbs-li p {
+  color: var(--breadcrumb-color-active) !important;
+}
+
 .center-breadcrum .MuiBreadcrumbs-li a {
-  color: var(--color-grey) !important;
   font-size: 14px;
   font-weight: 700;
   font-family: var(--secondary-font);
@@ -1486,11 +1583,9 @@ input[type="number"] {
 .center-breadcrum .MuiBreadcrumbs-li p.MuiTypography-root {
   font-size: 14px;
   font-weight: 700;
-  font-family: var(--secondary-font);
 }
 
 .center-breadcrum .MuiBreadcrumbs-li p.MuiTypography-root {
-  color: var(--color-5) !important;
   font-weight: 600;
   font-size: 12px !important;
   margin: 0;
@@ -1663,7 +1758,13 @@ input[type="number"] {
 .price-prediction h2 {
   font-family: var(--secondary-font) !important;
   margin-bottom: 20px;
+  color: var(--price-prediction-title);
 }
+
+.price-prediction p {
+  color: var(--price-prediction-title);
+}
+
 
 .learn-n-earn {
   padding: 136px 0;
@@ -1677,6 +1778,11 @@ input[type="number"] {
 
 .learn-n-earn h2 {
   font-family: var(--secondary-font) !important;
+  color: var(--learn-n-earn-title);
+}
+
+.learn-n-earn p {
+  color: var(--learn-n-earn-para);
 }
 
 .learn-n-earn-cards {
@@ -1705,13 +1811,13 @@ input[type="number"] {
   border-radius: 4px;
   font-weight: 700;
   padding: 6px 8px;
-  color: var(--color_light);
+  color: #fff;
   font-size: 12px;
   text-transform: uppercase;
 }
 
 .learn-n-earn-card:nth-child(2) .learn-badge {
-  background-color: var(var(--btn-green));
+  background-color: var(--btn-green);
 }
 
 .learn-n-earn-card:nth-child(3) .learn-badge {
@@ -1734,7 +1840,7 @@ input[type="number"] {
   width: 24px;
   height: 24px;
   border-radius: 50px;
-  background-color: var(var(--btn-green))
+  background-color: var(--btn-green)
 }
 
 .learn-n-earn-by .body-caption {
@@ -1768,6 +1874,7 @@ video {
 
 .crypto-list-table table tbody td {
   font-weight: 500;
+  color: var(--table-txt-color);
 }
 
 .crypto-list-table table tbody:before {
@@ -1780,11 +1887,12 @@ video {
 .crypto-list-table table tr th:first-child,
 .crypto-list-table table tr td:first-child {
   padding-left: 0;
+  color: var(--secondary-color) !important;
 }
 
 .crypto-list-table table tr th,
 .crypto-list-table table tr td {
-  border-color: var(var(--color-4));
+  border-color: var(--table-devider);
 }
 
 .crypto-list-table table tr {
@@ -1799,7 +1907,7 @@ video {
   top: 0;
   width: 40px;
   height: 100%;
-  background-color: var(var(--color-4));
+  background-color: var(--color-4);
   opacity: 0;
   z-index: -1;
 }
@@ -1832,7 +1940,7 @@ video {
 
 .crypto-list-table table tr:hover th,
 .crypto-list-table table tr:hover td {
-  background-color: var(var(--color-4));
+  background-color: var(--color-4);
 }
 
 .crypto-list-table table tr:hover td:first-child {
@@ -1860,7 +1968,7 @@ video {
 }
 
 .crypto-list-table .up {
-  color: var(var(--btn-green));
+  color: var(--btn-green);
 }
 
 /* Prediction Dashboard */
@@ -1892,7 +2000,7 @@ video {
 }
 
 .market-prediction-faq {
-  background: var(var(--color-4));
+  background: var(--color-4);
 }
 
 #root .market-prediction-faq h5.large-caption {
@@ -2040,7 +2148,7 @@ video {
 /* become-a-crypto-trader  */
 .become-a-crypto-trader {
   padding: 136px 0;
-  background-color: var(var(--color-4));
+  background-color: var(--color-4);
 }
 
 .crypto-trader-head {
@@ -2057,9 +2165,10 @@ video {
 }
 
 .subscription-steps {
-  background-color: var(--color-9);
+  background-color: var(--subscription-steps-color);
   padding-top: 80px;
   padding-bottom: 136px;
+  border-top: 1px solid var(--footer-border);
 }
 
 .subscription-steps-inner {
@@ -2130,17 +2239,17 @@ video {
 }
 
 .subscription-step.completed-step .number-circle {
-  background-color: var(var(--btn-green));
-  border-color: var(var(--btn-green));
+  background-color: var(--btn-green);
+  border-color: var(--btn-green);
   color: var(--color_light);
 }
 
 .subscription-step.current-step .number-circle {
-  border-color: var(var(--btn-green));
+  border-color: var(--btn-green);
 }
 
 .subscription-steps-col-details {
-  background: var(--body-grey);
+  background: var(--forecast-subscription-card);
   box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
   border-radius: 16px;
   padding: 40px;
@@ -2159,7 +2268,7 @@ video {
 
 .subscription-plan-card {
   margin-top: 22px;
-  background: var(--color_light);
+  background: var(--subscription-plan-card);
   border: 1px solid rgba(0, 0, 0, 0.125);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.075);
   border-radius: 4px;
@@ -2242,7 +2351,7 @@ video {
 #root .subscription-plan .subscription-plan-cta p {
   font-size: 14px;
   font-weight: 400;
-  color: var(--color-dark3);
+  /* color: var(--color-dark3); */
   text-align: center;
 }
 
@@ -2266,7 +2375,7 @@ video {
 }
 
 .amount-for {
-  background: var(var(--color-4));
+  background: var(--color-4);
   border-radius: 16px;
   padding: 25px 37px;
   display: flex;
@@ -2293,7 +2402,7 @@ video {
 }
 
 .payment-for .wallet-ic {
-  background: var(var(--btn-green));
+  background: var(--btn-green);
 }
 
 .payment-method .wallet-ic {
@@ -2360,7 +2469,7 @@ video {
 }
 
 .checkout-form label div.StripeElement.StripeElement--complete {
-  border-color: var(var(--btn-green));
+  border-color: var(--btn-green);
 }
 
 .checkout-form label div.StripeElement.StripeElement--invalid {
@@ -2517,9 +2626,13 @@ p.left-icon img {
   gap: 20px;
 }
 
+.grid-bit {
+  background-color: var(--color-4);
+}
+
 /* Notifications */
 .notification-wrapper {
-  background: var(var(--color-4));
+  background: var(--color-4);
   padding: 32px 0;
 }
 
@@ -2597,11 +2710,11 @@ p.left-icon img {
   width: 12px;
   height: 12px;
   border-radius: 100%;
-  background-color: var(var(--btn-green));
+  background-color: var(--btn-green);
 }
 
 .notification-badge .MuiBadge-badge {
-  background-color: var(var(--btn-green));
+  background-color: var(--btn-green);
   line-height: 5;
   position: absolute;
   right: 27px;
@@ -2609,6 +2722,11 @@ p.left-icon img {
   height: 20px;
   top: 12px;
 }
+
+/* 
+.notification-badge svg{
+  color: unset;
+} */
 
 .notification-filter h5 {
   margin-bottom: 24px;
@@ -2660,11 +2778,11 @@ p.left-icon img {
 /* Refferal page css */
 
 .green-span span {
-  color: var(var(--btn-green));
+  color: var(--btn-green);
 }
 
 .faenable-box span {
-  color: var(var(--btn-green));
+  color: var(--btn-green);
 }
 
 .fa-disabled span {
@@ -2746,6 +2864,7 @@ p.left-icon img {
 .update-profile {
   border-radius: 16px;
   margin-bottom: 48px;
+  /* background-color: var(--forecast-subscription-card); */
 }
 
 .update-profile .MuiFormControl-root label {
@@ -2928,6 +3047,10 @@ video[poster] {
   display: block;
 }
 
+.dark-theme .text-black .dark-icon {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
 .dark-icon {
   display: none;
   ;
@@ -3011,12 +3134,16 @@ video[poster] {
 
 .become-crypto {
   padding: 136px 0;
-  background-color: var(var(--color-4));
+  background-color: var(--become-crypto-bg);
 }
 
 .global-community {
-  background-color: var(var(--color-4));
+  background-color: var(--global-community-bg);
   padding: 136px 0;
+}
+
+.dark-theme .coinguru-logo {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }
 
 
@@ -3030,6 +3157,7 @@ video[poster] {
 
 .how-it-work {
   padding: 136px 0;
+  background-color: var(--how-it-work-bg);
 }
 
 
@@ -3214,6 +3342,14 @@ video[poster] {
 
 .loading-img {
   animation: rotate 1.5s linear infinite;
+}
+
+.dark-theme .loading-img {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
+.app-store .stacks {
+  border-bottom: 1px solid var(--make-informed-devider);
 }
 
 @keyframes rotate {
@@ -3498,6 +3634,107 @@ video[poster] {
   } */
 }
 
+@media (max-width: 899.98px) {
+  .footer .footer-col {
+    border-right: none;
+    border-bottom: 1px solid var(--footer-border);
+  }
+
+  .mobile-nav Button {
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-nav-box Button {
+    text-transform: capitalize;
+  }
+
+  .mobile-menu .MuiTypography-root,
+  .mobile-menu .MuiButtonBase-root {
+    font-size: 24px;
+    font-weight: 600;
+    font-family: var(--primary-font);
+    padding: 3px 0;
+    color: var(--secondary-color);
+    border: none;
+
+  }
+
+  .mobile-menu .MuiTypography-root:active,
+  .mobile-menu .MuiButtonBase-root:active {
+    color: var(--color-dark2);
+  }
+
+  .mobile-menu .MuiAccordionSummary-content {
+    margin: 0 !important;
+  }
+
+  .mobile-menu .MuiPaper-root {
+    box-shadow: none;
+  }
+
+  .submenu p {
+    font-size: 16px !important;
+    padding-top: 10px !important;
+  }
+
+  .submenu .MuiAccordionDetails-root {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  .mobile-nav-box {
+    position: relative;
+  }
+
+  .mobile-nav-box .close-btn {
+    position: absolute;
+    right: 32px;
+    top: 0px;
+    font-size: 29px;
+    transform: rotate(45deg);
+    line-height: 0;
+  }
+
+  .mobile-avatar {
+    padding-right: 20px !important;
+  }
+
+  .close {
+    transform: rotate(45deg);
+    font-size: 29px;
+    line-height: 0;
+  }
+
+  .mobile-in-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .mobile-menu li .MuiButtonBase-root {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+  }
+
+  #root nav .btn.mobile-none {
+    display: none !important;
+  }
+
+  nav .MuiButtonBase-root {
+    padding: 6px 0px;
+  }
+
+}
+
 @media (max-width: 767.98px) {
   body {
     overflow-x: hidden !important;
@@ -3667,98 +3904,6 @@ video[poster] {
     font-size: 32px;
   }
 
-  .mobile-nav Button {
-    padding: 0;
-    margin: 0;
-  }
-
-  .mobile-nav-box Button {
-
-    text-transform: capitalize;
-  }
-
-  .mobile-menu .MuiTypography-root,
-  .mobile-menu .MuiButtonBase-root {
-    font-size: 24px;
-    font-weight: 600;
-    font-family: var(--primary-font);
-    padding: 3px 0;
-    color: var(--secondary-color);
-    border: none;
-
-  }
-
-  .mobile-menu .MuiTypography-root:active,
-  .mobile-menu .MuiButtonBase-root:active {
-    color: var(--color-dark2);
-  }
-
-  .mobile-menu .MuiAccordionSummary-content {
-    margin: 0 !important;
-  }
-
-  .mobile-menu .MuiPaper-root {
-    box-shadow: none;
-  }
-
-  .submenu p {
-    font-size: 16px !important;
-    padding-top: 10px !important;
-  }
-
-  .submenu .MuiAccordionDetails-root {
-    padding-top: 0px;
-    padding-bottom: 0px;
-  }
-
-  .mobile-nav-box {
-    position: relative;
-  }
-
-  .mobile-nav-box .close-btn {
-    position: absolute;
-    right: 32px;
-    top: 0px;
-    font-size: 29px;
-    transform: rotate(45deg);
-    line-height: 0;
-  }
-
-  .mobile-avatar {
-    padding-right: 20px !important;
-  }
-
-  .close {
-    transform: rotate(45deg);
-    font-size: 29px;
-    line-height: 0;
-  }
-
-  .mobile-in-nav {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .mobile-menu li .MuiButtonBase-root {
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-
-  .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  #root nav .btn.mobile-none {
-    display: none !important;
-  }
-
-  nav .MuiButtonBase-root {
-    padding: 6px 0px;
-  }
 
   /* homepage */
   .filter-btn,
@@ -4069,7 +4214,7 @@ video[poster] {
   }
 
   .notification-badge .MuiBadge-badge {
-    background-color: var(var(--btn-green));
+    background-color: var(--btn-green);
     line-height: 5;
     position: absolute;
     right: 6px;

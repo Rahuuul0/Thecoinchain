@@ -19,7 +19,7 @@ const MasterCourse = () => {
         <Link to="/" underline="hover" key="1" color="inherit" >
             Home
         </Link>,
-        <Typography key="3" color="text.primary">
+        <Typography key="3">
             Master Course
         </Typography>,
     ];
@@ -63,7 +63,7 @@ const MasterCourse = () => {
 
                                 </Box>
                                 <Box className='page-inner'>
-                                <img src={`${process.env.REACT_APP_IMAGE_URL}/${image}`} /> 
+                                    <img src={`${process.env.REACT_APP_IMAGE_URL}/${image}`} />
                                     <Typography component="p" variant='body2'>
                                         {ReactHtmlParser(description)}
                                     </Typography>

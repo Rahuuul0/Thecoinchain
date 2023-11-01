@@ -26,20 +26,20 @@ const LearnNEarn = () => {
     const [loadmore, setloadmore] = useState(3);
     const tutorialAction = useTutorialActions();
 
-    useEffect(() =>{
+    useEffect(() => {
         tutorialAction.marketBlogList();
         setIsSubmitting(false)
-    },[])
+    }, [])
     const handleChangeLearn = (event) => {
         setLearnEarn(event.target.value);
     };
 
     const handleChanges = (event, value) => {
-      
+
         setIsSubmitting(true)
         setTimeout(() => {
             setloadmore(loadmore + 50)
-      }, 400);
+        }, 400);
     }
 
     const videoLink = (data) => {
@@ -48,7 +48,7 @@ const LearnNEarn = () => {
         setBlogimg(data)
         setBlognew(true)
         setBlogvideo(true)
-    } 
+    }
     return (
         <>
             <Box className='learn-n-earn'>
@@ -79,62 +79,62 @@ const LearnNEarn = () => {
 
                 </Box>
                 <Box className='learn-n-earn-cards'>
-                <Grid container columnSpacing={4} rowSpacing={0}>
-                
-                 
-                    {marketBlogLists.map((item, index) =>{
-                        if(index < loadmore){
-                        return(
-                            <Grid item xs={12} md={4} xl={4}> 
-                                <Box className='learn-n-earn-card'
-                                   onClick={() => videoLink(item)}
-                                 sx={{ cursor: "pointer" }}
-                                >
-                                    <Box className='learn-n-earn-video-wrapper iframe-video' sx={{ cursor: "pointer" }}>
-                        
-                                        <ReactPlayer
+                    <Grid container columnSpacing={4} rowSpacing={0}>
+
+
+                        {marketBlogLists.map((item, index) => {
+                            if (index < loadmore) {
+                                return (
+                                    <Grid item xs={12} md={4} xl={4}>
+                                        <Box className='learn-n-earn-card'
                                             onClick={() => videoLink(item)}
-                                            url={item.video_link}
-                                            controls={true}
-                                            light={item.image_link}
-                                            playing={false}
-                                            width="100%"
-                                            height="200px"
-                                        />
-                                    </Box>
-                                    <span className='learn-badge'>{item.tag}</span>
-                                    <Typography sx={{minHeight: '70px', maxHeight: '70px', overflow: 'hidden'}} component="p" variant='body1' className='body-large'>
-                                        {item.title}
-                                    </Typography>
-                                    <Box className='learn-n-earn-by'>
-                                        <span className='circle'></span>
-                                        <Typography component="small" variant='body2' className='body-caption'>
-                                            {item.created_by}
-                                        </Typography>
-                                        <Typography component="small" variant='body2' className='body-caption' sx={{ marginLeft: 'auto' }}>
-                                              {dayjs(item.created_at).format("MMM DD, YYYY" )} 
-                                        </Typography>
-                                    </Box>
-                                </Box>
-                            </Grid>
-                        )
-                        }
-                    })}
-                    
+                                            sx={{ cursor: "pointer" }}
+                                        >
+                                            <Box className='learn-n-earn-video-wrapper iframe-video' sx={{ cursor: "pointer" }}>
+
+                                                <ReactPlayer
+                                                    onClick={() => videoLink(item)}
+                                                    url={item.video_link}
+                                                    controls={true}
+                                                    light={item.image_link}
+                                                    playing={false}
+                                                    width="100%"
+                                                    height="200px"
+                                                />
+                                            </Box>
+                                            <span className='learn-badge'>{item.tag}</span>
+                                            <Typography sx={{ minHeight: '70px', maxHeight: '70px', overflow: 'hidden' }} component="p" variant='body1' className='body-large'>
+                                                {item.title}
+                                            </Typography>
+                                            <Box className='learn-n-earn-by'>
+                                                <span className='circle'></span>
+                                                <Typography component="small" variant='body2' className='body-caption'>
+                                                    {item.created_by}
+                                                </Typography>
+                                                <Typography component="small" variant='body2' className='body-caption' sx={{ marginLeft: 'auto' }}>
+                                                    {dayjs(item.created_at).format("MMM DD, YYYY")}
+                                                </Typography>
+                                            </Box>
+                                        </Box>
+                                    </Grid>
+                                )
+                            }
+                        })}
+
                     </Grid>
 
                 </Box>
-                {marketBlogLists.length >= 3 &&  loadmore <= 3 &&
-                <LoadingButton
-                    onClick={(e) => handleChanges(e, 3)}
-                    // loadingPosition="end"
-                    sx={{ width: "160px", alignItems: "center", margin: "0 auto" }}
-                    variant="outlined"
-                    className="btn btn-outlined-secondary"
-                    disabled={isSubmitting}
-                >
-                    {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : (<> <img src={LoadingImg}  alt="loading"/> Load more </> )}
-              </LoadingButton>
+                {marketBlogLists.length >= 3 && loadmore <= 3 &&
+                    <LoadingButton
+                        onClick={(e) => handleChanges(e, 3)}
+                        // loadingPosition="end"
+                        sx={{ width: "160px", alignItems: "center", margin: "0 auto" }}
+                        variant="outlined"
+                        className="btn btn-outlined-secondary"
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : (<> <img src={LoadingImg} className="loading-img" alt="loading" /> Load more </>)}
+                    </LoadingButton>
                 }
             </Box>
         </>

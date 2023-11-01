@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { ListItem, List, Tooltip, ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid, Switch } from '@mui/material/';
@@ -12,7 +13,6 @@ import UserIcon from '../../../../public/assets/images/icons/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import { useUserActions } from "../../../_actions/user.actions";
 import { notificationActions } from '../../../_actions/notification.actions';
-import { useEffect } from "react";
 import { notificationAtom, authAtom, notificationCountAtom } from '../../../_state/';
 import { useRecoilValue } from "recoil";
 import Accordion from '@mui/material/Accordion';
@@ -112,7 +112,7 @@ function Header(props) {
 
   useEffect(() => {
     const body = document.body;
-    if(isDark) {
+    if (isDark) {
       body.classList.add('dark-theme');
     } else {
       body.classList.remove('dark-theme');
@@ -125,7 +125,7 @@ function Header(props) {
       <Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Box>
-            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
           </Box>
           <Box display='flex' alignItems='center' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}>
             <Box className='close'><p>+</p></Box>
@@ -180,7 +180,7 @@ function Header(props) {
           </List>
         </Box>
       </Box>
-      <Box display='flex' justifyContent='space-between'>
+      <Box display='flex' justifyContent='space-between' sx={{ paddingBottom: '20px' }}>
         <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Profile settings</Button>
         <IconButton aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
         <IconButton aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
@@ -197,11 +197,11 @@ function Header(props) {
         <Toolbar>
           <Typography
             variant="h6"
-
+            className='header-logo-border'
             onClick={() => { navigate('/') }}
-            sx={{ flexGrow: 1, display: { xs: 'block', md: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer' }, borderRight: { xs: 'none', sm: '1px solid #E6E8EC' } }}
+            sx={{ flexGrow: 1, display: { xs: 'block', md: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer' } }}
           >
-            <img width='140' src={CoinGuru} alt='Coin Guru' />
+            <img width='140' src={CoinGuru} alt='Coin Guru' className="coinguru-logo" />
           </Typography>
 
           <Box className='' sx={{ display: { xs: 'none ', md: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
@@ -249,9 +249,9 @@ function Header(props) {
               sx={{ ml: 2, cursor: "pointer" }}
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
               aria-haspopup="true"
-              aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
+              aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash">
               <IconButton>
-                <NotificationsNone color="action" />
+                <NotificationsNone />
               </IconButton>
             </Badge>
             <Menu
@@ -442,7 +442,7 @@ function Header(props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', md: 'block', sm: 'none' },
+            display: { xs: 'block', sm: 'block', md: 'block', lg: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >

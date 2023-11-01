@@ -388,9 +388,8 @@ const details = `learn_Crypto_Details`;
                               </Box>
                             </Box>
                           </Grid>
-                          <Grid item xs={12} sm={7} md={7}  >
-                            <img
-                              sx={{ maxWidth: "100%" }}
+                          <Grid item xs={12} sm={7} md={7}>
+                            <img style={{ height: "100%", maxWidth: "100%" }}
                               src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
                             />
                               

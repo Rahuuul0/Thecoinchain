@@ -12,7 +12,7 @@ const App = () => {
    const loc = window.location || {};
    return (
      
-      <Router basename={loc.pathname || 'foobar'}>
+      <Router>
          <SnackbarProvider
             autoHideDuration={1000}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}

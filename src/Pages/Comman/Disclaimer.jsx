@@ -31,8 +31,7 @@ const Disclaimer = () => {
 
     return (
         <>
-            <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
-
+            <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8, mb: { xs: 0, sm: 8, md: 8, lg: 8 } }}>
                 <Container maxWidth="lg">
                     <Box className='right-breadcrum ol' sx={{ color: '#777E90', fontWeight: '500', }}>
                         <Box >

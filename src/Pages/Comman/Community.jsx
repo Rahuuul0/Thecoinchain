@@ -58,7 +58,7 @@ const Community = () => {
                                 return (
                                     <Box className="community-card">
                                         <Box className="community-card-head">
-                                            <Box className="community-ic">
+                                            <Box className="community-ic community-ic-img">
                                                 <img src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} alt='' /> 
                                             </Box>
                                             <Box className="community-details">

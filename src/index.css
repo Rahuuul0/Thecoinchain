@@ -12,6 +12,7 @@
 
 /* color pallete */
 :root {
+  --color-white: #fff;
   --color_light: #FCFCFD;
   --color_dark: #23262f;
   --caption_label_text: rgba(133, 133, 132, 1);
@@ -72,6 +73,11 @@
   --subscription-plan-card: #fff;
   --subscription-plan-card-title: rgba(0, 0, 0, 0.03);
   --refferal-form: #F1F2F4;
+  --refferal-form-input: #FCFCFD;
+  --table-th: #353945;
+  --table-td: #23262F;
+  --form-control: #23262f;
+  --two-fa-icon: #777E90;
 }
 
 .dark-theme {
@@ -129,10 +135,14 @@
   --learn-n-earn-para: #FCFCFD;
   --breadcrumb-color-active: #F4F5F6;
   --subscription-steps-color: #141416;
-  --forecast-subscription-card: #23262F;
+  --forecast-subscription-card: #18191D;
   --subscription-plan-card: #353945;
   --subscription-plan-card-title: rgba(0, 0, 0, 0.03);
-  --refferal-form: #353945;
+  --refferal-form: #23262F;
+  --refferal-form-input: #353945;
+  --table-th: #B1B5C3;
+  --table-td: #FCFCFD;
+  --form-control: #FCFCFD;
 }
 
 .navItem li {
@@ -201,7 +211,7 @@ body .modal-dialog * {
 
 #root .btn-success {
   background-color: var(--btn-green);
-  color: var(--color_light);
+  /* color: var(--color_light); */
 }
 
 #root .btn-error {
@@ -731,6 +741,11 @@ nav .MuiButtonBase-root:hover {
   padding: 0;
   font-size: 14px;
   font-weight: 500;
+  color: var(--form-control);
+}
+
+.two-fa-icon svg {
+  color: var(--two-fa-icon);
 }
 
 .MuiFormControl-root .MuiInputBase-root input::placeholder,
@@ -1082,27 +1097,27 @@ input[type="number"] {
 
 .orange-btn {
   background-color: var(--btn-error) !important;
-  color: var(--color_light) !important;
+  color: var(--color-white) !important;
 }
 
 .purple-btn {
   background-color: var(--btn-purple) !important;
-  color: var(--color_light) !important;
+  color: var(--color-white) !important;
 }
 
 .green-btn {
   background-color: var(--btn-green) !important;
-  color: var(--color_light) !important;
+  color: var(--color-white) !important;
 }
 
-.balck-btn {
-  background-color: var(--color_dark) !important;
-  color: var(--color_light) !important;
+.black-btn {
+  background-color: #23262F !important;
+  color: #fff !important;
 }
 
 .blue-btn {
   background-color: var(--primary-color) !important;
-  color: var(--color_light) !important;
+  color: var(--color-white) !important;
 }
 
 .contact-new {
@@ -1685,7 +1700,7 @@ input[type="number"] {
 
 .faq-accordian .Mui-expanded {
   min-height: 24px !important;
-  margin: 5px 0px 15px 0px;
+  margin: 5px 0px 15px 0px !important;
 }
 
 .faq-accordian .css-1elwnq4-MuiPaper-root-MuiAccordion-root:before {
@@ -1741,6 +1756,7 @@ input[type="number"] {
 
 .newdesignbox img {
   width: 100%;
+  border-radius: 0;
 }
 
 .newdesignbox .inner-con-box {
@@ -2023,13 +2039,18 @@ video {
 .market-prediction-faq-item {
   display: flex;
   gap: 20px;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .market-prediction-faq-item-img {
   width: 128px;
   min-width: 128px;
   height: auto;
+  min-height: 96px;
+}
+
+.market-prediction-faq-item-img img {
+  height: 100%;
 }
 
 /* Modal style */
@@ -2260,6 +2281,10 @@ video {
   font-weight: 600;
 }
 
+.side-nav-border {
+  border-bottom: 1px solid var(--footer-border);
+}
+
 .subscription-plan {
   /* margin-top: 32px; */
   margin-bottom: 36px;
@@ -2333,6 +2358,10 @@ video {
 #root .account-main .card-inner-head h2 span {
   font-size: 40px !important;
   font-family: var(--secondary-font) !important;
+}
+
+.dark-theme #root .account-main .card-inner-head h2 {
+  color: #777E90;
 }
 
 #root .account-main .card-inner-head h2 span {
@@ -2557,7 +2586,7 @@ p.left-icon img {
 }
 
 .white-input-box .MuiInputBase-root.MuiInput-root {
-  background-color: var(--color_light);
+  background-color: var(--refferal-form-input);
 }
 
 /* 
@@ -3119,6 +3148,15 @@ video[poster] {
   margin-bottom: 48px;
 }
 
+.session-list table th {
+  background-color: unset;
+  color: var(--table-th);
+}
+
+.session-list table td {
+  color: var(--table-td);
+}
+
 .login-history .session-list {
   margin-bottom: 0;
 }
@@ -3332,7 +3370,7 @@ video[poster] {
 }
 
 .MuiPopover-paper::before {
-  display: none;
+  display: none !important;
 }
 
 .swiper-global .swiper-button-next,
@@ -3350,6 +3388,38 @@ video[poster] {
 
 .app-store .stacks {
   border-bottom: 1px solid var(--make-informed-devider);
+}
+
+.subscribe-notification {
+  position: absolute;
+  top: 150px;
+  right: 30px;
+}
+
+.community-ic-img {
+  width: 100%;
+  height: 50px;
+  max-width: 50px !important;
+}
+
+.community-ic-img img {
+  width: 50px !important;
+  height: 50px !important;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.height400 {
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 15px;
+}
+
+.market-prediction-faq-item-img img {
+  object-fit: cover;
+  height: 120px;
 }
 
 @keyframes rotate {
@@ -3736,8 +3806,20 @@ video[poster] {
 }
 
 @media (max-width: 767.98px) {
+  .market-prediction-faq-item {
+    flex-wrap: wrap;
+  }
+
+  .market-prediction-faq-item-img {
+    width: 100%;
+  }
+
   body {
     overflow-x: hidden !important;
+  }
+
+  #root .extra-wrapper h3 {
+    font-size: 32px;
   }
 
   .footer {
@@ -4593,4 +4675,9 @@ video[poster] {
 .unsubscribe-form-wrapper button {
   max-width: 200px;
   margin: auto;
+}
+
+.css-4pdmu4-MuiBreadcrumbs-ol {
+  padding-top: 40px !important;
+  margin-top: 40px !important;
 }

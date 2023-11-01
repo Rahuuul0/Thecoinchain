@@ -88,7 +88,7 @@ const TwoFaEnable = () => {
                                                 autoFocus
                                                 InputProps={{
                                                     endAdornment: (
-                                                        <InputAdornment position="end">
+                                                        <InputAdornment position="end" className='two-fa-icon'>
                                                             <IconButton >
                                                                 <VisibilityOutlined />
                                                             </IconButton>

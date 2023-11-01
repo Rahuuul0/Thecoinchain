@@ -224,7 +224,6 @@ const Home = () => {
                         navigate("./market");
                       }}
                     >
-                      Get started now
                     </Button>
                   </Typography>
                   <IconButton
@@ -427,8 +426,15 @@ const Home = () => {
                                 </Typography>
                               </Stack>
                               <Typography
-                                sx={{ fontSize: "14px !important" }}
-                                fontWeight={400}
+                                fontSize={16}
+                                sx={{ maxHeight: '45px', overflow: 'hidden', fontWeight: "500" }}
+                                className="primary-font"
+                              >
+                                {item.title}
+                                {item.category}
+                              </Typography>
+                              <Typography
+                                sx={{ fontSize: "14px !important", maxHeight: '110px', overflow: 'hidden' }}
                                 className="secondary-color primary-font"
                               >
                                 {dayjs(item.created_at).format("MMM DD,YYYY")}

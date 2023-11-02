@@ -79,6 +79,11 @@
   --form-control: #23262f;
   --two-fa-icon: #777E90;
   --mui-disabled: #353945;
+  --scanner-box: #FCFCFD;
+  --download-app: #E6E8EC;
+  --mui-menu-papper: #FCFCFD;
+  --menu-shadow: 0px 16px 64px -48px #1F2F4626;
+  --txt-color: #353945;
 }
 
 .dark-theme {
@@ -145,6 +150,11 @@
   --table-td: #FCFCFD;
   --form-control: #FCFCFD;
   --mui-disabled: #FCFCFD;
+  --scanner-box: #353945;
+  --download-app: #777E90;
+  --mui-menu-papper: #23262F;
+  --txt-color: #777E90;
+
 }
 
 .navItem li {
@@ -213,7 +223,7 @@ body .modal-dialog * {
 
 #root .btn-success {
   background-color: var(--btn-green);
-  /* color: var(--color_light); */
+  color: var(--color-white);
 }
 
 #root .btn-error {
@@ -727,6 +737,10 @@ nav .MuiButtonBase-root:hover {
   border-radius: 12px;
 }
 
+.MuiFormControl-root label+.MuiInputBase-root button {
+  color: var(--secondary-color);
+}
+
 .MuiFormControl-root label.Mui-focused+.MuiInputBase-root {
   border-color: var(--primary-color);
 }
@@ -822,10 +836,15 @@ nav .MuiButtonBase-root:hover {
 }
 
 .scanner-inner {
-  /* width: 100%;
-    background: var(--body-grey);
-    border-radius: 32px 32px 0px 0px;
-    padding: 32px 48px; */
+  background: var(--scanner-box);
+  border-radius: 32px 32px 0px 0px;
+  padding: 32px 48px;
+  /*width: 100%; */
+}
+
+.download-app .btn {
+  margin-top: 48px;
+  border-color: var(--download-app) !important;
 }
 
 .confirm-account label span.MuiButtonBase-root {
@@ -919,8 +938,11 @@ input[type="number"] {
 
 .dropdown-menu .MuiPaper-root li {
   font-size: 14px;
-  color: var(--color-5);
+  color: var(--txt-color);
   padding: 12px 20px;
+  border-color: var(--footer-border);
+  font-weight: 700;
+  font-family: var(--primary-font);
 }
 
 .customer-panel .app-nav {
@@ -2667,13 +2689,17 @@ p.left-icon img {
 
 /* Notifications */
 .notification-wrapper {
-  background: var(--color-4);
+  background: var(--subscription-steps-color);
   padding: 32px 0;
 }
 
+/* .notification-inner {
+  background: var(--forecast-subscription-card);
+} */
+
 .notification-list-card,
 .deposit-transfer {
-  background: var(--body-grey);
+  background: var(--forecast-subscription-card);
   border-radius: 8px;
   padding: 40px;
 }
@@ -3157,6 +3183,7 @@ video[poster] {
 .session-list table th {
   background-color: unset;
   color: var(--table-th);
+  border-color: var(--footer-border);
 }
 
 .session-list table td {
@@ -3369,6 +3396,11 @@ video[poster] {
   max-height: 397px;
   min-width: 264px;
   overflow-y: auto;
+}
+
+.MuiMenu-root .MuiMenu-paper {
+  background-color: var(--mui-menu-papper);
+  color: var(--txt-color);
 }
 
 .MuiMenu-list li.MuiMenuItem-root:hover {

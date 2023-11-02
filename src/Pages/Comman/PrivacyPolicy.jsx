@@ -30,14 +30,13 @@ const PrivacyPolicy = () => {
     ];
     useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) });
 
-    console.log(DisclaimersList,'DisclaimersList')
     return (
         <>
             <ThemeProvider theme={theme}>
                 <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
                 <Container maxWidth="lg"> 
                     <Box className='right-breadcrum ol' sx={{ color: '#777E90', fontWeight: '500', }}>
-                        <Box  >
+                        <Box>
                             <Breadcrumbs
                                 separator={<NavigateNext fontSize="small" />}
                                 aria-label="breadcrumb"

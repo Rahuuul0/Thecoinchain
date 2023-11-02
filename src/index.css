@@ -4422,6 +4422,8 @@ video[poster] {
   margin: auto;
 }
 .css-4pdmu4-MuiBreadcrumbs-ol {
-  padding-top: 40px !important;
-  margin-top: 40px !important;
+  padding-top: 67px !important;
+}
+.ol.community-class .MuiBreadcrumbs-ol {
+  margin-top: -72px !important;
 }

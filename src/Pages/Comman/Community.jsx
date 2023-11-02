@@ -15,6 +15,8 @@ import ReactHtmlParser from 'react-html-parser';
 const Community = () => {
     const communityAction = communityActions();
     const communityList = useRecoilValue(communityAtom);
+
+    console.log(communityList,'dddd');
     const breadcrumbs = [
         <Link to="/" underline="hover" key="1" color="inherit" >
             Home
@@ -34,12 +36,8 @@ const Community = () => {
             <ThemeProvider theme={theme}>
                 <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div'>
                     <Container maxWidth="lg">
-                        <Box className='subscription-wrapper-head'>
-                            <Typography component="h2" variant='h2'>
-                                Top Crypto Experts Reviews for May 2023
-                            </Typography>
 
-                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', }}>
+                    <Box className='right-breadcrum ol community-class' sx={{ color: '#777E90', fontWeight: '500', }}>
                                 <Box  >
                                     <Breadcrumbs
                                         separator={<NavigateNext fontSize="small" />}
@@ -51,6 +49,13 @@ const Community = () => {
 
                                 </Box>
                             </Box>
+
+                        <Box className='subscription-wrapper-head'>
+                            <Typography component="h2" variant='h2'>
+                                Top Crypto Experts Reviews for May 2023
+                            </Typography>
+
+                            
                         </Box>
                         <Box className="community-wrapper-inner">
 
@@ -58,9 +63,10 @@ const Community = () => {
                                 return (
                                     <Box className="community-card">
                                         <Box className="community-card-head">
+                                            {item.image == null || item.image == ''? " " : 
                                             <Box className="community-ic community-ic-img">
                                                 <img src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} alt='' /> 
-                                            </Box>
+                                            </Box>}
                                             <Box className="community-details">
                                                 <Box className="community-details-head">
                                                     <Typography component='small' variant='body2' className='small-caption community-category'> {item.title} </Typography>

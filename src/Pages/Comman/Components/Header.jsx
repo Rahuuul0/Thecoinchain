@@ -26,11 +26,24 @@ import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import { Label } from 'recharts';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { bannerListActions } from '../../../_actions';
+import { setLogoListAtom } from '../../../_state';
+import { useRecoilValue } from 'recoil';
+import { useEffect } from 'react';
 
 const drawerWidth = '100%';
 const drawerHeight = '100vh';
 
 function Header(props) {
+ 
+  const LogoListAction = bannerListActions();
+  const LogoList = useRecoilValue(setLogoListAtom);
+
+     useEffect(() => {
+        const response = LogoListAction.logoList();
+        response.then((res) => {(res) })
+    }, []);
+
   const navItems = [
     {
       page: "Community",
@@ -206,7 +219,8 @@ function Header(props) {
               borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
             }}
           >
-            <img src={CoinGuru} alt="Coin Guru" />
+            <img src={LogoList[0]?.image} alt="Coin Guru" />
+            {LogoList[0]?.title}
           </Typography>
           <Box
             className=""

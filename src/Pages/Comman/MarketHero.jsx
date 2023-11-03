@@ -23,7 +23,7 @@ const MarketHero = () => {
             {MarketBannerData ?.map((items) => {
                  let title = items.title;
                  let description = items.decription;
-                 let image = items.image;
+                 let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}`:items.image_link
                    return (
                 <Container maxWidth="lg">
                     <Grid container sx={{ alignItems: 'center' }}>
@@ -37,7 +37,7 @@ const MarketHero = () => {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                             <Box className='market-hero-img-wrapper'>
-                                <img src={`${process.env.REACT_APP_IMAGE_URL}/${image}`}  alt='Market' className='for-desktop' />
+                                <img src={image}  alt='Market' className='for-desktop' />
                                 <img src={MarketHeroMobileImg} alt='Market' className='for-mobile' />
                             </Box>
                         </Grid>

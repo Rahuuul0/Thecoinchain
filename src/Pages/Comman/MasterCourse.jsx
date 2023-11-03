@@ -54,7 +54,7 @@ const MasterCourse = () => {
                         {masterCourse?.map((items) => {
                             let title = items.title;
                             let description = items.decription;
-                            let image = items.image;
+                            let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}`:items.image_link;
                             return (
                             <>
                                 <Box className='subscription-wrapper-head'>
@@ -63,7 +63,7 @@ const MasterCourse = () => {
                                     </Typography>
                                 </Box>
                                 <Box className='page-inner'>
-                                    {image == null || image == ''? " " : <img src={`${process.env.REACT_APP_IMAGE_URL}/${image}`} />}  
+                                    {image == null || image == ''? " " : <img src={image} alt='' />}  
                                         <Typography component="p" variant='body2'>
                                             {ReactHtmlParser(description)}
                                         </Typography>

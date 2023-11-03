@@ -779,13 +779,16 @@ const handleLoadmore = () => {
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
               >
                 {crypotTraderList?.map((item) => {
+                  let title = item.title;
                   let description = item.description;
+                  let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`:item.image_link;
+                  let link = item.link;
                     return(
                       <Grid item xs={12} sm={4}>
                         <Box textAlign="center" className="grid-cypto-trade">
-                          <img  src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} paddingBottom={3} />
+                          {image == null || image == ''? " ": <img  src={image} paddingBottom={3} alt='' />} 
                           <Typography variant="h6" paddingBottom={3}>
-                            {item.title}
+                            {title}
                           </Typography>
                           <Typography
                             className="body-caption secondary-color"
@@ -793,7 +796,7 @@ const handleLoadmore = () => {
                           >
                             {ReactHtmlParser(description)}
                           </Typography>
-                          <Link to={item.link}>
+                          <Link to={link}>
                           <Button
                             className="btn btn-outlined-secondary"
                             sx={{ margin: "0 auto" }}

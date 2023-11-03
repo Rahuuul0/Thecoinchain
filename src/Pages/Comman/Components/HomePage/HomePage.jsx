@@ -170,7 +170,7 @@ const handleLoadmore = () => {
       {homeBannerData ?.map((items)=>{
         let title = items.title;
         let decription = items.decription;
-        let image = items.image;
+        let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}`:items.image_link;
         return (
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 8 }}>
@@ -235,7 +235,7 @@ const handleLoadmore = () => {
               </IconButton>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-              <img className="heroImage" src={`${process.env.REACT_APP_IMAGE_URL}/${image}`}  />
+              <img className="heroImage" src={image} alt='' />
             </Grid>
           </Grid>
         </Box>

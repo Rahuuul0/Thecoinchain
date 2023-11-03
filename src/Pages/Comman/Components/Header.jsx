@@ -38,11 +38,13 @@ function Header(props) {
  
   const LogoListAction = bannerListActions();
   const LogoList = useRecoilValue(setLogoListAtom);
-
+  
      useEffect(() => {
         const response = LogoListAction.logoList();
         response.then((res) => {(res) })
     }, []);
+
+    console.log(LogoList,'LogoList')
 
   const navItems = [
     {
@@ -202,6 +204,9 @@ function Header(props) {
               <MenuIcon />
             </IconButton>
           </Box>
+          {LogoList ?.map((items) => {
+            let image =  items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}`:items.image_link;
+            return (
           <Typography
             variant="h6"
             onClick={() => {
@@ -219,9 +224,11 @@ function Header(props) {
               borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
             }}
           >
-            <img src={LogoList[0]?.image} alt="Coin Guru" />
-            {LogoList[0]?.title}
+            <img src={image} alt="Coin Guru" />
+            {items.title}
           </Typography>
+             )
+            })}
           <Box
             className=""
             sx={{

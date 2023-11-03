@@ -77,6 +77,7 @@ const PredictionDashboard = () => {
                 <Container maxWidth="lg">
                   <Box className="market-prediction-faq-items">
                     {faq.map((item, index) => {
+                      let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`:item.image_link;
                       if(index < loadmore){
                       return (
                         <Box className="market-prediction-faq-item"
@@ -84,10 +85,10 @@ const PredictionDashboard = () => {
                             sx={{ cursor: "pointer" }}
                         >
                           <Box className="market-prediction-faq-item-img">
-                            <img
-                              src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
+                            { image == null || image == '' ? "" :<img
+                              src={image}
                               alt="FAQ"
-                            />
+                            />}
                           </Box>
                           <Box className="market-prediction-faq-item-content">
                             <Typography

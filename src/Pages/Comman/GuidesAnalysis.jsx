@@ -28,7 +28,7 @@ const GuidesAnalysis = (props) => {
         setValueTab3(event.target.value);
     };
 
-    
+
     const navigate = useNavigate();
     const guidesActions = guidesAnalysisActions();
     const AnalyticActions = analyticsActions();
@@ -71,14 +71,14 @@ const GuidesAnalysis = (props) => {
         navigate(`${RoutesName.learn_Crypto_Details}/guides/${guideSeo}`)
         setBlogimg(data)
         setBlognew(true)
-    } 
+    }
 
     const imgAna = (data) => {
         let guideSeo = data.slug
         navigate(`${RoutesName.learn_Crypto_Details}/guideanalytics/${guideSeo}`)
         setBlogimg(data)
         setBlognew(true)
-    } 
+    }
 
     const handleTutorials = (guidesCategory) => {
 
@@ -88,7 +88,7 @@ const GuidesAnalysis = (props) => {
                 return items.category === guidesCategory;
             })
 
-            setGuidesCategoryList(tutorialsArr);
+        setGuidesCategoryList(tutorialsArr);
     };
 
     // *AnalyticCategoryList*
@@ -112,7 +112,7 @@ const GuidesAnalysis = (props) => {
             .filter((items) => {
                 return items.category === analyticCategory;
             })
-            setAnalyticCategoryList(tutorialsArr);
+        setAnalyticCategoryList(tutorialsArr);
     };
 
     // Subscription action get function   API data call 
@@ -172,7 +172,7 @@ const GuidesAnalysis = (props) => {
     };
     const [valueTab3, setValueTab3] = React.useState(0);
 
-    const handleChangeTab3 = (event, newValue3) => {     
+    const handleChangeTab3 = (event, newValue3) => {
         setValueTab3(newValue3);
     };
 
@@ -225,10 +225,10 @@ const GuidesAnalysis = (props) => {
         handleAnalysis("All");
     }, [analytic]);
 
-    useEffect(() => {        
+    useEffect(() => {
         let analysisCategory = "";
         analysisCategory =
-        valueTab3 === 1
+            valueTab3 === 1
                 ? "Blockchain"
                 : valueTab3 === 2
                     ? "Trading"
@@ -236,7 +236,7 @@ const GuidesAnalysis = (props) => {
                         ? "Cryptocurrency"
                         : "All";
 
-                        handleAnalysis(analysisCategory);
+        handleAnalysis(analysisCategory);
     }, [valueTab3]);
 
     useEffect(() => {
@@ -247,9 +247,9 @@ const GuidesAnalysis = (props) => {
         setAnalyticCategoryList(analytic)
     }, [analytic]);
 
-    useEffect(() => { 
-        window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) 
-    },[]);
+    useEffect(() => {
+        window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
+    }, []);
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -284,7 +284,7 @@ const GuidesAnalysis = (props) => {
 
                                         </Tabs>
                                     </AppBar>
-                                    <SwipeableViews 
+                                    <SwipeableViews
                                         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                                         index={valueTab}
                                         onChangeIndex={handleChangeIndex}
@@ -303,16 +303,16 @@ const GuidesAnalysis = (props) => {
                                                     </Grid>
 
                                                     <TabContext value={value}>
-                                                        <Box className='for-desktop' sx={{ borderBottom: 1, borderColor: "divider" }}>
+                                                        <Box className='for-desktop' >
                                                             <TabList
                                                                 value={value}
                                                                 aria-label="tabs">
                                                                 <Tab
-                                                                label="All" 
-                                                                value="1" 
-                                                                onClick={e => handleChanges('1')} 
-                                                                indicatorColor="secondary"
-                                                                textColor="inherit" />
+                                                                    label="All"
+                                                                    value="1"
+                                                                    onClick={e => handleChanges('1')}
+                                                                    indicatorColor="secondary"
+                                                                    textColor="inherit" />
                                                                 {guidesCategory?.map((item) => {
                                                                     return <Tab onClick={e => handleChanges(item.title)} label={item.title} key={item.id} value={item.title} />;
                                                                 })}
@@ -323,7 +323,7 @@ const GuidesAnalysis = (props) => {
                                                             sx={{ paddingRight: "0", paddingLeft: "0" }}
                                                         >
 
-                                                             <Box className="for-mobile dropdown-mobile">
+                                                            <Box className="for-mobile dropdown-mobile">
                                                                 <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
                                                                     <Select
                                                                         value={value}
@@ -343,7 +343,7 @@ const GuidesAnalysis = (props) => {
                                                                 let description = items.description;
                                                                 return (
                                                                     <Box padding={0} sx={{ marginBottom: { xs: '30px', md: '0px' } }}>
-                                                                        <Grid container 
+                                                                        <Grid container
                                                                             onClick={() => imgLink(items)}
                                                                             sx={{ cursor: "pointer" }}
                                                                         >
@@ -369,14 +369,14 @@ const GuidesAnalysis = (props) => {
                                                                                             variant="h4"
                                                                                             fontWeight="700"
                                                                                             className="secondary-font"
-                                                                                            sx={{ paddingBottom: { xs: '10px', md: '50px' },maxHeight: '80px', overflow: 'hidden' }}
+                                                                                            sx={{ paddingBottom: { xs: '10px', md: '50px' }, maxHeight: '80px', overflow: 'hidden' }}
                                                                                         >
                                                                                             {items.title}
                                                                                         </Typography>
                                                                                         <Typography sx={{ marginBottom: { xs: '10px', md: '50px' } }}>
                                                                                             {items.category}
                                                                                         </Typography>
-                                                                                        <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
+                                                                                        <Typography className="body-caption secondary-color" sx={{ maxHeight: '45px', overflow: 'hidden' }}>
                                                                                             {ReactHtmlParser(description)}
                                                                                         </Typography>
                                                                                     </Box>
@@ -412,95 +412,95 @@ const GuidesAnalysis = (props) => {
                                                 </Grid>
 
                                                 <TabContext value={valueTemp}>
-                                                            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                                                                <TabList className='for-desktop' onChange={handleCategory} aria-label="tabs">
-                                                                    <Tab label="All" value="1" onClick={e => handleCategorys('1')}  />
+                                                    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                                                        <TabList className='for-desktop' onChange={handleCategory} aria-label="tabs">
+                                                            <Tab label="All" value="1" onClick={e => handleCategorys('1')} />
+                                                            {analyticsCategory?.map((item) => {
+                                                                return <Tab
+                                                                    indicatorColor="secondary"
+                                                                    textColor="inherit"
+                                                                    onClick={e => handleCategorys(item.title)}
+                                                                    label={item.title} value={item.title} />;
+                                                            })}
+                                                        </TabList>
+                                                    </Box>
+                                                    <TabPanel
+                                                        value={valueTemp}
+                                                        sx={{ paddingRight: "0", paddingLeft: "0" }}
+                                                    >
+                                                        <Box className="for-mobile dropdown-mobile">
+                                                            <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                                                                <Select
+                                                                    value={valueTemp}
+                                                                    onChange={e => handleCategory(e)}
+                                                                    displayEmpty
+                                                                    inputProps={{ "aria-label": "Without label" }}
+                                                                >
+                                                                    <MenuItem value="1" >All</MenuItem>
                                                                     {analyticsCategory?.map((item) => {
-                                                                        return <Tab 
-                                                                        indicatorColor="secondary"
-                                                                        textColor="inherit"
-                                                                        onClick={e => handleCategorys(item.title)}  
-                                                                        label={item.title} value={item.title} />;
+                                                                        return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
+                                                                        )
                                                                     })}
-                                                                </TabList>
-                                                            </Box>
-                                                            <TabPanel
-                                                                value={valueTemp}
-                                                                sx={{ paddingRight: "0", paddingLeft: "0" }}
-                                                            >
-                                                                <Box className="for-mobile dropdown-mobile">
-                                                                    <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
-                                                                        <Select
-                                                                            value={valueTemp}
-                                                                            onChange={e => handleCategory(e)}
-                                                                            displayEmpty
-                                                                            inputProps={{ "aria-label": "Without label" }}
-                                                                        >
-                                                                             <MenuItem value="1" >All</MenuItem>
-                                                                            {analyticsCategory?.map((item) => {
-                                                                                return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
-                                                                                )
-                                                                            })}
-                                                                        </Select>
-                                                                    </FormControl>
-                                                                </Box>
-                                                  
-                                                     
-                                                            {analyticCategoryList?.map((items) => {
-                                                                  let description = items.description;
-                                                                    return (
-                                                                        <Box sx={{ padding: '0px !important' }}>
-                                                                            <Grid container
-                                                                                onClick={() => imgAna(items)}
-                                                                                sx={{ cursor: "pointer" }}
+                                                                </Select>
+                                                            </FormControl>
+                                                        </Box>
+
+
+                                                        {analyticCategoryList?.map((items) => {
+                                                            let description = items.description;
+                                                            return (
+                                                                <Box sx={{ padding: '0px !important' }}>
+                                                                    <Grid container
+                                                                        onClick={() => imgAna(items)}
+                                                                        sx={{ cursor: "pointer" }}
+                                                                    >
+                                                                        <Grid item xs={12} sm={5} md={5}>
+                                                                            <Box
+                                                                                sx={{ paddingRight: { xs: '30px', md: '50px' } }}
+                                                                                className="blog-box"
+                                                                                display="flex"
+                                                                                flexDirection="column"
+                                                                                justifyContent="space-between"
                                                                             >
-                                                                                <Grid item xs={12} sm={5} md={5}>
-                                                                                    <Box
-                                                                                        sx={{ paddingRight: { xs: '30px', md: '50px' } }}
-                                                                                        className="blog-box"
-                                                                                        display="flex"
-                                                                                        flexDirection="column"
-                                                                                        justifyContent="space-between"
+                                                                                <Box height="50">
+                                                                                    <Typography
+                                                                                        textTransform="uppercase"
+                                                                                        sx={{ marginBottom: "50px" }}
+                                                                                        className="orange-btn small-btn small-new-btn"
                                                                                     >
-                                                                                        <Box height="50">
-                                                                                            <Typography
-                                                                                                textTransform="uppercase"
-                                                                                                sx={{ marginBottom: "50px" }}
-                                                                                                className="orange-btn small-btn small-new-btn"
-                                                                                            >
-                                                                                                New
-                                                                                            </Typography>
-                                                                                        </Box>
-                                                                                        <Box className="" paddingBottom={5}>
-                                                                                            <Typography
-                                                                                                variant="h4"
-                                                                                                fontWeight="700"
-                                                                                                className="secondary-font"
-                                                                                                paddingBottom={2}
-                                                                                                sx={{maxHeight: '80px', overflow: 'hidden' }}
-                                                                                            >
-                                                                                                {items.title}
-                                                                                            </Typography>
-                                                                                            <Typography paddingBottom={5}>
-                                                                                                {items.category}
-                                                                                            </Typography>
-                                                                                            <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
-                                                                                                {ReactHtmlParser(description)}
-                                                                                            </Typography>
-                                                                                        </Box>
-                                                                                        <Box>
-                                                                                            <ArrowRightAlt />
-                                                                                        </Box>
-                                                                                    </Box>
-                                                                                </Grid>
-                                                                                <Grid item xs={12} sm={7} md={7}>
-                                                                                    <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${items.image}`} />
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                        </Box>
-                                                                    )
-                                                                })}
-                                                        </TabPanel>
+                                                                                        New
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box className="" paddingBottom={5}>
+                                                                                    <Typography
+                                                                                        variant="h4"
+                                                                                        fontWeight="700"
+                                                                                        className="secondary-font"
+                                                                                        paddingBottom={2}
+                                                                                        sx={{ maxHeight: '80px', overflow: 'hidden' }}
+                                                                                    >
+                                                                                        {items.title}
+                                                                                    </Typography>
+                                                                                    <Typography paddingBottom={5}>
+                                                                                        {items.category}
+                                                                                    </Typography>
+                                                                                    <Typography className="body-caption secondary-color" sx={{ maxHeight: '45px', overflow: 'hidden' }}>
+                                                                                        {ReactHtmlParser(description)}
+                                                                                    </Typography>
+                                                                                </Box>
+                                                                                <Box>
+                                                                                    <ArrowRightAlt />
+                                                                                </Box>
+                                                                            </Box>
+                                                                        </Grid>
+                                                                        <Grid item xs={12} sm={7} md={7}>
+                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${items.image}`} />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+                                                            )
+                                                        })}
+                                                    </TabPanel>
                                                 </TabContext>
 
                                             </Box>
@@ -520,7 +520,7 @@ const GuidesAnalysis = (props) => {
                     <Container>
                         <Box>
                             <Box textAlign="center">
-                                <img src={DarkLogo} />
+                                <img src={DarkLogo} className='coinguru-logo' />
                                 <Typography
                                     variant="h2"
                                     component="h2"

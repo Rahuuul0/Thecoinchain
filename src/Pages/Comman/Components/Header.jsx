@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
@@ -84,6 +85,21 @@ function Header(props) {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
+  const [isDark, setIsDark] = useState(false)
+  const handleDarkMode = () => {
+    setIsDark(!isDark)
+  }
+
+  useEffect(() => {
+    const body = document.body;
+    if (isDark) {
+      body.classList.add('dark-theme');
+    } else {
+      body.classList.remove('dark-theme');
+    }
+  }, [isDark])
+
 
   const drawer = (
     <>
@@ -177,7 +193,7 @@ function Header(props) {
       <AppBar component="nav" className="app-nav">
         <Toolbar className='mobile-nav'>
           <Box className='mobile-in-nav' sx={{ display: { sm: 'none' } }}>
-            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
 
             <IconButton
               color="inherit"
@@ -207,7 +223,7 @@ function Header(props) {
               // borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
             }}
           >
-            <img src={CoinGuru} alt="Coin Guru" />
+            <img src={CoinGuru} alt="Coin Guru" className='coinguru-logo' />
           </Typography>
           <Box
             className=""
@@ -271,6 +287,10 @@ function Header(props) {
             }}
             justifyContent="end"
           >
+
+            <IconButton onClick={handleDarkMode} aria-label="sunny" color="primary " className=' mobile-none'>
+              <WbSunnyOutlined />
+            </IconButton>
 
             <Button
               onClick={() => {

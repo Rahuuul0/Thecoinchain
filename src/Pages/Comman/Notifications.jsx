@@ -18,7 +18,7 @@ const Notifications = () => {
     const notificationAction = notificationActions();
     const notifications = useRecoilValue(notificationViewAtom);
     const userDetails = useRecoilValue(authAtom);
-    const [loadmore,setLoadmore] = useState(10);
+    const [loadmore, setLoadmore] = useState(10);
     const [checked, setChecked] = useState(false)
     const [categoryArray,setCategoryArray]=useState([]);
     const [filterCategory,setFilterCategory]=useState(['Crypto Prediction','Community','Academy','News'])
@@ -27,14 +27,16 @@ const Notifications = () => {
     const [checkAcademy,setCheckAcademy]=useState(false)
     const [checkNews,setCheckNews]=useState(false)
 
+    const [singleDisable,setSingleDisable]=useState(true);
+
     const handleClear = async(action) => {
           notificationAction.clearNotifications({action});    
             
     };
 
-
     const singleRead = async (notId) => {
         notificationAction.notificationSingleread(notId)
+      
       }
       
     const handleSelectAll =(flag) =>{
@@ -106,6 +108,8 @@ const Notifications = () => {
     useEffect(() => { 
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) 
     },[]);
+
+    
     return (
         <>
            <ThemeProvider theme={theme}>
@@ -134,7 +138,16 @@ const Notifications = () => {
                                              
                                             return(
                                             
-                                                <Box style={{cursor:(item.ct_notify_read_status == null)?"pointer":"default"}} onClick={() => {if(item.ct_notify_read_status == null ) {singleRead(item.ct_notiy_id)}}} className='notification-list-itm'>
+                                                <Box style={{cursor:(item.ct_notify_read_status == null)?"pointer":"default"}} onClick={() => {
+                                                    setTimeout(()=>{
+                                                    setSingleDisable(true)
+                                                    },1500);
+                                                    
+                                                    if(singleDisable && item.ct_notify_read_status == null ) {
+                                                        setSingleDisable(false)
+                                                        singleRead(item.ct_notiy_id)
+                                                        }}
+                                                    }  className='notification-list-itm'>
                                                     <Box className='notification-icon' >
                                                         <BoltOutlinedIcon />
                                                     </Box>

@@ -15,4 +15,9 @@ const MarketBannerAtom = atom({
     default: []
 });
 
-export { bannerListAtom, homeBannerAtom, MarketBannerAtom };
+const setLogoListAtom = atom({
+    key: 'setLogoList',
+    default: []
+});
+
+export { bannerListAtom, homeBannerAtom, MarketBannerAtom, setLogoListAtom };

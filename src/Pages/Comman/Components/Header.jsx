@@ -26,11 +26,26 @@ import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import { Label } from 'recharts';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { bannerListActions } from '../../../_actions';
+import { setLogoListAtom } from '../../../_state';
+import { useRecoilValue } from 'recoil';
+import { useEffect } from 'react';
 
 const drawerWidth = '100%';
 const drawerHeight = '100vh';
 
 function Header(props) {
+ 
+  const LogoListAction = bannerListActions();
+  const LogoList = useRecoilValue(setLogoListAtom);
+  
+     useEffect(() => {
+        const response = LogoListAction.logoList();
+        response.then((res) => {(res) })
+    }, []);
+
+    console.log(LogoList,'LogoList')
+
   const navItems = [
     {
       page: "Community",
@@ -189,6 +204,9 @@ function Header(props) {
               <MenuIcon />
             </IconButton>
           </Box>
+          {LogoList ?.map((items) => {
+            let image =  items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}`:items.image_link;
+            return (
           <Typography
             variant="h6"
             onClick={() => {
@@ -206,8 +224,11 @@ function Header(props) {
               borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
             }}
           >
-            <img src={CoinGuru} alt="Coin Guru" />
+            <img src={image} alt="Coin Guru" />
+            {items.title}
           </Typography>
+             )
+            })}
           <Box
             className=""
             sx={{

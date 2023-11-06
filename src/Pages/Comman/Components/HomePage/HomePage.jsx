@@ -170,7 +170,7 @@ const handleLoadmore = () => {
       {homeBannerData ?.map((items)=>{
         let title = items.title;
         let decription = items.decription;
-        let image = items.image;
+        let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}`:items.image_link;
         return (
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 8 }}>
@@ -235,7 +235,7 @@ const handleLoadmore = () => {
               </IconButton>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-              <img className="heroImage" src={`${process.env.REACT_APP_IMAGE_URL}/${image}`}  />
+              <img className="heroImage" src={image} alt='' />
             </Grid>
           </Grid>
         </Box>
@@ -779,13 +779,16 @@ const handleLoadmore = () => {
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
               >
                 {crypotTraderList?.map((item) => {
+                  let title = item.title;
                   let description = item.description;
+                  let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`:item.image_link;
+                  let link = item.link;
                     return(
                       <Grid item xs={12} sm={4}>
                         <Box textAlign="center" className="grid-cypto-trade">
-                          <img  src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} paddingBottom={3} />
+                          {image == null || image == ''? " ": <img  src={image} paddingBottom={3} alt='' />} 
                           <Typography variant="h6" paddingBottom={3}>
-                            {item.title}
+                            {title}
                           </Typography>
                           <Typography
                             className="body-caption secondary-color"
@@ -793,7 +796,7 @@ const handleLoadmore = () => {
                           >
                             {ReactHtmlParser(description)}
                           </Typography>
-                          <Link to={item.link}>
+                          <Link to={link}>
                           <Button
                             className="btn btn-outlined-secondary"
                             sx={{ margin: "0 auto" }}

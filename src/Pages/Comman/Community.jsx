@@ -56,12 +56,13 @@ const Community = () => {
                         <Box className="community-wrapper-inner">
 
                             { communityList?.map((item) => {
+                                let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`:item.image_link;
                                 return (
                                     <Box className="community-card">
                                         <Box className="community-card-head">
-                                            {item.image == null || item.image == ''? " " : 
+                                            {image == null || image == ''? " " : 
                                             <Box className="community-ic community-ic-img">
-                                                <img src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} alt='' /> 
+                                                <img src={image} alt='' /> 
                                             </Box>}
                                             <Box className="community-details">
                                                 <Box className="community-details-head">

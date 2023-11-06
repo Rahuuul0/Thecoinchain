@@ -2,7 +2,7 @@ import { useSetRecoilState } from 'recoil';
 import { useNavigate } from "react-router-dom";
 import { useFetchWrapper } from '../_helpers';
 import { Apis } from '../_common/app.constants';
-import {  bannerListAtom, homeBannerAtom, MarketBannerAtom } from '../_state';
+import {  bannerListAtom, homeBannerAtom, MarketBannerAtom, setLogoListAtom } from '../_state';
 import { useAlertActions } from './alert.actions';
 
 const bannerListActions = () => {
@@ -12,6 +12,7 @@ const bannerListActions = () => {
     const setBanner = useSetRecoilState(bannerListAtom);
     const HomeBanner = useSetRecoilState(homeBannerAtom);
     const setMarketBanner = useSetRecoilState(MarketBannerAtom);
+    const setLogoList = useSetRecoilState(setLogoListAtom)
 
     const get =  () => {
         return fetchWrapper.get(Apis.Banner_List)
@@ -48,10 +49,22 @@ const bannerListActions = () => {
           }).catch((err)=>{console.warn(err)})
        }
 
+       const logoList = async () => {
+        return  fetchWrapper.get(Apis.Logo_List)
+             .then(res => {
+              if (res.statusCode === 200) {
+                setLogoList(res.data);
+              } else {
+                  alertActions.error(Labels.Error);
+              } 
+          }).catch((err)=>{console.warn(err)})
+       }
+
     return{
         get,
         homeBannerList,
-        marketBannerList
+        marketBannerList,
+        logoList
     }
 }
 

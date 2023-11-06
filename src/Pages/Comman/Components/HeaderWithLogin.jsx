@@ -196,9 +196,6 @@ function Header(props) {
       <CssBaseline />
       <AppBar component="nav" className="app-nav">
         <Toolbar>
-        {LogoList ?.map((items) => {
-            let image =  items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}`:items.image_link;
-            return (
           <Typography
             variant="h6"
             onClick={() => {
@@ -216,12 +213,8 @@ function Header(props) {
               borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
             }}
           >
-            <img src={image} alt="Coin Guru" />
-            {items.title}
+            <img src={LogoList[0]?.image?`${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}`:LogoList[0]?.image_link} alt="Coin Guru" />
           </Typography>
-             )
-            })}
-
           <Box className='' sx={{ display: { xs: 'none ', md: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>
               <li >

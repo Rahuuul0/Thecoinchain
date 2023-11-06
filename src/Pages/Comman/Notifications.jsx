@@ -26,7 +26,6 @@ const Notifications = () => {
     const [checkCommunity,setCheckCommunity]=useState(false)
     const [checkAcademy,setCheckAcademy]=useState(false)
     const [checkNews,setCheckNews]=useState(false)
-
     const [singleDisable,setSingleDisable]=useState(true);
 
     const handleClear = async(action) => {
@@ -36,7 +35,6 @@ const Notifications = () => {
 
     const singleRead = async (notId) => {
         notificationAction.notificationSingleread(notId)
-      
       }
       
     const handleSelectAll =(flag) =>{

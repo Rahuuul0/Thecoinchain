@@ -101,6 +101,7 @@ const Home = () => {
   const cryptoNewsList = useRecoilValue(cryptoNewsAtom);
 
   const [loadmore,setLoadmore] = useState(4);
+  const bannerList = useRecoilValue(bannerListAtom);
 
   const tutorialCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
     return item.type === "Tutorial";
@@ -148,6 +149,12 @@ const Home = () => {
   useEffect(() => {
     const response = bannerActions.homeBannerList();
     response.then((res) => {(res) })
+}, []);
+
+ // Api home_banner-list
+ useEffect(() => {
+  const response = bannerActions.get();
+  response.then((res) => {(res) })
 }, []);
 
 
@@ -264,6 +271,7 @@ const handleLoadmore = () => {
                         ? (Math.round(item.price * 100000000) / 100000000)?.toFixed(8)
                         : item?.price;
               if (index < 4) {
+                console.log(bannerList,'bannerList')
                 return (
                   <Grid item xs={12} sm={4} md={4} lg={3} className="gridBox">
                     <img
@@ -1205,7 +1213,22 @@ const handleLoadmore = () => {
           </Grid>
         </Container>
       </Box>
-      {/* how it works section ends */}
+      <Container maxWidth="fluid">
+        <Marquee>
+          {bannerList.map((item) => {
+            return (
+              <Box paddingTop={8} paddingBottom={8}>
+                <Stack direction="row" spacing={8}>
+                  <img
+                    className="margin10"
+                    src={`${process.env.REACT_APP_IMAGE_URL}/${item.image_url}`}
+                  />
+                </Stack>
+              </Box>
+            );
+          })}
+        </Marquee>
+      </Container>
  
     </>
   );

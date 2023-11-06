@@ -19,6 +19,10 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { bannerListActions } from '../../../_actions';
+import { setLogoListAtom } from '../../../_state';
+
+
 
 const drawerWidth = '100%';
 function Header(props) {
@@ -27,6 +31,16 @@ function Header(props) {
   const notifications = useRecoilValue(notificationAtom);
   const userDetails = useRecoilValue(authAtom);
   const notificaionCount = useRecoilValue(notificationCountAtom);
+
+  const LogoListAction = bannerListActions();
+  const LogoList = useRecoilValue(setLogoListAtom);
+  
+     useEffect(() => {
+        const response = LogoListAction.logoList();
+        response.then((res) => {(res) })
+    }, []);
+
+    console.log(LogoList,'LogoList')
 
   const handleClear = async (action) => {
     notificationAction.clearNotifications({action});
@@ -182,14 +196,31 @@ function Header(props) {
       <CssBaseline />
       <AppBar component="nav" className="app-nav">
         <Toolbar>
+        {LogoList ?.map((items) => {
+            let image =  items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}`:items.image_link;
+            return (
           <Typography
             variant="h6"
-
-            onClick={() => { navigate('/') }}
-            sx={{ flexGrow: 1, display: { xs: 'block', md: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer' }, borderRight: { xs: 'none', sm: '1px solid #E6E8EC' } }}
+            onClick={() => {
+              navigate("/");
+            }}
+            sx={{
+              flexGrow: 1,
+              display: {
+                xs: "none",
+                sm: "block",
+                lineHeight: "100%",
+                flex: 1,
+                cursor: "pointer",
+              },
+              borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
+            }}
           >
-            <img width='140' src={CoinGuru} alt='Coin Guru' />
+            <img src={image} alt="Coin Guru" />
+            {items.title}
           </Typography>
+             )
+            })}
 
           <Box className='' sx={{ display: { xs: 'none ', md: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>

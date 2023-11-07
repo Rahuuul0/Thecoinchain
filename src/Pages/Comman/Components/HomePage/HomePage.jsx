@@ -271,7 +271,6 @@ const handleLoadmore = () => {
                         ? (Math.round(item.price * 100000000) / 100000000)?.toFixed(8)
                         : item?.price;
               if (index < 4) {
-                console.log(bannerList,'bannerList')
                 return (
                   <Grid item xs={12} sm={4} md={4} lg={3} className="gridBox">
                     <img

@@ -39,6 +39,12 @@ function Header(props) {
   const LogoListAction = bannerListActions();
   const LogoList = useRecoilValue(setLogoListAtom);
 
+  useEffect(() => {
+    const response = LogoListAction.logoList();
+    response.then((res) => { (res) })
+  }, []);
+
+
   const navItems = [
     {
       page: "Community",
@@ -212,9 +218,6 @@ function Header(props) {
               <MenuIcon />
             </IconButton>
           </Box>
-          {LogoList?.map((items) => {
-            let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
-            return (
               <Typography
                 variant="h6"
                 className='header-logo-border'
@@ -235,8 +238,6 @@ function Header(props) {
               >
                 <img src={LogoList[0]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}` : LogoList[0]?.image_link} className='coinguru-logo' alt='coinguru-logo' />
               </Typography>
-            )
-          })}
           <Box
             className=""
             sx={{

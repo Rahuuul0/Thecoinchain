@@ -1208,13 +1208,14 @@ const Home = () => {
       <Container maxWidth="fluid">
         <Marquee>
           {bannerList.map((item) => {
+            let image = item.image_url ? `${process.env.REACT_APP_IMAGE_URL}/${item.image_url}`: item.image_link;
             return (
               <Box paddingTop={8} paddingBottom={8}>
                 <Stack direction="row" spacing={8}>
-                  <img
+                  {image == null || image == ''? " " : <img
                     className="margin10"
-                    src={`${process.env.REACT_APP_IMAGE_URL}/${item.image_url}`}
-                  />
+                    src={image}
+                  />}
                 </Stack>
               </Box>
             );

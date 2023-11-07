@@ -164,7 +164,7 @@
   --modal-bg: #23262F;
 }
 
-.MuiDivider-root {
+hr.MuiDivider-root {
   border-color: var(--footer-border)
 }
 

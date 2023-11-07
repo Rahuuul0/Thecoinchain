@@ -31,12 +31,12 @@ const PrivacyPolicy = () => {
     useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) });
 
     return (
-        <>
+       <>
             <ThemeProvider theme={theme}>
-                <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
+                <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div privacy-terms' sx={{ mt: 8 }}>
                 <Container maxWidth="lg"> 
-                    <Box className='right-breadcrum ol' sx={{ color: '#777E90', fontWeight: '500', }}>
-                        <Box>
+                    <Box className='right-breadcrum ol community-class' sx={{ color: '#777E90', fontWeight: '500' }}>
+                        <Box className='ol-li-list'>
                             <Breadcrumbs
                                 separator={<NavigateNext fontSize="small" />}
                                 aria-label="breadcrumb"
@@ -46,7 +46,7 @@ const PrivacyPolicy = () => {
                             </Breadcrumbs>
 
                         </Box>
-                    </Box>  
+                    </Box>
                     {DisclaimersList?.map((items) => {
                             let title = items.title;
                             let description = items.description;

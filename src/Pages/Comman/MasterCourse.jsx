@@ -39,7 +39,7 @@ const MasterCourse = () => {
             <ThemeProvider theme={theme}>
                 <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div'>
                     <Container maxWidth="lg">
-                        <Box className='right-breadcrum ol community-class' sx={{ color: '#777E90', fontWeight: '500', marginTop: '-100px !important' }}>
+                        <Box className='right-breadcrum ol community-class' sx={{ color: '#777E90', fontWeight: '500' }}>
                             <Box  >
                                 <Breadcrumbs
                                     separator={<NavigateNext fontSize="small" />}

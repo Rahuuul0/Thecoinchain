@@ -40,11 +40,11 @@ const AcademyAboutCrypto = () => {
                 <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div'>
                     <Container maxWidth="lg">
                         <Box className='right-breadcrum ol community-class' sx={{ color: '#777E90', fontWeight: '500' }}>
-                            <Box className='about-bread'>
+                            <Box  className='about-bread'>
                                 <Breadcrumbs
                                     separator={<NavigateNext fontSize="small" />}
                                     aria-label="breadcrumb"
-                                    className='right-breadcrum'
+                                    className='center-breadcrum'
                                 >
                                     {breadcrumbs}
                                 </Breadcrumbs>

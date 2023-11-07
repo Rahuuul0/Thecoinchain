@@ -31,10 +31,10 @@ const TermsOfUse = () => {
     console.log(termsList,'termsList')
     return (
         <>
-            <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div' sx={{ mt: 8 }}>
+            <Box component="main" className='extra-wrapper subscription-wrapper bredcrum-div privacy-terms' sx={{ mt: 8 }}>
                 <Container maxWidth="lg">
-                    <Box className='right-breadcrum ol' sx={{ color: '#777E90', fontWeight: '500', }}>
-                            <Box  >
+                        <Box className='right-breadcrum ol' sx={{ color: '#777E90', fontWeight: '500', }}>
+                            <Box className='ol-li-list'>
                                 <Breadcrumbs
                                     separator={<NavigateNext fontSize="small" />}
                                     aria-label="breadcrumb"

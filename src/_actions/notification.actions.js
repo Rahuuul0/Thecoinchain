@@ -64,7 +64,6 @@ const notificationActions = () => {
         return fetchWrapper.post(Apis.Category_Notifications, param,)
             .then(res => {
                 if (res.statusCode === 200) {
-                    console.log(res, "res")
                     notificationLists(res.data)
                     notificationLists_View(res.data)
                 }

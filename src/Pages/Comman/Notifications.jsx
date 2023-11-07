@@ -221,7 +221,7 @@ const Notifications = () => {
                                     ></span>
                                   </Box>
                                 </Box>
-                                <Typography component="p" variant="p">
+                                <Typography className="notification_elip_typo " component="p" variant="p">
                                   {ReactHtmlParser(description)}
                                 </Typography>
                               </Box>

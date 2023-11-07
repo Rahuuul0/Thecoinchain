@@ -4652,6 +4652,18 @@ video[poster] {
   background-color: var(--secondary-color);
 }
 
+.notification_elip_typo {
+  overflow: auto;
+  height: 100px;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.notification_elip_typo::-webkit-scrollbar{
+  width: 5px;
+  background-color: var(--secondary-color);
+}
 .newdesignbox .crypto-center {
   width: 100%;
   max-width: 99%;

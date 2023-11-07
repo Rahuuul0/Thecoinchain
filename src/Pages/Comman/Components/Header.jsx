@@ -37,7 +37,9 @@ const drawerHeight = '100vh';
 function Header(props) {
 
   const LogoListAction = bannerListActions();
-  const LogoList = useRecoilValue(setLogoListAtom);
+  const LogoList = useRecoilValue(setLogoListAtom).filter((item)=>{
+    return item.position === "Header"
+});
 
   useEffect(() => {
     const response = LogoListAction.logoList();

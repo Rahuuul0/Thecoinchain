@@ -44,8 +44,6 @@ function Header(props) {
         response.then((res) => {(res) })
     }, []);
 
-    console.log(LogoList,'LogoList')
-
   const navItems = [
     {
       page: "Community",

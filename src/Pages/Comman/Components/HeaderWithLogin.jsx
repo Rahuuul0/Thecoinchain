@@ -40,8 +40,6 @@ function Header(props) {
         response.then((res) => {(res) })
     }, []);
 
-    console.log(LogoList,'LogoList')
-
   const handleClear = async (action) => {
     notificationAction.clearNotifications({action});
   };

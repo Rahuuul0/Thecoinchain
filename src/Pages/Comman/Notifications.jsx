@@ -79,6 +79,8 @@ const Notifications = () => {
 
     useEffect(() =>{
         notificationAction.notificationList_View()
+
+        window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) 
     }, [])
 
     const showFilteredNotification = (e,cat)=>{
@@ -103,10 +105,6 @@ const Notifications = () => {
         categoryArr.length > 0 ? notificationAction.categoryNotifications(categoryArr) : notificationAction.notificationList_View()
 
     }
-    useEffect(() => { 
-        window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) 
-    },[]);
-
     
     return (
         <>

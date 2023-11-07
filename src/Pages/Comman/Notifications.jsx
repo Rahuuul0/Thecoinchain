@@ -186,7 +186,7 @@ const Notifications = () => {
                               <Box className="notification-icon">
                                 <BoltOutlinedIcon />
                               </Box>
-                              <Box className="notification-title">
+                              <Box className="notification-title notification-title.MuiBox-root">
                                 <Box className="notification-title-wrapper">
                                   <Box className="notification-title-inner">
                                     <Typography component="h6" variant="body">

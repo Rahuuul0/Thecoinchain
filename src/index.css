@@ -605,6 +605,9 @@ nav .MuiButtonBase-root:hover {
 .notification-menu .MuiList-root {
   width: 316px;
 }
+.notification-title.MuiBox-root {
+  width: 100%;
+}
 
 .notification-menu .body-large,
 .notification-menu .inner-div-menu .head-menu {

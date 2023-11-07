@@ -101,6 +101,7 @@ const Home = () => {
   const cryptoNewsList = useRecoilValue(cryptoNewsAtom);
 
   const [loadmore, setLoadmore] = useState(4);
+  const bannerList = useRecoilValue(bannerListAtom);
 
   const tutorialCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
     return item.type === "Tutorial";
@@ -147,6 +148,12 @@ const Home = () => {
   // Api home_banner-list
   useEffect(() => {
     const response = bannerActions.homeBannerList();
+    response.then((res) => { (res) })
+  }, []);
+
+  // Api home_banner-list
+  useEffect(() => {
+    const response = bannerActions.get();
     response.then((res) => { (res) })
   }, []);
 
@@ -1202,7 +1209,22 @@ const Home = () => {
           </Grid>
         </Container>
       </Box>
-      {/* how it works section ends */}
+      <Container maxWidth="fluid">
+        <Marquee>
+          {bannerList.map((item) => {
+            return (
+              <Box paddingTop={8} paddingBottom={8}>
+                <Stack direction="row" spacing={8}>
+                  <img
+                    className="margin10"
+                    src={`${process.env.REACT_APP_IMAGE_URL}/${item.image_url}`}
+                  />
+                </Stack>
+              </Box>
+            );
+          })}
+        </Marquee>
+      </Container>
 
     </>
   );

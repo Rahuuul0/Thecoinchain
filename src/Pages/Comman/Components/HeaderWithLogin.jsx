@@ -19,6 +19,10 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { bannerListActions } from '../../../_actions';
+import { setLogoListAtom } from '../../../_state';
+
+
 
 const drawerWidth = '100%';
 function Header(props) {
@@ -27,6 +31,14 @@ function Header(props) {
   const notifications = useRecoilValue(notificationAtom);
   const userDetails = useRecoilValue(authAtom);
   const notificaionCount = useRecoilValue(notificationCountAtom);
+
+  const LogoListAction = bannerListActions();
+  const LogoList = useRecoilValue(setLogoListAtom);
+
+  useEffect(() => {
+    const response = LogoListAction.logoList();
+    response.then((res) => { (res) })
+  }, []);
 
   const handleClear = async (action) => {
     notificationAction.clearNotifications({ action });
@@ -201,9 +213,8 @@ function Header(props) {
             onClick={() => { navigate('/') }}
             sx={{ flexGrow: 1, display: { xs: 'block', md: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer' } }}
           >
-            <img width='140' src={CoinGuru} alt='Coin Guru' className="coinguru-logo" />
+            <img src={LogoList[0]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}` : LogoList[0]?.image_link} alt="Coin Guru" className="coinguru-logo" />
           </Typography>
-
           <Box className='' sx={{ display: { xs: 'none ', md: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>
               <li >

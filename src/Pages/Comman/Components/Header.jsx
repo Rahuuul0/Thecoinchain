@@ -39,13 +39,6 @@ function Header(props) {
   const LogoListAction = bannerListActions();
   const LogoList = useRecoilValue(setLogoListAtom);
 
-  useEffect(() => {
-    const response = LogoListAction.logoList();
-    response.then((res) => { (res) })
-  }, []);
-
-  console.log(LogoList, 'LogoList')
-
   const navItems = [
     {
       page: "Community",
@@ -240,7 +233,7 @@ function Header(props) {
                   // borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
                 }}
               >
-                <img src={CoinGuru} alt="Coin Guru" className='coinguru-logo' />
+                <img src={LogoList[0]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}` : LogoList[0]?.image_link} className='coinguru-logo' alt='coinguru-logo' />
               </Typography>
             )
           })}

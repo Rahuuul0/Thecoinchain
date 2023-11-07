@@ -129,9 +129,6 @@ const Home = () => {
     if (value === "1") setTutorialList(tutorialsData);
   }, [tutorialsData]);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
   const getFirstLetters = (str) => {
     // const firstLetters = str.replace("Portfolio", "");
     return (firstLetters = "");
@@ -145,18 +142,17 @@ const Home = () => {
     homeActions.cryptoNews()
  
   }, []);
+  
  // Api home_banner-list
   useEffect(() => {
     const response = bannerActions.homeBannerList();
     response.then((res) => {(res) })
-}, []);
 
- // Api home_banner-list
- useEffect(() => {
-  const response = bannerActions.get();
-  response.then((res) => {(res) })
-}, []);
+    const responsed = bannerActions.get();
+    responsed.then((res) => {(res) })
 
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+}, []);
 
 const videoLink = (data) => {
   let learnSeo = data.slug

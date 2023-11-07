@@ -35,7 +35,7 @@ import Lock from "../../../public/assets/images/icons/lock.svg";
 import GoogleLogin from "./GoogleLogin.jsx";
 import AppleIcon from "@mui/icons-material/Apple";
 import LoadingButton from '@mui/lab/LoadingButton';
-import PhoneInput, { formatPhoneNumber,isPossiblePhoneNumber, formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
+import PhoneInput, { formatPhoneNumber, isPossiblePhoneNumber, formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
 
 
 const LogIn = () => {
@@ -88,27 +88,26 @@ const LogIn = () => {
   useEffect(() => {
     if (userError)
       setIsSubmitting(false)
-      window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
+    window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
   }, [userError])
 
 
   const handleFormSubmit = () => {
-    if(value != 1 ) {
-      if(mobile_value && isValidPhoneNumber(mobile_value)) {
-      formData.phone = mobile_value;
+    if (value != 1) {
+      if (mobile_value && isValidPhoneNumber(mobile_value)) {
+        formData.phone = mobile_value;
+        userActions.login(formData);
+        setIsSubmitting(true)
+        setUserError(false)
+      }
+    } else {
+      formData.mobile = mobile_value;
       userActions.login(formData);
       setIsSubmitting(true)
       setUserError(false)
     }
-  }else
-  {
-    formData.mobile = mobile_value;
-      userActions.login(formData);
-      setIsSubmitting(true)
-      setUserError(false)
-  }
   };
- 
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -143,7 +142,7 @@ const LogIn = () => {
                 position="relative"
                 zIndex="2"
                 variant="body2"
-                sx={{ fontSize: "14px", color: "#2B2B2B;" }}
+                sx={{ fontSize: "14px" }}
               >
                 Don’t have an account?{" "}
                 <Link
@@ -366,14 +365,14 @@ const LogIn = () => {
                               className="PhoneInput2"
                               placeholder="Enter Mobile number"
                               value={mobile_value}
-                              onChange={(e)=>{setMobile_value(e);setPhone_hide(true)}}
+                              onChange={(e) => { setMobile_value(e); setPhone_hide(true) }}
                               error={mobile_value ? (isValidPhoneNumber(mobile_value) ? undefined : 'Invalid Mobile number') : 'Mobile number is required'}
-                              />
-                              {phone_hide&&<div className="frm-message" style={{color:"red"}}>
-                                {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value>0?'Mobile number is not valid.':' Mobile number is required.'}
-                                </div> 
-                              }
-                              <label id="phone_label_id">Mobile *</label>
+                            />
+                            {phone_hide && <div className="frm-message" style={{ color: "red" }}>
+                              {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value > 0 ? 'Mobile number is not valid.' : ' Mobile number is required.'}
+                            </div>
+                            }
+                            <label id="phone_label_id">Mobile *</label>
                           </div>
                           <TextField
                             label="Password *"
@@ -453,7 +452,7 @@ const LogIn = () => {
                             variant="contained"
                             className="btn btn-primary"
                             disabled={isSubmitting}
-                            onClick={()=>{setPhone_hide(true)}}
+                            onClick={() => { setPhone_hide(true) }}
                           >
                             {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Login"}
                           </LoadingButton>

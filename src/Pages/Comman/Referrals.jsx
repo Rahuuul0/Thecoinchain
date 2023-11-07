@@ -154,7 +154,6 @@ const Referrals = () => {
                         padding={3}
                         marginY={2}
                         sx={{
-                          backgroundColor: "#F1F2F4",
                           borderRadius: "10px",
                         }}
                       >

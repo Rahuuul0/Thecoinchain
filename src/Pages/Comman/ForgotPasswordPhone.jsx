@@ -28,7 +28,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import OTPInput from "otp-input-react";
 import { KeyboardArrowLeft } from "@mui/icons-material/";
 import LoadingButton from '@mui/lab/LoadingButton';
-import PhoneInput, { formatPhoneNumber,isPossiblePhoneNumber, formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input';
+import PhoneInput, { formatPhoneNumber, isPossiblePhoneNumber, formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input';
 
 
 const ForgotPasswordPhone = () => {
@@ -53,11 +53,11 @@ const ForgotPasswordPhone = () => {
   const { errors, isSubmitting } = formState;
 
   const onSubmitFun = async () => {
-    if(mobile_value && isValidPhoneNumber(mobile_value)) {
+    if (mobile_value && isValidPhoneNumber(mobile_value)) {
       formData.phone = mobile_value;
-    setLoginData({ ...loginData, phone: formData.phone, email: "" });
-    await userActions.forgotPassword({ phone: formData.phone });
-  };
+      setLoginData({ ...loginData, phone: formData.phone, email: "" });
+      await userActions.forgotPassword({ phone: formData.phone });
+    };
   }
 
   const onSubmitFunOTP = async () => {
@@ -120,7 +120,7 @@ const ForgotPasswordPhone = () => {
               <Typography
                 component="p"
                 variant="body2"
-                sx={{ fontSize: "14px", color: "#2B2B2B;" }}
+                sx={{ fontSize: "14px" }}
               >
                 Don’t have an account?{" "}
                 <Link
@@ -183,15 +183,15 @@ const ForgotPasswordPhone = () => {
                     <Box className="auth-form">
                       <div className="custom-mobile">
                         <PhoneInput
-                           className="PhoneInput2"
+                          className="PhoneInput2"
                           placeholder="Enter Mobile number"
                           value={mobile_value}
-                          onChange={(e)=>{setMobile_value(e);setPhone_hide(true)}}
+                          onChange={(e) => { setMobile_value(e); setPhone_hide(true) }}
                           error={mobile_value ? (isValidPhoneNumber(mobile_value) ? undefined : 'Invalid Mobile number') : 'Mobile number is required'}
                         />
-                        {phone_hide&&<div className="frm-message" style={{color:"red"}}>
-                              {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value>0?'Mobile number is not valid.':'Mobile number is required.'}
-                              </div> 
+                        {phone_hide && <div className="frm-message" style={{ color: "red" }}>
+                          {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value > 0 ? 'Mobile number is not valid.' : 'Mobile number is required.'}
+                        </div>
                         }
                         <label id="phone_label_id">Mobile *</label>
                       </div>
@@ -202,7 +202,7 @@ const ForgotPasswordPhone = () => {
                         variant="contained"
                         className="btn btn-primary"
                         disabled={isSubmitting}
-                        onClick={()=>{setPhone_hide(true)}}
+                        onClick={() => { setPhone_hide(true) }}
                       >
                         {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Continue"}
                       </LoadingButton>

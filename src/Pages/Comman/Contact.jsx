@@ -142,10 +142,10 @@ const Contact = () => {
 
   const contactCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
     return item.type === "Contact_Faq";
-});
+  });
 
-const [contactCategoryList, setContactCategoryList] = useState(contactLists);
-const [value, setValue] = React.useState(0);
+  const [contactCategoryList, setContactCategoryList] = useState(contactLists);
+  const [value, setValue] = React.useState(0);
 
   // form validation rules 
   const validationSchema = Yup.object().shape({
@@ -179,23 +179,23 @@ const [value, setValue] = React.useState(0);
   }, [contactError])
 
   const handleFormSubmit = async (data) => {
-   
+
     const token = captchaRef.current.getValue();
     if (token) {
       captchaRef.current.reset();
       data.category = category;
       setIsSubmitting(true)
       setContactError(false)
-    await useContactAddActions.add(data);
-    reset({ email: " ", subject: " ", msg: " " });
+      await useContactAddActions.add(data);
+      reset({ email: " ", subject: " ", msg: " " });
     } else {
       alertActions.error("reCAPTCHA is mandatory");
     }
- 
+
   }
 
   const handleChange = (event) => {
-  
+
     const {
       target: { value },
     } = event;
@@ -204,7 +204,7 @@ const [value, setValue] = React.useState(0);
       typeof value === 'string' ? value.split(',') : value,
     );
   };
-  
+
   useEffect(() => {
     setQuestion(General)
     window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
@@ -221,62 +221,62 @@ const [value, setValue] = React.useState(0);
     reset({ ...formData, question: question[0] })
   }, [question]);
 
-     // *ConactCategoryList*
-const handleChanges = (value) => {
-     setValue(value);
-       handleTutorials(value);
-};
+  // *ConactCategoryList*
+  const handleChanges = (value) => {
+    setValue(value);
+    handleTutorials(value);
+  };
 
-const handleTutorials = (contactCategory) => {
+  const handleTutorials = (contactCategory) => {
     let tutorialsArr = [];
     tutorialsArr = contactLists
-        .filter((items) => {
-            return items.category === contactCategory;
-        })
-      setContactCategoryList(tutorialsArr);
-};
+      .filter((items) => {
+        return items.category === contactCategory;
+      })
+    setContactCategoryList(tutorialsArr);
+  };
 
-   // Category Api
+  // Category Api
 
-   useEffect(() => {
+  useEffect(() => {
     const contact = contactLists.filter((items) => {
       return items.category === "General";
-  })
+    })
     setContactCategoryList(contact)
- 
-}, [contactLists]);
 
-   useEffect(() => {
+  }, [contactLists]);
+
+  useEffect(() => {
     const response = categoryActions.categoryList();
     response.then((res) => { (res) })
-}, []);
+  }, []);
 
-useEffect(() => {
-  const response = useContactAddActions.contactBlogList();
-  response.then((res) => { (res) })
-}, []);
+  useEffect(() => {
+    const response = useContactAddActions.contactBlogList();
+    response.then((res) => { (res) })
+  }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     const response = useContactAddActions.contactList();
     response.then((res) => { (res) })
-}, []);
+  }, []);
 
-const imgLink = (data) => {
-  let newsSeo = data.slug
-  navigate(`${RoutesName.learn_Crypto_Details}/contact/${newsSeo}`)
-  setBlogimg(data)
-  setBlognew(true)
-} 
+  const imgLink = (data) => {
+    let newsSeo = data.slug
+    navigate(`${RoutesName.learn_Crypto_Details}/contact/${newsSeo}`)
+    setBlogimg(data)
+    setBlognew(true)
+  }
 
-const SITE_KEY = process.env.REACT_APP_reCAPTCHA_SITE_KEY;
+  const SITE_KEY = process.env.REACT_APP_reCAPTCHA_SITE_KEY;
 
-const handleRecaptch = (value) => {
-  console.log("Captcha value:", value);
-};
+  const handleRecaptch = (value) => {
+    console.log("Captcha value:", value);
+  };
 
-const asyncScriptOnLoad = () => {
-  console.log("scriptLoad - reCaptcha Ref-");
-};
+  const asyncScriptOnLoad = () => {
+    console.log("scriptLoad - reCaptcha Ref-");
+  };
 
 
   return (
@@ -330,9 +330,9 @@ const asyncScriptOnLoad = () => {
             modules={[Navigation]}
             className="mySwiper"
           >
-          {contactBlogLists.map((item) =>{
-            return(
-              <SwiperSlide>
+            {contactBlogLists.map((item) => {
+              return (
+                <SwiperSlide>
                   <Box className='about-crypto'
                     onClick={() => imgLink(item)}
                     sx={{ cursor: "pointer" }}
@@ -342,13 +342,13 @@ const asyncScriptOnLoad = () => {
                       <img className="crypto-center" sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                     </Box>
                     <Box paddingTop={4} className="inner-con-box">
-                      <Typography fontWeight='500' paddingBottom={2}  sx={{maxHeight: '30px', overflow: 'hidden'}}>{item.title}</Typography>
-                      <Typography className='body-caption secondary-color'  sx={{maxHeight: '85px', overflow: 'hidden'}}>{ReactHtmlParser(item.description)}</Typography>
+                      <Typography fontWeight='500' paddingBottom={2} sx={{ maxHeight: '30px', overflow: 'hidden' }}>{item.title}</Typography>
+                      <Typography className='body-caption secondary-color' sx={{ maxHeight: '85px', overflow: 'hidden' }}>{ReactHtmlParser(item.description)}</Typography>
                     </Box>
                   </Box>
-              </SwiperSlide>
-            )
-          })}
+                </SwiperSlide>
+              )
+            })}
           </Swiper>
         </Box>
       </Container>
@@ -366,20 +366,20 @@ const asyncScriptOnLoad = () => {
                 <TabContext value={value}>
 
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                      <TabList
-                          value={value}
-                           aria-label="tabs">
-                    
-                          {contactCategory?.map((item, idx) => {
-                              return <Tab   className='tab-selected' indicatorColor="secondary" textColor="inherit"   onClick={e => handleChanges( item.title)} label={item.title} key={item.id} value={idx === value ? value : item.title} />;
-                          })}
-                      </TabList>
+                    <TabList
+                      value={value}
+                      aria-label="tabs">
+
+                      {contactCategory?.map((item, idx) => {
+                        return <Tab className='tab-selected' indicatorColor="secondary" textColor="inherit" onClick={e => handleChanges(item.title)} label={item.title} key={item.id} value={idx === value ? value : item.title} />;
+                      })}
+                    </TabList>
 
                   </Box>
                   <TabPanel value={value} sx={{ paddingRight: '0', paddingLeft: '0' }} >
                     <Box className='faq-accordian'>
-                      {contactCategoryList.map((items) =>{
-                        return(
+                      {contactCategoryList.map((items) => {
+                        return (
                           <Accordion sx={{ p: 0 }}>
                             <AccordionSummary
                               expandIcon={<ExpandMore />}
@@ -407,7 +407,7 @@ const asyncScriptOnLoad = () => {
         </Box>
       </Container>
 
-      <Container maxWidth='fluid' sx={{ backgroundColor: '#F8F8F9' }}>
+      <Container maxWidth='fluid' className='contact-form-sec'>
         <Container className='smallwidth' padding={'0'}>
           <Box className="topic-que">
             <Box
@@ -528,7 +528,7 @@ const asyncScriptOnLoad = () => {
                     loading={isSubmitting}
                     loadingPosition="end"
                     className='btn btn-primary'
-                    sx={{ marginLeft: { xs: "0", sm: "auto" }, minWidth: "160px",  }}
+                    sx={{ marginLeft: { xs: "0", sm: "auto" }, minWidth: "160px", }}
                     disabled={isSubmitting}
                     variant='contained'>
                     {isSubmitting ? <span className="spinner-border ">Loading</span> : " Send message "}

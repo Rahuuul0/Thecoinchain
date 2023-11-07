@@ -9,7 +9,7 @@ import LogoLight from '../../../public/assets/images/logo-light.svg';
 import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from '../../../public/assets/images/auth-bg.svg';
 import Lock from '../../../public/assets/images/icons/lock.svg';
-import ScanImg from '../../../public/assets/images/scan-img.png';
+import ScanImg from '../../../public/assets/images/scanner.png';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import IconButton from "@mui/material/IconButton";
 
@@ -32,7 +32,7 @@ const ScanToLogin = () => {
                             <Link onClick={() => { navigate('/') }}> <img src={LogoDark} alt='Coin Guru' className='ipad' /></Link>
                         </Box>
                         <Box className='dont-have-acc' >
-                            <Typography component="p" position='relative' zIndex='2' variant="body2" onClick={() => { navigate("/create-account"); }} sx={{ fontSize: '14px', color: '#2B2B2B;' }}>
+                            <Typography component="p" position='relative' zIndex='2' variant="body2" onClick={() => { navigate("/create-account"); }} sx={{ fontSize: '14px' }}>
                                 Don’t have an account? <Link>Sign up for free</Link>
                             </Typography>
                         </Box>
@@ -44,7 +44,7 @@ const ScanToLogin = () => {
                         <Box className='auth-wrapper-form' position='relative'>
                             <Box position='absolute' sx={{ top: { xs: '0px', sm: '30px', md: '90px' } }}>
                                 <IconButton onClick={() => { navigate(RoutesName.login) }} aria-label="delete" className='btn-primary btn' variant="outlined" sx={{ padding: '4px 4px !important', margin: '0px !important' }}>
-                                    <KeyboardArrowLeft />                 
+                                    <KeyboardArrowLeft />
                                 </IconButton>
                             </Box>
                             <Box className='auth-wrapper-form-inner' >
@@ -65,12 +65,16 @@ const ScanToLogin = () => {
                                     Please use your CoinGuru app to scan BC code to log in .
                                 </Typography>
                                 <Box
+                                    justifyContent='center'
 
                                     className='scanner'
-                                    sx={{ mt: '24px' }}
+                                    sx={{ mt: { xs: '24px', sm: '32px' } }}
                                 >
                                     <Box className='scanner-inner' >
                                         <img src={ScanImg} alt='scanner' />
+                                        <div className="download-app">
+                                            <Button variant="outline" className='btn btn-outlined-secondary' sx={{ margin: '0 auto' }}>Coming Soon</Button>
+                                        </div>
                                     </Box>
                                 </Box>
                                 <Button onClick={() => { navigate(RoutesName.login); }} variant="contained" className='btn btn-primary' startIcon={<ChevronLeftIcon />}>

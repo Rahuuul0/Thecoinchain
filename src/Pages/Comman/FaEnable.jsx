@@ -3,7 +3,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Grid, Typography, Button, Breadcrumbs, InputAdornment, IconButton, TextField } from '@mui/material';
 import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import Sidebar from './Components/Sidebar';
 
 const FaEnable = () => {
@@ -26,14 +26,14 @@ const FaEnable = () => {
                                 2FA
                             </Typography>
 
-                            <Box className='' sx={{ color: '#777E90', fontWeight: '500',  paddingTop: {xs: '10px', md: '0px'} }}>
+                            <Box className='' sx={{ color: '#777E90', fontWeight: '500', paddingTop: { xs: '10px', md: '0px' } }}>
                                 <Box  >
                                     <Breadcrumbs
                                         separator={<NavigateNext fontSize="small" />}
                                         aria-label="breadcrumb"
                                         className='center-breadcrum'
                                     >
-                                    {breadcrumbs}
+                                        {breadcrumbs}
                                     </Breadcrumbs>
 
                                 </Box>
@@ -53,7 +53,7 @@ const FaEnable = () => {
                                                 <Typography component="p" variant='body2' className='secondary-color small-caption  '>If you want to turn off 2FA, input your account password and the six-digit code provided by the Google Authenticator app below, then click <span className='color-dark font-500' fontWeight={500} color='#23262F'>"Disable 2FA"</span>.</Typography>
                                             </Box>
                                         </Box>
-                                        <Box >
+                                        <Box>
                                             <Typography component="h5" variant='h5' className='' sx={{ fontWeight: '600' }} paddingTop={5} paddingBottom={2}  >Disable 2FA</Typography>
                                             <Typography className='body-caption' component='p' paddingBottom={3}>Enter your password and the six-digit code provided by the Google Authenticator app to Disable the 2FA verification</Typography>
                                         </Box>
@@ -82,7 +82,7 @@ const FaEnable = () => {
                                                 autoFocus
                                                 InputProps={{
                                                     endAdornment: (
-                                                        <InputAdornment position="end">
+                                                        <InputAdornment position="end" className='two-fa-icon'>
                                                             <IconButton >
                                                                 <VisibilityOutlined />
                                                             </IconButton>

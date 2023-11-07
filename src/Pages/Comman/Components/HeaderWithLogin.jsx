@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { ListItem, List, Tooltip,ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid, Switch } from '@mui/material/';
+import { ListItem, List, Tooltip, ListItemButton, ListItemText, CssBaseline, IconButton, Toolbar, Typography, Button, Menu, Grid, Switch } from '@mui/material/';
 import MenuIcon from '@mui/icons-material/Menu';
 import CoinGuru from '../../../../public/assets/images/logo.svg';
 import { MenuItem, Badge, Box, AppBar, Divider, Drawer } from '@mui/material';
@@ -12,7 +13,6 @@ import UserIcon from '../../../../public/assets/images/icons/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import { useUserActions } from "../../../_actions/user.actions";
 import { notificationActions } from '../../../_actions/notification.actions';
-import { useEffect } from "react";
 import { notificationAtom, authAtom, notificationCountAtom } from '../../../_state/';
 import { useRecoilValue } from "recoil";
 import Accordion from '@mui/material/Accordion';
@@ -34,14 +34,14 @@ function Header(props) {
 
   const LogoListAction = bannerListActions();
   const LogoList = useRecoilValue(setLogoListAtom);
-  
-     useEffect(() => {
-        const response = LogoListAction.logoList();
-        response.then((res) => {(res) })
-    }, []);
+
+  useEffect(() => {
+    const response = LogoListAction.logoList();
+    response.then((res) => { (res) })
+  }, []);
 
   const handleClear = async (action) => {
-    notificationAction.clearNotifications({action});
+    notificationAction.clearNotifications({ action });
   };
 
   useEffect(() => {
@@ -78,7 +78,7 @@ function Header(props) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleClose = () => {
     setAnchorEl(null);
     navigate('/academy-about-crypto')
@@ -117,6 +117,19 @@ function Header(props) {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+  const [isDark, setIsDark] = useState(false)
+  const handleDarkMode = () => {
+    setIsDark(!isDark)
+  }
+
+  useEffect(() => {
+    const body = document.body;
+    if (isDark) {
+      body.classList.add('dark-theme');
+    } else {
+      body.classList.remove('dark-theme');
+    }
+  }, [isDark])
 
 
   const drawer = (
@@ -124,7 +137,7 @@ function Header(props) {
       <Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Box>
-            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
           </Box>
           <Box display='flex' alignItems='center' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}>
             <Box className='close'><p>+</p></Box>
@@ -179,7 +192,7 @@ function Header(props) {
           </List>
         </Box>
       </Box>
-      <Box display='flex' justifyContent='space-between'>
+      <Box display='flex' justifyContent='space-between' sx={{ paddingBottom: '20px' }}>
         <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Profile settings</Button>
         <IconButton aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
         <IconButton aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
@@ -196,22 +209,11 @@ function Header(props) {
         <Toolbar>
           <Typography
             variant="h6"
-            onClick={() => {
-              navigate("/");
-            }}
-            sx={{
-              flexGrow: 1,
-              display: {
-                xs: "none",
-                sm: "block",
-                lineHeight: "100%",
-                flex: 1,
-                cursor: "pointer",
-              },
-              borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
-            }}
+            className='header-logo-border'
+            onClick={() => { navigate('/') }}
+            sx={{ flexGrow: 1, display: { xs: 'block', md: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer' } }}
           >
-            <img src={LogoList[0]?.image?`${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}`:LogoList[0]?.image_link} alt="Coin Guru" />
+            <img src={LogoList[0]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}` : LogoList[0]?.image_link} alt="Coin Guru" className="coinguru-logo" />
           </Typography>
           <Box className='' sx={{ display: { xs: 'none ', md: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>
@@ -255,12 +257,12 @@ function Header(props) {
 
             <Badge badgeContent={notificaionCount} onClick={handleClickAnchorbtn}
               size="small"
-              sx={{ ml: 2 , cursor: "pointer"}}
+              sx={{ ml: 2, cursor: "pointer" }}
               aria-controls={openAnchorbtn ? 'account-menu' : undefined}
               aria-haspopup="true"
-              aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash" color="primary">
+              aria-expanded={openAnchorbtn ? 'true' : undefined} className='icon-btn icon-avatar-img btnicon notification-badge' aria-label="flash">
               <IconButton>
-                <NotificationsNone color="action" />
+                <NotificationsNone />
               </IconButton>
             </Badge>
             <Menu
@@ -301,7 +303,7 @@ function Header(props) {
                 {notifications.length > 0 ?
                   <>
                     <Typography className='body-large' sx={{ fontWeight: '600' }}>Notifications</Typography>
- 
+
                     {notifications?.map((item, index) => {
                       if (index < 5) {
                         return (
@@ -320,26 +322,26 @@ function Header(props) {
                         )
                       }
                     })}
-                    </>
+                  </>
                   : <span>No New Notifications Available</span>
                 }
-                    <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >                
-                      <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
-                        View all
-                      </Button> 
-                      {notifications.length > 0 ?
-                      <Button onClick={e=>handleClear('all_read')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
-                        Clear all
-                      </Button>: ''}  
-                    </Box>
-               
+                <Box paddingTop={2} className='rounded-radius' sx={{ display: 'flex', justifyContent: 'space-between' }} >
+                  <Button onClick={() => { navigate("/notifications") }} variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', }}>
+                    View all
+                  </Button>
+                  {notifications.length > 0 ?
+                    <Button onClick={e => handleClear('all_read')} variant="outline" className='btn btn-outline' sx={{ color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid' }}>
+                      Clear all
+                    </Button> : ''}
+                </Box>
+
 
               </Box>
             </Menu>
             <Button onClick={e => navigate('/account')} variant="outline" className='btn btn-outline mobile-none' sx={{ display: { xs: 'none', md: 'block' }, color: '#23262F', backgroundColor: '#ffffff00', border: '1px solid', }}>
               Account
             </Button>
-            <IconButton aria-label="sunny" color="primary " className=' mobile-none'>
+            <IconButton onClick={handleDarkMode} aria-label="sunny" color="primary " className=' mobile-none'>
               <WbSunnyOutlined />
             </IconButton>
             <Tooltip arrow title={userDetails.user_name ? userDetails.user_name : userDetails.email.split("@")[0]}>
@@ -451,7 +453,7 @@ function Header(props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', md: 'block', sm: 'none' },
+            display: { xs: 'block', sm: 'block', md: 'block', lg: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >

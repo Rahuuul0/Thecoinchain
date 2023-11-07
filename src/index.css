@@ -12,7 +12,8 @@
 
 /* color pallete */
 :root {
-  --color_light: #fff;
+  --color-white: #fff;
+  --color_light: #FCFCFD;
   --color_dark: #23262f;
   --caption_label_text: rgba(133, 133, 132, 1);
   --background: rgba(43, 43, 43, 1);
@@ -24,14 +25,155 @@
   --secondary-font: "DM Sans", sans-serif;
   --article-font: "Inter", sans-serif;
   --primary-color: #3772ff;
-  --secondary-color: #3772ff;
-  --color-grey: rgba(119, 126, 144, 1);
   --secondary-color: #777e90;
+  --color-grey: rgba(119, 126, 144, 1);
+  --color-2: #e6e8ec;
+  --color-3: #858584;
+  --color-4: #f4f5f6;
+  --color-5: #353945;
+  --color-6: #b1b5c4;
+  --color-7: #f2f2f2;
+  --color-8: #decbe9;
+  --color-9: #f8f8f9;
+  --color-10: #e5e5e5;
+  --color-11: #eee;
+  --color-12: #f1f2f4;
+  --body-grey: #fcfcfd;
+  --copyright-grey: #6c757d;
+  --color-gold: #ffd700;
+  --btn-error: #ff6838;
+  --btn-green: #58bd7d;
+  --btn-purple: #9757D7;
+  --color-black: #000;
+  --color-dark2: #141416;
+  --color-dark3: #212529;
+  --color-cc: #cccccc;
+  --error-dark: #9e2146;
+  --tab-bg: #353945;
+  --tab-color: #FCFCFD;
+  --table-txt-color: #23262F;
+  --table-devider: #E6E8EC;
+  --become-crypto-card-bg: #FCFCFD;
+  --become-crypto-bg: #F4F5F6;
+  --make-informed-devider: #E6E8EC;
+  --btn-primary-txt: #FCFCFD;
+  --global-community-bg: #F4F5F6;
+  --how-it-work-bg: #FCFCFD;
+  --footer-bg: #FCFCFD;
+  --footer-border: #E6E8EC;
+  --market-hero-bg: #DECBE9;
+  --market-hero-para: #353945;
+  --price-prediction-title: #3B3B3B;
+  --learn-n-earn-title: #23262F;
+  --learn-n-earn-para: #353945;
+  --breadcrumb-color: #777E90;
+  --breadcrumb-color-active: #353945;
+  --subscription-steps-color: #F4F5F6;
+  --forecast-subscription-card: #FCFCFD;
+  --subscription-plan-card: #fff;
+  --subscription-plan-card-title: rgba(0, 0, 0, 0.03);
+  --refferal-form: #F1F2F4;
+  --refferal-form-input: #FCFCFD;
+  --table-th: #353945;
+  --table-td: #23262F;
+  --form-control: #23262f;
+  --two-fa-icon: #777E90;
+  --mui-disabled: #353945;
+  --scanner-box: #FCFCFD;
+  --download-app: #E6E8EC;
+  --mui-menu-papper: #FCFCFD;
+  --menu-shadow: 0px 16px 64px -48px #1F2F4626;
+  --txt-color: #353945;
+  --contact-bg: #F8F8F9;
+  --bg-auth: #fcfcfd;
+  --privcy-para: #353945;
+  --modal-bg: #E6E8EC;
 }
 
+.dark-theme {
+  --color_light: #23262f;
+  --color_dark: #fff;
+  --bg-light: #353945;
+  --bg-dark: #FCFCFD;
+  --caption_label_text: rgba(133, 133, 132, 1);
+  --background: rgba(43, 43, 43, 1);
+  --gold: rgba(255, 215, 0, 1);
+  --grediant1: linear-gradient(128.15deg, #ffd700 49.75%, #ffffff 136.56%);
+  --grediant2: linear-gradient(100.92deg, #ffd700 13.57%, #ffffff 97.65%);
+  --border-radius: 12px;
+  --primary-font: "Poppins", sans-serif;
+  --secondary-font: "DM Sans", sans-serif;
+  --article-font: "Inter", sans-serif;
+  --primary-color: #3772ff;
+  --secondary-color: #777e90;
+  --color-grey: rgba(119, 126, 144, 1);
+  --color-2: #353945;
+  --color-3: #858584;
+  --color-4: #23262F;
+  --color-5: #353945;
+  --color-6: #b1b5c4;
+  --color-7: #f2f2f2;
+  --color-8: #decbe9;
+  --color-9: #f8f8f9;
+  --color-10: #e5e5e5;
+  --color-11: #eee;
+  --color-12: #f1f2f4;
+  --body-grey: #141416;
+  --copyright-grey: #6c757d;
+  --color-gold: #ffd700;
+  --btn-error: #ff6838;
+  --btn-green: #58bd7d;
+  --btn-purple: #9757D7;
+  --color-black: #000;
+  --color-dark2: #141416;
+  --color-dark3: #212529;
+  --color-cc: #cccccc;
+  --error-dark: #9e2146;
+  --table-txt-color: #FCFCFD;
+  --table-devider: #353945;
+  --become-crypto-card-bg: #23262F;
+  --become-crypto-bg: #18191D;
+  --make-informed-devider: #353945;
+  --global-community-bg: #141416;
+  --how-it-work-bg: #141416;
+  --footer-bg: #141416;
+  --footer-border: #353945;
+  --market-hero-bg: #18191D;
+  --market-hero-para: #B1B5C3;
+  --price-prediction-title: #FCFCFD;
+  --learn-n-earn-title: #FCFCFD;
+  --learn-n-earn-para: #FCFCFD;
+  --breadcrumb-color-active: #F4F5F6;
+  --subscription-steps-color: #141416;
+  --forecast-subscription-card: #18191D;
+  --subscription-plan-card: #353945;
+  --subscription-plan-card-title: rgba(0, 0, 0, 0.03);
+  --refferal-form: #23262F;
+  --refferal-form-input: #353945;
+  --table-th: #B1B5C3;
+  --table-td: #FCFCFD;
+  --form-control: #FCFCFD;
+  --mui-disabled: #FCFCFD;
+  --scanner-box: #353945;
+  --download-app: #777E90;
+  --mui-menu-papper: #23262F;
+  --txt-color: #777E90;
+  --contact-bg: #18191D;
+  --bg-auth: #141416;
+  --privcy-para: #B1B5C3;
+  --modal-bg: #23262F;
+}
+
+.MuiDivider-root {
+  border-color: var(--footer-border)
+}
+
+.navItem li {
+  list-style-type: none !important;
+}
 
 .color-dark {
-  color: #23262f;
+  color: var(--color_dark);
 }
 
 .font-500 {
@@ -70,19 +212,20 @@ body .modal-dialog * {
 
 #root .btn.btn-table.MuiButton-sizeSmall,
 .modal-dialog .btn.btn-table.MuiButton-sizeSmall {
+
   border-radius: 4px !important;
 }
 
 #root .btn-primary,
 .modal-dialog .btn-primary {
   background-color: var(--primary-color) !important;
-  color: var(--color_light);
+  color: var(--btn-primary-txt);
   padding: 10px 15px;
 }
 
 #root .btn-secondary,
 .modal-dialog .btn-secondary {
-  background-color: #23262f !important;
+  background-color: var(--color_dark) !important;
   /* min-width: 150px; */
   /* height: 46px; */
   color: var(--color_light);
@@ -90,17 +233,17 @@ body .modal-dialog * {
 }
 
 #root .btn-success {
-  background-color: #58bd7d;
-  color: #fff;
+  background-color: var(--btn-green);
+  color: var(--color-white);
 }
 
 #root .btn-error {
-  background-color: #ff6838;
-  color: #fff;
+  background-color: var(--btn-error);
+  color: var(--color_light);
 }
 
 #root .gold-color {
-  color: #ffd700;
+  color: var(--color-gold);
 }
 
 .btn-round {
@@ -115,7 +258,7 @@ button.btn-close {
   width: 40px;
   height: 40px;
   min-width: 40px;
-  border: 2px solid #e6e8ec;
+  border: 2px solid var(--color-2);
   color: var(--color_dark);
   position: absolute;
   top: 28px;
@@ -128,7 +271,7 @@ button.btn-close {
   /* min-width: 150px; */
   /* height: 40px; */
   padding: 9px 15px;
-  border: 2px solid #e6e8ec;
+  border: 2px solid var(--color-2);
   border-radius: 90px;
   color: var(--color_dark);
 }
@@ -138,9 +281,10 @@ button.btn-close {
   border-width: 2px;
 }
 
+
 #root .btn-dark {
-  background-color: #23262f;
-  color: #fff;
+  background-color: var(--color_dark);
+  color: var(--color_light);
   padding: 9px 15px;
 }
 
@@ -148,7 +292,7 @@ html body {
   color: var(--color_dark);
   margin: 0;
   padding: 0;
-  background-color: #fcfcfd;
+  background-color: var(--body-grey);
 }
 
 html body,
@@ -236,6 +380,10 @@ div * {
   cursor: pointer;
 }
 
+p {
+  color: var(--privcy-para);
+}
+
 img,
 .img-responsive {
   max-width: 100%;
@@ -251,7 +399,7 @@ img,
 
 .customer-panel .app-nav {
   box-shadow: none;
-  border-bottom: 1px solid #e6e8ec;
+  border-bottom: 1px solid var(--color-2);
 }
 
 .app-nav button.MuiButtonBase-root {
@@ -272,7 +420,7 @@ img,
 }
 
 .green-bg-badge .MuiBadge-badge {
-  background-color: #58bd7d;
+  background-color: var(--btn-green)
 }
 
 .end-flex {
@@ -298,7 +446,16 @@ img,
 /* Footer Page */
 
 .footer {
-  border-top: 1px solid #E6E8EC;
+  border-top: 1px solid var(--footer-border);
+  background-color: var(--footer-bg);
+}
+
+.footer .footer-col {
+  border-right: 1px solid var(--footer-border);
+}
+
+.footer .footer-col:last-child {
+  border: none;
 }
 
 #root .quick-links a:hover {
@@ -306,15 +463,15 @@ img,
 }
 
 .quick-links svg {
-  color: #858584;
+  color: var(var(--color-3))
 }
 
 .para-gray {
-  color: #cccccc;
+  color: var(--color-cc);
 }
 
 .copyright-text {
-  color: #6c757d;
+  color: var(--copyright-grey);
 }
 
 .footer-subs-form .form-control {
@@ -326,12 +483,12 @@ img,
 }
 
 .bg-white {
-  background-color: #ffffff;
+  background-color: var(--color_light);
   padding: 0;
 }
 
 .footer hr {
-  border-color: #858584;
+  border-color: var(var(--color-3))
 }
 
 .footer .MuiTypography-h5 {
@@ -357,8 +514,8 @@ img,
 }
 
 .footer-subs-form button {
-  background-color: #ffd700;
-  color: #000;
+  background-color: var(--color-gold);
+  color: var(--color-black);
   padding: 19px 15px;
   height: 61px;
   border-radius: 20px;
@@ -404,7 +561,7 @@ img {
 main.auth-wrapper {
   /* display: flex; */
   /* min-height: 100vh; */
-  background-color: #23262f;
+  background-color: #23262F;
   padding: 0;
   margin: 0;
 }
@@ -449,6 +606,11 @@ nav .MuiButtonBase-root:hover {
   width: 316px;
 }
 
+.notification-menu .body-large,
+.notification-menu .inner-div-menu .head-menu {
+  color: var(--color_dark);
+}
+
 .outer-div-menu {
   width: 100%;
   padding-bottom: 15px;
@@ -456,11 +618,12 @@ nav .MuiButtonBase-root:hover {
 }
 
 .outer-div-menu svg {
-  color: #58bd7d;
+  color: var(--btn-green)
 }
 
 .inner-div-menu .head-menu {
   font-size: 12px;
+  font-weight: 600;
 }
 
 .inner-div-menu .sub-head-menu {
@@ -489,7 +652,7 @@ nav .MuiButtonBase-root:hover {
 
 .auth-wrapper-form {
   width: 70%;
-  background: #fff;
+  background: var(--bg-auth);
   margin-left: auto;
   padding: 10% 2% 2% 2%;
 }
@@ -515,7 +678,7 @@ nav .MuiButtonBase-root:hover {
 
 .ensure-link {
   border-radius: 50px;
-  background: #f4f5f6;
+  background: var(--color-4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -526,13 +689,13 @@ nav .MuiButtonBase-root:hover {
 }
 
 .ensure-link span {
-  color: #58bd7d;
+  color: var(--btn-green)
 }
 
 .devider {
   width: 100%;
   height: 1px;
-  background: #e6e8ec;
+  background: var(--color-2);
   margin: 32px 0;
 }
 
@@ -552,7 +715,7 @@ nav .MuiButtonBase-root:hover {
   padding: 6px 12px;
   border-radius: 50px;
   font-weight: 700;
-  color: #777e91;
+  color: var(--secondary-color);
   min-width: 60px;
 }
 
@@ -561,7 +724,7 @@ nav .MuiButtonBase-root:hover {
 }
 
 .auth-form button.Mui-selected {
-  background-color: #353945;
+  background-color: var(--color-5);
   color: var(--color_light);
   min-height: 28px;
 }
@@ -581,7 +744,7 @@ nav .MuiButtonBase-root:hover {
   font-family: var(--primary-font) !important;
   font-weight: 700;
   text-transform: uppercase;
-  color: #b1b5c4;
+  color: var(--color-6);
 }
 
 .MuiFormControl-root label.Mui-focused {
@@ -591,23 +754,37 @@ nav .MuiButtonBase-root:hover {
 .MuiFormControl-root label+.MuiInputBase-root {
   margin-top: 24px;
   padding: 11.5px 5px 11.5px 16px;
-  border: 2px solid #e6e8ec;
-  background: #fff;
+  border: 2px solid var(--color-2);
+  background: var(--color_light);
   border-radius: 12px;
+  color: var(--form-control);
+}
+
+.MuiFormControl-root label+.MuiInputBase-root button {
+  color: var(--secondary-color);
 }
 
 .MuiFormControl-root label.Mui-focused+.MuiInputBase-root {
   border-color: var(--primary-color);
 }
 
+.refferal-form {
+  background-color: var(--refferal-form);
+}
+
 .refferal-form .MuiFormControl-root label.Mui-focused+.MuiInputBase-root {
-  border-color: #58bd7d;
+  border-color: var(--btn-green)
 }
 
 .MuiFormControl-root .MuiInputBase-root input {
   padding: 0;
   font-size: 14px;
   font-weight: 500;
+  color: var(--form-control);
+}
+
+.two-fa-icon svg {
+  color: var(--two-fa-icon);
 }
 
 .MuiFormControl-root .MuiInputBase-root input::placeholder,
@@ -616,7 +793,7 @@ nav .MuiButtonBase-root:hover {
 .MuiFormControl-root .MuiInputBase-root textarea::placeholder,
 .MuiFormControl-root .MuiInputBase-root textarea:-moz-placeholder,
 .MuiFormControl-root .MuiInputBase-root textarea::-webkit-input-placeholder {
-  color: #777e91;
+  color: var(--secondary-color);
   opacity: 1;
 }
 
@@ -658,6 +835,7 @@ nav .MuiButtonBase-root:hover {
 
 .auth-checkbox .MuiButtonBase-root {
   margin-top: -24px;
+  color: var(--color_dark);
 }
 
 .auth-checkbox .MuiButtonBase-root.Mui-checked,
@@ -667,7 +845,7 @@ nav .MuiButtonBase-root:hover {
 
 .auth-checkbox .MuiTypography-root {
   font-size: 12px;
-  color: #777e91;
+  color: var(--secondary-color);
 }
 
 /* Scan to Login */
@@ -677,15 +855,20 @@ nav .MuiButtonBase-root:hover {
   align-items: flex-start;
   padding: 64px 64px 0px;
   gap: 10px;
-  background: #f4f5f6;
+  background: var(--color-4);
   border-radius: 16px;
 }
 
 .scanner-inner {
-  /* width: 100%;
-    background: #FCFCFD;
-    border-radius: 32px 32px 0px 0px;
-    padding: 32px 48px; */
+  background: var(--scanner-box);
+  border-radius: 32px 32px 0px 0px;
+  padding: 32px 48px;
+  /*width: 100%; */
+}
+
+.download-app .btn {
+  margin-top: 48px;
+  border-color: var(--download-app) !important;
 }
 
 .confirm-account label span.MuiButtonBase-root {
@@ -698,7 +881,7 @@ nav .MuiButtonBase-root:hover {
 
 .confirm-account label .MuiTypography-root {
   text-transform: capitalize;
-  color: #141416;
+  color: var(--color-dark2);
   font-size: 14px;
 }
 
@@ -711,8 +894,8 @@ nav .MuiButtonBase-root:hover {
 .auth-otp>div input {
   margin: 0 !important;
   padding: 30px 15px;
-  background: #f4f5f6;
-  border: 1px solid #f4f5f6;
+  background: var(--color-4);
+  border: 1px solid var(--color-4);
   border-radius: 8px;
   text-align: center;
   font-size: 24px;
@@ -722,8 +905,8 @@ nav .MuiButtonBase-root:hover {
 }
 
 .auth-otp>div input:focus {
-  background-color: #fff;
-  border: 1px solid #e6e8ec;
+  background-color: var(--color_light);
+  border: 1px solid var(--color-2);
 }
 
 .auth-otp-cta {
@@ -779,12 +962,15 @@ input[type="number"] {
 
 .dropdown-menu .MuiPaper-root li {
   font-size: 14px;
-  color: #353945;
+  color: var(--txt-color);
   padding: 12px 20px;
+  border-color: var(--footer-border);
+  font-weight: 700;
+  font-family: var(--primary-font);
 }
 
 .customer-panel .app-nav {
-  background: #fcfcfd;
+  background: var(--body-grey);
 }
 
 .en-dropdown .MuiPaper-root {
@@ -834,7 +1020,7 @@ input[type="number"] {
 
 .language-dropdown.MuiFormControl-root label.radio-option {
   margin: 5px 0px;
-  border-bottom: 1px solid #e6e8ec;
+  border-bottom: 1px solid var(--color-2);
   width: 100%;
   padding: 10px 0px 10px 0;
   margin: 0;
@@ -848,12 +1034,16 @@ input[type="number"] {
   transform: none;
   font-size: 14px !important;
   text-transform: unset !important;
-  color: #777e90 !important;
+  color: var(--secondary-color) !important;
   font-family: var(--secondary-font) !important;
 }
 
 .app-nav button.MuiButtonBase-root {
   color: var(--secondary-color);
+}
+
+.header-logo-border {
+  border-right: 1px solid var(--footer-border);
 }
 
 .language-dropdown {
@@ -872,12 +1062,13 @@ input[type="number"] {
 
 #root .app-nav .btn {
   height: 46px;
-  color: #23262f;
+  /* color: var(--color_dark);
+  border-color: var(--color-2); */
 }
 
 #root .app-nav .btn-primary {
-  background-color: #3772ff;
-  color: #ffffff;
+  /* background-color: var(--primary-color);
+  color: var(--color_light); */
 }
 
 /* Header Ends */
@@ -885,7 +1076,7 @@ input[type="number"] {
 /* Footer Starts */
 .footer-subs-form button {
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--color_light);
   padding: 0px 5px;
   height: 32px;
   min-width: 32px;
@@ -895,21 +1086,30 @@ input[type="number"] {
 }
 
 .footer .border-rounded {
-  border: 1px solid #e6e8ec;
+  border: 1px solid var(--color-2);
   border-radius: 90px;
 }
 
 .rounded-input .MuiInputBase-root {
   padding: 11.5px 5px 11.5px 16px;
-  border: 2px solid #e6e8ec;
+  border: 2px solid var(--color-2);
   border-radius: 40px;
+}
+
+.rounded-input .MuiInputBase-root.Mui-focused {
+  border-color: var(--primary-color);
 }
 
 .rounded-input button {
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--color_light);
   width: 32px;
   height: 32px;
+}
+
+.rounded-input button:hover {
+  background-color: var(--primary-color);
+  color: var(--color_light);
 }
 
 #root .border-rounded.btn-green-outlined {
@@ -929,7 +1129,7 @@ input[type="number"] {
 }
 
 .footer .border-bottom {
-  border-bottom: 1px solid #e6e8ec;
+  border-bottom: 1px solid var(--footer-border);
 }
 
 /* Footer Ends */
@@ -944,18 +1144,18 @@ input[type="number"] {
 }
 
 .orange-btn {
-  background-color: #ff6838 !important;
-  color: #fff !important;
+  background-color: var(--btn-error) !important;
+  color: var(--color-white) !important;
 }
 
 .purple-btn {
-  background-color: #9757D7 !important;
-  color: #fff !important;
+  background-color: var(--btn-purple) !important;
+  color: var(--color-white) !important;
 }
 
 .green-btn {
-  background-color: #58BD7D !important;
-  color: #fff !important;
+  background-color: var(--btn-green) !important;
+  color: var(--color-white) !important;
 }
 
 .black-btn {
@@ -964,8 +1164,8 @@ input[type="number"] {
 }
 
 .blue-btn {
-  background-color: #3772FF !important;
-  color: #fff !important;
+  background-color: var(--primary-color) !important;
+  color: var(--color-white) !important;
 }
 
 .contact-new {
@@ -982,7 +1182,7 @@ input[type="number"] {
 }
 
 .gridBox:hover {
-  background-color: #fff;
+  background-color: var(--bg-light);
   border-radius: 32px;
   box-shadow: 0px 40px 24px rgba(15 15 15/ 0.1);
 }
@@ -1001,13 +1201,13 @@ input[type="number"] {
 
 .gridBox .green-btn,
 .gridBox .green-btn:hover {
-  background-color: #58bd7d;
-  color: #fff;
+  background-color: var(--btn-green);
+  color: var(--color_light);
 }
 
 .learn-cypto-tab .Mui-selected {
-  color: #fff !important;
-  background-color: #353945;
+  color: var(--color_light) !important;
+  background-color: var(--color-5);
   border-radius: 90px;
   text-transform: capitalize;
 }
@@ -1026,7 +1226,7 @@ input[type="number"] {
 
 /* Market page */
 .market-hero {
-  background-color: #decbe9;
+  background-color: var(--market-hero-bg);
   padding: 0;
   /* background-image: url("../public/assets/images/market-hero.svg"); */
   background-size: contain;
@@ -1038,6 +1238,10 @@ input[type="number"] {
   align-items: center;
   display: flex;
   overflow: hidden;
+}
+
+.market-hero .body-large {
+  color: var(--market-hero-para);
 }
 
 .flex-between-box .MuiGrid-root {
@@ -1083,7 +1287,7 @@ input[type="number"] {
 .market-crypto-card-wrapper {
   position: relative;
   z-index: 1;
-  background: #fcfcfd;
+  background: var(--body-grey);
   padding-bottom: 65px;
 }
 
@@ -1091,7 +1295,7 @@ input[type="number"] {
   content: "";
   width: 100%;
   height: 40%;
-  background-color: #decbe9;
+  background-color: var(--market-hero-bg);
   z-index: -1;
   position: absolute;
   top: 0;
@@ -1099,8 +1303,8 @@ input[type="number"] {
 }
 
 .market-crypto-card-wrapper-inner {
-  background: #fcfcfd;
-  border: 1px solid #f4f5f6;
+  background: var(--body-grey);
+  border: 1px solid var(--color-4);
   box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
   box-shadow: 0px 64px 64px -48px #0f0f0f1a;
   border-radius: 24px;
@@ -1109,7 +1313,7 @@ input[type="number"] {
 }
 
 .market-inner {
-  background: #fcfcfd;
+  background: var(--body-grey);
 }
 
 .market-crypto-graph {
@@ -1130,7 +1334,7 @@ input[type="number"] {
 
 .market-crypto-name .currency-name {
   font-size: 12px;
-  color: #777e91;
+  color: var(--secondary-color);
   font-weight: 600;
   text-transform: uppercase;
   white-space: nowrap;
@@ -1138,14 +1342,14 @@ input[type="number"] {
 
 .market-crypto-name .currency-name .status-badge {
   margin-left: 10px;
-  background: #58bd7d;
+  background: var(--btn-green);
   border-radius: 24px;
-  color: #fff;
+  color: var(--color_light);
   padding: 2px 8px;
 }
 
 .market-crypto-name .currency-name .status-badge.status-down {
-  background: #ff6838;
+  background: var(--btn-error);
 }
 
 .market-crypto-name h5 {
@@ -1155,7 +1359,7 @@ input[type="number"] {
 
 .market-crypto-tabs {
   padding: 24px;
-  border-top: 1px solid #e6e8ec;
+  border-top: 1px solid var(--color-2);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1185,7 +1389,7 @@ input[type="number"] {
   padding: 6px 12px;
   border-radius: 50px;
   font-weight: 700;
-  color: #777e91;
+  color: var(--secondary-color);
   min-width: 60px;
   font-family: var(--secondary-font) !important;
 }
@@ -1201,13 +1405,13 @@ input[type="number"] {
 .grid-cypto-trade {
   padding: 40px 30px;
   border-radius: 15px;
-  background-color: #fff;
+  background-color: var(--become-crypto-card-bg);
   box-shadow: 0px 6px 25px rgb(15 15 15 / 10%);
 }
 
 .crypto-box {
   padding: 50px;
-  background-color: #ffffff;
+  background-color: var(--color_light);
   margin: 80px 64px 24px;
   border-radius: 24px;
   box-shadow: 0px 6px 25px rgb(15 15 15 / 10%);
@@ -1242,7 +1446,7 @@ input[type="number"] {
 }
 
 .latest-release {
-  background-color: #F4F5F6;
+  background-color: var(--color-4);
   padding: 136px 0;
 }
 
@@ -1286,10 +1490,13 @@ input[type="number"] {
   padding-bottom: 136px;
 }
 
-.market-trend .crypto-list-table table tr th,.market-trend .crypto-list-table table tr td{
+.market-trend .crypto-list-table table tr th,
+.market-trend .crypto-list-table table tr td {
   text-align: left;
 }
-.market-trend .crypto-list-table table tr th button,.market-trend .crypto-list-table table tr td button{
+
+.market-trend .crypto-list-table table tr th button,
+.market-trend .crypto-list-table table tr td button {
   margin-left: 0;
 }
 
@@ -1314,6 +1521,12 @@ input[type="number"] {
   margin-right: 2px;
 }
 
+#root .filter-btn .btn.btn-secondary {
+  background-color: var(--tab-bg) !important;
+  color: var(--tab-color) !important;
+
+}
+
 .filter-btn .MuiTabs-root button {
   font-family: var(--secondary-font) !important;
 }
@@ -1323,8 +1536,8 @@ input[type="number"] {
 }
 
 .MuiTabs-root button.MuiTab-root.Mui-selected {
-  background-color: #353945;
-  color: var(--color_light);
+  background-color: var(--tab-bg);
+  color: var(--tab-color) !important;
   min-height: 28px;
 }
 
@@ -1335,7 +1548,7 @@ input[type="number"] {
   padding: 6px 12px;
   border-radius: 50px;
   font-weight: 700;
-  color: #777e91;
+  color: var(--secondary-color);
   min-width: 60px;
 }
 
@@ -1344,9 +1557,9 @@ input[type="number"] {
 }
 
 #root .btn-green-outlined {
-  color: #58bd7d !important;
-  background-color: rgba(0, 0, 0, 0) !important;
-  border: 1px solid #58bd7d !important;
+  color: var(--btn-green) !important;
+  background-color: var(--color-black) !important;
+  border: 1px solid var(--btn-green) !important;
   padding: 6px 12px !important;
   height: 26px;
   border-radius: 5px !important;
@@ -1364,7 +1577,7 @@ input[type="number"] {
 
 .newdesignbox .about-crypto {
   margin-bottom: 0;
-  background-color: #FCFCFD;
+  background-color: var(--body-grey);
 }
 
 .about-crypto .tutorial-preview {
@@ -1379,9 +1592,9 @@ input[type="number"] {
 }
 
 .search-icon {
-  background-color: #3772ff !important;
+  background-color: var(--primary-color) !important;
   border-radius: 100% !important;
-  color: #ffffff !important;
+  color: var(--color_light) !important;
   width: 35px !important;
   min-width: 35px !important;
   height: 35px !important;
@@ -1403,6 +1616,10 @@ input[type="number"] {
   margin-left: 75px;
 }
 
+.rfm-marquee img.margin10 {
+  margin-left: 75px;
+}
+
 /* learn cypto ends */
 
 /* learn cypto detail starts */
@@ -1412,8 +1629,19 @@ input[type="number"] {
   /* margin-bottom: 20px; */
 }
 
+.right-breadcrum .MuiBreadcrumbs-ol .MuiBreadcrumbs-li a,
+.right-breadcrum .MuiBreadcrumbs-separator svg,
+.center-breadcrum .MuiBreadcrumbs-li a,
+.center-breadcrum .MuiBreadcrumbs-separator svg {
+  color: var(--breadcrumb-color) !important;
+}
+
+.right-breadcrum .MuiBreadcrumbs-li p,
+.center-breadcrum .MuiBreadcrumbs-li p {
+  color: var(--breadcrumb-color-active) !important;
+}
+
 .center-breadcrum .MuiBreadcrumbs-li a {
-  color: var(--color-grey) !important;
   font-size: 14px;
   font-weight: 700;
   font-family: var(--secondary-font);
@@ -1422,17 +1650,15 @@ input[type="number"] {
 .center-breadcrum .MuiBreadcrumbs-li p.MuiTypography-root {
   font-size: 14px;
   font-weight: 700;
-  font-family: var(--secondary-font);
 }
 
 .center-breadcrum .MuiBreadcrumbs-li p.MuiTypography-root {
-  color: #353945 !important;
   font-weight: 600;
   font-size: 12px !important;
   margin: 0;
 }
 
-.right-breadcrum ol{
+.right-breadcrum ol {
   justify-content: end;
 }
 
@@ -1443,6 +1669,10 @@ input[type="number"] {
 
 /* learn cypto detail ends */
 /* Contact page */
+.contact-form-sec {
+  background-color: var(--contact-bg);
+}
+
 .topic-que .label-text.MuiTypography-root {
   transform: none;
   left: 0px;
@@ -1457,13 +1687,13 @@ input[type="number"] {
 }
 
 .faq-accordian .Mui-expanded .faq-count {
-  color: #3772ff;
+  color: var(--primary-color);
 }
 
 /* Homepage Ends */
 #root .topic-que .MuiSelect-select {
   padding: 10.5px 5px 10.5px 16px !important;
-  border: 2px solid #e6e8ec !important;
+  border: 2px solid var(--color-2) !important;
   border-radius: 12px !important;
   font-size: 14px !important;
 }
@@ -1474,13 +1704,13 @@ input[type="number"] {
 
 .topic-que .MuiBox-root .select-input .MuiInputBase-root {
   padding: 11.5px 5px 11.5px 16px;
-  border: 2px solid #e6e8ec;
-  background: #fff;
+  border: 2px solid var(--color-2);
+  background: var(--color_light);
   border-radius: 12px;
 }
 
 .topic-que .MuiBox-root .select-input.Mui-focused .MuiInputBase-root {
-  border-color: #3772FF;
+  border-color: var(--primary-color);
 }
 
 .topic-que .MuiBox-root .select-input .MuiInputBase-root input {
@@ -1506,7 +1736,12 @@ input[type="number"] {
 .faq-accordian .MuiButtonBase-root {
   padding-left: 30px;
   position: relative;
-  border-bottom: 1px solid #e6e8ec;
+  border-bottom: 1px solid var(--color-2);
+  color: var(--color_dark);
+}
+
+.faq-accordian .MuiButtonBase-root .MuiAccordionSummary-expandIconWrapper svg {
+  color: var(--color_dark);
 }
 
 .faq-accordian .MuiButtonBase-root p {
@@ -1539,12 +1774,12 @@ input[type="number"] {
 }
 
 #root .button-img .btn {
-  background-color: #ffffff;
+  background-color: var(--color_light);
   border-radius: 8px !important;
   padding: 19px 36px 12px 36px !important;
   min-width: 48%;
-  border: 2px solid #FCFCFD;
-  color: #23262F;
+  border: 2px solid var(--body-grey);
+  color: var(--color_dark);
 }
 
 #root .button-img .btn img {
@@ -1558,7 +1793,7 @@ input[type="number"] {
 .topic-que .MuiInputBase-root,
 .topic-que .MuiStack-root {
   width: 100%;
-  /* background-color: #fff; */
+  /* background-color: var(--color_light); */
   margin-top: 35px;
 }
 
@@ -1600,7 +1835,13 @@ input[type="number"] {
 .price-prediction h2 {
   font-family: var(--secondary-font) !important;
   margin-bottom: 20px;
+  color: var(--price-prediction-title);
 }
+
+.price-prediction p {
+  color: var(--price-prediction-title);
+}
+
 
 .learn-n-earn {
   padding: 136px 0;
@@ -1614,6 +1855,11 @@ input[type="number"] {
 
 .learn-n-earn h2 {
   font-family: var(--secondary-font) !important;
+  color: var(--learn-n-earn-title);
+}
+
+.learn-n-earn p {
+  color: var(--learn-n-earn-para);
 }
 
 .learn-n-earn-cards {
@@ -1625,7 +1871,7 @@ input[type="number"] {
   flex: 1;
   padding-bottom: 50px;
   padding-top: 20px;
-  border-bottom: 2px solid #e6e8ec;
+  border-bottom: 2px solid var(--color-2);
 }
 
 .learn-n-earn-video-wrapper {
@@ -1638,7 +1884,7 @@ input[type="number"] {
 }
 
 .learn-n-earn-card .learn-badge {
-  background: #9757d7;
+  background: var(--btn-purple);
   border-radius: 4px;
   font-weight: 700;
   padding: 6px 8px;
@@ -1648,7 +1894,7 @@ input[type="number"] {
 }
 
 .learn-n-earn-card:nth-child(2) .learn-badge {
-  background-color: #58bd7d;
+  background-color: var(--btn-green);
 }
 
 .learn-n-earn-card:nth-child(3) .learn-badge {
@@ -1671,7 +1917,7 @@ input[type="number"] {
   width: 24px;
   height: 24px;
   border-radius: 50px;
-  background-color: #58bd7d;
+  background-color: var(--btn-green)
 }
 
 .learn-n-earn-by .body-caption {
@@ -1705,23 +1951,25 @@ video {
 
 .crypto-list-table table tbody td {
   font-weight: 500;
+  color: var(--table-txt-color);
 }
 
 .crypto-list-table table tbody:before {
   line-height: 3em;
   content: "_";
-  color: #fcfcfd;
+  color: var(--body-grey);
   display: block;
 }
 
 .crypto-list-table table tr th:first-child,
 .crypto-list-table table tr td:first-child {
   padding-left: 0;
+  color: var(--secondary-color) !important;
 }
 
 .crypto-list-table table tr th,
 .crypto-list-table table tr td {
-  border-color: #f4f5f6;
+  border-color: var(--table-devider);
 }
 
 .crypto-list-table table tr {
@@ -1736,7 +1984,7 @@ video {
   top: 0;
   width: 40px;
   height: 100%;
-  background-color: #f4f5f6;
+  background-color: var(--color-4);
   opacity: 0;
   z-index: -1;
 }
@@ -1769,7 +2017,7 @@ video {
 
 .crypto-list-table table tr:hover th,
 .crypto-list-table table tr:hover td {
-  background-color: #f4f5f6;
+  background-color: var(--color-4);
 }
 
 .crypto-list-table table tr:hover td:first-child {
@@ -1793,11 +2041,11 @@ video {
 }
 
 .crypto-list-table .down {
-  color: #ff6838;
+  color: var(--btn-error);
 }
 
 .crypto-list-table .up {
-  color: #58bd7d;
+  color: var(--btn-green);
 }
 
 /* Prediction Dashboard */
@@ -1829,7 +2077,7 @@ video {
 }
 
 .market-prediction-faq {
-  background: #f4f5f6;
+  background: var(--color-4);
 }
 
 #root .market-prediction-faq h5.large-caption {
@@ -1839,7 +2087,7 @@ video {
 }
 
 .market-prediction-faq-items-wrapper {
-  background: #fcfcfd;
+  background: var(--body-grey);
   padding: 32px 0;
 }
 
@@ -1876,7 +2124,7 @@ video {
   width: 100%;
   max-width: 448px;
   border: none;
-  background: #fcfcfd;
+  background: var(--modal-bg);
   box-shadow: 0px 64px 64px -48px rgba(31, 47, 70, 0.12);
   border-radius: 20px;
 }
@@ -1902,7 +2150,7 @@ video {
 .modal-modal-description .crypto-value {
   font-weight: 600;
   font-size: 24px;
-  color: #ff6838;
+  color: var(--btn-error);
 }
 
 .modal-modal-description .MuiTabs-flexContainer {
@@ -1928,7 +2176,7 @@ video {
 }
 
 .crypto-table .modal-modal-description {
-  background: #fcfcfd;
+  background: var(--body-grey);
   box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
   border-radius: 4px;
   margin-bottom: 32px;
@@ -1955,7 +2203,7 @@ video {
 
 /* Subscription page */
 .subscription-wrapper {
-  background-color: #fcfcfd;
+  background-color: var(--body-grey);
 }
 
 .subscription-wrapper-head {
@@ -1963,7 +2211,7 @@ video {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #fcfcfd;
+  background-color: var(--body-grey);
 }
 
 .subscription-wrapper-head small {
@@ -1972,7 +2220,7 @@ video {
 }
 
 .subscription-wrapper-head small a {
-  color: #353945 !important;
+  color: var(--color-5) !important;
 }
 
 .subscription-wrapper-head h2 {
@@ -1982,7 +2230,7 @@ video {
 /* become-a-crypto-trader  */
 .become-a-crypto-trader {
   padding: 136px 0;
-  background-color: #f4f5f6;
+  background-color: var(--become-crypto-bg);
 }
 
 .crypto-trader-head {
@@ -1999,9 +2247,10 @@ video {
 }
 
 .subscription-steps {
-  background-color: #f8f8f9;
+  background-color: var(--subscription-steps-color);
   padding-top: 80px;
   padding-bottom: 136px;
+  border-top: 1px solid var(--footer-border);
 }
 
 .subscription-steps-inner {
@@ -2026,7 +2275,7 @@ video {
 }
 
 .subscription-step:hover {
-  background-color: #f1f1f1;
+  background-color: var(--color-7);
 }
 
 .subscription-step:after {
@@ -2036,13 +2285,13 @@ video {
   left: 15px;
   width: 24px;
   height: 0px;
-  border: 1px dashed #777e91;
+  border: 1px dashed var(--secondary-color);
   transform: rotate(90deg);
   z-index: -1;
 }
 
 .subscription-step.current-step {
-  background: #fcfcfd;
+  background: var(--body-grey);
   color: var(--color_dark);
   box-shadow: 0px 4px 16px -8px rgba(15, 15, 15, 0.1);
 }
@@ -2050,8 +2299,8 @@ video {
 .subscription-step .number-circle {
   width: 32px;
   height: 32px;
-  color: #23262F;
-  border: 2px solid #e6e8ec;
+  color: var(--color_dark);
+  border: 2px solid var(--color-2);
   border-radius: 100%;
   display: flex;
   justify-content: center;
@@ -2072,17 +2321,17 @@ video {
 }
 
 .subscription-step.completed-step .number-circle {
-  background-color: #58bd7d;
-  border-color: #58bd7d;
-  color: #fff;
+  background-color: var(--btn-green);
+  border-color: var(--btn-green);
+  color: var(--color_light);
 }
 
 .subscription-step.current-step .number-circle {
-  border-color: #58bd7d;
+  border-color: var(--btn-green);
 }
 
 .subscription-steps-col-details {
-  background: #fcfcfd;
+  background: var(--forecast-subscription-card);
   box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1);
   border-radius: 16px;
   padding: 40px;
@@ -2093,15 +2342,19 @@ video {
   font-weight: 600;
 }
 
+.side-nav-border {
+  border-bottom: 1px solid var(--footer-border);
+}
+
 .subscription-plan {
   /* margin-top: 32px; */
   margin-bottom: 36px;
-  border-top: 1px solid #e6e8ec;
+  border-top: 1px solid var(--color-2);
 }
 
 .subscription-plan-card {
   margin-top: 22px;
-  background: #ffffff;
+  background: var(--subscription-plan-card);
   border: 1px solid rgba(0, 0, 0, 0.125);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.075);
   border-radius: 4px;
@@ -2131,7 +2384,7 @@ video {
   font-weight: 400;
   font-size: 24px;
   font-family: "Poppins";
-  color: #6c757d;
+  color: var(--copyright-grey);
 }
 
 .subscription-plan-card .subscription-plan-body p {
@@ -2168,8 +2421,12 @@ video {
   font-family: var(--secondary-font) !important;
 }
 
+.dark-theme #root .account-main .card-inner-head h2 {
+  color: #777E90;
+}
+
 #root .account-main .card-inner-head h2 span {
-  color: #ff6838;
+  color: var(--btn-error);
 }
 
 .account-main .subscription-plan {
@@ -2184,7 +2441,7 @@ video {
 #root .subscription-plan .subscription-plan-cta p {
   font-size: 14px;
   font-weight: 400;
-  color: #212529;
+  /* color: var(--color-dark3); */
   text-align: center;
 }
 
@@ -2204,11 +2461,11 @@ video {
 .card-inner-head .large-caption.invest-smarter {
   font-size: 16px !important;
   font-weight: 500;
-  color: #23262f;
+  color: var(--color_dark);
 }
 
 .amount-for {
-  background: #f4f5f6;
+  background: var(--color-4);
   border-radius: 16px;
   padding: 25px 37px;
   display: flex;
@@ -2231,11 +2488,11 @@ video {
   justify-content: center;
   align-items: center;
   border-radius: 100%;
-  background-color: #9757d7;
+  background-color: var(--btn-purple);
 }
 
 .payment-for .wallet-ic {
-  background: #58bd7d;
+  background: var(--btn-green);
 }
 
 .payment-method .wallet-ic {
@@ -2288,30 +2545,30 @@ video {
   font-size: 12px;
   line-height: 12px;
   text-transform: uppercase;
-  color: #B1B5C4;
+  color: var(--color-6);
 }
 
 .checkout-form label div.StripeElement {
   padding: 12px 16px;
-  border: 2px solid #E6E8EC;
+  border: 2px solid var(--color-2);
   border-radius: 12px;
 }
 
 .checkout-form label div.StripeElement.StripeElement--focus {
-  border-color: #3772FF;
+  border-color: var(--primary-color);
 }
 
 .checkout-form label div.StripeElement.StripeElement--complete {
-  border-color: #58bd7d;
+  border-color: var(--btn-green);
 }
 
 .checkout-form label div.StripeElement.StripeElement--invalid {
-  border-color: #9e2146;
+  border-color: var(--error-dark);
 }
 
 .checkout-form .form-error {
   font-size: 12px;
-  color: #9e2146;
+  color: var(--error-dark);
   margin-top: 10px;
 }
 
@@ -2336,7 +2593,7 @@ video {
 }
 
 .become-a-crypto-trader-card {
-  background: #fcfcfd;
+  background: var(--become-crypto-card-bg);
   border-radius: 20px;
   padding: 85px 32px;
   text-align: center;
@@ -2390,12 +2647,16 @@ p.left-icon img {
 }
 
 .white-input-box .MuiInputBase-root.MuiInput-root {
-  background-color: #ffffff;
+  background-color: var(--refferal-form-input);
+}
+
+.MuiFormControl-root .MuiInputBase-root input.Mui-disabled {
+  -webkit-text-fill-color: var(--mui-disabled);
 }
 
 /* 
  .update-profile input {
-    background-color: #fff !important;
+    background-color: var(--color_light) !important;
     border-radius: 12px;
     height: 48px;
     padding: 0px 15px !important;
@@ -2419,9 +2680,9 @@ p.left-icon img {
   display: flex;
   font-size: 14px !important;
   text-transform: unset !important;
-  color: #777e90 !important;
+  color: var(--secondary-color) !important;
   font-family: var(--secondary-font) !important;
-  border-bottom: 1px solid #e6e8ec;
+  border-bottom: 1px solid var(--color-2);
   padding-top: 11px;
   padding-bottom: 11px;
   align-items: center;
@@ -2459,15 +2720,23 @@ p.left-icon img {
   gap: 20px;
 }
 
+.grid-bit {
+  background-color: var(--color-4);
+}
+
 /* Notifications */
 .notification-wrapper {
-  background: #f4f5f6;
+  background: var(--subscription-steps-color);
   padding: 32px 0;
 }
 
+/* .notification-inner {
+  background: var(--forecast-subscription-card);
+} */
+
 .notification-list-card,
 .deposit-transfer {
-  background: #fcfcfd;
+  background: var(--forecast-subscription-card);
   border-radius: 8px;
   padding: 40px;
 }
@@ -2496,7 +2765,7 @@ p.left-icon img {
   align-items: start;
   margin-bottom: 24px;
   padding-bottom: 24px;
-  border-bottom: 1px solid #e6e8ec;
+  border-bottom: 1px solid var(--color-2);
 }
 
 .notification-list-itm:last-child {
@@ -2506,7 +2775,7 @@ p.left-icon img {
 .notification-icon {
   width: 44px;
   height: 44px;
-  border: 2px solid #e6e8ec;
+  border: 2px solid var(--color-2);
   color: var(--secondary-color);
   border-radius: 100px;
   display: flex;
@@ -2539,11 +2808,11 @@ p.left-icon img {
   width: 12px;
   height: 12px;
   border-radius: 100%;
-  background-color: #58bd7d;
+  background-color: var(--btn-green);
 }
 
 .notification-badge .MuiBadge-badge {
-  background-color: #58bd7d;
+  background-color: var(--btn-green);
   line-height: 5;
   position: absolute;
   right: 27px;
@@ -2551,6 +2820,11 @@ p.left-icon img {
   height: 20px;
   top: 12px;
 }
+
+/* 
+.notification-badge svg{
+  color: unset;
+} */
 
 .notification-filter h5 {
   margin-bottom: 24px;
@@ -2565,7 +2839,7 @@ p.left-icon img {
 }
 
 .MuiFormGroup-root .MuiCheckbox-colorPrimary {
-  color: #e6e8ec;
+  color: var(--color-2);
 }
 
 .MuiFormGroup-root .MuiCheckbox-colorPrimary.Mui-checked {
@@ -2602,15 +2876,15 @@ p.left-icon img {
 /* Refferal page css */
 
 .green-span span {
-  color: #58bd7d;
+  color: var(--btn-green);
 }
 
 .faenable-box span {
-  color: #58bd7d;
+  color: var(--btn-green);
 }
 
 .fa-disabled span {
-  color: #ff6838;
+  color: var(--btn-error);
 }
 
 .email-icon svg {
@@ -2633,11 +2907,11 @@ p.left-icon img {
 }
 
 .main-box .referrals-btn {
-  color: #000;
+  color: var(--color-black);
   text-transform: capitalize;
   font-weight: 700;
   border-radius: 16px;
-  border: 1px #f1f2f4;
+  border: 1px var(--color-12);
 }
 
 .form-input input {
@@ -2657,7 +2931,7 @@ p.left-icon img {
 
 .bottom-border:before {
   content: "";
-  background-color: #e6e8ec;
+  background-color: var(--color-2);
   width: 166px;
   height: 2px;
   position: absolute;
@@ -2666,7 +2940,7 @@ p.left-icon img {
 }
 
 .black-label.MuiFormControl-root label {
-  color: #353945;
+  color: var(--color-5);
   transform: none;
 }
 
@@ -2675,9 +2949,9 @@ p.left-icon img {
 }
 
 .copied-adorement .MuiInputAdornment-root p {
-  color: #ffffff;
+  color: var(--color_light);
   text-transform: uppercase;
-  background-color: #23262f;
+  background-color: var(--color_dark);
   font-weight: 700;
   font-size: 12px !important;
   padding: 4px 9px;
@@ -2688,15 +2962,16 @@ p.left-icon img {
 .update-profile {
   border-radius: 16px;
   margin-bottom: 48px;
+  /* background-color: var(--forecast-subscription-card); */
 }
 
 .update-profile .MuiFormControl-root label {
-  color: #353945;
+  color: var(--color-6);
   transform: none;
 }
 
 .update-profile .MuiFormControl-root label.Mui-focused {
-  color: #353945;
+  color: var(--primary-color);
   transform: none;
 }
 
@@ -2721,6 +2996,7 @@ video[poster] {
 
 .extra-wrapper p {
   margin-bottom: 24px;
+  color: var(--privcy-para);
 }
 
 .borderRounded {
@@ -2755,7 +3031,7 @@ video[poster] {
 .community-card {
   padding: 40px 30px;
   border-radius: 15px;
-  background-color: #fff;
+  background-color: var(--color_light);
   box-shadow: 0px 6px 25px rgba(15, 15, 15, 0.1);
 }
 
@@ -2788,7 +3064,7 @@ video[poster] {
 
 #root .community-card p {
   font-size: 14px;
-  color: #777e90;
+  color: var(--secondary-color);
   padding-right: 10px;
   text-align: justify;
 }
@@ -2802,12 +3078,12 @@ video[poster] {
 }
 
 .center-tab.primary-tabs.MuiTabs-root button.MuiTab-root.Mui-selected {
-  background-color: #3772ff;
+  background-color: var(--primary-color);
 }
 
 .primary-tabs.MuiTabs-root button.MuiTab-root {
-  background-color: #00000000;
-  border: 1px solid #e6e8ec;
+  background-color: var(--color-black)00000;
+  border: 1px solid var(--color-2);
 }
 
 .MuiBadge-root.icon-btn {
@@ -2827,7 +3103,7 @@ video[poster] {
 
 .subscription-steps-col p.left-icon {
   opacity: 1;
-  color: #777E90;
+  color: var(--secondary-color);
 }
 
 .css-qe9us1-MuiFormHelperText-root.Mui-error,
@@ -2863,11 +3139,15 @@ video[poster] {
 }
 
 .text-black {
-  color: #23262F !important;
+  color: var(--color_dark) !important;
 }
 
 .text-black .dark-icon {
   display: block;
+}
+
+.dark-theme .text-black .dark-icon {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }
 
 .dark-icon {
@@ -2885,32 +3165,43 @@ video[poster] {
 
 .payment-plan-box {
   display: flex;
+  margin-bottom: 20px;
+  gap: 15px;
 }
 
-.payment-plan-box p {
+.ElementsApp,
+.ElementsApp .InputElement {
+  color: var(--color_dark);
+}
+
+/* .payment-plan-box p {
   border: 1px solid;
-  border-color: #353945;
+  border-color: var(--color-5);
   background-color: transparent;
-  color: #353945;
+  color: var(--color-5);
   margin: 0px 10px 15px 0px !important;
   padding: 5px 12px;
   border-radius: 66px;
-}
+} */
 
-.payment-plan-box p.active {
+/* .payment-plan-box p.active {
 
-  border-color: #353945;
-  background-color: #353945;
-  color: #fff;
-}
+  border-color: var(--color-5);
+  background-color: var(--color-5);
+  color: var(--color_light);
+} */
 
 #root .button-img .btn.active {
-  background-color: #FCFCFD !important;
-  border: 2px solid #3772FF;
+  /* background-color: var(--body-grey) !important; */
+  border: 2px solid var(--primary-color);
+}
+
+.br-b {
+  border-bottom: 1px solid var(--footer-border);
 }
 
 #root .button-img .btn.active img {
-  border: 1px solid #ffffff;
+  border: 1px solid var(--color_light);
 }
 
 #root .button-img .btn img {
@@ -2925,9 +3216,9 @@ video[poster] {
 }
 
 #root .MuiLoadingButton-loading {
-  background-color: #f2f2f2 !important;
-  color: #212529;
-  border: 1px solid #3772FF;
+  background-color: var(--color-7) !important;
+  color: var(--color-dark3);
+  border: 1px solid var(--primary-color);
 }
 
 .y-scroll {
@@ -2936,6 +3227,16 @@ video[poster] {
 
 .session-list {
   margin-bottom: 48px;
+}
+
+.session-list table th {
+  background-color: unset;
+  color: var(--table-th);
+  border-color: var(--footer-border);
+}
+
+.session-list table td {
+  color: var(--table-td);
 }
 
 .login-history .session-list {
@@ -2953,12 +3254,16 @@ video[poster] {
 
 .become-crypto {
   padding: 136px 0;
-  background-color: #F4F5F6;
+  background-color: var(--become-crypto-bg);
 }
 
 .global-community {
-  background-color: #f4f5f6;
+  background-color: var(--global-community-bg);
   padding: 136px 0;
+}
+
+.dark-theme .coinguru-logo {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }
 
 
@@ -2972,6 +3277,7 @@ video[poster] {
 
 .how-it-work {
   padding: 136px 0;
+  background-color: var(--how-it-work-bg);
 }
 
 
@@ -3003,7 +3309,7 @@ video[poster] {
 }
 
 .text-black {
-  color: #23262F !important;
+  color: var(--color_dark) !important;
 }
 
 .text-black .dark-icon {
@@ -3022,15 +3328,15 @@ video[poster] {
   display: none !important;
 }
 
-.payment-plan-box {
+/* .payment-plan-box {
   display: flex;
-}
+} */
 
-.payment-plan-box p {
+/* .payment-plan-box p {
   border: 1px solid;
-  border-color: #353945;
+  border-color: var(--color-5);
   background-color: transparent;
-  color: #353945;
+  color: var(--color-5);
   margin: 0px 10px 15px 0px !important;
   padding: 5px 12px;
   border-radius: 66px;
@@ -3038,18 +3344,18 @@ video[poster] {
 
 .payment-plan-box p.active {
 
-  border-color: #353945;
-  background-color: #353945;
-  color: #fff;
-}
+  border-color: var(--color-5);
+  background-color: var(--color-5);
+  color: var(--color_light);
+} */
 
 #root .button-img .btn.active {
-  background-color: #e5e5e5;
-  color: #000;
+  /* background-color: var(--color-10);
+  color: var(--color-black); */
 }
 
 #root .button-img .btn.active img {
-  border: 1px solid #ffffff;
+  border: 1px solid var(--color_light);
 }
 
 #root .button-img .btn img {
@@ -3064,9 +3370,9 @@ video[poster] {
 }
 
 #root .MuiLoadingButton-loading {
-  background-color: #f2f2f2 !important;
-  color: #212529;
-  border: 1px solid #3772FF;
+  background-color: var(--color-7) !important;
+  color: var(--color-dark3);
+  border: 1px solid var(--primary-color);
 }
 
 .swiper-styles .swiper {
@@ -3080,7 +3386,7 @@ video[poster] {
 .swiper-styles .swiper-button-next:after,
 .swiper-global .swiper-button-next:after {
   content: "➜";
-  color: #23262F;
+  color: var(--color_dark);
   font-size: 21px;
 }
 
@@ -3088,7 +3394,7 @@ video[poster] {
 .swiper-global .swiper-button-prev:after {
   content: "➜";
   transform: rotate(-180deg);
-  color: #23262F;
+  color: var(--color_dark);
   font-size: 21px;
 }
 
@@ -3141,6 +3447,11 @@ video[poster] {
   overflow-y: auto;
 }
 
+.MuiMenu-root .MuiMenu-paper {
+  background-color: var(--mui-menu-papper);
+  color: var(--txt-color);
+}
+
 .MuiMenu-list li.MuiMenuItem-root:hover {
   background-color: unset;
 }
@@ -3158,34 +3469,46 @@ video[poster] {
   animation: rotate 1.5s linear infinite;
 }
 
+.dark-theme .loading-img {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
+.app-store .stacks {
+  border-bottom: 1px solid var(--make-informed-devider);
+}
+
 .subscribe-notification {
   position: absolute;
   top: 150px;
   right: 30px;
 }
+
 .community-ic-img {
   width: 100%;
   height: 50px;
   max-width: 50px !important;
 }
-.community-ic-img img{
+
+.community-ic-img img {
   width: 50px !important;
   height: 50px !important;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.height400{
+.height400 {
   height: 400px;
   width: 100%;
   object-fit: cover;
   object-position: center center;
   border-radius: 15px;
 }
+
 .market-prediction-faq-item-img img {
   object-fit: cover;
   height: 120px;
 }
+
 @keyframes rotate {
   to {
     transform: rotate(360deg);
@@ -3348,7 +3671,7 @@ video[poster] {
   }
 
   .slider-icon.active-slider-icon {
-    border: 2px solid #e6e8ec !important;
+    border: 2px solid var(--color-2) !important;
     padding: 0px 9px;
     border-radius: 50px;
   }
@@ -3468,7 +3791,112 @@ video[poster] {
   } */
 }
 
+@media (max-width: 899.98px) {
+  .footer .footer-col {
+    border-right: none;
+    border-bottom: 1px solid var(--footer-border);
+  }
+
+  .mobile-nav Button {
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-nav-box Button {
+    text-transform: capitalize;
+  }
+
+  .mobile-menu .MuiTypography-root,
+  .mobile-menu .MuiButtonBase-root {
+    font-size: 24px;
+    font-weight: 600;
+    font-family: var(--primary-font);
+    padding: 3px 0;
+    color: var(--secondary-color);
+    border: none;
+
+  }
+
+  .mobile-menu .MuiTypography-root:active,
+  .mobile-menu .MuiButtonBase-root:active {
+    color: var(--color-dark2);
+  }
+
+  .mobile-menu .MuiAccordionSummary-content {
+    margin: 0 !important;
+  }
+
+  .mobile-menu .MuiPaper-root {
+    box-shadow: none;
+  }
+
+  .submenu p {
+    font-size: 16px !important;
+    padding-top: 10px !important;
+  }
+
+  .submenu .MuiAccordionDetails-root {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  .mobile-nav-box {
+    position: relative;
+  }
+
+  .mobile-nav-box .close-btn {
+    position: absolute;
+    right: 32px;
+    top: 0px;
+    font-size: 29px;
+    transform: rotate(45deg);
+    line-height: 0;
+  }
+
+  .mobile-avatar {
+    padding-right: 20px !important;
+  }
+
+  .close {
+    transform: rotate(45deg);
+    font-size: 29px;
+    line-height: 0;
+  }
+
+  .mobile-in-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .mobile-menu li .MuiButtonBase-root {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+  }
+
+  #root nav .btn.mobile-none {
+    display: none !important;
+  }
+
+  nav .MuiButtonBase-root {
+    padding: 6px 0px;
+  }
+
+}
+
 @media (max-width: 767.98px) {
+  .dropdown-mobile {
+    margin-bottom: 10px;
+  }
+
   .market-prediction-faq-item {
     flex-wrap: wrap;
   }
@@ -3529,7 +3957,7 @@ video[poster] {
   }
 
   .subscription-steps.account-main {
-    background-color: #f8f8f9;
+    background-color: var(--color-9);
   }
 
   .subscription-steps.account-main .subscription-steps-col {
@@ -3537,8 +3965,8 @@ video[poster] {
   }
 
   .subscription-steps.account-main .subscription-steps-col .MuiInputBase-root {
-    border-color: #f8f8f9;
-    background-color: #fff;
+    border-color: var(--color-9);
+    background-color: var(--color_light);
   }
 
   .crypto-list-table table tbody:before {
@@ -3600,6 +4028,15 @@ video[poster] {
     font-size: 14px !important;
     font-weight: 500;
     padding: 12px;
+    color: var(--color_dark);
+  }
+
+  .dropdown-mobile .MuiInputBase-root fieldset {
+    border-color: var(--form-control);
+  }
+
+  .dropdown-mobile svg.MuiSvgIcon-root {
+    color: var(--color_dark);
   }
 
   .learn-earn-dropdown {
@@ -3611,8 +4048,8 @@ video[poster] {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #fcfcfd;
-    border: 1px solid #e6e8ec;
+    background: var(--body-grey);
+    border: 1px solid var(--color-2);
     border-radius: 12px;
     padding: 12px;
     font-size: 14px !important;
@@ -3621,13 +4058,13 @@ video[poster] {
   }
 
   .subscription-steps {
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--color-11);
     padding-top: 0;
     padding-bottom: 34px;
   }
 
   .auth-header {
-    background-color: #fff;
+    background-color: var(--color_light);
     flex-wrap: wrap;
     justify-content: center !important;
     gap: 24px;
@@ -3649,98 +4086,6 @@ video[poster] {
     font-size: 32px;
   }
 
-  .mobile-nav Button {
-    padding: 0;
-    margin: 0;
-  }
-
-  .mobile-nav-box Button {
-
-    text-transform: capitalize;
-  }
-
-  .mobile-menu .MuiTypography-root,
-  .mobile-menu .MuiButtonBase-root {
-    font-size: 24px;
-    font-weight: 600;
-    font-family: var(--primary-font);
-    padding: 3px 0;
-    color: #777E90;
-    border: none;
-
-  }
-
-  .mobile-menu .MuiTypography-root:active,
-  .mobile-menu .MuiButtonBase-root:active {
-    color: #141416;
-  }
-
-  .mobile-menu .MuiAccordionSummary-content {
-    margin: 0 !important;
-  }
-
-  .mobile-menu .MuiPaper-root {
-    box-shadow: none;
-  }
-
-  .submenu p {
-    font-size: 16px !important;
-    padding-top: 10px !important;
-  }
-
-  .submenu .MuiAccordionDetails-root {
-    padding-top: 0px;
-    padding-bottom: 0px;
-  }
-
-  .mobile-nav-box {
-    position: relative;
-  }
-
-  .mobile-nav-box .close-btn {
-    position: absolute;
-    right: 32px;
-    top: 0px;
-    font-size: 29px;
-    transform: rotate(45deg);
-    line-height: 0;
-  }
-
-  .mobile-avatar {
-    padding-right: 20px !important;
-  }
-
-  .close {
-    transform: rotate(45deg);
-    font-size: 29px;
-    line-height: 0;
-  }
-
-  .mobile-in-nav {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .mobile-menu li .MuiButtonBase-root {
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-
-  .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  #root nav .btn.mobile-none {
-    display: none !important;
-  }
-
-  nav .MuiButtonBase-root {
-    padding: 6px 0px;
-  }
 
   /* homepage */
   .filter-btn,
@@ -3902,7 +4247,7 @@ video[poster] {
   }
 
   .subscription-steps {
-    background-color: #fcfcfd;
+    background-color: var(--body-grey);
   }
 
   .subscription-steps-inner {
@@ -3975,7 +4320,7 @@ video[poster] {
 
   .notification-wrapper {
     padding: 0;
-    background-color: #fcfcfd;
+    background-color: var(--body-grey);
   }
 
   .notification-list-card {
@@ -4009,7 +4354,7 @@ video[poster] {
 
   /*contact page  */
   .contact-search {
-    border: 2px solid #e6e8ec;
+    border: 2px solid var(--color-2);
     width: 100% !important;
     border-radius: 90px !important;
   }
@@ -4051,7 +4396,7 @@ video[poster] {
   }
 
   .notification-badge .MuiBadge-badge {
-    background-color: #58bd7d;
+    background-color: var(--btn-green);
     line-height: 5;
     position: absolute;
     right: 6px;
@@ -4269,18 +4614,19 @@ video[poster] {
 }
 
 .MuiButtonBase-root {
-  background-color: #353945;
-  color: #fff;
+  background-color: var(--color-5);
+  color: var(--color_light);
 }
-.react-swipeable-view-container > div[aria-hidden="false"] {
+
+.react-swipeable-view-container>div[aria-hidden="false"] {
   height: 100%;
 }
 
-.react-swipeable-view-container > div[aria-hidden="true"] {
+.react-swipeable-view-container>div[aria-hidden="true"] {
   height: 0;
 }
 
-.elip_typo { 
+.elip_typo {
   overflow: auto;
   height: 200px;
   text-overflow: ellipsis;
@@ -4288,28 +4634,31 @@ video[poster] {
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
-.elip_typo::-webkit-scrollbar
-{
-	width: 5px;
-	background-color: #777e90;
+
+.elip_typo::-webkit-scrollbar {
+  width: 5px;
+  background-color: var(--secondary-color);
 }
+
 .newdesignbox .crypto-center {
   width: 100%;
   max-width: 99%;
   height: 170px;
   object-fit: fill;
-  background-color: #f2f2f2;
+  background-color: var(--color-7);
 }
-.iframe-video iframe{
+
+.iframe-video iframe {
   border-radius: 16px;
 }
+
 .PhoneInput {
   display: flex;
   align-items: center;
   margin-top: 12px;
   padding: 11.5px 5px 11.5px 16px;
-  border: 2px solid #e6e8ec;
-  background: #fff;
+  border: 2px solid var(--color-2);
+  background: var(--color_light);
   border-radius: 12px;
 }
 
@@ -4333,6 +4682,7 @@ video[poster] {
   opacity: 0;
   cursor: pointer;
 }
+
 .PhoneInputCountryIcon {
   width: calc(1em * 1.5);
   height: 1.2em;
@@ -4353,6 +4703,7 @@ video[poster] {
   transform: rotate(45deg);
   opacity: 0.45;
 }
+
 .PhoneInput input:not(.react-phone-number-input__input) {
   padding-left: 0.4em;
   padding-right: 0.4em;
@@ -4365,21 +4716,33 @@ video[poster] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  color: var(--form-control);
 }
 
-.PhoneInput img{
+#root .nevermind {
+  color: var(--color_dark);
+  font-family: var(--secondary-font) !important;
+}
+
+.recover-email {
+  color: var(--color_dark);
+}
+
+.PhoneInput img {
   border-radius: 0px;
 }
+
 .PhoneInputInput {
   flex: 1;
   min-width: 0;
 }
-.custom-mobile label{
+
+.custom-mobile label {
   font-size: 9px;
   font-family: var(--primary-font) !important;
-  font-weight: 700;    
+  font-weight: 700;
   text-transform: uppercase;
-  color: #b1b5c4;
+  color: var(--color-6);
   order: 1;
 }
 
@@ -4387,7 +4750,7 @@ video[poster] {
   border: 2px solid rgb(94, 115, 235) !important;
 }
 
-.PhoneInput2:focus-within + #phone_label_id {
+.PhoneInput2:focus-within+#phone_label_id {
   color: rgb(84, 107, 238) !important;
 }
 
@@ -4396,34 +4759,30 @@ video[poster] {
   flex-direction: column;
   margin-top: 4px;
 }
-.custom-mobile .frm-message{
+
+.custom-mobile .frm-message {
   order: 3;
   margin-top: 7px;
 }
-.custom-mobile .PhoneInput{
+
+.custom-mobile .PhoneInput {
   order: 2;
 }
 
-.unsubscribe-form-wrapper{
+.unsubscribe-form-wrapper {
   min-height: calc(100vh - 492px);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.unsubscribe-form-wrapper .unsubscribe-form{
+.unsubscribe-form-wrapper .unsubscribe-form {
   width: 100%;
   max-width: 450px;
   margin: auto;
 }
 
-.unsubscribe-form-wrapper button{
+.unsubscribe-form-wrapper button {
   max-width: 200px;
   margin: auto;
-}
-.css-4pdmu4-MuiBreadcrumbs-ol {
-  padding-top: 67px !important;
-}
-.ol.community-class .MuiBreadcrumbs-ol {
-  margin-top: -72px !important;
 }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
@@ -29,20 +30,14 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { bannerListActions } from '../../../_actions';
 import { setLogoListAtom } from '../../../_state';
 import { useRecoilValue } from 'recoil';
-import { useEffect } from 'react';
 
 const drawerWidth = '100%';
 const drawerHeight = '100vh';
 
 function Header(props) {
- 
+
   const LogoListAction = bannerListActions();
   const LogoList = useRecoilValue(setLogoListAtom);
-  
-     useEffect(() => {
-        const response = LogoListAction.logoList();
-        response.then((res) => {(res) })
-    }, []);
 
   const navItems = [
     {
@@ -98,12 +93,27 @@ function Header(props) {
     setMobileOpen((prevState) => !prevState);
   };
 
+  const [isDark, setIsDark] = useState(false)
+  const handleDarkMode = () => {
+    setIsDark(!isDark)
+  }
+
+  useEffect(() => {
+    const body = document.body;
+    if (isDark) {
+      body.classList.add('dark-theme');
+    } else {
+      body.classList.remove('dark-theme');
+    }
+  }, [isDark])
+
+
   const drawer = (
     <>
       <Box className='mobile-nav-box' sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
         <Box className='close-btn' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}><p>+</p></Box>
         <Box>
-          <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+          <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
           <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
             <Button variant='standard' className='nav-mobile-btn btn'>Crypto</Button>
             <Accordion className='submenu'>
@@ -190,39 +200,43 @@ function Header(props) {
       <AppBar component="nav" className="app-nav">
         <Toolbar className='mobile-nav'>
           <Box className='mobile-in-nav' sx={{ display: { sm: 'none' } }}>
-            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
 
             <IconButton
               color="inherit"
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: 'none' } }}
+              sx={{ mr: 2, display: { md: 'none' } }}
             >
               <MenuIcon />
             </IconButton>
           </Box>
-          <Typography
-            variant="h6"
-            onClick={() => {
-              navigate("/");
-            }}
-            sx={{
-              flexGrow: 1,
-              display: {
-                xs: "none",
-                sm: "block",
-                lineHeight: "100%",
-                flex: 1,
-                cursor: "pointer",
-              },
-              borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
-            }}
-          >
-            <img src={LogoList[0]?.image?`${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}`:LogoList[0]?.image_link} alt="Coin Guru" />
-           
-          </Typography>
-          
+          {LogoList?.map((items) => {
+            let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
+            return (
+              <Typography
+                variant="h6"
+                className='header-logo-border'
+                onClick={() => {
+                  navigate("/");
+                }}
+                sx={{
+                  flexGrow: 1,
+                  display: {
+                    xs: "none",
+                    sm: "block",
+                    lineHeight: "100%",
+                    flex: 1,
+                    cursor: "pointer",
+                  },
+                  // borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
+                }}
+              >
+                <img src={LogoList[0]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}` : LogoList[0]?.image_link} className='coinguru-logo' alt='coinguru-logo' />
+              </Typography>
+            )
+          })}
           <Box
             className=""
             sx={{
@@ -286,6 +300,10 @@ function Header(props) {
             justifyContent="end"
           >
 
+            <IconButton onClick={handleDarkMode} aria-label="sunny" color="primary " className=' mobile-none'>
+              <WbSunnyOutlined />
+            </IconButton>
+
             <Button
               onClick={() => {
                 navigate("/create-account");
@@ -326,7 +344,7 @@ function Header(props) {
               keepMounted: true, // Better open performance on mobile.
             }}
             sx={{
-              display: { xs: 'block', sm: 'none' },
+              display: { xs: 'block', sm: 'block', md: 'block', lg: 'none' },
               '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, height: drawerHeight },
             }}
           >

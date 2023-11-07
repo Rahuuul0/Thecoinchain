@@ -18,7 +18,7 @@ const AcademyAboutCrypto = () => {
         <Link to="/" underline="hover" key="1" color="inherit"  >
             Home
         </Link>,
-        <Typography  key="3" color="text.primary" sx={{ m: "0!important" }}>
+        <Typography key="3">
             All About Crypto
         </Typography>,
     ];
@@ -33,18 +33,18 @@ const AcademyAboutCrypto = () => {
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
     });
 
-    console.log(allAbout,'allAbout')
+    console.log(allAbout, 'allAbout')
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div' >
+                <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div'>
                     <Container maxWidth="lg">
                         <Box className='right-breadcrum ol community-class' sx={{ color: '#777E90', fontWeight: '500' }}>
-                            <Box  className='about-bread'>
+                            <Box className='about-bread'>
                                 <Breadcrumbs
                                     separator={<NavigateNext fontSize="small" />}
                                     aria-label="breadcrumb"
-                                    className='center-breadcrum'
+                                    className='right-breadcrum'
                                 >
                                     {breadcrumbs}
                                 </Breadcrumbs>
@@ -54,24 +54,24 @@ const AcademyAboutCrypto = () => {
                         {allAbout?.map((items) => {
                             let title = items.title;
                             let description = items.description;
-                            let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}`:items.image_link;
+                            let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
                             return (
-                            <>
-                                <Box className='subscription-wrapper-head'>
-                                    <Typography component="h2" variant='h2'>
-                                        {title}
-                                    </Typography>
-                                </Box>
-                                <Box className='page-inner'>
-                                    {image == null || image == ''? " " : <img src={image} alt='' />}       
-                                    <Typography component="p" variant='body2'>
-                                        {ReactHtmlParser(description)}
-                                    </Typography>
-                                </Box>
-                            </>
+                                <>
+                                    <Box className='subscription-wrapper-head'>
+                                        <Typography component="h2" variant='h2'>
+                                            {title}
+                                        </Typography>
+                                    </Box>
+                                    <Box className='page-inner'>
+                                        {image == null || image == '' ? " " : <img src={image} alt='' />}
+                                        <Typography component="p" variant='body2'>
+                                            {ReactHtmlParser(description)}
+                                        </Typography>
+                                    </Box>
+                                </>
                             )
-                        })}  
-                      
+                        })}
+
                     </Container>
                 </Box>
             </ThemeProvider>

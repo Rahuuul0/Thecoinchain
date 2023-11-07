@@ -104,7 +104,7 @@ const CryptoTable = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleChange = (event, newValue) => {
     setValue(newValue);
-   
+
   };
 
   const handleMouseOver = (index) => {
@@ -239,8 +239,8 @@ const CryptoTable = (props) => {
 
     setIsSubmitting(true)
     setTimeout(() => {
-        setLimit(value);
-  }, 400);
+      setLimit(value);
+    }, 400);
   }
   return (
     <>
@@ -292,16 +292,16 @@ const CryptoTable = (props) => {
                       item?.price > 1
                         ? Math.round(item.price * 100) / 100
                         : item?.price < 1 && item?.price >= 0.1
-                        ? (Math.round(item.price * 10000) / 10000)?.toFixed(2)
-                        : item?.price < 0.1 && item?.price > 0.01
-                        ? (Math.round(item.price * 1000000) / 1000000)?.toFixed(
-                            6
-                          )
-                        : item?.price < 0.01
-                        ? (
-                            Math.round(item.price * 100000000) / 100000000
-                          )?.toFixed(8)
-                        : item?.price;
+                          ? (Math.round(item.price * 10000) / 10000)?.toFixed(2)
+                          : item?.price < 0.1 && item?.price > 0.01
+                            ? (Math.round(item.price * 1000000) / 1000000)?.toFixed(
+                              6
+                            )
+                            : item?.price < 0.01
+                              ? (
+                                Math.round(item.price * 100000000) / 100000000
+                              )?.toFixed(8)
+                              : item?.price;
                     return (
                       <TableRow
                         key={index}
@@ -375,8 +375,8 @@ const CryptoTable = (props) => {
                         )}
 
                         {location.pathname === "/prediction-dashboard" &&
-                        (subscriptionDetails.status === "expired" ||
-                          !item.ct_hours_4_current) ? (
+                          (subscriptionDetails.status === "expired" ||
+                            !item.ct_hours_4_current) ? (
                           <>
                             {/* <TableCell align="right">
                                   <HttpsIcon />
@@ -494,7 +494,7 @@ const CryptoTable = (props) => {
                         )}
 
                         {subscriptionDetails.status === "running" &&
-                        location.pathname !== "/" ? (
+                          location.pathname !== "/" ? (
                           <TableCell align="right" sx={{ cursor: "pointer" }}>
                             <img
                               src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
@@ -589,8 +589,8 @@ const CryptoTable = (props) => {
                                       ? "/login"
                                       : userDetail &&
                                         subscriptionDetails.status === "running"
-                                      ? "/prediction-dashboard"
-                                      : "/subscription"
+                                        ? "/prediction-dashboard"
+                                        : "/subscription"
                                   );
                                 }}
                               >
@@ -617,7 +617,7 @@ const CryptoTable = (props) => {
                 className="btn btn-outlined-secondary"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> :(<> <img src={LoadingImg}  alt="loading"/> Load more </> )}
+                {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : (<> <img className="loading-img" src={LoadingImg} alt="loading" /> Load more </>)}
               </LoadingButton>
             )}
             {/* {location.pathname === "/prediction-dashboard" ? (
@@ -690,7 +690,7 @@ const CryptoTable = (props) => {
               </Button> */}
               <Typography className="crypto-value" variant="h5" component="h5">
                 {chartData[0]?.price.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
+                  minimumFractionDigits: 2,
                 })}
               </Typography>
               <Typography
@@ -874,7 +874,7 @@ const CryptoTable = (props) => {
                               Math.round(
                                 (chartData[0]?.ct_hours_4_current -
                                   chartData[0]?.price) *
-                                  100
+                                100
                               ) / 100
                             )?.toFixed(2)}
                             {"  "}
@@ -884,7 +884,7 @@ const CryptoTable = (props) => {
                                   chartData[0]?.price) *
                                   100) /
                                   chartData[0]?.ct_hours_4_current) *
-                                  100
+                                100
                               ) / 100}
                               %
                             </span>
@@ -942,7 +942,7 @@ const CryptoTable = (props) => {
                               Math.round(
                                 (chartData[0]?.ct_day_1_current -
                                   chartData[0]?.price) *
-                                  100
+                                100
                               ) / 100
                             )?.toFixed(2)}
                             <span>

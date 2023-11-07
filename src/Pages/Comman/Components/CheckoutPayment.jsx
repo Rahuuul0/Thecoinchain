@@ -57,7 +57,7 @@ const CheckoutForm = () => {
     const [isProcessing, setProcessingTo] = useState(false);
     const [checkoutError, setCheckoutError] = useState();
     const subscribed = subscriptionActions();
-    const [confirm, setConfirm] = useState({ 'plan' : {}, 'step': 1 });
+    const [confirm, setConfirm] = useState({ 'plan': {}, 'step': 1 });
     const options = useOptions();
     const [subscriptionData, setSubscriptionData] = useState([]);
     const [open, setOpen] = useState(false);
@@ -70,10 +70,10 @@ const CheckoutForm = () => {
 
     // Subscription action get function   API data call 
     useEffect(() => {
-            if(subplan === true){
-                setConfirm({ "plan":plan, "step": 2 })
-            }
-       
+        if (subplan === true) {
+            setConfirm({ "plan": plan, "step": 2 })
+        }
+
         const get_subscription = async () => {
             await subscribed.subscription()
                 .then((res) => {
@@ -149,15 +149,15 @@ const CheckoutForm = () => {
         }
 
     }
-    
-    
+
+
     const handleCardDetailsChange = event => {
         setCardComplete({ ...cardComplete, [event.elementType]: event.complete })
         event.error ? setCheckoutError(event.error.message) : setCheckoutError();
     };
 
     const styled = (confirm.step === 2) ? { "height": '100%', "opacity": "1" } : { "height": '0px', "opacity": "0", "display": "none" }
-    useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) },[]);
+    useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) }, []);
 
     return (
         <Box className='subscription-steps-inner'>
@@ -179,7 +179,7 @@ const CheckoutForm = () => {
                 </Box>
                 <Box className={`subscription-step ${confirm.step === 2 ? "current-step" : confirm.step === 3 ? 'completed-step' : ''}`}>
                     <Box component="span" className='number-circle'>
-                        <Box onClick={() => setConfirm({ ...confirm, "step": 2 })}>{confirm.step === 2 ? "2" :confirm.step === 3 ? <CheckIcon /> : '2' }</Box>
+                        <Box onClick={() => setConfirm({ ...confirm, "step": 2 })}>{confirm.step === 2 ? "2" : confirm.step === 3 ? <CheckIcon /> : '2'}</Box>
                     </Box>
                     <Typography component="p" variant='body2'>
                         Payment info
@@ -187,7 +187,7 @@ const CheckoutForm = () => {
                 </Box>
                 <Box className={`subscription-step ${confirm.step === 3 ? "current-step" : ''}`}>
                     <Box component="span" className='number-circle'>
-                        <Box    onClick={() =>   cardComplete.cardNumber === true ? setConfirm({ ...confirm, "step": 3 }) :"" } >3</Box>
+                        <Box onClick={() => cardComplete.cardNumber === true ? setConfirm({ ...confirm, "step": 3 }) : ""} >3</Box>
                     </Box>
                     <Typography component="p" variant='body2'>
                         Confirm order
@@ -269,12 +269,18 @@ const CheckoutForm = () => {
                             </Box>
                             <>
                                 <Box className='payment-plan-box'>
-                                    <Typography className={creditCardStatus ? 'active small-caption' : 'small-caption'} onClick={e => setCreditCardStatus(true)} component="p" variant='body2' sx={{ color: '#6C757D', mt: '32px' }}>
+                                    {/* <Typography className={creditCardStatus ? 'active small-caption btn btn-outline-secondary' : 'btn btn-outline-secondary small-caption'} onClick={e => setCreditCardStatus(true)} component="p" variant='body2' sx={{ color: '#6C757D', mt: '32px' }}>
                                         Credit Card
-                                    </Typography>
-                                    <Typography className={creditCardStatus ? 'small-caption' : 'active small-caption'} onClick={e => setCreditCardStatus(false)} component="p" variant='body2' sx={{ color: '#6C757D', mt: '32px' }}>
+                                    </Typography> */}
+                                    <Button className={creditCardStatus ? 'active btn btn-primary' : 'active btn btn-outlined-secondary'} onClick={e => setCreditCardStatus(true)} variant="outline">
+                                        Credit Card
+                                    </Button>
+                                    {/* <Typography className={creditCardStatus ? 'small-caption' : ' active small-caption'} onClick={e => setCreditCardStatus(false)} component="p" variant='body2' sx={{ color: '#6C757D', mt: '32px' }}>
                                         Paypal
-                                    </Typography>
+                                    </Typography> */}
+                                    <Button onClick={e => setCreditCardStatus(false)} variant="outline" className={creditCardStatus ? 'btn btn-outlined-secondary' : ' active btn btn-primary'}>
+                                        Paypal
+                                    </Button>
                                 </Box>
                                 {creditCardStatus === true &&
                                     <>
@@ -307,9 +313,9 @@ const CheckoutForm = () => {
                                             <Box className="subscription-plan-cta">
                                                 <Button variant='outlined' className='btn btn-outlined-secondary' onClick={e => setConfirm({ ...confirm, step: 1 })}>Cancel</Button>
 
-                                                {cardComplete.cardNumber === true && cardComplete.cardExpiry === true && cardComplete.cardCvc === true ? 
-                                                <Button onClick={e => setConfirm({ ...confirm, step: 3 })} variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} >Continue</Button>
-                                                : <Button onClick={e => setConfirm({ ...confirm, step: 3 })} variant='contained' className='btn' sx={{ ml: 'auto' }} disabled > Continue</Button>}
+                                                {cardComplete.cardNumber === true && cardComplete.cardExpiry === true && cardComplete.cardCvc === true ?
+                                                    <Button onClick={e => setConfirm({ ...confirm, step: 3 })} variant='contained' className='btn btn-primary' sx={{ ml: 'auto' }} >Continue</Button>
+                                                    : <Button onClick={e => setConfirm({ ...confirm, step: 3 })} variant='contained' className='btn' sx={{ ml: 'auto' }} disabled > Continue</Button>}
                                             </Box>
                                         </div>
                                     </>

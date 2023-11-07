@@ -20,7 +20,7 @@ import ReactHtmlParser from 'react-html-parser';
 
 
 const NewsPromotions = (props) => {
-  
+
     const navigate = useNavigate();
     const newsListGetActions = newsListActions();
     const promotionsGetActions = promotionsActions();
@@ -137,7 +137,7 @@ const NewsPromotions = (props) => {
     const handleChangeIndex = (index) => {
         setValueTab(index);
     };
-    
+
     useEffect(() => {
         setPromotionCategoryList(promotionList)
     }, [promotionList]);
@@ -151,14 +151,14 @@ const NewsPromotions = (props) => {
         navigate(`${RoutesName.learn_Crypto_Details}/newsletter/${newsSeo}`)
         setBlogimg(data)
         setBlognew(true)
-    } 
+    }
 
     const imgpromo = (data) => {
         let newsSeo = data.slug
         navigate(`${RoutesName.learn_Crypto_Details}/newspromotions/${newsSeo}`)
         setBlogimg(data)
         setBlognew(true)
-    } 
+    }
     useEffect(() => {
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
     }, []);
@@ -199,7 +199,7 @@ const NewsPromotions = (props) => {
                                         </Tabs>
                                     </AppBar>
                                     <SwipeableViews
-                                    // animateHeight
+                                        // animateHeight
                                         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                                         index={valueTab}
                                         onChangeIndex={handleChangeIndex}
@@ -218,17 +218,17 @@ const NewsPromotions = (props) => {
                                                     </Grid>
 
                                                     <TabContext value={value}>
-                                                        <Box className='for-desktop' sx={{ borderBottom: 1, borderColor: "divider" }}>
+                                                        <Box className='for-desktop'>
                                                             <TabList
                                                                 value={value}
                                                                 aria-label="tabs">
                                                                 <Tab
-                                                                className='tab-selected'
-                                                                label="All" 
-                                                                value="1" 
-                                                                onClick={e => handleChanges('1')} 
-                                                                indicatorColor="secondary"
-                                                                textColor="inherit" />
+                                                                    className='tab-selected'
+                                                                    label="All"
+                                                                    value="1"
+                                                                    onClick={e => handleChanges('1')}
+                                                                    indicatorColor="secondary"
+                                                                    textColor="inherit" />
                                                                 {newsCategory?.map((item) => {
                                                                     return <Tab onClick={e => handleChanges(item.title)} label={item.title} key={item.id} value={item.title} />;
                                                                 })}
@@ -260,7 +260,7 @@ const NewsPromotions = (props) => {
                                                                 return (
                                                                     <Box paddingBottom={3}>
                                                                         <Grid container
-                                                                             onClick={() => imgLink(item)}
+                                                                            onClick={() => imgLink(item)}
                                                                             sx={{ cursor: "pointer" }}
                                                                         >
                                                                             <Grid item xs={12} sm={5} md={5}>
@@ -268,7 +268,7 @@ const NewsPromotions = (props) => {
                                                                                     className="blog-box"
                                                                                     display="flex"
                                                                                     flexDirection="column"
-                                                                                    justifyContent="space-between"                           
+                                                                                    justifyContent="space-between"
                                                                                 >
                                                                                     <Box height="50">
                                                                                         <Typography
@@ -276,7 +276,7 @@ const NewsPromotions = (props) => {
                                                                                             sx={{ marginBottom: "50px" }}
                                                                                             className="orange-btn small-btn small-new-btn"
                                                                                         >
-                                                                                            New 
+                                                                                            New
                                                                                         </Typography>
                                                                                     </Box>
                                                                                     <Box className="" paddingBottom={5}>
@@ -285,14 +285,14 @@ const NewsPromotions = (props) => {
                                                                                             fontWeight="700"
                                                                                             className="secondary-font"
                                                                                             paddingBottom={2}
-                                                                                            sx={{maxHeight: '80px', overflow: 'hidden' }}
+                                                                                            sx={{ maxHeight: '80px', overflow: 'hidden' }}
                                                                                         >
                                                                                             {item.title}
                                                                                         </Typography>
                                                                                         <Typography paddingBottom={5}>
                                                                                             {item.category}
                                                                                         </Typography>
-                                                                                        <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
+                                                                                        <Typography className="body-caption secondary-color" sx={{ maxHeight: '45px', overflow: 'hidden' }}>
                                                                                             {ReactHtmlParser(description)}
                                                                                         </Typography>
                                                                                     </Box>
@@ -330,15 +330,15 @@ const NewsPromotions = (props) => {
                                                         </Grid>
 
                                                         <TabContext value={valueTemp}>
-                                                            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                                                            <Box sx={{ borderColor: "divider" }}>
                                                                 <TabList className='for-desktop' onChange={handleCategory} aria-label="tabs">
-                                                                    <Tab label="All" value="1" onClick={e => handleCategorys('1')}  />
+                                                                    <Tab label="All" value="1" onClick={e => handleCategorys('1')} />
                                                                     {promotionCategory?.map((item) => {
-                                                                        return <Tab 
-                                                                        indicatorColor="secondary"
-                                                                        textColor="inherit"
-                                                                        onClick={e => handleCategorys(item.title)}  
-                                                                        label={item.title} value={item.title} />;
+                                                                        return <Tab
+                                                                            indicatorColor="secondary"
+                                                                            textColor="inherit"
+                                                                            onClick={e => handleCategorys(item.title)}
+                                                                            label={item.title} value={item.title} />;
                                                                     })}
                                                                 </TabList>
                                                             </Box>
@@ -354,7 +354,7 @@ const NewsPromotions = (props) => {
                                                                             displayEmpty
                                                                             inputProps={{ "aria-label": "Without label" }}
                                                                         >
-                                                                             <MenuItem value="1" >All</MenuItem>
+                                                                            <MenuItem value="1" >All</MenuItem>
                                                                             {promotionCategory?.map((item) => {
                                                                                 return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
                                                                                 )
@@ -369,10 +369,10 @@ const NewsPromotions = (props) => {
                                                                         let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`: item.image_link;
                                                                         return (
                                                                             <Box paddingBottom={3}>
-                                                                                <Grid container  
+                                                                                <Grid container
                                                                                     onClick={() => imgpromo(item)}
                                                                                     sx={{ cursor: "pointer" }}
-                                                                                 >
+                                                                                >
                                                                                     <Grid item xs={12} sm={5} md={5}>
                                                                                         <Box
                                                                                             className="blog-box"
@@ -395,14 +395,14 @@ const NewsPromotions = (props) => {
                                                                                                     fontWeight="700"
                                                                                                     className="secondary-font"
                                                                                                     paddingBottom={2}
-                                                                                                    sx={{height: '80px', overflow: 'hidden' }}
+                                                                                                    sx={{ height: '80px', overflow: 'hidden' }}
                                                                                                 >
                                                                                                     {item.title}
                                                                                                 </Typography>
                                                                                                 <Typography paddingBottom={5}>
                                                                                                     {item.category}
                                                                                                 </Typography>
-                                                                                                <Typography className="body-caption secondary-color"  sx={{height: '45px', overflow: 'hidden'}}>
+                                                                                                <Typography className="body-caption secondary-color" sx={{ height: '45px', overflow: 'hidden' }}>
                                                                                                     {ReactHtmlParser(description)}
                                                                                                 </Typography>
                                                                                             </Box>
@@ -441,7 +441,7 @@ const NewsPromotions = (props) => {
                     <Container>
                         <Box>
                             <Box textAlign="center">
-                                <img src={DarkLogo} />
+                                <img src={DarkLogo} className='coinguru-logo' />
                                 <Typography
                                     variant="h2"
                                     component="h2"

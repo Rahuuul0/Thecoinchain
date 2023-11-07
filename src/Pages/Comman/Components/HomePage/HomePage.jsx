@@ -37,7 +37,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Marquee from "react-fast-marquee";
 import CryptoTable from "../../CryptoTable";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import {
   useCoinActions,
@@ -100,7 +100,7 @@ const Home = () => {
   const crypotTraderList = useRecoilValue(cryptoTraderAtom);
   const cryptoNewsList = useRecoilValue(cryptoNewsAtom);
 
-  const [loadmore,setLoadmore] = useState(4);
+  const [loadmore, setLoadmore] = useState(4);
   const bannerList = useRecoilValue(bannerListAtom);
 
   const tutorialCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
@@ -140,7 +140,7 @@ const Home = () => {
     tutorialAction.categoryList();
     homeActions.cryptoTrader()
     homeActions.cryptoNews()
- 
+
   }, []);
   
  // Api home_banner-list
@@ -154,103 +154,102 @@ const Home = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 }, []);
 
-const videoLink = (data) => {
-  let learnSeo = data.slug
-  navigate(`${RoutesName.learn_Crypto_Details}/learncyptovideo/${learnSeo}`)
-  setBlogimg(data)
-  setBlognew(true)
-  setBlogvideo(true)
-} 
+  const videoLink = (data) => {
+    let learnSeo = data.slug
+    navigate(`${RoutesName.learn_Crypto_Details}/learncyptovideo/${learnSeo}`)
+    setBlogimg(data)
+    setBlognew(true)
+    setBlogvideo(true)
+  }
 
-const handleLoadmore = () => {
-  setLoadmore(loadmore + 20);
-}
+  const handleLoadmore = () => {
+    setLoadmore(loadmore + 20);
+  }
 
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
       {/* Banner starts */}
-      {homeBannerData ?.map((items)=>{
+      {homeBannerData?.map((items) => {
         let title = items.title;
         let decription = items.decription;
-        let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}`:items.image_link;
+        let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
         return (
-      <Container>
-        <Box paddingBottom={{ xs: 4, sm: 8 }}>
-          {subscribeUser?.status === "expired" && auth !== null ?
-            <Stack sx={{ width: '38%', marginLeft: 'auto', marginTop: '22px' }} spacing={2}>
-              <Alert severity="info">You don't have any current plan please <Link to={'/subscription'}> <b>subscribe </b></Link> !</Alert>
-            </Stack>
-            : ""}
-          <Grid container sx={{ alignItems: "center" }}>
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              sx={{
-                paddingRight: { xs: "0px", md: "50px" },
-                paddingTop: { xs: "50px", md: "0px" },
-              }}
-            >
-              <Typography
-                variant="h1"
-                component="div"
-                className="hero-heading primary-color"
-              >
-                {title}
-              </Typography>
-              <Typography
-                variant="body2"
-                component="div"
-                className="hero-para primary-font secondary-color"
-                sx={{
-                  paddingBottom: { xs: "30px", md: "50px" },
-                  paddingTop: { xs: "20px" },
-                }}
-              >
-                 {ReactHtmlParser(decription)}
-              </Typography>
-              <Typography paddingBottom={2}>
-                <Button
-                  variant="contained"
-                  className="btn btn-primary "
-                  sx={{ borderRadius: "90px" }}
-                  onClick={() => {
-                    navigate("./market");
+          <Container>
+            <Box paddingBottom={{ xs: 4, sm: 8 }}>
+              {subscribeUser?.status === "expired" && auth !== null ?
+                <Stack sx={{ width: '38%', marginLeft: 'auto', marginTop: '22px' }} spacing={2}>
+                  <Alert severity="info">You don't have any current plan please <Link to={'/subscription'}> <b>subscribe </b></Link> !</Alert>
+                </Stack>
+                : ""}
+              <Grid container sx={{ alignItems: "center" }}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={6}
+                  sx={{
+                    paddingRight: { xs: "0px", md: "50px" },
+                    paddingTop: { xs: "50px", md: "0px" },
                   }}
                 >
-                  Get started now
-                </Button>
-              </Typography>
-              <IconButton
-                aria-label="ArrowCircleDown"
-                variant="outlined"
-                color="#B1B5C3"
-                padding={0}
-              >
-                <ArrowCircleDownSharp
-                  sx={{ color: "#B1B5C3" }}
-                  onClick={() => {
-                    window.scrollTo({ top: 2250, left: 0, behavior: "smooth" });
-                  }}
-                />
-              </IconButton>
-            </Grid>
-            <Grid item xs={12} sm={6} md={6}>
-              <img className="heroImage" src={image} alt='' />
-            </Grid>
-          </Grid>
-        </Box>
-      </Container>
-         )
-        })}
+                  <Typography
+                    variant="h1"
+                    component="div"
+                    className="hero-heading primary-color"
+                  >
+                    {title}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    component="div"
+                    className="hero-para primary-font secondary-color"
+                    sx={{
+                      paddingBottom: { xs: "30px", md: "50px" },
+                      paddingTop: { xs: "20px" },
+                    }}
+                  >
+                    {ReactHtmlParser(decription)}
+                  </Typography>
+                  <Typography paddingBottom={2}>
+                    <Button
+                      variant="contained"
+                      className="btn btn-primary "
+                      sx={{ borderRadius: "90px" }}
+                      onClick={() => {
+                        navigate("./market");
+                      }}
+                    >
+                      Get started now
+                    </Button>
+                  </Typography>
+                  <IconButton
+                    aria-label="ArrowCircleDown"
+                    variant="outlined"
+                    color="#B1B5C3"
+                    padding={0}
+                  >
+                    <ArrowCircleDownSharp
+                      sx={{ color: "#B1B5C3" }}
+                      onClick={() => {
+                        window.scrollTo({ top: 2250, left: 0, behavior: "smooth" });
+                      }}
+                    />
+                  </IconButton>
+                </Grid>
+                <Grid item xs={12} sm={6} md={6}>
+                  <img className="heroImage" src={image} alt='' />
+                </Grid>
+              </Grid>
+            </Box>
+          </Container>
+        )
+      })}
       {/* Banner Ends */}
       <Container>
         <Box
           sx={{ alignItems: "center" }}
           className="grid-bit"
-          backgroundColor="#F4F5F6"
           padding={3}
           borderRadius={6}
         >
@@ -341,7 +340,7 @@ const handleLoadmore = () => {
                 fontWeight={700}
                 className="secondary-font mobile-text-center"
               >
-                Learn crypto 
+                Learn crypto
               </Typography>
             </Grid>
             <Grid
@@ -389,87 +388,85 @@ const handleLoadmore = () => {
                   columnSpacing={{ xs: 1, sm: 4 }}
                   className="ipad-none"
                 >
-                    {tutorialsList?.slice(0).map((item, index) => {
-                      let description = item.description;
-                        if(index < loadmore){
+                  {tutorialsList?.slice(0).map((item, index) => {
+                    let description = item.description;
+                    if (index < loadmore) {
 
                       if (description.length > 10) {
                         description =
                           item.description.substring(0, 150) + "...";
                       }
                       return (
-                 <Grid item xs={6}>
-                        <Grid
-                          container
-                          columnSpacing={{ xs: 1, sm: 4 }}
-                          className="flex-between-box"
-                          marginBottom={3}
-                          onClick={() => videoLink(item)}
-                        >
-                          <Grid item xs={6}  sx={{ cursor: "pointer" }}>
-                            <Stack spacing={2} justifyContent="space-between">
+                        <Grid item xs={6}>
+                          <Grid
+                            container
+                            columnSpacing={{ xs: 1, sm: 4 }}
+                            className="flex-between-box"
+                            marginBottom={3}
+                            onClick={() => videoLink(item)}
+                          >
+                            <Grid item xs={6} sx={{ cursor: "pointer" }}>
+                              <Stack spacing={2} justifyContent="space-between">
+                                <Typography
+                                  fontSize={16}
+                                  className="primary-font"
+                                  sx={{ maxHeight: '45px', overflow: 'hidden', fontWeight: "500" }}
+                                >
+                                  {item.title}
+                                  {item.category}
+                                </Typography>
+                                <Typography
+                                  sx={{ fontSize: "14px !important", maxHeight: '110px', overflow: 'hidden' }}
+                                  className="secondary-color primary-font"
+                                >
+                                  {ReactHtmlParser(description)}
+                                </Typography>
+                              </Stack>
                               <Typography
-                                fontSize={16}
-                                sx={{maxHeight: '45px', overflow: 'hidden'}}
-                                className="primary-font"
-                                sx={{ fontWeight: "500" }}
-                              >
-                                {item.title}
-                                {item.category}
-                              </Typography>
-                              <Typography
-                                sx={{ fontSize: "14px !important" ,maxHeight: '110px', overflow: 'hidden'}}
+                                sx={{ fontSize: "14px !important" }}
+                                fontWeight={400}
                                 className="secondary-color primary-font"
                               >
-                                {ReactHtmlParser(description)}
+                                {dayjs(item.created_at).format("MMM DD,YYYY")}
                               </Typography>
-                            </Stack>
-                            <Typography
-                              sx={{ fontSize: "14px !important" }}
-                              fontWeight={400}
-                              className="secondary-color primary-font"
-                            >
-                              {dayjs(item.created_at).format("MMM DD,YYYY")}
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Box className="cypto-video">
-                              <ReactPlayer
-                                url={item.video_link}
-                                controls={true}
-                                light={item.image_link}
-                                playing={false}
-                                // poster={Learn01}
-                                width="100%"
-                                height="100%"
-                              />
-                            </Box>
-                         
-                          </Grid>
-                        </Grid>
+                            </Grid>
+                            <Grid item xs={6}>
+                              <Box className="cypto-video">
+                                <ReactPlayer
+                                  url={item.video_link}
+                                  controls={true}
+                                  light={item.image_link}
+                                  playing={false}
+                                  // poster={Learn01}
+                                  width="100%"
+                                  height="100%"
+                                />
+                              </Box>
 
-                  </Grid>
+                            </Grid>
+                          </Grid>
+
+                        </Grid>
                       );
                     }
-                    })}
-                   
+                  })}
+
                 </Grid>
-                { tutorialsList.length > 4 && tutorialsList.length > loadmore && 
-                <Button
-                      variant="outline"
-                      className="btn btn-outline"
-                      endIcon={<KeyboardArrowRight sx={{ color : "#777E90"}} />}
-                      sx={{
-                        border: "1px solid #E6E8EC",
-                        height: "50px",
-                        whiteSpace: "nowrap",
-                        minWidth: "auto",
-                        // marginLeft : "25px",
-                      }}
-                      onClick={handleLoadmore}
-                    >
-                      Load more 
-                    </Button>
+                {tutorialsList.length > 4 && tutorialsList.length > loadmore &&
+                  <Button
+                    variant="outlined"
+                    className="btn btn-outlined-secondary"
+                    endIcon={<KeyboardArrowRight sx={{ color: "#777E90" }} />}
+                    sx={{
+                      height: "50px",
+                      whiteSpace: "nowrap",
+                      minWidth: "auto",
+                      // marginLeft : "25px",
+                    }}
+                    onClick={handleLoadmore}
+                  >
+                    Load more
+                  </Button>
                 }
               </TabPanel>
             </TabContext>
@@ -503,45 +500,45 @@ const handleLoadmore = () => {
                 >
                   {tutorialsList?.slice(0, 3).map((item, index) => {
                     let description = item.description;
-                    if( index <loadmore){
-                    if (description.length > 10) {
-                      description = item.description.substring(0, 150) + "...";
-                    }
-                    return (
-                      <SwiperSlide>
-                        <Box className="about-crypto">
-                          {/* <img width="100%" src={Leveraged} /> */}
-                          <Box
-                            className="cypto-video"
-                            sx={{ width: "100% !important" }}
-                          >
-                            <ReactPlayer
-                              url={item.video_link}
-                              controls={true}
-                              light={item.image_link}
-                              playing={true}
-                              // poster={Learn01}
-                              width="100%"
-                              height="100%"
-                            />
+                    if (index < loadmore) {
+                      if (description.length > 10) {
+                        description = item.description.substring(0, 150) + "...";
+                      }
+                      return (
+                        <SwiperSlide>
+                          <Box className="about-crypto">
+                            {/* <img width="100%" src={Leveraged} /> */}
+                            <Box
+                              className="cypto-video"
+                              sx={{ width: "100% !important" }}
+                            >
+                              <ReactPlayer
+                                url={item.video_link}
+                                controls={true}
+                                light={item.image_link}
+                                playing={true}
+                                // poster={Learn01}
+                                width="100%"
+                                height="100%"
+                              />
+                            </Box>
+                            <Typography
+                              fontSize={16}
+                              paddingY={2}
+                              fontWeight={700}
+                              className="body-large primary-font"
+                            >
+                              {item.title}
+                            </Typography>
+                            <Typography
+                              sx={{ fontSize: "14px !important" }}
+                              className="secondary-color primary-font"
+                            >
+                              {ReactHtmlParser(description)}
+                            </Typography>
                           </Box>
-                          <Typography
-                            fontSize={16}
-                            paddingY={2}
-                            fontWeight={700}
-                            className="body-large primary-font"
-                          >
-                            {item.title}
-                          </Typography>
-                          <Typography
-                            sx={{ fontSize: "14px !important" }}
-                            className="secondary-color primary-font"
-                          >
-                            {ReactHtmlParser(description)}
-                          </Typography>
-                        </Box>
-                      </SwiperSlide>
-                    );
+                        </SwiperSlide>
+                      );
                     }
                   })}
                 </Swiper>
@@ -560,7 +557,7 @@ const handleLoadmore = () => {
                   lg: "none !important",
                 },
               }}
-              onClick={() => { 
+              onClick={() => {
                 navigate("./learn-cypto");
               }}
             >
@@ -605,7 +602,7 @@ const handleLoadmore = () => {
                 navigate("/market");
               }}
             >
-             Learn more 
+              Learn more
             </Button>
           </Box>
           <Stack
@@ -633,7 +630,7 @@ const handleLoadmore = () => {
                   coinActions.latestListing("?limit=5");
                 }}
               >
-                All 
+                All
               </Button>
             )}
             {categoryList.length &&
@@ -698,7 +695,7 @@ const handleLoadmore = () => {
                       coinActions.latestListing("?limit=5");
                     }}
                   >
-                    All 
+                    All
                   </MenuItem>
                 )}
                 {categoryList.length &&
@@ -784,35 +781,35 @@ const handleLoadmore = () => {
                 {crypotTraderList?.map((item) => {
                   let title = item.title;
                   let description = item.description;
-                  let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`:item.image_link;
+                  let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
                   let link = item.link;
-                    return(
-                      <Grid item xs={12} sm={4}>
-                        <Box textAlign="center" className="grid-cypto-trade">
-                          {image == null || image == ''? " ": <img  src={image} paddingBottom={3} alt='' />} 
-                          <Typography variant="h6" paddingBottom={3}>
-                            {title}
-                          </Typography>
-                          <Typography
-                            className="body-caption secondary-color"
-                            paddingBottom={3}
-                          >
-                            {ReactHtmlParser(description)}
-                          </Typography>
-                          <Link to={link}>
+                  return (
+                    <Grid item xs={12} sm={4}>
+                      <Box textAlign="center" className="grid-cypto-trade">
+                        {image == null || image == '' ? " " : <img src={image} paddingBottom={3} alt='' />}
+                        <Typography variant="h6" paddingBottom={3}>
+                          {title}
+                        </Typography>
+                        <Typography
+                          className="body-caption secondary-color"
+                          paddingBottom={3}
+                        >
+                          {ReactHtmlParser(description)}
+                        </Typography>
+                        <Link to={link}>
                           <Button
                             className="btn btn-outlined-secondary"
                             sx={{ margin: "0 auto" }}
                           >
                             Coming Soon
                           </Button>
-                                
-                           
-                          </Link>
 
-                        </Box>
-                      </Grid>
-                    )
+
+                        </Link>
+
+                      </Box>
+                    </Grid>
+                  )
                 })}
               </Grid>
             </Box>
@@ -845,120 +842,120 @@ const handleLoadmore = () => {
             columns={{ xs: 4, sm: 8, md: 12 }}
             className="flow-reverse-mobile"
           >
-        
-                <Grid item xs={12} sm={5} md={5}>
-                  <Box sx={{ paddingBottom: { xs: "15px", md: "50px" } }}>
-                    <Typography
-                      variant="h2"
-                      marginBottom={2}
-                      fontWeight={700}
-                      className="secondary-font"
-                    >
-                      Make informed decisions
-                    </Typography>
-                    <Typography
-                      className="secondary-color"
-                      sx={{ paddingBottom: { xs: "15px", md: "25px" } }}
-                    >
-                      with our expert insights and analysis of the crypto market!
-                    </Typography>
-                  </Box>
+
+            <Grid item xs={12} sm={5} md={5}>
+              <Box sx={{ paddingBottom: { xs: "15px", md: "50px" } }}>
+                <Typography
+                  variant="h2"
+                  marginBottom={2}
+                  fontWeight={700}
+                  className="secondary-font"
+                >
+                  Make informed decisions
+                </Typography>
+                <Typography
+                  className="secondary-color"
+                  sx={{ paddingBottom: { xs: "15px", md: "25px" } }}
+                >
+                  with our expert insights and analysis of the crypto market!
+                </Typography>
+              </Box>
+              <Box>
+                <Typography className="secondary-color">app's</Typography>
+                <Typography
+                  className=""
+                  variant="h5"
+                  fontSize={24}
+                  paddingBottom={5}
+                >
+                  Coming soon...
+                </Typography>
+
+                <Stack
+                  direction="row"
+                  className="stacks"
+                  spacing={2}
+                  sx={{
+                    paddingBottom: "20px",
+                    paddingTop: "20px",
+                  }}
+                >
+                  <img src={GoogleIcon} />
                   <Box>
-                    <Typography className="secondary-color">app's</Typography>
                     <Typography
-                      className=""
-                      variant="h5"
-                      fontSize={24}
-                      paddingBottom={5}
+                      variant=""
+                      component="div"
+                      className="body-caption secondary-color"
                     >
-                      Coming soon...
+                      Download from
+
                     </Typography>
-
-                    <Stack
-                      direction="row"
-                      spacing={2}
-                      sx={{
-                        borderBottom: "1px solid #E6E8EC",
-                        paddingBottom: "20px",
-                        paddingTop: "20px",
-                      }}
+                    <Typography
+                      variant=""
+                      component="div"
+                      className="body-large "
                     >
-                      <img src={GoogleIcon} />
-                      <Box>
-                        <Typography
-                          variant=""
-                          component="div"
-                          className="body-caption secondary-color"
-                        >
-                          Download from
-                          
-                        </Typography>
-                        <Typography
-                          variant=""
-                          component="div"
-                          className="body-large "
-                        >
-                          Google Play
-                        </Typography>
-                      </Box>
-                    </Stack>
-
-                    <Stack
-                      direction="row"
-                      spacing={2}
-                      sx={{
-                        borderBottom: "1px solid #E6E8EC",
-                        paddingBottom: "20px",
-                        paddingTop: "20px",
-                      }}
-                    >
-                      <img src={Appleicon} />
-                      <Box>
-                        <Typography
-                          variant=""
-                          component="div"
-                          className="body-caption secondary-color"
-                        >
-                          Download from
-                        </Typography>
-                        <Typography
-                          variant=""
-                          component="div"
-                          className="body-large "
-                        >
-                          Appstore
-                        </Typography>
-                      </Box>
-                    </Stack>
-
-                    <Stack
-                      direction="row"
-                      spacing={2}
-                      sx={{ paddingBottom: "20px", paddingTop: "20px" }}
-                    >
-                      <img src={Appleicon} />
-                      <Box>
-                        <Typography
-                          variant=""
-                          component="div"
-                          className="body-caption secondary-color"
-                        >
-                          Download for
-                        </Typography>
-                        <Typography
-                          variant=""
-                          component="div"
-                          className="body-large "
-                        >
-                          Mac OS
-                        </Typography>
-                      </Box>
-                    </Stack>
+                      Google Play
+                    </Typography>
                   </Box>
-                </Grid>
-                <Grid item xs={12} sm={7} md={7}>
-                  <img src={InformedCypto} />
-                </Grid>
+                </Stack>
+
+                <Stack
+                  direction="row"
+                  className="stacks"
+                  spacing={2}
+                  sx={{
+                    paddingBottom: "20px",
+                    paddingTop: "20px",
+                  }}
+                >
+                  <img src={Appleicon} />
+                  <Box>
+                    <Typography
+                      variant=""
+                      component="div"
+                      className="body-caption secondary-color"
+                    >
+                      Download from
+                    </Typography>
+                    <Typography
+                      variant=""
+                      component="div"
+                      className="body-large "
+                    >
+                      Appstore
+                    </Typography>
+                  </Box>
+                </Stack>
+
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ paddingBottom: "20px", paddingTop: "20px" }}
+                >
+                  <img src={Appleicon} />
+                  <Box>
+                    <Typography
+                      variant=""
+                      component="div"
+                      className="body-caption secondary-color"
+                    >
+                      Download for
+                    </Typography>
+                    <Typography
+                      variant=""
+                      component="div"
+                      className="body-large "
+                    >
+                      Mac OS
+                    </Typography>
+                  </Box>
+                </Stack>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={7} md={7}>
+              <img src={InformedCypto} />
+            </Grid>
 
 
           </Grid>
@@ -971,7 +968,7 @@ const handleLoadmore = () => {
         <Container>
           <Box>
             <Box textAlign="center">
-              <img src={DarkLogo} />
+              <img src={DarkLogo} className="coinguru-logo" />
               <Typography
                 variant="h2"
                 component="h2"
@@ -995,55 +992,55 @@ const handleLoadmore = () => {
                 modules={[Navigation]}
                 className="mySwiper"
               >
-               {cryptoNewsList.map((item) => {
-                let description = item.description;
-                  return(
+                {cryptoNewsList.map((item) => {
+                  let description = item.description;
+                  return (
                     <SwiperSlide>
                       <Box className="crypto-box">
-                    
-                          <Grid
+
+                        <Grid
                           container
                           spacing={{ xs: 8, md: 3 }}
                           columns={{ xs: 12, sm: 8, md: 12 }}
                           className="flow-reverse-mobile"
+                        >
+
+                          <Grid
+                            item
+                            xs={12}
+                            sm={6}
+                            md={6}
                           >
-                          
-                            <Grid
-                              item
-                              xs={12}
-                              sm={6}
-                              md={6}
+                            <Typography
+                              className="small-caption secondary-color"
+                              sx={{ textTransform: "uppercase" }}
+                              paddingBottom={2}
                             >
-                              <Typography
-                                className="small-caption secondary-color"
-                                sx={{ textTransform: "uppercase" }}
-                                paddingBottom={2}
-                              >
-                                Crypto news
-                              </Typography>
-                              <Typography component="h4" variant="h4" paddingBottom={3}>
-                                {item.title}
-                              </Typography>
-                              <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
-                                 {ReactHtmlParser(description)}
-                              </Typography>
-                              <Button
-                                sx={{ textTransform: "capitalize" }}
-                                className="btn-outlined-secondary"
-                                onClick={() => navigate("/community")}
-                              >
-                                Join now
-                              </Button>
-                            </Grid>
-                            <Grid item xs={12} sm={6} md={6} textAlign="right">
-                              <img src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}  />
-                            </Grid>
-                        
+                              Crypto news
+                            </Typography>
+                            <Typography component="h4" variant="h4" paddingBottom={3}>
+                              {item.title}
+                            </Typography>
+                            <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
+                              {ReactHtmlParser(description)}
+                            </Typography>
+                            <Button
+                              sx={{ textTransform: "capitalize" }}
+                              className="btn-outlined-secondary"
+                              onClick={() => navigate("/community")}
+                            >
+                              Join now
+                            </Button>
                           </Grid>
+                          <Grid item xs={12} sm={6} md={6} textAlign="right">
+                            <img src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                          </Grid>
+
+                        </Grid>
                       </Box>
                     </SwiperSlide>
                   )
-                } )}
+                })}
               </Swiper>
             </Box>
           </Box>
@@ -1224,7 +1221,7 @@ const handleLoadmore = () => {
           })}
         </Marquee>
       </Container>
- 
+
     </>
   );
 };

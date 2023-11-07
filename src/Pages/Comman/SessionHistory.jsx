@@ -126,7 +126,7 @@ const SessionHistory = () => {
                                                                                 "MM/DD/YY - HH:mm:ss"
                                                                             )}
                                                                         </Typography>
-                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
+                                                                        <Typography component="p" variant='body2' className='body-caption'>
 
                                                                         </Typography>
                                                                     </TableCell>
@@ -134,7 +134,7 @@ const SessionHistory = () => {
                                                                         <Typography component="p" variant='body2' className='body-caption' sx={{ fontWeight: '500' }}>
                                                                             {deviceData.device.model}
                                                                         </Typography>
-                                                                        <Typography component="p" variant='body2' className='body-caption' sx={{ color: '#777E90' }}>
+                                                                        <Typography component="p" variant='body2' className='body-caption'>
                                                                             {deviceData.os.name}
                                                                         </Typography>
                                                                     </TableCell>

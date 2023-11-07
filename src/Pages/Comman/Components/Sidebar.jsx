@@ -50,7 +50,7 @@ const Sidebar = (props) => {
   return (
     <Box className="subscription-steps-col">
       <Stack spacing={2}>
-        <Box sx={{ borderBottom: "1px solid #E6E8EC" }} paddingBottom={2}>
+        <Box className="side-nav-border" paddingBottom={2}>
           <Typography
             onClick={(e) => {
               navigate("/account/profile");

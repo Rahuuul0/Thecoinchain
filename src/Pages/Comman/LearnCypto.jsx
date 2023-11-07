@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 import Avatar from "../../../public/assets/images/avatar.svg";
-import {  ArrowRightAlt } from "@mui/icons-material";
+import { ArrowRightAlt } from "@mui/icons-material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useTheme } from "@mui/material/styles";
 import { RoutesName } from "../../_common/app.constants";
@@ -79,27 +79,27 @@ const LearnCypto = () => {
 
   // *BlogCategoryList*
   const handleBlogChange = (e) => {
-      setValue(e.target.value);
-      e.target.value == 1
-          ? setBlogList(blogsData)
-          : handleTutorials(e.target.value);
+    setValue(e.target.value);
+    e.target.value == 1
+      ? setBlogList(blogsData)
+      : handleTutorials(e.target.value);
   };
 
   const handleChanges = (value) => {
-          setValue(value);
-          value == 1
-              ? setBlogList(blogsData)
-              : handleTutorials(value);
-      };
+    setValue(value);
+    value == 1
+      ? setBlogList(blogsData)
+      : handleTutorials(value);
+  };
 
   const handleTutorials = (BlogCategory) => {
-      let tutorialsArr = [];
-      tutorialsArr = blogsData
-          .filter((items) => {
-              return items.category === BlogCategory;
-          })
+    let tutorialsArr = [];
+    tutorialsArr = blogsData
+      .filter((items) => {
+        return items.category === BlogCategory;
+      })
 
-          setBlogList(tutorialsArr);
+    setBlogList(tutorialsArr);
   };
 
   const imgLink = (data) => {
@@ -108,15 +108,15 @@ const LearnCypto = () => {
     setBlogimg(data)
     setBlognew(true)
     setBlogvideo(false)
-} 
+  }
 
-const vidLink = (data) => {
-  let learnSeo = data.slug
-  navigate(`${RoutesName.learn_Crypto_Details}/learncyptovideo/${learnSeo}`)
-  setBlogimg(data)
-  setBlognew(true)
-  setBlogvideo(true)
-} 
+  const vidLink = (data) => {
+    let learnSeo = data.slug
+    navigate(`${RoutesName.learn_Crypto_Details}/learncyptovideo/${learnSeo}`)
+    setBlogimg(data)
+    setBlognew(true)
+    setBlogvideo(true)
+  }
 
   const handleBlogs = (blogCategory) => {
     let blogsArr = [];
@@ -160,13 +160,13 @@ const vidLink = (data) => {
   useEffect(() => {
     tutorialAction.blogData();
     tutorialAction.tutorialData();
-     window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
+    window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
   }, []);
 
   // Category Api
   useEffect(() => {
-      const response = tutorialAction.categoryList();
-      response.then((res) => { (res) })
+    const response = tutorialAction.categoryList();
+    response.then((res) => { (res) })
   }, []);
 
   useEffect(() => {
@@ -189,12 +189,12 @@ const vidLink = (data) => {
 
   useEffect(() => {
     setBlogList(blogsData)
-}, [blogsData]);
+  }, [blogsData]);
 
-useEffect(() => {
-  window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
-}, []);
-const details = `learn_Crypto_Details`;
+  useEffect(() => {
+    window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
+  }, []);
+  const details = `learn_Crypto_Details`;
   return (
     <>
       <Container className="learn-crypto">
@@ -206,13 +206,13 @@ const details = `learn_Crypto_Details`;
         </Backdrop>
         <Box>
           <Typography
-              variant="h1"
-              className="secondary-font"
-              fontWeight="700"
-              textAlign="center"
-              marginBottom={{ xs: 2 }}
-            >
-             {blogNew === true? `${  blogImg.title}`: ` Blockchain & Crypto` } 
+            variant="h1"
+            className="secondary-font"
+            fontWeight="700"
+            textAlign="center"
+            marginBottom={{ xs: 2 }}
+          >
+            {blogNew === true ? `${blogImg.title}` : ` Blockchain & Crypto`}
           </Typography>
 
           <Typography textAlign="center" className="secondary-color body-large">
@@ -249,8 +249,8 @@ const details = `learn_Crypto_Details`;
               width="100%"
               height="640px"
             />
-            {blogNew === true? <> 
-             <Typography
+            {blogNew === true ? <>
+              <Typography
                 variant="h2"
                 fontWeight="700"
                 component="div"
@@ -258,17 +258,17 @@ const details = `learn_Crypto_Details`;
                 marginBottom={1}
                 padding={2}
               >
-               Description
+                Description
               </Typography>
               <Typography
                 className="secondary-color"
                 variant="p"
                 component="p"
                 paddingBottom={1}
-                >
-                {ReactHtmlParser (blogImg.description)}
-                </Typography></>
-                : ""}
+              >
+                {ReactHtmlParser(blogImg.description)}
+              </Typography></>
+              : ""}
           </Box>
         </Box>
       </Container>
@@ -291,7 +291,7 @@ const details = `learn_Crypto_Details`;
                 >
                   Latest Releases
                 </Typography>
-                <Typography color={"#353945"}>
+                <Typography>
                   Stacks is a production-ready library of stackable content
                   blocks built in React Native.
                 </Typography>
@@ -300,45 +300,45 @@ const details = `learn_Crypto_Details`;
           </Box>
         </Container>
         <Container>
-            <Box className="right-tab">
-                <TabContext value={value} className="tab-grid">
-                <Grid container>
-                  <Grid className="" xs={12} sm={5} md={5}></Grid>
-                  <Grid className="" xs={12} sm={7} md={7}>
-                      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                        <TabList className='for-desktop' onChange={handleBlogChange} aria-label="tabs">
-                        <Tab 
-                          label="All" 
-                          value="1"
-                          onClick={e => handleChanges('1')}  />
-                            {BlogCategory?.map((item) => {
-                                return <Tab 
-                                indicatorColor="secondary"
-                                textColor="inherit"
-                                onClick={e => handleChanges(item.title)}  
-                                label={item.title} value={item.title} />
-                            })}
-                        </TabList>
-                      </Box>
+          <Box className="right-tab">
+            <TabContext value={value} className="tab-grid">
+              <Grid container>
+                <Grid className="" xs={12} sm={5} md={5}></Grid>
+                <Grid className="" xs={12} sm={7} md={7}>
+                  <Box sx={{ borderColor: "divider" }}>
+                    <TabList className='for-desktop' onChange={handleBlogChange} aria-label="tabs">
+                      <Tab
+                        label="All"
+                        value="1"
+                        onClick={e => handleChanges('1')} />
+                      {BlogCategory?.map((item) => {
+                        return <Tab
+                          indicatorColor="secondary"
+                          textColor="inherit"
+                          onClick={e => handleChanges(item.title)}
+                          label={item.title} value={item.title} />
+                      })}
+                    </TabList>
+                  </Box>
 
-                      <Box className="for-mobile dropdown-mobile">
-                        <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
-                            <Select
-                                value={value}
-                                onChange={e => handleBlogChange(e)}
-                                displayEmpty
-                                inputProps={{ "aria-label": "Without label" }}
-                            >
-                                <MenuItem value="1" >All</MenuItem>
-                                {BlogCategory?.map((item) => {
-                                    return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
-                                    )
-                                })}
-                            </Select>
-                        </FormControl>
-                      </Box>
-                  </Grid>
+                  <Box className="for-mobile dropdown-mobile">
+                    <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
+                      <Select
+                        value={value}
+                        onChange={e => handleBlogChange(e)}
+                        displayEmpty
+                        inputProps={{ "aria-label": "Without label" }}
+                      >
+                        <MenuItem value="1" >All</MenuItem>
+                        {BlogCategory?.map((item) => {
+                          return (<MenuItem key={item.id} value={item.title}>{item.title}</MenuItem>
+                          )
+                        })}
+                      </Select>
+                    </FormControl>
+                  </Box>
                 </Grid>
+              </Grid>
               <TabPanel value={value}>
                 <Box>
                   {blogList?.map((item) => {
@@ -346,8 +346,8 @@ const details = `learn_Crypto_Details`;
                     return (
                       <Box className="right-tab-content">
                         <Grid container
-                            onClick={() => imgLink(item)}
-                            sx={{ cursor: "pointer" }}
+                          onClick={() => imgLink(item)}
+                          sx={{ cursor: "pointer" }}
                         >
                           <Grid item xs={12} sm={5} md={5}>
                             <Box
@@ -365,26 +365,26 @@ const details = `learn_Crypto_Details`;
                                 </Typography>
                               </Box>
                               <Box className="blog-box-content">
-                              
+
                                 <Typography
                                   variant="h4"
                                   fontWeight="700"
                                   className="secondary-font"
                                   paddingBottom={1}
-                                  sx={{maxHeight: '80px', overflow: 'hidden' }}
+                                  sx={{ maxHeight: '80px', overflow: 'hidden' }}
                                 >
                                   {item.title}
                                 </Typography>
                                 <Typography paddingBottom={3}>
                                   {item.category}
                                 </Typography>
-                             
-                                <Typography className="body-caption secondary-color"  sx={{maxHeight: '45px', overflow: 'hidden'}}>
+
+                                <Typography className="body-caption secondary-color" sx={{ maxHeight: '45px', overflow: 'hidden' }}>
                                   {ReactHtmlParser(description)}
                                 </Typography>
                               </Box>
                               <Box>
-                              <Link to={'../learn-cypto-detail'}>  <ArrowRightAlt sx={{color : "#000000"}}  /> </Link>
+                                <Link to={'../learn-cypto-detail'}>  <ArrowRightAlt sx={{ color: "#000000" }} /> </Link>
                               </Box>
                             </Box>
                           </Grid>
@@ -392,7 +392,7 @@ const details = `learn_Crypto_Details`;
                             <img style={{ height: "100%", maxWidth: "100%" }}
                               src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
                             />
-                              
+
                           </Grid>
                         </Grid>
                       </Box>
@@ -528,7 +528,7 @@ const details = `learn_Crypto_Details`;
                           onClick={() => vidLink(item)}
                           sx={{ cursor: "pointer" }}
                         >
-                        
+
                           <Typography
                             textTransform="uppercase"
                             className="orange-btn float-img small-btn small-new-btn"
@@ -591,7 +591,7 @@ const details = `learn_Crypto_Details`;
                   sx={{ margin: "0 auto" }}
                   className="btn btn-outlined-secondary"
                   varient="outlined"
-                  endIcon={<KeyboardArrowDownIcon sx={{ color : "#777E90" }} />}
+                  endIcon={<KeyboardArrowDownIcon sx={{ color: "#777E90" }} />}
                   onClick={() => {
                     window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
                     navigate('/learn-cypto');
@@ -610,7 +610,7 @@ const details = `learn_Crypto_Details`;
         <Container>
           <Box>
             <Box textAlign="center">
-              <img src={DarkLogo} />
+              <img src={DarkLogo} className='coinguru-logo' />
               <Typography
                 variant="h2"
                 component="h2"
@@ -705,11 +705,11 @@ const details = `learn_Crypto_Details`;
                           the Coinguru team and our traders from across the world.
                         </Typography>
                         <Button
-                           sx={{ textTransform: "capitalize" }}
+                          sx={{ textTransform: "capitalize" }}
                           className="btn-outlined-secondary"
                           onClick={() => navigate("/community")}
                         >
-                          Join now 
+                          Join now
                         </Button>
                       </Grid>
                       <Grid item xs={12} sm={6} md={6} textAlign="right">

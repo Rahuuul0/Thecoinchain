@@ -3,7 +3,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
 import { Box, Container, Grid, Typography, Button, Breadcrumbs, InputAdornment, IconButton, TextField } from '@mui/material';
 import { EmailOutlined, NavigateNext, VisibilityOutlined } from '@mui/icons-material/';
-import ScanImg from '../../../public/assets/images/scan-img.png';
+import ScanImg from '../../../public/assets/images/scanner.png';
 import { useNavigate, Link } from 'react-router-dom';
 import Sidebar from './Components/Sidebar';
 
@@ -104,13 +104,16 @@ const TwoFaDisable = () => {
                                             >
                                                 <Box className='scanner-inner' >
                                                     <img src={ScanImg} alt='scanner' />
+                                                    <div className="download-app">
+                                                        <Button variant="outline" className='btn btn-outlined-secondary' sx={{ margin: '0 auto' }}>Download App</Button>
+                                                    </div>
                                                 </Box>
                                             </Box>
                                         </Grid>
                                     </Grid>
 
                                     <Typography textAlign='right' paddingTop={{ xs: '24px', sm: '32px' }}>
-                                        <Button className='btn btn-success btn-success mobile-w-100' color='success' sx={{ margin: '0 auto' }} onClick={() => { navigate("../2fa-enable") }}>Enable 2FA</Button>
+                                        <Button className='btn btn-success mobile-w-100' color='success' sx={{ margin: '0 auto' }} onClick={() => { navigate("../2fa-enable") }}>Enable 2FA</Button>
                                     </Typography>
                                 </Box>
                             </Box>

@@ -112,7 +112,7 @@ const ForgotPassword = () => {
               <Typography
                 component="p"
                 variant="body2"
-                sx={{ fontSize: "14px", color: "#2B2B2B;" }}
+                sx={{ fontSize: "14px" }}
               >
                 Don’t have an account? <Link
                   onClick={() => {
@@ -230,7 +230,7 @@ const ForgotPassword = () => {
                           onClick={() => {
                             navigate("/login");
                           }}
-                          sx={{ color: "#23262F !important" }}
+                          className="nevermind"
                         >
                           {" "}
                           Nevermind, I got it{" "}
@@ -255,7 +255,6 @@ const ForgotPassword = () => {
                       variant="body2"
                       sx={{
                         textAlign: "center",
-                        color: "#353945",
                         display: "block",
                         marginBottom: "20px",
                       }}
@@ -274,7 +273,7 @@ const ForgotPassword = () => {
                       }}
                     >
                       Enter the 4 digit code received by{" "}
-                      <span style={{ color: "#23262F" }}>
+                      <span className="recover-email">
                         {localStorage.getItem("email")}
                       </span>
                     </Typography>

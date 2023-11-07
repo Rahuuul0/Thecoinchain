@@ -27,11 +27,25 @@ import Chaina from '../../../../public/assets/images/icons/chaina.svg';
 import { Label } from 'recharts';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { bannerListActions } from '../../../_actions';
+import { setLogoListAtom } from '../../../_state';
+import { useRecoilValue } from 'recoil';
 
 const drawerWidth = '100%';
 const drawerHeight = '100vh';
 
 function Header(props) {
+
+  const LogoListAction = bannerListActions();
+  const LogoList = useRecoilValue(setLogoListAtom);
+
+  useEffect(() => {
+    const response = LogoListAction.logoList();
+    response.then((res) => { (res) })
+  }, []);
+
+  console.log(LogoList, 'LogoList')
+
   const navItems = [
     {
       page: "Community",
@@ -205,26 +219,31 @@ function Header(props) {
               <MenuIcon />
             </IconButton>
           </Box>
-          <Typography
-            variant="h6"
-            className='header-logo-border'
-            onClick={() => {
-              navigate("/");
-            }}
-            sx={{
-              flexGrow: 1,
-              display: {
-                xs: "none",
-                sm: "block",
-                lineHeight: "100%",
-                flex: 1,
-                cursor: "pointer",
-              },
-              // borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
-            }}
-          >
-            <img src={CoinGuru} alt="Coin Guru" className='coinguru-logo' />
-          </Typography>
+          {LogoList?.map((items) => {
+            let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
+            return (
+              <Typography
+                variant="h6"
+                className='header-logo-border'
+                onClick={() => {
+                  navigate("/");
+                }}
+                sx={{
+                  flexGrow: 1,
+                  display: {
+                    xs: "none",
+                    sm: "block",
+                    lineHeight: "100%",
+                    flex: 1,
+                    cursor: "pointer",
+                  },
+                  // borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
+                }}
+              >
+                <img src={CoinGuru} alt="Coin Guru" className='coinguru-logo' />
+              </Typography>
+            )
+          })}
           <Box
             className=""
             sx={{

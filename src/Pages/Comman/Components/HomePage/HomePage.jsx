@@ -163,13 +163,6 @@ const Home = () => {
     setLoadmore(loadmore + 20);
   }
 
-  // const handleButton = (soonButton) => {
-  //     if(soonButton == "Learn now"){
-  //       navigate("./learn-cypto");
-  //     }else{
-  //       navigate("/contentnotfound");
-  //     }
-  // }
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>
@@ -177,7 +170,7 @@ const Home = () => {
       {homeBannerData?.map((items) => {
         let title = items.title;
         let decription = items.decription;
-        let image = items.image;
+        let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
         return (
           <Container>
             <Box paddingBottom={{ xs: 4, sm: 8 }}>
@@ -224,6 +217,7 @@ const Home = () => {
                         navigate("./market");
                       }}
                     >
+                      Get started now
                     </Button>
                   </Typography>
                   <IconButton
@@ -241,7 +235,7 @@ const Home = () => {
                   </IconButton>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
-                  <img className="heroImage" src={`${process.env.REACT_APP_IMAGE_URL}/${image}`} />
+                  <img className="heroImage" src={image} alt='' />
                 </Grid>
               </Grid>
             </Box>
@@ -412,8 +406,8 @@ const Home = () => {
                               <Stack spacing={2} justifyContent="space-between">
                                 <Typography
                                   fontSize={16}
-                                  sx={{ maxHeight: '45px', overflow: 'hidden' }}
                                   className="primary-font"
+                                  sx={{ maxHeight: '45px', overflow: 'hidden', fontWeight: "500" }}
                                 >
                                   {item.title}
                                   {item.category}
@@ -426,15 +420,8 @@ const Home = () => {
                                 </Typography>
                               </Stack>
                               <Typography
-                                fontSize={16}
-                                sx={{ maxHeight: '45px', overflow: 'hidden', fontWeight: "500" }}
-                                className="primary-font"
-                              >
-                                {item.title}
-                                {item.category}
-                              </Typography>
-                              <Typography
-                                sx={{ fontSize: "14px !important", maxHeight: '110px', overflow: 'hidden' }}
+                                sx={{ fontSize: "14px !important" }}
+                                fontWeight={400}
                                 className="secondary-color primary-font"
                               >
                                 {dayjs(item.created_at).format("MMM DD,YYYY")}
@@ -464,11 +451,10 @@ const Home = () => {
                 </Grid>
                 {tutorialsList.length > 4 && tutorialsList.length > loadmore &&
                   <Button
-                    variant="outline"
-                    className="btn btn-outline"
+                    variant="outlined"
+                    className="btn btn-outlined-secondary"
                     endIcon={<KeyboardArrowRight sx={{ color: "#777E90" }} />}
                     sx={{
-                      border: "1px solid #E6E8EC",
                       height: "50px",
                       whiteSpace: "nowrap",
                       minWidth: "auto",
@@ -790,13 +776,16 @@ const Home = () => {
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
               >
                 {crypotTraderList?.map((item) => {
+                  let title = item.title;
                   let description = item.description;
+                  let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
+                  let link = item.link;
                   return (
                     <Grid item xs={12} sm={4}>
                       <Box textAlign="center" className="grid-cypto-trade">
-                        <img src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} paddingBottom={3} />
+                        {image == null || image == '' ? " " : <img src={image} paddingBottom={3} alt='' />}
                         <Typography variant="h6" paddingBottom={3}>
-                          {item.title}
+                          {title}
                         </Typography>
                         <Typography
                           className="body-caption secondary-color"
@@ -804,11 +793,8 @@ const Home = () => {
                         >
                           {ReactHtmlParser(description)}
                         </Typography>
-                        <Link to={item.link}>
+                        <Link to={link}>
                           <Button
-                            // onClick={() => {
-                            //   handleButton(item.button)
-                            // }}
                             className="btn btn-outlined-secondary"
                             sx={{ margin: "0 auto" }}
                           >
@@ -883,8 +869,8 @@ const Home = () => {
                 </Typography>
 
                 <Stack
-                  className="stacks"
                   direction="row"
+                  className="stacks"
                   spacing={2}
                   sx={{
                     paddingBottom: "20px",
@@ -913,8 +899,8 @@ const Home = () => {
 
                 <Stack
                   direction="row"
-                  spacing={2}
                   className="stacks"
+                  spacing={2}
                   sx={{
                     paddingBottom: "20px",
                     paddingTop: "20px",

@@ -256,6 +256,7 @@ const NewsPromotions = (props) => {
                                                             </Box>
                                                             {newsCategoryList?.map((item) => {
                                                                 let description = item.description;
+                                                                let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`: item.image_link;
                                                                 return (
                                                                     <Box paddingBottom={3}>
                                                                         <Grid container
@@ -301,7 +302,7 @@ const NewsPromotions = (props) => {
                                                                                 </Box>
                                                                             </Grid>
                                                                             <Grid item xs={12} sm={7} md={7}>
-                                                                                <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                                                                            {image == null || image == ''? " " : <img sx={{ maxWidth: "100%" }} src={image} alt='' />}
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Box>
@@ -365,6 +366,7 @@ const NewsPromotions = (props) => {
                                                                 <TabPanel value={valueTemp} index3={0} dir={theme.direction}>
                                                                     {promotionCategoryList.map((item) => {
                                                                         let description = item.description;
+                                                                        let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`: item.image_link;
                                                                         return (
                                                                             <Box paddingBottom={3}>
                                                                                 <Grid container
@@ -410,7 +412,7 @@ const NewsPromotions = (props) => {
                                                                                         </Box>
                                                                                     </Grid>
                                                                                     <Grid item xs={12} sm={7} md={7}>
-                                                                                        <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                                                                                    {image == null || image == ''? " " : <img sx={{ maxWidth: "100%" }} src={image} alt='' />}
                                                                                     </Grid>
                                                                                 </Grid>
                                                                             </Box>

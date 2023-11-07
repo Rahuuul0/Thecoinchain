@@ -303,7 +303,7 @@ const GuidesAnalysis = (props) => {
                                                     </Grid>
 
                                                     <TabContext value={value}>
-                                                        <Box className='for-desktop' >
+                                                        <Box className='for-desktop' sx={{ borderBottom: 1, borderColor: "divider" }}>
                                                             <TabList
                                                                 value={value}
                                                                 aria-label="tabs">
@@ -340,7 +340,10 @@ const GuidesAnalysis = (props) => {
                                                                 </FormControl>
                                                             </Box>
                                                             {guidesCategoryList?.map((items) => {
+                                                                let title = items.title;
+                                                                let category = items.category;
                                                                 let description = items.description;
+                                                                let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
                                                                 return (
                                                                     <Box padding={0} sx={{ marginBottom: { xs: '30px', md: '0px' } }}>
                                                                         <Grid container
@@ -371,10 +374,10 @@ const GuidesAnalysis = (props) => {
                                                                                             className="secondary-font"
                                                                                             sx={{ paddingBottom: { xs: '10px', md: '50px' }, maxHeight: '80px', overflow: 'hidden' }}
                                                                                         >
-                                                                                            {items.title}
+                                                                                            {title}
                                                                                         </Typography>
                                                                                         <Typography sx={{ marginBottom: { xs: '10px', md: '50px' } }}>
-                                                                                            {items.category}
+                                                                                            {category}
                                                                                         </Typography>
                                                                                         <Typography className="body-caption secondary-color" sx={{ maxHeight: '45px', overflow: 'hidden' }}>
                                                                                             {ReactHtmlParser(description)}
@@ -386,7 +389,7 @@ const GuidesAnalysis = (props) => {
                                                                                 </Box>
                                                                             </Grid>
                                                                             <Grid item xs={12} sm={7} md={7}>
-                                                                                <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${items.image}`} />
+                                                                                {image == null || image == '' ? " " : <img sx={{ maxWidth: "100%" }} src={image} />}
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Box>
@@ -448,6 +451,7 @@ const GuidesAnalysis = (props) => {
 
                                                         {analyticCategoryList?.map((items) => {
                                                             let description = items.description;
+                                                            let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
                                                             return (
                                                                 <Box sx={{ padding: '0px !important' }}>
                                                                     <Grid container
@@ -494,7 +498,7 @@ const GuidesAnalysis = (props) => {
                                                                             </Box>
                                                                         </Grid>
                                                                         <Grid item xs={12} sm={7} md={7}>
-                                                                            <img sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${items.image}`} />
+                                                                            {image == null || image == '' ? " " : <img sx={{ maxWidth: "100%" }} src={image} alt='' />}
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Box>

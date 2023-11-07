@@ -2774,6 +2774,7 @@ p.left-icon img {
 
 .notification-icon {
   width: 44px;
+  min-width: 44px;
   height: 44px;
   border: 2px solid var(--color-2);
   color: var(--secondary-color);
@@ -2782,8 +2783,16 @@ p.left-icon img {
   justify-content: center;
   align-items: center;
 }
-
-.notification-title p {
+.notification-title-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: self-start;
+}
+#root .notification-title p {
+  font-size: 14px;
+}
+#root .notification-title h6{
+  font-size: 16px;
   font-weight: 500;
 }
 

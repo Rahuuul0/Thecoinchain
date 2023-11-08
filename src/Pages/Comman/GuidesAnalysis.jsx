@@ -303,7 +303,7 @@ const GuidesAnalysis = (props) => {
                                                     </Grid>
 
                                                     <TabContext value={value}>
-                                                        <Box className='for-desktop' sx={{ borderBottom: 1, borderColor: "divider" }}>
+                                                        <Box className='for-desktop' sx={{ borderColor: "divider" }}>
                                                             <TabList
                                                                 value={value}
                                                                 aria-label="tabs">
@@ -415,7 +415,7 @@ const GuidesAnalysis = (props) => {
                                                 </Grid>
 
                                                 <TabContext value={valueTemp}>
-                                                    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                                                    <Box sx={{ borderColor: "divider" }}>
                                                         <TabList className='for-desktop' onChange={handleCategory} aria-label="tabs">
                                                             <Tab label="All" value="1" onClick={e => handleCategorys('1')} />
                                                             {analyticsCategory?.map((item) => {

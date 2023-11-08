@@ -605,6 +605,7 @@ nav .MuiButtonBase-root:hover {
 .notification-menu .MuiList-root {
   width: 316px;
 }
+
 .notification-title.MuiBox-root {
   width: 100%;
 }
@@ -1287,6 +1288,10 @@ input[type="number"] {
   transform: translate(0px, -50%);
 }
 
+.market-hero-img-wrapper img {
+  width: 100%;
+}
+
 .market-crypto-card-wrapper {
   position: relative;
   z-index: 1;
@@ -1412,6 +1417,10 @@ input[type="number"] {
   box-shadow: 0px 6px 25px rgb(15 15 15 / 10%);
 }
 
+.grid-cypto-trade img {
+  height: 160px;
+}
+
 .crypto-box {
   padding: 50px;
   background-color: var(--color_light);
@@ -1461,6 +1470,15 @@ input[type="number"] {
 .right-tab .MuiTabPanel-root {
   margin-top: 80px;
   padding: 0;
+}
+
+.heroImage {
+  width: 100%;
+}
+
+.right-tab img {
+  width: 100%;
+  max-height: 330px;
 }
 
 .blog-box .blog-box-content {
@@ -1621,6 +1639,9 @@ input[type="number"] {
 
 .rfm-marquee img.margin10 {
   margin-left: 75px;
+  max-width: 200px;
+  min-height: 100px;
+  object-fit: contain;
 }
 
 /* learn cypto ends */
@@ -2111,10 +2132,15 @@ video {
   min-width: 128px;
   height: auto;
   min-height: 96px;
+  background-color: #f5f5f5;
+  border-radius: 15px;
+  text-align: center;
 }
 
 .market-prediction-faq-item-img img {
+  width: auto;
   height: 100%;
+  object-fit: contain;
 }
 
 /* Modal style */
@@ -2786,15 +2812,18 @@ p.left-icon img {
   justify-content: center;
   align-items: center;
 }
-.notification-title-wrapper{
+
+.notification-title-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: self-start;
 }
+
 #root .notification-title p {
   font-size: 14px;
 }
-#root .notification-title h6{
+
+#root .notification-title h6 {
   font-size: 16px;
   font-weight: 500;
 }
@@ -3274,10 +3303,19 @@ video[poster] {
   padding: 136px 0;
 }
 
+.global-community .swiper-button-next,
+.global-community .swiper-button-prev {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .dark-theme .coinguru-logo {
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }
 
+.coinguru-logo {
+  width: 142px;
+}
 
 .learn-crypto-details {
   padding-top: 158px;
@@ -3517,8 +3555,9 @@ video[poster] {
 }
 
 .market-prediction-faq-item-img img {
-  object-fit: cover;
-  height: 120px;
+  object-fit: contain;
+  height: 100%;
+  max-height: 120px;
 }
 
 @keyframes rotate {
@@ -4660,10 +4699,12 @@ video[poster] {
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
-.notification_elip_typo::-webkit-scrollbar{
+
+.notification_elip_typo::-webkit-scrollbar {
   width: 5px;
   background-color: var(--secondary-color);
 }
+
 .newdesignbox .crypto-center {
   width: 100%;
   max-width: 99%;
@@ -4811,6 +4852,6 @@ video[poster] {
   margin: auto;
 }
 
-.about-bread{
+.about-bread {
   padding-top: 68px;
 }

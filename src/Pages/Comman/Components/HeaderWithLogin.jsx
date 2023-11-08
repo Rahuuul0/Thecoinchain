@@ -33,7 +33,9 @@ function Header(props) {
   const notificaionCount = useRecoilValue(notificationCountAtom);
 
   const LogoListAction = bannerListActions();
-  const LogoList = useRecoilValue(setLogoListAtom);
+  const LogoList = useRecoilValue(setLogoListAtom).filter((item)=>{
+       return item.position === "Header"
+  });
 
   useEffect(() => {
     const response = LogoListAction.logoList();

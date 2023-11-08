@@ -142,17 +142,17 @@ const Home = () => {
     homeActions.cryptoNews()
 
   }, []);
-  
- // Api home_banner-list
+
+  // Api home_banner-list
   useEffect(() => {
     const response = bannerActions.homeBannerList();
-    response.then((res) => {(res) })
+    response.then((res) => { (res) })
 
     const responsed = bannerActions.get();
-    responsed.then((res) => {(res) })
+    responsed.then((res) => { (res) })
 
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-}, []);
+  }, []);
 
   const videoLink = (data) => {
     let learnSeo = data.slug
@@ -951,7 +951,7 @@ const Home = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={7} md={7}>
-              <img src={InformedCypto} />
+              <img className="app-store-img" src={InformedCypto} />
             </Grid>
 
 
@@ -1205,11 +1205,11 @@ const Home = () => {
       <Container maxWidth="fluid">
         <Marquee>
           {bannerList.map((item) => {
-            let image = item.image_url ? `${process.env.REACT_APP_IMAGE_URL}/${item.image_url}`: item.image_link;
+            let image = item.image_url ? `${process.env.REACT_APP_IMAGE_URL}/${item.image_url}` : item.image_link;
             return (
               <Box paddingTop={8} paddingBottom={8}>
                 <Stack direction="row" spacing={8}>
-                  {image == null || image == ''? " " : <img
+                  {image == null || image == '' ? " " : <img
                     className="margin10"
                     src={image}
                   />}

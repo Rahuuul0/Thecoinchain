@@ -385,7 +385,7 @@ const LearnCypto = () => {
                                 </Typography>
                               </Box>
                               <Box>
-                                <Link to={'../learn-cypto-detail'}>  <ArrowRightAlt sx={{ color: "#000000" }} /> </Link>
+                                <Link to={'../learn-cypto-detail'}>  <ArrowRightAlt /> </Link>
                               </Box>
                             </Box>
                           </Grid>
@@ -559,7 +559,7 @@ const LearnCypto = () => {
                             justifyContent="space-between"
                             paddingTop={3}
                           >
-                            <Box display="flex" width="calc(100% - 45px)">
+                            <Box sx={{ display: "flex", width: "calc(100% - 45px)", alignItems: 'flex-start' }} >
                               <img src={Avatar} />
                               <Box sx={{ paddingLeft: "15px" }}>
                                 <Typography fontWeight="500">

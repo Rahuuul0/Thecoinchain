@@ -1288,8 +1288,9 @@ input[type="number"] {
   transform: translate(0px, -50%);
 }
 
-.market-hero-img-wrapper img {
+.market-hero-img-wrapper img.for-desktop {
   width: 100%;
+  min-width: 500px;
 }
 
 .market-crypto-card-wrapper {
@@ -1429,6 +1430,10 @@ input[type="number"] {
   box-shadow: 0px 6px 25px rgb(15 15 15 / 10%);
 }
 
+.crypto-box img {
+  width: 100%;
+}
+
 #root .crypto-box h4 {
   font-size: 24px !important;
 }
@@ -1479,11 +1484,16 @@ input[type="number"] {
 .right-tab img {
   width: 100%;
   max-height: 330px;
+  object-fit: cover;
 }
 
 .blog-box .blog-box-content {
   margin-bottom: 64px;
   margin-top: 64px;
+}
+
+#root .blog-box a {
+  color: var(--privcy-para);
 }
 
 .right-tab .right-tab-content {
@@ -3314,7 +3324,7 @@ video[poster] {
 }
 
 .coinguru-logo {
-  width: 142px;
+  max-width: 142px;
 }
 
 .learn-crypto-details {
@@ -3527,6 +3537,10 @@ video[poster] {
   border-bottom: 1px solid var(--make-informed-devider);
 }
 
+.app-store-img {
+  width: 100%;
+}
+
 .subscribe-notification {
   position: absolute;
   top: 150px;
@@ -3542,8 +3556,9 @@ video[poster] {
 .community-ic-img img {
   width: 50px !important;
   height: 50px !important;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 50%;
+  background-color: #f5f5f5;
 }
 
 .height400 {

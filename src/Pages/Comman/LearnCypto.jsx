@@ -343,6 +343,7 @@ const LearnCypto = () => {
                 <Box>
                   {blogList?.map((item) => {
                     let description = item.description;
+                    let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`: item.image_link;
                     return (
                       <Box className="right-tab-content">
                         <Grid container
@@ -389,9 +390,9 @@ const LearnCypto = () => {
                             </Box>
                           </Grid>
                           <Grid item xs={12} sm={7} md={7}>
-                            <img style={{ height: "100%", maxWidth: "100%" }}
-                              src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
-                            />
+                          {image == null || image == ''? " " : <img style={{ height: "100%", maxWidth: "100%" }}
+                              src={image} alt=''
+                            />}
 
                           </Grid>
                         </Grid>

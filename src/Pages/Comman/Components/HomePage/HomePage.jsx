@@ -803,10 +803,7 @@ const Home = () => {
                           >
                             Coming Soon
                           </Button>
-
-
                         </Link>
-
                       </Box>
                     </Grid>
                   )

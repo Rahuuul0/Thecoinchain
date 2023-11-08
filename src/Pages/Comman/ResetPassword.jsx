@@ -61,7 +61,7 @@ const ResetPassword = () => {
                             <Link onClick={() => { navigate('/') }}><img src={LogoDark} alt='Coin Guru' className='ipad' /></Link>
                         </Box>
                         <Box className='dont-have-acc' >
-                            <Typography component="p" variant="body2" sx={{ fontSize: '14px', color: '#2B2B2B;' }} position='relative' zIndex='2'>
+                            <Typography component="p" variant="body2" sx={{ fontSize: '14px' }} position='relative' zIndex='2'>
                                 Already have an account? <Link onClick={() => { navigate("/login"); }}>Login</Link>
                             </Typography>
                         </Box>

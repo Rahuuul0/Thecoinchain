@@ -30,7 +30,7 @@ import AppleIcon from "@mui/icons-material/Apple";
 import ReCAPTCHA from "react-google-recaptcha";
 import GoogleAuth from "./GoogleAuth.jsx";
 import LoadingButton from '@mui/lab/LoadingButton';
-import PhoneInput, { formatPhoneNumber,isPossiblePhoneNumber, formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
+import PhoneInput, { formatPhoneNumber, isPossiblePhoneNumber, formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
 
 const CreateAccount = () => {
   const navigate = useNavigate();
@@ -95,8 +95,8 @@ const CreateAccount = () => {
   };
 
   const submitForm = () => {
-    if(mobile_value && isValidPhoneNumber(mobile_value)) {
-      
+    if (mobile_value && isValidPhoneNumber(mobile_value)) {
+
       const token = captchaRef.current.getValue();
       if (token) {
         captchaRef.current.reset();
@@ -153,7 +153,7 @@ const CreateAccount = () => {
                 position="relative"
                 zIndex="2"
                 variant="body2"
-                sx={{ fontSize: "14px", color: "#2B2B2B;" }}
+                sx={{ fontSize: "14px" }}
               >
                 Already have an account?{" "}
                 <Link
@@ -255,7 +255,7 @@ const CreateAccount = () => {
                       name="email"
                       autoComplete="off"
                       size="small"
-                      
+
                       {...register("email")}
                       onChange={(e) =>
                         reset({
@@ -268,18 +268,18 @@ const CreateAccount = () => {
                       }
                     />
                     <div className="frm-message">{errors.email?.message}</div>
-                     <div className="custom-mobile" >
-                    <PhoneInput
-                      className="PhoneInput2"
-                      placeholder="Enter Mobile number"
-                      value={mobile_value}
-                      onChange={(e)=>{setMobile_value(e);setPhone_hide(true)}}
-                      error={mobile_value ? (isValidPhoneNumber(mobile_value) ? undefined : 'Invalid Mobile number') : 'Mobile number is required'}
+                    <div className="custom-mobile" >
+                      <PhoneInput
+                        className="PhoneInput2"
+                        placeholder="Enter Mobile number"
+                        value={mobile_value}
+                        onChange={(e) => { setMobile_value(e); setPhone_hide(true) }}
+                        error={mobile_value ? (isValidPhoneNumber(mobile_value) ? undefined : 'Invalid Mobile number') : 'Mobile number is required'}
                       />
-                      
-                      {phone_hide&&<div className="frm-message" style={{color:"red"}}> {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value>0?'Mobile number is not valid.':'Mobile number is required.'}</div> }
+
+                      {phone_hide && <div className="frm-message" style={{ color: "red" }}> {mobile_value && isValidPhoneNumber(mobile_value) ? "" : mobile_value > 0 ? 'Mobile number is not valid.' : 'Mobile number is required.'}</div>}
                       <label id="phone_label_id">Mobile *</label>
-                    </div> 
+                    </div>
                     <TextField
                       margin="normal"
                       required
@@ -395,7 +395,7 @@ const CreateAccount = () => {
                       variant="contained"
                       disabled={isSubmitting}
                       className="btn btn-primary"
-                      onClick={()=>{setPhone_hide(true)}}
+                      onClick={() => { setPhone_hide(true) }}
                     >
                       {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Sign up"}
                     </LoadingButton>

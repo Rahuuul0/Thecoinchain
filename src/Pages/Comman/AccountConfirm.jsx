@@ -1,4 +1,4 @@
-import React, { useState,useCallback,useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../_common/app.constants";
@@ -22,7 +22,7 @@ import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useAlertActions } from '../../_actions/alert.actions';
-import { switchAtom,userErrorAtom } from '../../_state';
+import { switchAtom, userErrorAtom } from '../../_state';
 import { useRecoilState } from 'recoil';
 import LoadingButton from '@mui/lab/LoadingButton';
 
@@ -37,44 +37,45 @@ const AccountConfirm = () => {
   const [userError, setUserError] = useRecoilState(userErrorAtom);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [timer, setTimer] = useState(60);    
+  const [timer, setTimer] = useState(60);
   const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
-  
+
   useEffect(() => {
     timer > 0 && setTimeout(timeOutCallback, 1000);
   }, [timer, timeOutCallback]);
-  
+
   const resetTimer = function () {
     if (!timer) {
       setTimer(60);
     }
-  };  
+  };
 
   useEffect(() => {
     if (userError)
-        setIsSubmitting(false)
-}, [userError])
+      setIsSubmitting(false)
+  }, [userError])
 
   const onSubmitFun = async () => {
-  
+
     if (radioOption === "email") {
-      userActions.getOtp(); 
+      userActions.getOtp();
       setIsSubmitting(true)
-      setUserError(false)    
-    }else {
-      userActions.getOtpPhone(localStorage.getItem("phone"));   
+      setUserError(false)
+    } else {
+      userActions.getOtpPhone(localStorage.getItem("phone"));
       setIsSubmitting(true)
-      setUserError(false)   
+      setUserError(false)
     }
   }
   const handleOtpSubmit = async () => {
-   
-    if (OTP.length !== 4) { 
-      alertActions.error("Fill OTP First"); } 
-    else { 
-      userActions.verifyRegisterOtp(OTP) 
-    
-    }   
+
+    if (OTP.length !== 4) {
+      alertActions.error("Fill OTP First");
+    }
+    else {
+      userActions.verifyRegisterOtp(OTP)
+
+    }
   }
 
   return (
@@ -98,7 +99,7 @@ const AccountConfirm = () => {
               <Typography
                 component="p"
                 variant="body2"
-                sx={{ fontSize: "14px", color: "#2B2B2B;" }}
+                sx={{ fontSize: "14px" }}
               >
                 Already have an account?{" "}
                 <Link
@@ -116,7 +117,7 @@ const AccountConfirm = () => {
               <img src={AuthBg} alt="Auth bg" />
             </Box>
             <Box component="div" className="auth-wrapper-form">
-              {Soption===true ? (
+              {Soption === true ? (
                 <Box component="div" className="auth-wrapper-form-inner">
                   <Typography component="h3" variant="h3">
                     Let’s confirm it’s really you
@@ -169,10 +170,10 @@ const AccountConfirm = () => {
                         loadingPosition="end"
                         variant="contained"
                         className="btn btn-primary"
-                        disabled={isSubmitting} 
+                        disabled={isSubmitting}
                         endIcon={<KeyboardArrowRightIcon />}
                       >
-                         {isSubmitting? <span className="spinner-border spinner-border-sm mr-1">Loading</span>:"Continue"}
+                        {isSubmitting ? <span className="spinner-border spinner-border-sm mr-1">Loading</span> : "Continue"}
                       </LoadingButton>
                     </Box>
                   </Box>
@@ -202,20 +203,20 @@ const AccountConfirm = () => {
                     <Box component="div" display={"flex"} justifyContent={"center"} className="auth-form auth-otp">
                       <OTPInput id="otp1" autoFocus type='number' variant="filled" value={OTP} onChange={setOTP} OTPLength={4} otpType="number" disabled={false} />
                     </Box>
-                    <Box component="div" className='auth-otp-cta' >                      
-                      {timer>1 &&
-                      <Button disabled style={{"background": "#ccc"}} variant="outlined" className='btn btn-outlined-secondary'>
-                        Resend Code ({timer})
-                      </Button>
+                    <Box component="div" className='auth-otp-cta' >
+                      {timer > 1 &&
+                        <Button disabled style={{ "background": "#ccc" }} variant="outlined" className='btn btn-outlined-secondary'>
+                          Resend Code ({timer})
+                        </Button>
                       }
-                      {timer<1 &&
-                      <Button  onClick={() => { (Soption === "email")? userActions.getOtp():userActions.getOtpPhone(localStorage.getItem("phone")); resetTimer() }} variant="outlined" className='btn btn-outlined-secondary'>
-                        Resend Code 
-                      </Button>
+                      {timer < 1 &&
+                        <Button onClick={() => { (Soption === "email") ? userActions.getOtp() : userActions.getOtpPhone(localStorage.getItem("phone")); resetTimer() }} variant="outlined" className='btn btn-outlined-secondary'>
+                          Resend Code
+                        </Button>
                       }
                       <Button
                         type="submit" variant="contained" className='btn btn-primary'  >
-                        Continue 
+                        Continue
                       </Button>
 
                     </Box>

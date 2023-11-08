@@ -27,4 +27,9 @@ const cryptoNewsAtom = atom({
     default: []
 });
 
-export { homeAtom, marketTrendAtom, cryptoTraderAtom, cryptoNewsAtom };
+const switchDarkModeAtom = atom({
+    key: "darkMode",
+    default: false,
+  });
+
+export { homeAtom, marketTrendAtom, cryptoTraderAtom, cryptoNewsAtom, switchDarkModeAtom };

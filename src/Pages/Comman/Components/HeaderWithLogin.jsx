@@ -14,13 +14,13 @@ import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import { useUserActions } from "../../../_actions/user.actions";
 import { notificationActions } from '../../../_actions/notification.actions';
 import { notificationAtom, authAtom, notificationCountAtom } from '../../../_state/';
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { bannerListActions } from '../../../_actions';
-import { setLogoListAtom } from '../../../_state';
+import { setLogoListAtom, switchDarkModeAtom } from '../../../_state';
 
 
 
@@ -119,7 +119,7 @@ function Header(props) {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-  const [isDark, setIsDark] = useState(false)
+  const [isDark, setIsDark] = useRecoilState(switchDarkModeAtom);
   const handleDarkMode = () => {
     setIsDark(!isDark)
   }

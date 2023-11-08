@@ -28,8 +28,8 @@ import { Label } from 'recharts';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { bannerListActions } from '../../../_actions';
-import { setLogoListAtom } from '../../../_state';
-import { useRecoilValue } from 'recoil';
+import { setLogoListAtom, switchDarkModeAtom } from '../../../_state';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 const drawerWidth = '100%';
 const drawerHeight = '100vh';
@@ -40,6 +40,7 @@ function Header(props) {
   const LogoList = useRecoilValue(setLogoListAtom).filter((item)=>{
     return item.position === "Header"
 });
+
 
   useEffect(() => {
     const response = LogoListAction.logoList();
@@ -101,7 +102,7 @@ function Header(props) {
     setMobileOpen((prevState) => !prevState);
   };
 
-  const [isDark, setIsDark] = useState(false)
+  const [isDark, setIsDark] = useRecoilState(switchDarkModeAtom);
   const handleDarkMode = () => {
     setIsDark(!isDark)
   }

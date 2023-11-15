@@ -111,8 +111,10 @@ function Header(props) {
     const body = document.body;
     if (isDark) {
       body.classList.add('dark-theme');
+      localStorage.setItem('theme', 'dark')
     } else {
       body.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light')
     }
   }, [isDark])
 

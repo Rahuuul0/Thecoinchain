@@ -29,7 +29,7 @@ const cryptoNewsAtom = atom({
 
 const switchDarkModeAtom = atom({
     key: "darkMode",
-    default: false,
+    default: localStorage.getItem('theme') === 'dark' ? true : false
   });
 
 export { homeAtom, marketTrendAtom, cryptoTraderAtom, cryptoNewsAtom, switchDarkModeAtom };

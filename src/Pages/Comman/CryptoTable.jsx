@@ -610,14 +610,14 @@ const CryptoTable = (props) => {
             {location.pathname === "/prediction-dashboard" && limit < 100 && (
               <LoadingButton
                 onClick={(e) => handleChanges(e, 100)}
-                // loading={isSubmitting}
+                //loading={isSubmitting}
                 loadingPosition="end"
                 sx={{ width: "160px", alignItems: "center", margin: "0 auto" }}
                 variant="outlined"
                 className="btn btn-outlined-secondary"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : (<> <img className="loading-img" src={LoadingImg} alt="loading" /> Load more </>)}
+                {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : (<> {isSubmitting && <img className="loading-img" src={LoadingImg} alt="loading" />} Load more </>)}
               </LoadingButton>
             )}
             {/* {location.pathname === "/prediction-dashboard" ? (

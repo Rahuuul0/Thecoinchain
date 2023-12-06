@@ -1080,9 +1080,9 @@ const Home = () => {
             >
               How it work
             </Typography>
-            <Typography className="">
+            {/* <Typography className="">
               Power up your crypto game with our data-driven predictions!
-            </Typography>
+            </Typography> */}
           </Box>
           <Grid
             className="scrolling-tab become-h2-p"
@@ -1090,15 +1090,16 @@ const Home = () => {
             spacing={{ xs: 2, sm: 4, md: 4, lg: 4 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
-            {WorkList?.map((items) => {
+            {WorkList?.map((items,i) => {
             let title = items.title;
             let description = items.description;
             let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
+            let cls = (i==WorkList.length-1)?'howworks-box become-h2-p':"howworks-box contact-line become-h2-p";
             return (
-            <Grid item xs={6} sm={6} md={3}>
+            <Grid item xs={6} sm={6} md={3}>  
               <Box
                 sx={{ textAlign: { xs: "left", md: "center" } }}
-                 className="howworks-box contact-line become-h2-p"
+                 className={cls}
               >
                 {image == null || image == '' ? " " : <img src={image} width={96} />}
                 <Typography

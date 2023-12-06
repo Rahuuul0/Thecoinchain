@@ -61,6 +61,7 @@ import {
   homeBannerAtom,
   cryptoNewsAtom,
   cryptoTraderAtom,
+  WorkListAtom
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
@@ -92,6 +93,7 @@ const Home = () => {
   const loader = useSetRecoilState(loaderAtom);
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
   const homeBannerData = useRecoilValue(homeBannerAtom);
+  const WorkList = useRecoilValue(WorkListAtom);
 
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
@@ -165,6 +167,14 @@ const Home = () => {
   const handleLoadmore = () => {
     setLoadmore(loadmore + 20);
   }
+
+    // Api crytoWorkList
+    useEffect(() => {
+      const response = homeActions.crytoWorkList();
+      response.then((res) => { (res) })
+    }, []);
+
+    console.log(WorkList,'WorkList')
 
   return (
     <>
@@ -782,7 +792,9 @@ const Home = () => {
                   let title = item.title;
                   let description = item.description;
                   let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
-                  let link = item.link;
+                  let link = item.button_link;
+                  let buttonLabel = item.button_label;
+
                   return (
                     <Grid item xs={12} sm={4}>
                       <Box textAlign="center" className="grid-cypto-trade">
@@ -801,7 +813,7 @@ const Home = () => {
                             className="btn btn-outlined-secondary"
                             sx={{ margin: "0 auto" }}
                           >
-                            Coming Soon
+                           {buttonLabel}
                           </Button>
                         </Link>
                       </Box>
@@ -1071,134 +1083,36 @@ const Home = () => {
             spacing={{ xs: 2, sm: 4, md: 4, lg: 4 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
+            {WorkList?.map((items) => {
+            let title = items.title;
+            let description = items.description;
+            let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
+            return (
             <Grid item xs={6} sm={6} md={3}>
               <Box
                 sx={{ textAlign: { xs: "left", md: "center" } }}
-                className="howworks-box contact-line "
+                 className="howworks-box contact-line "
               >
-                <img src={Market} width={96} />
-                <Typography
-                  className="small-caption secondary-color "
-                  paddingTop={{ sx: 4, sm: 6 }}
-                  paddingBottom={3}
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                >
-                  Step 1
-                </Typography>
+                {image == null || image == '' ? " " : <img src={image} width={96} />}
                 <Typography
                   className=""
                   sx={{ textAlign: { xs: "left", md: "center" } }}
                   fontWeight="500"
                   paddingBottom={3}
                 >
-                  Subscribe
+                  {title}
                 </Typography>
                 <Typography
                   component="div"
                   variant="p"
                   className="body-caption"
                 >
-                  Stacks is a production-ready library of stackable content
-                  blocks built in React Native.
+                {ReactHtmlParser(description)}
                 </Typography>
               </Box>
-            </Grid>
-            <Grid item xs={6} sm={6} md={3}>
-              <Box
-                sx={{ textAlign: { xs: "left", md: "center" } }}
-                className="howworks-box contact-line "
-              >
-                <img src={Wallet} width={96} />
-                <Typography
-                  className="small-caption secondary-color "
-                  paddingTop={6}
-                  paddingBottom={3}
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                >
-                  Step 2
-                </Typography>
-                <Typography
-                  className=""
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                  fontWeight="500"
-                  paddingBottom={3}
-                >
-                  Connect wallet
-                </Typography>
-                <Typography
-                  component="div"
-                  variant="p"
-                  className="body-caption"
-                >
-                  Stacks is a production-ready library of stackable content
-                  blocks built in React Native.
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} sm={6} md={3}>
-              <Box
-                sx={{ textAlign: { xs: "left", md: "center" } }}
-                className="howworks-box contact-line "
-              >
-                <img src={Treding} width={96} />
-                <Typography
-                  className="small-caption secondary-color "
-                  paddingTop={6}
-                  paddingBottom={3}
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                >
-                  Step 3
-                </Typography>
-                <Typography
-                  className=""
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                  fontWeight="500"
-                  paddingBottom={3}
-                >
-                  Start trading
-                </Typography>
-                <Typography
-                  component="div"
-                  variant="p"
-                  className="body-caption"
-                >
-                  Stacks is a production-ready library of stackable content
-                  blocks built in React Native.
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} sm={6} md={3}>
-              <Box
-                sx={{ textAlign: { xs: "left", md: "center" } }}
-                className="howworks-box "
-              >
-                <img src={Money} width={96} />
-                <Typography
-                  className="small-caption secondary-color "
-                  paddingTop={6}
-                  paddingBottom={3}
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                >
-                  Step 4
-                </Typography>
-                <Typography
-                  className=""
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                  fontWeight="500"
-                  paddingBottom={3}
-                >
-                  Earn money
-                </Typography>
-                <Typography
-                  component="div"
-                  variant="p"
-                  className="body-caption"
-                >
-                  Stacks is a production-ready library of stackable content
-                  blocks built in React Native.
-                </Typography>
-              </Box>
-            </Grid>
+            </Grid>      
+              );
+            })}
           </Grid>
         </Container>
       </Box>

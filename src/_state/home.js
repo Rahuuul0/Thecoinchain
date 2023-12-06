@@ -32,4 +32,10 @@ const switchDarkModeAtom = atom({
     default: localStorage.getItem('theme') === 'dark' ? true : false
   });
 
-export { homeAtom, marketTrendAtom, cryptoTraderAtom, cryptoNewsAtom, switchDarkModeAtom };
+  const WorkListAtom = atom({
+    key: 'WorkList',
+    default: []
+});
+
+
+export { homeAtom, marketTrendAtom, cryptoTraderAtom, cryptoNewsAtom, switchDarkModeAtom, WorkListAtom };

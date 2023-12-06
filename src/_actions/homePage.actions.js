@@ -2,7 +2,7 @@ import {  useSetRecoilState } from 'recoil';
 import { useFetchWrapper } from '../_helpers';
 import { useAlertActions } from './alert.actions';
 import { Labels, Apis, RoutesName } from '../_common/app.constants'
-import { homePageAtom, marketTrendAtom, cryptoTraderAtom, cryptoNewsAtom } from '../_state';
+import { homePageAtom, marketTrendAtom, cryptoTraderAtom, cryptoNewsAtom, WorkListAtom } from '../_state';
 import {homeAtom} from '../_state/home';
 
 const useHomeActions = () => {
@@ -13,6 +13,7 @@ const useHomeActions = () => {
   const setMarketTrend = useSetRecoilState(marketTrendAtom);
   const setCtyptoTrader = useSetRecoilState(cryptoTraderAtom);
   const setCtyptoNews = useSetRecoilState(cryptoNewsAtom);
+  const setWorkList = useSetRecoilState(WorkListAtom);
 
   const categoriesData = async () => {
       
@@ -81,6 +82,18 @@ const useHomeActions = () => {
          }
      }).catch((err)=>{console.warn(err)})
   }
+
+  const crytoWorkList = async () => {
+  
+    return fetchWrapper.get(Apis.Cryto_Work_List)
+        .then(res => {
+         if (res.statusCode === 200) {
+            setWorkList(res.data)
+         } else {
+             alertActions.error(Labels.Error);
+         }
+     }).catch((err)=>{console.warn(err)})
+  }
    
   return {
     categoriesData,
@@ -88,7 +101,8 @@ const useHomeActions = () => {
     latestListing,
     marketTrend,
     cryptoTrader,
-    cryptoNews
+    cryptoNews,
+    crytoWorkList
   }
 
 }

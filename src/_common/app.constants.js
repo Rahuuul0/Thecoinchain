@@ -104,7 +104,8 @@ export const Apis = {
   Privacy_List: "privacy-list",
   Market_Banner_List: "market_banner-list",
   Home_Banner_List: "home_banner-list",
-  Logo_List: "logo-list"
+  Logo_List: "logo-list",
+  Cryto_Work_List: "cryto-work-list"
 };
 
 export const theme = createTheme({

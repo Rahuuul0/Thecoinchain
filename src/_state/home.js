@@ -37,5 +37,10 @@ const switchDarkModeAtom = atom({
     default: []
 });
 
+const headingListAtom = atom({
+    key: 'headingList',
+    default: []
+});
 
-export { homeAtom, marketTrendAtom, cryptoTraderAtom, cryptoNewsAtom, switchDarkModeAtom, WorkListAtom };
+
+export { homeAtom, marketTrendAtom, cryptoTraderAtom, cryptoNewsAtom, switchDarkModeAtom, WorkListAtom, headingListAtom };

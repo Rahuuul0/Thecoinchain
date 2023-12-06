@@ -61,7 +61,8 @@ import {
   homeBannerAtom,
   cryptoNewsAtom,
   cryptoTraderAtom,
-  WorkListAtom
+  WorkListAtom,
+  headingListAtom
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
@@ -94,6 +95,7 @@ const Home = () => {
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
   const homeBannerData = useRecoilValue(homeBannerAtom);
   const WorkList = useRecoilValue(WorkListAtom);
+  const headingList = useRecoilValue(headingListAtom);
 
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
@@ -173,6 +175,12 @@ const Home = () => {
       const response = homeActions.crytoWorkList();
       response.then((res) => { (res) })
     }, []);
+
+       // Api HeadingList
+       useEffect(() => {
+        const response = homeActions.headingList();
+        response.then((res) => { (res) })
+      }, []);
 
     console.log(WorkList,'WorkList')
 
@@ -773,14 +781,14 @@ const Home = () => {
               textAlign="center"
               sx={{ fontWeight: "700", maxWidth: "500px", margin: "auto" }}
             >
-              Become a crypto trader in seconds
+              {ReactHtmlParser(headingList[2]?.title??"")}
             </Typography>
             <Typography
               className="secondary-color"
               sx={{ textAlign: { xs: "left", md: "center" } }}
               paddingTop={2}
             >
-              We've got everything you need to start trading.
+              {/* We've got everything you need to start trading. */}
             </Typography>
             <Box paddingY={{ xs: 6, sm: 8 }}>
               <Grid
@@ -860,7 +868,7 @@ const Home = () => {
                   fontWeight={700}
                   className="secondary-font"
                 >
-                  Make informed decisions
+                 {ReactHtmlParser(headingList[1]?.title??"")}
                 </Typography>
                 <Typography
                   className="secondary-color"
@@ -963,9 +971,8 @@ const Home = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={7} md={7}>
-              <img className="app-store-img" src={InformedCypto} />
-            </Grid>
-
+              <img className="app-store-img" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[1]?.image}`} /> 
+            </Grid>         
 
           </Grid>
         </Box>
@@ -986,12 +993,12 @@ const Home = () => {
                 paddingBottom={3}
                 sx={{ fontWeight: "700" }}
               >
-                Stay in the know on
-                <br /> crypto with coinguru
+              {ReactHtmlParser(headingList[0]?.title??"")}
+                <br />
               </Typography>
-              <Typography className="secondary-color">
+              {/* <Typography className="secondary-color">
                 A creative agency that lead and inspire
-              </Typography>
+              </Typography> */}
             </Box>
             <Box className="swiper-global">
               <Swiper
@@ -1078,7 +1085,7 @@ const Home = () => {
             </Typography>
           </Box>
           <Grid
-            className="scrolling-tab"
+            className="scrolling-tab become-h2-p"
             container
             spacing={{ xs: 2, sm: 4, md: 4, lg: 4 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
@@ -1091,21 +1098,21 @@ const Home = () => {
             <Grid item xs={6} sm={6} md={3}>
               <Box
                 sx={{ textAlign: { xs: "left", md: "center" } }}
-                 className="howworks-box contact-line "
+                 className="howworks-box contact-line become-h2-p"
               >
                 {image == null || image == '' ? " " : <img src={image} width={96} />}
                 <Typography
-                  className=""
+                  className="become-h2-p"
                   sx={{ textAlign: { xs: "left", md: "center" } }}
-                  fontWeight="500"
+                  fontWeight="300"
                   paddingBottom={3}
                 >
-                  {title}
+                  {ReactHtmlParser(title)}
                 </Typography>
                 <Typography
                   component="div"
                   variant="p"
-                  className="body-caption"
+                  className="body-caption become-h2-p"
                 >
                 {ReactHtmlParser(description)}
                 </Typography>

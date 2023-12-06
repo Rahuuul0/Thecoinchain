@@ -4870,3 +4870,33 @@ video[poster] {
 .about-bread {
   padding-top: 68px;
 }
+.become-h2-p p, h3,h2{
+  font-size: 14px!important;
+  color: #353945 !important;
+font-weight: 200 !important;
+}
+.news h2{
+  font-size: 64px !important;
+    font-weight: 700 !important;
+}
+.news p{
+  font-size: 24px !important;
+    font-weight: 400 !important;
+    color: #fcfcfd;
+}
+.become-h2-p h1,h2,h3{
+  font-size: 16px!important;
+  color: #353945 !important;
+font-weight: 500 !important;
+}
+.become-h2-p:before:last-child {
+  display: none !important;
+}
+
+/* .become-h2-p :before {
+  display: none !important;
+} */
+
+/* .become-h2-p.contact-line:last-child{
+  display: none;
+} */

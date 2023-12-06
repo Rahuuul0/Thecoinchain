@@ -5,8 +5,8 @@ import { theme, RoutesName } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
-import { newsListActions, promotionsActions, useTutorialActions } from '../../_actions';
-import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom } from "../../_state";
+import { newsListActions, promotionsActions, useTutorialActions, useHomeActions } from '../../_actions';
+import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom, headingListAtom } from "../../_state";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useNavigate } from 'react-router-dom';
 import DarkLogo from "../../../public/assets/images/logo.svg";
@@ -30,6 +30,8 @@ const NewsPromotions = (props) => {
     const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
     const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
     const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
+    const headingList = useRecoilValue(headingListAtom);
+    const homeActions = useHomeActions();
 
     const newsCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "News";
@@ -159,6 +161,15 @@ const NewsPromotions = (props) => {
         setBlogimg(data)
         setBlognew(true)
     }
+
+       // Api HeadingList
+       useEffect(() => {
+        const response = homeActions.headingList();
+        response.then((res) => { (res) })
+      }, []);
+
+    console.log(headingList,'headingList')
+
     useEffect(() => {
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
     }, []);
@@ -170,11 +181,11 @@ const NewsPromotions = (props) => {
                     <Box paddingBottom={15}>
                         <Typography
                             variant="h1"
-                            className="secondary-font"
+                            className="secondary-font news"
                             fontWeight="700"
                             textAlign="center"
                         >
-                            News and Promotions
+                            {ReactHtmlParser(headingList[2]?.title??"")}
                         </Typography>
 
                         <Typography textAlign="center" className="secondary-color body-large">

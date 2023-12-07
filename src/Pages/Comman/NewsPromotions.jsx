@@ -185,7 +185,7 @@ const NewsPromotions = (props) => {
                             fontWeight="700"
                             textAlign="center"
                         >
-                            {ReactHtmlParser(headingList[2]?.title??"")}
+                            Guides and Analytics
                         </Typography>
 
                         <Typography textAlign="center" className="secondary-color body-large">

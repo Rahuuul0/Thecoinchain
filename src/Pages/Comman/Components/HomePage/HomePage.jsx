@@ -781,7 +781,7 @@ const Home = () => {
               textAlign="center"
               sx={{ fontWeight: "700", maxWidth: "500px", margin: "auto" }}
             >
-              {ReactHtmlParser(headingList[2]?.title??"")}
+              {ReactHtmlParser(headingList[0]?.title??"")}
             </Typography>
             <Typography
               className="secondary-color"
@@ -859,7 +859,7 @@ const Home = () => {
             columns={{ xs: 4, sm: 8, md: 12 }}
             className="flow-reverse-mobile"
           >
-
+             
             <Grid item xs={12} sm={5} md={5}>
               <Box sx={{ paddingBottom: { xs: "15px", md: "50px" } }}>
                 <Typography
@@ -984,7 +984,7 @@ const Home = () => {
         <Container>
           <Box>
             <Box textAlign="center">
-              <img src={DarkLogo} className="coinguru-logo" />
+              <img className="coinguru-logo" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[2]?.image??""}`}/>
               <Typography
                 variant="h2"
                 component="h2"
@@ -993,12 +993,9 @@ const Home = () => {
                 paddingBottom={3}
                 sx={{ fontWeight: "700" }}
               >
-              {ReactHtmlParser(headingList[0]?.title??"")}
+              {ReactHtmlParser(headingList[2]?.title??"")}
                 <br />
               </Typography>
-              {/* <Typography className="secondary-color">
-                A creative agency that lead and inspire
-              </Typography> */}
             </Box>
             <Box className="swiper-global">
               <Swiper
@@ -1010,6 +1007,9 @@ const Home = () => {
               >
                 {cryptoNewsList.map((item) => {
                   let description = item.description;
+                  let link = item.button_link;
+                  let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
+                  let title = item.title;
                   return (
                     <SwiperSlide>
                       <Box className="crypto-box">
@@ -1035,21 +1035,22 @@ const Home = () => {
                               Crypto news
                             </Typography>
                             <Typography component="h4" variant="h4" paddingBottom={3}>
-                              {item.title}
+                              {title}
                             </Typography>
                             <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
                               {ReactHtmlParser(description)}
                             </Typography>
+                            <Link to={link}>
                             <Button
                               sx={{ textTransform: "capitalize" }}
                               className="btn-outlined-secondary"
-                              onClick={() => navigate("/community")}
                             >
-                              Join now
+                              {item.button_label}
                             </Button>
+                            </Link>
                           </Grid>
                           <Grid item xs={12} sm={6} md={6} textAlign="right">
-                            <img src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                           {image == null || image == '' ? " " : <img src={image}/>}
                           </Grid>
 
                         </Grid>
@@ -1078,11 +1079,8 @@ const Home = () => {
               paddingBottom={2}
               sx={{ fontWeight: "700" }}
             >
-              How it work
+              {ReactHtmlParser(headingList[3]?.title??"")}
             </Typography>
-            {/* <Typography className="">
-              Power up your crypto game with our data-driven predictions!
-            </Typography> */}
           </Box>
           <Grid
             className="scrolling-tab become-h2-p"

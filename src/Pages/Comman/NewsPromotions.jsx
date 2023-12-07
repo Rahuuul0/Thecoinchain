@@ -185,7 +185,7 @@ const NewsPromotions = (props) => {
                             fontWeight="700"
                             textAlign="center"
                         >
-                            Guides and Analytics
+                            News-Promotions
                         </Typography>
 
                         <Typography textAlign="center" className="secondary-color body-large">

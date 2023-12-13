@@ -56,7 +56,7 @@ const AcademyAboutCrypto = () => {
                 </Breadcrumbs>
               </Box>
             </Box>
-            {allAbout?.map((items) => {
+            {allAbout?.map((items,index) => {
               let title = items.title;
               let description = items.description;
               let image = items.image
@@ -64,8 +64,8 @@ const AcademyAboutCrypto = () => {
                 : items.image_link;
               return (
                 <>
-                  <Box className="subscription-wrapper-head">
-                    <Typography component="h2" variant="h2">
+                  <Box className="subscription-wrapper-head head-about-div">
+                    <Typography className="describe-h2" component="h2" variant="h2">
                       {title}
                     </Typography>
                   </Box>
@@ -75,10 +75,12 @@ const AcademyAboutCrypto = () => {
                     ) : (
                       <img src={image} alt="" />
                     )}
-                    <Typography component="p" variant="body2">
+                    <Typography className="describe-p" component="p" variant="body2">
                       {ReactHtmlParser(description)}
                     </Typography>
                   </Box>
+                 {/* {allAbout.length && index ? "" :<div className="devider" />}  */}
+                 {/* {index < (allAbout.length-1) ?<div className="devider" />:<></>}  */}
                 </>
               );
             })}

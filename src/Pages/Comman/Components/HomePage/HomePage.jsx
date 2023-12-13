@@ -182,8 +182,6 @@ const Home = () => {
         response.then((res) => { (res) })
       }, []);
 
-    console.log(WorkList,'WorkList')
-
   return (
     <>
       <Box component="main" sx={{ pt: 8 }}></Box>

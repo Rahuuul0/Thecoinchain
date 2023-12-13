@@ -163,7 +163,11 @@
   --privcy-para: #B1B5C3;
   --modal-bg: #23262F;
 }
-
+.devider{
+  height: 1px;
+  width: 100%;
+  background-color: var(--footer-border);
+}
 .MuiDivider-root {
   border-color: var(--footer-border)
 }
@@ -3223,6 +3227,22 @@ video[poster] {
 .ElementsApp,
 .ElementsApp .InputElement {
   color: var(--color_dark);
+}
+
+.describe-p p {
+  font-size: 16px !important;
+  font-weight: 400;
+  letter-spacing: 1.1px;
+  line-height: 1.43;
+}
+.describe-h2 {
+  margin-top: 30px;
+  padding-top: 0px;
+}
+
+.head-about-div {
+  padding-bottom: 21px;
+  margin-top: 29px;
 }
 
 /* .payment-plan-box p {

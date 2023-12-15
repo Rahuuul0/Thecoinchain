@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import { Box, Grid, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Accordion, AccordionDetails, AccordionSummary } from '@mui/material/';
@@ -30,6 +30,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { bannerListActions } from '../../../_actions';
 import { setLogoListAtom, switchDarkModeAtom } from '../../../_state';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { RoutesName } from "../../../_common/app.constants";
 
 const drawerWidth = '100%';
 const drawerHeight = '100vh';
@@ -126,12 +127,13 @@ function Header(props) {
         <Box>
           <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
           <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
-            <Button variant='standard' className='nav-mobile-btn btn'>Crypto</Button>
+            <Button variant='standard' className='nav-mobile-btn btn' onClick={()=>{handleDrawerToggle(),navigate(RoutesName.Learn_Cypto)}}>Crypto</Button>
             <Accordion className='submenu'>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="acadamy"
+                
               >
                 <Button
                   id="acedamy-btn"
@@ -141,8 +143,8 @@ function Header(props) {
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
-                <Typography onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+                <Typography onClick={() => {handleDrawerToggle(),navigate(RoutesName.Academy_about_crypto) }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
+                <Typography onClick={() => {handleDrawerToggle(), navigate(RoutesName.Master_Course) }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
               </AccordionDetails>
             </Accordion>
 
@@ -154,7 +156,7 @@ function Header(props) {
                       {item.icon &&
                         <img src={item.icon} alt={item.page} />
                       }
-                      <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
+                      <ListItemText primary={`${item.page}`} onClick={() => {handleDrawerToggle(),navigate(item.link) }} />
                     </ListItemButton>
                   </ListItem>
                 )
@@ -288,7 +290,7 @@ function Header(props) {
             {navItems.map((item, i) => (
               <Button
                 onClick={() => {
-                  navigate(item.link);
+                  handleDrawerToggle(),navigate(item.link);
                 }}
                 key={i}
                 sx={{ color: "#fff" }}

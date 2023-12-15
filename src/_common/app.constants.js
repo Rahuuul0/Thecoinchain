@@ -51,7 +51,9 @@ export const RoutesName = {
   Marketblog_detail: "/marketblog-detail",
   FaqDetail: "/faq-detail",
   GuidesandAnalyticsDetail: "/guides-and-analytics-detail",
-  News_And_PromotionsDetail: "/news-and-promotions-detail"
+  News_And_PromotionsDetail: "/news-and-promotions-detail",
+  Academy_about_crypto: "/academy-about-crypto",
+  Master_Course: "/master-course"
 };
 
 export const Apis = {

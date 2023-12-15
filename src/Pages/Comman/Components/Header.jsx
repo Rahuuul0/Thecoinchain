@@ -74,12 +74,12 @@ function Header(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
-    navigate("/academy-about-crypto");
+    navigate(RoutesName.Academy_about_crypto);
   };
 
   const handle = () => {
     setAnchorEl(null);
-    navigate("/master-course");
+    navigate(RoutesName.Master_Course);
   };
 
   const click = () => {

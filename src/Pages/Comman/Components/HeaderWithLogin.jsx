@@ -84,12 +84,12 @@ function Header(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
-    handleDrawerToggle(), navigate('/academy-about-crypto')
+    handleDrawerToggle(), navigate(RoutesName.Academy_about_crypto)
   };
 
   const handle = () => {
     setAnchorEl(null);
-    handleDrawerToggle(), navigate('/master-course')
+    handleDrawerToggle(), navigate(RoutesName.Master_Course)
   };
 
   const click = () => {

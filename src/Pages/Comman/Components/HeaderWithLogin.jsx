@@ -21,6 +21,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { bannerListActions } from '../../../_actions';
 import { setLogoListAtom, switchDarkModeAtom } from '../../../_state';
+import { RoutesName } from "../../../_common/app.constants";
 
 
 
@@ -83,12 +84,12 @@ function Header(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
-    navigate('/academy-about-crypto')
+    handleDrawerToggle(), navigate('/academy-about-crypto')
   };
 
   const handle = () => {
     setAnchorEl(null);
-    navigate('/master-course')
+    handleDrawerToggle(), navigate('/master-course')
   };
 
   const click = () => {
@@ -147,7 +148,7 @@ function Header(props) {
           </Box>
         </Box>
         <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
-          <Button variant='standard' className='nav-mobile-btn btn'>Crypto</Button>
+          <Button variant='standard' className='nav-mobile-btn btn' onClick={()=>{handleDrawerToggle(),navigate(RoutesName.Learn_Cypto)}}>Crypto</Button>
           <Accordion className='submenu'>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -161,8 +162,8 @@ function Header(props) {
               </Button>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
-              <Typography onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+              <Typography onClick={() => {handleDrawerToggle(),navigate(RoutesName.Academy_about_crypto) }}  sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
+              <Typography onClick={() => {handleDrawerToggle(), navigate(RoutesName.Master_Course) }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
             </AccordionDetails>
           </Accordion>
           <List className='itemnavitem'>
@@ -173,7 +174,7 @@ function Header(props) {
                     {item.icon &&
                       <img src={item.icon} alt={item.page} />
                     }
-                    <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
+                    <ListItemText primary={`${item.page}`} onClick={() => {handleDrawerToggle(), navigate(item.link) }} /> 
                   </ListItemButton>
                 </ListItem>
               )

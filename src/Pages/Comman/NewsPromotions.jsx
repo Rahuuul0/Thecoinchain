@@ -6,8 +6,8 @@ import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
 import { newsListActions, promotionsActions, useTutorialActions, useHomeActions } from '../../_actions';
-import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom, headingListAtom } from "../../_state";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom, headingListAtom, breadCrumbAtom } from "../../_state";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate } from 'react-router-dom';
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
@@ -32,6 +32,7 @@ const NewsPromotions = (props) => {
     const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
     const headingList = useRecoilValue(headingListAtom);
     const homeActions = useHomeActions();
+    const [breadcrumb, setBreadCrumb] = useRecoilState(breadCrumbAtom);
 
     const newsCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "News";
@@ -149,15 +150,17 @@ const NewsPromotions = (props) => {
     }, [newsList]);
 
     const imgLink = (data) => {
+        setBreadCrumb("News")
         let newsSeo = data.slug
-        navigate(`${RoutesName.learn_Crypto_Details}/newsletter/${newsSeo}`)
+        navigate(`${RoutesName.News_And_PromotionsDetail}/newsletter/${newsSeo}`)
         setBlogimg(data)
         setBlognew(true)
     }
 
     const imgpromo = (data) => {
+        setBreadCrumb("Promotions")
         let newsSeo = data.slug
-        navigate(`${RoutesName.learn_Crypto_Details}/newspromotions/${newsSeo}`)
+        navigate(`${RoutesName.News_And_PromotionsDetail}/newspromotions/${newsSeo}`)
         setBlogimg(data)
         setBlognew(true)
     }
@@ -168,9 +171,8 @@ const NewsPromotions = (props) => {
         response.then((res) => { (res) })
       }, []);
 
-    console.log(headingList,'headingList')
-
     useEffect(() => {
+        breadcrumb==="Promotions"?setValueTab(1):setValueTab(0)
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
     }, []);
 

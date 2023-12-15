@@ -62,7 +62,8 @@ import {
   cryptoNewsAtom,
   cryptoTraderAtom,
   WorkListAtom,
-  headingListAtom
+  headingListAtom,
+  breadCrumbAtom
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
@@ -112,6 +113,8 @@ const Home = () => {
   });
   const subscribeUser = useRecoilValue(forecastSubAtom);
   const auth = useRecoilValue(authAtom);
+  const [breadcrumb, setBreadCrumb] = useRecoilState(breadCrumbAtom);
+  
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -159,6 +162,7 @@ const Home = () => {
   }, []);
 
   const videoLink = (data) => {
+    setBreadCrumb(data.category)
     let learnSeo = data.slug
     navigate(`${RoutesName.learn_Crypto_Details}/learncyptovideo/${learnSeo}`)
     setBlogimg(data)

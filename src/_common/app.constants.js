@@ -46,6 +46,12 @@ export const RoutesName = {
   Subscription: "/subscription",
   Market: "/market",
   learn_Crypto_Details: "../learn-cypto-detail",
+  Learn_Cypto: "/learn-cypto",
+  Contact_Detail: "/contact-detail",
+  Marketblog_detail: "/marketblog-detail",
+  FaqDetail: "/faq-detail",
+  GuidesandAnalyticsDetail: "/guides-and-analytics-detail",
+  News_And_PromotionsDetail: "/news-and-promotions-detail"
 };
 
 export const Apis = {

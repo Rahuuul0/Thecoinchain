@@ -23,7 +23,7 @@ import Globe from "../../../public/assets/images/globe.svg";
 import ReactPlayer from "react-player";
 import { useNavigate, Link } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tutorialAtom, blogAtom, loaderAtom, blogListAtom, blogimgAtom, tutorialCategoryAtom, blogVideoAtom } from "../../_state";
+import { tutorialAtom, blogAtom, loaderAtom, blogListAtom, blogimgAtom, tutorialCategoryAtom, blogVideoAtom,breadCrumbAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import Tab from "@mui/material/Tab";
 import { TabContext, TabPanel, TabList } from "@mui/lab/";
@@ -74,6 +74,7 @@ const LearnCypto = () => {
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
   const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
+  const [breadcrumb, setBreadCrumb] = useRecoilState(breadCrumbAtom);
 
   const [value, setValue] = useState("1");
 
@@ -103,6 +104,7 @@ const LearnCypto = () => {
   };
 
   const imgLink = (data) => {
+    setBreadCrumb(data.category)
     let learnSeo = data.slug
     navigate(`${RoutesName.learn_Crypto_Details}/learncypto/${learnSeo}`)
     setBlogimg(data)
@@ -234,6 +236,7 @@ const LearnCypto = () => {
                 variant="outlined"
                 className="btn btn-outlined-secondary"
                 onClick={() => {
+                  setBreadCrumb("Video Tutorial")
                   navigate(`${'/learn-cypto-detail/:page/:title'}, ${details}`);
                   setBlognew(false);
                 }}

@@ -3251,6 +3251,9 @@ video[poster] {
   color: #353945 !important;
 }
 
+span.currency_name {
+  margin: 10px 23px;
+}
 
 /* .payment-plan-box p {
   border: 1px solid;

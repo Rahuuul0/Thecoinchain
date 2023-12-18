@@ -141,7 +141,7 @@ function Header(props) {
       <Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Box>
-            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
+            <img onClick={() => {handleDrawerToggle(), navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
           </Box>
           <Box display='flex' alignItems='center' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}>
             <Box className='close'><p>+</p></Box>

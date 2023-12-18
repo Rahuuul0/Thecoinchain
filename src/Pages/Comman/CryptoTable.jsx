@@ -192,6 +192,14 @@ const CryptoTable = (props) => {
     return () => clearInterval(interval);
   }, [intervalCount, selectedCat, subscriptionDetails]);
 
+  useEffect(()=>{
+    if (location.pathname === "/prediction-dashboard"){
+      if(coinsList.length===0){
+        coinActions.latestListing("?limit=5");
+      }
+    }
+  },[])
+
   // useEffect(() => {
   //   const interval = setInterval(() => {
   //     setIntervalCount(intervalCount + 1);
@@ -235,6 +243,8 @@ const CryptoTable = (props) => {
     },
   };
 
+
+
   const handleChanges = (event, value) => {
 
     setIsSubmitting(true)
@@ -242,6 +252,7 @@ const CryptoTable = (props) => {
       setLimit(value);
     }, 400);
   }
+
   return (
     <>
       <Box className="crypto-list" sx={{ py: 2 }}>

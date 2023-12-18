@@ -88,6 +88,8 @@
   --bg-auth: #fcfcfd;
   --privcy-para: #353945;
   --modal-bg: #E6E8EC;
+  --mobile-header: #fff;
+  /* --theme-selector: #353945; */
 }
 
 .dark-theme {
@@ -162,6 +164,8 @@
   --bg-auth: #141416;
   --privcy-para: #B1B5C3;
   --modal-bg: #23262F;
+  --mobile-header: #000;
+  /* --theme-selector: #353945; */
 }
 .devider{
   height: 1px;
@@ -193,6 +197,18 @@ body .modal-dialog * {
 }
 
 /* button styles */
+.mobile-nav-box{
+  background-color: var(--mobile-header);
+}
+.mobile-menu .MuiPaper-root {
+  background-color: var(--mobile-header);
+}
+.mobile-menu .MuiPaper-root  .MuiAccordionSummary-expandIconWrapper{
+  color: var(--secondary-color);
+}
+.theme-selector, .mobile-search{
+  color: var(--secondary-color) !important;
+}
 #root .btn,
 .modal-dialog .btn {
   display: flex;
@@ -1535,7 +1551,9 @@ input[type="number"] {
   margin-left: 0;
 }
 
-
+body {
+  overflow: unset !important;
+}
 
 /* Homepage Ends */
 /* Learn Cypto Page */
@@ -3986,6 +4004,12 @@ span.currency_name {
     padding: 6px 0px;
   }
 
+}
+
+@media (max-width: 899.98px){
+  .MuiDrawer-paper .MuiBox-root.mobile-nav-box{
+    min-height: 100vh !important;
+  }
 }
 
 @media (max-width: 767.98px) {

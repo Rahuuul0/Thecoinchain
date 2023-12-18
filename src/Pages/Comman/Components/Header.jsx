@@ -128,7 +128,7 @@ function Header(props) {
           <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
           <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
             <Button variant='standard' className='nav-mobile-btn btn' onClick={()=>{handleDrawerToggle(),navigate(RoutesName.Learn_Cypto)}}>Crypto</Button>
-            <Accordion className='submenu'>
+            <Accordion className='submenu mobile-nav-dropdown'>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
@@ -194,8 +194,8 @@ function Header(props) {
             variant="outline" className="btn btn-outline" sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }} >
             Login</Button>
 
-          <IconButton aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
-          <IconButton aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
+          <IconButton onClick={handleDarkMode} aria-label="sunny" className='theme-selector' color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
+          {/* <IconButton className='mobile-search' aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton> */}
 
 
         </Box>

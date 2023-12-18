@@ -4148,7 +4148,7 @@ span.currency_name {
     font-size: 14px !important;
     font-weight: 500;
     padding: 12px;
-    color: var(--color_dark);
+    /* color: var(--color_dark); */
   }
 
   .dropdown-mobile .MuiInputBase-root fieldset {

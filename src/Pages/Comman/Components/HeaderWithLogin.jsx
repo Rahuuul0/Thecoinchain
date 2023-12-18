@@ -197,8 +197,8 @@ function Header(props) {
         </Box>
       </Box>
       <Box display='flex' justifyContent='space-between' sx={{ paddingBottom: '20px' }}>
-        <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Profile settings</Button>
-        <IconButton aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
+        <Button onClick={()=>{handleDrawerToggle(),navigate(RoutesName.Profile)}} variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Profile settings</Button>
+        <IconButton onClick={handleDarkMode} className='theme-selector'aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
         <IconButton aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
       </Box>
 

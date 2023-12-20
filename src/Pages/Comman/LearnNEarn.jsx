@@ -127,7 +127,7 @@ const LearnNEarn = () => {
                     </Grid>
 
                 </Box>
-                {marketBlogLists.length >= 3 && loadmore <= 3 &&
+                {marketBlogLists.length >= 4 && loadmore <= 3 &&
                     <LoadingButton
                         onClick={(e) => handleChanges(e, 3)}
                         // loadingPosition="end"
@@ -136,7 +136,7 @@ const LearnNEarn = () => {
                         className="btn btn-outlined-secondary"
                         disabled={isSubmitting}
                     >
-                        {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : (<> <img src={LoadingImg} className="loading-img" alt="loading" /> Load more </>)}
+                        {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : (<> <img src={LoadingImg}  alt="loading" /> Load more </>)}
                     </LoadingButton>
                 }
             </Box>

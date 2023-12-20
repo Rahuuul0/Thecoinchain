@@ -4016,7 +4016,9 @@ span.currency_name {
   .dropdown-mobile {
     margin-bottom: 10px;
   }
-
+.latest-release .right-tab{
+  margin-top: 20px;
+}
   .market-prediction-faq-item {
     flex-wrap: wrap;
   }
@@ -4148,7 +4150,7 @@ span.currency_name {
     font-size: 14px !important;
     font-weight: 500;
     padding: 12px;
-    /* color: var(--color_dark); */
+    color: var(--color_dark);
   }
 
   .dropdown-mobile .MuiInputBase-root fieldset {
@@ -4926,7 +4928,7 @@ span.currency_name {
 }
 .become-h2-p p, h3,h2{
   font-size: 14px!important;
-  color: #353945 !important;
+  /* color: #353945 !important; */
 font-weight: 200 !important;
 }
 .news h2{
@@ -4940,7 +4942,7 @@ font-weight: 200 !important;
 }
 .become-h2-p h1,h2,h3{
   font-size: 16px!important;
-  color: #353945 !important;
+  /* color: #353945 !important; */
 font-weight: 500 !important;
 }
 .become-h2-p:before:last-child {

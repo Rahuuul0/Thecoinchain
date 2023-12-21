@@ -4,8 +4,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme, RoutesName } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { guidesAnalysisActions, analyticsActions, useTutorialActions } from "../../_actions";
-import { guidesAtom, analyticAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom } from "../../_state";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { guidesAtom, analyticAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom, breadCrumbAtom } from "../../_state";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabList from "@mui/lab/TabList";
 import ReactHtmlParser from 'react-html-parser';
+
+  
 
 const GuidesAnalysis = (props) => {
 
@@ -38,6 +40,7 @@ const GuidesAnalysis = (props) => {
     const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
     const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
     const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
+    const [breadcrumb, setBreadCrumb] = useRecoilState(breadCrumbAtom);
 
     const guidesCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "Guide";
@@ -67,15 +70,17 @@ const GuidesAnalysis = (props) => {
     };
 
     const imgLink = (data) => {
-        let guideSeo = data.slug
-        navigate(`${RoutesName.learn_Crypto_Details}/guides/${guideSeo}`)
+        setBreadCrumb("Guides")
+        let guideSeo = data.slug 
+        navigate(`${RoutesName.GuidesandAnalyticsDetail}/guides/${guideSeo}`)
         setBlogimg(data)
         setBlognew(true)
     }
 
     const imgAna = (data) => {
+        setBreadCrumb("Analytics")
         let guideSeo = data.slug
-        navigate(`${RoutesName.learn_Crypto_Details}/guideanalytics/${guideSeo}`)
+        navigate(`${RoutesName.GuidesandAnalyticsDetail}/guideanalytics/${guideSeo}`)
         setBlogimg(data)
         setBlognew(true)
     }
@@ -248,6 +253,7 @@ const GuidesAnalysis = (props) => {
     }, [analytic]);
 
     useEffect(() => {
+        breadcrumb==="Analytics"?setValueTab(1):setValueTab(0)
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
     }, []);
     return (
@@ -303,7 +309,7 @@ const GuidesAnalysis = (props) => {
                                                     </Grid>
 
                                                     <TabContext value={value}>
-                                                        <Box className='for-desktop' sx={{ borderBottom: 1, borderColor: "divider" }}>
+                                                        <Box className='for-desktop' sx={{ borderColor: "divider" }}>
                                                             <TabList
                                                                 value={value}
                                                                 aria-label="tabs">
@@ -415,7 +421,7 @@ const GuidesAnalysis = (props) => {
                                                 </Grid>
 
                                                 <TabContext value={valueTemp}>
-                                                    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                                                    <Box sx={{ borderColor: "divider" }}>
                                                         <TabList className='for-desktop' onChange={handleCategory} aria-label="tabs">
                                                             <Tab label="All" value="1" onClick={e => handleCategorys('1')} />
                                                             {analyticsCategory?.map((item) => {

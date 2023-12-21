@@ -14,13 +14,14 @@ import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
 import { useUserActions } from "../../../_actions/user.actions";
 import { notificationActions } from '../../../_actions/notification.actions';
 import { notificationAtom, authAtom, notificationCountAtom } from '../../../_state/';
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { bannerListActions } from '../../../_actions';
-import { setLogoListAtom } from '../../../_state';
+import { setLogoListAtom, switchDarkModeAtom } from '../../../_state';
+import { RoutesName } from "../../../_common/app.constants";
 
 
 
@@ -33,7 +34,9 @@ function Header(props) {
   const notificaionCount = useRecoilValue(notificationCountAtom);
 
   const LogoListAction = bannerListActions();
-  const LogoList = useRecoilValue(setLogoListAtom);
+  const LogoList = useRecoilValue(setLogoListAtom).filter((item)=>{
+       return item.position === "Header"
+  });
 
   useEffect(() => {
     const response = LogoListAction.logoList();
@@ -81,12 +84,12 @@ function Header(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
-    navigate('/academy-about-crypto')
+    handleDrawerToggle(), navigate(RoutesName.Academy_about_crypto)
   };
 
   const handle = () => {
     setAnchorEl(null);
-    navigate('/master-course')
+    handleDrawerToggle(), navigate(RoutesName.Master_Course)
   };
 
   const click = () => {
@@ -117,7 +120,7 @@ function Header(props) {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-  const [isDark, setIsDark] = useState(false)
+  const [isDark, setIsDark] = useRecoilState(switchDarkModeAtom);
   const handleDarkMode = () => {
     setIsDark(!isDark)
   }
@@ -126,25 +129,26 @@ function Header(props) {
     const body = document.body;
     if (isDark) {
       body.classList.add('dark-theme');
+      localStorage.setItem('theme', 'dark')
     } else {
       body.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light')
     }
   }, [isDark])
-
 
   const drawer = (
     <Box className='mobile-nav-box' sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
       <Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Box>
-            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
+            <img onClick={() => {handleDrawerToggle(), navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
           </Box>
           <Box display='flex' alignItems='center' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}>
             <Box className='close'><p>+</p></Box>
           </Box>
         </Box>
         <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
-          <Button variant='standard' className='nav-mobile-btn btn'>Crypto</Button>
+          <Button variant='standard' className='nav-mobile-btn btn' onClick={()=>{handleDrawerToggle(),navigate(RoutesName.Learn_Cypto)}}>Crypto</Button>
           <Accordion className='submenu'>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -158,8 +162,8 @@ function Header(props) {
               </Button>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
-              <Typography onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+              <Typography onClick={() => {handleDrawerToggle(),navigate(RoutesName.Academy_about_crypto) }}  sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
+              <Typography onClick={() => {handleDrawerToggle(), navigate(RoutesName.Master_Course) }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
             </AccordionDetails>
           </Accordion>
           <List className='itemnavitem'>
@@ -170,7 +174,7 @@ function Header(props) {
                     {item.icon &&
                       <img src={item.icon} alt={item.page} />
                     }
-                    <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
+                    <ListItemText primary={`${item.page}`} onClick={() => {handleDrawerToggle(), navigate(item.link) }} /> 
                   </ListItemButton>
                 </ListItem>
               )
@@ -193,8 +197,8 @@ function Header(props) {
         </Box>
       </Box>
       <Box display='flex' justifyContent='space-between' sx={{ paddingBottom: '20px' }}>
-        <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Profile settings</Button>
-        <IconButton aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
+        <Button onClick={()=>{handleDrawerToggle(),navigate(RoutesName.Profile)}} variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Profile settings</Button>
+        <IconButton onClick={handleDarkMode} className='theme-selector'aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
         <IconButton aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
       </Box>
 

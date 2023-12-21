@@ -54,6 +54,11 @@ import ForgotPasswordPhone from "./ForgotPasswordPhone";
 import ContentNotFound from "./ContentNotFound";
 import PageNotFound from "./PageNotFound";
 import UnSubscribe from "./UnSubscribe";
+import ContactDetail from "./ContactDetail";
+import MarketBlogDetail from "./MarketBlogDetail";
+import FaqDetail from "./FaqDetail";
+import GuidesAndAnalyticsDetail from "./GuidesandAnalyticsDetail";
+import NewsAndPromotionsDetail from "./NewsAndPromotionsDetail";
 
 const Customer = () => {
   const auth = useRecoilValue(authAtom);
@@ -90,6 +95,11 @@ const Customer = () => {
           <Route path={`/`} exact element={<Home />} />
           <Route path={`/learn-cypto`} element={<LearnCypto />} />
           <Route path={`/learn-cypto-detail/:page/:title`} element={<LearnCyptoDetail />} />
+          <Route path={`/contact-detail/:page/:title`} element={<ContactDetail />} />
+          <Route path={`/marketblog-detail/:page/:title`} element={<MarketBlogDetail/>}/>
+          <Route path={`/faq-detail/:page/:title`} element={<FaqDetail/>}/>
+          <Route path={`/guides-and-analytics-detail/:page/:title`} element={<GuidesAndAnalyticsDetail/>}/>
+          <Route path={`/news-and-promotions-detail/:page/:title`} element={<NewsAndPromotionsDetail/>}/>
           <Route path='*' element={<PageNotFound/>} />
           <Route path={`/contact`} element={<Contact />} />
           <Route path={`/market`} exact element={<Market />} />

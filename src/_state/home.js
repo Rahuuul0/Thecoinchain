@@ -27,4 +27,20 @@ const cryptoNewsAtom = atom({
     default: []
 });
 
-export { homeAtom, marketTrendAtom, cryptoTraderAtom, cryptoNewsAtom };
+const switchDarkModeAtom = atom({
+    key: "darkMode",
+    default: localStorage.getItem('theme') === 'dark' ? true : false
+  });
+
+  const WorkListAtom = atom({
+    key: 'WorkList',
+    default: []
+});
+
+const headingListAtom = atom({
+    key: 'headingList',
+    default: []
+});
+
+
+export { homeAtom, marketTrendAtom, cryptoTraderAtom, cryptoNewsAtom, switchDarkModeAtom, WorkListAtom, headingListAtom };

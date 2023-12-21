@@ -192,6 +192,14 @@ const CryptoTable = (props) => {
     return () => clearInterval(interval);
   }, [intervalCount, selectedCat, subscriptionDetails]);
 
+  useEffect(()=>{
+    if (location.pathname === "/prediction-dashboard"){
+      if(coinsList.length===0){
+        coinActions.latestListing("?limit=5");
+      }
+    }
+  },[])
+
   // useEffect(() => {
   //   const interval = setInterval(() => {
   //     setIntervalCount(intervalCount + 1);
@@ -235,6 +243,8 @@ const CryptoTable = (props) => {
     },
   };
 
+
+
   const handleChanges = (event, value) => {
 
     setIsSubmitting(true)
@@ -242,6 +252,7 @@ const CryptoTable = (props) => {
       setLimit(value);
     }, 400);
   }
+
   return (
     <>
       <Box className="crypto-list" sx={{ py: 2 }}>
@@ -610,14 +621,14 @@ const CryptoTable = (props) => {
             {location.pathname === "/prediction-dashboard" && limit < 100 && (
               <LoadingButton
                 onClick={(e) => handleChanges(e, 100)}
-                // loading={isSubmitting}
+                //loading={isSubmitting}
                 loadingPosition="end"
                 sx={{ width: "160px", alignItems: "center", margin: "0 auto" }}
                 variant="outlined"
                 className="btn btn-outlined-secondary"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : (<> <img className="loading-img" src={LoadingImg} alt="loading" /> Load more </>)}
+                {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : (<> {isSubmitting && <img className="loading-img" src={LoadingImg} alt="loading" />} Load more </>)}
               </LoadingButton>
             )}
             {/* {location.pathname === "/prediction-dashboard" ? (

@@ -88,6 +88,10 @@
   --bg-auth: #fcfcfd;
   --privcy-para: #353945;
   --modal-bg: #E6E8EC;
+  --mobile-header: #fff;
+  --multi-select: #E6E8EC;
+  --auth-header: #fcfcfd;
+  --lable-color: #353945;
 }
 
 .dark-theme {
@@ -162,6 +166,16 @@
   --bg-auth: #141416;
   --privcy-para: #B1B5C3;
   --modal-bg: #23262F;
+  --mobile-header: #000;
+  --multi-select: #353945;
+  --auth-header: #141416;
+  --lable-color: #FCFCFD;
+}
+
+.devider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--footer-border);
 }
 
 hr.MuiDivider-root {
@@ -189,6 +203,23 @@ body .modal-dialog * {
 }
 
 /* button styles */
+.mobile-nav-box {
+  background-color: var(--mobile-header);
+}
+
+.mobile-menu .MuiPaper-root {
+  background-color: var(--mobile-header);
+}
+
+.mobile-menu .MuiPaper-root .MuiAccordionSummary-expandIconWrapper {
+  color: var(--secondary-color);
+}
+
+.theme-selector,
+.mobile-search {
+  color: var(--secondary-color) !important;
+}
+
 #root .btn,
 .modal-dialog .btn {
   display: flex;
@@ -604,6 +635,10 @@ nav .MuiButtonBase-root:hover {
 
 .notification-menu .MuiList-root {
   width: 316px;
+}
+
+.notification-title.MuiBox-root {
+  width: 100%;
 }
 
 .notification-menu .body-large,
@@ -1284,6 +1319,11 @@ input[type="number"] {
   transform: translate(0px, -50%);
 }
 
+.market-hero-img-wrapper img.for-desktop {
+  width: 100%;
+  min-width: 500px;
+}
+
 .market-crypto-card-wrapper {
   position: relative;
   z-index: 1;
@@ -1409,12 +1449,20 @@ input[type="number"] {
   box-shadow: 0px 6px 25px rgb(15 15 15 / 10%);
 }
 
+.grid-cypto-trade img {
+  height: 160px;
+}
+
 .crypto-box {
   padding: 50px;
   background-color: var(--color_light);
   margin: 80px 64px 24px;
   border-radius: 24px;
   box-shadow: 0px 6px 25px rgb(15 15 15 / 10%);
+}
+
+.crypto-box img {
+  width: 100%;
 }
 
 #root .crypto-box h4 {
@@ -1460,9 +1508,23 @@ input[type="number"] {
   padding: 0;
 }
 
+.heroImage {
+  width: 100%;
+}
+
+.right-tab img {
+  width: 100%;
+  max-height: 330px;
+  object-fit: cover;
+}
+
 .blog-box .blog-box-content {
   margin-bottom: 64px;
   margin-top: 64px;
+}
+
+#root .blog-box a {
+  color: var(--privcy-para);
 }
 
 .right-tab .right-tab-content {
@@ -1500,7 +1562,9 @@ input[type="number"] {
   margin-left: 0;
 }
 
-
+body {
+  overflow: unset !important;
+}
 
 /* Homepage Ends */
 /* Learn Cypto Page */
@@ -1618,6 +1682,9 @@ input[type="number"] {
 
 .rfm-marquee img.margin10 {
   margin-left: 75px;
+  max-width: 200px;
+  min-height: 100px;
+  object-fit: contain;
 }
 
 /* learn cypto ends */
@@ -1715,6 +1782,10 @@ input[type="number"] {
 
 .topic-que .MuiBox-root .select-input .MuiInputBase-root input {
   padding: 0;
+}
+
+.topic-que .MuiBox-root .select-input button {
+  color: var(--color_dark);
 }
 
 #root .topic-que .MuiSelect-select p {
@@ -2108,10 +2179,15 @@ video {
   min-width: 128px;
   height: auto;
   min-height: 96px;
+  background-color: #f5f5f5;
+  border-radius: 15px;
+  text-align: center;
 }
 
 .market-prediction-faq-item-img img {
+  width: auto;
   height: 100%;
+  object-fit: contain;
 }
 
 /* Modal style */
@@ -2340,6 +2416,29 @@ video {
 .subscription-steps-col-details h5 {
   font-size: 24px !important;
   font-weight: 600;
+  color: var(--color_dark);
+}
+
+.subscription-steps-col-details .update-profile h5 {
+  color: #23262F;
+}
+
+.update-profile .white-input-box .MuiInputBase-root.MuiInput-root,
+.update-profile .MuiFormControl-root .MuiInputBase-root input {
+  background-color: #FCFCFD;
+  color: #23262F;
+}
+
+.update-profile .MuiFormControl-root .MuiInputBase-root input.Mui-disabled {
+  -webkit-text-fill-color: #23262F;
+}
+
+.update-profile .MuiFormControl-root label+.MuiInputBase-root {
+  border-color: #fff;
+}
+
+.update-profile .MuiFormControl-root label.Mui-focused+.MuiInputBase-root {
+  border-color: var(--primary-color);
 }
 
 .side-nav-border {
@@ -2350,6 +2449,12 @@ video {
   /* margin-top: 32px; */
   margin-bottom: 36px;
   border-top: 1px solid var(--color-2);
+}
+
+.subscription-plan>div,
+#panel1bh-content .MuiAccordionDetails-root {
+  padding: 0;
+  background-color: unset;
 }
 
 .subscription-plan-card {
@@ -2368,6 +2473,7 @@ video {
   font-weight: 700;
   font-family: var(--secondary-font) !important;
   padding: 8px;
+  color: var(--color_dark);
 }
 
 .subscription-plan-card .subscription-plan-body {
@@ -2378,6 +2484,7 @@ video {
   font-weight: 700;
   font-family: var(--secondary-font) !important;
   margin-bottom: 48px;
+  color: var(--color_dark);
 }
 
 .subscription-plan-card .subscription-plan-body .plan-days {
@@ -2432,6 +2539,24 @@ video {
 .account-main .subscription-plan {
   margin-top: 16px;
   margin-bottom: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+}
+
+#panel1bh-header {
+  padding: 0;
+  min-height: auto;
+}
+
+#panel1bh-header .MuiAccordionSummary-content {
+  margin: 0;
+}
+
+.account-main .subscription-plan>div {
+  padding: 0;
+  box-shadow: none;
+  border: none;
 }
 
 .account-main .subscription-plan .unsubscribe-plan {
@@ -2763,8 +2888,8 @@ p.left-icon img {
   display: flex;
   gap: 16px;
   align-items: start;
-  margin-bottom: 24px;
-  padding-bottom: 24px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
   border-bottom: 1px solid var(--color-2);
 }
 
@@ -2774,6 +2899,7 @@ p.left-icon img {
 
 .notification-icon {
   width: 44px;
+  min-width: 44px;
   height: 44px;
   border: 2px solid var(--color-2);
   color: var(--secondary-color);
@@ -2783,7 +2909,18 @@ p.left-icon img {
   align-items: center;
 }
 
-.notification-title p {
+.notification-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: self-start;
+}
+
+#root .notification-title p {
+  font-size: 14px;
+}
+
+#root .notification-title h6 {
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -2940,9 +3077,11 @@ p.left-icon img {
 }
 
 .black-label.MuiFormControl-root label {
-  color: var(--color-5);
+  color: var(--color-6);
   transform: none;
 }
+
+.refferal-form .black-label.MuiFormControl-root label {}
 
 .ipad-visible {
   display: none;
@@ -2962,7 +3101,7 @@ p.left-icon img {
 .update-profile {
   border-radius: 16px;
   margin-bottom: 48px;
-  /* background-color: var(--forecast-subscription-card); */
+  background-color: #f1f2f4;
 }
 
 .update-profile .MuiFormControl-root label {
@@ -3174,6 +3313,33 @@ video[poster] {
   color: var(--color_dark);
 }
 
+.describe-p p {
+  font-size: 16px !important;
+  font-weight: 400;
+  letter-spacing: 1.1px;
+  line-height: 1.43;
+}
+
+.describe-h2 {
+  margin-top: 30px;
+  padding-top: 0px;
+}
+
+.head-about-div {
+  padding-bottom: 21px;
+  margin-top: 29px;
+}
+
+.MuiBreadcrumbs-li a.cryptocurrency-a {
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  color: #353945 !important;
+}
+
+span.currency_name {
+  margin: 10px 23px;
+}
+
 /* .payment-plan-box p {
   border: 1px solid;
   border-color: var(--color-5);
@@ -3237,6 +3403,7 @@ video[poster] {
 
 .session-list table td {
   color: var(--table-td);
+  border-color: var(--footer-border);
 }
 
 .login-history .session-list {
@@ -3262,10 +3429,19 @@ video[poster] {
   padding: 136px 0;
 }
 
+.global-community .swiper-button-next,
+.global-community .swiper-button-prev {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .dark-theme .coinguru-logo {
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }
 
+.coinguru-logo {
+  max-width: 142px;
+}
 
 .learn-crypto-details {
   padding-top: 158px;
@@ -3447,6 +3623,10 @@ video[poster] {
   overflow-y: auto;
 }
 
+.brb-1 {
+  border-bottom: 1px solid var(--footer-border);
+}
+
 .MuiMenu-root .MuiMenu-paper {
   background-color: var(--mui-menu-papper);
   color: var(--txt-color);
@@ -3473,8 +3653,16 @@ video[poster] {
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }
 
+.auth-wrapper-form {
+  position: relative;
+}
+
 .app-store .stacks {
   border-bottom: 1px solid var(--make-informed-devider);
+}
+
+.app-store-img {
+  width: 100%;
 }
 
 .subscribe-notification {
@@ -3492,8 +3680,9 @@ video[poster] {
 .community-ic-img img {
   width: 50px !important;
   height: 50px !important;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 50%;
+  background-color: #f5f5f5;
 }
 
 .height400 {
@@ -3505,8 +3694,9 @@ video[poster] {
 }
 
 .market-prediction-faq-item-img img {
-  object-fit: cover;
-  height: 120px;
+  object-fit: contain;
+  height: 100%;
+  max-height: 120px;
 }
 
 @keyframes rotate {
@@ -3521,6 +3711,11 @@ video[poster] {
 @media (max-width: 1199.98px) {}
 
 @media (max-width: 1024.98px) {
+
+  .right-breadcrum ol {
+    justify-content: flex-start;
+  }
+
   .app-nav button.MuiButtonBase-root {
     margin-left: 10px;
   }
@@ -3892,9 +4087,23 @@ video[poster] {
 
 }
 
+@media (max-width: 899.98px) {
+  .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
+    min-height: 100vh !important;
+  }
+}
+
 @media (max-width: 767.98px) {
+  .header-logo-border {
+    border: none;
+  }
+
   .dropdown-mobile {
     margin-bottom: 10px;
+  }
+
+  .latest-release .right-tab {
+    margin-top: 20px;
   }
 
   .market-prediction-faq-item {
@@ -3957,7 +4166,7 @@ video[poster] {
   }
 
   .subscription-steps.account-main {
-    background-color: var(--color-9);
+    /* background-color: var(--color-9); */
   }
 
   .subscription-steps.account-main .subscription-steps-col {
@@ -4031,11 +4240,14 @@ video[poster] {
     color: var(--color_dark);
   }
 
+  .multi-select-wrapper fieldset,
   .dropdown-mobile .MuiInputBase-root fieldset {
-    border-color: var(--form-control);
+    border-color: var(--multi-select);
+    color: var(--color_dark);
   }
 
-  .dropdown-mobile svg.MuiSvgIcon-root {
+  .dropdown-mobile svg.MuiSvgIcon-root,
+  .multi-select-wrapper svg.MuiSvgIcon-root {
     color: var(--color_dark);
   }
 
@@ -4058,13 +4270,13 @@ video[poster] {
   }
 
   .subscription-steps {
-    border-top: 1px solid var(--color-11);
+    /* border-top: 1px solid var(--color-11); */
     padding-top: 0;
     padding-bottom: 34px;
   }
 
   .auth-header {
-    background-color: var(--color_light);
+    background-color: var(--auth-header);
     flex-wrap: wrap;
     justify-content: center !important;
     gap: 24px;
@@ -4386,6 +4598,7 @@ video[poster] {
     /* justify-content: start; */
   }
 
+
   /* refferals */
   #root .mobile-body-large {
     font-size: 24px;
@@ -4640,6 +4853,20 @@ video[poster] {
   background-color: var(--secondary-color);
 }
 
+.notification_elip_typo {
+  overflow: auto;
+  height: 80px;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.notification_elip_typo::-webkit-scrollbar {
+  width: 5px;
+  background-color: var(--secondary-color);
+}
+
 .newdesignbox .crypto-center {
   width: 100%;
   max-width: 99%;
@@ -4786,3 +5013,42 @@ video[poster] {
   max-width: 200px;
   margin: auto;
 }
+
+.about-bread {
+  padding-top: 68px;
+}
+
+.become-h2-p p {
+  font-size: 14px !important;
+  /* color: #353945 !important; */
+  font-weight: 200 !important;
+}
+
+.news h2 {
+  font-size: 64px !important;
+  font-weight: 700 !important;
+}
+
+.news p {
+  font-size: 24px !important;
+  font-weight: 400 !important;
+  color: #fcfcfd;
+}
+
+.become-h2-p h1 {
+  font-size: 16px !important;
+  /* color: #353945 !important; */
+  font-weight: 500 !important;
+}
+
+.become-h2-p:before:last-child {
+  display: none !important;
+}
+
+/* .become-h2-p :before {
+  display: none !important;
+} */
+
+/* .become-h2-p.contact-line:last-child{
+  display: none;
+} */

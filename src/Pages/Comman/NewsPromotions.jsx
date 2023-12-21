@@ -5,9 +5,9 @@ import { theme, RoutesName } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
-import { newsListActions, promotionsActions, useTutorialActions } from '../../_actions';
-import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom } from "../../_state";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { newsListActions, promotionsActions, useTutorialActions, useHomeActions } from '../../_actions';
+import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom, headingListAtom, breadCrumbAtom } from "../../_state";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate } from 'react-router-dom';
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
@@ -30,6 +30,9 @@ const NewsPromotions = (props) => {
     const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
     const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
     const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
+    const headingList = useRecoilValue(headingListAtom);
+    const homeActions = useHomeActions();
+    const [breadcrumb, setBreadCrumb] = useRecoilState(breadCrumbAtom);
 
     const newsCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "News";
@@ -147,19 +150,29 @@ const NewsPromotions = (props) => {
     }, [newsList]);
 
     const imgLink = (data) => {
+        setBreadCrumb("News")
         let newsSeo = data.slug
-        navigate(`${RoutesName.learn_Crypto_Details}/newsletter/${newsSeo}`)
+        navigate(`${RoutesName.News_And_PromotionsDetail}/newsletter/${newsSeo}`)
         setBlogimg(data)
         setBlognew(true)
     }
 
     const imgpromo = (data) => {
+        setBreadCrumb("Promotions")
         let newsSeo = data.slug
-        navigate(`${RoutesName.learn_Crypto_Details}/newspromotions/${newsSeo}`)
+        navigate(`${RoutesName.News_And_PromotionsDetail}/newspromotions/${newsSeo}`)
         setBlogimg(data)
         setBlognew(true)
     }
+
+       // Api HeadingList
+       useEffect(() => {
+        const response = homeActions.headingList();
+        response.then((res) => { (res) })
+      }, []);
+
     useEffect(() => {
+        breadcrumb==="Promotions"?setValueTab(1):setValueTab(0)
         window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
     }, []);
 
@@ -170,7 +183,7 @@ const NewsPromotions = (props) => {
                     <Box paddingBottom={15}>
                         <Typography
                             variant="h1"
-                            className="secondary-font"
+                            className="secondary-font news"
                             fontWeight="700"
                             textAlign="center"
                         >

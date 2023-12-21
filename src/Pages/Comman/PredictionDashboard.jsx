@@ -3,8 +3,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme, RoutesName } from "../../_common/app.constants";
 import { Box, Container, Typography, Button, Stack } from "@mui/material";
 import { faqActions } from "../../_actions";
-import { useRecoilValue, useRecoilState } from "recoil";
-import { faqAtom,  forecastSubAtom,  authAtom, blogListAtom, blogimgAtom} from "../../_state";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
+import { faqAtom,  forecastSubAtom,  authAtom, blogListAtom, blogimgAtom, breadCrumbAtom} from "../../_state";
 import CryptoTable from "./CryptoTable";
 import { useNavigate, Link } from "react-router-dom";
 import Alert from '@mui/material/Alert';
@@ -33,7 +33,7 @@ const PredictionDashboard = () => {
 
   const imgLink = (data) => {
     let learnSeo = data.slug
-    navigate(`${RoutesName.learn_Crypto_Details}/predictionDashboard/${learnSeo}`)
+    navigate(`${RoutesName.FaqDetail}/predictionDashboard/${learnSeo}`)
     setBlogimg(data);
     setBlognew(true);
 } 

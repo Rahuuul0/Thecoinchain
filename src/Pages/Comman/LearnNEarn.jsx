@@ -7,8 +7,8 @@ import Learn03 from '../../../public/assets/images/learn03.png'
 import LoadingImg from '../../../public/assets/images/icons/loading.svg'
 import { useNavigate, Link } from 'react-router-dom';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { tutorialAtom, marketBlogListAtom, blogListAtom, blogimgAtom, blogVideoAtom } from "../../_state/";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { tutorialAtom, marketBlogListAtom, blogListAtom, blogimgAtom, blogVideoAtom, breadCrumbAtom } from "../../_state/";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import { useTutorialActions } from "../../_actions/";
 import { RoutesName } from "../../_common/app.constants";
 import ReactPlayer from "react-player";
@@ -25,6 +25,7 @@ const LearnNEarn = () => {
     const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom)
     const [loadmore, setloadmore] = useState(3);
     const tutorialAction = useTutorialActions();
+    const setBreadCrumb = useSetRecoilState(breadCrumbAtom);
 
     useEffect(() => {
         tutorialAction.marketBlogList();
@@ -43,8 +44,9 @@ const LearnNEarn = () => {
     }
 
     const videoLink = (data) => {
+        setBreadCrumb(data.category)
         let guideSeo = data.slug
-        navigate(`${RoutesName.learn_Crypto_Details}/learnandearn/${guideSeo}`)
+        navigate(`${RoutesName.Marketblog_detail}/learnandearn/${guideSeo}`)
         setBlogimg(data)
         setBlognew(true)
         setBlogvideo(true)
@@ -83,6 +85,7 @@ const LearnNEarn = () => {
 
 
                         {marketBlogLists.map((item, index) => {
+                            console.log(item,'data')
                             if (index < loadmore) {
                                 return (
                                     <Grid item xs={12} md={4} xl={4}>
@@ -124,7 +127,7 @@ const LearnNEarn = () => {
                     </Grid>
 
                 </Box>
-                {marketBlogLists.length >= 3 && loadmore <= 3 &&
+                {marketBlogLists.length >= 4 && loadmore <= 3 &&
                     <LoadingButton
                         onClick={(e) => handleChanges(e, 3)}
                         // loadingPosition="end"
@@ -133,7 +136,7 @@ const LearnNEarn = () => {
                         className="btn btn-outlined-secondary"
                         disabled={isSubmitting}
                     >
-                        {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : (<> <img src={LoadingImg} className="loading-img" alt="loading" /> Load more </>)}
+                        {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : (<> <img src={LoadingImg}  alt="loading" /> Load more </>)}
                     </LoadingButton>
                 }
             </Box>

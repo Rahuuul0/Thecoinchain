@@ -23,7 +23,7 @@ import Globe from "../../../public/assets/images/globe.svg";
 import ReactPlayer from "react-player";
 import { useNavigate, Link } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tutorialAtom, blogAtom, loaderAtom, blogListAtom, blogimgAtom, tutorialCategoryAtom, blogVideoAtom } from "../../_state";
+import { tutorialAtom, blogAtom, loaderAtom, blogListAtom, blogimgAtom, tutorialCategoryAtom, blogVideoAtom, breadCrumbAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import Tab from "@mui/material/Tab";
 import { TabContext, TabPanel, TabList } from "@mui/lab/";
@@ -74,6 +74,7 @@ const LearnCypto = () => {
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
   const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
+  const [breadcrumb, setBreadCrumb] = useRecoilState(breadCrumbAtom);
 
   const [value, setValue] = useState("1");
 
@@ -103,6 +104,7 @@ const LearnCypto = () => {
   };
 
   const imgLink = (data) => {
+    setBreadCrumb(data.category)
     let learnSeo = data.slug
     navigate(`${RoutesName.learn_Crypto_Details}/learncypto/${learnSeo}`)
     setBlogimg(data)
@@ -234,6 +236,7 @@ const LearnCypto = () => {
                 variant="outlined"
                 className="btn btn-outlined-secondary"
                 onClick={() => {
+                  setBreadCrumb("Video Tutorial")
                   navigate(`${'/learn-cypto-detail/:page/:title'}, ${details}`);
                   setBlognew(false);
                 }}
@@ -256,7 +259,7 @@ const LearnCypto = () => {
                 component="div"
                 className="secondary-font font-40 bottom-border"
                 marginBottom={1}
-                padding={2}
+                paddingY={2}
               >
                 Description
               </Typography>
@@ -343,6 +346,7 @@ const LearnCypto = () => {
                 <Box>
                   {blogList?.map((item) => {
                     let description = item.description;
+                    let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
                     return (
                       <Box className="right-tab-content">
                         <Grid container
@@ -384,14 +388,14 @@ const LearnCypto = () => {
                                 </Typography>
                               </Box>
                               <Box>
-                                <Link to={'../learn-cypto-detail'}>  <ArrowRightAlt sx={{ color: "#000000" }} /> </Link>
+                                <Link to={'../learn-cypto-detail'}>  <ArrowRightAlt /> </Link>
                               </Box>
                             </Box>
                           </Grid>
                           <Grid item xs={12} sm={7} md={7}>
-                            <img style={{ height: "100%", maxWidth: "100%" }}
-                              src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
-                            />
+                            {image == null || image == '' ? " " : <img style={{ height: "100%", maxWidth: "100%" }}
+                              src={image} alt=''
+                            />}
 
                           </Grid>
                         </Grid>
@@ -433,6 +437,7 @@ const LearnCypto = () => {
                     }}
                     MenuProps={MenuProps}
                     inputProps={{ "aria-label": "Without label" }}
+                    className="multi-select-wrapper"
                   >
                     <MenuItem disabled value="">
                       Recently Added
@@ -558,7 +563,7 @@ const LearnCypto = () => {
                             justifyContent="space-between"
                             paddingTop={3}
                           >
-                            <Box display="flex" width="calc(100% - 45px)">
+                            <Box sx={{ display: "flex", width: "calc(100% - 45px)", alignItems: 'flex-start' }} >
                               <img src={Avatar} />
                               <Box sx={{ paddingLeft: "15px" }}>
                                 <Typography fontWeight="500">

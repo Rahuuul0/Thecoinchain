@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import { Box, Grid, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Accordion, AccordionDetails, AccordionSummary } from '@mui/material/';
@@ -28,8 +28,9 @@ import { Label } from 'recharts';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { bannerListActions } from '../../../_actions';
-import { setLogoListAtom } from '../../../_state';
-import { useRecoilValue } from 'recoil';
+import { setLogoListAtom, switchDarkModeAtom } from '../../../_state';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { RoutesName } from "../../../_common/app.constants";
 
 const drawerWidth = '100%';
 const drawerHeight = '100vh';
@@ -37,7 +38,16 @@ const drawerHeight = '100vh';
 function Header(props) {
 
   const LogoListAction = bannerListActions();
-  const LogoList = useRecoilValue(setLogoListAtom);
+  const LogoList = useRecoilValue(setLogoListAtom).filter((item)=>{
+    return item.position === "Header"
+});
+
+
+  useEffect(() => {
+    const response = LogoListAction.logoList();
+    response.then((res) => { (res) })
+  }, []);
+
 
   const navItems = [
     {
@@ -64,12 +74,12 @@ function Header(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
-    navigate("/academy-about-crypto");
+    navigate(RoutesName.Academy_about_crypto);
   };
 
   const handle = () => {
     setAnchorEl(null);
-    navigate("/master-course");
+    navigate(RoutesName.Master_Course);
   };
 
   const click = () => {
@@ -93,7 +103,7 @@ function Header(props) {
     setMobileOpen((prevState) => !prevState);
   };
 
-  const [isDark, setIsDark] = useState(false)
+  const [isDark, setIsDark] = useRecoilState(switchDarkModeAtom);
   const handleDarkMode = () => {
     setIsDark(!isDark)
   }
@@ -102,8 +112,10 @@ function Header(props) {
     const body = document.body;
     if (isDark) {
       body.classList.add('dark-theme');
+      localStorage.setItem('theme', 'dark')
     } else {
       body.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light')
     }
   }, [isDark])
 
@@ -113,14 +125,15 @@ function Header(props) {
       <Box className='mobile-nav-box' sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
         <Box className='close-btn' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}><p>+</p></Box>
         <Box>
-          <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
+          <img onClick={() => { handleDrawerToggle() ,navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
           <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
-            <Button variant='standard' className='nav-mobile-btn btn'>Crypto</Button>
-            <Accordion className='submenu'>
+            <Button variant='standard' className='nav-mobile-btn btn' onClick={()=>{handleDrawerToggle(),navigate(RoutesName.Learn_Cypto)}}>Crypto</Button>
+            <Accordion className='submenu mobile-nav-dropdown'>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="acadamy"
+                
               >
                 <Button
                   id="acedamy-btn"
@@ -130,8 +143,8 @@ function Header(props) {
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography onClick={() => { navigate("./academy") }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
-                <Typography onClick={() => { navigate("./academy") }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+                <Typography onClick={() => {handleDrawerToggle(),navigate(RoutesName.Academy_about_crypto) }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
+                <Typography onClick={() => {handleDrawerToggle(), navigate(RoutesName.Master_Course) }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
               </AccordionDetails>
             </Accordion>
 
@@ -143,7 +156,7 @@ function Header(props) {
                       {item.icon &&
                         <img src={item.icon} alt={item.page} />
                       }
-                      <ListItemText primary={`${item.page}`} onClick={() => { navigate(item.link) }} />
+                      <ListItemText primary={`${item.page}`} onClick={() => {handleDrawerToggle(),navigate(item.link) }} />
                     </ListItemButton>
                   </ListItem>
                 )
@@ -181,8 +194,8 @@ function Header(props) {
             variant="outline" className="btn btn-outline" sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }} >
             Login</Button>
 
-          <IconButton aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
-          <IconButton aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
+          <IconButton onClick={handleDarkMode} aria-label="sunny" className='theme-selector' color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
+          {/* <IconButton className='mobile-search' aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton> */}
 
 
         </Box>
@@ -212,9 +225,6 @@ function Header(props) {
               <MenuIcon />
             </IconButton>
           </Box>
-          {LogoList?.map((items) => {
-            let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
-            return (
               <Typography
                 variant="h6"
                 className='header-logo-border'
@@ -235,8 +245,6 @@ function Header(props) {
               >
                 <img src={LogoList[0]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}` : LogoList[0]?.image_link} className='coinguru-logo' alt='coinguru-logo' />
               </Typography>
-            )
-          })}
           <Box
             className=""
             sx={{
@@ -282,7 +290,7 @@ function Header(props) {
             {navItems.map((item, i) => (
               <Button
                 onClick={() => {
-                  navigate(item.link);
+                  handleDrawerToggle(),navigate(item.link);
                 }}
                 key={i}
                 sx={{ color: "#fff" }}

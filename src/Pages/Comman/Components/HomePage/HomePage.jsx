@@ -61,6 +61,9 @@ import {
   homeBannerAtom,
   cryptoNewsAtom,
   cryptoTraderAtom,
+  WorkListAtom,
+  headingListAtom,
+  breadCrumbAtom
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
@@ -92,6 +95,8 @@ const Home = () => {
   const loader = useSetRecoilState(loaderAtom);
   const [tutorialsList, setTutorialList] = useState(tutorialsData);
   const homeBannerData = useRecoilValue(homeBannerAtom);
+  const WorkList = useRecoilValue(WorkListAtom);
+  const headingList = useRecoilValue(headingListAtom);
 
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
@@ -108,6 +113,8 @@ const Home = () => {
   });
   const subscribeUser = useRecoilValue(forecastSubAtom);
   const auth = useRecoilValue(authAtom);
+  const [breadcrumb, setBreadCrumb] = useRecoilState(breadCrumbAtom);
+  
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -129,9 +136,6 @@ const Home = () => {
     if (value === "1") setTutorialList(tutorialsData);
   }, [tutorialsData]);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
   const getFirstLetters = (str) => {
     // const firstLetters = str.replace("Portfolio", "");
     return (firstLetters = "");
@@ -145,20 +149,20 @@ const Home = () => {
     homeActions.cryptoNews()
 
   }, []);
+
   // Api home_banner-list
   useEffect(() => {
     const response = bannerActions.homeBannerList();
     response.then((res) => { (res) })
-  }, []);
 
-  // Api home_banner-list
-  useEffect(() => {
-    const response = bannerActions.get();
-    response.then((res) => { (res) })
-  }, []);
+    const responsed = bannerActions.get();
+    responsed.then((res) => { (res) })
 
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
 
   const videoLink = (data) => {
+    setBreadCrumb(data.category)
     let learnSeo = data.slug
     navigate(`${RoutesName.learn_Crypto_Details}/learncyptovideo/${learnSeo}`)
     setBlogimg(data)
@@ -169,6 +173,18 @@ const Home = () => {
   const handleLoadmore = () => {
     setLoadmore(loadmore + 20);
   }
+
+    // Api crytoWorkList
+    useEffect(() => {
+      const response = homeActions.crytoWorkList();
+      response.then((res) => { (res) })
+    }, []);
+
+       // Api HeadingList
+       useEffect(() => {
+        const response = homeActions.headingList();
+        response.then((res) => { (res) })
+      }, []);
 
   return (
     <>
@@ -767,14 +783,14 @@ const Home = () => {
               textAlign="center"
               sx={{ fontWeight: "700", maxWidth: "500px", margin: "auto" }}
             >
-              Become a crypto trader in seconds
+              {ReactHtmlParser(headingList[0]?.title??"")}
             </Typography>
             <Typography
               className="secondary-color"
               sx={{ textAlign: { xs: "left", md: "center" } }}
               paddingTop={2}
             >
-              We've got everything you need to start trading.
+              {/* We've got everything you need to start trading. */}
             </Typography>
             <Box paddingY={{ xs: 6, sm: 8 }}>
               <Grid
@@ -786,7 +802,9 @@ const Home = () => {
                   let title = item.title;
                   let description = item.description;
                   let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
-                  let link = item.link;
+                  let link = item.button_link;
+                  let buttonLabel = item.button_label;
+
                   return (
                     <Grid item xs={12} sm={4}>
                       <Box textAlign="center" className="grid-cypto-trade">
@@ -805,12 +823,9 @@ const Home = () => {
                             className="btn btn-outlined-secondary"
                             sx={{ margin: "0 auto" }}
                           >
-                            Coming Soon
+                           {buttonLabel}
                           </Button>
-
-
                         </Link>
-
                       </Box>
                     </Grid>
                   )
@@ -846,7 +861,7 @@ const Home = () => {
             columns={{ xs: 4, sm: 8, md: 12 }}
             className="flow-reverse-mobile"
           >
-
+             
             <Grid item xs={12} sm={5} md={5}>
               <Box sx={{ paddingBottom: { xs: "15px", md: "50px" } }}>
                 <Typography
@@ -855,7 +870,7 @@ const Home = () => {
                   fontWeight={700}
                   className="secondary-font"
                 >
-                  Make informed decisions
+                 {ReactHtmlParser(headingList[1]?.title??"")}
                 </Typography>
                 <Typography
                   className="secondary-color"
@@ -958,9 +973,8 @@ const Home = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={7} md={7}>
-              <img src={InformedCypto} />
-            </Grid>
-
+              <img className="app-store-img" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[1]?.image}`} /> 
+            </Grid>         
 
           </Grid>
         </Box>
@@ -972,7 +986,7 @@ const Home = () => {
         <Container>
           <Box>
             <Box textAlign="center">
-              <img src={DarkLogo} className="coinguru-logo" />
+              <img className="coinguru-logo" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[2]?.image??""}`}/>
               <Typography
                 variant="h2"
                 component="h2"
@@ -981,11 +995,8 @@ const Home = () => {
                 paddingBottom={3}
                 sx={{ fontWeight: "700" }}
               >
-                Stay in the know on
-                <br /> crypto with coinguru
-              </Typography>
-              <Typography className="secondary-color">
-                A creative agency that lead and inspire
+              {ReactHtmlParser(headingList[2]?.title??"")}
+                <br />
               </Typography>
             </Box>
             <Box className="swiper-global">
@@ -998,6 +1009,9 @@ const Home = () => {
               >
                 {cryptoNewsList.map((item) => {
                   let description = item.description;
+                  let link = item.button_link;
+                  let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
+                  let title = item.title;
                   return (
                     <SwiperSlide>
                       <Box className="crypto-box">
@@ -1023,21 +1037,22 @@ const Home = () => {
                               Crypto news
                             </Typography>
                             <Typography component="h4" variant="h4" paddingBottom={3}>
-                              {item.title}
+                              {title}
                             </Typography>
                             <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
                               {ReactHtmlParser(description)}
                             </Typography>
+                            <Link to={link}>
                             <Button
                               sx={{ textTransform: "capitalize" }}
                               className="btn-outlined-secondary"
-                              onClick={() => navigate("/community")}
                             >
-                              Join now
+                              {item.button_label}
                             </Button>
+                            </Link>
                           </Grid>
                           <Grid item xs={12} sm={6} md={6} textAlign="right">
-                            <img src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
+                           {image == null || image == '' ? " " : <img src={image}/>}
                           </Grid>
 
                         </Grid>
@@ -1066,159 +1081,60 @@ const Home = () => {
               paddingBottom={2}
               sx={{ fontWeight: "700" }}
             >
-              How it work
-            </Typography>
-            <Typography className="">
-              Power up your crypto game with our data-driven predictions!
+              {ReactHtmlParser(headingList[3]?.title??"")}
             </Typography>
           </Box>
           <Grid
-            className="scrolling-tab"
+            className="scrolling-tab become-h2-p"
             container
             spacing={{ xs: 2, sm: 4, md: 4, lg: 4 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
-            <Grid item xs={6} sm={6} md={3}>
+            {WorkList?.map((items,i) => {
+            let title = items.title;
+            let description = items.description;
+            let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
+            let cls = (i==WorkList.length-1)?'howworks-box become-h2-p':"howworks-box contact-line become-h2-p";
+            return (
+            <Grid item xs={6} sm={6} md={3}>  
               <Box
                 sx={{ textAlign: { xs: "left", md: "center" } }}
-                className="howworks-box contact-line "
+                 className={cls}
               >
-                <img src={Market} width={96} />
+                {image == null || image == '' ? " " : <img src={image} width={96} />}
                 <Typography
-                  className="small-caption secondary-color "
-                  paddingTop={{ sx: 4, sm: 6 }}
-                  paddingBottom={3}
+                  className="become-h2-p"
                   sx={{ textAlign: { xs: "left", md: "center" } }}
-                >
-                  Step 1
-                </Typography>
-                <Typography
-                  className=""
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                  fontWeight="500"
+                  fontWeight="300"
                   paddingBottom={3}
                 >
-                  Subscribe
+                  {ReactHtmlParser(title)}
                 </Typography>
                 <Typography
                   component="div"
                   variant="p"
-                  className="body-caption"
+                  className="body-caption become-h2-p"
                 >
-                  Stacks is a production-ready library of stackable content
-                  blocks built in React Native.
+                {ReactHtmlParser(description)}
                 </Typography>
               </Box>
-            </Grid>
-            <Grid item xs={6} sm={6} md={3}>
-              <Box
-                sx={{ textAlign: { xs: "left", md: "center" } }}
-                className="howworks-box contact-line "
-              >
-                <img src={Wallet} width={96} />
-                <Typography
-                  className="small-caption secondary-color "
-                  paddingTop={6}
-                  paddingBottom={3}
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                >
-                  Step 2
-                </Typography>
-                <Typography
-                  className=""
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                  fontWeight="500"
-                  paddingBottom={3}
-                >
-                  Connect wallet
-                </Typography>
-                <Typography
-                  component="div"
-                  variant="p"
-                  className="body-caption"
-                >
-                  Stacks is a production-ready library of stackable content
-                  blocks built in React Native.
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} sm={6} md={3}>
-              <Box
-                sx={{ textAlign: { xs: "left", md: "center" } }}
-                className="howworks-box contact-line "
-              >
-                <img src={Treding} width={96} />
-                <Typography
-                  className="small-caption secondary-color "
-                  paddingTop={6}
-                  paddingBottom={3}
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                >
-                  Step 3
-                </Typography>
-                <Typography
-                  className=""
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                  fontWeight="500"
-                  paddingBottom={3}
-                >
-                  Start trading
-                </Typography>
-                <Typography
-                  component="div"
-                  variant="p"
-                  className="body-caption"
-                >
-                  Stacks is a production-ready library of stackable content
-                  blocks built in React Native.
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} sm={6} md={3}>
-              <Box
-                sx={{ textAlign: { xs: "left", md: "center" } }}
-                className="howworks-box "
-              >
-                <img src={Money} width={96} />
-                <Typography
-                  className="small-caption secondary-color "
-                  paddingTop={6}
-                  paddingBottom={3}
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                >
-                  Step 4
-                </Typography>
-                <Typography
-                  className=""
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                  fontWeight="500"
-                  paddingBottom={3}
-                >
-                  Earn money
-                </Typography>
-                <Typography
-                  component="div"
-                  variant="p"
-                  className="body-caption"
-                >
-                  Stacks is a production-ready library of stackable content
-                  blocks built in React Native.
-                </Typography>
-              </Box>
-            </Grid>
+            </Grid>      
+              );
+            })}
           </Grid>
         </Container>
       </Box>
       <Container maxWidth="fluid">
         <Marquee>
           {bannerList.map((item) => {
+            let image = item.image_url ? `${process.env.REACT_APP_IMAGE_URL}/${item.image_url}` : item.image_link;
             return (
               <Box paddingTop={8} paddingBottom={8}>
                 <Stack direction="row" spacing={8}>
-                  <img
+                  {image == null || image == '' ? " " : <img
                     className="margin10"
-                    src={`${process.env.REACT_APP_IMAGE_URL}/${item.image_url}`}
-                  />
+                    src={image}
+                  />}
                 </Stack>
               </Box>
             );

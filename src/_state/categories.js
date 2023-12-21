@@ -10,4 +10,9 @@ const blogCategoryAtom = atom({
   default: [],
 });
 
-export { tutorialCategoryAtom, blogCategoryAtom };
+const breadCrumbAtom = atom({
+  key: "breadCrumb",
+  default: "",
+});
+
+export { tutorialCategoryAtom, blogCategoryAtom, breadCrumbAtom };

@@ -25,7 +25,7 @@ import { tutorialAtom,
   promotionAtomSingle,
   guideListSingleAtom,
   analyticListSingleAtom,
-  blogListSingleAtom} from "../../_state";
+  blogListSingleAtom,breadCrumbAtom} from "../../_state";
 import {
   useTutorialActions, 
   newsListActions, 
@@ -41,6 +41,7 @@ import ShareIcon from "../../../public/assets/images/icons/share.svg";
 import LikeIcon from "../../../public/assets/images/icons/love.svg";
 import { useParams } from "react-router-dom";
 import ReactHtmlParser from 'react-html-parser';
+import { RoutesName } from "../../_common/app.constants";
 
 function handleClick(event) {
   event.preventDefault();
@@ -53,6 +54,7 @@ const LearnCyptoDetail = () => {
   const [guideListSingle, setGuideListSingle] = useRecoilState(guideListSingleAtom);
   const [analyticListSingle, setAnalyticListSingle] = useRecoilState(analyticListSingleAtom);
   const [blogListSingle, setBlogListSingle] = useRecoilState(blogListSingleAtom);
+  const breadCrumb = useRecoilValue(breadCrumbAtom);
   const params = useParams();
   const newsListGetActions = newsListActions();
   const promotionsGetActions = promotionsActions();
@@ -60,6 +62,8 @@ const LearnCyptoDetail = () => {
   const analyticsGetActions = analyticsActions();
   const useContactAddActions = useContactActions();
   const faqGetAction = faqActions();
+
+  const  id  = useParams();
   
   useEffect(() => {
     switch (params.page) {
@@ -109,15 +113,13 @@ const LearnCyptoDetail = () => {
    
   },[blogImg])
   const breadcrumbs = [
-    <Link underline="hover" key="1" color="inherit" href="/learn-cypto">
+    <Link underline="hover" key="1" color="inherit" onClick={() => { setBlognew(false),navigate(RoutesName.Learn_Cypto) }} >
       Learn crypto
     </Link>,
-    <Link underline="hover" key="2" color="inherit" href="/learn-cypto">
-      Trading
-    </Link>,
-    <Typography key="3" color="text.primary">
-      Bitcoin
-    </Typography>,
+    <Link underline="hover" key="2" color="inherit" className="cryptocurrency-a" style={{ cursor: 'default' }} >
+      {breadCrumb}
+    </Link>
+    
   ];
   const scrollRef = useRef();
   const tutorialsData = useRecoilValue(tutorialAtom);

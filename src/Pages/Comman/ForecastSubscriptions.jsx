@@ -160,7 +160,6 @@ const ForecastSubscriptions = () => {
                                                             <Typography component="h4" variant='h4' className='plan-price'>
                                                                 {User.amount} <span className='plan-days'>/ {User.plan_type}</span>
                                                             </Typography>
-
                                                             <Typography component="p" variant='body2' sx={{ fontSize: '14px' }}>
                                                                 <Typography>Gat all crypto price predictions & Trade with Machine learning</Typography>
                                                             </Typography>
@@ -171,23 +170,21 @@ const ForecastSubscriptions = () => {
                                                             </Typography>
 
                                                         </Box>
-
-                                                        <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D' }}>
-                                                            By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content once your plan finishes. To regain full access to the content, a new subscription is required.
-                                                        </Typography>
-
                                                     </Box>
-                                                    <Box className="subscription-plan-cta">
+                                                    <Typography component="p" variant='body2' className='small-caption' sx={{ color: '#6C757D', marginTop: '2rem' }}>
+                                                        By pressing “unsubscribe”, you are immediately terminating the payments/access to the paid content once your plan finishes. To regain full access to the content, a new subscription is required.
+                                                    </Typography>
+                                                    <Box className="subscription-plan-btn">
                                                         <Button onClick={() => { setExpandFirst(false); unsubscribedUserFun() }} variant='contained' className='btn btn-primary' sx={{ mt: 3, mx: 'auto' }}>Unsubscribe</Button>
                                                     </Box>
                                                 </AccordionDetails>
                                             </Accordion>) : (<Box className='subscription-plan'>
-                                            <AccordionSummary
+                                                <AccordionSummary
                                                     aria-controls="panel1bh-content"
                                                     id="panel1bh-header"
                                                 >
                                                     <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                                                      Details
+                                                        Details
                                                     </Typography>
                                                 </AccordionSummary>
                                                 <Box className="subscription-plan-card">
@@ -208,9 +205,9 @@ const ForecastSubscriptions = () => {
                                                             <Typography>You are subscribed to this plan</Typography>
                                                         </Typography>
                                                     </Box>
-                                                    <Box className="subscription-plan-cta">
-                                                                <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={() => navigate("/subscription")} >Upgrade</Button>
-                                                    </Box>
+                                                </Box>
+                                                <Box className="subscription-plan-btn">
+                                                    <Button variant='contained' className='btn btn-primary' sx={{ mx: 'auto' }} onClick={() => navigate("/subscription")} >Upgrade</Button>
                                                 </Box>
 
                                             </Box>)}

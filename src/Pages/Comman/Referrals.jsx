@@ -137,7 +137,7 @@ const Referrals = () => {
                         {userDetail.total_earning !== ""
                           ? Number(userDetail.total_earning)?.toFixed(2) + " "
                           : "0.00"}
-                        <span className="green-color secondary-font">USD</span>
+                        <span className="green-color secondary-font" style={{ marginLeft: '8px' }}>USD</span>
                       </Typography>
                       <Typography
                         component="p"

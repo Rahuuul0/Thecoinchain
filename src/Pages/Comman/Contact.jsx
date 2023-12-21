@@ -263,7 +263,7 @@ const Contact = () => {
 
   const imgLink = (data) => {
     let newsSeo = data.slug
-    navigate(`${RoutesName.learn_Crypto_Details}/contact/${newsSeo}`)
+    navigate(`${RoutesName.Contact_Detail}/contact/${newsSeo}`)
     setBlogimg(data)
     setBlognew(true)
   }

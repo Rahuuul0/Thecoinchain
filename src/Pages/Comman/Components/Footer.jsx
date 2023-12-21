@@ -23,7 +23,9 @@ const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const loader = useRecoilValue(loaderAtom);
-  const LogoList = useRecoilValue(setLogoListAtom);
+  const LogoList = useRecoilValue(setLogoListAtom).filter((item) => {
+    return item.position === "Footer"
+  });
 
   // form validation rules 
   const validationSchema = Yup.object().shape({
@@ -59,7 +61,7 @@ const Footer = () => {
           <Grid container sx={{ justifyContent: 'space-between' }}>
             <Grid item xs={12} sm={12} md={2} paddingTop={{ xs: 8, sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
               <Button sx={{ padding: 0 }} onClick={() => { navigate("/"); }}
-              > <img className='coinguru-logo logo-cg' src={LogoList[1]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[1]?.image}` : LogoList[1]?.image_link} alt="Coin Guru" />
+              > <img className='coinguru-logo logo-cg' src={LogoList[0]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}` : LogoList[0]?.image_link} alt="Coin Guru" />
               </Button>
             </Grid>
             <Grid item xs={12} sm={12} md={3} className='footer-col' paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 0, sm: 0, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >

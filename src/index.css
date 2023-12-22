@@ -89,7 +89,9 @@
   --privcy-para: #353945;
   --modal-bg: #E6E8EC;
   --mobile-header: #fff;
-  /* --theme-selector: #353945; */
+  --multi-select: #E6E8EC;
+  --auth-header: #fcfcfd;
+  --lable-color: #353945;
 }
 
 .dark-theme {
@@ -165,14 +167,18 @@
   --privcy-para: #B1B5C3;
   --modal-bg: #23262F;
   --mobile-header: #000;
-  /* --theme-selector: #353945; */
+  --multi-select: #353945;
+  --auth-header: #141416;
+  --lable-color: #FCFCFD;
 }
-.devider{
+
+.devider {
   height: 1px;
   width: 100%;
   background-color: var(--footer-border);
 }
-.MuiDivider-root {
+
+hr.MuiDivider-root {
   border-color: var(--footer-border)
 }
 
@@ -197,18 +203,23 @@ body .modal-dialog * {
 }
 
 /* button styles */
-.mobile-nav-box{
+.mobile-nav-box {
   background-color: var(--mobile-header);
 }
+
 .mobile-menu .MuiPaper-root {
   background-color: var(--mobile-header);
 }
-.mobile-menu .MuiPaper-root  .MuiAccordionSummary-expandIconWrapper{
+
+.mobile-menu .MuiPaper-root .MuiAccordionSummary-expandIconWrapper {
   color: var(--secondary-color);
 }
-.theme-selector, .mobile-search{
+
+.theme-selector,
+.mobile-search {
   color: var(--secondary-color) !important;
 }
+
 #root .btn,
 .modal-dialog .btn {
   display: flex;
@@ -1773,6 +1784,10 @@ body {
   padding: 0;
 }
 
+.topic-que .MuiBox-root .select-input button {
+  color: var(--color_dark);
+}
+
 #root .topic-que .MuiSelect-select p {
   font-size: 14px !important;
 }
@@ -2401,6 +2416,29 @@ video {
 .subscription-steps-col-details h5 {
   font-size: 24px !important;
   font-weight: 600;
+  color: var(--color_dark);
+}
+
+.subscription-steps-col-details .update-profile h5 {
+  color: #23262F;
+}
+
+.update-profile .white-input-box .MuiInputBase-root.MuiInput-root,
+.update-profile .MuiFormControl-root .MuiInputBase-root input {
+  background-color: #FCFCFD;
+  color: #23262F;
+}
+
+.update-profile .MuiFormControl-root .MuiInputBase-root input.Mui-disabled {
+  -webkit-text-fill-color: #23262F;
+}
+
+.update-profile .MuiFormControl-root label+.MuiInputBase-root {
+  border-color: #fff;
+}
+
+.update-profile .MuiFormControl-root label.Mui-focused+.MuiInputBase-root {
+  border-color: var(--primary-color);
 }
 
 .side-nav-border {
@@ -2411,6 +2449,12 @@ video {
   /* margin-top: 32px; */
   margin-bottom: 36px;
   border-top: 1px solid var(--color-2);
+}
+
+.subscription-plan>div,
+#panel1bh-content .MuiAccordionDetails-root {
+  padding: 0;
+  background-color: unset;
 }
 
 .subscription-plan-card {
@@ -2429,6 +2473,7 @@ video {
   font-weight: 700;
   font-family: var(--secondary-font) !important;
   padding: 8px;
+  color: var(--color_dark);
 }
 
 .subscription-plan-card .subscription-plan-body {
@@ -2439,6 +2484,7 @@ video {
   font-weight: 700;
   font-family: var(--secondary-font) !important;
   margin-bottom: 48px;
+  color: var(--color_dark);
 }
 
 .subscription-plan-card .subscription-plan-body .plan-days {
@@ -2493,6 +2539,24 @@ video {
 .account-main .subscription-plan {
   margin-top: 16px;
   margin-bottom: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+}
+
+#panel1bh-header {
+  padding: 0;
+  min-height: auto;
+}
+
+#panel1bh-header .MuiAccordionSummary-content {
+  margin: 0;
+}
+
+.account-main .subscription-plan>div {
+  padding: 0;
+  box-shadow: none;
+  border: none;
 }
 
 .account-main .subscription-plan .unsubscribe-plan {
@@ -3013,9 +3077,11 @@ p.left-icon img {
 }
 
 .black-label.MuiFormControl-root label {
-  color: var(--color-5);
+  color: var(--color-6);
   transform: none;
 }
+
+.refferal-form .black-label.MuiFormControl-root label {}
 
 .ipad-visible {
   display: none;
@@ -3035,7 +3101,7 @@ p.left-icon img {
 .update-profile {
   border-radius: 16px;
   margin-bottom: 48px;
-  /* background-color: var(--forecast-subscription-card); */
+  background-color: #f1f2f4;
 }
 
 .update-profile .MuiFormControl-root label {
@@ -3253,6 +3319,7 @@ video[poster] {
   letter-spacing: 1.1px;
   line-height: 1.43;
 }
+
 .describe-h2 {
   margin-top: 30px;
   padding-top: 0px;
@@ -3336,6 +3403,7 @@ span.currency_name {
 
 .session-list table td {
   color: var(--table-td);
+  border-color: var(--footer-border);
 }
 
 .login-history .session-list {
@@ -3555,6 +3623,10 @@ span.currency_name {
   overflow-y: auto;
 }
 
+.brb-1 {
+  border-bottom: 1px solid var(--footer-border);
+}
+
 .MuiMenu-root .MuiMenu-paper {
   background-color: var(--mui-menu-papper);
   color: var(--txt-color);
@@ -3579,6 +3651,10 @@ span.currency_name {
 
 .dark-theme .loading-img {
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
+.auth-wrapper-form {
+  position: relative;
 }
 
 .app-store .stacks {
@@ -3635,6 +3711,11 @@ span.currency_name {
 @media (max-width: 1199.98px) {}
 
 @media (max-width: 1024.98px) {
+
+  .right-breadcrum ol {
+    justify-content: flex-start;
+  }
+
   .app-nav button.MuiButtonBase-root {
     margin-left: 10px;
   }
@@ -4006,19 +4087,25 @@ span.currency_name {
 
 }
 
-@media (max-width: 899.98px){
-  .MuiDrawer-paper .MuiBox-root.mobile-nav-box{
+@media (max-width: 899.98px) {
+  .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
     min-height: 100vh !important;
   }
 }
 
 @media (max-width: 767.98px) {
+  .header-logo-border {
+    border: none;
+  }
+
   .dropdown-mobile {
     margin-bottom: 10px;
   }
-.latest-release .right-tab{
-  margin-top: 20px;
-}
+
+  .latest-release .right-tab {
+    margin-top: 20px;
+  }
+
   .market-prediction-faq-item {
     flex-wrap: wrap;
   }
@@ -4079,7 +4166,7 @@ span.currency_name {
   }
 
   .subscription-steps.account-main {
-    background-color: var(--color-9);
+    /* background-color: var(--color-9); */
   }
 
   .subscription-steps.account-main .subscription-steps-col {
@@ -4153,11 +4240,14 @@ span.currency_name {
     color: var(--color_dark);
   }
 
+  .multi-select-wrapper fieldset,
   .dropdown-mobile .MuiInputBase-root fieldset {
-    border-color: var(--form-control);
+    border-color: var(--multi-select);
+    color: var(--color_dark);
   }
 
-  .dropdown-mobile svg.MuiSvgIcon-root {
+  .dropdown-mobile svg.MuiSvgIcon-root,
+  .multi-select-wrapper svg.MuiSvgIcon-root {
     color: var(--color_dark);
   }
 
@@ -4180,13 +4270,13 @@ span.currency_name {
   }
 
   .subscription-steps {
-    border-top: 1px solid var(--color-11);
+    /* border-top: 1px solid var(--color-11); */
     padding-top: 0;
     padding-bottom: 34px;
   }
 
   .auth-header {
-    background-color: var(--color_light);
+    background-color: var(--auth-header);
     flex-wrap: wrap;
     justify-content: center !important;
     gap: 24px;
@@ -4507,6 +4597,7 @@ span.currency_name {
   .center-breadcrum ol {
     /* justify-content: start; */
   }
+
 
   /* refferals */
   #root .mobile-body-large {
@@ -4926,25 +5017,30 @@ span.currency_name {
 .about-bread {
   padding-top: 68px;
 }
-.become-h2-p p, h3,h2{
-  font-size: 14px!important;
+
+.become-h2-p p {
+  font-size: 14px !important;
   /* color: #353945 !important; */
-font-weight: 200 !important;
+  font-weight: 200 !important;
 }
-.news h2{
+
+.news h2 {
   font-size: 64px !important;
-    font-weight: 700 !important;
+  font-weight: 700 !important;
 }
-.news p{
+
+.news p {
   font-size: 24px !important;
-    font-weight: 400 !important;
-    color: #fcfcfd;
+  font-weight: 400 !important;
+  color: #fcfcfd;
 }
-.become-h2-p h1,h2,h3{
-  font-size: 16px!important;
+
+.become-h2-p h1 {
+  font-size: 16px !important;
   /* color: #353945 !important; */
-font-weight: 500 !important;
+  font-weight: 500 !important;
 }
+
 .become-h2-p:before:last-child {
   display: none !important;
 }

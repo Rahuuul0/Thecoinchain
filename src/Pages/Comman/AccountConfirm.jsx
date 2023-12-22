@@ -93,7 +93,7 @@ const AccountConfirm = () => {
           >
             <Box className='auth-header-logo' >
               <img src={LogoLight} alt='Coin Guru' className='desktop' />
-              <img src={LogoDark} alt='Coin Guru' className='ipad' />
+              <img src={LogoDark} alt='Coin Guru' className='ipad coinguru-logo' />
             </Box>
             <Box component="div" className="dont-have-acc">
               <Typography

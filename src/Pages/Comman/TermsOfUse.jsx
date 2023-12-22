@@ -67,9 +67,9 @@ const TermsOfUse = () => {
                     {title}
                   </Typography>
                 </Box>
-                <Typography variant="body2" component="p">
+                <Box mb={5}>
                   {ReactHtmlParser(description)}
-                </Typography>
+                </Box>
               </>
             );
           })}

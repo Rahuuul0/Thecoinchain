@@ -67,13 +67,9 @@ const PrivacyPolicy = () => {
                     </Typography>
                   </Box>
                   <Box>
-                    <Container maxWidth="lg">
-                      <Box>
-                        <Typography component="p" variant="p" paddingTop={1}>
-                          {ReactHtmlParser(description)}
-                        </Typography>
-                      </Box>
-                    </Container>
+                    <Box mb={5}>
+                      {ReactHtmlParser(description)}
+                    </Box>
                   </Box>
                 </>
               );

@@ -63,7 +63,7 @@ const ChangePassword = () => {
                     >
                         <Box className='auth-header-logo' >
                             <Link onClick={() => { navigate('/') }}><img src={LogoLight} alt='Coin Guru' className='desktop' /></Link>
-                            <Link onClick={() => { navigate('/') }}><img src={LogoDark} alt='Coin Guru' className='ipad' /></Link>
+                            <Link onClick={() => { navigate('/') }}><img src={LogoDark} alt='Coin Guru' className='ipad coinguru-logo' /></Link>
                         </Box>
                     </Box>
                     <Box className='auth-wrapper-inner'>

@@ -58,7 +58,7 @@ const ResetPassword = () => {
                     >
                         <Box className='auth-header-logo' >
                             <Link onClick={() => { navigate('/') }}><img src={LogoLight} alt='Coin Guru' className='desktop' /></Link>
-                            <Link onClick={() => { navigate('/') }}><img src={LogoDark} alt='Coin Guru' className='ipad' /></Link>
+                            <Link onClick={() => { navigate('/') }}><img src={LogoDark} alt='Coin Guru' className='ipad coinguru-logo' /></Link>
                         </Box>
                         <Box className='dont-have-acc' >
                             <Typography component="p" variant="body2" sx={{ fontSize: '14px' }} position='relative' zIndex='2'>

@@ -144,7 +144,7 @@ const CreateAccount = () => {
                 }}
               >
                 {" "}
-                <img src={LogoDark} alt="Coin Guru" className="ipad" />
+                <img src={LogoDark} alt="Coin Guru" className="ipad coinguru-logo" />
               </Link>
             </Box>
             <Box className="dont-have-acc">

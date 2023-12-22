@@ -248,7 +248,7 @@ const Profile = (props) => {
                     {subscription?.status === "running" && (
                       <>
                         {" "}
-                        <Box sx={{ borderBottom: "1px solid #E6E8EC" }}>
+                        <Box className="brb-1">
                           <Typography
                             component="h5"
                             variant="h5"
@@ -323,7 +323,7 @@ const Profile = (props) => {
                       >
                         Update your profile
                       </Typography>
-                      <Box className="" paddingY={1}>
+                      <Box className="">
                         <TextField
                           label="Name *"
                           className="form-control white-input-box"
@@ -349,7 +349,7 @@ const Profile = (props) => {
                           {errors.name?.message}
                         </div>
                       </Box>
-                      <Box className="" paddingY={1}>
+                      <Box className="">
                         <TextField
                           disabled
                           label="Email *"
@@ -374,7 +374,7 @@ const Profile = (props) => {
                         </div>
                       </Box>
                       {auth.is_profile_completed === 1 && (
-                        <Box className="" paddingY={1}>
+                        <Box className="">
                           <MuiPhoneNumber
                             disabled
                             sx={{ pointerEvents: "none" }}
@@ -405,7 +405,7 @@ const Profile = (props) => {
                         </Box>)}
                       {auth.is_profile_completed === 0 && (
                         <>
-                          <Box className="" paddingY={1}>
+                          <Box className="">
                             <MuiPhoneNumber
                               label="Mobile *"
                               className="form-control white-input-box"
@@ -432,7 +432,7 @@ const Profile = (props) => {
                               {errors.mobile?.message}
                             </div>
                           </Box>
-                          <Box className="" paddingY={1}>
+                          <Box className="">
                             <TextField
                               required
                               label="Password *"
@@ -475,7 +475,7 @@ const Profile = (props) => {
                             </div>
                           </Box>
 
-                          <Box className="" paddingY={1}>
+                          <Box className="">
                             <TextField
                               label="Confirm Password *"
                               margin="normal"

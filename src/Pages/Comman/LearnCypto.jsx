@@ -23,7 +23,7 @@ import Globe from "../../../public/assets/images/globe.svg";
 import ReactPlayer from "react-player";
 import { useNavigate, Link } from "react-router-dom";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tutorialAtom, blogAtom, loaderAtom, blogListAtom, blogimgAtom, tutorialCategoryAtom, blogVideoAtom,breadCrumbAtom } from "../../_state";
+import { tutorialAtom, blogAtom, loaderAtom, blogListAtom, blogimgAtom, tutorialCategoryAtom, blogVideoAtom, breadCrumbAtom } from "../../_state";
 import { useTutorialActions } from "../../_actions/tutorial.actions";
 import Tab from "@mui/material/Tab";
 import { TabContext, TabPanel, TabList } from "@mui/lab/";
@@ -259,7 +259,7 @@ const LearnCypto = () => {
                 component="div"
                 className="secondary-font font-40 bottom-border"
                 marginBottom={1}
-                padding={2}
+                paddingY={2}
               >
                 Description
               </Typography>
@@ -346,7 +346,7 @@ const LearnCypto = () => {
                 <Box>
                   {blogList?.map((item) => {
                     let description = item.description;
-                    let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`: item.image_link;
+                    let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
                     return (
                       <Box className="right-tab-content">
                         <Grid container
@@ -393,7 +393,7 @@ const LearnCypto = () => {
                             </Box>
                           </Grid>
                           <Grid item xs={12} sm={7} md={7}>
-                          {image == null || image == ''? " " : <img style={{ height: "100%", maxWidth: "100%" }}
+                            {image == null || image == '' ? " " : <img style={{ height: "100%", maxWidth: "100%" }}
                               src={image} alt=''
                             />}
 
@@ -437,6 +437,7 @@ const LearnCypto = () => {
                     }}
                     MenuProps={MenuProps}
                     inputProps={{ "aria-label": "Without label" }}
+                    className="multi-select-wrapper"
                   >
                     <MenuItem disabled value="">
                       Recently Added

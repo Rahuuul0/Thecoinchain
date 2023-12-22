@@ -3,11 +3,11 @@ import { useRecoilValue } from 'recoil';
 import { useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../../_common/app.constants"
-import { Box, Container, Typography, Breadcrumbs } from '@mui/material';
+import { Box, Container, Typography, Breadcrumbs, Backdrop, CircularProgress } from '@mui/material';
 import { NavigateNext } from '@mui/icons-material/';
 import { Link } from "react-router-dom";
 import BTCIc from "../../../public/assets/images/icons/btc-ic.svg";
-import { communityAtom } from '../../_state/';
+import { communityAtom, loaderAtom } from '../../_state/';
 import {communityActions} from "../../_actions/";
 import dayjs from "dayjs";
 import ReactHtmlParser from 'react-html-parser';
@@ -15,6 +15,7 @@ import ReactHtmlParser from 'react-html-parser';
 const Community = () => {
     const communityAction = communityActions();
     const communityList = useRecoilValue(communityAtom);
+    const loader = useRecoilValue(loaderAtom);
 
     const breadcrumbs = [
         <Link to="/" underline="hover" key="1" color="inherit" >
@@ -32,6 +33,12 @@ const Community = () => {
 
     return (
         <>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loader}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
             <ThemeProvider theme={theme}>
                 <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div'>
                     <Container maxWidth="lg">

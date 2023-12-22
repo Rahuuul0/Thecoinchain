@@ -99,7 +99,7 @@ const CryptoTable = (props) => {
   const [loader, setLoader] = useRecoilState(loaderAtom);
   const historicalAction = quotesHistoricalActions();
   const historicalData = useRecoilValue(historicalAtom);
-  const [timeFrame, setTimeFrame] = useState("15m");
+  const [timeFrame, setTimeFrame] = useState("1h");
   const date = new Date();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleChange = (event, newValue) => {
@@ -132,10 +132,10 @@ const CryptoTable = (props) => {
   };
 
   const handleChartOpen = async (id) => {
-    chartHistory(id, "15m");
+    chartHistory(id, "1h");
     setChartOpen(true);
     setChartData(coinsList.filter((item) => item.id === id.id));
-    setTimeFrame("15m");
+    setTimeFrame("1h");
   };
 
   const handleTimeFrame = (event) => {
@@ -188,7 +188,7 @@ const CryptoTable = (props) => {
             ? getLastestListing()
             : getLatestCategory(selectedCat)
           : getLastestListing();
-    }, 30000);
+    }, 8000);
     return () => clearInterval(interval);
   }, [intervalCount, selectedCat, subscriptionDetails]);
 
@@ -252,7 +252,7 @@ const CryptoTable = (props) => {
       setLimit(value);
     }, 400);
   }
-
+  console.log(subscriptionDetails.status,'subscriptionDetails.status')
   return (
     <>
       <Box className="crypto-list" sx={{ py: 2 }}>
@@ -274,8 +274,8 @@ const CryptoTable = (props) => {
                     {location.pathname === "/prediction-dashboard" ? (
                       <>
                         <TableCell align="right">acc % </TableCell>
-                        {/* <TableCell align="right">15m %</TableCell>
-                          <TableCell align="right">1h %</TableCell> */}
+                        {/* <TableCell align="right">15m %</TableCell> */}
+                        <TableCell align="right">1h %</TableCell>
                         <TableCell align="right">4h %</TableCell>
                         <TableCell align="right">1d %</TableCell>
                       </>
@@ -391,10 +391,10 @@ const CryptoTable = (props) => {
                           <>
                             {/* <TableCell align="right">
                                   <HttpsIcon />
-                                </TableCell>
-                                <TableCell align="right">
-                                  <HttpsIcon />
                                 </TableCell> */}
+                              <TableCell align="right">
+                               <HttpsIcon />
+                              </TableCell>
                             <TableCell align="right">
                               <HttpsIcon />
                             </TableCell>
@@ -422,23 +422,23 @@ const CryptoTable = (props) => {
                             {/* {item.ct_min_15_current}
                                   </span> */}
                             {/* </TableCell> */}
-                            {/* <TableCell align="right">
+                            <TableCell align="right">
                                   <span
                                     className={
                                       item.ct_hour_1_current < item.price
                                         ? "down"
                                         : "up"
                                     }
-                                  > */}
+                                  >
                             {/* {(
                                   ((item.ct_hour_1_current - item.price) *
                                     100) /
                                   item.price
                                 ).toFixed(2)}
                                 % */}
-                            {/* {item.ct_hour_1_current}
+                            {item.ct_hour_1_current}
                                   </span>
-                                </TableCell> */}
+                                </TableCell>
                             <TableCell align="right">
                               <span
                                 className={
@@ -726,8 +726,8 @@ const CryptoTable = (props) => {
                 <Box>
                   {subscriptionDetails.status === "running" ? (
                     <TabList onChange={handleChange} aria-label="Login Tabs">
-                      {/* <Tab label="15m" value="1" />
-                      <Tab label="1h" value="2" /> */}
+                      {/* <Tab label="15m" value="1" /> */}
+                      <Tab label="1h" value="2" />
                       <Tab label="4h" value="3" />
                       <Tab label="1d" value="4" />
                     </TabList>
@@ -801,7 +801,7 @@ const CryptoTable = (props) => {
                         </Box>
                       </Box>
                     </TabPanel> */}
-                    {/* <TabPanel value="2">
+                    <TabPanel value="2">
                       <Box className="value-with-date">
                         <Box className="value-with-date-col">
                           <Typography
@@ -830,8 +830,8 @@ const CryptoTable = (props) => {
                                   100
                               ) / 100
                             )?.toFixed(2)}
-
-                            <span>+1.25%</span>
+                              {chartData[0]?.ct_hour_1_current}
+                            {/* <span>+1.25%</span> */}
                           </Typography>
                         </Box>
                         <Box className="value-with-date-col">
@@ -847,18 +847,18 @@ const CryptoTable = (props) => {
                             }}
                           >
                             <img src={TimeImg} alt="chart" height="16px" />{" "}
-                            <span>15/10/23</span> 07:45
+                            {dayjs(date).add(1, "h").format("DD/MM/YYYY HH:mm")}
                           </Typography>
                           <Typography
                             variant="body2"
                             component="small"
                             sx={{ color: "#141416", fontWeight: "500" }}
                           >
-                            37162.00 <span>+1.25%</span>
+                            {chartData[0]?.ct_hour_1_current}
                           </Typography>
                         </Box>
                       </Box>
-                    </TabPanel> */}
+                    </TabPanel>
                     <TabPanel value="3">
                       <Box className="value-with-date">
                         <Box className="value-with-date-col">
@@ -1085,7 +1085,7 @@ const CryptoTable = (props) => {
                 className="btn-round btn-close"
                 onChange={handleTimeFrame}
               >
-                <MenuItem value="15m">15m</MenuItem>
+                {/* <MenuItem value="15m">15m</MenuItem> */}
                 <MenuItem value="1h">1h</MenuItem>
                 <MenuItem value="4h">4h</MenuItem>
                 <MenuItem value="1d">1d</MenuItem>

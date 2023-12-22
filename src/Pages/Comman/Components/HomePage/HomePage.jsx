@@ -472,6 +472,7 @@ const Home = () => {
                   })}
 
                 </Grid>
+                <Grid  className="mobile-none" >
                 {tutorialsList.length > 4 && tutorialsList.length > loadmore &&
                   <Button
                     variant="outlined"
@@ -488,6 +489,7 @@ const Home = () => {
                     Load more
                   </Button>
                 }
+                </Grid>
               </TabPanel>
             </TabContext>
 

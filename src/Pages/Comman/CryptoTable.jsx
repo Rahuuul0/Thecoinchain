@@ -188,7 +188,7 @@ const CryptoTable = (props) => {
             ? getLastestListing()
             : getLatestCategory(selectedCat)
           : getLastestListing();
-    }, 8000);
+    }, 63000);
     return () => clearInterval(interval);
   }, [intervalCount, selectedCat, subscriptionDetails]);
 
@@ -252,7 +252,7 @@ const CryptoTable = (props) => {
       setLimit(value);
     }, 400);
   }
-  console.log(subscriptionDetails.status,'subscriptionDetails.status')
+
   return (
     <>
       <Box className="crypto-list" sx={{ py: 2 }}>

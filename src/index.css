@@ -4240,6 +4240,9 @@ span.currency_name {
     color: var(--color_dark);
   }
 
+  #account-menu.MuiPopover-root .MuiList-root .MuiMenuItem-root {
+    color: #23262f;
+  }
   .multi-select-wrapper fieldset,
   .dropdown-mobile .MuiInputBase-root fieldset {
     border-color: var(--multi-select);

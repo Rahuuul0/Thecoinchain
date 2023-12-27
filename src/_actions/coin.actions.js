@@ -191,6 +191,7 @@ const useCoinActions = () => {
             coin.ct_hour_1_current = itm.ct_hour_1_current;
             coin.ct_hours_4_current = itm.ct_hours_4_current;
             coin.ct_min_15_current = itm.ct_min_15_current;
+            coin.ct_week_1_current = itm.ct_week_1_current;
             coin.ct_accuracy = itm.ct_accuracy;
           } else if (res.data.accuracy) {
             coin.ct_accuracy = itm.accuracy;

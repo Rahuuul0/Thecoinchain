@@ -278,6 +278,7 @@ const CryptoTable = (props) => {
                         <TableCell align="right">1h %</TableCell>
                         <TableCell align="right">4h %</TableCell>
                         <TableCell align="right">1d %</TableCell>
+                        <TableCell align="right">1w %</TableCell>
                       </>
                     ) : location.pathname === "/market" ? (
                       <>
@@ -401,6 +402,9 @@ const CryptoTable = (props) => {
                             <TableCell align="right">
                               <HttpsIcon />
                             </TableCell>{" "}
+                            <TableCell align="right">
+                               <HttpsIcon />
+                              </TableCell>
                           </>
                         ) : location.pathname === "/prediction-dashboard" &&
                           subscriptionDetails.status === "running" ? (
@@ -475,6 +479,23 @@ const CryptoTable = (props) => {
                                 {item.ct_day_1_current}
                               </span>
                             </TableCell>
+                            <TableCell align="right">
+                              <span
+                                className={
+                                  item.ct_week_1_current < item.price
+                                    ? "down"
+                                    : "up"
+                                }
+                              >
+                                {/* {(
+                                  ((item.ct_day_1_current - item.price) * 100) /
+                                  item.price
+                                ).toFixed(2)}
+                                % */}
+                                {item.ct_week_1_current}
+                              </span>
+                            </TableCell>
+                       
                           </>
                         ) : location.pathname === "/market" ? (
                           <>
@@ -730,12 +751,14 @@ const CryptoTable = (props) => {
                       <Tab label="1h" value="2" />
                       <Tab label="4h" value="3" />
                       <Tab label="1d" value="4" />
+                      <Tab label="1w" value="5" />
                     </TabList>
                   ) : (
                     <TabList aria-label="Login Tabs">
                       {/* <Tab label={<HttpsIcon />} value="1" />
                       <Tab label={<HttpsIcon />}></Tab> */}
                       <Tab label={<HttpsIcon />} value="3"></Tab>
+                      <Tab label={<HttpsIcon />}></Tab>
                       <Tab label={<HttpsIcon />}></Tab>
                     </TabList>
                   )}
@@ -990,6 +1013,65 @@ const CryptoTable = (props) => {
                         </Box>
                       </Box>
                     </TabPanel>
+                      <TabPanel value="5">
+                      <Box className="value-with-date">
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />
+                            {dayjs(date)
+                              .add(15, "m")
+                              .format("DD/MM/YYYY HH:mm")}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#00C076", fontWeight: "500" }}
+                          >
+                            {(
+                              Math.round(
+                                (chartData[0]?.ct_week_1_current -
+                                  chartData[0]?.price) *
+                                  100
+                              ) / 100
+                            )?.toFixed(2)}
+                            <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                        <Box className="value-with-date-col">
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{
+                              color: "#777E91",
+                              fontWeight: "400",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "5px",
+                            }}
+                          >
+                            <img src={TimeImg} alt="chart" height="16px" />{" "}
+                            <span>15/10/23</span> 07:45
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            component="small"
+                            sx={{ color: "#141416", fontWeight: "500" }}
+                          >
+                            37162.00 <span>+1.25%</span>
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </TabPanel>
                   </>
                 ) : (
                   <TabPanel value="1">
@@ -1089,6 +1171,7 @@ const CryptoTable = (props) => {
                 <MenuItem value="1h">1h</MenuItem>
                 <MenuItem value="4h">4h</MenuItem>
                 <MenuItem value="1d">1d</MenuItem>
+                <MenuItem value="1w">1w</MenuItem>
 
                 {/* <KeyboardArrowDownIcon /> */}
               </Select>

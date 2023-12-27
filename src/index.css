@@ -643,7 +643,7 @@ nav .MuiButtonBase-root:hover {
 
 .notification-menu .body-large,
 .notification-menu .inner-div-menu .head-menu {
-  color: var(--color_dark);
+  color: #23262f;
 }
 
 .outer-div-menu {
@@ -4240,8 +4240,11 @@ span.currency_name {
     color: var(--color_dark);
   }
 
-  #account-menu.MuiPopover-root .MuiList-root .MuiMenuItem-root {
+  #account-menu.MuiPopover-root .MuiList-root .MuiMenuItem-root,  .notification-menu.MuiPopover-root .MuiList-root .MuiMenuItem-root {
     color: #23262f;
+  }
+  .notification-menu.MuiPopover-root .MuiList-root .MuiMenuItem-root {
+    padding: 0;
   }
   .multi-select-wrapper fieldset,
   .dropdown-mobile .MuiInputBase-root fieldset {

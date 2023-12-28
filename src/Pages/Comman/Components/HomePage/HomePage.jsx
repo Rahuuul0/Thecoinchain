@@ -114,7 +114,7 @@ const Home = () => {
   const subscribeUser = useRecoilValue(forecastSubAtom);
   const auth = useRecoilValue(authAtom);
   const [breadcrumb, setBreadCrumb] = useRecoilState(breadCrumbAtom);
-  
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -174,17 +174,17 @@ const Home = () => {
     setLoadmore(loadmore + 20);
   }
 
-    // Api crytoWorkList
-    useEffect(() => {
-      const response = homeActions.crytoWorkList();
-      response.then((res) => { (res) })
-    }, []);
+  // Api crytoWorkList
+  useEffect(() => {
+    const response = homeActions.crytoWorkList();
+    response.then((res) => { (res) })
+  }, []);
 
-       // Api HeadingList
-       useEffect(() => {
-        const response = homeActions.headingList();
-        response.then((res) => { (res) })
-      }, []);
+  // Api HeadingList
+  useEffect(() => {
+    const response = homeActions.headingList();
+    response.then((res) => { (res) })
+  }, []);
 
   return (
     <>
@@ -198,7 +198,7 @@ const Home = () => {
           <Container>
             <Box paddingBottom={{ xs: 4, sm: 8 }}>
               {subscribeUser?.status === "expired" && auth !== null ?
-                <Stack sx={{ width: '38%', marginLeft: 'auto', marginTop: '22px' }} spacing={2}>
+                <Stack sx={{ width: '100%', marginLeft: 'auto', marginTop: '22px', marginBottom: '1rem' }} spacing={2}>
                   <Alert severity="info">You don't have any current plan please <Link to={'/subscription'}> <b>subscribe </b></Link> !</Alert>
                 </Stack>
                 : ""}
@@ -262,7 +262,7 @@ const Home = () => {
                 </Grid>
               </Grid>
             </Box>
-          </Container>
+          </Container >
         )
       })}
       {/* Banner Ends */}
@@ -472,23 +472,23 @@ const Home = () => {
                   })}
 
                 </Grid>
-                <Grid  className="mobile-none" >
-                {tutorialsList.length > 4 && tutorialsList.length > loadmore &&
-                  <Button
-                    variant="outlined"
-                    className="btn btn-outlined-secondary"
-                    endIcon={<KeyboardArrowRight sx={{ color: "#777E90" }} />}
-                    sx={{
-                      height: "50px",
-                      whiteSpace: "nowrap",
-                      minWidth: "auto",
-                      // marginLeft : "25px",
-                    }}
-                    onClick={handleLoadmore}
-                  >
-                    Load more
-                  </Button>
-                }
+                <Grid className="mobile-none" >
+                  {tutorialsList.length > 4 && tutorialsList.length > loadmore &&
+                    <Button
+                      variant="outlined"
+                      className="btn btn-outlined-secondary"
+                      endIcon={<KeyboardArrowRight sx={{ color: "#777E90" }} />}
+                      sx={{
+                        height: "50px",
+                        whiteSpace: "nowrap",
+                        minWidth: "auto",
+                        // marginLeft : "25px",
+                      }}
+                      onClick={handleLoadmore}
+                    >
+                      Load more
+                    </Button>
+                  }
                 </Grid>
               </TabPanel>
             </TabContext>
@@ -785,7 +785,7 @@ const Home = () => {
               textAlign="center"
               sx={{ fontWeight: "700", maxWidth: "500px", margin: "auto" }}
             >
-              {ReactHtmlParser(headingList[0]?.title??"")}
+              {ReactHtmlParser(headingList[0]?.title ?? "")}
             </Typography>
             <Typography
               className="secondary-color"
@@ -825,7 +825,7 @@ const Home = () => {
                             className="btn btn-outlined-secondary"
                             sx={{ margin: "0 auto" }}
                           >
-                           {buttonLabel}
+                            {buttonLabel}
                           </Button>
                         </Link>
                       </Box>
@@ -863,7 +863,7 @@ const Home = () => {
             columns={{ xs: 4, sm: 8, md: 12 }}
             className="flow-reverse-mobile"
           >
-             
+
             <Grid item xs={12} sm={5} md={5}>
               <Box sx={{ paddingBottom: { xs: "15px", md: "50px" } }}>
                 <Typography
@@ -872,7 +872,7 @@ const Home = () => {
                   fontWeight={700}
                   className="secondary-font"
                 >
-                 {ReactHtmlParser(headingList[1]?.title??"")}
+                  {ReactHtmlParser(headingList[1]?.title ?? "")}
                 </Typography>
                 <Typography
                   className="secondary-color"
@@ -975,8 +975,8 @@ const Home = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={7} md={7}>
-              <img className="app-store-img" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[1]?.image}`} /> 
-            </Grid>         
+              <img className="app-store-img" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[1]?.image}`} />
+            </Grid>
 
           </Grid>
         </Box>
@@ -988,7 +988,7 @@ const Home = () => {
         <Container>
           <Box>
             <Box textAlign="center">
-              <img className="coinguru-logo" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[2]?.image??""}`}/>
+              <img className="coinguru-logo" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[2]?.image ?? ""}`} />
               <Typography
                 variant="h2"
                 component="h2"
@@ -997,7 +997,7 @@ const Home = () => {
                 paddingBottom={3}
                 sx={{ fontWeight: "700" }}
               >
-              {ReactHtmlParser(headingList[2]?.title??"")}
+                {ReactHtmlParser(headingList[2]?.title ?? "")}
                 <br />
               </Typography>
             </Box>
@@ -1045,16 +1045,16 @@ const Home = () => {
                               {ReactHtmlParser(description)}
                             </Typography>
                             <Link to={link}>
-                            <Button
-                              sx={{ textTransform: "capitalize" }}
-                              className="btn-outlined-secondary"
-                            >
-                              {item.button_label}
-                            </Button>
+                              <Button
+                                sx={{ textTransform: "capitalize" }}
+                                className="btn-outlined-secondary"
+                              >
+                                {item.button_label}
+                              </Button>
                             </Link>
                           </Grid>
                           <Grid item xs={12} sm={6} md={6} textAlign="right">
-                           {image == null || image == '' ? " " : <img src={image}/>}
+                            {image == null || image == '' ? " " : <img src={image} />}
                           </Grid>
 
                         </Grid>
@@ -1083,7 +1083,7 @@ const Home = () => {
               paddingBottom={2}
               sx={{ fontWeight: "700" }}
             >
-              {ReactHtmlParser(headingList[3]?.title??"")}
+              {ReactHtmlParser(headingList[3]?.title ?? "")}
             </Typography>
           </Box>
           <Grid
@@ -1092,35 +1092,35 @@ const Home = () => {
             spacing={{ xs: 2, sm: 4, md: 4, lg: 4 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
-            {WorkList?.map((items,i) => {
-            let title = items.title;
-            let description = items.description;
-            let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
-            let cls = (i==WorkList.length-1)?'howworks-box become-h2-p':"howworks-box contact-line become-h2-p";
-            return (
-            <Grid item xs={6} sm={6} md={3}>  
-              <Box
-                sx={{ textAlign: { xs: "left", md: "center" } }}
-                 className={cls}
-              >
-                {image == null || image == '' ? " " : <img src={image} width={96} />}
-                <Typography
-                  className="become-h2-p"
-                  sx={{ textAlign: { xs: "left", md: "center" } }}
-                  fontWeight="300"
-                  paddingBottom={3}
-                >
-                  {ReactHtmlParser(title)}
-                </Typography>
-                <Typography
-                  component="div"
-                  variant="p"
-                  className="body-caption become-h2-p"
-                >
-                {ReactHtmlParser(description)}
-                </Typography>
-              </Box>
-            </Grid>      
+            {WorkList?.map((items, i) => {
+              let title = items.title;
+              let description = items.description;
+              let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
+              let cls = (i == WorkList.length - 1) ? 'howworks-box become-h2-p' : "howworks-box contact-line become-h2-p";
+              return (
+                <Grid item xs={6} sm={6} md={3}>
+                  <Box
+                    sx={{ textAlign: { xs: "left", md: "center" } }}
+                    className={cls}
+                  >
+                    {image == null || image == '' ? " " : <img src={image} width={96} />}
+                    <Typography
+                      className="become-h2-p"
+                      sx={{ textAlign: { xs: "left", md: "center" } }}
+                      fontWeight="300"
+                      paddingBottom={3}
+                    >
+                      {ReactHtmlParser(title)}
+                    </Typography>
+                    <Typography
+                      component="div"
+                      variant="p"
+                      className="body-caption become-h2-p"
+                    >
+                      {ReactHtmlParser(description)}
+                    </Typography>
+                  </Box>
+                </Grid>
               );
             })}
           </Grid>

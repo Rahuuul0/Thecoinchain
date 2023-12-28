@@ -4,7 +4,7 @@ import { theme, RoutesName } from "../../_common/app.constants";
 import { Box, Container, Typography, Button, Stack } from "@mui/material";
 import { faqActions } from "../../_actions";
 import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
-import { faqAtom,  forecastSubAtom,  authAtom, blogListAtom, blogimgAtom, breadCrumbAtom} from "../../_state";
+import { faqAtom, forecastSubAtom, authAtom, blogListAtom, blogimgAtom, breadCrumbAtom } from "../../_state";
 import CryptoTable from "./CryptoTable";
 import { useNavigate, Link } from "react-router-dom";
 import Alert from '@mui/material/Alert';
@@ -17,8 +17,8 @@ const PredictionDashboard = () => {
   const auth = useRecoilValue(authAtom);
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
-  const [loadmore,setLoadmore] = useState(6);
-  
+  const [loadmore, setLoadmore] = useState(6);
+
   // Subscription action get function   API data call
   useEffect(() => {
     const response = faqGetAction.get();
@@ -36,7 +36,7 @@ const PredictionDashboard = () => {
     navigate(`${RoutesName.FaqDetail}/predictionDashboard/${learnSeo}`)
     setBlogimg(data);
     setBlognew(true);
-} 
+  }
 
   const handleLoadmore = () => {
     setLoadmore(loadmore + 20);
@@ -51,15 +51,15 @@ const PredictionDashboard = () => {
           sx={{ mt: 8 }}
         >
           <Box className="market-prediction-dashboard-inner">
-          
+
             <Container maxWidth="lg">
-            {subscribeUser?.status === "expired" && auth !== null ?  
-          <Stack sx={{ width: '38%', marginLeft: 'auto'}} spacing={2}>
-          <Alert severity="info">You don't have any current plan please <Link to={'/subscription'}> <b>subscribe </b></Link> !</Alert>
-          </Stack>
-          : "" }
+              {subscribeUser?.status === "expired" && auth !== null ?
+                <Stack sx={{ width: '100%', marginLeft: 'auto', marginBottom: '1rem' }} spacing={2}>
+                  <Alert severity="info">You don't have any current plan please <Link to={'/subscription'}> <b>subscribe </b></Link> !</Alert>
+                </Stack>
+                : ""}
               <Typography component="h4" variant="h4">
-                Cryptocurrency Prediction 
+                Cryptocurrency Prediction
               </Typography>
               <CryptoTable />
             </Container>
@@ -77,51 +77,51 @@ const PredictionDashboard = () => {
                 <Container maxWidth="lg">
                   <Box className="market-prediction-faq-items">
                     {faq.map((item, index) => {
-                      let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`:item.image_link;
-                      if(index < loadmore){
-                      return (
-                        <Box className="market-prediction-faq-item"
+                      let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
+                      if (index < loadmore) {
+                        return (
+                          <Box className="market-prediction-faq-item"
                             onClick={() => imgLink(item)}
                             sx={{ cursor: "pointer" }}
-                        >
-                          <Box className="market-prediction-faq-item-img">
-                            { image == null || image == '' ? "" :<img
-                              src={image}
-                              alt="FAQ"
-                            />}
+                          >
+                            <Box className="market-prediction-faq-item-img">
+                              {image == null || image == '' ? "" : <img
+                                src={image}
+                                alt="FAQ"
+                              />}
+                            </Box>
+                            <Box className="market-prediction-faq-item-content">
+                              <Typography
+                                component="small"
+                                variant="body2"
+                                className="small-caption"
+                                sx={{ color: "#777E90" }}
+                              >
+                                {item.category}
+                              </Typography>
+                              <Typography
+                                component="p"
+                                variant="body1"
+                                className="body-caption"
+                                sx={{ fontWeight: "500", maxHeight: '25px', overflow: 'hidden' }}
+                              >
+                                {item.title}
+                              </Typography>
+                            </Box>
                           </Box>
-                          <Box className="market-prediction-faq-item-content">
-                            <Typography
-                              component="small"
-                              variant="body2"
-                              className="small-caption"
-                              sx={{ color: "#777E90" }}
-                            >
-                              {item.category}
-                            </Typography>
-                            <Typography
-                              component="p"
-                              variant="body1"
-                              className="body-caption"
-                              sx={{ fontWeight: "500",  maxHeight: '25px', overflow: 'hidden' }}
-                            >
-                              {item.title}
-                            </Typography>
-                          </Box>
-                        </Box>
-                      );
+                        );
                       }
                     })}
                   </Box>
-                  {faq.length >6 &&  faq.length > loadmore &&
-                  <Button
-                    onClick={handleLoadmore}
-                    sx={{ mt: 2 }}
-                    variant="outlined"
-                    className="btn btn-outlined-secondary"
-                  >
-                    View All
-                  </Button>
+                  {faq.length > 6 && faq.length > loadmore &&
+                    <Button
+                      onClick={handleLoadmore}
+                      sx={{ mt: 2 }}
+                      variant="outlined"
+                      className="btn btn-outlined-secondary"
+                    >
+                      View All
+                    </Button>
                   }
                 </Container>
               </Box>

@@ -85,7 +85,6 @@ const LearnNEarn = () => {
 
 
                         {marketBlogLists.map((item, index) => {
-                            console.log(item,'data')
                             if (index < loadmore) {
                                 return (
                                     <Grid item xs={12} md={4} xl={4}>

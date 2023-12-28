@@ -42,8 +42,6 @@ const ForecastSubscriptions = () => {
     const subscribed = subscriptionActions();
     const User = useRecoilValue(forecastSubAtom);
 
-    console.log(User, 'user');
-
     const [open, setOpen] = useState(false);
 
     //subscribedUser Api

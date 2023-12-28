@@ -643,7 +643,7 @@ nav .MuiButtonBase-root:hover {
 
 .notification-menu .body-large,
 .notification-menu .inner-div-menu .head-menu {
-  color: #23262f;
+  /* color: #23262f; */
 }
 
 .outer-div-menu {
@@ -1039,8 +1039,15 @@ input[type="number"] {
   margin-right: 6px;
 }
 
+.dark-theme .inner-div-user .img-div-dropdown img {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+}
+
 .inner-div-user .head-menu {
   font-size: 14px !important;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .inner-div-user .sub-head-menu {
@@ -2296,7 +2303,7 @@ video {
 }
 
 .subscription-wrapper-head small a {
-  color: var(--color-5) !important;
+  /* color: var(--color-5) !important; */
 }
 
 .subscription-wrapper-head h2 {
@@ -3718,6 +3725,7 @@ span.currency_name {
 
   .app-nav button.MuiButtonBase-root {
     margin-left: 10px;
+    margin-right: 0;
   }
 
   .gridBox:last-child {
@@ -4001,6 +4009,10 @@ span.currency_name {
     text-transform: capitalize;
   }
 
+  .mobile-nav-box Button svg {
+    color: #777e90;
+  }
+
   .mobile-menu .MuiTypography-root,
   .mobile-menu .MuiButtonBase-root {
     font-size: 24px;
@@ -4094,6 +4106,37 @@ span.currency_name {
 }
 
 @media (max-width: 767.98px) {
+  .tutorials-grid .MuiSelect-select {
+    color: var(--color_dark);
+  }
+
+  #menu- .MuiPaper-root .MuiMenu-list .MuiMenuItem-root {
+    gap: 10px;
+  }
+
+  #menu- .MuiPaper-root .MuiMenu-list .MuiMenuItem-root span {
+    display: flex;
+    align-items: center;
+  }
+
+  .dark-theme #menu- .MuiPaper-root .MuiMenu-list .MuiMenuItem-root img {
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+  }
+
+  .dark-theme .sidebar-tabs.for-mobile.dropdown-mobile .MuiSelect-select span img {
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+  }
+
+  .sidebar-tabs.for-mobile.dropdown-mobile .MuiSelect-select {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .ensure-link {
+    font-size: 13px;
+  }
+
   .header-logo-border {
     border: none;
   }
@@ -4240,12 +4283,15 @@ span.currency_name {
     color: var(--color_dark);
   }
 
-  #account-menu.MuiPopover-root .MuiList-root .MuiMenuItem-root,  .notification-menu.MuiPopover-root .MuiList-root .MuiMenuItem-root {
+  #account-menu.MuiPopover-root .MuiList-root .MuiMenuItem-root,
+  .notification-menu.MuiPopover-root .MuiList-root .MuiMenuItem-root {
     color: #23262f;
   }
+
   .notification-menu.MuiPopover-root .MuiList-root .MuiMenuItem-root {
     padding: 0;
   }
+
   .multi-select-wrapper fieldset,
   .dropdown-mobile .MuiInputBase-root fieldset {
     border-color: var(--multi-select);

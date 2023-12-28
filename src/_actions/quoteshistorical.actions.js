@@ -31,7 +31,9 @@ const quotesHistoricalActions = () => {
             ? (responseArr = res.data.data_1_hr[0])
             : params.interval === "4h"
             ? (responseArr = res.data.data_4_hrs[0])
-            : (responseArr = res.data.data_1_day[0]);
+            : (responseArr = res.data.data_1_day[0])
+            ? (responseArr = res.data.data_1_w[0])
+            : params.interval === "1w";
 
           let timeStamp = [];
           let quotePrice = [];

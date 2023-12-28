@@ -1028,9 +1028,7 @@ const CryptoTable = (props) => {
                             }}
                           >
                             <img src={TimeImg} alt="chart" height="16px" />
-                            {dayjs(date)
-                              .add(15, "m")
-                              .format("DD/MM/YYYY HH:mm")}
+                            {dayjs(date).add(1, "w").format("DD/MM/YYYY HH:mm")}
                           </Typography>
                           <Typography
                             variant="body2"
@@ -1044,7 +1042,7 @@ const CryptoTable = (props) => {
                                   100
                               ) / 100
                             )?.toFixed(2)}
-                            <span>+1.25%</span>
+                            {chartData[0]?.ct_week_1_current}
                           </Typography>
                         </Box>
                         <Box className="value-with-date-col">
@@ -1060,14 +1058,14 @@ const CryptoTable = (props) => {
                             }}
                           >
                             <img src={TimeImg} alt="chart" height="16px" />{" "}
-                            <span>15/10/23</span> 07:45
+                            {dayjs(date).add(1, "w").format("DD/MM/YYYY HH:mm")}
                           </Typography>
                           <Typography
                             variant="body2"
                             component="small"
                             sx={{ color: "#141416", fontWeight: "500" }}
                           >
-                            37162.00 <span>+1.25%</span>
+                           {chartData[0]?.ct_week_1_current}
                           </Typography>
                         </Box>
                       </Box>

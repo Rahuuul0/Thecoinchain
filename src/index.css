@@ -643,7 +643,7 @@ nav .MuiButtonBase-root:hover {
 
 .notification-menu .body-large,
 .notification-menu .inner-div-menu .head-menu {
-  /* color: #23262f; */
+  color: var(--color_dark);
 }
 
 .outer-div-menu {
@@ -1048,10 +1048,12 @@ input[type="number"] {
   display: flex;
   align-items: center;
   gap: 4px;
+  color: var(--color_dark);
 }
 
 .inner-div-user .sub-head-menu {
   font-size: 10px !important;
+  color: var(--color_dark);
 }
 
 .language-dropdown.MuiFormControl-root label {
@@ -2254,8 +2256,25 @@ video {
   box-shadow: 0px 64px 64px -48px rgba(15, 15, 15, 0.1019607843);
 }
 
+.value-details .MuiInputBase-root fieldset {
+  border: 2px solid var(--market-hero-para);
+}
+
+.value-details .MuiInputBase-root svg {
+  color: var(--color_dark);
+}
+
+.value-details .MuiInputBase-root:hover fieldset {
+  border-color: var(--color_dark);
+}
+
+.modal-modal-description .value-details .btn-round {
+  color: var(--color_dark);
+}
+
 .modal-modal-description .value-with-date-col {
   flex: 1;
+  color: var(--color_dark);
 }
 
 .crypto-table .modal-modal-description {

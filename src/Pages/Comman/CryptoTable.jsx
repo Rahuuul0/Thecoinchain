@@ -192,13 +192,13 @@ const CryptoTable = (props) => {
     return () => clearInterval(interval);
   }, [intervalCount, selectedCat, subscriptionDetails]);
 
-  useEffect(()=>{
-    if (location.pathname === "/prediction-dashboard"){
-      if(coinsList.length===0){
+  useEffect(() => {
+    if (location.pathname === "/prediction-dashboard") {
+      if (coinsList.length === 0) {
         coinActions.latestListing("?limit=5");
       }
     }
-  },[])
+  }, [])
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -393,9 +393,9 @@ const CryptoTable = (props) => {
                             {/* <TableCell align="right">
                                   <HttpsIcon />
                                 </TableCell> */}
-                              <TableCell align="right">
-                               <HttpsIcon />
-                              </TableCell>
+                            <TableCell align="right">
+                              <HttpsIcon />
+                            </TableCell>
                             <TableCell align="right">
                               <HttpsIcon />
                             </TableCell>
@@ -403,8 +403,8 @@ const CryptoTable = (props) => {
                               <HttpsIcon />
                             </TableCell>{" "}
                             <TableCell align="right">
-                               <HttpsIcon />
-                              </TableCell>
+                              <HttpsIcon />
+                            </TableCell>
                           </>
                         ) : location.pathname === "/prediction-dashboard" &&
                           subscriptionDetails.status === "running" ? (
@@ -427,22 +427,22 @@ const CryptoTable = (props) => {
                                   </span> */}
                             {/* </TableCell> */}
                             <TableCell align="right">
-                                  <span
-                                    className={
-                                      item.ct_hour_1_current < item.price
-                                        ? "down"
-                                        : "up"
-                                    }
-                                  >
-                            {/* {(
+                              <span
+                                className={
+                                  item.ct_hour_1_current < item.price
+                                    ? "down"
+                                    : "up"
+                                }
+                              >
+                                {/* {(
                                   ((item.ct_hour_1_current - item.price) *
                                     100) /
                                   item.price
                                 ).toFixed(2)}
                                 % */}
-                            {item.ct_hour_1_current}
-                                  </span>
-                                </TableCell>
+                                {item.ct_hour_1_current}
+                              </span>
+                            </TableCell>
                             <TableCell align="right">
                               <span
                                 className={
@@ -495,7 +495,7 @@ const CryptoTable = (props) => {
                                 {item.ct_week_1_current}
                               </span>
                             </TableCell>
-                       
+
                           </>
                         ) : location.pathname === "/market" ? (
                           <>
@@ -850,10 +850,10 @@ const CryptoTable = (props) => {
                               Math.round(
                                 (chartData[0]?.ct_hour_1_current -
                                   chartData[0]?.price) *
-                                  100
+                                100
                               ) / 100
                             )?.toFixed(2)}
-                              {chartData[0]?.ct_hour_1_current}
+                            {chartData[0]?.ct_hour_1_current}
                             {/* <span>+1.25%</span> */}
                           </Typography>
                         </Box>
@@ -875,7 +875,7 @@ const CryptoTable = (props) => {
                           <Typography
                             variant="body2"
                             component="small"
-                            sx={{ color: "#141416", fontWeight: "500" }}
+                            sx={{ color: "#777E91", fontWeight: "500" }}
                           >
                             {chartData[0]?.ct_hour_1_current}
                           </Typography>
@@ -942,7 +942,7 @@ const CryptoTable = (props) => {
                           <Typography
                             variant="body2"
                             component="small"
-                            sx={{ color: "#141416", fontWeight: "500" }}
+                            sx={{ color: "#777E91", fontWeight: "500" }}
                           >
                             {chartData[0]?.ct_hours_4_current}
                             {/* <span>+1.25%</span> */}
@@ -1006,14 +1006,14 @@ const CryptoTable = (props) => {
                           <Typography
                             variant="body2"
                             component="small"
-                            sx={{ color: "#141416", fontWeight: "500" }}
+                            sx={{ color: "#777E91", fontWeight: "500" }}
                           >
                             {chartData[0]?.ct_day_1_current}
                           </Typography>
                         </Box>
                       </Box>
                     </TabPanel>
-                      <TabPanel value="5">
+                    <TabPanel value="5">
                       <Box className="value-with-date">
                         <Box className="value-with-date-col">
                           <Typography
@@ -1041,7 +1041,7 @@ const CryptoTable = (props) => {
                               Math.round(
                                 (chartData[0]?.ct_week_1_current -
                                   chartData[0]?.price) *
-                                  100
+                                100
                               ) / 100
                             )?.toFixed(2)}
                             <span>+1.25%</span>
@@ -1065,7 +1065,7 @@ const CryptoTable = (props) => {
                           <Typography
                             variant="body2"
                             component="small"
-                            sx={{ color: "#141416", fontWeight: "500" }}
+                            sx={{ color: "#777E91", fontWeight: "500" }}
                           >
                             37162.00 <span>+1.25%</span>
                           </Typography>

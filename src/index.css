@@ -81,7 +81,7 @@
   --mui-disabled: #353945;
   --scanner-box: #FCFCFD;
   --download-app: #E6E8EC;
-  --mui-menu-papper: #FCFCFD;
+  --mui-menu-paper: #FCFCFD;
   --menu-shadow: 0px 16px 64px -48px #1F2F4626;
   --txt-color: #353945;
   --contact-bg: #F8F8F9;
@@ -160,7 +160,7 @@
   --mui-disabled: #FCFCFD;
   --scanner-box: #353945;
   --download-app: #777E90;
-  --mui-menu-papper: #23262F;
+  --mui-menu-paper: #23262F;
   --txt-color: #777E90;
   --contact-bg: #18191D;
   --bg-auth: #141416;
@@ -3647,6 +3647,13 @@ span.currency_name {
   max-height: 397px;
   min-width: 264px;
   overflow-y: auto;
+    background-color: var(--mui-menu-paper);
+  color: var(--txt-color);
+}
+
+.MuiPopover-root .MuiPaper-root.MuiMenu-paper {
+  background-color: var(--mui-menu-paper);
+  color: var(--txt-color);
 }
 
 .brb-1 {
@@ -3654,7 +3661,7 @@ span.currency_name {
 }
 
 .MuiMenu-root .MuiMenu-paper {
-  background-color: var(--mui-menu-papper);
+  background-color: var(--mui-menu-paper);
   color: var(--txt-color);
 }
 

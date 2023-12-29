@@ -136,10 +136,10 @@ const FaqDetail = () => {
   useEffect(() => {
     window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
     tutorialAction.tutorialData();
-
   }, []);
 
-
+  let image = blogImg.image ? `${process.env.REACT_APP_IMAGE_URL}/${blogImg.image}` : blogImg.image_link;
+ 
   return (
     <>
       <Container className="learn-crypto-details">
@@ -181,7 +181,7 @@ const FaqDetail = () => {
               >
                 <img
                     sx={{ maxWidth: "100%", }}
-                    src={`${process.env.REACT_APP_IMAGE_URL}/${blogImg.image}`}
+                    src={image}
                   />
 
               </Box>

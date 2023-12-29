@@ -138,7 +138,8 @@ const MarketBlogDetail = () => {
     tutorialAction.tutorialData();
 
   }, []);
-
+  
+  let image = blogImg.image ? `${process.env.REACT_APP_IMAGE_URL}/${blogImg.image}` : blogImg.image_link;
 
   return (
     <>
@@ -181,7 +182,7 @@ const MarketBlogDetail = () => {
               >
                 <img
                     sx={{ maxWidth: "100%", }}
-                    src={`${process.env.REACT_APP_IMAGE_URL}/${blogImg.image}`}
+                    src={image}
                   />
 
               </Box>

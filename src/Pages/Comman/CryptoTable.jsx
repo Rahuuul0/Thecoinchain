@@ -944,7 +944,7 @@ const CryptoTable = (props) => {
                             component="small"
                             sx={{ color: "#777E91", fontWeight: "500" }}
                           >
-                            {chartData[0]?.ct_hours_4_current}
+                            {chartData[0]?.ct_hours_4_current.toFixed(1)}
                             {/* <span>+1.25%</span> */}
                           </Typography>
                         </Box>
@@ -1185,7 +1185,7 @@ const CryptoTable = (props) => {
             </Typography>
 
             <Typography className="crypto-value" variant="h5" component="h5">
-              {chartData[0]?.price}
+              {chartData[0]?.price.toFixed(3)}
             </Typography>
 
             <Line data={data} options={options} />

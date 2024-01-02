@@ -4109,7 +4109,7 @@ span.currency_name {
 
   .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
     min-height: 100vh;
-    display: flex;
+    display: flex;  
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
@@ -4127,7 +4127,7 @@ span.currency_name {
 
 @media (max-width: 899.98px) {
   .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
-    min-height: 100vh !important;
+    min-height: 90vh !important;
   }
 }
 

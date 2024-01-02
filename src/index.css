@@ -4127,8 +4127,12 @@ span.currency_name {
 
 @media (max-width: 899.98px) {
   .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
-    min-height: 90vh !important;
+    min-height: 100vh !important;
+    overflow: hidden;
   }
+  .mobile-navbar .MuiBox-root.css-gg4vpm {
+    padding-bottom: 7rem;
+ }
 }
 
 @media (max-width: 767.98px) {

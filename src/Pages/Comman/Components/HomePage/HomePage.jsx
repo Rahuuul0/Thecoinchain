@@ -874,12 +874,12 @@ const Home = () => {
                 >
                   {ReactHtmlParser(headingList[1]?.title ?? "")}
                 </Typography>
-                <Typography
+                {/* <Typography
                   className="secondary-color"
                   sx={{ paddingBottom: { xs: "15px", md: "25px" } }}
                 >
                   with our expert insights and analysis of the crypto market!
-                </Typography>
+                </Typography> */}
               </Box>
               <Box>
                 <Typography className="secondary-color">app's</Typography>

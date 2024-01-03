@@ -145,7 +145,7 @@ const ForecastSubscriptions = () => {
                                                     aria-controls="panel1bh-content"
                                                     id="panel1bh-header"
                                                 >
-                                                    <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                                                    <Typography  sx={{ width: '33%', flexShrink: 0, cursor: "default"}}>
                                                         Plan Details
                                                     </Typography>
                                                 </AccordionSummary>

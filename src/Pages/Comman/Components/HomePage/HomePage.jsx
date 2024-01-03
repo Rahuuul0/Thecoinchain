@@ -252,7 +252,7 @@ const Home = () => {
                     <ArrowCircleDownSharp
                       sx={{ color: "#B1B5C3" }}
                       onClick={() => {
-                        window.scrollTo({ top: 2250, left: 0, behavior: "smooth" });
+                        window.scrollTo({ top: 1800, left: 0, behavior: "smooth" });
                       }}
                     />
                   </IconButton>

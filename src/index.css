@@ -4809,6 +4809,12 @@ span.currency_name {
 }
 
 @media (max-width: 575.98px) {
+  .crypto-list-table table tr::after {
+    left: 0;
+  }
+  .crypto-list-table table tr::before {
+    right: 0;
+  }
   .learn-n-earn-head {
     padding: 0 8%;
   }

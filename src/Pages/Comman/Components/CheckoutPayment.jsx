@@ -77,7 +77,7 @@ const CheckoutForm = () => {
         const get_subscription = async () => {
             await subscribed.subscription()
                 .then((res) => {
-                    res.reverse()
+                    res?.reverse()
                     setSubscriptionData(res)
                     setSubplan(false)
                 })

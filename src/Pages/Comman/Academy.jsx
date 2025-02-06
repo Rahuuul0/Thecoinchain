@@ -11,7 +11,6 @@ import Leveragedv3 from "../../../public/assets/images/leveragedv3.svg";
 import Leveragedv2 from "../../../public/assets/images/leveragedv2.svg";
 import Learn01 from "../../../public/assets/images/learn01.png";
 
-
 const Academy = () => {
   const navigate = useNavigate();
   const breadcrumbs = [

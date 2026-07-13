@@ -34,8 +34,8 @@ function Header(props) {
   const notificaionCount = useRecoilValue(notificationCountAtom);
 
   const LogoListAction = bannerListActions();
-  const LogoList = useRecoilValue(setLogoListAtom).filter((item)=>{
-       return item.position === "Header"
+  const LogoList = useRecoilValue(setLogoListAtom).filter((item) => {
+    return item.position === "Header"
   });
 
   useEffect(() => {
@@ -96,6 +96,19 @@ function Header(props) {
     setAnchorEl(null);
   }
 
+  const [newsAnchorEl, setNewsAnchorEl] = React.useState(null);
+  const newsOpen = Boolean(newsAnchorEl);
+  const handleNewsClick = (event) => {
+    setNewsAnchorEl(event.currentTarget);
+  };
+  const handleNewsClose = () => {
+    setNewsAnchorEl(null);
+  };
+  const handleLatestNews = () => {
+    setNewsAnchorEl(null);
+    navigate(RoutesName.Latest_News);
+  };
+
   const [anchorElAnchor, setAnchorElAnchor] = React.useState(null);
   const openAnchor = Boolean(anchorElAnchor);
   const handleClickAnchor = (event) => {
@@ -141,14 +154,14 @@ function Header(props) {
       <Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Box>
-            <img onClick={() => {handleDrawerToggle(), navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
+            <img onClick={() => { handleDrawerToggle(), navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
           </Box>
           <Box display='flex' alignItems='center' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}>
             <Box className='close'><p>+</p></Box>
           </Box>
         </Box>
         <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
-          <Button variant='standard' className='nav-mobile-btn btn' onClick={()=>{handleDrawerToggle(),navigate(RoutesName.Learn_Cypto)}}>Crypto</Button>
+          <Button variant='standard' className='nav-mobile-btn btn' onClick={() => { handleDrawerToggle(), navigate(RoutesName.Learn_Cypto) }}>Crypto</Button>
           <Accordion className='submenu'>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -162,8 +175,22 @@ function Header(props) {
               </Button>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography onClick={() => {handleDrawerToggle(),navigate(RoutesName.Academy_about_crypto) }}  sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
-              <Typography onClick={() => {handleDrawerToggle(), navigate(RoutesName.Master_Course) }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+              <Typography onClick={() => { handleDrawerToggle(), navigate(RoutesName.Academy_about_crypto) }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
+              <Typography onClick={() => { handleDrawerToggle(), navigate(RoutesName.Master_Course) }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion className='submenu mobile-nav-dropdown'>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="news"
+            >
+              <Button id="news-btn">
+                News
+              </Button>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography onClick={() => { handleDrawerToggle(), navigate(RoutesName.Latest_News) }} sx={{ borderBottom: '1px solid #E6E8EC' }}><img className='gallery-menu-icon' src={galleryImage} /> Latest News</Typography>
             </AccordionDetails>
           </Accordion>
           <List className='itemnavitem'>
@@ -174,7 +201,7 @@ function Header(props) {
                     {item.icon &&
                       <img src={item.icon} alt={item.page} />
                     }
-                    <ListItemText primary={`${item.page}`} onClick={() => {handleDrawerToggle(), navigate(item.link) }} /> 
+                    <ListItemText primary={`${item.page}`} onClick={() => { handleDrawerToggle(), navigate(item.link) }} />
                   </ListItemButton>
                 </ListItem>
               )
@@ -197,8 +224,8 @@ function Header(props) {
         </Box>
       </Box>
       <Box display='flex' justifyContent='space-between' sx={{ paddingBottom: '20px' }}>
-        <Button onClick={()=>{handleDrawerToggle(),navigate(RoutesName.Profile)}} variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Profile settings</Button>
-        <IconButton onClick={handleDarkMode} className='theme-selector'aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
+        <Button onClick={() => { handleDrawerToggle(), navigate(RoutesName.Profile) }} variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Profile settings</Button>
+        <IconButton onClick={handleDarkMode} className='theme-selector' aria-label="sunny" color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
         <IconButton aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
       </Box>
 
@@ -244,6 +271,36 @@ function Header(props) {
                 >
                   <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
                   <MenuItem onClick={handle}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
+                </Menu>
+              </li>
+            </ul>
+            <ul className="navItem" style={{ padding: 0, margin: 0, listStyle: "none" }}>
+              <li>
+                <Button
+                  id="news-positioned-button"
+                  aria-controls={newsOpen ? "news-positioned-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={newsOpen ? "true" : undefined}
+                  onClick={handleNewsClick}
+                  endIcon={<KeyboardArrowDown />}
+                >
+                  News
+                </Button>
+                <Menu
+                  className="dropdown-menu"
+                  id="news-positioned-menu"
+                  aria-labelledby="news-positioned-button"
+                  anchorEl={newsAnchorEl}
+                  open={newsOpen}
+                  sx={{ borderRadius: "12px" }}
+                  onClose={handleNewsClose}
+                >
+                  <MenuItem
+                    onClick={handleLatestNews}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <img className="gallery-menu-icon" src={galleryImage} /> Latest News{" "}
+                  </MenuItem>
                 </Menu>
               </li>
             </ul>

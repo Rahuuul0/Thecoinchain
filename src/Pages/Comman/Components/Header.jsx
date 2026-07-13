@@ -86,6 +86,19 @@ function Header(props) {
     setAnchorEl(null);
   }
 
+  const [newsAnchorEl, setNewsAnchorEl] = React.useState(null);
+  const newsOpen = Boolean(newsAnchorEl);
+  const handleNewsClick = (event) => {
+    setNewsAnchorEl(event.currentTarget);
+  };
+  const handleNewsClose = () => {
+    setNewsAnchorEl(null);
+  };
+  const handleLatestNews = () => {
+    setNewsAnchorEl(null);
+    navigate(RoutesName.Latest_News);
+  };
+
   const [anchorElB, setAnchorElB] = React.useState(null);
   const openB = Boolean(anchorElB);
   const handleClickB = (event) => {
@@ -145,6 +158,20 @@ function Header(props) {
               <AccordionDetails>
                 <Typography onClick={() => {handleDrawerToggle(),navigate(RoutesName.Academy_about_crypto) }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
                 <Typography onClick={() => {handleDrawerToggle(), navigate(RoutesName.Master_Course) }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion className='submenu mobile-nav-dropdown'>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel2a-content"
+                id="news"
+              >
+                <Button id="news-btn">
+                  News
+                </Button>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography onClick={() => {handleDrawerToggle(), navigate(RoutesName.Latest_News) }} sx={{ borderBottom: '1px solid #E6E8EC' }}><img className='gallery-menu-icon' src={galleryImage} /> Latest News</Typography>
               </AccordionDetails>
             </Accordion>
 
@@ -283,6 +310,36 @@ function Header(props) {
                   <MenuItem onClick={handle}>
                     <img className="gallery-menu-icon" src={galleryImage} />{" "}
                     Master Course
+                  </MenuItem>
+                </Menu>
+              </li>
+            </ul>
+            <ul className="navItem">
+              <li>
+                <Button
+                  id="news-positioned-button"
+                  aria-controls={newsOpen ? "news-positioned-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={newsOpen ? "true" : undefined}
+                  onClick={handleNewsClick}
+                  endIcon={<KeyboardArrowDown />}
+                >
+                  News
+                </Button>
+                <Menu
+                  className="dropdown-menu"
+                  id="news-positioned-menu"
+                  aria-labelledby="news-positioned-button"
+                  anchorEl={newsAnchorEl}
+                  open={newsOpen}
+                  sx={{ borderRadius: "12px" }}
+                  onClose={handleNewsClose}
+                >
+                  <MenuItem
+                    onClick={handleLatestNews}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <img className="gallery-menu-icon" src={galleryImage} /> Latest News{" "}
                   </MenuItem>
                 </Menu>
               </li>

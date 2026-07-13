@@ -5140,3 +5140,11 @@ span.currency_name {
 /* .become-h2-p.contact-line:last-child{
   display: none;
 } */
+
+/* 13-6-26 sh */
+.navItem {
+  padding: 0;
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}

@@ -54,7 +54,9 @@ export const RoutesName = {
   News_And_PromotionsDetail: "/news-and-promotions-detail",
   Academy_about_crypto: "/academy-about-crypto",
   Master_Course: "/master-course",
-  Profile: "/account/profile"
+  Profile: "/account/profile",
+  Latest_News: "/latest-news",
+  Blog_Detail: "/blog-detail/:id"
 };
 
 export const Apis = {

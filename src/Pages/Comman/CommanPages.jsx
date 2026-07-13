@@ -43,6 +43,7 @@ import Disclaimer from "./Disclaimer";
 import TermsOfUse from "./TermsOfUse";
 import ForecastSubscriptions from "./ForecastSubscriptions";
 import GuidesAnalysis from "./GuidesAnalysis";
+import MuiCryptoNewsSection from "./MuiCryptoNewsSection";
 import Community from "./Community";
 import { authAtom } from "../../_state";
 import NewsPromotions from "./NewsPromotions";
@@ -59,6 +60,7 @@ import MarketBlogDetail from "./MarketBlogDetail";
 import FaqDetail from "./FaqDetail";
 import GuidesAndAnalyticsDetail from "./GuidesandAnalyticsDetail";
 import NewsAndPromotionsDetail from "./NewsAndPromotionsDetail";
+import LatestNewsBlogDetail from "./LatestNewsBlogDetail";
 
 const Customer = () => {
   const auth = useRecoilValue(authAtom);
@@ -96,11 +98,12 @@ const Customer = () => {
           <Route path={`/learn-cypto`} element={<LearnCypto />} />
           <Route path={`/learn-cypto-detail/:page/:title`} element={<LearnCyptoDetail />} />
           <Route path={`/contact-detail/:page/:title`} element={<ContactDetail />} />
-          <Route path={`/marketblog-detail/:page/:title`} element={<MarketBlogDetail/>}/>
-          <Route path={`/faq-detail/:page/:title`} element={<FaqDetail/>}/>
-          <Route path={`/guides-and-analytics-detail/:page/:title`} element={<GuidesAndAnalyticsDetail/>}/>
-          <Route path={`/news-and-promotions-detail/:page/:title`} element={<NewsAndPromotionsDetail/>}/>
-          <Route path='*' element={<PageNotFound/>} />
+          <Route path={`/marketblog-detail/:page/:title`} element={<MarketBlogDetail />} />
+          <Route path={`/faq-detail/:page/:title`} element={<FaqDetail />} />
+          <Route path={`/guides-and-analytics-detail/:page/:title`} element={<GuidesAndAnalyticsDetail />} />
+          <Route path={`/news-and-promotions-detail/:page/:title`} element={<NewsAndPromotionsDetail />} />
+          <Route path={`/blog-detail/:id`} element={<LatestNewsBlogDetail />} />
+          <Route path='*' element={<PageNotFound />} />
           <Route path={`/contact`} element={<Contact />} />
           <Route path={`/market`} exact element={<Market />} />
           <Route path={`/predict-market`} exact element={<PredictMarket />} />
@@ -120,6 +123,7 @@ const Customer = () => {
           <Route path={`/terms-of-use`} exact element={<TermsOfUse />} />
           <Route path={`subscription`} exact element={<Subscription />} />
           <Route path={`guides-analysis`} exact element={<GuidesAnalysis />} />
+          <Route path={`latest-news`} exact element={<MuiCryptoNewsSection />} />
           <Route path={`community`} exact element={<Community />} />
           <Route path={`news-promotions`} exact element={<NewsPromotions />} />
           <Route path={`academy`} exact element={<Academy />} />

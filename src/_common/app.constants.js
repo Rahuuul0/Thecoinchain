@@ -24,7 +24,7 @@ export const Labels = {
   Success_Status_Code: 200,
   Error_Status_Code: 500,
   Unsubscribe: "Unsubscribe Successfully ",
-  
+
 };
 
 export const RoutesName = {
@@ -56,7 +56,13 @@ export const RoutesName = {
   Master_Course: "/master-course",
   Profile: "/account/profile",
   Latest_News: "/latest-news",
-  Blog_Detail: "/blog-detail/:id"
+  Blog_Detail: "/blog-detail/:id",
+  Information: "/information",
+  Research_Report: "/research-report",
+  Press_Release: "/press-release",
+  Guest_Post: "/guest-post",
+  Sponsored: "/sponsored",
+  Crypto_Regulation: "/crypto-regulation",
 };
 
 export const Apis = {
@@ -100,17 +106,17 @@ export const Apis = {
   Notifications_List_view: "get-notification-view-all",
   Market: "market",
   Category_List: "category-list",
-  Market_Trend: "market-trend",  
-  Community_List: "community-list" ,
+  Market_Trend: "market-trend",
+  Community_List: "community-list",
   Contact_Faq_List: "contact_faq-list",
   About_Crypto_List: "about_crypto-list",
   master_Course_List: "master_coures-list",
   Contact_Blog_List: "contact_blog-list",
   Market_Blog_List: "market_blog-list",
-  Unsubscribe : "unsubscribe",
-  Crypto_Trader : "crypto_trader-list",
-  Crypto_News : "cryto_news-list",
-  Terms_List : "terms-list",
+  Unsubscribe: "unsubscribe",
+  Crypto_Trader: "crypto_trader-list",
+  Crypto_News: "cryto_news-list",
+  Terms_List: "terms-list",
   Disclaimers_List: "disclaimers-list",
   Privacy_List: "privacy-list",
   Market_Banner_List: "market_banner-list",

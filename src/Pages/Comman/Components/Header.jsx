@@ -20,6 +20,13 @@ import CoinGuru from '../../../../public/assets/images/logo.svg';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import galleryImage from '../../../../public/assets/images/icons/gallery.svg';
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
+import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
+import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
 import { KeyboardArrowDown, WbSunnyOutlined, Search } from '@mui/icons-material/';
 import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
@@ -38,9 +45,9 @@ const drawerHeight = '100vh';
 function Header(props) {
 
   const LogoListAction = bannerListActions();
-  const LogoList = useRecoilValue(setLogoListAtom).filter((item)=>{
+  const LogoList = useRecoilValue(setLogoListAtom).filter((item) => {
     return item.position === "Header"
-});
+  });
 
 
   useEffect(() => {
@@ -99,6 +106,43 @@ function Header(props) {
     navigate(RoutesName.Latest_News);
   };
 
+  const [informationAnchorEl, setInformationAnchorEl] = React.useState(null);
+  const informationOpen = Boolean(informationAnchorEl);
+  const handleInformationClick = (event) => {
+    setInformationAnchorEl(event.currentTarget);
+  };
+  const handleInformationClose = () => {
+    setInformationAnchorEl(null);
+  };
+  const handleLatestInformation = () => {
+    setInformationAnchorEl(null);
+    navigate(RoutesName.Information);
+  };
+  const handleResearchReport = () => {
+    setInformationAnchorEl(null);
+    navigate(RoutesName.Research_Report);
+  };
+
+  const handlePressRelease = () => {
+    setInformationAnchorEl(null);
+    navigate(RoutesName.Press_Release);
+  };
+
+  const handleGuestPost = () => {
+    setInformationAnchorEl(null);
+    navigate(RoutesName.Guest_Post);
+  };
+
+  const handleSponsored = () => {
+    setInformationAnchorEl(null);
+    navigate(RoutesName.Sponsored);
+  };
+
+  const handleCryptoRegulation = () => {
+    setInformationAnchorEl(null);
+    navigate(RoutesName.Crypto_Regulation);
+  };
+
   const [anchorElB, setAnchorElB] = React.useState(null);
   const openB = Boolean(anchorElB);
   const handleClickB = (event) => {
@@ -138,15 +182,15 @@ function Header(props) {
       <Box className='mobile-nav-box mobile-navbar' sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
         <Box className='close-btn' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}><p>+</p></Box>
         <Box>
-          <img onClick={() => { handleDrawerToggle() ,navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
+          <img onClick={() => { handleDrawerToggle(), navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
           <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
-            <Button variant='standard' className='nav-mobile-btn btn' onClick={()=>{handleDrawerToggle(),navigate(RoutesName.Learn_Cypto)}}>Crypto</Button>
+            <Button variant='standard' className='nav-mobile-btn btn' onClick={() => { handleDrawerToggle(), navigate(RoutesName.Learn_Cypto) }}>Crypto</Button>
             <Accordion className='submenu mobile-nav-dropdown'>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="acadamy"
-                
+
               >
                 <Button
                   id="acedamy-btn"
@@ -156,8 +200,8 @@ function Header(props) {
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography onClick={() => {handleDrawerToggle(),navigate(RoutesName.Academy_about_crypto) }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
-                <Typography onClick={() => {handleDrawerToggle(), navigate(RoutesName.Master_Course) }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+                <Typography onClick={() => { handleDrawerToggle(), navigate(RoutesName.Academy_about_crypto) }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
+                <Typography onClick={() => { handleDrawerToggle(), navigate(RoutesName.Master_Course) }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
               </AccordionDetails>
             </Accordion>
             <Accordion className='submenu mobile-nav-dropdown'>
@@ -171,7 +215,21 @@ function Header(props) {
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography onClick={() => {handleDrawerToggle(), navigate(RoutesName.Latest_News) }} sx={{ borderBottom: '1px solid #E6E8EC' }}><img className='gallery-menu-icon' src={galleryImage} /> Latest News</Typography>
+                <Typography onClick={() => { handleDrawerToggle(), navigate(RoutesName.Latest_News) }} sx={{ borderBottom: '1px solid #E6E8EC' }}><img className='gallery-menu-icon' src={galleryImage} /> Latest News</Typography>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion className='submenu mobile-nav-dropdown'>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel2a-content"
+                id="news"
+              >
+                <Button id="news-btn">
+                  Information
+                </Button>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography onClick={() => { handleDrawerToggle(), navigate(RoutesName.Home) }} sx={{ borderBottom: '1px solid #E6E8EC' }}><img className='gallery-menu-icon' src={galleryImage} /> Information</Typography>
               </AccordionDetails>
             </Accordion>
 
@@ -183,7 +241,7 @@ function Header(props) {
                       {item.icon &&
                         <img src={item.icon} alt={item.page} />
                       }
-                      <ListItemText primary={`${item.page}`} onClick={() => {handleDrawerToggle(),navigate(item.link) }} />
+                      <ListItemText primary={`${item.page}`} onClick={() => { handleDrawerToggle(), navigate(item.link) }} />
                     </ListItemButton>
                   </ListItem>
                 )
@@ -252,26 +310,26 @@ function Header(props) {
               <MenuIcon />
             </IconButton>
           </Box>
-              <Typography
-                variant="h6"
-                className='header-logo-border'
-                onClick={() => {
-                  navigate("/");
-                }}
-                sx={{
-                  flexGrow: 1,
-                  display: {
-                    xs: "none",
-                    sm: "block",
-                    lineHeight: "100%",
-                    flex: 1,
-                    cursor: "pointer",
-                  },
-                  // borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
-                }}
-              >
-                <img src={LogoList[0]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}` : LogoList[0]?.image_link} className='coinguru-logo' alt='coinguru-logo' />
-              </Typography>
+          <Typography
+            variant="h6"
+            className='header-logo-border'
+            onClick={() => {
+              navigate("/");
+            }}
+            sx={{
+              flexGrow: 1,
+              display: {
+                xs: "none",
+                sm: "block",
+                lineHeight: "100%",
+                flex: 1,
+                cursor: "pointer",
+              },
+              // borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
+            }}
+          >
+            <img src={LogoList[0]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}` : LogoList[0]?.image_link} className='coinguru-logo' alt='coinguru-logo' />
+          </Typography>
           <Box
             className=""
             sx={{
@@ -339,7 +397,78 @@ function Header(props) {
                     onClick={handleLatestNews}
                     sx={{ borderBottom: "1px solid #E6E8EC" }}
                   >
-                    <img className="gallery-menu-icon" src={galleryImage} /> Latest News{" "}
+                    <ArticleOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Latest News
+                  </MenuItem>
+                </Menu>
+              </li>
+            </ul>
+            <ul className="navItem">
+              <li>
+                <Button
+                  id="information-positioned-button"
+                  aria-controls={informationOpen ? "information-positioned-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={informationOpen ? "true" : undefined}
+                  onClick={handleInformationClick}
+                  endIcon={<KeyboardArrowDown />}
+                >
+                  Information
+                </Button>
+                <Menu
+                  className="dropdown-menu"
+                  id="information-positioned-menu"
+                  aria-labelledby="information-positioned-button"
+                  anchorEl={informationAnchorEl}
+                  open={informationOpen}
+                  sx={{ borderRadius: "12px" }}
+                  onClose={handleInformationClose}
+                >
+                  <MenuItem
+                    onClick={handleLatestInformation}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <InfoOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Information
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={handleResearchReport}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <DescriptionOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Research Report
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={handlePressRelease}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <CampaignOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Press Release
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={handleGuestPost}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <EditNoteOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Guest Post
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={handleSponsored}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <PaidOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Sponsored
+                  </MenuItem>
+
+                  <MenuItem onClick={handleCryptoRegulation}>
+                    <GavelOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Crypto Regulation
                   </MenuItem>
                 </Menu>
               </li>
@@ -347,7 +476,7 @@ function Header(props) {
             {navItems.map((item, i) => (
               <Button
                 onClick={() => {
-                  handleDrawerToggle(),navigate(item.link);
+                  handleDrawerToggle(), navigate(item.link);
                 }}
                 key={i}
                 sx={{ color: "#fff" }}

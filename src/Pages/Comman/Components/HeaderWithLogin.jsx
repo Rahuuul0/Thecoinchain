@@ -22,6 +22,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { bannerListActions } from '../../../_actions';
 import { setLogoListAtom, switchDarkModeAtom } from '../../../_state';
 import { RoutesName } from "../../../_common/app.constants";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
+import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
+import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
+import AnalyticsOutlinedIcon from "@mui/icons-material/AnalyticsOutlined";
+import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
 
 
 
@@ -108,6 +116,70 @@ function Header(props) {
     setNewsAnchorEl(null);
     navigate(RoutesName.Latest_News);
   };
+
+  const [informationAnchorEl, setInformationAnchorEl] = React.useState(null);
+  const informationOpen = Boolean(informationAnchorEl);
+  const handleInformationClick = (event) => {
+    setInformationAnchorEl(event.currentTarget);
+  };
+  const handleInformationClose = () => {
+    setInformationAnchorEl(null);
+  };
+  const handleLatestInformation = () => {
+    setInformationAnchorEl(null);
+    navigate(RoutesName.Information);
+  };
+  const [analysisAnchorEl, setAnalysisAnchorEl] = React.useState(null);
+  const analysisOpen = Boolean(analysisAnchorEl);
+
+  const handleAnalysisClick = (event) => {
+    setAnalysisAnchorEl(event.currentTarget);
+  };
+
+  const handleAnalysisClose = () => {
+    setAnalysisAnchorEl(null);
+  };
+
+  const handlePriceAnalysis = () => {
+    setAnalysisAnchorEl(null);
+    navigate(RoutesName.Price_Analysis);
+  };
+
+  const handlePricePrediction = () => {
+    setAnalysisAnchorEl(null);
+    navigate(RoutesName.Price_Prediction);
+  };
+
+
+  const handleStockPricePrediction = () => {
+    setAnalysisAnchorEl(null);
+    navigate(RoutesName.Price_Prediction);
+  };
+
+    const handleResearchReport = () => {
+      setInformationAnchorEl(null);
+      navigate(RoutesName.Research_Report);
+    };
+  
+    const handlePressRelease = () => {
+      setInformationAnchorEl(null);
+      navigate(RoutesName.Press_Release);
+    };
+  
+    const handleGuestPost = () => {
+      setInformationAnchorEl(null);
+      navigate(RoutesName.Guest_Post);
+    };
+  
+    const handleSponsored = () => {
+      setInformationAnchorEl(null);
+      navigate(RoutesName.Sponsored);
+    };
+  
+    const handleCryptoRegulation = () => {
+      setInformationAnchorEl(null);
+      navigate(RoutesName.Crypto_Regulation);
+    };
 
   const [anchorElAnchor, setAnchorElAnchor] = React.useState(null);
   const openAnchor = Boolean(anchorElAnchor);
@@ -300,6 +372,120 @@ function Header(props) {
                     sx={{ borderBottom: "1px solid #E6E8EC" }}
                   >
                     <img className="gallery-menu-icon" src={galleryImage} /> Latest News{" "}
+                  </MenuItem>
+                </Menu>
+              </li>
+            </ul>
+            <ul className="navItem">
+              <li>
+                <Button
+                  id="information-positioned-button"
+                  aria-controls={informationOpen ? "information-positioned-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={informationOpen ? "true" : undefined}
+                  onClick={handleInformationClick}
+                  endIcon={<KeyboardArrowDown />}
+                >
+                  Information
+                </Button>
+                <Menu
+                  className="dropdown-menu"
+                  id="information-positioned-menu"
+                  aria-labelledby="information-positioned-button"
+                  anchorEl={informationAnchorEl}
+                  open={informationOpen}
+                  sx={{ borderRadius: "12px" }}
+                  onClose={handleInformationClose}
+                >
+                  <MenuItem
+                    onClick={handleLatestInformation}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <InfoOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Information
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={handleResearchReport}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <DescriptionOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Research Report
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={handlePressRelease}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <CampaignOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Press Release
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={handleGuestPost}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <EditNoteOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Guest Post
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={handleSponsored}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <PaidOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Sponsored
+                  </MenuItem>
+
+                  <MenuItem onClick={handleCryptoRegulation}>
+                    <GavelOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Crypto Regulation
+                  </MenuItem>
+                </Menu>
+              </li>
+            </ul>
+            <ul className="navItem">
+              <li>
+                <Button
+                  id="analysis-positioned-button"
+                  aria-controls={analysisOpen ? "analysis-positioned-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={analysisOpen ? "true" : undefined}
+                  onClick={handleAnalysisClick}
+                  endIcon={<KeyboardArrowDown />}
+                >
+                  Analysis
+                </Button>
+
+                <Menu
+                  className="dropdown-menu"
+                  id="analysis-positioned-menu"
+                  aria-labelledby="analysis-positioned-button"
+                  anchorEl={analysisAnchorEl}
+                  open={analysisOpen}
+                  sx={{ borderRadius: "12px" }}
+                  onClose={handleAnalysisClose}
+                >
+                  <MenuItem
+                    onClick={handlePriceAnalysis}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <AnalyticsOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Price Analysis
+                  </MenuItem>
+                  <MenuItem onClick={handlePricePrediction}>
+                    <TrendingUpOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Cryptocurrency Price Prediction
+                  </MenuItem>
+                  <MenuItem onClick={handleStockPricePrediction}>
+                    <TrendingUpOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Crypto Stock Price Prediction
                   </MenuItem>
                 </Menu>
               </li>

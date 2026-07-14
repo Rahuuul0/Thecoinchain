@@ -27,6 +27,8 @@ import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
+import AnalyticsOutlinedIcon from "@mui/icons-material/AnalyticsOutlined";
+import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
 import { KeyboardArrowDown, WbSunnyOutlined, Search } from '@mui/icons-material/';
 import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
@@ -118,6 +120,33 @@ function Header(props) {
     setInformationAnchorEl(null);
     navigate(RoutesName.Information);
   };
+  const [analysisAnchorEl, setAnalysisAnchorEl] = React.useState(null);
+  const analysisOpen = Boolean(analysisAnchorEl);
+
+  const handleAnalysisClick = (event) => {
+    setAnalysisAnchorEl(event.currentTarget);
+  };
+
+  const handleAnalysisClose = () => {
+    setAnalysisAnchorEl(null);
+  };
+
+  const handlePriceAnalysis = () => {
+    setAnalysisAnchorEl(null);
+    navigate(RoutesName.Price_Analysis);
+  };
+
+  const handlePricePrediction = () => {
+    setAnalysisAnchorEl(null);
+    navigate(RoutesName.Price_Prediction);
+  };
+
+
+  const handleStockPricePrediction = () => {
+    setAnalysisAnchorEl(null);
+    navigate(RoutesName.Price_Prediction);
+  };
+
   const handleResearchReport = () => {
     setInformationAnchorEl(null);
     navigate(RoutesName.Research_Report);
@@ -469,6 +498,52 @@ function Header(props) {
                   <MenuItem onClick={handleCryptoRegulation}>
                     <GavelOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
                     Crypto Regulation
+                  </MenuItem>
+                </Menu>
+              </li>
+            </ul>
+            <ul className="navItem">
+              <li>
+                <Button
+                  id="analysis-positioned-button"
+                  aria-controls={analysisOpen ? "analysis-positioned-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={analysisOpen ? "true" : undefined}
+                  onClick={handleAnalysisClick}
+                  endIcon={<KeyboardArrowDown />}
+                >
+                  Analysis
+                </Button>
+
+                <Menu
+                  className="dropdown-menu"
+                  id="analysis-positioned-menu"
+                  aria-labelledby="analysis-positioned-button"
+                  anchorEl={analysisAnchorEl}
+                  open={analysisOpen}
+                  sx={{ borderRadius: "12px" }}
+                  onClose={handleAnalysisClose}
+                >
+                  <MenuItem
+                    onClick={handlePriceAnalysis}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <AnalyticsOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Price Analysis
+                  </MenuItem>
+                  <MenuItem onClick={handlePricePrediction}>
+                    <TrendingUpOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Cryptocurrency Price Prediction
+                  </MenuItem>
+                  <MenuItem onClick={handleStockPricePrediction}>
+                    <TrendingUpOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Crypto Stock Price Prediction
                   </MenuItem>
                 </Menu>
               </li>

@@ -63,6 +63,9 @@ export const RoutesName = {
   Guest_Post: "/guest-post",
   Sponsored: "/sponsored",
   Crypto_Regulation: "/crypto-regulation",
+  Price_Analysis: "/price-analysis",
+  Price_Prediction: "/price-prediction",
+  Crypto_Stock_Price_Prediction: "/crypto-stock-price-prediction",
 };
 
 export const Apis = {

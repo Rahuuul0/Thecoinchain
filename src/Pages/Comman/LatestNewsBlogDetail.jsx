@@ -11,12 +11,106 @@ import {
   Typography,
 } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
+import { styled, keyframes } from '@mui/material/styles';
 import { useNavigate, useParams } from 'react-router-dom';
 import YouTube from 'react-youtube';
 import dayjs from 'dayjs';
 import { RoutesName } from '../../_common/app.constants';
 import { getLatestNewsById } from './latestNewsData';
+
+// ---- Static ticker data (same as MuiCryptoSection) ----
+const cryptoTickerData = [
+  { symbol: 'ADA', price: '$0.1634', change: '2.65%', direction: 'up' },
+  { symbol: 'XRP', price: '$1.10', change: '3.03%', direction: 'up' },
+  { symbol: 'ETH', price: '$1,874.76', change: '4.95%', direction: 'up' },
+  { symbol: 'BTC', price: '$64,715.60', change: '3.17%', direction: 'up' },
+  { symbol: 'XMR', price: '$331.22', change: '2.62%', direction: 'up' },
+  { symbol: 'BNB', price: '$579.21', change: '1.57%', direction: 'up' },
+  { symbol: 'XLM', price: '$0.1832', change: '2.14%', direction: 'up' },
+  { symbol: 'SOL', price: '$77.96', change: '3.54%', direction: 'up' },
+  { symbol: 'HYPE', price: '$66.88', change: '4.93%', direction: 'up' },
+];
+
+// ---- Marquee scrolling animation ----
+const scrollLeft = keyframes`
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+`;
+
+const MarqueeOuter = styled(Box)({
+  width: '100%',
+  minHeight: '44px',
+  overflow: 'hidden',
+  position: 'relative',
+  zIndex: 1,
+  background: '#FFFFFF',
+  borderTop: '1px solid #EDEDED',
+  borderBottom: '1px solid #EDEDED',
+  display: 'flex',
+  alignItems: 'center',
+});
+
+const MarqueeTrack = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  flexWrap: 'nowrap',
+  whiteSpace: 'nowrap',
+  width: 'max-content',
+  animation: `${scrollLeft} 30s linear infinite`,
+  willChange: 'transform',
+  '&:hover': {
+    animationPlayState: 'paused',
+  },
+});
+
+const TickerItem = styled(Box)({
+  display: 'inline-flex',
+  alignItems: 'center',
+  flexShrink: 0,
+  gap: '6px',
+  padding: '0 24px',
+});
+
+// ---- Crypto Price Marquee Component ----
+const CryptoTickerMarquee = ({ data }) => {
+  const doubledData = [...data, ...data];
+
+  return (
+    <MarqueeOuter className="website-all-crypto-ticker-marquee">
+      <MarqueeTrack>
+        {doubledData.map((item, index) => (
+          <TickerItem key={`${item.symbol}-${index}`}>
+            <Typography
+              component="span"
+              sx={{ fontWeight: 700, fontSize: '14px', color: '#111827' }}
+            >
+              {item.symbol}
+            </Typography>
+            <Typography
+              component="span"
+              sx={{ fontSize: '14px', color: '#111827' }}
+            >
+              {item.price}
+            </Typography>
+            <Box
+              component="span"
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '2px',
+                color: item.direction === 'down' ? '#DC2626' : '#16A34A',
+                fontSize: '14px',
+                fontWeight: 600,
+              }}
+            >
+              {item.direction === 'down' ? '▼' : '▲'} {item.change}
+            </Box>
+          </TickerItem>
+        ))}
+      </MarqueeTrack>
+    </MarqueeOuter>
+  );
+};
 
 const getYouTubeVideoId = (url) => {
   if (!url) return null;
@@ -111,7 +205,7 @@ const LatestNewsBlogDetail = () => {
   }
 
   return (
-    <Box sx={{ backgroundColor: '#F8FAFC', minHeight: '100vh', py: 10 }}>
+    <Box sx={{ backgroundColor: '#F8FAFC', minHeight: '100vh' }}>
       <Backdrop
         open={false}
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -119,179 +213,189 @@ const LatestNewsBlogDetail = () => {
         <CircularProgress color="inherit" />
       </Backdrop>
 
-      <Box
-        sx={{
-          position: 'fixed',
-          top: { xs: 90, sm: 100 },
-          left: { xs: 16, sm: 24 },
-          zIndex: 10,
-        }}
-      >
-        <CustomTooltip title="Back to latest news" placement="right">
-          <IconButton
-            sx={{
-              width: { xs: 36, sm: 40 },
-              height: { xs: 36, sm: 40 },
-              border: '1px solid #d1d5db',
-              borderRadius: '50%',
-              color: '#6b7280',
-              backgroundColor: '#fff',
-              '&:hover': {
-                bgcolor: '#f3f4f6',
-                borderColor: '#9ca3af',
-                color: '#374151',
-              },
-            }}
-            onClick={() => navigate(RoutesName.Latest_News)}
-          >
-            <ArrowBack sx={{ fontSize: { xs: 18, sm: 20 } }} />
-          </IconButton>
-        </CustomTooltip>
+      {/* Crypto Price Marquee - top pe, article se upar */}
+      {/* NOTE: agar tumhare page ka top navbar fixed/sticky hai to marquee
+          uske neeche chhup sakta hai. Neeche mt value ko apne navbar ki
+          height ke barabar (ya thoda zyada) set kar do — e.g. 64px, 72px. */}
+      <Box sx={{ mt: { xs: '56px', sm: '64px' }, position: 'relative', zIndex: 1 }}>
+        <CryptoTickerMarquee data={cryptoTickerData} />
       </Box>
 
-      <Container maxWidth="lg">
+      <Box sx={{ py: 10 }}>
         <Box
           sx={{
-            backgroundColor: '#fff',
-            borderRadius: 4,
-            overflow: 'hidden',
-            boxShadow: '0 18px 50px rgba(15, 23, 42, 0.08)',
+            position: 'fixed',
+            top: { xs: 90, sm: 100 },
+            left: { xs: 16, sm: 24 },
+            zIndex: 10,
           }}
         >
-          <Box sx={{ p: { xs: 3, sm: 4 },border: '1px solid #E5E7EB',borderRadius: 4 ,mt: 2}}>
-            <Box
+          <CustomTooltip title="Back to latest news" placement="right">
+            <IconButton
               sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: 1.5,
-                alignItems: 'center',
-                mb: 2,
+                width: { xs: 36, sm: 40 },
+                height: { xs: 36, sm: 40 },
+                border: '1px solid #d1d5db',
+                borderRadius: '50%',
+                color: '#6b7280',
+                backgroundColor: '#fff',
+                '&:hover': {
+                  bgcolor: '#f3f4f6',
+                  borderColor: '#9ca3af',
+                  color: '#374151',
+                },
               }}
+              onClick={() => navigate(RoutesName.Latest_News)}
             >
-              <Chip
-                label={blogData.category}
+              <ArrowBack sx={{ fontSize: { xs: 18, sm: 20 } }} />
+            </IconButton>
+          </CustomTooltip>
+        </Box>
+
+        <Container maxWidth="lg">
+          <Box
+            sx={{
+              backgroundColor: '#fff',
+              borderRadius: 4,
+              overflow: 'hidden',
+              boxShadow: '0 18px 50px rgba(15, 23, 42, 0.08)',
+            }}
+          >
+            <Box sx={{ p: { xs: 3, sm: 4 },border: '1px solid #E5E7EB',borderRadius: 4 ,mt: 2}}>
+              <Box
                 sx={{
-                  backgroundColor: '#E0F2FE',
-                  color: '#0369A1',
-                  fontWeight: 700,
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 1.5,
+                  alignItems: 'center',
+                  mb: 2,
                 }}
-              />
-              <Typography sx={{ color: '#64748B', fontSize: '0.95rem' }}>
-                {dayjs(blogData.created_at).format('MMMM DD, YYYY')}
-              </Typography>
-              <Typography sx={{ color: '#64748B', fontSize: '0.95rem' }}>
-                {blogData.read_time}
-              </Typography>
-            </Box>
-
-            <Typography
-              variant="h3"
-              sx={{
-                fontWeight: 800,
-                color: '#0F172A',
-                fontSize: { xs: '2rem', sm: '2.6rem' },
-                lineHeight: 1.15,
-                mb: 2,
-              }}
-            >
-              {blogData.title}
-            </Typography>
-
-            <Typography
-              variant="body1"
-              sx={{
-                color: '#475569',
-                fontSize: { xs: '1rem', sm: '1.1rem' },
-                lineHeight: 1.8,
-                mb: 4,
-              }}
-            >
-              {blogData.description}
-            </Typography>
-
-            {blogData.media_type === 'youtube' ? (
-              <Box sx={{ borderRadius: 3, overflow: 'hidden', mb: 4 }}>
-                <YouTube
-                  videoId={getYouTubeVideoId(blogData.get_media_display)}
-                  opts={{
-                    width: '100%',
-                    height: '420',
-                    playerVars: {
-                      autoplay: 0,
-                    },
+              >
+                <Chip
+                  label={blogData.category}
+                  sx={{
+                    backgroundColor: '#E0F2FE',
+                    color: '#0369A1',
+                    fontWeight: 700,
                   }}
-                  style={{ width: '100%' }}
                 />
+                <Typography sx={{ color: '#64748B', fontSize: '0.95rem' }}>
+                  {dayjs(blogData.created_at).format('MMMM DD, YYYY')}
+                </Typography>
+                <Typography sx={{ color: '#64748B', fontSize: '0.95rem' }}>
+                  {blogData.read_time}
+                </Typography>
               </Box>
-            ) : blogData.media_type === 'video' ? (
-              <Box sx={{ mb: 4 }}>
-                <video
-                  src={blogData.get_media_display}
-                  controls
-                  style={{ width: '100%', borderRadius: '16px' }}
-                />
-              </Box>
-            ) : (
-              <CardMedia
-                component="img"
-                image={blogData.get_media_display}
-                alt={blogData.title}
+
+              <Typography
+                variant="h3"
                 sx={{
-                  width: '100%',
-                  maxHeight: 480,
-                  objectFit: 'cover',
-                  borderRadius: 3,
+                  fontWeight: 800,
+                  color: '#0F172A',
+                  fontSize: { xs: '2rem', sm: '2.6rem' },
+                  lineHeight: 1.15,
+                  mb: 2,
+                }}
+              >
+                {blogData.title}
+              </Typography>
+
+              <Typography
+                variant="body1"
+                sx={{
+                  color: '#475569',
+                  fontSize: { xs: '1rem', sm: '1.1rem' },
+                  lineHeight: 1.8,
                   mb: 4,
                 }}
-              />
-            )}
-
-            <Box sx={{ mb: 4 }}>
-              {blogData.content.map((paragraph, index) => (
-                <Typography
-                  key={index}
-                  sx={{
-                    color: '#334155',
-                    fontSize: '1rem',
-                    lineHeight: 1.95,
-                    mb: 2.5,
-                  }}
-                >
-                  {paragraph}
-                </Typography>
-              ))}
-            </Box>
-
-            <Box
-              sx={{
-                backgroundColor: '#F8FAFC',
-                border: '1px solid #E2E8F0',
-                borderRadius: 3,
-                p: { xs: 2.5, sm: 3 },
-              }}
-            >
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: 700, color: '#0F172A', mb: 2 }}
               >
-                Key takeaways
+                {blogData.description}
               </Typography>
-              {blogData.highlights.map((point, index) => (
-                <Typography
-                  key={index}
+
+              {blogData.media_type === 'youtube' ? (
+                <Box sx={{ borderRadius: 3, overflow: 'hidden', mb: 4 }}>
+                  <YouTube
+                    videoId={getYouTubeVideoId(blogData.get_media_display)}
+                    opts={{
+                      width: '100%',
+                      height: '420',
+                      playerVars: {
+                        autoplay: 0,
+                      },
+                    }}
+                    style={{ width: '100%' }}
+                  />
+                </Box>
+              ) : blogData.media_type === 'video' ? (
+                <Box sx={{ mb: 4 }}>
+                  <video
+                    src={blogData.get_media_display}
+                    controls
+                    style={{ width: '100%', borderRadius: '16px' }}
+                  />
+                </Box>
+              ) : (
+                <CardMedia
+                  component="img"
+                  image={blogData.get_media_display}
+                  alt={blogData.title}
                   sx={{
-                    color: '#475569',
-                    lineHeight: 1.8,
-                    mb: index === blogData.highlights.length - 1 ? 0 : 1.2,
+                    width: '100%',
+                    maxHeight: 480,
+                    objectFit: 'cover',
+                    borderRadius: 3,
+                    mb: 4,
                   }}
+                />
+              )}
+
+              <Box sx={{ mb: 4 }}>
+                {blogData.content.map((paragraph, index) => (
+                  <Typography
+                    key={index}
+                    sx={{
+                      color: '#334155',
+                      fontSize: '1rem',
+                      lineHeight: 1.95,
+                      mb: 2.5,
+                    }}
+                  >
+                    {paragraph}
+                  </Typography>
+                ))}
+              </Box>
+
+              <Box
+                sx={{
+                  backgroundColor: '#F8FAFC',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: 3,
+                  p: { xs: 2.5, sm: 3 },
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: 700, color: '#0F172A', mb: 2 }}
                 >
-                  {index + 1}. {point}
+                  Key takeaways
                 </Typography>
-              ))}
+                {blogData.highlights.map((point, index) => (
+                  <Typography
+                    key={index}
+                    sx={{
+                      color: '#475569',
+                      lineHeight: 1.8,
+                      mb: index === blogData.highlights.length - 1 ? 0 : 1.2,
+                    }}
+                  >
+                    {index + 1}. {point}
+                  </Typography>
+                ))}
+              </Box>
             </Box>
           </Box>
-        </Box>
-      </Container>
+        </Container>
+      </Box>
     </Box>
   );
 };

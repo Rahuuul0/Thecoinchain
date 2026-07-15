@@ -12,7 +12,7 @@ import {
   CircularProgress,
 } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
+import { styled, keyframes } from '@mui/material/styles';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
 import { CardMedia } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -22,6 +22,59 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import dayjs from 'dayjs';
 import { RoutesName } from '../../_common/app.constants';
 import { latestNewsData } from './latestNewsData';
+
+// ---- Static ticker data (screenshot ke mutabik) ----
+const cryptoTickerData = [
+  { symbol: 'ADA', price: '$0.1634', change: '2.65%', direction: 'up' },
+  { symbol: 'XRP', price: '$1.10', change: '3.03%', direction: 'up' },
+  { symbol: 'ETH', price: '$1,874.76', change: '4.95%', direction: 'up' },
+  { symbol: 'BTC', price: '$64,715.60', change: '3.17%', direction: 'up' },
+  { symbol: 'XMR', price: '$331.22', change: '2.62%', direction: 'up' },
+  { symbol: 'BNB', price: '$579.21', change: '1.57%', direction: 'up' },
+  { symbol: 'XLM', price: '$0.1832', change: '2.14%', direction: 'up' },
+  { symbol: 'SOL', price: '$77.96', change: '3.54%', direction: 'up' },
+  { symbol: 'HYPE', price: '$66.88', change: '4.93%', direction: 'up' },
+];
+
+// ---- Marquee scrolling animation ----
+const scrollLeft = keyframes`
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+`;
+
+const MarqueeOuter = styled(Box)({
+  width: '100%',
+  minHeight: '44px',
+  overflow: 'hidden',
+  position: 'relative',
+  zIndex: 1,
+  background: '#FFFFFF',
+  borderTop: '1px solid #EDEDED',
+  borderBottom: '1px solid #EDEDED',
+  display: 'flex',
+  alignItems: 'center',
+});
+
+const MarqueeTrack = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  flexWrap: 'nowrap',
+  whiteSpace: 'nowrap',
+  width: 'max-content',
+  animation: `${scrollLeft} 30s linear infinite`,
+  willChange: 'transform',
+  '&:hover': {
+    animationPlayState: 'paused',
+  },
+});
+
+const TickerItem = styled(Box)({
+  display: 'inline-flex',
+  alignItems: 'center',
+  flexShrink: 0,
+  gap: '6px',
+  padding: '0 24px',
+});
 
 // Helper function to extract YouTube video ID from any URL format
 const getYouTubeVideoId = (url) => {
@@ -54,6 +107,48 @@ const getYouTubeVideoId = (url) => {
   }
 
   return url; // Return as-is if no pattern matches
+};
+
+// ---- Crypto Price Marquee Component ----
+const CryptoTickerMarquee = ({ data }) => {
+  // Duplicate the list once for a seamless infinite loop
+  const doubledData = [...data, ...data];
+
+  return (
+    <MarqueeOuter className="website-all-crypto-ticker-marquee">
+      <MarqueeTrack>
+        {doubledData.map((item, index) => (
+          <TickerItem key={`${item.symbol}-${index}`}>
+            <Typography
+              component="span"
+              sx={{ fontWeight: 700, fontSize: '14px', color: '#111827' }}
+            >
+              {item.symbol}
+            </Typography>
+            <Typography
+              component="span"
+              sx={{ fontSize: '14px', color: '#111827' }}
+            >
+              {item.price}
+            </Typography>
+            <Box
+              component="span"
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '2px',
+                color: item.direction === 'down' ? '#DC2626' : '#16A34A',
+                fontSize: '14px',
+                fontWeight: 600,
+              }}
+            >
+              {item.direction === 'down' ? '▼' : '▲'} {item.change}
+            </Box>
+          </TickerItem>
+        ))}
+      </MarqueeTrack>
+    </MarqueeOuter>
+  );
 };
 
 const MuiCryptoSection = () => {
@@ -211,6 +306,14 @@ const MuiCryptoSection = () => {
             <ArrowBack sx={{ fontSize: { xs: 14, sm: 16 } }} />
           </IconButton>
         </CustomTooltip>
+      </Box>
+
+      {/* Crypto Price Marquee - Latest News ke upar */}
+      {/* NOTE: agar tumhare page ka top navbar fixed/sticky hai to marquee
+          uske neeche chhup sakta hai. Neeche mt value ko apne navbar ki
+          height ke barabar (ya thoda zyada) set kar do — e.g. 64px, 72px. */}
+      <Box sx={{ mt: { xs: '56px', sm: '64px' }, position: 'relative', zIndex: 1 }}>
+        <CryptoTickerMarquee data={cryptoTickerData} />
       </Box>
 
       <Container maxWidth="lg" sx={{ mt: 15 }}>

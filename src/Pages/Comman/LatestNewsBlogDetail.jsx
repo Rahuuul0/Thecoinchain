@@ -225,7 +225,7 @@ const LatestNewsBlogDetail = () => {
         <Box
           sx={{
             position: 'fixed',
-            top: { xs: 90, sm: 100 },
+            top: { xs: 90, sm: 124 },
             left: { xs: 16, sm: 24 },
             zIndex: 10,
           }}
@@ -261,7 +261,7 @@ const LatestNewsBlogDetail = () => {
               boxShadow: '0 18px 50px rgba(15, 23, 42, 0.08)',
             }}
           >
-            <Box sx={{ p: { xs: 3, sm: 4 },border: '1px solid #E5E7EB',borderRadius: 4 ,mt: 2}}>
+            <Box sx={{ p: { xs: 3, sm: 4 },border: '1px solid #E5E7EB',borderRadius: 4 ,mt: 0}}>
               <Box
                 sx={{
                   display: 'flex',

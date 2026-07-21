@@ -55,7 +55,6 @@ export const RoutesName = {
   Academy_about_crypto: "/academy-about-crypto",
   Master_Course: "/master-course",
   Profile: "/account/profile",
-  Latest_News: "/latest-news",
   Blog_Detail: "/blog-detail/:id",
   Information: "/information",
   Research_Report: "/research-report",
@@ -66,6 +65,7 @@ export const RoutesName = {
   Price_Analysis: "/price-analysis",
   Price_Prediction: "/price-prediction",
   Crypto_Stock_Price_Prediction: "/crypto-stock-price-prediction",
+  Latest_News: "/latest-news",
 };
 
 export const Apis = {
@@ -126,7 +126,10 @@ export const Apis = {
   Home_Banner_List: "home_banner-list",
   Logo_List: "logo-list",
   Cryto_Work_List: "cryto-work-list",
-  Heading_List: "heading-list"
+  Heading_List: "heading-list",
+  All_Content: (type) => `all-content-list/${type}`,
+  BLOG_DETAIL: (id) => `content-detail/${id}`,
+
 };
 
 export const theme = createTheme({

@@ -132,6 +132,7 @@ const Customer = () => {
           <Route path={`crypto-regulation`} exact element={<MuiCryptoNewsSection />} />
           <Route path={`price-analysis`} exact element={<MuiCryptoNewsSection />} />
           <Route path={`price-prediction`} exact element={<MuiCryptoNewsSection />} />
+          <Route path={`stock-price-prediction`} exact element={<MuiCryptoNewsSection />} />
           <Route path={`crypto-stock-price-prediction`} exact element={<MuiCryptoNewsSection />} />
           <Route path={`community`} exact element={<Community />} />
           <Route path={`news-promotions`} exact element={<NewsPromotions />} />

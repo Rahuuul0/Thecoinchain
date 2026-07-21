@@ -17,11 +17,10 @@ import { useTheme, ThemeProvider } from '@mui/material/styles';
 import { CardMedia } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import YouTube from 'react-youtube';
-import logo from '../../../public/logo192.png';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dayjs from 'dayjs';
-import { RoutesName } from '../../_common/app.constants';
-import { latestNewsData } from './latestNewsData';
+import { Apis, RoutesName } from '../../_common/app.constants';
+import { useFetchWrapper } from '../../_helpers';
 
 // ---- Static ticker data (screenshot ke mutabik) ----
 const cryptoTickerData = [
@@ -75,6 +74,64 @@ const TickerItem = styled(Box)({
   gap: '6px',
   padding: '0 24px',
 });
+
+const contentTypeConfig = {
+  'latest-news': {
+    type: 'latest_news',
+    heading: 'Latest News',
+    label: 'Crypto',
+  },
+  information: {
+    type: 'information',
+    heading: 'Information',
+    label: 'Information',
+  },
+  'research-report': {
+    type: 'research_report',
+    heading: 'Research Report',
+    label: 'Research Report',
+  },
+  'press-release': {
+    type: 'press_release',
+    heading: 'Press Release',
+    label: 'Press Release',
+  },
+  'guest-post': {
+    type: 'guest_post',
+    heading: 'Guest Post',
+    label: 'Guest Post',
+  },
+  sponsored: {
+    type: 'sponsored',
+    heading: 'Sponsored',
+    label: 'Sponsored',
+  },
+  'crypto-regulation': {
+    type: 'crypto_regulation',
+    heading: 'Crypto Regulation',
+    label: 'Crypto Regulation',
+  },
+  'price-analysis': {
+    type: 'price_analysis',
+    heading: 'Price Analysis',
+    label: 'Price Analysis',
+  },
+  'price-prediction': {
+    type: 'price_prediction',
+    heading: 'Price Prediction',
+    label: 'Price Prediction',
+  },
+  'stock-price-prediction': {
+    type: 'stock_price_prediction',
+    heading: 'Stock Price Prediction',
+    label: 'Stock Price Prediction',
+  },
+  'crypto-stock-price-prediction': {
+    type: 'stock_price_prediction',
+    heading: 'Stock Price Prediction',
+    label: 'Stock Price Prediction',
+  },
+};
 
 // Helper function to extract YouTube video ID from any URL format
 const getYouTubeVideoId = (url) => {
@@ -158,8 +215,12 @@ const MuiCryptoSection = () => {
   const [loader, setLoader] = useState(false);
   const location = useLocation();
   const history = useNavigate();
+  const fetchWrapper = useFetchWrapper();
+  const currentSlug = location.pathname.split('/').filter(Boolean).pop() || '';
+  const currentContentConfig =
+    contentTypeConfig[currentSlug] || contentTypeConfig['latest-news'];
 
-  const headingText = 'Latest News';
+  const headingText = currentContentConfig.heading;
   const getBlogDetailRoute = (id) =>
     RoutesName.Blog_Detail.replace(':id', String(id));
 
@@ -167,22 +228,19 @@ const MuiCryptoSection = () => {
     const fetchData = async () => {
       try {
         setLoader(true);
-
-        // --- Swap this block for a real API call when ready ---
-        // const data = await LandingPageViewModel.getContent('crypto');
-        // setCryptoNewsData(data || []);
-        setCryptoNewsData(latestNewsData);
-        // ---------------------------------------------------------
-
-        setLoader(false);
+        const data = await fetchWrapper.get(
+          Apis.All_Content(currentContentConfig.type)
+        );
+        setCryptoNewsData(data || []);
       } catch (error) {
         console.error('Error fetching data:', error);
+      } finally {
         setLoader(false);
       }
     };
 
     fetchData();
-  }, [location.pathname]);
+  }, [currentContentConfig.type]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -191,7 +249,9 @@ const MuiCryptoSection = () => {
   const formattedDate = dayjs(cryptoNewsData?.data?.[0]?.created_at).format(
     'MMM DD, YYYY'
   );
-  const displayText = `Crypto · ${formattedDate}`;
+  const displayText = cryptoNewsData?.data?.[0]?.created_at
+    ? `${currentContentConfig.label} · ${formattedDate}`
+    : currentContentConfig.label;
 
   // Top 4 items (index 1-4) for right section
   const topFourItems = cryptoNewsData?.data?.slice(1, 5) || [];
@@ -374,7 +434,7 @@ const MuiCryptoSection = () => {
                   history(getBlogDetailRoute(cryptoNewsData?.data?.[0]?.id))
                 }
               >
-                {cryptoNewsData?.data?.[0]?.media_type === 'youtube' ? (
+                {cryptoNewsData?.data?.[0]?.media_type === 'youtube-link' ? (
                   <Box
                     sx={{
                       width: '100%',
@@ -398,15 +458,16 @@ const MuiCryptoSection = () => {
                   </Box>
                 ) : cryptoNewsData?.data?.[0]?.media_type === 'video' ? (
                   <video
-                    src={cryptoNewsData.data?.[0]?.get_media_display}
+                    src={`${process.env.REACT_APP_IMAGE_URL}${cryptoNewsData?.data?.[0]?.get_media_display}`}
                     controls
                     style={{ width: '100%', borderRadius: '8px' }}
                   />
                 ) : (
                   <img
                     src={
-                      cryptoNewsData.data?.[0]?.get_media_display ||
-                      'https://via.placeholder.com/150'
+                      cryptoNewsData?.data?.[0]?.get_media_display
+                        ? `${process.env.REACT_APP_IMAGE_URL}${cryptoNewsData?.data?.[0]?.get_media_display}`
+                        : "https://via.placeholder.com/150"
                     }
                     alt={cryptoNewsData.data?.[0]?.title || 'Crypto'}
                     style={{ width: '100%', borderRadius: '8px' }}
@@ -436,12 +497,6 @@ const MuiCryptoSection = () => {
                 >
                   {cryptoNewsData?.data?.[0]?.title || 'Latest Crypto Title'}
                 </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{ color: '#374151', mb: 1 }}
-                >
-                  {cryptoNewsData?.data?.[0]?.description || ''}
-                </Typography>
                 <Typography variant="body2" sx={{ color: 'gray' }}>
                   {displayText}
                 </Typography>
@@ -466,7 +521,7 @@ const MuiCryptoSection = () => {
                 borderRadius: "10px",
               },
               "&::-webkit-scrollbar-thumb": {
-                background: "#969696", 
+                background: "#969696",
                 borderRadius: "10px",
                 border: "2px solid #E5E7EB",
               },
@@ -474,7 +529,7 @@ const MuiCryptoSection = () => {
                 background: "#969696"
               },
             }}
-            >
+          >
             {topFourItems.map((item, index) => (
               <Card
                 className="website-all-right-top-card"
@@ -545,21 +600,9 @@ const MuiCryptoSection = () => {
                   <Typography variant="subtitle1" fontWeight={600}>
                     {item.title || 'Untitled'}
                   </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{
-                      display: '-webkit-box',
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden',
-                      mt: 0.5,
-                    }}
-                  >
-                    {item.description}
-                  </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-                    Crypto · {dayjs(item.created_at).format('MMM DD, YYYY')}
+                    {currentContentConfig.label} ·{' '}
+                    {dayjs(item.created_at).format('MMM DD, YYYY')}
                   </Typography>
                 </CardContent>
               </Card>
@@ -662,19 +705,6 @@ const MuiCryptoSection = () => {
                             >
                               {item.title || 'Untitled'}
                             </Typography>
-                            <Typography
-                              variant="body2"
-                              sx={{
-                                color: 'rgba(0, 0, 0, 0.7)',
-                                mb: 1.5,
-                                display: '-webkit-box',
-                                WebkitLineClamp: 2,
-                                WebkitBoxOrient: 'vertical',
-                                overflow: 'hidden',
-                              }}
-                            >
-                              {item.description}
-                            </Typography>
                             <Box
                               className="website-all-bottom-card-meta"
                               sx={{
@@ -690,7 +720,7 @@ const MuiCryptoSection = () => {
                                   fontWeight: 500,
                                 }}
                               >
-                                {item.category || 'Crypto'}
+                                {item.category || currentContentConfig.label}
                               </Typography>
                               <Box
                                 sx={{

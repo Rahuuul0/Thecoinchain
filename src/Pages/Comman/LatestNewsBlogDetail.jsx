@@ -194,7 +194,54 @@ const LatestNewsBlogDetail = () => {
       /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|data|blob):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
   };
 
-  const descriptionHtml = DOMPurify.sanitize(blogData?.description || '', sanitizeConfig);
+  const normalizeMediaSrc = (html) => {
+    if (!html) {
+      return '';
+    }
+
+    const imageBaseUrl = process.env.REACT_APP_IMAGE_URL || '';
+    if (!imageBaseUrl) {
+      return html;
+    }
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const normalizedBaseUrl = imageBaseUrl.endsWith('/')
+      ? imageBaseUrl.slice(0, -1)
+      : imageBaseUrl;
+
+    const updateRelativeSrc = (element, attributeName = 'src') => {
+      const src = element.getAttribute(attributeName);
+      if (!src) {
+        return;
+      }
+
+      const trimmedSrc = src.trim();
+      const isAbsoluteUrl =
+        /^(?:https?:|data:|blob:)/i.test(trimmedSrc) || trimmedSrc.startsWith('//');
+
+      if (isAbsoluteUrl || !trimmedSrc.startsWith('/')) {
+        return;
+      }
+
+      element.setAttribute(attributeName, `${normalizedBaseUrl}${trimmedSrc}`);
+    };
+
+    doc.querySelectorAll('img[src]').forEach((img) => {
+      updateRelativeSrc(img, 'src');
+    });
+
+    doc.querySelectorAll('video[src], source[src]').forEach((media) => {
+      updateRelativeSrc(media, 'src');
+    });
+
+    return doc.body.innerHTML;
+  };
+
+  const descriptionHtml = DOMPurify.sanitize(
+    normalizeMediaSrc(blogData?.description || ''),
+    sanitizeConfig
+  );
   const formattedCreatedAt = blogData?.created_at
     ? dayjs(blogData.created_at).format('MMMM DD, YYYY')
     : '';

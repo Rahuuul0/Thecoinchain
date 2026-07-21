@@ -278,10 +278,7 @@ const LatestNewsBlogDetail = () => {
         <CircularProgress color="inherit" />
       </Backdrop>
 
-      {/* Crypto Price Marquee - top pe, article se upar */}
-      {/* NOTE: agar tumhare page ka top navbar fixed/sticky hai to marquee
-          uske neeche chhup sakta hai. Neeche mt value ko apne navbar ki
-          height ke barabar (ya thoda zyada) set kar do — e.g. 64px, 72px. */}
+      {/* Crypto Price Marquee  */}
       <Box sx={{ mt: { xs: '56px', sm: '64px' }, position: 'relative', zIndex: 1 }}>
         <CryptoTickerMarquee data={cryptoTickerData} />
       </Box>

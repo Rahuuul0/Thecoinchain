@@ -323,10 +323,11 @@ const LatestNewsBlogDetail = () => {
               boxShadow: '0 18px 50px rgba(15, 23, 42, 0.08)',
             }}
           >
-            <Box sx={{ p: { xs: 3, sm: 4 },border: '1px solid #E5E7EB',borderRadius: 4 ,mt: 0}}>
+            <Box sx={{ p: { xs: 3, sm: 4 }, border: '1px solid #E5E7EB', borderRadius: 4, mt: 0 }}>
               <Box
                 sx={{
                   display: 'flex',
+                  justifyContent: 'flex-end',
                   flexWrap: 'wrap',
                   gap: 1.5,
                   alignItems: 'center',
@@ -334,7 +335,7 @@ const LatestNewsBlogDetail = () => {
                 }}
               >
                 <Typography sx={{ color: '#64748B', fontSize: '0.95rem' }}>
-                  {formattedCreatedAt}
+                 Published on {formattedCreatedAt}
                 </Typography>
               </Box>
 

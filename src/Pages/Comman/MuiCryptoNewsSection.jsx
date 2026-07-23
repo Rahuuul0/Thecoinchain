@@ -223,6 +223,34 @@ const MuiCryptoSection = () => {
   const headingText = currentContentConfig.heading;
   const getBlogDetailRoute = (id) =>
     RoutesName.Blog_Detail.replace(':id', String(id));
+  const getMediaUrl = (mediaPath) => {
+    if (!mediaPath) {
+      return '';
+    }
+
+    const trimmedMediaPath = mediaPath.trim();
+    const isAbsoluteUrl =
+      /^(?:https?:|data:|blob:)/i.test(trimmedMediaPath) ||
+      trimmedMediaPath.startsWith('//');
+
+    if (isAbsoluteUrl) {
+      return trimmedMediaPath;
+    }
+
+    const imageBaseUrl = process.env.REACT_APP_IMAGE_URL || '';
+    if (!imageBaseUrl) {
+      return trimmedMediaPath;
+    }
+
+    const normalizedBaseUrl = imageBaseUrl.endsWith('/')
+      ? imageBaseUrl.slice(0, -1)
+      : imageBaseUrl;
+    const normalizedMediaPath = trimmedMediaPath.startsWith('/')
+      ? trimmedMediaPath
+      : `/${trimmedMediaPath}`;
+
+    return `${normalizedBaseUrl}${normalizedMediaPath}`;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -368,10 +396,7 @@ const MuiCryptoSection = () => {
         </CustomTooltip>
       </Box>
 
-      {/* Crypto Price Marquee - Latest News ke upar */}
-      {/* NOTE: agar tumhare page ka top navbar fixed/sticky hai to marquee
-          uske neeche chhup sakta hai. Neeche mt value ko apne navbar ki
-          height ke barabar (ya thoda zyada) set kar do — e.g. 64px, 72px. */}
+      {/* Crypto Price Marquee */}
       <Box sx={{ mt: { xs: '56px', sm: '64px' }, position: 'relative', zIndex: 1 }}>
         <CryptoTickerMarquee data={cryptoTickerData} />
       </Box>
@@ -542,7 +567,7 @@ const MuiCryptoSection = () => {
                 }}
                 onClick={() => history(getBlogDetailRoute(item.id))}
               >
-                {item?.media_type === 'youtube' ? (
+                {item?.media_type === 'youtube-link' ? (
                   <CardMedia component="div">
                     <Box
                       sx={{
@@ -567,7 +592,7 @@ const MuiCryptoSection = () => {
                 ) : item?.media_type === 'video' ? (
                   <CardMedia component="div">
                     <video
-                      src={item.get_media_display}
+                      src={getMediaUrl(item.get_media_display)}
                       controls
                       style={{
                         width: '100%',
@@ -581,7 +606,7 @@ const MuiCryptoSection = () => {
                     component="img"
                     height="150"
                     image={
-                      item.get_media_display ||
+                      getMediaUrl(item.get_media_display) ||
                       'https://via.placeholder.com/300x150'
                     }
                     alt={item.title || 'Crypto'}
@@ -641,7 +666,7 @@ const MuiCryptoSection = () => {
                             history(getBlogDetailRoute(item.id))
                           }
                         >
-                          {item.media_type === 'youtube' ? (
+                          {item.media_type === 'youtube-link' ? (
                             <Box
                               sx={{
                                 width: '100%',
@@ -665,7 +690,7 @@ const MuiCryptoSection = () => {
                             </Box>
                           ) : item.media_type === 'video' ? (
                             <video
-                              src={item.get_media_display}
+                              src={getMediaUrl(item.get_media_display)}
                               controls
                               style={{
                                 width: '100%',
@@ -676,7 +701,7 @@ const MuiCryptoSection = () => {
                           ) : (
                             <Box
                               component="img"
-                              src={item.get_media_display}
+                              src={getMediaUrl(item.get_media_display)}
                               alt={item.title}
                               sx={{
                                 width: '100%',

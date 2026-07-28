@@ -269,6 +269,10 @@ const LatestNewsBlogDetail = () => {
     );
   }
 
+  const formattedType = (blogData?.type || "")
+  .replace(/_/g, " ")
+  .replace(/\b\w/g, (char) => char.toUpperCase());
+
   return (
     <Box sx={{ backgroundColor: '#F8FAFC', minHeight: '100vh' }}>
       <Backdrop
@@ -292,7 +296,7 @@ const LatestNewsBlogDetail = () => {
             zIndex: 10,
           }}
         >
-          <CustomTooltip title="Back to latest news" placement="right">
+          <CustomTooltip title={`Back to ${formattedType}`} placement="right">
             <IconButton
               sx={{
                 width: { xs: 36, sm: 40 },

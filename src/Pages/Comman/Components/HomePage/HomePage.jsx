@@ -75,6 +75,7 @@ import Alert from "@mui/material/Alert";
 import ReactHtmlParser from 'react-html-parser';
 import { RoutesName } from "../../../../_common/app.constants";
 import MuiLatestNewsDashboard from "../../../Comman/Components/MuiLatestNewsDashboardSection";
+import MuiPressReleaseDashboard from "../../../Comman/Components/MuiPressReleaseDashboardSection";
 
 const Home = () => {
   const [marketTrend, setMarketTrend] = useState(1);
@@ -625,8 +626,16 @@ const Home = () => {
         </Box>
       </Container>
 
+
+
       {/* learn cypto star*/}
       <Container>
+
+        {/* Press Releases */}
+        <Box paddingY={{ xs: 6, sm: 8 }}>
+          <MuiPressReleaseDashboard />
+        </Box>
+
         <Box className="market-trend">
           <Box
             sx={{ display: { xs: "block", md: "flex" } }}

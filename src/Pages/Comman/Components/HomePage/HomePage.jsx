@@ -74,6 +74,7 @@ import "swiper/css/navigation";
 import Alert from "@mui/material/Alert";
 import ReactHtmlParser from 'react-html-parser';
 import { RoutesName } from "../../../../_common/app.constants";
+import MuiLatestNewsDashboard from "../../../Comman/Components/MuiLatestNewsDashboardSection";
 
 const Home = () => {
   const [marketTrend, setMarketTrend] = useState(1);
@@ -792,47 +793,9 @@ const Home = () => {
               sx={{ textAlign: { xs: "left", md: "center" } }}
               paddingTop={2}
             >
-              {/* We've got everything you need to start trading. */}
             </Typography>
             <Box paddingY={{ xs: 6, sm: 8 }}>
-              <Grid
-                container
-                rowSpacing={1}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              >
-                {crypotTraderList?.map((item) => {
-                  let title = item.title;
-                  let description = item.description;
-                  let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
-                  let link = item.button_link;
-                  let buttonLabel = item.button_label;
-
-                  return (
-                    <Grid item xs={12} sm={4}>
-                      <Box textAlign="center" className="grid-cypto-trade">
-                        {image == null || image == '' ? " " : <img src={image} paddingBottom={3} alt='' />}
-                        <Typography variant="h6" paddingBottom={3}>
-                          {title}
-                        </Typography>
-                        <Typography
-                          className="body-caption secondary-color"
-                          paddingBottom={3}
-                        >
-                          {ReactHtmlParser(description)}
-                        </Typography>
-                        <Link to={link}>
-                          <Button
-                            className="btn btn-outlined-secondary"
-                            sx={{ margin: "0 auto" }}
-                          >
-                            {buttonLabel}
-                          </Button>
-                        </Link>
-                      </Box>
-                    </Grid>
-                  )
-                })}
-              </Grid>
+              <MuiLatestNewsDashboard />
             </Box>
             <Button
               sx={{ margin: "0 auto" }}

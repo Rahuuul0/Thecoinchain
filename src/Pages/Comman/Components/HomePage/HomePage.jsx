@@ -347,6 +347,41 @@ const Home = () => {
           </Grid>
         </Box>
       </Container>
+      {/* Latest News */}
+      <Box className="become-crypto">
+        <Container>
+          <Box>
+            <Typography
+              variant="h2"
+              component="h2"
+              className="secondary-font font-40"
+              textAlign="center"
+              sx={{ fontWeight: "700", maxWidth: "500px", margin: "auto" }}
+            >
+              {ReactHtmlParser(headingList[0]?.title ?? "")}
+            </Typography>
+            <Typography
+              className="secondary-color"
+              sx={{ textAlign: { xs: "left", md: "center" } }}
+              paddingTop={2}
+            >
+            </Typography>
+            <Box paddingY={{ xs: 6, sm: 8 }}>
+              <MuiLatestNewsDashboard />
+            </Box>
+            <Button
+              sx={{ margin: "0 auto" }}
+              variant="contained"
+              className="btn btn-primary m-width-100"
+              onClick={() => {
+                navigate("/contact");
+              }}
+            >
+              Contact Us
+            </Button>
+          </Box>
+        </Container>
+      </Box>
       <Container>
         <Box className="learn-crypto-home">
           <Grid
@@ -775,43 +810,6 @@ const Home = () => {
           </Button>
         </Box>
       </Container>
-
-      <Box className="become-crypto">
-        <Container>
-          <Box>
-            <Typography
-              variant="h2"
-              component="h2"
-              className="secondary-font font-40"
-              textAlign="center"
-              sx={{ fontWeight: "700", maxWidth: "500px", margin: "auto" }}
-            >
-              {ReactHtmlParser(headingList[0]?.title ?? "")}
-            </Typography>
-            <Typography
-              className="secondary-color"
-              sx={{ textAlign: { xs: "left", md: "center" } }}
-              paddingTop={2}
-            >
-            </Typography>
-            <Box paddingY={{ xs: 6, sm: 8 }}>
-              <MuiLatestNewsDashboard />
-            </Box>
-            <Button
-              sx={{ margin: "0 auto" }}
-              variant="contained"
-              className="btn btn-primary m-width-100"
-              onClick={() => {
-                navigate("/contact");
-              }}
-            >
-              Contact Us
-            </Button>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* learn cypto end */}
 
       {/* Informed decision starts*/}
       <Container>

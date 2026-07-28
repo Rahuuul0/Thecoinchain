@@ -368,7 +368,7 @@ function Header(props) {
           >
             <ul className="navItem">
               <li>
-                <Button
+                {/* <Button
                   id="demo-positioned-button"
                   aria-controls={open ? "demo-positioned-menu" : undefined}
                   aria-haspopup="true"
@@ -377,7 +377,7 @@ function Header(props) {
                   endIcon={<KeyboardArrowDown />}
                 >
                   Academy
-                </Button>
+                </Button> */}
                 <Menu
                   className="dropdown-menu"
                   id="demo-positioned-menu"

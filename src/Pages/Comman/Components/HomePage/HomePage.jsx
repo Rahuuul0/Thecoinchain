@@ -383,6 +383,7 @@ const Home = () => {
           </Box>
         </Container>
       </Box>
+
       <Container>
         <Box className="learn-crypto-home">
           <Grid
@@ -634,6 +635,127 @@ const Home = () => {
         {/* Press Releases */}
         <Box paddingY={{ xs: 6, sm: 8 }}>
           <MuiPressReleaseDashboard />
+        </Box>
+
+        <Box className="become-crypto">
+          <Container>
+            <Box>
+              <Typography
+                variant="h2"
+                component="h2"
+                className="secondary-font font-40"
+                textAlign="center"
+                sx={{ fontWeight: "700", maxWidth: "500px", margin: "auto" }}
+              >
+                Become a crypto trader in seconds
+              </Typography>
+              <Typography
+                className="secondary-color"
+                sx={{ textAlign: { xs: "left", md: "center" } }}
+                paddingTop={2}
+              >
+                We've got everything you need to start trading.
+              </Typography>
+              <Box paddingY={{ xs: 6, sm: 8 }}>
+                <Grid
+                  container
+                  rowSpacing={1}
+                  columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                >
+                  <Grid item xs={12} sm={4}>
+                    <Box textAlign="center" className="grid-cypto-trade">
+                      <img src={BuyCypto} paddingBottom={3} />
+                      <Typography variant="h6" paddingBottom={3}>
+                        Buy & Sell Crypto
+                      </Typography>
+                      <Typography
+                        className="body-caption secondary-color"
+                        paddingBottom={3}
+                      >
+                        We realize ideas from simple to complex, everything
+                        becomes easy to use and reach the most potential
+                        customers.
+                      </Typography>
+                      <Button
+                        onClick={() => {
+                          navigate("/contentnotfound");
+                        }}
+                        className="btn btn-outlined-secondary"
+                        sx={{ margin: "0 auto" }}
+                      >
+                        Coming Soon
+                      </Button>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                    <Box textAlign="center" className="grid-cypto-trade">
+                      <img src={Market} paddingBottom={3} />
+                      <Typography variant="h6" paddingBottom={3}>
+                        Trade Assets
+                      </Typography>
+                      <Typography
+                        className="body-caption secondary-color"
+                        paddingBottom={3}
+                      >
+                        We realize ideas from simple to complex, everything
+                        becomes easy to use and reach the most potential
+                        customers.
+                      </Typography>
+                      <Button
+                        onClick={() => {
+                          navigate("/contentnotfound");
+                        }}
+                        className="btn btn-outlined-secondary"
+                        sx={{ margin: "0 auto" }}
+                      >
+                        Coming Soon
+                      </Button>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                    <Box textAlign="center" className="grid-cypto-trade">
+                      <img src={LearnCypto} paddingBottom={3} />
+                      <Typography variant="h6" paddingBottom={3}>
+                        Learn crypto
+                      </Typography>
+                      <Typography
+                        className="body-caption secondary-color"
+                        paddingBottom={3}
+                      >
+                        We realize ideas from simple to complex, everything
+                        becomes easy to use and reach the most potential
+                        customers.
+                      </Typography>
+                      <Button
+                        className="btn btn-outlined-secondary"
+                        sx={{ margin: "0 auto" }}
+                        onClick={() => {
+                          navigate("./learn-cypto");
+                          window.scrollTo({
+                            top: 2550,
+                            left: 0,
+                            behavior: "smooth",
+                          });
+                        }}
+                      >
+                        Learn now
+                      </Button>
+                    </Box>
+                  </Grid>
+                </Grid>
+              </Box>
+              {/* <Button
+                sx={{ margin: "0 auto" }}
+                variant="contained"
+                className="btn btn-primary m-width-100"
+                onClick={() => {
+                  navigate("/contact");
+                }}
+              >
+                Contact Us
+              </Button> */}
+            </Box>
+          </Container>
         </Box>
 
         <Box className="market-trend">

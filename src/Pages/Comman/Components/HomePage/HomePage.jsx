@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Grid,
   Container,
@@ -11,6 +11,7 @@ import {
   Select,
   MenuItem,
   FormControl,
+  Avatar,
 } from "@mui/material";
 import {
   ArrowCircleDownSharp,
@@ -18,6 +19,8 @@ import {
   East,
   West,
   Block,
+  Mic,
+  PlayArrow,
 } from "@mui/icons-material";
 import HeroImage from "../../../../../public/assets/images/banner.svg";
 import Leveraged from "../../../../../public/assets/images/leveraged.svg";
@@ -63,7 +66,8 @@ import {
   cryptoTraderAtom,
   WorkListAtom,
   headingListAtom,
-  breadCrumbAtom
+  breadCrumbAtom,
+  switchDarkModeAtom
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
@@ -73,9 +77,324 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Alert from "@mui/material/Alert";
 import ReactHtmlParser from 'react-html-parser';
-import { RoutesName } from "../../../../_common/app.constants";
+import { Apis, RoutesName } from "../../../../_common/app.constants";
 import MuiLatestNewsDashboard from "../../../Comman/Components/MuiLatestNewsDashboardSection";
 import MuiPressReleaseDashboard from "../../../Comman/Components/MuiPressReleaseDashboardSection";
+import { useFetchWrapper } from "../../../../_helpers";
+
+// ---- Static JSON data for podcast notifications ----
+
+
+const NOTIFICATION_INTERVAL = 5000; // 2 sec
+
+// ---- NotificationCard Component ----
+const NotificationCard = ({
+  data,
+  entering = true,
+  variant = "active",
+  sx = {},
+  onClick
+}) => {
+  return (
+    <Box
+      onClick={onClick}
+      sx={{
+        width: { xs: 310, md: 520 },
+        p: 2.5,
+        display: "flex",
+        alignItems: "center",
+        gap: 2,
+
+        background: "rgba(255,255,255,0.08)",
+        backdropFilter: "blur(18px)",
+        WebkitBackdropFilter: "blur(18px)",
+
+        border: "1px solid rgba(255,255,255,.14)",
+        borderRadius: "22px",
+
+        boxShadow:
+          "0 20px 60px rgba(0,0,0,.45), inset 0 1px 1px rgba(255,255,255,.08)",
+
+        cursor: "pointer",
+        transition: "transform .55s cubic-bezier(0.22, 1, 0.36, 1), opacity .45s ease, box-shadow .35s ease",
+        willChange: "transform, opacity",
+
+        "&:hover": {
+          transform: "translateX(-50%) translateY(-6px) scale(1.05)",
+          boxShadow: "0 35px 70px rgba(0,0,0,.55)",
+        },
+
+        ...sx,
+      }}
+    >
+      <Avatar
+        src={data.avatar}
+        sx={{
+          width: 64,
+          height: 64,
+          border: "3px solid rgba(120,160,255,.6)",
+        }}
+      />
+
+      <Box flex={1}>
+        <Typography
+          sx={{
+            color: "#b6bcc8",
+            fontSize: 12,
+            letterSpacing: 1,
+            textTransform: "uppercase",
+          }}
+        >
+          {data.type}
+        </Typography>
+
+        <Typography
+          sx={{
+            color: "#fff",
+            fontWeight: 700,
+            fontSize: 30,
+            lineHeight: 1.15,
+          }}
+        >
+          {data.title}
+        </Typography>
+
+        <Typography
+          sx={{
+            color: "#c2c5cf",
+            fontSize: 16,
+            mt: .5,
+          }}
+        >
+          Host: {data.host}
+          {data.duration && ` | ${data.duration}`}
+          {" | "}
+          {data.time}
+        </Typography>
+      </Box>
+    </Box>
+  );
+};
+
+// ---- GlobalCommunitySection Component ----
+const GlobalCommunitySection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [entering, setEntering] = useState(true);
+  const timerRef = useRef(null);
+  const navigate = useNavigate();
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
+  const [guestPosts, setGuestPosts] = useState([]);
+  const fetchWrapper = useFetchWrapper();
+  const [loading, setLoading] = useState(true);
+
+  const podcastNotifications = guestPosts.map((item) => ({
+  id: item.id,
+  type: item.type?.replace(/_/g, " ").toUpperCase(),
+  title: item.title,
+  host: item.profile_name,
+  duration: null,
+  time: dayjs(item.created_at).format("MMM DD, YYYY hh:mm A"),
+  avatar: item.profile_image
+    ? `${process.env.REACT_APP_IMAGE_URL}/${item.profile_image}`
+    : "",
+  image: item.get_media_display
+    ? `${process.env.REACT_APP_IMAGE_URL}/${item.get_media_display}`
+    : "",
+  url: RoutesName.Blog_Detail.replace(":id", item.id),
+}));
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      setEntering(false);
+      setTimeout(() => {
+        setActiveIndex((prev) =>
+          guestPosts.length
+            ? (prev + 1) % guestPosts.length
+            : 0
+        );
+        setEntering(true);
+      }, 250);
+    }, NOTIFICATION_INTERVAL);
+
+    return () => clearInterval(timerRef.current);
+  }, [guestPosts.length]);
+
+  const current =
+    podcastNotifications[activeIndex] || {};
+
+  const next =
+    podcastNotifications[
+    (activeIndex + 1) % (podcastNotifications.length || 1)
+    ] || {};
+
+  useEffect(() => {
+    const fetchLatestNews = async () => {
+      try {
+        const response = await fetchWrapper.get(Apis.All_Content('guest_post'));
+       setGuestPosts(response?.data || []);
+      } catch (error) {
+        console.error('Unable to fetch guest posts:', error);
+        setGuestPosts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLatestNews();
+  }, []);
+
+  const openDetail = (id) => {
+    if (id !== undefined && id !== null) {
+      navigate(RoutesName.Blog_Detail.replace(':id', String(id)));
+    }
+  };
+
+  return (
+    <Box
+      className="global-community-hero"
+      sx={{
+        background: "#0f1117",
+        borderRadius: { xs: "24px", md: "32px" },
+        overflow: "hidden",
+        position: "relative",
+        my: { xs: 4, md: 5 },
+        border: isDarkMode ? "1px solid rgba(189, 189, 189, 0.16)" : "none",
+      }}
+    >
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: "center",
+            justifyContent: "center",
+            gap: { xs: 6, md: 4 },
+            py: { xs: 3, md: 3 },
+          }}
+        >
+          {/* Left text side */}
+          <Box sx={{ flex: 1, color: "#fff", zIndex: 2, textAlign: { xs: "center", md: "left" } }}>
+            <Typography
+              className="small-caption"
+              sx={{
+                color: "#8a8f9c",
+                textTransform: "uppercase",
+                letterSpacing: "1.5px",
+                fontSize: "13px !important",
+                mb: 2,
+              }}
+            >
+              CRYPTO NEWS
+            </Typography>
+            <Typography
+              variant="h2"
+              className="secondary-font"
+              sx={{
+                fontWeight: 700,
+                fontSize: { xs: "32px", md: "44px" },
+                lineHeight: 1.15,
+                mb: 3,
+              }}
+            >
+              Be Part of our Global Community
+            </Typography>
+            <Typography
+              sx={{
+                color: "#9aa0ab",
+                fontSize: "16px",
+                maxWidth: "440px",
+                mb: 5,
+                mx: { xs: "auto", md: 0 },
+              }}
+            >
+              Let's stay in touch. Join our communities to keep up with the
+              Coinguru team and our traders from across the world?
+            </Typography>
+          </Box>
+
+          {/* Right graphic side with centered cards */}
+
+          <Box
+            sx={{
+              flex: 1,
+              position: "relative",
+              width: "100%",
+              minHeight: { xs: "320px", md: "400px" },
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+            }}
+          >
+            {/* Globe illustration - centered */}
+            <Box
+              component="img"
+              src={Globe}
+              alt="Global community"
+              sx={{
+                width: { xs: "180px", md: "260px" },
+                opacity: 0.7,
+                position: "relative",
+                zIndex: 1,
+                pointerEvents: "none",
+              }}
+            />
+
+            {/* Faint next card behind (stack effect) */}
+            <NotificationCard
+              data={next}
+              variant="stacked"
+              sx={{
+                position: "absolute",
+                bottom: { xs: "35px", md: "55px" },
+                left: "50%",
+                transform: "translateX(-50%) translateY(30px) scale(0.92)",
+                opacity: 0.5,
+                zIndex: 2,
+                width: { xs: "320px", sm: "420px", md: "520px" },
+                transition: "all 800ms cubic-bezier(0.43, 0.05, 0.3, 1)",
+                willChange: "transform, opacity",
+              }}
+            />
+
+            {/* Active animated card */}
+            <NotificationCard
+              key={current.id}
+              data={current}
+              entering={entering}
+              onClick={() => current?.id && openDetail(current.id)}
+              sx={{
+                position: "absolute",
+
+                // Move card higher
+                bottom: { xs: "95px", md: "135px" },
+
+                left: "50%",
+
+                transform: entering
+                  ? "translate(-50%, 0px) scale(1)"
+                  : "translate(-50%, 90px) scale(0.96)",
+
+                opacity: entering ? 1 : 0,
+
+                zIndex: 3,
+                width: { xs: "320px", sm: "420px", md: "520px" },
+
+                transition: `
+                transform 800ms cubic-bezier(0.43, 0.05, 0.3, 1),
+                opacity 700ms ease
+              `,
+
+                willChange: "transform, opacity",
+                cursor: "pointer",
+              }}
+            />
+          </Box>
+        </Box>
+      </Container>
+    </Box>
+  );
+};
 
 const Home = () => {
   const [marketTrend, setMarketTrend] = useState(1);
@@ -117,7 +436,6 @@ const Home = () => {
   const auth = useRecoilValue(authAtom);
   const [breadcrumb, setBreadCrumb] = useRecoilState(breadCrumbAtom);
 
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
     newValue === "1"
@@ -139,7 +457,6 @@ const Home = () => {
   }, [tutorialsData]);
 
   const getFirstLetters = (str) => {
-    // const firstLetters = str.replace("Portfolio", "");
     return (firstLetters = "");
   };
 
@@ -495,7 +812,6 @@ const Home = () => {
                                   controls={true}
                                   light={item.image_link}
                                   playing={false}
-                                  // poster={Learn01}
                                   width="100%"
                                   height="100%"
                                 />
@@ -520,7 +836,6 @@ const Home = () => {
                         height: "50px",
                         whiteSpace: "nowrap",
                         minWidth: "auto",
-                        // marginLeft : "25px",
                       }}
                       onClick={handleLoadmore}
                     >
@@ -567,7 +882,6 @@ const Home = () => {
                       return (
                         <SwiperSlide>
                           <Box className="about-crypto">
-                            {/* <img width="100%" src={Leveraged} /> */}
                             <Box
                               className="cypto-video"
                               sx={{ width: "100% !important" }}
@@ -577,7 +891,6 @@ const Home = () => {
                                 controls={true}
                                 light={item.image_link}
                                 playing={true}
-                                // poster={Learn01}
                                 width="100%"
                                 height="100%"
                               />
@@ -627,7 +940,10 @@ const Home = () => {
         </Box>
       </Container>
 
-
+      {/* Global Community Section */}
+      <Container>
+        <GlobalCommunitySection />
+      </Container>
 
       {/* learn cypto star*/}
       <Container>
@@ -744,16 +1060,6 @@ const Home = () => {
                   </Grid>
                 </Grid>
               </Box>
-              {/* <Button
-                sx={{ margin: "0 auto" }}
-                variant="contained"
-                className="btn btn-primary m-width-100"
-                onClick={() => {
-                  navigate("/contact");
-                }}
-              >
-                Contact Us
-              </Button> */}
             </Box>
           </Container>
         </Box>
@@ -861,11 +1167,6 @@ const Home = () => {
                 displayEmpty
                 inputProps={{ "aria-label": "Without label" }}
               >
-                {/* <MenuItem value={10}>All</MenuItem>
-                <MenuItem value={20}>Bitcoin Ecosystem</MenuItem>
-                <MenuItem value={30}>Paradigm </MenuItem>
-                <MenuItem value={40}>Multicoin Capital </MenuItem>
-                <MenuItem value={50}>Pantera Capital </MenuItem> */}
                 {selectedCat === 0 ? (
                   <MenuItem
                     value={1}
@@ -966,12 +1267,6 @@ const Home = () => {
                 >
                   {ReactHtmlParser(headingList[1]?.title ?? "")}
                 </Typography>
-                {/* <Typography
-                  className="secondary-color"
-                  sx={{ paddingBottom: { xs: "15px", md: "25px" } }}
-                >
-                  with our expert insights and analysis of the crypto market!
-                </Typography> */}
               </Box>
               <Box>
                 <Typography className="secondary-color">app's</Typography>
@@ -1075,91 +1370,6 @@ const Home = () => {
       </Container>
       {/* Informed decision ends*/}
 
-      {/* section starts */}
-      <Box className="global-community">
-        <Container>
-          <Box>
-            <Box textAlign="center">
-              <img className="coinguru-logo" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[2]?.image ?? ""}`} />
-              <Typography
-                variant="h2"
-                component="h2"
-                className="secondary-font mobile-f-48"
-                textAlign="center"
-                paddingBottom={3}
-                sx={{ fontWeight: "700" }}
-              >
-                {ReactHtmlParser(headingList[2]?.title ?? "")}
-                <br />
-              </Typography>
-            </Box>
-            <Box className="swiper-global">
-              <Swiper
-                slidesPerView={1}
-                navigation={true}
-                spaceBetween={0}
-                modules={[Navigation]}
-                className="mySwiper"
-              >
-                {cryptoNewsList.map((item) => {
-                  let description = item.description;
-                  let link = item.button_link;
-                  let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
-                  let title = item.title;
-                  return (
-                    <SwiperSlide>
-                      <Box className="crypto-box">
-
-                        <Grid
-                          container
-                          spacing={{ xs: 8, md: 3 }}
-                          columns={{ xs: 12, sm: 8, md: 12 }}
-                          className="flow-reverse-mobile"
-                        >
-
-                          <Grid
-                            item
-                            xs={12}
-                            sm={6}
-                            md={6}
-                          >
-                            <Typography
-                              className="small-caption secondary-color"
-                              sx={{ textTransform: "uppercase" }}
-                              paddingBottom={2}
-                            >
-                              Crypto news
-                            </Typography>
-                            <Typography component="h4" variant="h4" paddingBottom={3}>
-                              {title}
-                            </Typography>
-                            <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
-                              {ReactHtmlParser(description)}
-                            </Typography>
-                            <Link to={link}>
-                              <Button
-                                sx={{ textTransform: "capitalize" }}
-                                className="btn-outlined-secondary"
-                              >
-                                {item.button_label}
-                              </Button>
-                            </Link>
-                          </Grid>
-                          <Grid item xs={12} sm={6} md={6} textAlign="right">
-                            {image == null || image == '' ? " " : <img src={image} />}
-                          </Grid>
-
-                        </Grid>
-                      </Box>
-                    </SwiperSlide>
-                  )
-                })}
-              </Swiper>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
-      {/* section ends */}
       {/* how it works section starts */}
       <Box className="how-it-work">
         <Container>

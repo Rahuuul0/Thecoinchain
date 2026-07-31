@@ -6,6 +6,8 @@ import YouTube from 'react-youtube';
 import dayjs from 'dayjs';
 import { Apis, RoutesName } from '../../../_common/app.constants';
 import { useFetchWrapper } from '../../../_helpers';
+import { switchDarkModeAtom } from '../../../_state';
+import { useRecoilValue } from 'recoil';
 
 const getMediaUrl = (mediaPath) => {
   if (!mediaPath) return '';
@@ -45,6 +47,7 @@ const MuiPressReleaseDashboardSection = () => {
   const fetchWrapper = useFetchWrapper();
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
 
   useEffect(() => {
     const fetchLatestNews = async () => {
@@ -71,13 +74,13 @@ const MuiPressReleaseDashboardSection = () => {
   return (
     <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
-        <Typography variant="h5" sx={{ fontSize: 25, fontWeight: 600, color: '#000000' }}>
+        <Typography variant="h5" sx={{ fontSize: 25, fontWeight: 600, color: '#000000' ,color: isDarkMode ? "#fff" : "none", }}>
           Press Releases
         </Typography>
         {news.length > 8 && (
           <Button
             onClick={() => navigate(RoutesName.Press_Release)}
-            sx={{ color: '#000000', fontSize: 16, fontWeight: 500, textTransform: 'none', p: 0, minWidth: 'auto' }}
+            sx={{ color: '#000000', fontSize: 16, fontWeight: 500, textTransform: 'none', p: 0, minWidth: 'auto',color: isDarkMode ? "#fff" : "#000000", }}
           >
             View all
           </Button>

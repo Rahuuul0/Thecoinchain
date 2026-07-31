@@ -6,6 +6,8 @@ import YouTube from 'react-youtube';
 import dayjs from 'dayjs';
 import { Apis, RoutesName } from '../../../_common/app.constants';
 import { useFetchWrapper } from '../../../_helpers';
+import { useRecoilValue } from 'recoil';
+import { switchDarkModeAtom } from '../../../_state';
 
 const getMediaUrl = (mediaPath) => {
   if (!mediaPath) return '';
@@ -45,6 +47,7 @@ const MuiLatestNewsDashboardSection = () => {
   const fetchWrapper = useFetchWrapper();
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
+   const isDarkMode = useRecoilValue(switchDarkModeAtom);
 
   useEffect(() => {
     const fetchLatestNews = async () => {
@@ -71,13 +74,13 @@ const MuiLatestNewsDashboardSection = () => {
   return (
     <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
-        <Typography variant="h5" sx={{ fontSize: 25, fontWeight: 600, color: '#000000' }}>
+        <Typography variant="h5" sx={{ fontSize: 25, fontWeight: 600, color: isDarkMode ? "#fff" : "#000000" }}>
           Latest news
         </Typography>
         {news.length > 3 && (
           <Button
             onClick={() => navigate(RoutesName.Latest_News)}
-            sx={{ color: '#000000', fontSize: 16, fontWeight: 500, textTransform: 'none', p: 0, minWidth: 'auto' }}
+            sx={{ color: isDarkMode ? "#fff" : "#000000", fontSize: 16, fontWeight: 500, textTransform: 'none', p: 0, minWidth: 'auto' }}
           >
             View all
           </Button>

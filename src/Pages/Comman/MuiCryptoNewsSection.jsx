@@ -151,6 +151,33 @@ const contentTypeConfig = {
     heading: 'Stock Price Prediction',
     label: 'Stock Price Prediction',
   },
+  // Business/sector categories
+  market: {
+    type: 'market',
+    heading: 'Market',
+    label: 'Market',
+  },
+  // `market` is already used by the market-prices page, so news uses this URL.
+  'market-news': {
+    type: 'market',
+    heading: 'Market',
+    label: 'Market',
+  },
+  finance: {
+    type: 'finance',
+    heading: 'Finance',
+    label: 'Finance',
+  },
+  policy: {
+    type: 'policy',
+    heading: 'Policy',
+    label: 'Policy',
+  },
+  tech: {
+    type: 'tech',
+    heading: 'Tech',
+    label: 'Tech',
+  },
 };
 
 // Helper function to extract YouTube video ID from any URL format
@@ -284,8 +311,18 @@ const MuiCryptoSection = () => {
   const history = useNavigate();
   const fetchWrapper = useFetchWrapper();
   const currentSlug = location.pathname.split('/').filter(Boolean).pop() || '';
+  const requestedType = new URLSearchParams(location.search)
+    .get('type')
+    ?.toLowerCase()
+    .trim();
+  // Keep existing `/latest-news?type=finance` links working, while direct
+  // category routes such as `/finance` always use their own configured type.
+  const contentKey =
+    currentSlug === 'latest-news' && requestedType
+      ? requestedType
+      : currentSlug;
   const currentContentConfig =
-    contentTypeConfig[currentSlug] || contentTypeConfig['latest-news'];
+    contentTypeConfig[contentKey] || contentTypeConfig['latest-news'];
 
   const headingText = currentContentConfig.heading;
   const getBlogDetailRoute = (id) =>

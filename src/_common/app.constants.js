@@ -66,6 +66,11 @@ export const RoutesName = {
   Price_Prediction: "/price-prediction",
   Crypto_Stock_Price_Prediction: "/crypto-stock-price-prediction",
   Latest_News: "/latest-news",
+  Market_News: "/market-news",
+  Finance: "/finance",
+  policy: "/policy",
+  tech: "/tech",
+
 };
 
 export const Apis = {

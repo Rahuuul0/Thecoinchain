@@ -80,6 +80,7 @@ import ReactHtmlParser from 'react-html-parser';
 import { Apis, RoutesName } from "../../../../_common/app.constants";
 import MuiLatestNewsDashboard from "../../../Comman/Components/MuiLatestNewsDashboardSection";
 import MuiPressReleaseDashboard from "../../../Comman/Components/MuiPressReleaseDashboardSection";
+import MuiBussinesNewsDashboard from "../../../Comman/Components/MuiBussinesNewsDashboardSection";
 import { useFetchWrapper } from "../../../../_helpers";
 
 // ---- Static JSON data for podcast notifications ----
@@ -188,20 +189,20 @@ const GlobalCommunitySection = () => {
   const [loading, setLoading] = useState(true);
 
   const podcastNotifications = guestPosts.map((item) => ({
-  id: item.id,
-  type: item.type?.replace(/_/g, " ").toUpperCase(),
-  title: item.title,
-  host: item.profile_name,
-  duration: null,
-  time: dayjs(item.created_at).format("MMM DD, YYYY hh:mm A"),
-  avatar: item.profile_image
-    ? `${process.env.REACT_APP_IMAGE_URL}/${item.profile_image}`
-    : "",
-  image: item.get_media_display
-    ? `${process.env.REACT_APP_IMAGE_URL}/${item.get_media_display}`
-    : "",
-  url: RoutesName.Blog_Detail.replace(":id", item.id),
-}));
+    id: item.id,
+    type: item.type?.replace(/_/g, " ").toUpperCase(),
+    title: item.title,
+    host: item.profile_name,
+    duration: null,
+    time: dayjs(item.created_at).format("MMM DD, YYYY hh:mm A"),
+    avatar: item.profile_image
+      ? `${process.env.REACT_APP_IMAGE_URL}/${item.profile_image}`
+      : "",
+    image: item.get_media_display
+      ? `${process.env.REACT_APP_IMAGE_URL}/${item.get_media_display}`
+      : "",
+    url: RoutesName.Blog_Detail.replace(":id", item.id),
+  }));
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
@@ -231,7 +232,7 @@ const GlobalCommunitySection = () => {
     const fetchLatestNews = async () => {
       try {
         const response = await fetchWrapper.get(Apis.All_Content('guest_post'));
-       setGuestPosts(response?.data || []);
+        setGuestPosts(response?.data || []);
       } catch (error) {
         console.error('Unable to fetch guest posts:', error);
         setGuestPosts([]);
@@ -701,7 +702,18 @@ const Home = () => {
         </Container>
       </Box>
 
+      {/* Global Community Section */}
       <Container>
+        <MuiPressReleaseDashboard />
+      </Container>
+
+      <Container>
+
+        {/* Press Releases */}
+        <Box paddingY={{ xs: 6, sm: 8 }}>
+          <GlobalCommunitySection />
+        </Box>
+
         <Box className="learn-crypto-home">
           <Grid
             container
@@ -940,18 +952,13 @@ const Home = () => {
         </Box>
       </Container>
 
-      {/* Global Community Section */}
-      <Container>
-        <GlobalCommunitySection />
-      </Container>
+
 
       {/* learn cypto star*/}
       <Container>
 
-        {/* Press Releases */}
-        <Box paddingY={{ xs: 6, sm: 8 }}>
-          <MuiPressReleaseDashboard />
-        </Box>
+        <MuiBussinesNewsDashboard />
+
 
         <Box className="become-crypto">
           <Container>

@@ -93,7 +93,7 @@ const MuiLatestNewsDashboardSection = () => {
         <Typography sx={{ color: '#321B6D' }}>No latest news is available right now.</Typography>
       ) : (
       <Grid container spacing={3}>
-        {news.slice(0, 3).map((item) => {
+        {news.slice(0, 6).map((item) => {
           const mediaUrl = getMediaUrl(item?.get_media_display);
           const mediaType = String(item?.media_type || '').toLowerCase();
           const isVideo = ['video', 'video-file', 'video_file'].includes(mediaType);

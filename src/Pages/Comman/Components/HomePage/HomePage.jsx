@@ -707,252 +707,6 @@ const Home = () => {
         <MuiPressReleaseDashboard />
       </Container>
 
-      <Container>
-
-        {/* Press Releases */}
-        <Box paddingY={{ xs: 6, sm: 8 }}>
-          <GlobalCommunitySection />
-        </Box>
-
-        <Box className="learn-crypto-home">
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            <Grid item xs={12} sm={8} md={8}>
-              <Typography
-                variant="h2"
-                fontSize={48}
-                fontWeight={700}
-                className="secondary-font mobile-text-center"
-              >
-                Learn crypto
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={4}
-              md={4}
-              textAlign="right"
-              className="mobile-none"
-            >
-              <Button
-                variant="outlined"
-                className="btn btn-outlined-secondary"
-                sx={{ borderRadius: "90px", ml: { xs: "0", sm: "auto" } }}
-                onClick={() => {
-                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-                  navigate("./learn-cypto");
-                }}
-              >
-                View more
-              </Button>
-            </Grid>
-          </Grid>
-
-          {/* tabs starts */}
-          <Box
-            className="learn-cypto-tab"
-            sx={{ width: "100%", typography: "body1" }}
-          >
-            <TabContext value={value}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <TabList onChange={handleChange} aria-label="tabs">
-                  <Tab label="All" value="1" />
-                  {tutorialCategory?.map((item) => {
-                    return <Tab label={item.title} value={item.title} />;
-                  })}
-                </TabList>
-              </Box>
-              <TabPanel
-                value={value}
-                sx={{ paddingRight: "0", paddingLeft: "0" }}
-              >
-                <Grid
-                  container
-                  columnSpacing={{ xs: 1, sm: 4 }}
-                  className="ipad-none"
-                >
-                  {tutorialsList?.slice(0).map((item, index) => {
-                    let description = item.description;
-                    if (index < loadmore) {
-
-                      if (description.length > 10) {
-                        description =
-                          item.description.substring(0, 150) + "...";
-                      }
-                      return (
-                        <Grid item xs={6}>
-                          <Grid
-                            container
-                            columnSpacing={{ xs: 1, sm: 4 }}
-                            className="flex-between-box"
-                            marginBottom={3}
-                            onClick={() => videoLink(item)}
-                          >
-                            <Grid item xs={6} sx={{ cursor: "pointer" }}>
-                              <Stack spacing={2} justifyContent="space-between">
-                                <Typography
-                                  fontSize={16}
-                                  className="primary-font"
-                                  sx={{ maxHeight: '45px', overflow: 'hidden', fontWeight: "500" }}
-                                >
-                                  {item.title}
-                                  {item.category}
-                                </Typography>
-                                <Typography
-                                  sx={{ fontSize: "14px !important", maxHeight: '110px', overflow: 'hidden' }}
-                                  className="secondary-color primary-font"
-                                >
-                                  {ReactHtmlParser(description)}
-                                </Typography>
-                              </Stack>
-                              <Typography
-                                sx={{ fontSize: "14px !important" }}
-                                fontWeight={400}
-                                className="secondary-color primary-font"
-                              >
-                                {dayjs(item.created_at).format("MMM DD,YYYY")}
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                              <Box className="cypto-video">
-                                <ReactPlayer
-                                  url={item.video_link}
-                                  controls={true}
-                                  light={item.image_link}
-                                  playing={false}
-                                  width="100%"
-                                  height="100%"
-                                />
-                              </Box>
-
-                            </Grid>
-                          </Grid>
-
-                        </Grid>
-                      );
-                    }
-                  })}
-
-                </Grid>
-                <Grid className="mobile-none" >
-                  {tutorialsList.length > 4 && tutorialsList.length > loadmore &&
-                    <Button
-                      variant="outlined"
-                      className="btn btn-outlined-secondary"
-                      endIcon={<KeyboardArrowRight sx={{ color: "#777E90" }} />}
-                      sx={{
-                        height: "50px",
-                        whiteSpace: "nowrap",
-                        minWidth: "auto",
-                      }}
-                      onClick={handleLoadmore}
-                    >
-                      Load more
-                    </Button>
-                  }
-                </Grid>
-              </TabPanel>
-            </TabContext>
-
-            <Box className="ipad-visible swiper-styles swiper-home">
-              <Box paddingBottom={{ xs: 4, sm: 10 }}>
-                <Swiper
-                  slidesPerView={1}
-                  navigation={true}
-                  spaceBetween={30}
-                  breakpoints={{
-                    480: {
-                      slidesPerView: 1,
-                      spaceBetween: 0,
-                    },
-                    640: {
-                      slidesPerView: 2,
-                      spaceBetween: 20,
-                    },
-                    768: {
-                      slidesPerView: 2,
-                      spaceBetween: 30,
-                    },
-                    1080: {
-                      slidesPerView: 2,
-                      spaceBetween: 30,
-                    },
-                  }}
-                  modules={[Navigation]}
-                  className="mySwiper"
-                >
-                  {tutorialsList?.slice(0, 3).map((item, index) => {
-                    let description = item.description;
-                    if (index < loadmore) {
-                      if (description.length > 10) {
-                        description = item.description.substring(0, 150) + "...";
-                      }
-                      return (
-                        <SwiperSlide>
-                          <Box className="about-crypto">
-                            <Box
-                              className="cypto-video"
-                              sx={{ width: "100% !important" }}
-                            >
-                              <ReactPlayer
-                                url={item.video_link}
-                                controls={true}
-                                light={item.image_link}
-                                playing={true}
-                                width="100%"
-                                height="100%"
-                              />
-                            </Box>
-                            <Typography
-                              fontSize={16}
-                              paddingY={2}
-                              fontWeight={700}
-                              className="body-large primary-font"
-                            >
-                              {item.title}
-                            </Typography>
-                            <Typography
-                              sx={{ fontSize: "14px !important" }}
-                              className="secondary-color primary-font"
-                            >
-                              {ReactHtmlParser(description)}
-                            </Typography>
-                          </Box>
-                        </SwiperSlide>
-                      );
-                    }
-                  })}
-                </Swiper>
-              </Box>
-            </Box>
-            <Button
-              variant="outlined"
-              className="btn btn-outlined-secondary"
-              sx={{
-                borderRadius: "90px",
-                width: "100%",
-                display: {
-                  xs: "block !important",
-                  sm: "none !important",
-                  md: "none !important",
-                  lg: "none !important",
-                },
-              }}
-              onClick={() => {
-                navigate("./learn-cypto");
-              }}
-            >
-              View more
-            </Button>
-          </Box>
-        </Box>
-      </Container>
-
-
 
       {/* learn cypto star*/}
       <Container>
@@ -1070,6 +824,254 @@ const Home = () => {
             </Box>
           </Container>
         </Box> */}
+
+        <Box paddingY={{ xs: 6, sm: 8 }}>
+          <GlobalCommunitySection />
+        </Box>
+
+        <Container>
+
+          {/* Press Releases */}
+
+
+          <Box className="learn-crypto-home">
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            >
+              <Grid item xs={12} sm={8} md={8}>
+                <Typography
+                  variant="h2"
+                  fontSize={48}
+                  fontWeight={700}
+                  className="secondary-font mobile-text-center"
+                >
+                  Learn crypto
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={4}
+                md={4}
+                textAlign="right"
+                className="mobile-none"
+              >
+                <Button
+                  variant="outlined"
+                  className="btn btn-outlined-secondary"
+                  sx={{ borderRadius: "90px", ml: { xs: "0", sm: "auto" } }}
+                  onClick={() => {
+                    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                    navigate("./learn-cypto");
+                  }}
+                >
+                  View more
+                </Button>
+              </Grid>
+            </Grid>
+
+            {/* tabs starts */}
+            <Box
+              className="learn-cypto-tab"
+              sx={{ width: "100%", typography: "body1" }}
+            >
+              <TabContext value={value}>
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <TabList onChange={handleChange} aria-label="tabs">
+                    <Tab label="All" value="1" />
+                    {tutorialCategory?.map((item) => {
+                      return <Tab label={item.title} value={item.title} />;
+                    })}
+                  </TabList>
+                </Box>
+                <TabPanel
+                  value={value}
+                  sx={{ paddingRight: "0", paddingLeft: "0" }}
+                >
+                  <Grid
+                    container
+                    columnSpacing={{ xs: 1, sm: 4 }}
+                    className="ipad-none"
+                  >
+                    {tutorialsList?.slice(0).map((item, index) => {
+                      let description = item.description;
+                      if (index < loadmore) {
+
+                        if (description.length > 10) {
+                          description =
+                            item.description.substring(0, 150) + "...";
+                        }
+                        return (
+                          <Grid item xs={6}>
+                            <Grid
+                              container
+                              columnSpacing={{ xs: 1, sm: 4 }}
+                              className="flex-between-box"
+                              marginBottom={3}
+                              onClick={() => videoLink(item)}
+                            >
+                              <Grid item xs={6} sx={{ cursor: "pointer" }}>
+                                <Stack spacing={2} justifyContent="space-between">
+                                  <Typography
+                                    fontSize={16}
+                                    className="primary-font"
+                                    sx={{ maxHeight: '45px', overflow: 'hidden', fontWeight: "500" }}
+                                  >
+                                    {item.title}
+                                    {item.category}
+                                  </Typography>
+                                  <Typography
+                                    sx={{ fontSize: "14px !important", maxHeight: '110px', overflow: 'hidden' }}
+                                    className="secondary-color primary-font"
+                                  >
+                                    {ReactHtmlParser(description)}
+                                  </Typography>
+                                </Stack>
+                                <Typography
+                                  sx={{ fontSize: "14px !important" }}
+                                  fontWeight={400}
+                                  className="secondary-color primary-font"
+                                >
+                                  {dayjs(item.created_at).format("MMM DD,YYYY")}
+                                </Typography>
+                              </Grid>
+                              <Grid item xs={6}>
+                                <Box className="cypto-video">
+                                  <ReactPlayer
+                                    url={item.video_link}
+                                    controls={true}
+                                    light={item.image_link}
+                                    playing={false}
+                                    width="100%"
+                                    height="100%"
+                                  />
+                                </Box>
+
+                              </Grid>
+                            </Grid>
+
+                          </Grid>
+                        );
+                      }
+                    })}
+
+                  </Grid>
+                  <Grid className="mobile-none" >
+                    {tutorialsList.length > 4 && tutorialsList.length > loadmore &&
+                      <Button
+                        variant="outlined"
+                        className="btn btn-outlined-secondary"
+                        endIcon={<KeyboardArrowRight sx={{ color: "#777E90" }} />}
+                        sx={{
+                          height: "50px",
+                          whiteSpace: "nowrap",
+                          minWidth: "auto",
+                        }}
+                        onClick={handleLoadmore}
+                      >
+                        Load more
+                      </Button>
+                    }
+                  </Grid>
+                </TabPanel>
+              </TabContext>
+
+              <Box className="ipad-visible swiper-styles swiper-home">
+                <Box paddingBottom={{ xs: 4, sm: 10 }}>
+                  <Swiper
+                    slidesPerView={1}
+                    navigation={true}
+                    spaceBetween={30}
+                    breakpoints={{
+                      480: {
+                        slidesPerView: 1,
+                        spaceBetween: 0,
+                      },
+                      640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                      },
+                      768: {
+                        slidesPerView: 2,
+                        spaceBetween: 30,
+                      },
+                      1080: {
+                        slidesPerView: 2,
+                        spaceBetween: 30,
+                      },
+                    }}
+                    modules={[Navigation]}
+                    className="mySwiper"
+                  >
+                    {tutorialsList?.slice(0, 3).map((item, index) => {
+                      let description = item.description;
+                      if (index < loadmore) {
+                        if (description.length > 10) {
+                          description = item.description.substring(0, 150) + "...";
+                        }
+                        return (
+                          <SwiperSlide>
+                            <Box className="about-crypto">
+                              <Box
+                                className="cypto-video"
+                                sx={{ width: "100% !important" }}
+                              >
+                                <ReactPlayer
+                                  url={item.video_link}
+                                  controls={true}
+                                  light={item.image_link}
+                                  playing={true}
+                                  width="100%"
+                                  height="100%"
+                                />
+                              </Box>
+                              <Typography
+                                fontSize={16}
+                                paddingY={2}
+                                fontWeight={700}
+                                className="body-large primary-font"
+                              >
+                                {item.title}
+                              </Typography>
+                              <Typography
+                                sx={{ fontSize: "14px !important" }}
+                                className="secondary-color primary-font"
+                              >
+                                {ReactHtmlParser(description)}
+                              </Typography>
+                            </Box>
+                          </SwiperSlide>
+                        );
+                      }
+                    })}
+                  </Swiper>
+                </Box>
+              </Box>
+              <Button
+                variant="outlined"
+                className="btn btn-outlined-secondary"
+                sx={{
+                  borderRadius: "90px",
+                  width: "100%",
+                  display: {
+                    xs: "block !important",
+                    sm: "none !important",
+                    md: "none !important",
+                    lg: "none !important",
+                  },
+                }}
+                onClick={() => {
+                  navigate("./learn-cypto");
+                }}
+              >
+                View more
+              </Button>
+            </Box>
+          </Box>
+        </Container>
+
 
         <Box className="market-trend">
           <Box
@@ -1249,6 +1251,7 @@ const Home = () => {
           </Button>
         </Box>
       </Container>
+
 
       {/* Informed decision starts*/}
       <Container>

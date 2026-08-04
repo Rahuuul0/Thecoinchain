@@ -590,7 +590,7 @@ const MuiCryptoSection = () => {
                   </Box>
                 ) : cryptoNewsData?.data?.[0]?.media_type === 'video' ? (
                   <video
-                    src={`${process.env.REACT_APP_IMAGE_URL}${cryptoNewsData?.data?.[0]?.get_media_display}`}
+                    src={`${process.env.REACT_APP_IMAGE_URL}/${cryptoNewsData?.data?.[0]?.get_media_display}`}
                     controls
                     style={{ width: '100%', borderRadius: '8px' }}
                   />

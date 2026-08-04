@@ -960,7 +960,7 @@ const Home = () => {
         <MuiBussinesNewsDashboard />
 
 
-        <Box className="become-crypto">
+        {/* <Box className="become-crypto">
           <Container>
             <Box>
               <Typography
@@ -1069,7 +1069,7 @@ const Home = () => {
               </Box>
             </Box>
           </Container>
-        </Box>
+        </Box> */}
 
         <Box className="market-trend">
           <Box

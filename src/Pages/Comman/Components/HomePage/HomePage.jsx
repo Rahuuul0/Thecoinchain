@@ -81,6 +81,7 @@ import { Apis, RoutesName } from "../../../../_common/app.constants";
 import MuiLatestNewsDashboard from "../../../Comman/Components/MuiLatestNewsDashboardSection";
 import MuiPressReleaseDashboard from "../../../Comman/Components/MuiPressReleaseDashboardSection";
 import MuiBussinesNewsDashboard from "../../../Comman/Components/MuiBussinesNewsDashboardSection";
+import MuiResearchReportsDashboard from "../../../Comman/Components/MuiResearchReportsDashboardSection";
 import { useFetchWrapper } from "../../../../_helpers";
 
 // ---- Static JSON data for podcast notifications ----
@@ -827,6 +828,10 @@ const Home = () => {
 
         <Box paddingY={{ xs: 6, sm: 8 }}>
           <GlobalCommunitySection />
+        </Box>
+
+        <Box paddingY={{ xs: 6, sm: 8 }}>
+          <MuiResearchReportsDashboard />
         </Box>
 
         <Container>

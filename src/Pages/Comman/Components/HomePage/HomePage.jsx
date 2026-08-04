@@ -82,6 +82,7 @@ import MuiLatestNewsDashboard from "../../../Comman/Components/MuiLatestNewsDash
 import MuiPressReleaseDashboard from "../../../Comman/Components/MuiPressReleaseDashboardSection";
 import MuiBussinesNewsDashboard from "../../../Comman/Components/MuiBussinesNewsDashboardSection";
 import MuiResearchReportsDashboard from "../../../Comman/Components/MuiResearchReportsDashboardSection";
+import MuiTrendingNewsDashboardSection from "../MuiTrandingNewsDashboardSection";
 import { useFetchWrapper } from "../../../../_helpers";
 
 // ---- Static JSON data for podcast notifications ----
@@ -321,7 +322,6 @@ const GlobalCommunitySection = () => {
         borderRadius: { xs: "24px", md: "32px" },
         overflow: "hidden",
         position: "relative",
-        my: { xs: 4, md: 5 },
         border: isDarkMode ? "1px solid rgba(189, 189, 189, 0.16)" : "none",
       }}
     >
@@ -579,7 +579,7 @@ const Home = () => {
         let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
         return (
           <Container>
-            <Box paddingBottom={{ xs: 4, sm: 8 }}>
+            <Box sx={{ py: { xs: 4, sm: 6 } }}>
               {subscribeUser?.status === "expired" && auth !== null ?
                 <Stack sx={{ width: '100%', marginLeft: 'auto', marginTop: '22px', marginBottom: '1rem' }} spacing={2}>
                   <Alert severity="info">You don't have any current plan please <Link to={'/subscription'}> <b>subscribe </b></Link> !</Alert>
@@ -597,7 +597,7 @@ const Home = () => {
                   }}
                 >
                   <Typography
-                    variant="h1"
+                    variant="h1 "
                     component="div"
                     className="hero-heading primary-color"
                   >
@@ -641,7 +641,8 @@ const Home = () => {
                   </IconButton>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6}>
-                  <img className="heroImage" src={image} alt='' />
+                  {/* <img className="heroImage" src={image} alt='' /> */}
+                  < MuiTrendingNewsDashboardSection />
                 </Grid>
               </Grid>
             </Box>
@@ -649,12 +650,13 @@ const Home = () => {
         )
       })}
       {/* Banner Ends */}
-      <Container>
+      <Container sx={{pb: { xs: 4, sm: 6 } }}>
         <Box
           sx={{ alignItems: "center" }}
           className="grid-bit"
           padding={3}
           borderRadius={6}
+          border="1px solid rgb(86 98 255 / 14%)"
         >
           <Grid container>
             {cardCoinsList?.map((item, index) => {
@@ -731,7 +733,7 @@ const Home = () => {
       </Container>
       {/* Latest News */}
       <Box className="become-crypto">
-        <Container>
+        <Container sx={{ paddingY: 0 }}>
           <Box>
             <Typography
               variant="h2"
@@ -748,7 +750,7 @@ const Home = () => {
               paddingTop={2}
             >
             </Typography>
-            <Box paddingY={{ xs: 6, sm: 8 }}>
+            <Box sx={{ paddingY: 0 }}>
               <MuiLatestNewsDashboard />
             </Box>
             <Button
@@ -762,13 +764,13 @@ const Home = () => {
               Contact Us
             </Button>
           </Box>
+          <MuiPressReleaseDashboard />
         </Container>
       </Box>
 
       {/* Global Community Section */}
-      <Container>
-        <MuiPressReleaseDashboard />
-      </Container>
+      {/* <Container>
+      </Container> */}
 
 
       {/* learn cypto star*/}
@@ -888,11 +890,11 @@ const Home = () => {
           </Container>
         </Box> */}
 
-        <Box paddingY={{ xs: 6, sm: 8 }}>
+        <Box sx={{ py: 0 }}>
           <GlobalCommunitySection />
         </Box>
 
-        <Box paddingY={{ xs: 6, sm: 8 }}>
+        <Box sx={{ py: 0 }}>
           <MuiResearchReportsDashboard />
         </Box>
 
@@ -901,7 +903,7 @@ const Home = () => {
           {/* Press Releases */}
 
 
-          <Box className="learn-crypto-home">
+          <Box className="learn-crypto-home" sx={{paddingTop:0}}>
             <Grid
               container
               rowSpacing={1}
@@ -1140,7 +1142,7 @@ const Home = () => {
         </Container>
 
 
-        <Box className="market-trend">
+        <Box className="market-trend" sx={{py: { xs: 4, sm: 6 } }}>
           <Box
             sx={{ display: { xs: "block", md: "flex" } }}
             justifyContent="space-between"
@@ -1324,8 +1326,7 @@ const Home = () => {
       <Container>
         <Box
           className="app-store"
-          paddingBottom={{ md: 10, sm: 8, xs: 4 }}
-          sx={{ paddingTop: { md: "80px", sm: "20px" } }}
+          sx={{ paddingY: { xs: 4, sm: 6 } }}
         >
           <Grid
             container
@@ -1448,7 +1449,7 @@ const Home = () => {
       {/* Informed decision ends*/}
 
       {/* how it works section starts */}
-      <Box className="how-it-work">
+      {/* <Box className="how-it-work" sx={{ paddingY: { xs: 4, sm: 6 } }}>
         <Container>
           <Box
             textAlign="center"
@@ -1504,13 +1505,13 @@ const Home = () => {
             })}
           </Grid>
         </Container>
-      </Box>
-      <Container maxWidth="fluid">
+      </Box> */}
+      <Container maxWidth="fluid" sx={{ pb: { xs: 4, md: 6 }}}>
         <Marquee>
           {bannerList.map((item) => {
             let image = item.image_url ? `${process.env.REACT_APP_IMAGE_URL}/${item.image_url}` : item.image_link;
             return (
-              <Box paddingTop={8} paddingBottom={8}>
+              <Box>
                 <Stack direction="row" spacing={8}>
                   {image == null || image == '' ? " " : <img
                     className="margin10"

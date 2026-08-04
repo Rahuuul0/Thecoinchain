@@ -241,7 +241,7 @@ const MuiCategoryNewsDashboardSection = () => {
                                 />
                               </Box>
                             ) : (
-                              <Box
+                              <Box  
                                 component="img"
                                 src={mediaUrl || 'https://via.placeholder.com/400x300?text=News'}
                                 alt={featured?.title || 'News'}
@@ -253,9 +253,32 @@ const MuiCategoryNewsDashboardSection = () => {
                               />
                             )}
                           </Box>
+                             {/* Featured story title + timestamp, below the image row */}
+                    {featured && (
+                      <Box sx={{ mt: 2 }}>
+                        <Typography
+                          onClick={() => openDetail(featured?.id)}
+                          sx={{
+                            fontFamily: 'Georgia, "Times New Roman", serif',
+                            fontSize: { xs: 14, sm: 16 },
+                            fontWeight: 500,
+                            lineHeight: 1.3,
+                            color: textColor,
+                            cursor: 'pointer',
+                            '&:hover': { color: '#321B6D' },
+                          }}
+                        >
+                          {featured?.title}
+                        </Typography>
+                        {featured?.created_at && (
+                          <Typography sx={{ mt: 1, fontSize: 13, color: mutedColor }}>
+                            {getRelativeTime(featured.created_at)}
+                          </Typography>
+                        )}
+                      </Box>
+                    )}
                         </Grid>
                       )}
-
                       {secondaryItems.length > 0 && (
                         <Grid item xs={7} sm={7}>
                           {secondaryItems.map((item, i) => (
@@ -282,32 +305,8 @@ const MuiCategoryNewsDashboardSection = () => {
                           ))}
                         </Grid>
                       )}
-                    </Grid>
 
-                    {/* Featured story title + timestamp, below the image row */}
-                    {featured && (
-                      <Box sx={{ mt: 2 }}>
-                        <Typography
-                          onClick={() => openDetail(featured?.id)}
-                          sx={{
-                            fontFamily: 'Georgia, "Times New Roman", serif',
-                            fontSize: { xs: 18, sm: 22 },
-                            fontWeight: 700,
-                            lineHeight: 1.3,
-                            color: textColor,
-                            cursor: 'pointer',
-                            '&:hover': { color: '#321B6D' },
-                          }}
-                        >
-                          {featured?.title}
-                        </Typography>
-                        {featured?.created_at && (
-                          <Typography sx={{ mt: 1, fontSize: 13, color: mutedColor }}>
-                            {getRelativeTime(featured.created_at)}
-                          </Typography>
-                        )}
-                      </Box>
-                    )}
+                    </Grid>
                   </>
                 )}
               </Grid>

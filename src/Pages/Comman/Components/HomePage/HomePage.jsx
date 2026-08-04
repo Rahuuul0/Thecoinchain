@@ -97,6 +97,11 @@ const NotificationCard = ({
   sx = {},
   onClick
 }) => {
+  const hoverTransform =
+    variant === "stacked"
+      ? "translateX(-50%) translateY(24px) scale(0.95)"
+      : `translate(-50%, ${entering ? "-6px" : "84px"}) scale(${entering ? 1.015 : 0.975})`;
+
   return (
     <Box
       onClick={onClick}
@@ -113,17 +118,74 @@ const NotificationCard = ({
 
         border: "1px solid rgba(255,255,255,.14)",
         borderRadius: "22px",
+        overflow: "hidden",
+        isolation: "isolate",
 
         boxShadow:
           "0 20px 60px rgba(0,0,0,.45), inset 0 1px 1px rgba(255,255,255,.08)",
 
         cursor: "pointer",
-        transition: "transform .55s cubic-bezier(0.22, 1, 0.36, 1), opacity .45s ease, box-shadow .35s ease",
+        transition: "transform .55s cubic-bezier(0.22, 1, 0.36, 1), opacity .45s ease, box-shadow .35s ease, border-color .35s ease",
         willChange: "transform, opacity",
 
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          opacity: 0,
+          pointerEvents: "none",
+          background:
+            "linear-gradient(115deg, transparent 20%, rgba(170,225,255,.12) 42%, rgba(255,255,255,.38) 50%, rgba(130,108,255,.16) 58%, transparent 80%)",
+          transform: "translateX(-130%) skewX(-18deg)",
+        },
+
+        "&::after": {
+          content: '"✦"',
+          position: "absolute",
+          right: 14,
+          bottom: 8,
+          zIndex: 2,
+          color: "rgba(210,235,255,.85)",
+          fontSize: 26,
+          lineHeight: 1,
+          opacity: 0,
+          pointerEvents: "none",
+          filter: "drop-shadow(0 0 9px rgba(145,205,255,.95))",
+          transform: "scale(.35) rotate(-30deg)",
+          transition: "opacity .2s ease, transform .45s cubic-bezier(.22, 1, .36, 1)",
+        },
+
+        "& > *": {
+          position: "relative",
+          zIndex: 1,
+        },
+
         "&:hover": {
-          transform: "translateX(-50%) translateY(-6px) scale(1.05)",
-          boxShadow: "0 35px 70px rgba(0,0,0,.55)",
+          transform: hoverTransform,
+          borderColor: "rgba(164,221,255,.55)",
+          boxShadow:
+            "0 35px 70px rgba(0,0,0,.55), 0 0 28px rgba(90,177,255,.3), inset 0 1px 1px rgba(255,255,255,.18)",
+        },
+
+        "&:hover::before": {
+          opacity: 1,
+          animation: "notification-card-shimmer 1.1s ease-out",
+        },
+
+        "&:hover::after": {
+          opacity: 1,
+          transform: "scale(1) rotate(0deg)",
+        },
+
+        "@keyframes notification-card-shimmer": {
+          from: { transform: "translateX(-130%) skewX(-18deg)" },
+          to: { transform: "translateX(130%) skewX(-18deg)" },
+        },
+
+        "@media (prefers-reduced-motion: reduce)": {
+          transition: "none",
+          "&:hover::before": { animation: "none" },
         },
 
         ...sx,

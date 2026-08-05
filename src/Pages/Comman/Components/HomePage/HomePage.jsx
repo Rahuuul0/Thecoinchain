@@ -84,6 +84,7 @@ import MuiBussinesNewsDashboard from "../../../Comman/Components/MuiBussinesNews
 import MuiResearchReportsDashboard from "../../../Comman/Components/MuiResearchReportsDashboardSection";
 import MuiTrendingNewsDashboardSection from "../MuiTrandingNewsDashboardSection";
 import { useFetchWrapper } from "../../../../_helpers";
+import { Helmet } from "react-helmet-async";
 
 // ---- Static JSON data for podcast notifications ----
 
@@ -308,9 +309,20 @@ const GlobalCommunitySection = () => {
     fetchLatestNews();
   }, []);
 
-  const openDetail = (id) => {
+  const slugify = (text = "") =>
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]/g, "");
+
+  const openDetail = (id, title) => {
     if (id !== undefined && id !== null) {
-      navigate(RoutesName.Blog_Detail.replace(':id', String(id)));
+      navigate(
+        RoutesName.Blog_Detail
+          .replace(":id", String(id))
+          .replace(":slug", slugify(title))
+      );
     }
   };
 
@@ -426,7 +438,7 @@ const GlobalCommunitySection = () => {
               key={current.id}
               data={current}
               entering={entering}
-              onClick={() => current?.id && openDetail(current.id)}
+              onClick={() => current?.id && openDetail(current.id, current.title)}
               sx={{
                 position: "absolute",
 
@@ -571,6 +583,35 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <title>CoinGuru | Latest Crypto News, Market Analysis & Price Predictions</title>
+
+        <meta
+          name="description"
+          content="Stay updated with the latest cryptocurrency news, Bitcoin updates, market analysis, research reports, press releases and price predictions on CoinGuru."
+        />
+
+        <meta
+          name="keywords"
+          content="crypto news, bitcoin news, ethereum news, blockchain, cryptocurrency, price prediction, market analysis"
+        />
+
+        <link rel="canonical" href={window.location.href} />
+
+        <meta
+          property="og:title"
+          content="CoinGuru | Latest Crypto News, Market Analysis & Price Predictions"
+        />
+
+        <meta
+          property="og:description"
+          content="Read the latest cryptocurrency news, research reports, press releases and market insights on CoinGuru."
+        />
+
+        <meta property="og:url" content={window.location.href} />
+
+        <meta property="og:type" content="website" />
+      </Helmet>
       <Box component="main" sx={{ pt: 8 }}></Box>
       {/* Banner starts */}
       {homeBannerData?.map((items) => {
@@ -650,7 +691,7 @@ const Home = () => {
         )
       })}
       {/* Banner Ends */}
-      <Container sx={{pb: { xs: 4, sm: 6 } }}>
+      <Container sx={{ pb: { xs: 4, sm: 6 } }}>
         <Box
           sx={{ alignItems: "center" }}
           className="grid-bit"
@@ -903,7 +944,7 @@ const Home = () => {
           {/* Press Releases */}
 
 
-          <Box className="learn-crypto-home" sx={{paddingTop:0}}>
+          <Box className="learn-crypto-home" sx={{ paddingTop: 0 }}>
             <Grid
               container
               rowSpacing={1}
@@ -1142,7 +1183,7 @@ const Home = () => {
         </Container>
 
 
-        <Box className="market-trend" sx={{py: { xs: 4, sm: 6 } }}>
+        <Box className="market-trend" sx={{ py: { xs: 4, sm: 6 } }}>
           <Box
             sx={{ display: { xs: "block", md: "flex" } }}
             justifyContent="space-between"
@@ -1506,7 +1547,7 @@ const Home = () => {
           </Grid>
         </Container>
       </Box> */}
-      <Container maxWidth="fluid" sx={{ pb: { xs: 4, md: 6 }}}>
+      <Container maxWidth="fluid" sx={{ pb: { xs: 4, md: 6 } }}>
         <Marquee>
           {bannerList.map((item) => {
             let image = item.image_url ? `${process.env.REACT_APP_IMAGE_URL}/${item.image_url}` : item.image_link;

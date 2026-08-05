@@ -8,6 +8,7 @@ import CoinGuru from '../../../../public/assets/images/logo.svg';
 import { MenuItem, Badge, Box, AppBar, Divider, Drawer } from '@mui/material';
 import galleryImage from '../../../../public/assets/images/icons/gallery.svg';
 import { NotificationsNone, Search, WbSunnyOutlined, KeyboardArrowDown, FiberManualRecord } from '@mui/icons-material/';
+import BedtimeIcon from '@mui/icons-material/Bedtime';
 import ShareIcon from '../../../../public/assets/images/icons/share-square.svg';
 import UserIcon from '../../../../public/assets/images/icons/user.svg';
 import UserAvatar from '../../../../public/assets/images/avatarUser.svg';
@@ -36,6 +37,7 @@ import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
 const drawerWidth = '100%';
 function Header(props) {
   const userActions = useUserActions();
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
   const notificationAction = notificationActions();
   const notifications = useRecoilValue(notificationAtom);
   const userDetails = useRecoilValue(authAtom);
@@ -589,7 +591,7 @@ function Header(props) {
               Account
             </Button>
             <IconButton onClick={handleDarkMode} aria-label="sunny" color="primary " className=' mobile-none'>
-              <WbSunnyOutlined />
+               {isDarkMode ? <BedtimeIcon /> : <WbSunnyOutlined />}
             </IconButton>
             <Tooltip arrow title={userDetails.user_name ? userDetails.user_name : userDetails.email.split("@")[0]}>
               <IconButton onClick={handleClickAnchor}

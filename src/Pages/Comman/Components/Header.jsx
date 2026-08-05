@@ -8,6 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
+import BedtimeIcon from '@mui/icons-material/Bedtime';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -47,6 +48,7 @@ const drawerHeight = '100vh';
 function Header(props) {
 
   const LogoListAction = bannerListActions();
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
   const LogoList = useRecoilValue(setLogoListAtom).filter((item) => {
     return item.position === "Header"
   });
@@ -570,7 +572,7 @@ function Header(props) {
           >
 
             <IconButton onClick={handleDarkMode} aria-label="sunny" color="primary " className=' mobile-none'>
-              <WbSunnyOutlined />
+              {isDarkMode ? <BedtimeIcon /> : <WbSunnyOutlined />}
             </IconButton>
 
             <Button

@@ -9,6 +9,7 @@ import { Apis, RoutesName } from '../../../_common/app.constants';
 import { useFetchWrapper } from '../../../_helpers';
 import { useRecoilValue } from 'recoil';
 import { switchDarkModeAtom } from '../../../_state';
+import { Helmet } from "react-helmet-async";
 
 dayjs.extend(relativeTime);
 
@@ -107,9 +108,20 @@ const MuiCategoryNewsDashboardSection = () => {
     fetchCategoryNews();
   }, []);
 
-  const openDetail = (id) => {
+  const slugify = (text = "") =>
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]/g, "");
+
+  const openDetail = (id, title) => {
     if (id !== undefined && id !== null) {
-      navigate(RoutesName.Blog_Detail.replace(':id', String(id)));
+      navigate(
+        RoutesName.Blog_Detail
+          .replace(":id", String(id))
+          .replace(":slug", slugify(title))
+      );
     }
   };
 
@@ -130,191 +142,222 @@ const MuiCategoryNewsDashboardSection = () => {
   const borderColor = isDarkMode ? '#333333' : '#e6e6e6';
 
   return (
-    <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
-      {loading ? (
-        <Typography sx={{ color: '#321B6D' }}>Loading latest news...</Typography>
-      ) : news.length === 0 ? (
-        <Typography sx={{ color: '#321B6D' }}>No latest news is available right now.</Typography>
-      ) : (
-        <Grid container spacing={0} sx={{ border: `1px solid ${borderColor}` }}>
-          {CATEGORY_CONFIG.map((category, index) => {
-            const categoryItems = news.filter((item) => getItemType(item) === category.type);
-            const [featured, ...rest] = categoryItems;
-            const secondaryItems = rest.slice(0, 3);
-            const mediaType = String(featured?.media_type || '').toLowerCase();
-            const isVideo = ['video', 'video-file', 'video_file'].includes(mediaType);
-            const isYouTube = ['youtube', 'youtube-link', 'youtube_link'].includes(mediaType);
-            const mediaUrl = getMediaUrl(featured?.get_media_display);
-            const youtubeVideoId = getYouTubeVideoId(featured?.get_media_display);
+    <>
+      <Helmet>
+        <title>Markets, Finance, Policy & Tech News | CoinGuru</title>
 
-            const isRightCol = index % 2 === 1;
-            const isBottomRow = index >= CATEGORY_CONFIG.length - 2;
+        <meta
+          name="description"
+          content="Read the latest Market, Finance, Policy and Tech news on CoinGuru."
+        />
 
-            return (
-              <Grid
-                item
-                xs={12}
-                md={6}
-                key={category.type}
-                sx={{
-                  bgcolor: cardBg,
-                  p: { xs: 2.5, md: 3.5 },
-                  borderRight: { md: isRightCol ? 'none' : `1px solid ${borderColor}` },
-                  borderBottom: { xs: `1px solid ${borderColor}`, md: isBottomRow ? 'none' : `1px solid ${borderColor}` },
-                }}
-              >
-                {/* Section header */}
-                <Box
-                  onClick={() => openCategory(category.type)}
+        <meta
+          name="keywords"
+          content="market news, finance news, policy news, tech news, crypto news"
+        />
+
+        <link rel="canonical" href={window.location.href} />
+
+        <meta
+          property="og:title"
+          content="Markets, Finance, Policy & Tech News | CoinGuru"
+        />
+
+        <meta
+          property="og:description"
+          content="Latest Market, Finance, Policy and Tech updates."
+        />
+
+        <meta property="og:url" content={window.location.href} />
+      </Helmet>
+
+      <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}></Container>
+      <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
+        {loading ? (
+          <Typography sx={{ color: '#321B6D' }}>Loading latest news...</Typography>
+        ) : news.length === 0 ? (
+          <Typography sx={{ color: '#321B6D' }}>No latest news is available right now.</Typography>
+        ) : (
+          <Grid container spacing={0} sx={{ border: `1px solid ${borderColor}` }}>
+            {CATEGORY_CONFIG.map((category, index) => {
+              const categoryItems = news.filter((item) => getItemType(item) === category.type);
+              const [featured, ...rest] = categoryItems;
+              const secondaryItems = rest.slice(0, 3);
+              const mediaType = String(featured?.media_type || '').toLowerCase();
+              const isVideo = ['video', 'video-file', 'video_file'].includes(mediaType);
+              const isYouTube = ['youtube', 'youtube-link', 'youtube_link'].includes(mediaType);
+              const mediaUrl = getMediaUrl(featured?.get_media_display);
+              const youtubeVideoId = getYouTubeVideoId(featured?.get_media_display);
+
+              const isRightCol = index % 2 === 1;
+              const isBottomRow = index >= CATEGORY_CONFIG.length - 2;
+
+              return (
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  key={category.type}
                   sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 0.5,
-                    mb: 2.5,
-                    cursor: 'pointer',
-                    width: 'fit-content',
-                    '&:hover .cat-arrow': { transform: 'translateX(3px)' },
+                    bgcolor: cardBg,
+                    p: { xs: 2.5, md: 3.5 },
+                    borderRight: { md: isRightCol ? 'none' : `1px solid ${borderColor}` },
+                    borderBottom: { xs: `1px solid ${borderColor}`, md: isBottomRow ? 'none' : `1px solid ${borderColor}` },
                   }}
                 >
-                  <Typography
+                  {/* Section header */}
+                  <Box
+                    onClick={() => openCategory(category.type)}
                     sx={{
-                      fontSize: 18,
-                      fontWeight: 700,
-                      lineHeight: 1.2,
-                      color: textColor,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 0.5,
+                      mb: 2.5,
+                      cursor: 'pointer',
+                      width: 'fit-content',
+                      '&:hover .cat-arrow': { transform: 'translateX(3px)' },
                     }}
                   >
-                    {category.label}
-                  </Typography>
-                  <ArrowForwardIcon
-                    className="cat-arrow"
-                    sx={{ fontSize: 16, color: textColor, transition: 'transform 0.2s ease' }}
-                  />
-                </Box>
+                    <Typography
+                      sx={{
+                        fontSize: 18,
+                        fontWeight: 700,
+                        lineHeight: 1.2,
+                        color: textColor,
+                      }}
+                    >
+                      {category.label}
+                    </Typography>
+                    <ArrowForwardIcon
+                      className="cat-arrow"
+                      sx={{ fontSize: 16, color: textColor, transition: 'transform 0.2s ease' }}
+                    />
+                  </Box>
 
-                {categoryItems.length === 0 ? (
-                  <Typography sx={{ fontSize: 14, color: mutedColor }}>
-                    No {category.label.toLowerCase()} news right now.
-                  </Typography>
-                ) : (
-                  <>
-                    {/* Featured story: image + list of headlines side by side */}
-                    <Grid container spacing={2.5}>
-                      {featured && (
-                        <Grid item xs={5} sm={5}>
-                          <Box
-                            onClick={() => openDetail(featured?.id)}
-                            sx={{
-                              width: '100%',
-                              height: { xs: 120, sm: 150, md: 175 },
-                              borderRadius: 0.5,
-                              overflow: 'hidden',
-                              bgcolor: '#f0f0f0',
-                              cursor: 'pointer',
-                            }}
-                          >
-                            {isVideo ? (
-                              <video
-                                src={mediaUrl}
-                                controls
-                                preload="metadata"
-                                onClick={(event) => event.stopPropagation()}
-                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                              />
-                            ) : isYouTube && youtubeVideoId ? (
-                              <Box
-                                onClick={(event) => event.stopPropagation()}
-                                sx={{
-                                  width: '100%',
-                                  height: '100%',
-                                  '& > div, & iframe': {
-                                    width: '100% !important',
-                                    height: '100% !important',
-                                    display: 'block',
-                                  },
-                                }}
-                              >
-                                <YouTube
-                                  videoId={youtubeVideoId}
-                                  opts={{ width: '100%', height: '100%', playerVars: { rel: 0 } }}
-                                  style={{ width: '100%', height: '100%' }}
+                  {categoryItems.length === 0 ? (
+                    <Typography sx={{ fontSize: 14, color: mutedColor }}>
+                      No {category.label.toLowerCase()} news right now.
+                    </Typography>
+                  ) : (
+                    <>
+                      {/* Featured story: image + list of headlines side by side */}
+                      <Grid container spacing={2.5}>
+                        {featured && (
+                          <Grid item xs={5} sm={5}>
+                            <Box
+                              onClick={() => openDetail(featured?.id, featured?.title)}
+                              sx={{
+                                width: '100%',
+                                height: { xs: 120, sm: 150, md: 175 },
+                                borderRadius: 0.5,
+                                overflow: 'hidden',
+                                bgcolor: '#f0f0f0',
+                                cursor: 'pointer',
+                              }}
+                            >
+                              {isVideo ? (
+                                <video
+                                  src={mediaUrl}
+                                  controls
+                                  preload="metadata"
+                                  onClick={(event) => event.stopPropagation()}
+                                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                                 />
-                              </Box>
-                            ) : (
-                              <Box  
-                                component="img"
-                                src={mediaUrl || 'https://via.placeholder.com/400x300?text=News'}
-                                alt={featured?.title || 'News'}
-                                onError={(event) => {
-                                  event.currentTarget.onerror = null;
-                                  event.currentTarget.src = 'https://via.placeholder.com/400x300?text=News';
-                                }}
-                                sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                              />
-                            )}
-                          </Box>
-                             {/* Featured story title + timestamp, below the image row */}
-                    {featured && (
-                      <Box sx={{ mt: 2 }}>
-                        <Typography
-                          onClick={() => openDetail(featured?.id)}
-                          sx={{
-                            fontFamily: 'Georgia, "Times New Roman", serif',
-                            fontSize: { xs: 14, sm: 16 },
-                            fontWeight: 500,
-                            lineHeight: 1.3,
-                            color: textColor,
-                            cursor: 'pointer',
-                            '&:hover': { color: '#321B6D' },
-                          }}
-                        >
-                          {featured?.title}
-                        </Typography>
-                        {featured?.created_at && (
-                          <Typography sx={{ mt: 1, fontSize: 13, color: mutedColor }}>
-                            {getRelativeTime(featured.created_at)}
-                          </Typography>
-                        )}
-                      </Box>
-                    )}
-                        </Grid>
-                      )}
-                      {secondaryItems.length > 0 && (
-                        <Grid item xs={7} sm={7}>
-                          {secondaryItems.map((item, i) => (
-                            <Box key={item?.id ?? i}>
-                              <Typography
-                                onClick={() => openDetail(item?.id)}
-                                sx={{
-                                  fontFamily: 'Georgia, "Times New Roman", serif',
-                                  fontSize: { xs: 14, sm: 16 },
-                                  fontWeight: 600,
-                                  lineHeight: 1.35,
-                                  color: textColor,
-                                  cursor: 'pointer',
-                                  py: 1.2,
-                                  '&:hover': { color: '#321B6D' },
-                                }}
-                              >
-                                {item?.title}
-                              </Typography>
-                              {i < secondaryItems.length - 1 && (
-                                <Divider sx={{ borderColor }} />
+                              ) : isYouTube && youtubeVideoId ? (
+                                <Box
+                                  onClick={(event) => event.stopPropagation()}
+                                  sx={{
+                                    width: '100%',
+                                    height: '100%',
+                                    '& > div, & iframe': {
+                                      width: '100% !important',
+                                      height: '100% !important',
+                                      display: 'block',
+                                    },
+                                  }}
+                                >
+                                  <YouTube
+                                    videoId={youtubeVideoId}
+                                    opts={{ width: '100%', height: '100%', playerVars: { rel: 0 } }}
+                                    style={{ width: '100%', height: '100%' }}
+                                  />
+                                </Box>
+                              ) : (
+                                <Box
+                                  component="img"
+                                  src={mediaUrl || 'https://via.placeholder.com/400x300?text=News'}
+                                  alt={featured?.title || 'News'}
+                                  onError={(event) => {
+                                    event.currentTarget.onerror = null;
+                                    event.currentTarget.src = 'https://via.placeholder.com/400x300?text=News';
+                                  }}
+                                  sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                />
                               )}
                             </Box>
-                          ))}
-                        </Grid>
-                      )}
+                            {/* Featured story title + timestamp, below the image row */}
+                            {featured && (
+                              <Box sx={{ mt: 2 }}>
+                                <Typography
+                                  onClick={() => openDetail(featured?.id, featured?.title)}
+                                  sx={{
+                                    fontFamily: 'Georgia, "Times New Roman", serif',
+                                    fontSize: { xs: 14, sm: 16 },
+                                    fontWeight: 500,
+                                    lineHeight: 1.3,
+                                    color: textColor,
+                                    cursor: 'pointer',
+                                    '&:hover': { color: '#321B6D' },
+                                  }}
+                                >
+                                  {featured?.title}
+                                </Typography>
+                                {featured?.created_at && (
+                                  <Typography sx={{ mt: 1, fontSize: 13, color: mutedColor }}>
+                                    {getRelativeTime(featured.created_at)}
+                                  </Typography>
+                                )}
+                              </Box>
+                            )}
+                          </Grid>
+                        )}
+                        {secondaryItems.length > 0 && (
+                          <Grid item xs={7} sm={7}>
+                            {secondaryItems.map((item, i) => (
+                              <Box key={item?.id ?? i}>
+                                <Typography
+                                  onClick={() => openDetail(item?.id, item?.title)}
+                                  sx={{
+                                    fontFamily: 'Georgia, "Times New Roman", serif',
+                                    fontSize: { xs: 14, sm: 16 },
+                                    fontWeight: 600,
+                                    lineHeight: 1.35,
+                                    color: textColor,
+                                    cursor: 'pointer',
+                                    py: 1.2,
+                                    '&:hover': { color: '#321B6D' },
+                                  }}
+                                >
+                                  {item?.title}
+                                </Typography>
+                                {i < secondaryItems.length - 1 && (
+                                  <Divider sx={{ borderColor }} />
+                                )}
+                              </Box>
+                            ))}
+                          </Grid>
+                        )}
 
-                    </Grid>
-                  </>
-                )}
-              </Grid>
-            );
-          })}
-        </Grid>
-      )}
-    </Container>
+                      </Grid>
+                    </>
+                  )}
+                </Grid>
+              );
+            })}
+          </Grid>
+        )}
+      </Container>
+    </>
   );
 };
 

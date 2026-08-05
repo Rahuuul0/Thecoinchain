@@ -36,6 +36,7 @@
     "react-fast-marquee": "^1.6.0",
     "react-google-recaptcha": "^2.1.0",
     "react-helmet": "^6.1.0",
+    "react-helmet-async": "^3.0.0",
     "react-hook-form": "^7.43.9",
     "react-html-parser": "^2.0.2",
     "react-phone-number-input": "^3.3.7",

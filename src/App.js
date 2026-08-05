@@ -1,29 +1,32 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import Comman from './Pages/Comman/CommanPages';
-import { fakeBackend } from './_helpers'
-import { alertAtom } from './_state/';
-import { SnackbarProvider } from 'notistack';
-const App = () => {
-   const open = useRecoilValue(alertAtom);
-   // setup fake backend
-   fakeBackend();
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import { useRecoilValue } from "recoil";
+import { SnackbarProvider } from "notistack";
 
-   const loc = window.location || {};
-   return (
-     
+import Comman from "./Pages/Comman/CommanPages";
+import { fakeBackend } from "./_helpers";
+import { alertAtom } from "./_state";
+
+const App = () => {
+  const open = useRecoilValue(alertAtom);
+
+  fakeBackend();
+
+  return (
+    <HelmetProvider>
       <Router>
-         <SnackbarProvider
-            autoHideDuration={1000}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={open}
-         >
-            <Routes>
-               <Route path="*" exact element={<Comman />} />
-            </Routes>
-         </SnackbarProvider>
+        <SnackbarProvider
+          autoHideDuration={1000}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          open={open}
+        >
+          <Routes>
+            <Route path="*" element={<Comman />} />
+          </Routes>
+        </SnackbarProvider>
       </Router>
-   );
+    </HelmetProvider>
+  );
 };
 
 export default App;

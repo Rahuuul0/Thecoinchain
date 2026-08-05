@@ -61,6 +61,7 @@ import FaqDetail from "./FaqDetail";
 import GuidesAndAnalyticsDetail from "./GuidesandAnalyticsDetail";
 import NewsAndPromotionsDetail from "./NewsAndPromotionsDetail";
 import LatestNewsBlogDetail from "./LatestNewsBlogDetail";
+import { RoutesName } from "../../_common/app.constants";
 
 const Customer = () => {
   const auth = useRecoilValue(authAtom);
@@ -102,7 +103,7 @@ const Customer = () => {
           <Route path={`/faq-detail/:page/:title`} element={<FaqDetail />} />
           <Route path={`/guides-and-analytics-detail/:page/:title`} element={<GuidesAndAnalyticsDetail />} />
           <Route path={`/news-and-promotions-detail/:page/:title`} element={<NewsAndPromotionsDetail />} />
-          <Route path={`/blog-detail/:id`} element={<LatestNewsBlogDetail />} />
+          <Route path={RoutesName.Blog_Detail} element={<LatestNewsBlogDetail />} />
           <Route path='*' element={<PageNotFound />} />
           <Route path={`/contact`} element={<Contact />} />
           <Route path={`/market`} exact element={<Market />} />

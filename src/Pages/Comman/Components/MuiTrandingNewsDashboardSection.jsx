@@ -6,6 +6,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { Apis, RoutesName } from '../../../_common/app.constants';
 import { useFetchWrapper } from '../../../_helpers';
 import Bitcoinimg from '../../../../public/assets/coin_img/Code_Generated_Image.png';
+import { Helmet } from "react-helmet-async";
 
 dayjs.extend(relativeTime);
 
@@ -51,9 +52,20 @@ const MuiTrandingNewsDashboardSection = () => {
     fetchTrendingNews();
   }, []);
 
-  const openDetail = (id) => {
+  const slugify = (text = "") =>
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]/g, "");
+
+  const openDetail = (id, title) => {
     if (id !== undefined && id !== null) {
-      navigate(RoutesName.Blog_Detail.replace(':id', String(id)));
+      navigate(
+        RoutesName.Blog_Detail
+          .replace(":id", String(id))
+          .replace(":slug", slugify(title))
+      );
     }
   };
 
@@ -65,176 +77,205 @@ const MuiTrandingNewsDashboardSection = () => {
   const backgroundImage = Bitcoinimg;
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-        maxWidth: 475,
-        ml: { xs: 'auto', md: 0 },
-        mr: 'auto',
-        position: 'relative',
-        overflow: 'hidden',
-        isolation: 'isolate',
-        bgcolor: '#182235',
-        backgroundImage: backgroundImage
-          ? `linear-gradient(125deg, rgba(7, 13, 27, .78), rgba(25, 39, 67, .5)), url(${backgroundImage})`
-          : 'linear-gradient(125deg, #111b2d, #263d65)',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backdropFilter: 'blur(14px)',
-        WebkitBackdropFilter: 'blur(14px)',
-        borderRadius: { xs: '24px', sm: '28px' },
-        px: { xs: 3, sm: 3 },
-        py: { xs: 2.5, sm: 3 },
-        border: '1px solid rgba(255, 255, 255, .28)',
-        boxShadow: '0 16px 38px rgba(0, 0, 0, .36), inset 0 1px 0 rgba(255, 255, 255, .24)',
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1,
-          pb: 1.25,
-        //   borderBottom: '1px solid #d8d8d8',
-        }}
-      >
-        <Typography
-          component="h5"
-          sx={{
-            color: '#fff',
-            fontWeight: 600,
-            letterSpacing: '-.5px',
-            lineHeight: 1.1,
-          }}
-        >
-          Trending news
-        </Typography>
-        <Box
-          component="span"
-          sx={{
-            borderRadius: '999px',
-            bgcolor: 'rgba(169, 237, 240, .92)',
-            color: '#08777d',
-            fontSize: 10,
-            fontWeight: 800,
-            lineHeight: 1,
-            px: 0.8,
-            py: 0.35,
-          }}
-        >
-          LIVE
-        </Box>
-      </Box>
+    <>
+      <Helmet>
+        <title>Trending News | CoinGuru</title>
 
+        <meta
+          name="description"
+          content="Stay updated with the latest trending cryptocurrency news, Bitcoin updates, blockchain developments and market insights on CoinGuru."
+        />
+
+        <meta
+          name="keywords"
+          content="trending crypto news, bitcoin news, blockchain news, latest crypto updates"
+        />
+
+        <link rel="canonical" href={window.location.href} />
+
+        <meta
+          property="og:title"
+          content="Trending News | CoinGuru"
+        />
+
+        <meta
+          property="og:description"
+          content="Latest trending cryptocurrency news and blockchain market updates."
+        />
+
+        <meta property="og:url" content={window.location.href} />
+      </Helmet>
       <Box
         sx={{
-          py: 1,
-          height: 306,
+          width: '100%',
+          maxWidth: 475,
+          ml: { xs: 'auto', md: 0 },
+          mr: 'auto',
+          position: 'relative',
           overflow: 'hidden',
-          '&:hover .scroll-track-1, &:focus-within .scroll-track-1': {
-            animationPlayState: 'paused',
-          },
+          isolation: 'isolate',
+          bgcolor: '#182235',
+          backgroundImage: backgroundImage
+            ? `linear-gradient(125deg, rgba(7, 13, 27, .78), rgba(25, 39, 67, .5)), url(${backgroundImage})`
+            : 'linear-gradient(125deg, #111b2d, #263d65)',
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backdropFilter: 'blur(14px)',
+          WebkitBackdropFilter: 'blur(14px)',
+          borderRadius: { xs: '24px', sm: '28px' },
+          px: { xs: 3, sm: 3 },
+          py: { xs: 2.5, sm: 3 },
+          border: '1px solid rgba(255, 255, 255, .28)',
+          boxShadow: '0 16px 38px rgba(0, 0, 0, .36), inset 0 1px 0 rgba(255, 255, 255, .24)',
         }}
       >
-        {loading ? (
-          <Typography sx={{ py: 3, color: 'rgba(255,255,255,.72)', fontSize: 14, textAlign: 'center' }}>
-            Loading trending news…
-          </Typography>
-        ) : visibleStories.length === 0 ? (
-          <Typography sx={{ py: 3, color: 'rgba(255,255,255,.72)', fontSize: 14, textAlign: 'center' }}>
-            No trending stories available right now.
-          </Typography>
-        ) : (
-          <Box
-            className="scroll-track-1"
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            pb: 1.25,
+            //   borderBottom: '1px solid #d8d8d8',
+          }}
+        >
+          <Typography
+            component="h5"
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              animation:
-                visibleStories.length > 1
-                  ? 'trending-news-scroll-down 20s linear infinite'
-                  : 'none',
-              '@keyframes trending-news-scroll-down': {
-                from: { transform: 'translateY(0)' },
-                to: { transform: 'translateY(-50%)' },
-              },
-              '@media (prefers-reduced-motion: reduce)': {
-                animation: 'none',
-              },
+              color: '#fff',
+              fontWeight: 600,
+              letterSpacing: '-.5px',
+              lineHeight: 1.1,
             }}
           >
-          {scrollingStories.map((item, index) => {
-            const publishedAt = item?.created_at || item?.published_at || item?.date;
-            const timeLabel =
-              publishedAt && dayjs(publishedAt).isValid()
-                ? dayjs(publishedAt).fromNow()
-                : 'Just now';
-
-            return (
-              <Box
-                key={`${item?.id ?? index}-${index}`}
-                role="button"
-                tabIndex={0}
-                onClick={() => openDetail(item?.id)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') openDetail(item?.id);
-                }}
-                sx={{
-                  display: 'grid',
-                  gridTemplateColumns: { xs: '82px minmax(0, 1fr)', sm: '100px minmax(0, 1fr)' },
-                  gap: { xs: 1.4, sm: 2 },
-                  alignItems: 'center',
-                  py: { xs: 1.1, sm: 1.25 },
-                  minHeight: 58,
-                  px: { xs: 1.1, sm: 1.25 },
-                  borderBottom: '1px solid rgba(255,255,255,.22)',
-                  cursor: 'pointer',
-                  transition: 'background-color .2s ease, transform .2s ease',
-                  '&:hover': { bgcolor: 'rgba(255,255,255,.12)', transform: 'translateX(3px)' },
-                  '&:focus-visible': { outline: '2px solid #ff5b39', outlineOffset: '2px' },
-                }}
-              >
-                <Typography sx={{ color: 'rgba(255,255,255,.68)', fontSize: { xs: 12, sm: 13 }, whiteSpace: 'nowrap' }}>
-                  {timeLabel}                                                                                                           
-                </Typography>
-                <Typography
-                  sx={{
-                    color: '#fff',
-                    fontSize: { xs: 15, sm: 16 },
-                    fontWeight: 500,
-                    lineHeight: 1.18,
-                  }}
-                >
-                  {item?.title || 'Latest crypto market update'}
-                </Typography>
-              </Box>
-            );
-          })}
+            Trending news
+          </Typography>
+          <Box
+            component="span"
+            sx={{
+              borderRadius: '999px',
+              bgcolor: 'rgba(169, 237, 240, .92)',
+              color: '#08777d',
+              fontSize: 10,
+              fontWeight: 800,
+              lineHeight: 1,
+              px: 0.8,
+              py: 0.35,
+            }}
+          >
+            LIVE
           </Box>
-        )}
-      </Box>
+        </Box>
 
-      <Box sx={{ pt: 2.5, textAlign: 'center'}}>
-        <Button
-          onClick={() => navigate(RoutesName.Latest_News)}
-          variant="outlined"
+        <Box
           sx={{
-            minWidth: 126,
-            borderRadius: 3,
-            borderColor: '#106ef1',
-            color: '#fff',
-            fontSize: 14,
-            fontWeight: 600,
-            textTransform: 'none',
-            px: 2.5,
-            py: 0.8,
-            '&:hover': { borderColor: '#5da1ff', bgcolor: 'rgba(16,110,241,.25)' },
+            py: 1,
+            height: 306,
+            overflow: 'hidden',
+            '&:hover .scroll-track-1, &:focus-within .scroll-track-1': {
+              animationPlayState: 'paused',
+            },
           }}
         >
-          Top stories
-        </Button>
+          {loading ? (
+            <Typography sx={{ py: 3, color: 'rgba(255,255,255,.72)', fontSize: 14, textAlign: 'center' }}>
+              Loading trending news…
+            </Typography>
+          ) : visibleStories.length === 0 ? (
+            <Typography sx={{ py: 3, color: 'rgba(255,255,255,.72)', fontSize: 14, textAlign: 'center' }}>
+              No trending stories available right now.
+            </Typography>
+          ) : (
+            <Box
+              className="scroll-track-1"
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                animation:
+                  visibleStories.length > 1
+                    ? 'trending-news-scroll-down 20s linear infinite'
+                    : 'none',
+                '@keyframes trending-news-scroll-down': {
+                  from: { transform: 'translateY(0)' },
+                  to: { transform: 'translateY(-50%)' },
+                },
+                '@media (prefers-reduced-motion: reduce)': {
+                  animation: 'none',
+                },
+              }}
+            >
+              {scrollingStories.map((item, index) => {
+                const publishedAt = item?.created_at || item?.published_at || item?.date;
+                const timeLabel =
+                  publishedAt && dayjs(publishedAt).isValid()
+                    ? dayjs(publishedAt).fromNow()
+                    : 'Just now';
+
+                return (
+                  <Box
+                    key={`${item?.id ?? index}-${index}`}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => openDetail(item?.id, item?.title)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') openDetail(item?.id, item?.title);
+                    }}
+                    sx={{
+                      display: 'grid',
+                      gridTemplateColumns: { xs: '82px minmax(0, 1fr)', sm: '100px minmax(0, 1fr)' },
+                      gap: { xs: 1.4, sm: 2 },
+                      alignItems: 'center',
+                      py: { xs: 1.1, sm: 1.25 },
+                      minHeight: 58,
+                      px: { xs: 1.1, sm: 1.25 },
+                      borderBottom: '1px solid rgba(255,255,255,.22)',
+                      cursor: 'pointer',
+                      transition: 'background-color .2s ease, transform .2s ease',
+                      '&:hover': { bgcolor: 'rgba(255,255,255,.12)', transform: 'translateX(3px)' },
+                      '&:focus-visible': { outline: '2px solid #ff5b39', outlineOffset: '2px' },
+                    }}
+                  >
+                    <Typography sx={{ color: 'rgba(255,255,255,.68)', fontSize: { xs: 12, sm: 13 }, whiteSpace: 'nowrap' }}>
+                      {timeLabel}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        color: '#fff',
+                        fontSize: { xs: 15, sm: 16 },
+                        fontWeight: 500,
+                        lineHeight: 1.18,
+                      }}
+                    >
+                      {item?.title || 'Latest crypto market update'}
+                    </Typography>
+                  </Box>
+                );
+              })}
+            </Box>
+          )}
+        </Box>
+
+        <Box sx={{ pt: 2.5, textAlign: 'center' }}>
+          <Button
+            onClick={() => navigate(RoutesName.Latest_News)}
+            variant="outlined"
+            sx={{
+              minWidth: 126,
+              borderRadius: 3,
+              borderColor: '#106ef1',
+              color: '#fff',
+              fontSize: 14,
+              fontWeight: 600,
+              textTransform: 'none',
+              px: 2.5,
+              py: 0.8,
+              '&:hover': { borderColor: '#5da1ff', bgcolor: 'rgba(16,110,241,.25)' },
+            }}
+          >
+            Top stories
+          </Button>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

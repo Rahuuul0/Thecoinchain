@@ -15,6 +15,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { Apis, RoutesName } from '../../_common/app.constants';
 import { useFetchWrapper } from '../../_helpers';
+import { Helmet } from "react-helmet-async";
 
 // ---- Static ticker data (same as MuiCryptoSection) ----
 const cryptoTickerData = [
@@ -143,7 +144,7 @@ const CustomTooltip = styled(({ className, ...props }) => (
 }));
 
 const LatestNewsBlogDetail = () => {
-  const { id } = useParams();
+  const { id, slug } = useParams();
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
   const [blogData, setBlogData] = useState(null);
@@ -270,114 +271,131 @@ const LatestNewsBlogDetail = () => {
   }
 
   const formattedType = (blogData?.type || "")
-  .replace(/_/g, " ")
-  .replace(/\b\w/g, (char) => char.toUpperCase());
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
 
   return (
-    <Box sx={{ backgroundColor: '#F8FAFC', minHeight: '100vh' }}>
-      <Backdrop
-        open={loader}
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+    <>
+      <Helmet>
+        <title>{blogData?.title || "CoinGuru"}</title>
 
-      {/* Crypto Price Marquee  */}
-      <Box sx={{ mt: { xs: '56px', sm: '64px' }, position: 'relative', zIndex: 1 }}>
-        <CryptoTickerMarquee data={cryptoTickerData} />
-      </Box>
+        <meta
+          name="description"
+          content={
+            blogData?.description
+              ?.replace(/<[^>]*>/g, "")
+              ?.substring(0, 160)
+          }
+        />
 
-      <Box sx={{ py: 10 }}>
-        <Box
-          sx={{
-            position: 'fixed',
-            top: { xs: 90, sm: 124 },
-            left: { xs: 16, sm: 24 },
-            zIndex: 10,
-          }}
+        <link rel="canonical" href={window.location.href} />
+      </Helmet>
+
+      <Box sx={{ backgroundColor: '#F8FAFC', minHeight: '100vh' }}>
+        <Backdrop
+          open={loader}
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         >
-          <CustomTooltip title={`Back to ${formattedType}`} placement="right">
-            <IconButton
-              sx={{
-                width: { xs: 36, sm: 40 },
-                height: { xs: 36, sm: 40 },
-                border: '1px solid #d1d5db',
-                borderRadius: '50%',
-                color: '#6b7280',
-                backgroundColor: '#fff',
-                '&:hover': {
-                  bgcolor: '#f3f4f6',
-                  borderColor: '#9ca3af',
-                  color: '#374151',
-                },
-              }}
-              onClick={() => navigate(-1)}
-            >
-              <ArrowBack sx={{ fontSize: { xs: 18, sm: 20 } }} />
-            </IconButton>
-          </CustomTooltip>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+
+        {/* Crypto Price Marquee  */}
+        <Box sx={{ mt: { xs: '56px', sm: '64px' }, position: 'relative', zIndex: 1 }}>
+          <CryptoTickerMarquee data={cryptoTickerData} />
         </Box>
 
-        <Container maxWidth="lg">
+        <Box sx={{ py: 10 }}>
           <Box
             sx={{
-              backgroundColor: '#fff',
-              borderRadius: 4,
-              overflow: 'hidden',
-              boxShadow: '0 18px 50px rgba(15, 23, 42, 0.08)',
+              position: 'fixed',
+              top: { xs: 90, sm: 124 },
+              left: { xs: 16, sm: 24 },
+              zIndex: 10,
             }}
           >
-            <Box sx={{ p: { xs: 3, sm: 4 }, border: '1px solid #E5E7EB', borderRadius: 4, mt: 0 }}>
-              <Box
+            <CustomTooltip title={`Back to ${formattedType}`} placement="right">
+              <IconButton
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  flexWrap: 'wrap',
-                  gap: 1.5,
-                  alignItems: 'center',
-                  mb: 2,
+                  width: { xs: 36, sm: 40 },
+                  height: { xs: 36, sm: 40 },
+                  border: '1px solid #d1d5db',
+                  borderRadius: '50%',
+                  color: '#6b7280',
+                  backgroundColor: '#fff',
+                  '&:hover': {
+                    bgcolor: '#f3f4f6',
+                    borderColor: '#9ca3af',
+                    color: '#374151',
+                  },
                 }}
+                onClick={() => navigate(-1)}
               >
-                <Typography sx={{ color: '#64748B', fontSize: '0.95rem' }}>
-                 Published on {formattedCreatedAt}
-                </Typography>
-              </Box>
-
-              <Box
-                sx={{
-                  color: '#475569',
-                  fontSize: { xs: '1rem', sm: '1.1rem' },
-                  lineHeight: 1.8,
-                  mb: 4,
-                  '& p': {
-                    margin: 0,
-                  },
-                  '& iframe': {
-                    maxWidth: '100%',
-                    aspectRatio: '16/9',
-                    borderRadius: '12px',
-                    margin: '20px 0',
-                  },
-                  '& img': {
-                    maxWidth: '100%',
-                    height: 'auto',
-                    borderRadius: '12px',
-                    margin: '20px 0',
-                  },
-                  '& video': {
-                    maxWidth: '100%',
-                    height: 'auto',
-                    borderRadius: '12px',
-                    margin: '20px 0',
-                  },
-                }}
-                dangerouslySetInnerHTML={{ __html: descriptionHtml }}
-              />
-            </Box>
+                <ArrowBack sx={{ fontSize: { xs: 18, sm: 20 } }} />
+              </IconButton>
+            </CustomTooltip>
           </Box>
-        </Container>
+
+          <Container maxWidth="lg">
+            <Box
+              sx={{
+                backgroundColor: '#fff',
+                borderRadius: 4,
+                overflow: 'hidden',
+                boxShadow: '0 18px 50px rgba(15, 23, 42, 0.08)',
+              }}
+            >
+              <Box sx={{ p: { xs: 3, sm: 4 }, border: '1px solid #E5E7EB', borderRadius: 4, mt: 0 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    flexWrap: 'wrap',
+                    gap: 1.5,
+                    alignItems: 'center',
+                    mb: 2,
+                  }}
+                >
+                  <Typography sx={{ color: '#64748B', fontSize: '0.95rem' }}>
+                    Published on {formattedCreatedAt}
+                  </Typography>
+                </Box>
+
+                <Box
+                  sx={{
+                    color: '#475569',
+                    fontSize: { xs: '1rem', sm: '1.1rem' },
+                    lineHeight: 1.8,
+                    mb: 4,
+                    '& p': {
+                      margin: 0,
+                    },
+                    '& iframe': {
+                      maxWidth: '100%',
+                      aspectRatio: '16/9',
+                      borderRadius: '12px',
+                      margin: '20px 0',
+                    },
+                    '& img': {
+                      maxWidth: '100%',
+                      height: 'auto',
+                      borderRadius: '12px',
+                      margin: '20px 0',
+                    },
+                    '& video': {
+                      maxWidth: '100%',
+                      height: 'auto',
+                      borderRadius: '12px',
+                      margin: '20px 0',
+                    },
+                  }}
+                  dangerouslySetInnerHTML={{ __html: descriptionHtml }}
+                />
+              </Box>
+            </Box>
+          </Container>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

@@ -325,8 +325,16 @@ const MuiCryptoSection = () => {
     contentTypeConfig[contentKey] || contentTypeConfig['latest-news'];
 
   const headingText = currentContentConfig.heading;
-  const getBlogDetailRoute = (id) =>
-    RoutesName.Blog_Detail.replace(':id', String(id));
+  const slugify = (text = "") =>
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]/g, "");
+  const getBlogDetailRoute = (id, title) =>
+    RoutesName.Blog_Detail
+      .replace(":id", id)
+      .replace(":slug", slugify(title));
   const getMediaUrl = (mediaPath) => {
     if (!mediaPath) {
       return '';
@@ -563,7 +571,12 @@ const MuiCryptoSection = () => {
                   cursor: 'pointer',
                 }}
                 onClick={() =>
-                  history(getBlogDetailRoute(cryptoNewsData?.data?.[0]?.id))
+                  history(
+                    getBlogDetailRoute(
+                      cryptoNewsData?.data?.[0]?.id,
+                      cryptoNewsData?.data?.[0]?.title
+                    )
+                  )
                 }
               >
                 {cryptoNewsData?.data?.[0]?.media_type === 'youtube-link' ? (
@@ -629,7 +642,12 @@ const MuiCryptoSection = () => {
                 className="website-all-bottom-section-header"
                 sx={{ cursor: 'pointer', pt: 0 }}
                 onClick={() =>
-                  history(getBlogDetailRoute(cryptoNewsData?.data?.[0]?.id))
+                  history(
+                    getBlogDetailRoute(
+                      cryptoNewsData?.data?.[0]?.id,
+                      cryptoNewsData?.data?.[0]?.title
+                    )
+                  )
                 }
               >
                 <Typography
@@ -684,7 +702,9 @@ const MuiCryptoSection = () => {
                     borderRadius: 3,
                     cursor: 'pointer',
                   }}
-                  onClick={() => history(getBlogDetailRoute(item.id))}
+                  onClick={() =>
+                    history(getBlogDetailRoute(item.id, item.title))
+                  }
                 >
                   {item?.media_type === 'youtube-link' ? (
                     <CardMedia component="div">
@@ -795,7 +815,7 @@ const MuiCryptoSection = () => {
                               },
                             }}
                             onClick={() =>
-                              history(getBlogDetailRoute(item.id))
+                              history(getBlogDetailRoute(item.id, item.title))
                             }
                           >
                             {item.media_type === 'youtube-link' ? (

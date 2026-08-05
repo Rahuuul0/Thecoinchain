@@ -224,7 +224,7 @@ const MuiPressReleaseDashboardSection = () => {
                           WebkitLineClamp: 2,
                           WebkitBoxOrient: 'vertical',
                           overflow: 'hidden',
-                          '.MuiCard-root:hover &': { color: '#321B6D' },
+                          '.MuiCard-root:hover &': { color: '#323232' }
                         }}
                       >
                         {item?.title}

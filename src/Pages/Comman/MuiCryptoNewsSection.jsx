@@ -22,6 +22,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import dayjs from 'dayjs';
 import { Apis, RoutesName } from '../../_common/app.constants';
 import { useFetchWrapper } from '../../_helpers';
+import { switchDarkModeAtom } from '../../_state';
+import { useRecoilValue } from 'recoil';
 
 // ---- Static ticker data (screenshot ke mutabik) ----
 const cryptoTickerData = [
@@ -308,6 +310,7 @@ const MuiCryptoSection = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [loader, setLoader] = useState(false);
   const location = useLocation();
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
   const history = useNavigate();
   const fetchWrapper = useFetchWrapper();
   const currentSlug = location.pathname.split('/').filter(Boolean).pop() || '';
@@ -640,7 +643,7 @@ const MuiCryptoSection = () => {
 
               <CardContent
                 className="website-all-bottom-section-header"
-                sx={{ cursor: 'pointer', pt: 0 }}
+                sx={{ cursor: 'pointer', pl: 0, }}
                 onClick={() =>
                   history(
                     getBlogDetailRoute(
@@ -653,7 +656,7 @@ const MuiCryptoSection = () => {
                 <Typography
                   variant="h4"
                   gutterBottom
-                  sx={{ color: 'black', fontWeight: 'bold' }}
+                  sx={{ color: 'black', fontWeight: 'bold',color: isDarkMode ? "#fff" : "#000000"}}
                 >
                   {cryptoNewsData?.data?.[0]?.title || 'Latest Crypto Title'}
                 </Typography>
@@ -669,7 +672,7 @@ const MuiCryptoSection = () => {
             className="website-all-right-top-cards-section"
             sx={{
               width: isMobile ? '100%' : '290px',
-              maxHeight: { lg: '90vh', md: '37vh', sm: '37vh', xs: 'auto' },
+              maxHeight: { lg: '80vh', md: '37vh', sm: '37vh', xs: 'auto' },
               overflowY: 'auto',
               mt: isMobile ? 0 : '55px',
               pr: 1,
@@ -699,7 +702,7 @@ const MuiCryptoSection = () => {
                   sx={{
                     border: '1px solid #e2e2e2',
                     mb: 2,
-                    borderRadius: 3,
+                    borderRadius: "16px",
                     cursor: 'pointer',
                   }}
                   onClick={() =>
@@ -786,12 +789,12 @@ const MuiCryptoSection = () => {
         </Box>
 
         {/* Bottom Section - Remaining Cards */}
-        <Box className="website-all-bottom-cards-section">
+        <Box className="website-all-bottom-cards-section" sx={{ mt: { xs: 3, mt: 6 } }}>
           {remainingItems.length > 0 && (
             <ThemeProvider theme={theme}>
               <Box
                 className="website-all-bottom-cards-container"
-                sx={{ bgcolor: 'background.default', Height: '100%', pb: 2 }}
+                sx={{ bgcolor: isDarkMode ? "#000" : "#ffffff", Height: '100%', pb: 2 }}
               >
                 <Container maxWidth="lg">
                   <Grid container spacing={3}>
@@ -805,7 +808,8 @@ const MuiCryptoSection = () => {
                               height: 370,
                               position: 'relative',
                               overflow: 'hidden',
-                              borderRadius: 3,
+                              borderRadius: "16px",
+                              bgcolor: isDarkMode ? "#ffffff" : "#ffffff",
                               cursor: 'pointer',
                               transition:
                                 'transform 0.3s ease, box-shadow 0.3s ease',
@@ -847,6 +851,7 @@ const MuiCryptoSection = () => {
                                 style={{
                                   width: '100%',
                                   height: '200px',
+                                  borderRadius: '12px',
                                   objectFit: 'cover',
                                 }}
                               />
@@ -859,6 +864,7 @@ const MuiCryptoSection = () => {
                                   width: '100%',
                                   height: '200px',
                                   objectFit: 'cover',
+                                  borderRadius: '12px',
                                   filter: 'blur(8px)',
                                   transition: 'filter 0.3s ease-out',
                                   '&.loaded': {

@@ -141,7 +141,7 @@ const MuiLatestNewsDashboardSection = () => {
                     onClick={() => openDetail(item?.id, item?.title)}
                     sx={{
                       height: '100%',
-                      borderRadius: 3,
+                      borderRadius: '16px',
                       overflow: 'hidden',
                       bgcolor: '#ffffff',
                       border: '1px solid #ececec',
@@ -158,7 +158,7 @@ const MuiLatestNewsDashboardSection = () => {
                       },
                     }}
                   >
-                    <Box sx={{ height: { xs: 230, sm: 260, md: 360 }, overflow: 'hidden', bgcolor: '#f3f3f3' }}>
+                    <Box sx={{ height: { xs: 230, sm: 260, md: 260 }, overflow: 'hidden', bgcolor: '#f3f3f3' }}>
                       {isVideo ? (
                         <video
                           src={mediaUrl}
@@ -216,7 +216,7 @@ const MuiLatestNewsDashboardSection = () => {
                           lineHeight: 1.35,
                           cursor: 'pointer',
                           transition: 'color 0.2s ease',
-                          '.MuiCard-root:hover &': { color: '#321B6D' },
+                          '.MuiCard-root:hover &': { color: '#323232' },
                         }}
                       >
                         {item?.title}

@@ -16,6 +16,8 @@ import dayjs from 'dayjs';
 import { Apis, RoutesName } from '../../_common/app.constants';
 import { useFetchWrapper } from '../../_helpers';
 import { Helmet } from "react-helmet-async";
+import { switchDarkModeAtom } from '../../_state';
+import { useRecoilValue } from 'recoil';
 
 // ---- Static ticker data (same as MuiCryptoSection) ----
 const cryptoTickerData = [
@@ -149,6 +151,7 @@ const LatestNewsBlogDetail = () => {
   const fetchWrapper = useFetchWrapper();
   const [blogData, setBlogData] = useState(null);
   const [loader, setLoader] = useState(false);
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -291,7 +294,7 @@ const LatestNewsBlogDetail = () => {
         <link rel="canonical" href={window.location.href} />
       </Helmet>
 
-      <Box sx={{ backgroundColor: '#F8FAFC', minHeight: '100vh' }}>
+      <Box sx={{ backgroundColor:isDarkMode ? "#000" : "#fff", minHeight: '100vh' ,}}>
         <Backdrop
           open={loader}
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

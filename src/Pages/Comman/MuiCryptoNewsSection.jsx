@@ -472,6 +472,35 @@ const MuiCryptoSection = () => {
 
   return (
     <Box className="website-all-crypto-section">
+      <Box
+        sx={{
+          position: 'fixed',
+          top: { xs: 90, sm: 124 },
+          left: { xs: 16, sm: 24 },
+          zIndex: 10,
+        }}
+      >
+        <CustomTooltip title="Back" placement="right">
+          <IconButton
+            sx={{
+              width: { xs: 36, sm: 40 },
+              height: { xs: 36, sm: 40 },
+              border: '1px solid #d1d5db',
+              borderRadius: '50%',
+              color: '#6b7280',
+              backgroundColor: '#fff',
+              '&:hover': {
+                bgcolor: '#f3f4f6',
+                borderColor: '#9ca3af',
+                color: '#374151',
+              },
+            }}
+            onClick={() => window.history.back()}
+          >
+            <ArrowBack sx={{ fontSize: { xs: 18, sm: 20 } }} />
+          </IconButton>
+        </CustomTooltip>
+      </Box>
       <Backdrop
         className="website-all-backdrop-loader"
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

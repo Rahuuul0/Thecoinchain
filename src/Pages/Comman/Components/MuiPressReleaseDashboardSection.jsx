@@ -70,8 +70,10 @@ const MuiPressReleaseDashboardSection = () => {
     text
       .toLowerCase()
       .trim()
-      .replace(/\s+/g, "-")
-      .replace(/[^\w-]/g, "");
+      .replace(/[^\w\s-]/g, "")
+      .split(/\s+/)
+      .slice(0, 6)
+      .join("-");
 
   const openDetail = (id, title) => {
     if (id !== undefined && id !== null) {
@@ -142,7 +144,7 @@ const MuiPressReleaseDashboardSection = () => {
               return (
                 <Grid item xs={6} sm={4} md={3} key={item?.id}>
                   <Card
-                   onClick={() => openDetail(item?.id, item?.title)}
+                    onClick={() => openDetail(item?.id, item?.title)}
                     sx={{
                       height: '100%',
                       borderRadius: 2,

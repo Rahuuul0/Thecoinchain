@@ -70,8 +70,10 @@ const MuiLatestNewsDashboardSection = () => {
     text
       .toLowerCase()
       .trim()
-      .replace(/\s+/g, "-")
-      .replace(/[^\w-]/g, "");
+      .replace(/[^\w\s-]/g, "")
+      .split(/\s+/)
+      .slice(0, 6)
+      .join("-");
 
   const openDetail = (id, title) => {
     if (id !== undefined && id !== null) {

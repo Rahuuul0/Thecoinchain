@@ -332,8 +332,11 @@ const MuiCryptoSection = () => {
     text
       .toLowerCase()
       .trim()
-      .replace(/\s+/g, "-")
-      .replace(/[^\w-]/g, "");
+      .replace(/[^\w\s-]/g, "")
+      .split(/\s+/)
+      .slice(0, 6) // sirf pehle 6 words
+      .join("-");
+
   const getBlogDetailRoute = (id, title) =>
     RoutesName.Blog_Detail
       .replace(":id", id)
@@ -656,7 +659,7 @@ const MuiCryptoSection = () => {
                 <Typography
                   variant="h4"
                   gutterBottom
-                  sx={{ color: 'black', fontWeight: 'bold',color: isDarkMode ? "#fff" : "#000000"}}
+                  sx={{ color: 'black', fontWeight: 'bold', color: isDarkMode ? "#fff" : "#000000" }}
                 >
                   {cryptoNewsData?.data?.[0]?.title || 'Latest Crypto Title'}
                 </Typography>

@@ -273,6 +273,14 @@ const LatestNewsBlogDetail = () => {
     );
   }
 
+  const metaDescription = blogData?.description
+    ? blogData.description
+      .replace(/<[^>]+>/g, "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 160)
+    : "Coin Guru";
+
   const formattedType = (blogData?.type || "")
     .replace(/_/g, " ")
     .replace(/\b\w/g, (char) => char.toUpperCase());
@@ -283,18 +291,15 @@ const LatestNewsBlogDetail = () => {
         <title>{blogData?.title || "CoinGuru"}</title>
 
         <meta
+          key="description"
           name="description"
-          content={
-            blogData?.description
-              ?.replace(/<[^>]*>/g, "")
-              ?.substring(0, 160)
-          }
+          content={metaDescription}
         />
 
         <link rel="canonical" href={window.location.href} />
       </Helmet>
 
-      <Box sx={{ backgroundColor:isDarkMode ? "#000" : "#fff", minHeight: '100vh' ,}}>
+      <Box sx={{ backgroundColor: isDarkMode ? "#000" : "#fff", minHeight: '100vh', }}>
         <Backdrop
           open={loader}
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

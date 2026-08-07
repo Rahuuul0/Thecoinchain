@@ -258,13 +258,7 @@ const CryptoTickerMarquee = ({ data }) => {
 };
 
 // ---- Reusable Profile (Avatar + Name) row ----
-// Isko har card (featured / top 4 / bottom) me use kiya gaya hai.
-// Avatar thumbnail/media ke bottom edge par "overlap" karta hai (jaisa reference
-// screenshot me hai) - upar half image ke andar, neeche half white content area me.
-// Abhi ke liye agar item me author_name / author_image nahi hai to static fallback data
-// (STATIC_PROFILE_NAMES / STATIC_PROFILE_AVATARS) use hoga, taake future me jab
-// backend se real author data aaye to ye automatically wahi dikhayega — extra
-// code change ki zaroorat nahi padegi.
+
 const ProfileBadge = ({ name, avatarUrl, size = 56, ringColor = '#3B82F6' }) => {
   return (
     <Box
@@ -334,7 +328,7 @@ const MuiCryptoSection = () => {
       .trim()
       .replace(/[^\w\s-]/g, "")
       .split(/\s+/)
-      .slice(0, 6) // sirf pehle 6 words
+      .slice(0, 6) 
       .join("-");
 
   const getBlogDetailRoute = (id, title) =>

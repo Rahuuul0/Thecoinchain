@@ -74,7 +74,6 @@ const MuiPressReleaseDashboardSection = () => {
       .split(/\s+/)
       .slice(0, 6)
       .join("-");
-      
 
   const openDetail = (id, title) => {
     if (id !== undefined && id !== null) {

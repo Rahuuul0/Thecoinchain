@@ -572,7 +572,7 @@ const MuiCryptoSection = () => {
             <Typography
               variant="h4"
               gutterBottom
-              sx={{ color: 'black', fontWeight: 'bold' }}
+              sx={{ color: isDarkMode ? '#fff' : '#000000', fontWeight: 'bold' }}
             >
               {headingText}
             </Typography>

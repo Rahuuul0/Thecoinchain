@@ -224,7 +224,7 @@ const MuiTrandingNewsDashboardSection = () => {
                     sx={{
                       display: 'grid',
                       gridTemplateColumns: { xs: '82px minmax(0, 1fr)', sm: '100px minmax(0, 1fr)' },
-                      gap: { xs: 1.4, sm: 2 },
+                      gap: { xs: '53px', sm: '32px' },
                       alignItems: 'center',
                       py: { xs: 1.1, sm: 1.25 },
                       minHeight: 58,

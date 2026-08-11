@@ -259,13 +259,13 @@ const CryptoTickerMarquee = ({ data }) => {
 
 // ---- Reusable Profile (Avatar + Name) row ----
 
-const ProfileBadge = ({ name, avatarUrl, size = 56, ringColor = '#3B82F6' }) => {
+const ProfileBadge = ({ name, avatarUrl, size = 56, ringColor = '#5602a5' }) => {
   return (
     <Box
       className="website-all-card-profile-badge"
       sx={{
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-end',
         gap: 1.5,
         mt: `-${size / 2}px`,
         ml: 2,
@@ -800,7 +800,10 @@ const MuiCryptoSection = () => {
                   )}
 
                   <CardContent className="website-all-right-top-card-content" sx={{ pt: 0 }}>
-                    <Typography variant="subtitle1" fontWeight={600}>
+                    <Typography variant="subtitle1" fontWeight={600} sx={{display: '-webkit-box',
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',}}>
                       {item.title || 'Untitled'}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
@@ -918,6 +921,10 @@ const MuiCryptoSection = () => {
                                   fontWeight: 600,
                                   fontSize: '1.25rem',
                                   lineHeight: 1.3,
+                                  display: '-webkit-box',
+                                  WebkitLineClamp: 3,
+                                  WebkitBoxOrient: 'vertical',
+                                  overflow: 'hidden',
                                   mb: 1,
                                 }}
                               >

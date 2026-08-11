@@ -70,6 +70,7 @@ export const RoutesName = {
   Finance: "/finance",
   policy: "/policy",
   tech: "/tech",
+  Trending_News: "/trending-news",
 
 };
 

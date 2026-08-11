@@ -1482,9 +1482,9 @@ const Home = () => {
                 </Stack>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={7} md={7}>
+            {/* <Grid item xs={12} sm={7} md={7}>
               <img className="app-store-img" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[1]?.image}`} />
-            </Grid>
+            </Grid> */}
 
           </Grid>
         </Box>

@@ -180,6 +180,11 @@ const contentTypeConfig = {
     heading: 'Tech',
     label: 'Tech',
   },
+'trending-news': {
+  type: 'trending_news',
+  heading: 'Trending News',
+  label: 'Trending News',
+}
 };
 
 // Helper function to extract YouTube video ID from any URL format

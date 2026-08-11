@@ -39,7 +39,7 @@ const MuiTrandingNewsDashboardSection = () => {
   useEffect(() => {
     const fetchTrendingNews = async () => {
       try {
-        const response = await fetchWrapper.get(Apis.All_Content('latest_news'));
+        const response = await fetchWrapper.get(Apis.All_Content('trending_news'));
         setNews(getNewsItems(response));
       } catch (error) {
         console.error('Unable to fetch trending news:', error);
@@ -258,7 +258,7 @@ const MuiTrandingNewsDashboardSection = () => {
 
         <Box sx={{ pt: 2.5, textAlign: 'center' }}>
           <Button
-            onClick={() => navigate(RoutesName.Latest_News)}
+            onClick={() => navigate(RoutesName.Trending_News)}
             variant="outlined"
             sx={{
               minWidth: 126,

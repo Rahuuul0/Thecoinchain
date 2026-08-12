@@ -273,13 +273,13 @@ const LatestNewsBlogDetail = () => {
     );
   }
 
-  const metaDescription = blogData?.description
-    ? blogData.description
-      .replace(/<[^>]+>/g, "")
-      .replace(/\s+/g, " ")
-      .trim()
-      .slice(0, 160)
-    : "Coin Guru";
+const metaDescription = blogData?.meta_description
+  ? blogData.meta_description
+  : blogData?.description
+      ?.replace(/<[^>]+>/g, "")
+      ?.replace(/\s+/g, " ")
+      ?.trim()
+      ?.slice(0, 159) || "Coin Guru";
 
   const formattedType = (blogData?.type || "")
     .replace(/_/g, " ")
@@ -288,12 +288,17 @@ const LatestNewsBlogDetail = () => {
   return (
     <>
       <Helmet>
-        <title>{blogData?.title || "CoinGuru"}</title>
+        <title>{blogData?.meta_title || blogData?.title || "CoinGuru"}</title>
 
         <meta
           key="description"
           name="description"
           content={metaDescription}
+        />
+
+        <meta
+          name="keywords"
+          content={blogData?.meta_keywords || "Coin Guru"}
         />
 
         <link rel="canonical" href={window.location.href} />

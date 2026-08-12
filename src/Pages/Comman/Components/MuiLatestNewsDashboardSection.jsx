@@ -225,7 +225,7 @@ const MuiLatestNewsDashboardSection = () => {
                       </Typography>
                       {item?.created_at && (
                         <Typography sx={{ mt: 2, fontSize: 14, color: '#808080', fontWeight: 600 }}>
-                          {dayjs(item.created_at).format('MMM DD, YYYY')}
+                          {dayjs(item.created_at).format('MMM DD, YYYY hh:mm A')}
                         </Typography>
                       )}
                     </Box>

@@ -180,11 +180,11 @@ const contentTypeConfig = {
     heading: 'Tech',
     label: 'Tech',
   },
-'trending-news': {
-  type: 'trending_news',
-  heading: 'Trending News',
-  label: 'Trending News',
-}
+  'trending-news': {
+    type: 'trending_news',
+    heading: 'Trending News',
+    label: 'Trending News',
+  }
 };
 
 // Helper function to extract YouTube video ID from any URL format
@@ -294,10 +294,10 @@ const ProfileBadge = ({ name, avatarUrl, size = 56, ringColor = '#5602a5' }) => 
         sx={{
           fontSize: '14px',
           fontWeight: 500,
-          color: '#374151',
+          color: '#7d7e80',
         }}
       >
-        Profile Name: <strong>{name}</strong>
+        <strong>{name}</strong>
       </Typography>
     </Box>
   );
@@ -333,7 +333,7 @@ const MuiCryptoSection = () => {
       .trim()
       .replace(/[^\w\s-]/g, "")
       .split(/\s+/)
-      .slice(0, 6) 
+      .slice(0, 6)
       .join("-");
 
   const getBlogDetailRoute = (id, title) =>
@@ -805,10 +805,12 @@ const MuiCryptoSection = () => {
                   )}
 
                   <CardContent className="website-all-right-top-card-content" sx={{ pt: 0 }}>
-                    <Typography variant="subtitle1" fontWeight={600} sx={{display: '-webkit-box',
-                          WebkitLineClamp: 3,
-                          WebkitBoxOrient: 'vertical',
-                          overflow: 'hidden',}}>
+                    <Typography variant="subtitle1" fontWeight={600} sx={{
+                      display: '-webkit-box',
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                    }}>
                       {item.title || 'Untitled'}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>

@@ -233,7 +233,7 @@ const MuiPressReleaseDashboardSection = () => {
                       </Typography>
                       {item?.created_at && (
                         <Typography sx={{ mt: 1, fontSize: 11.5, color: '#808080', fontWeight: 600 }}>
-                          {dayjs(item.created_at).format('MMM DD, YYYY')}
+                          {dayjs(item.created_at).format('MMM DD, YYYY hh:mm A')}
                         </Typography>
                       )}
                     </Box>

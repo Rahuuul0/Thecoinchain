@@ -82,6 +82,7 @@ import MuiLatestNewsDashboard from "../../../Comman/Components/MuiLatestNewsDash
 import MuiPressReleaseDashboard from "../../../Comman/Components/MuiPressReleaseDashboardSection";
 import MuiBussinesNewsDashboard from "../../../Comman/Components/MuiBussinesNewsDashboardSection";
 import MuiResearchReportsDashboard from "../../../Comman/Components/MuiResearchReportsDashboardSection";
+import MuiPricePredictionDashboardSection from "../../../Comman/Components/MuiPricePredictionDashboardSection";
 import MuiTrendingNewsDashboardSection from "../MuiTrandingNewsDashboardSection";
 import { useFetchWrapper } from "../../../../_helpers";
 import { Helmet } from "react-helmet-async";
@@ -1482,9 +1483,10 @@ const Home = () => {
                 </Stack>
               </Box>
             </Grid>
-            {/* <Grid item xs={12} sm={7} md={7}>
-              <img className="app-store-img" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[1]?.image}`} />
-            </Grid> */}
+            <Grid item xs={12} sm={7} md={7}>
+            <MuiPricePredictionDashboardSection/>
+              {/* <img className="app-store-img" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[1]?.image}`} /> */}
+            </Grid>
 
           </Grid>
         </Box>

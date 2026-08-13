@@ -19,6 +19,7 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import ChartUp from "../../../public/assets/images/chart-up.svg";
+import LiveSparkline from "./Components/LiveSparkline";
 import DollarImg from "../../../public/assets/images/icons/dollar.svg";
 import FavoriteIc from "../../../public/assets/images/icons/star.svg";
 import FavoritefilledIc from "../../../public/assets/images/icons/star-filled.svg";
@@ -37,16 +38,13 @@ import { Chart as ChartJS, registerables } from "chart.js";
 import {
   useCoinActions,
   subscriptionActions,
-  quotesHistoricalActions,
 } from "../../_actions";
 import {
   coinsAtom,
   userAtom,
-  selectedCategoryAtom,
   forecastSubAtom,
   authAtom,
   loaderAtom,
-  historicalAtom,
   predictionAtom,
 } from "../../_state";
 import LoadingImg from "../../../public/assets/images/icons/loading.svg";
@@ -75,6 +73,9 @@ function paginator(items, current_page, per_page_items) {
   };
 }
 
+const formatPercentage = (value) =>
+  Number.isFinite(value) ? `${value.toFixed(2)}%` : "—";
+
 const CryptoTable = (props) => {
   const coinActions = useCoinActions();
   const coinsList = useRecoilValue(coinsAtom);
@@ -92,13 +93,9 @@ const CryptoTable = (props) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
 
-  const [intervalCount, setIntervalCount] = useState(0);
-  const selectedCat = useRecoilValue(selectedCategoryAtom);
   const subscriptionAction = subscriptionActions();
   const subscriptionDetails = useRecoilValue(forecastSubAtom);
   const [loader, setLoader] = useRecoilState(loaderAtom);
-  const historicalAction = quotesHistoricalActions();
-  const historicalData = useRecoilValue(historicalAtom);
   const [timeFrame, setTimeFrame] = useState("1h");
   const date = new Date();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -126,13 +123,7 @@ const CryptoTable = (props) => {
     setChartData("");
   };
 
-  const chartHistory = async (id, time) => {
-    const response = await historicalAction.add(id?.symbol, time);
-    console.warn(response);
-  };
-
-  const handleChartOpen = async (id) => {
-    chartHistory(id, "1h");
+  const handleChartOpen = (id) => {
     setChartOpen(true);
     setChartData(coinsList.filter((item) => item.id === id.id));
     setTimeFrame("1h");
@@ -140,7 +131,6 @@ const CryptoTable = (props) => {
 
   const handleTimeFrame = (event) => {
     setTimeFrame(event.target.value);
-    chartHistory(chartData[0], event.target.value);
   };
 
   const handleChartClose = (id) => {
@@ -173,24 +163,17 @@ const CryptoTable = (props) => {
     const ress = await coinActions.latestListing(param);
   };
 
-  const getLatestCategory = async () => {
-    const ress = await coinActions.categoriesList(props.selectedCat);
-  };
-
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIntervalCount(intervalCount + 1);
-      if (location.pathname === "/prediction-dashboard")
-        coinActions.predictionListing();
-      else
-        props.selectedCat
-          ? props.selectedCat === 0
-            ? getLastestListing()
-            : getLatestCategory(selectedCat)
-          : getLastestListing();
-    }, 63000);
+    const refreshMarkets = () => {
+      if (location.pathname === "/prediction-dashboard") {
+        return coinActions.predictionListing();
+      }
+      return getLastestListing();
+    };
+
+    const interval = setInterval(refreshMarkets, 60000);
     return () => clearInterval(interval);
-  }, [intervalCount, selectedCat, subscriptionDetails]);
+  }, [location.pathname, subscriptionDetails]);
 
   useEffect(() => {
     if (location.pathname === "/prediction-dashboard") {
@@ -200,24 +183,11 @@ const CryptoTable = (props) => {
     }
   }, [])
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setIntervalCount(intervalCount + 1);
-
-  //     if (
-  //       props.selectedCat !== 0 &&
-  //       location.pathname !== "prediction-dashboard"
-  //     )
-  //       coinActions.coinListbByCategoty(props.selectedCat);
-  //   }, 30000);
-  //   return () => clearInterval(interval);
-  // }, [intervalCount, selectedCat]);
-
   const data = {
-    labels: historicalData.time,
+    labels: chartData[0]?.sparkline?.map((_, index) => index + 1) || [],
     datasets: [
       {
-        data: historicalData.priceQuote,
+        data: chartData[0]?.sparkline || [],
         fill: true,
         backgroundColor: "rgba(75,192,192,0.2)",
         borderColor: "#54BB7A",
@@ -273,12 +243,10 @@ const CryptoTable = (props) => {
                     <TableCell align="right">Price</TableCell>
                     {location.pathname === "/prediction-dashboard" ? (
                       <>
-                        <TableCell align="right">acc % </TableCell>
-                        {/* <TableCell align="right">15m %</TableCell> */}
-                        <TableCell align="right">1h %</TableCell>
-                        <TableCell align="right">4h %</TableCell>
-                        <TableCell align="right">1d %</TableCell>
-                        <TableCell align="right">1w %</TableCell>
+                        <TableCell align="right">1h Change</TableCell>
+                        <TableCell align="right">24h Change</TableCell>
+                        <TableCell align="right">7d Change</TableCell>
+                        <TableCell align="right">Volume (24h)</TableCell>
                       </>
                     ) : location.pathname === "/market" ? (
                       <>
@@ -334,22 +302,10 @@ const CryptoTable = (props) => {
                           )} */}
                           {index + 1}
                         </TableCell>
-                        <TableCell
-                          onClick={() =>
-                            location.pathname === "/prediction-dashboard"
-                              ? handleOpen(item.id)
-                              : void 0
-                          }
-                          sx={{
-                            cursor:
-                              location.pathname === "/prediction-dashboard"
-                                ? "pointer"
-                                : "default",
-                          }}
-                        >
+                        <TableCell>
                           <div className="crypto-name">
                             <img
-                              src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol?.toLowerCase()}.png`}
+                              src={item.image}
                               alt={item.symbol}
                               width="33px"
                             />
@@ -363,7 +319,13 @@ const CryptoTable = (props) => {
                             minimumFractionDigits: 2,
                           })}
                         </TableCell>
-                        {location.pathname !== "/prediction-dashboard" ? (
+                        {location.pathname === "/prediction-dashboard" ? (
+                          <TableCell align="right">
+                            <span className={item.percent_change_1h < 0 ? "down" : "up"}>
+                              {formatPercentage(item.percent_change_1h)}
+                            </span>
+                          </TableCell>
+                        ) : (
                           <TableCell align="right">
                             <span
                               className={
@@ -376,17 +338,27 @@ const CryptoTable = (props) => {
                               %
                             </span>
                           </TableCell>
-                        ) : item.ct_accuracy ? (
-                          <TableCell align="right" sx={{ color: "#e9b847" }}>
-                            <span>{item.ct_accuracy?.toFixed(2)}%</span>
-                          </TableCell>
-                        ) : (
-                          <TableCell align="right" sx={{ color: "#e9b847" }}>
-                            -
-                          </TableCell>
                         )}
 
-                        {location.pathname === "/prediction-dashboard" &&
+                        {location.pathname === "/prediction-dashboard" && (
+                          <>
+                            <TableCell align="right">
+                              <span className={item.percent_change_24h < 0 ? "down" : "up"}>
+                                {formatPercentage(item.percent_change_24h)}
+                              </span>
+                            </TableCell>
+                            <TableCell align="right">
+                              <span className={item.percent_change_7d < 0 ? "down" : "up"}>
+                                {formatPercentage(item.percent_change_7d)}
+                              </span>
+                            </TableCell>
+                            <TableCell align="right">
+                              {item.volume_24h?.toLocaleString() || "—"}
+                            </TableCell>
+                          </>
+                        )}
+
+                        {false && location.pathname === "/prediction-dashboard" &&
                           (subscriptionDetails.status === "expired" ||
                             !item.ct_hours_4_current) ? (
                           <>
@@ -406,7 +378,7 @@ const CryptoTable = (props) => {
                               <HttpsIcon />
                             </TableCell>
                           </>
-                        ) : location.pathname === "/prediction-dashboard" &&
+                        ) : false && location.pathname === "/prediction-dashboard" &&
                           subscriptionDetails.status === "running" ? (
                           <>
                             {/* <TableCell align="right">
@@ -525,11 +497,18 @@ const CryptoTable = (props) => {
                           ""
                         )}
 
-                        {subscriptionDetails.status === "running" &&
+                        <TableCell
+                          align="right"
+                          onClick={() => handleChartOpen(item)}
+                          sx={{ cursor: "pointer" }}
+                        >
+                          <LiveSparkline prices={item.sparkline} change={item.percent_change_24h} />
+                        </TableCell>
+                        {false && subscriptionDetails.status === "running" &&
                           location.pathname !== "/" ? (
                           <TableCell align="right" sx={{ cursor: "pointer" }}>
                             <img
-                              src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
+                              src={ChartUp}
                               alt="chart"
                               height="33px"
                               style={{
@@ -541,7 +520,7 @@ const CryptoTable = (props) => {
                               onClick={() => handleChartOpen(item)}
                             />
                           </TableCell>
-                        ) : subscriptionDetails.status === "expired" &&
+                        ) : false && subscriptionDetails.status === "expired" &&
                           location.pathname !== "/" ? (
                           <TableCell
                             align="right"
@@ -550,7 +529,7 @@ const CryptoTable = (props) => {
                           >
                             <Fade in={!(isHovered && index === hoverIndex)}>
                               <img
-                                src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
+                                src={ChartUp}
                                 alt="chart"
                                 height="33px"
                                 style={{
@@ -594,19 +573,6 @@ const CryptoTable = (props) => {
                         )}
                         {location.pathname === "/" ? (
                           <>
-                            <TableCell align="right">
-                              <img
-                                src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
-                                alt="chart"
-                                height="33px"
-                                style={{
-                                  filter:
-                                    item.percent_change_24h < 0
-                                      ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
-                                      : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
-                                }}
-                              />
-                            </TableCell>
                             <TableCell align="right" sx={{ cursor: "pointer" }}>
                               <Button
                                 variant="outlined"
@@ -616,14 +582,7 @@ const CryptoTable = (props) => {
                                 }}
                                 className="btn-outlined-secondary btn"
                                 onClick={() => {
-                                  navigate(
-                                    !userDetail
-                                      ? "/login"
-                                      : userDetail &&
-                                        subscriptionDetails.status === "running"
-                                        ? "/prediction-dashboard"
-                                        : "/subscription"
-                                  );
+                                  navigate("/prediction-dashboard");
                                 }}
                               >
                                 Predict
@@ -721,7 +680,7 @@ const CryptoTable = (props) => {
                 <KeyboardArrowDownIcon />
               </Button> */}
               <Typography className="crypto-value" variant="h5" component="h5">
-                {chartData[0]?.price.toLocaleString(undefined, {
+                {chartData[0]?.price?.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                 })}
               </Typography>
@@ -745,7 +704,7 @@ const CryptoTable = (props) => {
 
               <TabContext value={value}>
                 <Box>
-                  {subscriptionDetails.status === "running" ? (
+                  {true ? (
                     <TabList onChange={handleChange} aria-label="Login Tabs">
                       {/* <Tab label="15m" value="1" /> */}
                       <Tab label="1h" value="2" />
@@ -763,7 +722,7 @@ const CryptoTable = (props) => {
                     </TabList>
                   )}
                 </Box>
-                {subscriptionDetails.status === "running" ? (
+                {true ? (
                   <>
                     {/* <TabPanel value="1">
                       <Box className="value-with-date">
@@ -944,7 +903,7 @@ const CryptoTable = (props) => {
                             component="small"
                             sx={{ color: "#777E91", fontWeight: "500" }}
                           >
-                            {chartData[0]?.ct_hours_4_current.toFixed(1)}
+                            {chartData[0]?.ct_hours_4_current?.toFixed(1) || "-"}
                             {/* <span>+1.25%</span> */}
                           </Typography>
                         </Box>
@@ -1181,11 +1140,11 @@ const CryptoTable = (props) => {
               component="small"
               sx={{ color: "#777E91", fontWeight: "600" }}
             >
-              {chartData.name}
+              {chartData[0]?.name}
             </Typography>
 
             <Typography className="crypto-value" variant="h5" component="h5">
-              {chartData[0]?.price.toFixed(3)}
+              {chartData[0]?.price?.toFixed(3) || "-"}
             </Typography>
 
             <Line data={data} options={options} />

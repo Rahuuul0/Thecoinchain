@@ -1,217 +1,125 @@
-import { useSetRecoilState, useRecoilState, useRecoilValue } from "recoil";
-import { useFetchWrapper } from "../_helpers";
+import { useSetRecoilState } from "recoil";
 import { useAlertActions } from "./alert.actions";
-import { Labels, Apis, RoutesName } from "../_common/app.constants";
+import { Labels } from "../_common/app.constants";
 import {
   coinsAtom,
   coinCategoryAtom,
   selectedCategoryAtom,
   cardCoinsAtom,
   loaderAtom,
-  predictionAtom,
   categoryCoinsAtom,
 } from "../_state/";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
+
+// This is intentionally a module-level cache: Home and Market can both mount
+// components that need prices, but CoinGecko should receive only one request
+// per minute for the whole browser session.
+const COINGECKO_MARKETS_URL =
+  "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=true&price_change_percentage=1h,7d&x_cg_demo_api_key=CG-sxwitfwabJ6rxwXCVPJymjH9";
+const MARKET_REFRESH_INTERVAL = 60 * 1000;
+
+let cachedMarkets = [];
+let lastMarketFetchAt = 0;
+let marketRequest;
+
+const getMarketCoins = async () => {
+  const now = Date.now();
+
+  if (cachedMarkets.length && now - lastMarketFetchAt < MARKET_REFRESH_INTERVAL) {
+    return cachedMarkets;
+  }
+
+  if (marketRequest) return marketRequest;
+
+  marketRequest = fetch(COINGECKO_MARKETS_URL)
+    .then(async (response) => {
+      if (!response.ok) {
+        throw new Error(`CoinGecko request failed (${response.status})`);
+      }
+
+      const data = await response.json();
+      if (!Array.isArray(data)) throw new Error("Invalid CoinGecko market response");
+
+      cachedMarkets = data;
+      lastMarketFetchAt = Date.now();
+      return cachedMarkets;
+    })
+    .finally(() => {
+      marketRequest = undefined;
+    });
+
+  return marketRequest;
+};
+
+const normalizeCoin = (coin) => ({
+  id: coin.id,
+  name: coin.name,
+  symbol: coin.symbol?.toUpperCase(),
+  image: coin.image,
+  slug: coin.id,
+  cmc_rank: coin.market_cap_rank,
+  price: coin.current_price,
+  percent_change_24h: coin.price_change_percentage_24h,
+  percent_change_1h: coin.price_change_percentage_1h_in_currency,
+  percent_change_7d: coin.price_change_percentage_7d_in_currency,
+  sparkline: coin.sparkline_in_7d?.price || [],
+  volume_24h: coin.total_volume,
+  market_cap: coin.market_cap,
+});
+
+const requestedLimit = (params) => {
+  const match = String(params || "").match(/[?&]?limit=(\d+)/);
+  return match ? Number(match[1]) : undefined;
+};
 
 const useCoinActions = () => {
-  let coinsArr = [];
-  const fetchWrapper = useFetchWrapper();
   const alertActions = useAlertActions();
   const setCoinList = useSetRecoilState(coinsAtom);
-  const [categoryList, setCoinsCategory] = useRecoilState(coinCategoryAtom);
+  const setCoinsCategory = useSetRecoilState(coinCategoryAtom);
   const setSelectedCategory = useSetRecoilState(selectedCategoryAtom);
-  const location = useLocation();
   const setCardCoins = useSetRecoilState(cardCoinsAtom);
-  const loader = useSetRecoilState(loaderAtom);
-  const prediction = useRecoilValue(predictionAtom);
-  const [categoryCoins, setCategoryCoins] = useRecoilState(categoryCoinsAtom);
+  const setCategoryCoins = useSetRecoilState(categoryCoinsAtom);
+  const setLoader = useSetRecoilState(loaderAtom);
 
-  const categoriesList = async (item) => {
-    return fetchWrapper
-      .get(Apis.Categories_Data)
-      .then((res) => {
-        if (res.statusCode === 200) {
-          let listArr = [];
-          for (let key in res.data) {
-            if (res.data[key].length !== 0) listArr.push(key);
-          }
-          setCoinsCategory(listArr);
+  const loadMarkets = async (params) => {
+    try {
+      const markets = await getMarketCoins();
+      const coins = markets.map(normalizeCoin);
+      const limit = requestedLimit(params);
+      const visibleCoins = limit ? coins.slice(0, limit) : coins;
 
-          setCategoryCoins(res.data);
-
-          if (listArr.includes(item)) {
-            res.data[item]?.map((itm, key) => {
-              let coin = {};
-              coin.id = itm.id;
-              coin.name = itm.name;
-              coin.symbol = itm.symbol;
-              coin.slug = itm.slug;
-              coin.cmc_rank = itm.cmc_rank;
-              coin.price = itm?.quote?.USD?.price;
-              coin.percent_change_24h = itm?.quote?.USD?.percent_change_24h;
-              if (location.pathname === "/market") {
-                coin.percent_change_7d = itm?.quote?.USD?.percent_change_7d;
-                coin.market_cap = itm?.quote?.USD?.market_cap;
-                coin.volume_24h = itm?.quote?.USD?.volume_24h;
-              }
-              coinsArr.push(coin);
-            });
-            setCoinList(
-              location.pathname === "/" ? coinsArr.slice(0, 5) : coinsArr
-            );
-          }
-        } else {
-          alertActions.error(Labels.Error);
-        }
-        loader(false);
-      })
-      .catch((err) => {
-        console.warn(err);
-      });
+      setCoinList(visibleCoins);
+      setCardCoins(coins.slice(0, 5));
+      return visibleCoins;
+    } catch (error) {
+      console.warn(error);
+      alertActions.error(Labels.Error);
+      throw error;
+    } finally {
+      setLoader(false);
+    }
   };
 
-  const coinListbByCategoty = async (id) => {
-    setSelectedCategory(id);
-
-    coinsArr = [];
-    categoryCoins[id]?.map((itm, key) => {
-      let coin = {};
-      coin.id = itm.id;
-      coin.name = itm.name;
-      coin.symbol = itm.symbol;
-      coin.slug = itm.slug;
-      coin.cmc_rank = itm.cmc_rank;
-      coin.price = itm?.quote?.USD?.price;
-      coin.percent_change_24h = itm?.quote?.USD?.percent_change_24h;
-      if (location.pathname === "/market") {
-        coin.percent_change_7d = itm?.quote?.USD?.percent_change_7d;
-        coin.market_cap = itm?.quote?.USD?.market_cap;
-        coin.volume_24h = itm?.quote?.USD?.volume_24h;
-      }
-      coinsArr.push(coin);
-    });
-    setCoinList(location.pathname === "/" ? coinsArr.slice(0, 5) : coinsArr);
-    loader(false);
+  // CoinGecko's /coins/markets response has no category payload. Keep these
+  // actions for existing components, but use the same live market source.
+  const categoriesList = async () => {
+    setCoinsCategory([]);
+    setCategoryCoins([]);
+    setSelectedCategory(0);
+    return loadMarkets();
   };
 
-  // const coinListbByCategoty = async (id) => {
-  //   loader(true);
-  //   setSelectedCategory(id);
-  //   return fetchWrapper
-  //     .post(Apis.Category_Data, { categories_id: id })
-  //     .then((res) => {
-  //       if (res.statusCode === 200) {
-  //         coinsArr = [];
-  //         res.data.data.coins.map((itm, key) => {
-  //           let coin = {};
-  //           coin.id = itm.id;
-  //           coin.name = itm.name;
-  //           coin.symbol = itm.symbol;
-  //           coin.slug = itm.slug;
-  //           coin.cmc_rank = itm.cmc_rank;
-  //           coin.price = itm?.quote?.USD?.price;
-  //           coin.percent_change_24h = itm?.quote?.USD?.percent_change_24h;
-  //           if (location.pathname === "/market") {
-  //             coin.percent_change_7d = itm?.quote?.USD?.percent_change_7d;
-  //             coin.market_cap = itm?.quote?.USD?.market_cap;
-  //             coin.volume_24h = itm?.quote?.USD?.volume_24h;
-  //           }
-  //           coinsArr.push(coin);
-  //         });
-  //         setCoinList(
-  //           location.pathname === "/" ? coinsArr.slice(0, 5) : coinsArr
-  //         );
-  //       } else {
-  //         alertActions.error(Labels.Error);
-  //       }
-  //       loader(false);
-  //     })
-  //     .catch((err) => {
-  //       console.warn(err);
-  //       loader(false);
-  //     });
-  // };
+  const coinListbByCategoty = async () => {
+    setSelectedCategory(0);
+    return loadMarkets();
+  };
 
   const latestListing = async (params) => {
     setSelectedCategory(0);
-    categoryList.length <= 0 ? categoriesList() : "";
-    return fetchWrapper
-      .get(Apis.Market_Trend + params)
-      .then((res) => {
-        loader(false);
-        if (res.statusCode === 200) {
-          coinsArr = [];
-          res.data.coin_list.map((itm, key) => {
-            let coin = {};
-            coin.id = itm.id;
-            coin.name = itm.name;
-            coin.symbol = itm.symbol;
-            coin.price = itm.quote.USD.price;
-            coin.percent_change_24h = itm.quote.USD.percent_change_24h;
-            coin.percent_change_7d = itm.quote.USD.percent_change_7d;
-            coin.volume_24h = itm.quote.USD.volume_24h;
-            coin.market_cap = itm.quote.USD.market_cap;
-            coinsArr.push(coin);
-          });
-          setCardCoins(coinsArr);
-          setCoinList(coinsArr);
-        } else {
-          console.log(Error);
-        }
-      })
-      .catch((err) => {
-        console.warn(err);
-        loader(false);
-      });
+    return loadMarkets(params);
   };
 
-  const predictionListing = (params) => {
-    return fetchWrapper
-      .get(Apis.Market_Trend)
-      .then((res) => {
-        const mergedList = res.data.coin_list.map((t1) => ({
-          ...t1,
-          ...(res.data.prediction
-            ? res.data.prediction
-            : res.data.accuracy
-          ).find(
-            (t2) =>
-              (res.data.prediction ? t2.ct_symbol : t2.symbol) === t1.symbol
-          ),
-        }));
-        coinsArr = [];
-        mergedList.map((itm, key) => {
-          let coin = {};
-          coin.id = itm.id;
-          coin.name = itm.name;
-          coin.symbol = itm.symbol;
-          if (res.data.prediction) {
-            coin.ct_day_1_current = itm.ct_day_1_current;
-            coin.ct_hour_1_current = itm.ct_hour_1_current;
-            coin.ct_hours_4_current = itm.ct_hours_4_current;
-            coin.ct_min_15_current = itm.ct_min_15_current;
-            coin.ct_week_1_current = itm.ct_week_1_current;
-            coin.ct_accuracy = itm.ct_accuracy;
-          } else if (res.data.accuracy) {
-            coin.ct_accuracy = itm.accuracy;
-          }
-          coin.price = itm.quote.USD.price;
-          coin.percent_change_7d = itm.quote.USD.percent_change_7d;
-          coin.percent_change_7d = itm.quote.USD.percent_change_7d;
-          coin.market_cap = itm.quote.USD.market_cap;
-
-          coinsArr.push(coin);
-        });
-
-        setCoinList(coinsArr);
-        loader(false);
-      })
-      .catch((err) => {
-        console.warn(err);
-        loader(false);
-      });
-  };
+  // The prediction dashboard is a public live-market view backed by CoinGecko.
+  const predictionListing = async () => loadMarkets();
 
   return {
     categoriesList,
@@ -220,4 +128,5 @@ const useCoinActions = () => {
     predictionListing,
   };
 };
+
 export { useCoinActions };

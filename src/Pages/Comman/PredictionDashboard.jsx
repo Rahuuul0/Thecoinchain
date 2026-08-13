@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme, RoutesName } from "../../_common/app.constants";
-import { Box, Container, Typography, Button, Stack } from "@mui/material";
+import { Box, Container, Typography, Button } from "@mui/material";
 import { faqActions } from "../../_actions";
 import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
-import { faqAtom, forecastSubAtom, authAtom, blogListAtom, blogimgAtom, breadCrumbAtom } from "../../_state";
+import { faqAtom, blogListAtom, blogimgAtom } from "../../_state";
 import CryptoTable from "./CryptoTable";
-import { useNavigate, Link } from "react-router-dom";
-import Alert from '@mui/material/Alert';
+import { useNavigate } from "react-router-dom";
 
 const PredictionDashboard = () => {
   const navigate = useNavigate();
   const faqGetAction = faqActions();
   const faq = useRecoilValue(faqAtom);
-  const subscribeUser = useRecoilValue(forecastSubAtom);
-  const auth = useRecoilValue(authAtom);
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
   const [loadmore, setLoadmore] = useState(6);
@@ -53,11 +50,6 @@ const PredictionDashboard = () => {
           <Box className="market-prediction-dashboard-inner">
 
             <Container maxWidth="lg">
-              {subscribeUser?.status === "expired" && auth !== null ?
-                <Stack sx={{ width: '100%', marginLeft: 'auto', marginBottom: '1rem' }} spacing={2}>
-                  <Alert severity="info">You don't have any current plan please <Link to={'/subscription'}> <b>subscribe </b></Link> !</Alert>
-                </Stack>
-                : ""}
               <Typography component="h4" variant="h4">
                 Cryptocurrency Prediction
               </Typography>

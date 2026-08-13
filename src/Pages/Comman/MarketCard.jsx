@@ -12,10 +12,10 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import TabContext from "@mui/lab/TabContext";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import LiveSparkline from "./Components/LiveSparkline";
 import {
   useCoinActions,
   subscriptionActions,
-  useHomeActions,
 } from "../../_actions";
 import {
   coinCategoryAtom,
@@ -25,7 +25,6 @@ import {
   authAtom,
   forecastSubAtom,
   loaderAtom,
-  marketTrendAtom,
 } from "../../_state";
 const MarketCard = () => {
   const navigate = useNavigate();
@@ -39,8 +38,6 @@ const MarketCard = () => {
   const subscriptionAction = subscriptionActions();
   const subscriptionDetails = useRecoilValue(forecastSubAtom);
   const loader = useSetRecoilState(loaderAtom);
-  const marketTrend = useRecoilValue(marketTrendAtom);
-  const homeActions = useHomeActions();
 
   const handleChangeTablefilter = (event) => {
     setTablefilter(event.target.value);
@@ -55,14 +52,6 @@ const MarketCard = () => {
     if (userDetail && !subscriptionDetails.id) {
       subscriptionAction.subscribedUser();
     }
-  }, []);
-
-  // homeActions get function   API data call
-  useEffect(() => {
-    const response = homeActions.marketTrend();
-    response.then((res) => {
-      ({ ...res });
-    });
   }, []);
 
   return (
@@ -88,7 +77,7 @@ const MarketCard = () => {
                   <Box className="market-crypto-graph-col">
                     <Box className="market-crypto-graph-ic">
                       <img
-                        src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}
+                        src={item.image}
                         alt={item.symbol}
                         width="33px"
                       />
@@ -125,18 +114,7 @@ const MarketCard = () => {
                       </Box>
                     </Box>
                     <Box className="market-crypto-graph-details">
-                      <img
-                        src={`https://s3.coinmarketcap.com/generated/sparklines/web/7d/2781/${item.id}.svg`}
-                        alt="chart"
-                        height="33px"
-                        style={{
-                          filter:
-                            item.percent_change_24h < 0
-                              ? "invert(50%) sepia(48%) saturate(2535%) hue-rotate(337deg) brightness(102%) contrast(101%)"
-                              : "saturate(2317%) hue-rotate(86deg) brightness(82%) contrast(82%)",
-                        }}
-                        // onClick={() => handleChartOpen(item.id)}
-                      />
+                      <LiveSparkline prices={item.sparkline} change={item.percent_change_24h} />
                     </Box>
                   </Box>
                 );
@@ -205,13 +183,7 @@ const MarketCard = () => {
                 variant="outlined"
                 className="btn btn-outlined-secondary"
                 onClick={() => {
-                  navigate(
-                    !userDetail
-                      ? "/login"
-                      : userDetail && subscriptionDetails.status === "running"
-                      ? "/prediction-dashboard"
-                      : "/subscription"
-                  );
+                  navigate("/prediction-dashboard");
                 }}
               >
                 Predict

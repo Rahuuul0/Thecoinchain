@@ -718,7 +718,7 @@ const Home = () => {
                 return (
                   <Grid item xs={12} sm={4} md={4} lg={3} className="gridBox">
                     <img
-                      src={`https://www.crypto-rating.com/img/crypto-currencies/${item.symbol.toLowerCase()}.png`}
+                      src={item.image}
                       alt={item.symbol}
                       width="33px"
                     />

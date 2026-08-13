@@ -202,7 +202,7 @@ const MuiShortNewsDashboardSection = () => {
                                             height: 9,
                                             bgcolor: '#2F6FED',
                                             transform: 'rotate(45deg)',
-                                            mt: 0.8,
+                                            mt: 0,
                                             zIndex: 1,
                                             borderRadius: '2px',
                                         }}
@@ -233,18 +233,6 @@ const MuiShortNewsDashboardSection = () => {
                                                 }}
                                             />
                                         )}
-                                        {item?.created_at && (
-                                            <Typography
-                                                sx={{
-                                                    fontSize: 12,
-                                                    color: '#9a9a9a',
-                                                    whiteSpace: 'nowrap',
-                                                    ml: 'auto',
-                                                }}
-                                            >
-                                                {dayjs(item.created_at).format('MMM DD, YYYY HH:mm [UTC]')}
-                                            </Typography>
-                                        )}
                                     </Box>
 
                                     <Typography
@@ -262,6 +250,52 @@ const MuiShortNewsDashboardSection = () => {
                                     >
                                         {item?.title}
                                     </Typography>
+
+                                    {/* Author + Date row */}
+                                    {(item?.profile_name || item?.created_at) && (
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                flexWrap: 'wrap',
+                                                gap: 0.75,
+                                            }}
+                                        >
+                                            {item?.profile_name && (
+                                                <Typography
+                                                    sx={{
+                                                        fontSize: 13,
+                                                        fontWeight: 600,
+                                                        color: '#2F6FED',
+                                                        whiteSpace: 'nowrap',
+                                                    }}
+                                                >
+                                                    {item.profile_name}
+                                                </Typography>
+                                            )}
+
+                                            {item?.profile_name && item?.created_at && (
+                                                <Box
+                                                    component="span"
+                                                    sx={{ color: isDarkMode ? '#4a4a50' : '#d5d5d5' }}
+                                                >
+                                                    |
+                                                </Box>
+                                            )}
+
+                                            {item?.created_at && (
+                                                <Typography
+                                                    sx={{
+                                                        fontSize: 13,
+                                                        color: isDarkMode ? '#a0a0a5' : '#555',
+                                                        whiteSpace: 'nowrap',
+                                                    }}
+                                                >
+                                                    {dayjs(item.created_at).format('MMM DD, YYYY HH:mm [UTC]')}
+                                                </Typography>
+                                            )}
+                                        </Box>
+                                    )}
                                 </Box>
                             </Box>
                         ))

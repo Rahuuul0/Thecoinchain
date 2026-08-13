@@ -250,6 +250,11 @@ const LatestNewsBlogDetail = () => {
     ? dayjs(blogData.created_at).format('MMMM DD, YYYY')
     : '';
 
+  // Author + timestamp shown opposite "Published on" (profile_name is dynamic, date uses dayjs on created_at)
+  const formattedAuthorDate = blogData?.created_at
+    ? dayjs(blogData.created_at).format('MMM DD, YYYY HH:mm [UTC]')
+    : '';
+
   if (!loader && !blogData) {
     return (
       <Container maxWidth="md" sx={{ py: 16, textAlign: 'center' }}>
@@ -361,16 +366,59 @@ const metaDescription = blogData?.meta_description
                 <Box
                   sx={{
                     display: 'flex',
-                    justifyContent: 'flex-end',
+                    justifyContent: 'space-between',
                     flexWrap: 'wrap',
                     gap: 1.5,
                     alignItems: 'center',
                     mb: 2,
                   }}
                 >
-                  <Typography sx={{ color: '#64748B', fontSize: '0.95rem' }}>
+                  {/* Author + Date (dynamic profile_name | created_at via dayjs) */}
+                  {(blogData?.profile_name || formattedAuthorDate) && (
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        gap: 0.75,
+                      }}
+                    >
+                      {blogData?.profile_name && (
+                        <Typography
+                          sx={{
+                            fontSize: 13,
+                            fontWeight: 600,
+                            color: '#2F6FED',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {blogData.profile_name}
+                        </Typography>
+                      )}
+
+                      {blogData?.profile_name && formattedAuthorDate && (
+                        <Box component="span" sx={{ color: '#d5d5d5' }}>
+                          |
+                        </Box>
+                      )}
+
+                      {formattedAuthorDate && (
+                        <Typography
+                          sx={{
+                            fontSize: 13,
+                            color: '#555',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          Published on {formattedAuthorDate}
+                        </Typography>
+                      )}
+                    </Box>
+                  )}
+
+                  {/* <Typography sx={{ color: '#64748B', fontSize: '0.95rem' }}>
                     Published on {formattedCreatedAt}
-                  </Typography>
+                  </Typography> */}
                 </Box>
 
                 <Box

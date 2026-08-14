@@ -121,7 +121,7 @@ const MarketCard = () => {
               })}
             </Box>
             <Box className="market-crypto-tabs for-desktop">
-              <TabContext value={value}>
+              {/* <TabContext value={value}>
                 <Stack direction="row" className="filter-btn" spacing="2">
                   {selectedCat === 0 ? (
                     <Button
@@ -178,7 +178,7 @@ const MarketCard = () => {
                       }
                     })}
                 </Stack>
-              </TabContext>
+              </TabContext> */}
               <Button
                 variant="outlined"
                 className="btn btn-outlined-secondary"

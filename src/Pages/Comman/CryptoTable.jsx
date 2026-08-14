@@ -243,10 +243,11 @@ const CryptoTable = (props) => {
                     <TableCell align="right">Price</TableCell>
                     {location.pathname === "/prediction-dashboard" ? (
                       <>
-                        <TableCell align="right">1h Change</TableCell>
-                        <TableCell align="right">24h Change</TableCell>
-                        <TableCell align="right">7d Change</TableCell>
+                        <TableCell align="right">1h</TableCell>
+                        <TableCell align="right">24h</TableCell>
+                        <TableCell align="right">7d</TableCell>
                         <TableCell align="right">Volume (24h)</TableCell>
+                        <TableCell align="right">Marketcap</TableCell>
                       </>
                     ) : location.pathname === "/market" ? (
                       <>
@@ -354,6 +355,9 @@ const CryptoTable = (props) => {
                             </TableCell>
                             <TableCell align="right">
                               {item.volume_24h?.toLocaleString() || "—"}
+                            </TableCell>
+                            <TableCell align="right">
+                              {item.market_cap?.toLocaleString() || "—"}
                             </TableCell>
                           </>
                         )}
@@ -1024,7 +1028,7 @@ const CryptoTable = (props) => {
                             component="small"
                             sx={{ color: "#777E91", fontWeight: "500" }}
                           >
-                           {chartData[0]?.ct_week_1_current}
+                            {chartData[0]?.ct_week_1_current}
                           </Typography>
                         </Box>
                       </Box>

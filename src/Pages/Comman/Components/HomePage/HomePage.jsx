@@ -1222,7 +1222,7 @@ const Home = () => {
               Learn more
             </Button>
           </Box>
-          <Stack
+          {/* <Stack
             direction="row"
             className="filter-btn for-desktop"
             spacing="2"
@@ -1280,7 +1280,7 @@ const Home = () => {
                   );
                 }
               })}
-          </Stack>
+          </Stack> */}
           <Box className="for-mobile dropdown-mobile">
             <FormControl sx={{ m: 0, minWidth: 120, width: "100%" }}>
               <Select

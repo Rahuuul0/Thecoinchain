@@ -86,6 +86,7 @@ import MuiPricePredictionDashboardSection from "../../../Comman/Components/MuiPr
 import MuiTrendingNewsDashboardSection from "../MuiTrandingNewsDashboardSection";
 import { useFetchWrapper } from "../../../../_helpers";
 import { Helmet } from "react-helmet-async";
+import CryptoTickerMarquee from "../../../Comman/Components/CryptoTickerMarquee";
 
 // ---- Static JSON data for podcast notifications ----
 
@@ -615,6 +616,15 @@ const Home = () => {
 
         <meta property="og:type" content="website" />
       </Helmet>
+      <Box
+        sx={{
+          mt: { xs: '56px', sm: '64px' },
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+        <CryptoTickerMarquee />
+      </Box>
       <Box component="main" sx={{ pt: 8 }}></Box>
       {/* Banner starts */}
       {homeBannerData?.map((items) => {
@@ -1484,7 +1494,7 @@ const Home = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={7} md={7}>
-            <MuiPricePredictionDashboardSection/>
+              <MuiPricePredictionDashboardSection />
               {/* <img className="app-store-img" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[1]?.image}`} /> */}
             </Grid>
 

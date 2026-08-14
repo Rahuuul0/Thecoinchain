@@ -18,19 +18,9 @@ import { useFetchWrapper } from '../../_helpers';
 import { Helmet } from "react-helmet-async";
 import { switchDarkModeAtom } from '../../_state';
 import { useRecoilValue } from 'recoil';
+import { useCoinActions } from '../../_actions/coin.actions';
+import { coinsAtom } from '../../_state';
 
-// ---- Static ticker data (same as MuiCryptoSection) ----
-const cryptoTickerData = [
-  { symbol: 'ADA', price: '$0.1634', change: '2.65%', direction: 'up' },
-  { symbol: 'XRP', price: '$1.10', change: '3.03%', direction: 'up' },
-  { symbol: 'ETH', price: '$1,874.76', change: '4.95%', direction: 'up' },
-  { symbol: 'BTC', price: '$64,715.60', change: '3.17%', direction: 'up' },
-  { symbol: 'XMR', price: '$331.22', change: '2.62%', direction: 'up' },
-  { symbol: 'BNB', price: '$579.21', change: '1.57%', direction: 'up' },
-  { symbol: 'XLM', price: '$0.1832', change: '2.14%', direction: 'up' },
-  { symbol: 'SOL', price: '$77.96', change: '3.54%', direction: 'up' },
-  { symbol: 'HYPE', price: '$66.88', change: '4.93%', direction: 'up' },
-];
 
 // ---- Marquee scrolling animation ----
 const scrollLeft = keyframes`
@@ -152,6 +142,25 @@ const LatestNewsBlogDetail = () => {
   const [blogData, setBlogData] = useState(null);
   const [loader, setLoader] = useState(false);
   const isDarkMode = useRecoilValue(switchDarkModeAtom);
+  const { latestListing } = useCoinActions();
+  const coinsList = useRecoilValue(coinsAtom);
+
+  const cryptoTickerData = coinsList.slice(0, 10).map((coin) => {
+    const change = coin.percent_change_24h ?? 0;
+
+    return {
+      symbol: coin.symbol?.toUpperCase(),
+      price: `$${Number(coin.price || 0).toLocaleString('en-US', {
+        maximumFractionDigits: 6,
+      })}`,
+      change: `${Math.abs(change).toFixed(2)}%`,
+      direction: change >= 0 ? 'up' : 'down',
+    };
+  });
+
+  useEffect(() => {
+    latestListing();
+  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -278,9 +287,9 @@ const LatestNewsBlogDetail = () => {
     );
   }
 
-const metaDescription = blogData?.meta_description
-  ? blogData.meta_description
-  : blogData?.description
+  const metaDescription = blogData?.meta_description
+    ? blogData.meta_description
+    : blogData?.description
       ?.replace(/<[^>]+>/g, "")
       ?.replace(/\s+/g, " ")
       ?.trim()

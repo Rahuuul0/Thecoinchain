@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { academyActions } from "../../_actions";
 import { academyAtom } from "../../_state";
 import { useRecoilValue } from "recoil";
+import CryptoTickerMarquee from './Components/CryptoTickerMarquee';
 import ReactHtmlParser from "react-html-parser";
 import Leveragedv2 from "../../../public/assets/images/leveragedv2.svg";
 const AcademyAboutCrypto = () => {
@@ -30,12 +31,20 @@ const AcademyAboutCrypto = () => {
   }, []);
 
   useEffect(() => {
-    window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   });
 
-  console.log(allAbout, "allAbout");
   return (
     <>
+      <Box
+        sx={{
+          mt: { xs: '56px', sm: '64px' },
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+        <CryptoTickerMarquee />
+      </Box>
       <ThemeProvider theme={theme}>
         <Box
           component="main"
@@ -56,7 +65,7 @@ const AcademyAboutCrypto = () => {
                 </Breadcrumbs>
               </Box>
             </Box>
-            {allAbout?.map((items,index) => {
+            {allAbout?.map((items, index) => {
               let title = items.title;
               let description = items.description;
               let image = items.image
@@ -79,8 +88,8 @@ const AcademyAboutCrypto = () => {
                       {ReactHtmlParser(description)}
                     </Typography>
                   </Box>
-                 {/* {allAbout.length && index ? "" :<div className="devider" />}  */}
-                 {/* {index < (allAbout.length-1) ?<div className="devider" />:<></>}  */}
+                  {/* {allAbout.length && index ? "" :<div className="devider" />}  */}
+                  {/* {index < (allAbout.length-1) ?<div className="devider" />:<></>}  */}
                 </>
               );
             })}

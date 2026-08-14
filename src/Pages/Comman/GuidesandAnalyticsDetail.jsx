@@ -42,6 +42,7 @@ import LikeIcon from "../../../public/assets/images/icons/love.svg";
 import { useParams } from "react-router-dom";
 import ReactHtmlParser from 'react-html-parser';
 import { RoutesName } from "../../_common/app.constants";
+import CryptoTickerMarquee from './Components/CryptoTickerMarquee';
 
 function handleClick(event) {
   event.preventDefault();
@@ -143,6 +144,15 @@ const GuidesAndAnalyticsDetail = () => {
 
   return (
     <>
+        <Box
+                sx={{
+                    mt: { xs: '56px', sm: '64px' },
+                    position: 'relative',
+                    zIndex: 1,
+                }}
+            >
+                <CryptoTickerMarquee />
+            </Box>
       <Container className="learn-crypto-details">
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

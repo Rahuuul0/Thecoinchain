@@ -16,24 +16,27 @@ import Avatar from "../../../public/assets/images/avatar.svg";
 import GridImage from "../../../public/assets/images/grid.svg";
 import { NavigateNext, ArrowDropDown } from "@mui/icons-material";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tutorialAtom, 
-  loaderAtom, 
-  blogListAtom, 
-  blogimgAtom, 
-  blogVideoAtom, 
-  newsListAtomSingle, 
+import {
+  tutorialAtom,
+  loaderAtom,
+  blogListAtom,
+  blogimgAtom,
+  blogVideoAtom,
+  newsListAtomSingle,
   promotionAtomSingle,
   guideListSingleAtom,
   analyticListSingleAtom,
-  blogListSingleAtom,breadCrumbAtom} from "../../_state";
+  blogListSingleAtom, breadCrumbAtom
+} from "../../_state";
 import {
-  useTutorialActions, 
-  newsListActions, 
-  promotionsActions, 
-  guidesAnalysisActions, 
+  useTutorialActions,
+  newsListActions,
+  promotionsActions,
+  guidesAnalysisActions,
   analyticsActions,
   useContactActions,
-  faqActions } from "../../_actions";
+  faqActions
+} from "../../_actions";
 import { useNavigate } from "react-router-dom";
 // import { Helmet } from "react-helmet";
 import ReactPlayer from "react-player";
@@ -42,6 +45,7 @@ import LikeIcon from "../../../public/assets/images/icons/love.svg";
 import { useParams } from "react-router-dom";
 import ReactHtmlParser from 'react-html-parser';
 import { RoutesName } from "../../_common/app.constants";
+import CryptoTickerMarquee from './Components/CryptoTickerMarquee';
 
 function handleClick(event) {
   event.preventDefault();
@@ -63,26 +67,26 @@ const NewsAndPromotionsDetail = () => {
   const useContactAddActions = useContactActions();
   const faqGetAction = faqActions();
 
-  const  id  = useParams();
-  
+  const id = useParams();
+
   useEffect(() => {
     switch (params.page) {
       case "newsletter":
         {
-           newsListGetActions.getSingle(params.title)
-           break;
+          newsListGetActions.getSingle(params.title)
+          break;
         }
 
       case "newspromotions":
-           promotionsGetActions.getSingle(params.title)
-           break;
+        promotionsGetActions.getSingle(params.title)
+        break;
 
       case "guides":
-            guidesGetActions.getSingle(params.title)
+        guidesGetActions.getSingle(params.title)
         break;
 
       case "guideanalytics":
-          analyticsGetActions.getSingle(params.title)
+        analyticsGetActions.getSingle(params.title)
         break;
 
       case "learncypto":
@@ -91,9 +95,9 @@ const NewsAndPromotionsDetail = () => {
 
       case "learncyptovideo":
         tutorialAction.getSingleVideo(params.title)
-        
+
         break;
-      
+
       case "learnandearn":
         tutorialAction.getSingleMarket(params.title)
         break;
@@ -101,17 +105,17 @@ const NewsAndPromotionsDetail = () => {
       case "contact":
         useContactAddActions.getSingleContact(params.title)
         break;
-        
+
       case "predictionDashboard":
         faqGetAction.get(params.title)
         break;
 
-      default : {
+      default: {
         console.warn("error")
       }
     }
-   
-  },[blogImg])
+
+  }, [blogImg])
   const breadcrumbs = [
     <Link underline="hover" key="1" color="inherit" onClick={() => { navigate(RoutesName.News_Promotions) }} >
       {breadCrumb}
@@ -119,7 +123,7 @@ const NewsAndPromotionsDetail = () => {
     <Link underline="hover" key="2" color="inherit" className="cryptocurrency-a" style={{ cursor: 'default' }} >
       Blog details
     </Link>
-    
+
   ];
   const scrollRef = useRef();
   const tutorialsData = useRecoilValue(tutorialAtom);
@@ -131,7 +135,7 @@ const NewsAndPromotionsDetail = () => {
   const [blogImg, setBlogimg] = useRecoilState(blogListAtom)
   const [blogNew, setBlognew] = useRecoilState(blogimgAtom)
   const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom)
- 
+
 
   useEffect(() => {
     window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
@@ -143,6 +147,15 @@ const NewsAndPromotionsDetail = () => {
 
   return (
     <>
+      <Box
+        sx={{
+          mt: { xs: '56px', sm: '64px' },
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+        <CryptoTickerMarquee />
+      </Box>
       <Container className="learn-crypto-details">
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -159,7 +172,7 @@ const NewsAndPromotionsDetail = () => {
             fontWeight="700"
             textAlign="center"
           >
-            {blogNew === true? `${blogImg.title}` : `A beginner’s guide to 
+            {blogNew === true ? `${blogImg.title}` : `A beginner’s guide to 
             trading view `}
           </Typography>
 
@@ -177,18 +190,18 @@ const NewsAndPromotionsDetail = () => {
       <Container>
         <Box paddingBottom={{ xs: 4, sm: 10 }}>
           <Box>
-            {blogNew === true  && blogVideo === false ?
+            {blogNew === true && blogVideo === false ?
               <Box sx={{ maxWidth: "100%", justifyContent: "center", "display": "flex" }} paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}
               >
                 <img
-                    sx={{ maxWidth: "100%", }}
-                    src={image}
-                  />
+                  sx={{ maxWidth: "100%", }}
+                  src={image}
+                />
 
               </Box>
               :
               <Box paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}>
-                  { blogNew === true? 
+                {blogNew === true ?
                   <ReactPlayer
                     url={blogImg?.video_link}
                     controls={true}
@@ -198,11 +211,11 @@ const NewsAndPromotionsDetail = () => {
                     height="550px"
                   // style={{ border: "1px solid black" }}
                   />
-                  :(<>
-                    {tutorialsData.map((item ,index) => {
-                      
-                        if( index < 1 ){
-                        return(
+                  : (<>
+                    {tutorialsData.map((item, index) => {
+
+                      if (index < 1) {
+                        return (
                           <ReactPlayer
                             url={item.video_link}
                             controls={true}
@@ -212,12 +225,12 @@ const NewsAndPromotionsDetail = () => {
                             height="550px"
                           // style={{ border: "1px solid black" }}
                           />)
-                        }
-                   
-                    } )}
-                  
+                      }
+
+                    })}
+
                   </>)
-                  }
+                }
               </Box>
             }
 
@@ -230,7 +243,7 @@ const NewsAndPromotionsDetail = () => {
                 marginBottom={4}
                 paddingBottom={4}
               >
-                {blogNew === true  ? "Description" : "Introduction"}
+                {blogNew === true ? "Description" : "Introduction"}
               </Typography>
 
               {blogNew === true ?
@@ -281,13 +294,13 @@ const NewsAndPromotionsDetail = () => {
                   </Typography>
                 </Box>)
               }
-              
+
             </Box>
 
           </Box>
         </Box>
       </Container>
-    
+
     </>
   );
 };

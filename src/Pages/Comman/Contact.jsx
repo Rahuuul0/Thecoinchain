@@ -29,6 +29,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import { useNavigate } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
+import { useAlertActions } from "../../_actions/alert.actions";
+import { RoutesName } from "../../_common/app.constants";
+import CryptoTickerMarquee from './Components/CryptoTickerMarquee';
 import * as Yup from "yup";
 import ContactHeroImage from "../../../public/assets/images/learn-cypto.svg";
 import InputBase from '@mui/material/InputBase';
@@ -45,9 +48,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import LoadingButton from '@mui/lab/LoadingButton';
 import ReCAPTCHA from "react-google-recaptcha";
-import { RoutesName } from "../../_common/app.constants";
 import ReactHtmlParser from 'react-html-parser';
-import { useAlertActions } from "../../_actions/alert.actions";
+
 
 
 
@@ -281,6 +283,15 @@ const Contact = () => {
 
   return (
     <>
+      <Box
+        sx={{
+          mt: { xs: '56px', sm: '64px' },
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+        <CryptoTickerMarquee />
+      </Box>
       {/* Banner starts */}
       <Container>
         <Box className="contact-hero" >

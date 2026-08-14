@@ -7,6 +7,7 @@ import { Block, NavigateNext } from "@mui/icons-material/";
 import { Grid, Button, Stack } from "@mui/material";
 import { KeyboardArrowRight } from "@mui/icons-material";
 import { useNavigate, Link } from "react-router-dom";
+import CryptoTickerMarquee from './Components/CryptoTickerMarquee';
 import Leveragedv3 from "../../../public/assets/images/leveragedv3.svg";
 import Leveragedv2 from "../../../public/assets/images/leveragedv2.svg";
 import Learn01 from "../../../public/assets/images/learn01.png";
@@ -26,9 +27,18 @@ const Academy = () => {
       Academy
     </Typography>,
   ];
-  useEffect(() => { window.scrollTo({ top: 1, left: 1, behavior: "smooth" }) });
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }) });
   return (
     <>
+      <Box
+        sx={{
+          mt: { xs: '56px', sm: '64px' },
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+        <CryptoTickerMarquee />
+      </Box>
       <ThemeProvider theme={theme}>
         <Box
           component="main"

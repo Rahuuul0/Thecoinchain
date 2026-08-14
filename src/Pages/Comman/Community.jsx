@@ -8,9 +8,10 @@ import { NavigateNext } from '@mui/icons-material/';
 import { Link } from "react-router-dom";
 import BTCIc from "../../../public/assets/images/icons/btc-ic.svg";
 import { communityAtom, loaderAtom } from '../../_state/';
-import {communityActions} from "../../_actions/";
+import { communityActions } from "../../_actions/";
 import dayjs from "dayjs";
 import ReactHtmlParser from 'react-html-parser';
+import CryptoTickerMarquee from './Components/CryptoTickerMarquee';
 
 const Community = () => {
     const communityAction = communityActions();
@@ -26,19 +27,28 @@ const Community = () => {
         </Typography>,
     ];
     useEffect(() => {
-     communityAction.community()
-         window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
+        communityAction.community()
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
 
-         },[]);
+    }, []);
 
     return (
         <>
-        <Backdrop
-          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={loader}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+            <Box
+                sx={{
+                    mt: { xs: '56px', sm: '64px' },
+                    position: 'relative',
+                    zIndex: 1,
+                }}
+            >
+                <CryptoTickerMarquee />
+            </Box>
+            <Backdrop
+                sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loader}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <ThemeProvider theme={theme}>
                 <Box component="main" className='community-wrapper subscription-wrapper bredcrum-div'>
                     <Container maxWidth="lg">
@@ -46,7 +56,7 @@ const Community = () => {
                             <Box  >
                                 <Breadcrumbs
                                     separator={<NavigateNext fontSize="small" />}
-                                            aria-label="breadcrumb"
+                                    aria-label="breadcrumb"
                                     className='center-breadcrum'
                                 >
                                     {breadcrumbs}
@@ -62,32 +72,32 @@ const Community = () => {
                         </Box>
                         <Box className="community-wrapper-inner">
 
-                            { communityList?.map((item) => {
-                                let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`:item.image_link;
+                            {communityList?.map((item) => {
+                                let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
                                 return (
                                     <Box className="community-card">
                                         <Box className="community-card-head">
-                                            {image == null || image == ''? " " : 
-                                            <Box className="community-ic community-ic-img">
-                                                <img src={image} alt='' /> 
-                                            </Box>}
+                                            {image == null || image == '' ? " " :
+                                                <Box className="community-ic community-ic-img">
+                                                    <img src={image} alt='' />
+                                                </Box>}
                                             <Box className="community-details">
                                                 <Box className="community-details-head">
                                                     <Typography component='small' variant='body2' className='small-caption community-category'> {item.title} </Typography>
-                                                    <Typography component='small' variant='body2' className='small-caption'>  {dayjs(item.created_at).format("MMM/DD/YYYY" )} </Typography>
+                                                    <Typography component='small' variant='body2' className='small-caption'>  {dayjs(item.created_at).format("MMM/DD/YYYY")} </Typography>
                                                 </Box>
                                                 <Typography component='h5' variant='h5'> {item.exp_review} </Typography>
                                             </Box>
                                         </Box>
-                                        
+
                                         <Typography className="elip_typo" component='p' variant='p'>
-                                            
-                                            {ReactHtmlParser (item.decription) }
+
+                                            {ReactHtmlParser(item.decription)}
                                         </Typography>
-                                    </Box>  
+                                    </Box>
                                 )
-                            }) }
-                                   
+                            })}
+
                         </Box>
                         <Typography component='p' variant='p' className='small-caption' sx={{ mt: 3 }}> * Coin Guru accepts no liability for content of the comments or reviews made by the site users. The entire responsibility for the contents rests with the authors.</Typography>
                     </Container>

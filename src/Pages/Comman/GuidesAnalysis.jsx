@@ -9,6 +9,7 @@ import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
 import { useNavigate } from "react-router-dom";
+import CryptoTickerMarquee from './Components/CryptoTickerMarquee';
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
 import SwipeableViews from "react-swipeable-views";
@@ -18,7 +19,7 @@ import Tab from "@mui/material/Tab";
 import TabList from "@mui/lab/TabList";
 import ReactHtmlParser from 'react-html-parser';
 
-  
+
 
 const GuidesAnalysis = (props) => {
 
@@ -71,7 +72,7 @@ const GuidesAnalysis = (props) => {
 
     const imgLink = (data) => {
         setBreadCrumb("Guides")
-        let guideSeo = data.slug 
+        let guideSeo = data.slug
         navigate(`${RoutesName.GuidesandAnalyticsDetail}/guides/${guideSeo}`)
         setBlogimg(data)
         setBlognew(true)
@@ -253,11 +254,20 @@ const GuidesAnalysis = (props) => {
     }, [analytic]);
 
     useEffect(() => {
-        breadcrumb==="Analytics"?setValueTab(1):setValueTab(0)
-        window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
+        breadcrumb === "Analytics" ? setValueTab(1) : setValueTab(0)
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
     }, []);
     return (
         <>
+            <Box
+                sx={{
+                    mt: { xs: '56px', sm: '64px' },
+                    position: 'relative',
+                    zIndex: 1,
+                }}
+            >
+                <CryptoTickerMarquee />
+            </Box>
             <ThemeProvider theme={theme}>
                 <Container sx={{ pt: 14 }}>
                     <Box paddingBottom={10}>

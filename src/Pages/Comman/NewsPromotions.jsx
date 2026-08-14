@@ -9,6 +9,7 @@ import { newsListActions, promotionsActions, useTutorialActions, useHomeActions 
 import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom, headingListAtom, breadCrumbAtom } from "../../_state";
 import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate } from 'react-router-dom';
+import CryptoTickerMarquee from './Components/CryptoTickerMarquee';
 import DarkLogo from "../../../public/assets/images/logo.svg";
 import Globe from "../../../public/assets/images/globe.svg";
 import SwipeableViews from "react-swipeable-views";
@@ -165,19 +166,28 @@ const NewsPromotions = (props) => {
         setBlognew(true)
     }
 
-       // Api HeadingList
-       useEffect(() => {
+    // Api HeadingList
+    useEffect(() => {
         const response = homeActions.headingList();
         response.then((res) => { (res) })
-      }, []);
+    }, []);
 
     useEffect(() => {
-        breadcrumb==="Promotions"?setValueTab(1):setValueTab(0)
-        window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
+        breadcrumb === "Promotions" ? setValueTab(1) : setValueTab(0)
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
     }, []);
 
     return (
         <>
+            <Box
+                sx={{
+                    mt: { xs: '56px', sm: '64px' },
+                    position: 'relative',
+                    zIndex: 1,
+                }}
+            >
+                <CryptoTickerMarquee />
+            </Box>
             <ThemeProvider theme={theme}>
                 <Container sx={{ pt: 14 }}>
                     <Box paddingBottom={15}>
@@ -269,7 +279,7 @@ const NewsPromotions = (props) => {
                                                             </Box>
                                                             {newsCategoryList?.map((item) => {
                                                                 let description = item.description;
-                                                                let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`: item.image_link;
+                                                                let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
                                                                 return (
                                                                     <Box paddingBottom={3}>
                                                                         <Grid container
@@ -315,7 +325,7 @@ const NewsPromotions = (props) => {
                                                                                 </Box>
                                                                             </Grid>
                                                                             <Grid item xs={12} sm={7} md={7}>
-                                                                            {image == null || image == ''? " " : <img sx={{ maxWidth: "100%" }} src={image} alt='' />}
+                                                                                {image == null || image == '' ? " " : <img sx={{ maxWidth: "100%" }} src={image} alt='' />}
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Box>
@@ -379,7 +389,7 @@ const NewsPromotions = (props) => {
                                                                 <TabPanel value={valueTemp} index3={0} dir={theme.direction}>
                                                                     {promotionCategoryList.map((item) => {
                                                                         let description = item.description;
-                                                                        let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}`: item.image_link;
+                                                                        let image = item.image ? `${process.env.REACT_APP_IMAGE_URL}/${item.image}` : item.image_link;
                                                                         return (
                                                                             <Box paddingBottom={3}>
                                                                                 <Grid container
@@ -425,7 +435,7 @@ const NewsPromotions = (props) => {
                                                                                         </Box>
                                                                                     </Grid>
                                                                                     <Grid item xs={12} sm={7} md={7}>
-                                                                                    {image == null || image == ''? " " : <img sx={{ maxWidth: "100%" }} src={image} alt='' />}
+                                                                                        {image == null || image == '' ? " " : <img sx={{ maxWidth: "100%" }} src={image} alt='' />}
                                                                                     </Grid>
                                                                                 </Grid>
                                                                             </Box>

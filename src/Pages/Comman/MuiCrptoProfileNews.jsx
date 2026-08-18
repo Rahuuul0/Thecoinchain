@@ -19,6 +19,7 @@ import dayjs from "dayjs";
 import YouTube from "react-youtube";
 import { styled, keyframes } from '@mui/material/styles';
 import { ArrowBack } from '@mui/icons-material';
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -141,6 +142,7 @@ export default function AuthorProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const isDarkMode = useRecoilValue(switchDarkModeAtom);
+  const [emailCopied, setEmailCopied] = useState(false);
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -285,6 +287,19 @@ export default function AuthorProfile() {
       display: 'none',
     },
   }));
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(author.email);
+      setEmailCopied(true);
+
+      setTimeout(() => {
+        setEmailCopied(false);
+      }, 1500);
+    } catch (error) {
+      console.error("Failed to copy email:", error);
+    }
+  };
 
   return (
     <Container maxWidth="lg" sx={{ mt: 12 }}>
@@ -469,14 +484,45 @@ export default function AuthorProfile() {
               )}
 
               {author.email && (
-                <InfoRow icon={<MailOutlineIcon sx={{ fontSize: 17 }} />} label="Email">
-                  <Link
-                    href={`mailto:${author.email}`}
-                    underline="hover"
-                    sx={{ color: "#1685ca !important", lineHeight: 1.55, fontWeight: 500, fontSize: "13px" }}
-                  >
-                    {author.email}
-                  </Link>
+                <InfoRow
+                  icon={<MailOutlineIcon sx={{ fontSize: 17 }} />}
+                  label="Email"
+                >
+                  <Stack direction="row" alignItems="center" spacing={0.5}>
+                    <Link
+                      href={`mailto:${author.email}`}
+                      underline="hover"
+                      sx={{
+                        color: "#1685ca !important",
+                        lineHeight: 1.55,
+                        fontWeight: 500,
+                        fontSize: "13px",
+                      }}
+                    >
+                      {author.email}
+                    </Link>
+
+                    <CustomTooltip
+                      title={emailCopied ? "Copied!" : "Copy Email"}
+                      placement="top"
+                    >
+                      <IconButton
+                        size="small"
+                        onClick={handleCopyEmail}
+                        sx={{
+                          width: "28px",
+                          height: "28px",
+                          color: emailCopied ? "#1685ca" : "#6b7280",
+                          "&:hover": {
+                            color: "#1685ca",
+                            backgroundColor: "#eef8ff",
+                          },
+                        }}
+                      >
+                        <ContentCopyIcon sx={{ fontSize: 15 }} />
+                      </IconButton>
+                    </CustomTooltip>
+                  </Stack>
                 </InfoRow>
               )}
             </Stack>

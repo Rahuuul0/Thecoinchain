@@ -21,7 +21,6 @@ import { styled, keyframes } from '@mui/material/styles';
 import { ArrowBack } from '@mui/icons-material';
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -545,7 +544,16 @@ export default function AuthorProfile() {
                     "&:hover": { backgroundColor: "#e9f5fc" },
                   }}
                 >
-                  <TwitterIcon sx={{ fontSize: 18 }} />
+                <Box
+                      sx={{
+                        fontSize: 18,
+                        fontWeight: 700,
+                        lineHeight: 1,
+                        fontFamily: "Arial, sans-serif",
+                      }}
+                    >
+                      𝕏
+                    </Box>
                 </IconButton>
               )}
 

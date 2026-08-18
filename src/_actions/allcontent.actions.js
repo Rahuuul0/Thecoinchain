@@ -40,9 +40,22 @@ const allContentActions = () => {
             });
     };
 
+    // Get Profile Detail by Id
+    const getProfileDetail = (id) => {
+        return fetchWrapper
+            .get(Apis.PROFILE_DETAIL(id))
+            .then((res) => {
+                return res;
+            })
+            .catch((err) => {
+                console.warn(err);
+            });
+    }
+
     return {
         get,
         getDetail,
+        getProfileDetail,
     };
 };
 

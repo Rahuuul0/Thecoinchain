@@ -20,6 +20,7 @@ import { switchDarkModeAtom } from '../../_state';
 import { useRecoilValue } from 'recoil';
 import { useCoinActions } from '../../_actions/coin.actions';
 import { coinsAtom } from '../../_state';
+import { allContentActions } from '../../_actions/allcontent.actions';
 
 
 // ---- Marquee scrolling animation ----
@@ -139,11 +140,14 @@ const LatestNewsBlogDetail = () => {
   const { id, slug } = useParams();
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
+  const { getProfileDetail } = allContentActions();
   const [blogData, setBlogData] = useState(null);
   const [loader, setLoader] = useState(false);
+  const [profileLoader, setProfileLoader] = useState(false);
   const isDarkMode = useRecoilValue(switchDarkModeAtom);
   const { latestListing } = useCoinActions();
   const coinsList = useRecoilValue(coinsAtom);
+  const [showProfilePopup, setShowProfilePopup] = useState(false);
 
   const cryptoTickerData = coinsList.slice(0, 10).map((coin) => {
     const change = coin.percent_change_24h ?? 0;
@@ -162,6 +166,15 @@ const LatestNewsBlogDetail = () => {
     latestListing();
   }, []);
 
+  const handleProfileClick = (profileId) => {
+    if (!profileId) {
+      console.error("Profile ID not found");
+      return;
+    }
+
+    navigate(`/profile/${profileId}`);
+  };
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, [id]);
@@ -175,7 +188,8 @@ const LatestNewsBlogDetail = () => {
       try {
         setLoader(true);
         const response = await fetchWrapper.get(Apis.BLOG_DETAIL(id));
-        setBlogData(response?.data || response || null);
+        const itemData = response?.data || response || null;
+        setBlogData(itemData);
       } catch (error) {
         console.error('Error fetching blog detail:', error);
         setBlogData(null);
@@ -320,7 +334,7 @@ const LatestNewsBlogDetail = () => {
 
       <Box sx={{ backgroundColor: isDarkMode ? "#000" : "#fff", minHeight: '100vh', }}>
         <Backdrop
-          open={loader}
+          open={loader || profileLoader}
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         >
           <CircularProgress color="inherit" />
@@ -383,7 +397,7 @@ const LatestNewsBlogDetail = () => {
                   }}
                 >
                   {/* Author + Date (dynamic profile_name | created_at via dayjs) */}
-                  {(blogData?.profile_name || formattedAuthorDate) && (
+                  {(blogData?.profile?.profile_name || formattedAuthorDate) && (
                     <Box
                       sx={{
                         display: 'flex',
@@ -392,20 +406,167 @@ const LatestNewsBlogDetail = () => {
                         gap: 0.75,
                       }}
                     >
-                      {blogData?.profile_name && (
-                        <Typography
+                      {blogData?.profile?.profile_name && (
+                        <Box
                           sx={{
-                            fontSize: 13,
-                            fontWeight: 600,
-                            color: '#2F6FED',
-                            whiteSpace: 'nowrap',
+                            position: 'relative',
+                            display: 'inline-flex',
                           }}
+                          onMouseEnter={() => setShowProfilePopup(true)}
+                          onMouseLeave={() => setShowProfilePopup(false)}
                         >
-                          {blogData.profile_name}
-                        </Typography>
+                          {/* Profile Name */}
+                          <Typography
+                            onClick={() => handleProfileClick(blogData?.profile?.profile_id)}
+                            sx={{
+                              fontSize: 13,
+                              fontWeight: 600,
+                              color: '#2F6FED',
+                              whiteSpace: 'nowrap',
+                              cursor: 'pointer',
+                              textDecoration: 'underline',
+                              '&:hover': {
+                                color: '#1558C0',
+                              },
+                            }}
+                          >
+                            {blogData?.profile?.profile_name}
+                          </Typography>
+
+                          {/* Popup Wrapper */}
+                          {showProfilePopup && (
+                            <Box
+                              sx={{
+                                position: 'absolute',
+                                top: '100%',
+                                left: 0,
+
+                                // IMPORTANT:
+                                // Name aur popup ke beech actual gap nahi hoga
+                                pt: '10px',
+
+                                zIndex: 1000,
+                              }}
+                            >
+                              {/* Actual Popup */}
+                              <Box
+                                sx={{
+                                  position: 'relative',
+                                  width: 270,
+                                  backgroundColor: '#fff',
+                                  border: '1px solid #2084EA',
+                                  borderRadius: '10px',
+                                  boxShadow: '0 8px 25px rgba(0,0,0,0.12)',
+                                  p: 1.75,
+
+                                  // Arrow border
+                                  '&::before': {
+                                    content: '""',
+                                    position: 'absolute',
+                                    top: '-9px',
+                                    left: '22px',
+                                    width: 0,
+                                    height: 0,
+                                    borderLeft: '9px solid transparent',
+                                    borderRight: '9px solid transparent',
+                                    borderBottom: '9px solid #2084EA',
+                                  },
+
+                                  // Arrow white inner part
+                                  '&::after': {
+                                    content: '""',
+                                    position: 'absolute',
+                                    top: '-7px',
+                                    left: '23px',
+                                    width: 0,
+                                    height: 0,
+                                    borderLeft: '8px solid transparent',
+                                    borderRight: '8px solid transparent',
+                                    borderBottom: '8px solid #fff',
+                                  },
+                                }}
+                              >
+                                {/* Profile Header */}
+                                <Box
+                                  sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 1.25,
+                                    mb: 1.25,
+                                  }}
+                                >
+                                  {/* Profile Image */}
+                                  <Box
+                                    component="img"
+                                    src={
+
+                                      `${process.env.REACT_APP_IMAGE_URL}/${blogData?.profile?.profile_image}`
+
+                                    }
+                                    alt={blogData?.profile?.profile_name}
+                                    sx={{
+                                      width: 46,
+                                      height: 46,
+                                      borderRadius: '50%',
+                                      objectFit: 'cover',
+                                      border: '2px solid #2084EA',
+                                    }}
+                                  />
+
+                                  <Box>
+                                    <Typography
+                                      onClick={() =>
+                                        handleProfileClick(blogData?.profile?.profile_id)
+                                      }
+                                      sx={{
+                                        fontSize: 15,
+                                        fontWeight: 600,
+                                        color: '#1F2937',
+                                        cursor: 'pointer',
+
+                                        '&:hover': {
+                                          color: '#2084EA',
+                                        },
+                                      }}
+                                    >
+                                      {blogData?.profile?.profile_name} ↗
+                                    </Typography>
+
+                                    <Typography
+                                      sx={{
+                                        fontSize: 12,
+                                        color: '#9CA3AF',
+                                        mt: 0.20,
+                                      }}
+                                    >
+                                      Author
+                                    </Typography>
+                                  </Box>
+                                </Box>
+
+                                {/* Description */}
+                                <Typography
+                                  sx={{
+                                    fontSize: '12px !important ',
+                                    lineHeight: 1.6,
+                                    color: '#8B8B8B',
+                                    display: "-webkit-box",
+                                    WebkitLineClamp: 3,
+                                    WebkitBoxOrient: "vertical",
+                                    overflow: "hidden",
+
+                                  }}
+                                >
+                                  {blogData?.profile?.profile_description ||
+                                    'Fun-loving and cheerful, a passionate blockchain and crypto writer who knows no boundary...'}
+                                </Typography>
+                              </Box>
+                            </Box>
+                          )}
+                        </Box>
                       )}
 
-                      {blogData?.profile_name && formattedAuthorDate && (
+                      {blogData?.profile?.profile_name && formattedAuthorDate && (
                         <Box component="span" sx={{ color: '#d5d5d5' }}>
                           |
                         </Box>

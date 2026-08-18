@@ -259,11 +259,11 @@ const GlobalCommunitySection = () => {
     id: item.id,
     type: item.type?.replace(/_/g, " ").toUpperCase(),
     title: item.title,
-    host: item.profile_name,
+    host: item?.profile?.profile_name,
     duration: null,
     time: dayjs(item.created_at).format("MMM DD, YYYY hh:mm A"),
-    avatar: item.profile_image
-      ? `${process.env.REACT_APP_IMAGE_URL}/${item.profile_image}`
+    avatar: item?.profile?.profile_image
+      ? `${process.env.REACT_APP_IMAGE_URL}/${item?.profile?.profile_image}`
       : "",
     image: item.get_media_display
       ? `${process.env.REACT_APP_IMAGE_URL}/${item.get_media_display}`

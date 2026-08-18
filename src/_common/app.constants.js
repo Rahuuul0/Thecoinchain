@@ -71,6 +71,7 @@ export const RoutesName = {
   policy: "/policy",
   tech: "/tech",
   Trending_News: "/trending-news",
+  Profile_Detail: "/profile/:id",
 
 };
 
@@ -135,6 +136,7 @@ export const Apis = {
   Heading_List: "heading-list",
   All_Content: (type) => `all-content-list/${type}`,
   BLOG_DETAIL: (id) => `content-detail/${id}`,
+  PROFILE_DETAIL: (id) => `profile/contents?id=${id}`,
 
 };
 

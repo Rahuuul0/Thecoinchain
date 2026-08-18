@@ -61,6 +61,7 @@ import FaqDetail from "./FaqDetail";
 import GuidesAndAnalyticsDetail from "./GuidesandAnalyticsDetail";
 import NewsAndPromotionsDetail from "./NewsAndPromotionsDetail";
 import LatestNewsBlogDetail from "./LatestNewsBlogDetail";
+import MuiCryptoProgileNews from "../../Pages/Comman/MuiCrptoProfileNews";
 import { RoutesName } from "../../_common/app.constants";
 
 const Customer = () => {
@@ -104,6 +105,7 @@ const Customer = () => {
           <Route path={`/guides-and-analytics-detail/:page/:title`} element={<GuidesAndAnalyticsDetail />} />
           <Route path={`/news-and-promotions-detail/:page/:title`} element={<NewsAndPromotionsDetail />} />
           <Route path={RoutesName.Blog_Detail} element={<LatestNewsBlogDetail />} />
+          <Route path={RoutesName.Profile_Detail} element={<MuiCryptoProgileNews />} />
           <Route path='*' element={<PageNotFound />} />
           <Route path={`/contact`} element={<Contact />} />
           <Route path={`/market`} exact element={<Market />} />

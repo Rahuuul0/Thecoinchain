@@ -25,6 +25,7 @@ import { useFetchWrapper } from '../../_helpers';
 import { coinsAtom, switchDarkModeAtom } from '../../_state';
 import { useRecoilValue } from 'recoil';
 import { useCoinActions } from '../../_actions/coin.actions';
+import { allContentActions } from '../../_actions/allcontent.actions';
 
 // ---- Static fallback profile data (jab tak backend se author info na aaye) ----
 const STATIC_PROFILE_NAMES = [
@@ -252,7 +253,7 @@ const CryptoTickerMarquee = ({ data }) => {
 
 // ---- Reusable Profile (Avatar + Name) row ----
 
-const ProfileBadge = ({ name, avatarUrl, size = 56, ringColor = '#5602a5' }) => {
+const ProfileBadge = ({ name, avatarUrl, size = 56, ringColor = '#5602a5', profileId, onProfileClick }) => {
   return (
     <Box
       className="website-all-card-profile-badge"
@@ -265,6 +266,13 @@ const ProfileBadge = ({ name, avatarUrl, size = 56, ringColor = '#5602a5' }) => 
         mb: 1.5,
         position: 'relative',
         zIndex: 2,
+        cursor: profileId ? 'pointer' : 'default',
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        if (profileId && onProfileClick) {
+          onProfileClick(profileId);
+        }
       }}
     >
       <Avatar
@@ -275,6 +283,10 @@ const ProfileBadge = ({ name, avatarUrl, size = 56, ringColor = '#5602a5' }) => 
           height: size,
           border: '3px solid #FFFFFF',
           boxShadow: `0 0 0 3px ${ringColor}`,
+          transition: 'transform 0.2s ease',
+          '&:hover': {
+            transform: profileId ? 'scale(1.05)' : 'scale(1)',
+          },
         }}
       />
       <Typography
@@ -283,6 +295,11 @@ const ProfileBadge = ({ name, avatarUrl, size = 56, ringColor = '#5602a5' }) => 
           fontSize: '14px',
           fontWeight: 500,
           color: '#7d7e80',
+          cursor: profileId ? 'pointer' : 'default',
+          '&:hover': {
+            color: profileId ? '#2084EA' : '#7d7e80',
+          },
+          transition: 'color 0.2s ease',
         }}
       >
         <strong>{name}</strong>
@@ -294,10 +311,12 @@ const ProfileBadge = ({ name, avatarUrl, size = 56, ringColor = '#5602a5' }) => 
 const MuiCryptoSection = () => {
   const [cryptoNewsData, setCryptoNewsData] = useState([]);
   const { latestListing } = useCoinActions();
+  const { getProfileDetail } = allContentActions();
   const coinsList = useRecoilValue(coinsAtom);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [loader, setLoader] = useState(false);
+  const [profileLoader, setProfileLoader] = useState(false);
   const location = useLocation();
   const isDarkMode = useRecoilValue(switchDarkModeAtom);
   const history = useNavigate();
@@ -360,18 +379,31 @@ const MuiCryptoSection = () => {
   };
 
   // ---- Author / Profile info resolver ----
-  // item.author_name / item.author_image (ya kisi bhi similar backend field) agar
-  // available ho to wahi use hoga, warna index ke hisaab se static fallback profile.
-  const getAuthorInfo = (item) => {
-    const name = item?.profile_name?.trim() || "";
-    const avatarUrl = item?.profile_image
-      ? getMediaUrl(item.profile_image)
-      : "";
+  // Extract profile data from nested profile object
+  const getAuthorInfo = (item, fallbackIndex = 0) => {
+    // Extract from nested profile object
+    const profileObj = item?.profile || item;
+    const name = profileObj?.profile_name?.trim() || "";
+    const profileImage = profileObj?.profile_image;
+    
+    // Handle profile image - skip invalid paths like "/HEADER"
+    let avatarUrl = "";
+    if (profileImage && profileImage.trim() && !profileImage.includes("/HEADER")) {
+      avatarUrl = getMediaUrl(profileImage);
+    }
+    
+    // Use fallback static avatar if no profile image
+    if (!avatarUrl && name) {
+      avatarUrl = STATIC_PROFILE_AVATARS[fallbackIndex % STATIC_PROFILE_AVATARS.length];
+    }
 
     return {
-      name,
-      avatarUrl,
-      hasProfile: !!(name && avatarUrl),
+      name: name || STATIC_PROFILE_NAMES[fallbackIndex % STATIC_PROFILE_NAMES.length],
+      avatarUrl: avatarUrl || STATIC_PROFILE_AVATARS[fallbackIndex % STATIC_PROFILE_AVATARS.length],
+      hasProfile: !!(name || avatarUrl),
+      profileDescription: profileObj?.profile_description,
+      profileEmail: profileObj?.profile_email,
+      profileId: profileObj?.profile_id,
     };
   };
 
@@ -413,6 +445,23 @@ const MuiCryptoSection = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   });
+
+  const handleProfileClick = async (profileId) => {
+    if (!profileId) return;
+    try {
+      setProfileLoader(true);
+      const response = await getProfileDetail(profileId);
+      if (response?.data || response?.id) {
+        const profileData = response?.data || response;
+        sessionStorage.setItem('profileDetail', JSON.stringify(profileData));
+        history(`/profile/${profileId}`);
+      }
+    } catch (error) {
+      console.error('Error fetching profile detail:', error);
+    } finally {
+      setProfileLoader(false);
+    }
+  };
 
   const formattedDate = dayjs(cryptoNewsData?.data?.[0]?.created_at).format(
     'MMM DD, YYYY'
@@ -510,7 +559,7 @@ const MuiCryptoSection = () => {
       <Backdrop
         className="website-all-backdrop-loader"
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loader}
+        open={loader || profileLoader}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -676,6 +725,8 @@ const MuiCryptoSection = () => {
                   name={featuredAuthor.name}
                   avatarUrl={featuredAuthor.avatarUrl}
                   size={64}
+                  profileId={featuredAuthor.profileId}
+                  onProfileClick={handleProfileClick}
                 />
               )}
 
@@ -808,6 +859,8 @@ const MuiCryptoSection = () => {
                       name={author.name}
                       avatarUrl={author.avatarUrl}
                       size={48}
+                      profileId={author.profileId}
+                      onProfileClick={handleProfileClick}
                     />
                   )}
 
@@ -924,6 +977,8 @@ const MuiCryptoSection = () => {
                                 name={author.name}
                                 avatarUrl={author.avatarUrl}
                                 size={48}
+                                profileId={author.profileId}
+                                onProfileClick={handleProfileClick}
                               />
                             )}
 

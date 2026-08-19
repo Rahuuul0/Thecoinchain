@@ -587,11 +587,11 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>CoinGuru | Latest Crypto News, Market Analysis & Price Predictions</title>
+        <title>TheCoinChain | Latest Crypto News, Market Analysis & Price Predictions</title>
 
         <meta
           name="description"
-          content="Stay updated with the latest cryptocurrency news, Bitcoin updates, market analysis, research reports, press releases and price predictions on CoinGuru."
+          content="Stay updated with the latest cryptocurrency news, Bitcoin updates, market analysis, research reports, press releases and price predictions on TheCoinChain."
         />
 
         <meta
@@ -603,12 +603,12 @@ const Home = () => {
 
         <meta
           property="og:title"
-          content="CoinGuru | Latest Crypto News, Market Analysis & Price Predictions"
+          content="TheCoinChain | Latest Crypto News, Market Analysis & Price Predictions"
         />
 
         <meta
           property="og:description"
-          content="Read the latest cryptocurrency news, research reports, press releases and market insights on CoinGuru."
+          content="Read the latest cryptocurrency news, research reports, press releases and market insights on TheCoinChain."
         />
 
         <meta property="og:url" content={window.location.href} />

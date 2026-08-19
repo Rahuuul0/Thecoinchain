@@ -88,11 +88,11 @@ const MuiLatestNewsDashboardSection = () => {
   return (
     <>
       <Helmet>
-        <title>Latest News | CoinGuru</title>
+        <title>Latest News | TheCoinChain</title>
 
         <meta
           name="description"
-          content="Read the latest cryptocurrency news, Bitcoin updates, blockchain trends, and market insights on CoinGuru."
+          content="Read the latest cryptocurrency news, Bitcoin updates, blockchain trends, and market insights on TheCoinChain."
         />
 
         <meta
@@ -102,7 +102,7 @@ const MuiLatestNewsDashboardSection = () => {
 
         <link rel="canonical" href={window.location.href} />
 
-        <meta property="og:title" content="Latest News | CoinGuru" />
+        <meta property="og:title" content="Latest News | TheCoinChain" />
         <meta
           property="og:description"
           content="Read the latest cryptocurrency news, Bitcoin updates, blockchain trends, and market insights."

@@ -81,11 +81,11 @@ const MuiTrandingNewsDashboardSection = () => {
   return (
     <>
       <Helmet>
-        <title>Trending News | CoinGuru</title>
+        <title>Trending News | TheCoinChain</title>
 
         <meta
           name="description"
-          content="Stay updated with the latest trending cryptocurrency news, Bitcoin updates, blockchain developments and market insights on CoinGuru."
+          content="Stay updated with the latest trending cryptocurrency news, Bitcoin updates, blockchain developments and market insights on TheCoinChain."
         />
 
         <meta
@@ -97,7 +97,7 @@ const MuiTrandingNewsDashboardSection = () => {
 
         <meta
           property="og:title"
-          content="Trending News | CoinGuru"
+          content="Trending News | TheCoinChain"
         />
 
         <meta

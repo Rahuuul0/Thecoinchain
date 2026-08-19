@@ -474,7 +474,7 @@ const NewsPromotions = (props) => {
                                     sx={{ fontWeight: "700" }}
                                 >
                                     Stay in the know on
-                                    <br /> crypto with coinguru
+                                    <br /> crypto with The Coin Chain
                                 </Typography>
                                 <Typography className="secondary-color">
                                     A creative agency that lead and inspire
@@ -505,7 +505,7 @@ const NewsPromotions = (props) => {
                                         </Typography>
                                         <Typography className="secondary-color" paddingBottom={{ xs: 8, sm: 12 }}>
                                             Let’s stay in touch. Join our communities to keep up with
-                                            the Coinguru team and our traders from across the world.
+                                            the <b>The Coin Chain</b> team and our traders from across the world.
                                         </Typography>
                                         <Button
                                             className="btn-outlined-secondary"

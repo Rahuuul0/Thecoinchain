@@ -367,7 +367,7 @@ const Notifications = () => {
                       variant="body1"
                       className="body-caption"
                     >
-                      Internal transfers are free on Coinguru.
+                      Internal transfers are free on The coin Chain.
                     </Typography>
                     <Button
                       onClick={() => {

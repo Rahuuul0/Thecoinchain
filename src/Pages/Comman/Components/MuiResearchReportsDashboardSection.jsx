@@ -87,11 +87,11 @@ const MuiResearchReportsDashboardSection = () => {
   return (
     <>
       <Helmet>
-        <title>Research Reports | CoinGuru</title>
+        <title>Research Reports | TheCoinChain</title>
 
         <meta
           name="description"
-          content="Read the latest cryptocurrency research reports, blockchain analysis and market insights on CoinGuru."
+          content="Read the latest cryptocurrency research reports, blockchain analysis and market insights on TheCoinChain."
         />
 
         <meta
@@ -103,7 +103,7 @@ const MuiResearchReportsDashboardSection = () => {
 
         <meta
           property="og:title"
-          content="Research Reports | CoinGuru"
+          content="Research Reports | TheCoinChain"
         />
 
         <meta

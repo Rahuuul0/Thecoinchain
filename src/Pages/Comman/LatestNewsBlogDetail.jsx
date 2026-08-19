@@ -316,7 +316,7 @@ const LatestNewsBlogDetail = () => {
   return (
     <>
       <Helmet>
-        <title>{blogData?.meta_title || blogData?.title || "CoinGuru"}</title>
+        <title>{blogData?.meta_title || blogData?.title || "TheCoinChain"}</title>
 
         <meta
           key="description"

@@ -48,8 +48,8 @@ const ScanToLogin = () => {
                                 </IconButton>
                             </Box>
                             <Box className='auth-wrapper-form-inner' >
-                                <Typography component="h3" variant="h3">
-                                    Sign in to CoinGuru
+                                <Typography component="h5" variant="h5" sx={{textAlign:'center' , mb:2, fontWeight:700}}>
+                                    Sign in to The Coin Chain
                                 </Typography>
                                 <Box className='ensure' >
                                     <Typography component="small" variant="body2" sx={{ color: '#777E91', display: 'block', textAlign: 'center' }}>
@@ -57,12 +57,12 @@ const ScanToLogin = () => {
                                     </Typography>
                                     <Box className='ensure-link' >
                                         <img src={Lock} alt='lock' />
-                                        <span>https://</span> accounts.coinguru.org/login
+                                        <span>https://</span> accounts.TheCoinChain/login
                                     </Box>
                                 </Box>
                                 <Box className='devider' />
                                 <Typography component="small" variant="body2" sx={{ textAlign: 'center', color: '#777E91', display: 'block', marginBottom: '20px' }}>
-                                    Please use your CoinGuru app to scan BC code to log in .
+                                    Please use your <b>The Coin Chain</b> app to scan BC code to log in .
                                 </Typography>
                                 <Box
                                     justifyContent='center'

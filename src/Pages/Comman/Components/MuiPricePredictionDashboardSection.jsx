@@ -63,17 +63,17 @@ const MuiShortNewsDashboardSection = () => {
     return (
         <>
             <Helmet>
-                <title>Short News | CoinGuru</title>
+                <title>Short News | TheCoinChain</title>
                 <meta
                     name="description"
-                    content="Quick-hit cryptocurrency updates, Bitcoin news, blockchain headlines, and market bites on CoinGuru."
+                    content="Quick-hit cryptocurrency updates, Bitcoin news, blockchain headlines, and market bites on TheCoinChain."
                 />
                 <meta
                     name="keywords"
                     content="short crypto news, bitcoin news, blockchain headlines, quick crypto updates"
                 />
                 <link rel="canonical" href={window.location.href} />
-                <meta property="og:title" content="Short News | CoinGuru" />
+                <meta property="og:title" content="Short News | TheCoinChain" />
                 <meta
                     property="og:description"
                     content="Quick-hit cryptocurrency updates, Bitcoin news, and blockchain headlines."

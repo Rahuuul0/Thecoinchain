@@ -88,11 +88,11 @@ const MuiPressReleaseDashboardSection = () => {
   return (
     <>
       <Helmet>
-        <title>Press Releases | CoinGuru</title>
+        <title>Press Releases | TheCoinChain</title>
 
         <meta
           name="description"
-          content="Read the latest cryptocurrency press releases, blockchain announcements, exchange updates and official news on CoinGuru."
+          content="Read the latest cryptocurrency press releases, blockchain announcements, exchange updates and official news on TheCoinChain."
         />
 
         <meta
@@ -102,7 +102,7 @@ const MuiPressReleaseDashboardSection = () => {
 
         <link rel="canonical" href={window.location.href} />
 
-        <meta property="og:title" content="Press Releases | CoinGuru" />
+        <meta property="og:title" content="Press Releases | TheCoinChain" />
 
         <meta
           property="og:description"

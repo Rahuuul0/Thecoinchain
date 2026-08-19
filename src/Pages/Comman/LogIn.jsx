@@ -177,8 +177,8 @@ const LogIn = () => {
                 </IconButton>
               </Box>
               <Box className="auth-wrapper-form-inner">
-                <Typography component="h3" variant="h3">
-                  Sign in to CoinGuru
+                <Typography component="h5" variant="h5" sx={{textAlign:'center' , mb:2, fontWeight:700}}>
+                  Sign in to The Coin Chain
                 </Typography>
                 <Box className="ensure">
                   <Typography
@@ -194,7 +194,7 @@ const LogIn = () => {
                   </Typography>
                   <Box className="ensure-link">
                     <img src={Lock} alt="lock" />
-                    <span>https://</span> accounts.coinguru.org/login
+                    <span>https://</span> accounts.TheCoinChain/login
                   </Box>
                 </Box>
                 <Box className="open-id">
@@ -202,6 +202,7 @@ const LogIn = () => {
                     component="small"
                     variant="body2"
                     sx={{
+                      marginTop:'12px',
                       textAlign: "center",
                       color: "#777E91",
                       display: "block",

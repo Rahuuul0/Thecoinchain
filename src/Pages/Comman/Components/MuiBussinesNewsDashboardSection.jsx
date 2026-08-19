@@ -146,11 +146,11 @@ const MuiCategoryNewsDashboardSection = () => {
   return (
     <>
       <Helmet>
-        <title>Markets, Finance, Policy & Tech News | CoinGuru</title>
+        <title>Markets, Finance, Policy & Tech News | TheCoinChain</title>
 
         <meta
           name="description"
-          content="Read the latest Market, Finance, Policy and Tech news on CoinGuru."
+          content="Read the latest Market, Finance, Policy and Tech news on TheCoinChain."
         />
 
         <meta
@@ -162,7 +162,7 @@ const MuiCategoryNewsDashboardSection = () => {
 
         <meta
           property="og:title"
-          content="Markets, Finance, Policy & Tech News | CoinGuru"
+          content="Markets, Finance, Policy & Tech News | TheCoinChain"
         />
 
         <meta

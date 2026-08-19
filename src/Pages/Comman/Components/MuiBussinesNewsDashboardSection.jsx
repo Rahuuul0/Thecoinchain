@@ -176,9 +176,9 @@ const MuiCategoryNewsDashboardSection = () => {
       <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}></Container>
       <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
         {loading ? (
-          <Typography sx={{ color: '#4c328e' }}>Loading latest news...</Typography>
+          <Typography sx={{ color: '#3772ff' }}>Loading latest news...</Typography>
         ) : news.length === 0 ? (
-          <Typography sx={{ color: '#4c328e' }}>No latest news is available right now.</Typography>
+          <Typography sx={{ color: '#3772ff' }}>No latest news is available right now.</Typography>
         ) : (
           <Grid container spacing={0} sx={{ border: `1px solid ${borderColor}` }}>
             {CATEGORY_CONFIG.map((category, index) => {
@@ -309,7 +309,7 @@ const MuiCategoryNewsDashboardSection = () => {
                                     lineHeight: 1.3,
                                     color: textColor,
                                     cursor: 'pointer',
-                                    '&:hover': { color: '#4c328e' },
+                                    '&:hover': { color: '#3772ff' },
                                   }}
                                 >
                                   {featured?.title}
@@ -337,7 +337,7 @@ const MuiCategoryNewsDashboardSection = () => {
                                     color: textColor,
                                     cursor: 'pointer',
                                     py: 1.2,
-                                    '&:hover': { color: '#4c328e' },
+                                    '&:hover': { color: '#3772ff' },
                                   }}
                                 >
                                   {item?.title}

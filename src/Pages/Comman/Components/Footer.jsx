@@ -164,7 +164,7 @@ const Footer = () => {
                   sx={{ textAlign: 'left' }}
                   className='small-caption'
                 >
-                  Copyright © 2023 coinguru.org. All rights reserved
+                  Copyright © 2026 | <b>thecoinchain</b> All rights reserved
                 </Typography>
               </Box>
             </Grid>

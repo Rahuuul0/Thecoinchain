@@ -387,8 +387,7 @@ const GlobalCommunitySection = () => {
                 mx: { xs: "auto", md: 0 },
               }}
             >
-              Let's stay in touch. Join our communities to keep up with the
-              Coinguru team and our traders from across the world?
+              Let's stay in touch. Join our communities to keep up with the <b> The Coin Chain </b> team and our traders from across the world?
             </Typography>
           </Box>
 
@@ -633,7 +632,7 @@ const Home = () => {
         let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
         return (
           <Container>
-            <Box sx={{ py: { xs: 4, sm: 6 } }}>
+            <Box sx={{ pb: { xs: 4, sm: 6 } }}>
               {subscribeUser?.status === "expired" && auth !== null ?
                 <Stack sx={{ width: '100%', marginLeft: 'auto', marginTop: '22px', marginBottom: '1rem' }} spacing={2}>
                   <Alert severity="info">You don't have any current plan please <Link to={'/subscription'}> <b>subscribe </b></Link> !</Alert>
@@ -726,7 +725,7 @@ const Home = () => {
                         : item?.price;
               if (index < 4) {
                 return (
-                  <Grid item xs={12} sm={4} md={4} lg={3} className="gridBox">
+                  <Grid item xs={12} sm={4} md={4} lg={3}  className="gridBox">
                     <img
                       src={item.image}
                       alt={item.symbol}

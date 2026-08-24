@@ -22,6 +22,7 @@ const ComingSoon = () => {
                     </Stack>
                 </Box>
             </Box>
+            
         </Container>
         </>
     )

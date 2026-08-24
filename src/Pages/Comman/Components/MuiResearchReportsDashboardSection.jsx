@@ -148,7 +148,7 @@ const MuiResearchReportsDashboardSection = () => {
                     onClick={() => openDetail(item?.id, item?.title)}
                     sx={{
                       height: '100%',
-                      borderRadius: 2,
+                      borderRadius: '15px',
                       overflow: 'hidden',
                       bgcolor: '#ffffff',
                       border: '1px solid #ececec',

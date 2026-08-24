@@ -110,9 +110,9 @@ const MuiTrandingNewsDashboardSection = () => {
       <Box
         sx={{
           width: '100%',
-          maxWidth: 475,
-          ml: { xs: 'auto', md: 0 },
-          mr: 'auto',
+          maxWidth: 576,
+          // ml: { xs: 'auto', md: 0 },
+          // mr: 'auto',
           position: 'relative',
           overflow: 'hidden',
           isolation: 'isolate',
@@ -171,7 +171,7 @@ const MuiTrandingNewsDashboardSection = () => {
         <Box
           sx={{
             py: 1,
-            height: 306,
+            height: 250,
             overflow: 'hidden',
             '&:hover .scroll-track-1, &:focus-within .scroll-track-1': {
               animationPlayState: 'paused',

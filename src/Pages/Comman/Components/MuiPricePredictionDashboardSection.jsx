@@ -83,7 +83,7 @@ const MuiShortNewsDashboardSection = () => {
 
             <Card
                 sx={{
-                    maxWidth: 460,
+                    maxWidth: 600,
                     mx: 'auto',
                     borderRadius: '18px',
                     overflow: 'hidden',
@@ -156,7 +156,7 @@ const MuiShortNewsDashboardSection = () => {
                             borderRadius: 4,
                         },
                     }}
-                >
+                    >
                     {loading ? (
                         <Typography sx={{ color: '#808080', py: 3 }}>Loading price prediction news...</Typography>
                     ) : news.length === 0 ? (
@@ -202,7 +202,7 @@ const MuiShortNewsDashboardSection = () => {
                                             height: 9,
                                             bgcolor: '#2F6FED',
                                             transform: 'rotate(45deg)',
-                                            mt: 0,
+                                            mt: '14px',
                                             zIndex: 1,
                                             borderRadius: '2px',
                                         }}

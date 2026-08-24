@@ -112,7 +112,6 @@ const MuiPressReleaseDashboardSection = () => {
         <meta property="og:url" content={window.location.href} />
       </Helmet>
 
-      <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}></Container>
       <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
           <Typography variant="h5" sx={{ fontSize: 25, fontWeight: 600, color: '#000000', color: isDarkMode ? "#fff" : "none", }}>
@@ -147,7 +146,7 @@ const MuiPressReleaseDashboardSection = () => {
                     onClick={() => openDetail(item?.id, item?.title)}
                     sx={{
                       height: '100%',
-                      borderRadius: 2,
+                      borderRadius: '15px',
                       overflow: 'hidden',
                       bgcolor: '#ffffff',
                       border: '1px solid #ececec',

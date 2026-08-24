@@ -187,7 +187,7 @@ const LearnCyptoDetail = () => {
 
               </Box>
               :
-              <Box paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}>
+              <Box paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 7}}>
                   { blogNew === true? 
                   <ReactPlayer
                     url={blogImg?.video_link}
@@ -221,7 +221,7 @@ const LearnCyptoDetail = () => {
               </Box>
             }
 
-            <Box className="smallwidth">
+            <Box className="smallwidth" sx={{maxWidth:'100% !important',}}>
               <Typography
                 variant="h2"
                 fontWeight="700"

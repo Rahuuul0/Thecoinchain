@@ -348,7 +348,7 @@ const GlobalCommunitySection = () => {
             flexDirection: { xs: "column", md: "row" },
             alignItems: "center",
             justifyContent: "center",
-            gap: { xs: 6, md: 4 },
+            gap: { xs: 0, md: 0, md: 4 },
             py: { xs: 3, md: 3 },
           }}
         >
@@ -398,7 +398,7 @@ const GlobalCommunitySection = () => {
               flex: 1,
               position: "relative",
               width: "100%",
-              minHeight: { xs: "320px", md: "400px" },
+              minHeight: { xs: "290px", md: "250px", md: "400px" },
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -430,7 +430,7 @@ const GlobalCommunitySection = () => {
                 transform: "translateX(-50%) translateY(30px) scale(0.92)",
                 opacity: 0.5,
                 zIndex: 2,
-                width: { xs: "320px", sm: "420px", md: "520px" },
+                width: { xs: "320px", sm: "520px", md: "420px" , lg: "520px"},
                 transition: "all 800ms cubic-bezier(0.43, 0.05, 0.3, 1)",
                 willChange: "transform, opacity",
               }}
@@ -457,7 +457,7 @@ const GlobalCommunitySection = () => {
                 opacity: entering ? 1 : 0,
 
                 zIndex: 3,
-                width: { xs: "320px", sm: "420px", md: "520px" },
+                width: { xs: "320px", sm: "520px", md: "420px" , lg: "520px" },
 
                 transition: `
                 transform 800ms cubic-bezier(0.43, 0.05, 0.3, 1),
@@ -646,7 +646,7 @@ const Home = () => {
                   md={6}
                   sx={{
                     paddingRight: { xs: "0px", md: "50px" },
-                    paddingTop: { xs: "50px", md: "0px" },
+                    paddingTop: { xs: "0px", md: "0px" },
                   }}
                 >
                   <Typography
@@ -661,7 +661,7 @@ const Home = () => {
                     component="div"
                     className="hero-para primary-font secondary-color"
                     sx={{
-                      paddingBottom: { xs: "30px", md: "50px" },
+                      paddingBottom: { xs: "30px", md: "45px" },
                       paddingTop: { xs: "20px" },
                     }}
                   >
@@ -785,7 +785,7 @@ const Home = () => {
         </Box>
       </Container>
       {/* Latest News */}
-      <Box className="become-crypto">
+      <Box className="become-crypto" sx={{ paddingY: 0 }}>
         <Container sx={{ paddingY: 0 }}>
           <Box>
             <Typography
@@ -961,7 +961,7 @@ const Home = () => {
               container
               rowSpacing={1}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            >
+              >
               <Grid item xs={12} sm={8} md={8}>
                 <Typography
                   variant="h2"
@@ -979,7 +979,7 @@ const Home = () => {
                 md={4}
                 textAlign="right"
                 className="mobile-none"
-              >
+                >
                 <Button
                   variant="outlined"
                   className="btn btn-outlined-secondary"
@@ -1080,7 +1080,7 @@ const Home = () => {
                     })}
 
                   </Grid>
-                  <Grid className="mobile-none" >
+                  <Grid className="mobile-none" sx={{marginBottom:'25px'}} >
                     {tutorialsList.length > 4 && tutorialsList.length > loadmore &&
                       <Button
                         variant="outlined"
@@ -1101,7 +1101,7 @@ const Home = () => {
               </TabContext>
 
               <Box className="ipad-visible swiper-styles swiper-home">
-                <Box paddingBottom={{ xs: 4, sm: 10 }}>
+                <Box paddingBottom={{ xs: 0 , sm: 0 }}>
                   <Swiper
                     slidesPerView={1}
                     navigation={true}
@@ -1379,7 +1379,7 @@ const Home = () => {
       <Container>
         <Box
           className="app-store"
-          sx={{ paddingY: { xs: 4, sm: 6 } }}
+          sx={{ pb: { xs: 4, sm: 6 } , pt:{ xs: '10px', sm: "10px" } }}
         >
           <Grid
             container
@@ -1388,7 +1388,7 @@ const Home = () => {
             className="flow-reverse-mobile"
           >
 
-            <Grid item xs={12} sm={5} md={5}>
+            <Grid item xs={12} sm={12} md={5}>
               <Box sx={{ paddingBottom: { xs: "15px", md: "50px" } }}>
                 <Typography
                   variant="h2"
@@ -1492,7 +1492,7 @@ const Home = () => {
                 </Stack>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={7} md={7}>
+            <Grid item xs={12} sm={12} md={7}>
               <MuiPricePredictionDashboardSection />
               {/* <img className="app-store-img" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[1]?.image}`} /> */}
             </Grid>

@@ -173,7 +173,6 @@ const MuiCategoryNewsDashboardSection = () => {
         <meta property="og:url" content={window.location.href} />
       </Helmet>
 
-      <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}></Container>
       <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
         {loading ? (
           <Typography sx={{ color: '#3772ff' }}>Loading latest news...</Typography>

@@ -55,7 +55,7 @@ const PredictionDashboard = () => {
               </Typography>
               <CryptoTable />
             </Container>
-            <Box className="market-prediction-faq">
+            <Box className="market-prediction-faq" sx={{marginTop:'15px'}}>
               <Container maxWidth="lg">
                 <Typography
                   component="h5"

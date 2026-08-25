@@ -190,7 +190,7 @@ const NewsPromotions = (props) => {
             </Box>
             <ThemeProvider theme={theme}>
                 <Container sx={{ pt: 14 }}>
-                    <Box paddingBottom={15}>
+                    <Box paddingBottom={0}>
                         <Typography
                             variant="h1"
                             className="secondary-font news"

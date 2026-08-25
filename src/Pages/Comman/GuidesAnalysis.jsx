@@ -270,7 +270,7 @@ const GuidesAnalysis = (props) => {
             </Box>
             <ThemeProvider theme={theme}>
                 <Container sx={{ pt: 14 }}>
-                    <Box paddingBottom={10}>
+                    <Box>
                         <Typography
                             variant="h1"
                             className="secondary-font"

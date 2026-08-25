@@ -606,7 +606,7 @@ const MuiCryptoSection = () => {
         <CryptoTickerMarquee data={cryptoTickerData} />
       </Box>
 
-      <Container maxWidth="lg" sx={{ mt: 15 }}>
+      <Container maxWidth="lg" sx={{ mt: 5 }}>
         <Box
           className="website-all-main-content-section"
           sx={{
@@ -890,7 +890,7 @@ const MuiCryptoSection = () => {
             <ThemeProvider theme={theme}>
               <Box
                 className="website-all-bottom-cards-container"
-                sx={{ bgcolor: isDarkMode ? "#000" : "#ffffff", Height: '100%', pb: 2 }}
+                sx={{ bgcolor: isDarkMode ? "#141416" : "#ffffff", Height: '100%', pb: 2 }}
               >
                 <Container maxWidth="lg">
                   <Grid container spacing={3}>

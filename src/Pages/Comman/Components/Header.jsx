@@ -566,7 +566,8 @@ function Header(props) {
 
           <Box
             sx={{
-              display: { xs: "none", sm: "flex", flex: 2, textAlign: "right", gap: "10px"},
+              display: { xs: "none", sm: "flex", flex: 2, textAlign: "right"},
+              gap: {xs:'10px', sm:"5px" ,md:'10px'}
             }}
             justifyContent="end"
           >

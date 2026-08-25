@@ -59,7 +59,7 @@ const Footer = () => {
       <Container>
         <Box>
           <Grid container sx={{ justifyContent: 'space-between' }}>
-            <Grid item xs={12} sm={12} md={2} paddingTop={{ xs: 8, sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
+            <Grid item xs={12} sm={12} md={2} paddingTop={{ xs: 4 , sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
               <Button sx={{ padding: 0 }} onClick={() => { navigate(RoutesName.User_Dashboard); }}
               > <img className='coinguru-logo logo-cg' src={LogoList[0]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}` : LogoList[0]?.image_link} alt="Coin Guru" />
               </Button>

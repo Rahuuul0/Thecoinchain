@@ -83,8 +83,9 @@ const MuiShortNewsDashboardSection = () => {
 
             <Card
                 sx={{
-                    maxWidth: 600,
-                    mx: 'auto',
+                    maxWidth: 550,
+                    ml: {md:'auto'},
+                    mx:{sm:"auto"},
                     borderRadius: '18px',
                     overflow: 'hidden',
                     bgcolor: isDarkMode ? '#1b1b1f' : '#ffffff',

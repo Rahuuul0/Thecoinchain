@@ -314,7 +314,7 @@ const Contact = () => {
       </Container>
       {/* Banner Ends */}
       <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
-        <Box paddingTop={7} className='newdesignbox swiper-styles'>
+        <Box paddingTop={5} className='newdesignbox swiper-styles'>
           <Container maxWidth="xs">
             <Typography variant='body1' component="p" className='hero-para secondary-color' textAlign={"center"} paddingBottom={5}>
               Before asking for an answer, you may find it in our learn crypto center
@@ -368,7 +368,7 @@ const Contact = () => {
       {/* Slider ends */}
 
       <Container>
-        <Box className="faq-box">
+        <Box className="faq-box" sx={{padding:{xs:'40px 0', sm:'60px 0'}}}>
           <Box>
             <Box className='smallwidth'>
               <Typography variant='h2' fontWeight='700' textAlign='center' className='secondary-font' paddingBottom={4}>Frequently asked questions</Typography>
@@ -420,7 +420,7 @@ const Contact = () => {
 
       <Container maxWidth='fluid' className='contact-form-sec'>
         <Container className='smallwidth' padding={'0'}>
-          <Box className="topic-que">
+          <Box className="topic-que" sx={{padding:{xs:'40px 0', sm:'60px 0'}}}>
             <Box
               noValidate
               component="form"
@@ -524,7 +524,6 @@ const Contact = () => {
                 <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
                   <ReCAPTCHA
                     style={{
-                      // margin: "10px auto",
                       display: "flex",
                       // justifyContent: "center",
                     }}
@@ -539,7 +538,7 @@ const Contact = () => {
                     loading={isSubmitting}
                     loadingPosition="end"
                     className='btn btn-primary'
-                    sx={{ marginLeft: { xs: "0", sm: "auto" }, minWidth: "160px", }}
+                    sx={{ marginLeft: { xs: "0", sm: "auto" }, minWidth: "160px", mt:'15px'}}
                     disabled={isSubmitting}
                     variant='contained'>
                     {isSubmitting ? <span className="spinner-border ">Loading</span> : " Send message "}

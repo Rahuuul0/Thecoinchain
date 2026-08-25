@@ -232,7 +232,7 @@ const CryptoTable = (props) => {
         >
           <CircularProgress color="inherit" />
         </Backdrop>
-        <Box className="crypto-list-table">
+        <Box className="crypto-list-table" sx={{border:'1px solid #6b656540', padding:'20px 0' }}>
           <TableContainer>
             <Stack spacing={2}>
               <Table sx={{ minWidth: 650 }}>

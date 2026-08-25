@@ -1913,6 +1913,14 @@ body {
   padding-top: 136px;
 }
 
+.market-inner .price-prediction{
+  padding-top:80px;
+}
+
+.market-inner .learn-n-earn{
+    padding: 80px 0;
+}
+
 .price-prediction h2 {
   font-family: var(--secondary-font) !important;
   margin-bottom: 20px;
@@ -3187,7 +3195,7 @@ video[poster] {
 }
 
 .community-wrapper {
-  padding: 136px 0;
+  padding: 80px 0;
 }
 
 .community-wrapper .subscription-wrapper-head {
@@ -3453,7 +3461,7 @@ span.currency_name {
 
 .global-community {
   background-color: var(--global-community-bg);
-  padding: 136px 0;
+  padding: 60px 0;
 }
 
 .global-community .swiper-button-next,
@@ -4202,7 +4210,7 @@ span.currency_name {
   }
 
   .footer {
-    border-top: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
   }
 
   .footer .bg-white {
@@ -5153,4 +5161,26 @@ span.currency_name {
   padding-left: 0;
   margin: 0;
   list-style: none;
+}
+
+@media screen and (min-width: 768px) and (max-width: 930px) {
+    .app-nav .coinguru-logo {
+      max-width: 51px;
+  }
+
+  .app-nav button.MuiButtonBase-root, #root .app-nav .btn {
+      font-size: 12.5px;
+  }
+
+  .app-nav button.MuiButtonBase-root {
+      margin-left: 3px;
+  }
+
+  #root .app-nav .btn {
+     min-width: 70px;
+  }
+
+  #root .app-nav .btn{
+    padding:8px 10px;
+  }
 }

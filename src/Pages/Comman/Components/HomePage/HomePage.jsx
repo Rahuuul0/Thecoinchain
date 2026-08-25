@@ -71,6 +71,8 @@ import {
 } from "../../../../_state/";
 import ReactPlayer from "react-player";
 import dayjs from "dayjs";
+import relativeTime from 'dayjs/plugin/relativeTime';
+import utc from 'dayjs/plugin/utc';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/css";
@@ -87,6 +89,9 @@ import MuiTrendingNewsDashboardSection from "../MuiTrandingNewsDashboardSection"
 import { useFetchWrapper } from "../../../../_helpers";
 import { Helmet } from "react-helmet-async";
 import CryptoTickerMarquee from "../../../Comman/Components/CryptoTickerMarquee";
+
+dayjs.extend(relativeTime);
+dayjs.extend(utc);
 
 // ---- Static JSON data for podcast notifications ----
 
@@ -261,7 +266,12 @@ const GlobalCommunitySection = () => {
     title: item.title,
     host: item?.profile?.profile_name,
     duration: null,
-    time: dayjs(item.created_at).format("MMM DD, YYYY hh:mm A"),
+    time:
+      item.created_at && dayjs(item.created_at).isValid()
+        ? dayjs().diff(dayjs(item.created_at), "hour") < 24
+          ? dayjs(item.created_at).fromNow()
+          : dayjs(item.created_at).utc().format("MMM DD, YYYY hh:mm A [UTC]")
+        : "Just now",
     avatar: item?.profile?.profile_image
       ? `${process.env.REACT_APP_IMAGE_URL}/${item?.profile?.profile_image}`
       : "",
@@ -430,7 +440,7 @@ const GlobalCommunitySection = () => {
                 transform: "translateX(-50%) translateY(30px) scale(0.92)",
                 opacity: 0.5,
                 zIndex: 2,
-                width: { xs: "320px", sm: "520px", md: "420px" , lg: "520px"},
+                width: { xs: "320px", sm: "520px", md: "420px", lg: "520px" },
                 transition: "all 800ms cubic-bezier(0.43, 0.05, 0.3, 1)",
                 willChange: "transform, opacity",
               }}
@@ -457,7 +467,7 @@ const GlobalCommunitySection = () => {
                 opacity: entering ? 1 : 0,
 
                 zIndex: 3,
-                width: { xs: "320px", sm: "520px", md: "420px" , lg: "520px" },
+                width: { xs: "320px", sm: "520px", md: "420px", lg: "520px" },
 
                 transition: `
                 transform 800ms cubic-bezier(0.43, 0.05, 0.3, 1),
@@ -725,7 +735,7 @@ const Home = () => {
                         : item?.price;
               if (index < 4) {
                 return (
-                  <Grid item xs={12} sm={4} md={4} lg={3}  className="gridBox">
+                  <Grid item xs={12} sm={4} md={4} lg={3} className="gridBox">
                     <img
                       src={item.image}
                       alt={item.symbol}
@@ -961,7 +971,7 @@ const Home = () => {
               container
               rowSpacing={1}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              >
+            >
               <Grid item xs={12} sm={8} md={8}>
                 <Typography
                   variant="h2"
@@ -979,7 +989,7 @@ const Home = () => {
                 md={4}
                 textAlign="right"
                 className="mobile-none"
-                >
+              >
                 <Button
                   variant="outlined"
                   className="btn btn-outlined-secondary"
@@ -1080,7 +1090,7 @@ const Home = () => {
                     })}
 
                   </Grid>
-                  <Grid className="mobile-none" sx={{marginBottom:'25px'}} >
+                  <Grid className="mobile-none" sx={{ marginBottom: '25px' }} >
                     {tutorialsList.length > 4 && tutorialsList.length > loadmore &&
                       <Button
                         variant="outlined"
@@ -1101,7 +1111,7 @@ const Home = () => {
               </TabContext>
 
               <Box className="ipad-visible swiper-styles swiper-home">
-                <Box paddingBottom={{ xs: 0 , sm: 0 }}>
+                <Box paddingBottom={{ xs: 0, sm: 0 }}>
                   <Swiper
                     slidesPerView={1}
                     navigation={true}
@@ -1379,7 +1389,7 @@ const Home = () => {
       <Container>
         <Box
           className="app-store"
-          sx={{ pb: { xs: 4, sm: 6 } , pt:{ xs: '10px', sm: "10px" } }}
+          sx={{ pb: { xs: 4, sm: 6 }, pt: { xs: '10px', sm: "10px" } }}
         >
           <Grid
             container

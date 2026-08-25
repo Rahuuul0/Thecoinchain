@@ -20,12 +20,17 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import YouTube from 'react-youtube';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import utc from 'dayjs/plugin/utc';
 import { Apis, RoutesName } from '../../_common/app.constants';
 import { useFetchWrapper } from '../../_helpers';
 import { coinsAtom, switchDarkModeAtom } from '../../_state';
 import { useRecoilValue } from 'recoil';
 import { useCoinActions } from '../../_actions/coin.actions';
 import { allContentActions } from '../../_actions/allcontent.actions';
+
+dayjs.extend(relativeTime);
+dayjs.extend(utc);
 
 // ---- Static fallback profile data (jab tak backend se author info na aaye) ----
 const STATIC_PROFILE_NAMES = [
@@ -90,7 +95,7 @@ const contentTypeConfig = {
   'latest-news': {
     type: 'latest_news',
     heading: 'Latest News',
-    label: 'Crypto',
+    label: 'Latest News',
   },
   information: {
     type: 'information',
@@ -385,13 +390,13 @@ const MuiCryptoSection = () => {
     const profileObj = item?.profile || item;
     const name = profileObj?.profile_name?.trim() || "";
     const profileImage = profileObj?.profile_image;
-    
+
     // Handle profile image - skip invalid paths like "/HEADER"
     let avatarUrl = "";
     if (profileImage && profileImage.trim() && !profileImage.includes("/HEADER")) {
       avatarUrl = getMediaUrl(profileImage);
     }
-    
+
     // Use fallback static avatar if no profile image
     if (!avatarUrl && name) {
       avatarUrl = STATIC_PROFILE_AVATARS[fallbackIndex % STATIC_PROFILE_AVATARS.length];
@@ -463,9 +468,28 @@ const MuiCryptoSection = () => {
     }
   };
 
-  const formattedDate = dayjs(cryptoNewsData?.data?.[0]?.created_at).format(
-    'MMM DD, YYYY'
-  );
+  const createdAt = cryptoNewsData?.data?.[0]?.created_at;
+
+const formattedDate =
+  createdAt && dayjs(createdAt).isValid()
+    ? dayjs().diff(dayjs(createdAt), 'hour') < 24
+      ? dayjs(createdAt).fromNow()
+      : dayjs(createdAt).utc().format('MMM DD, YYYY HH:mm [UTC]')
+    : 'Just now';
+
+  const getRelativeTime = (date) => {
+    if (!date || !dayjs(date).isValid()) {
+      return 'Just now';
+    }
+
+    const createdDate = dayjs(date);
+    const hoursDiff = dayjs().diff(createdDate, 'hour');
+
+    return hoursDiff < 24
+      ? createdDate.fromNow()
+      : createdDate.utc().format('MMM DD, YYYY HH:mm [UTC]');
+  };
+
   const displayText = cryptoNewsData?.data?.[0]?.created_at
     ? `${currentContentConfig.label} · ${formattedDate}`
     : currentContentConfig.label;
@@ -875,7 +899,7 @@ const MuiCryptoSection = () => {
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
                       {currentContentConfig.label} ·{' '}
-                      {dayjs(item.created_at).format('MMM DD, YYYY')}
+                      {getRelativeTime(item.created_at)}
                     </Typography>
                   </CardContent>
                 </Card>
@@ -1030,7 +1054,7 @@ const MuiCryptoSection = () => {
                                     fontSize: '0.875rem',
                                   }}
                                 >
-                                  {dayjs(item.created_at).format('MMM DD, YYYY')}
+                                  {getRelativeTime(item.created_at)}
                                 </Typography>
                               </Box>
                             </CardContent>

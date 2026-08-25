@@ -4,6 +4,7 @@ import { Box, Container, Divider, Grid, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import YouTube from 'react-youtube';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Apis, RoutesName } from '../../../_common/app.constants';
 import { useFetchWrapper } from '../../../_helpers';
@@ -12,6 +13,7 @@ import { switchDarkModeAtom } from '../../../_state';
 import { Helmet } from "react-helmet-async";
 
 dayjs.extend(relativeTime);
+dayjs.extend(utc);
 
 // -----------------------------------------------------------------------
 // Config: the 4 categories that come from the "type" key of the API
@@ -60,10 +62,17 @@ const getNewsItems = (response) => {
 
 const getItemType = (item) => String(item?.type || item?.category || '').toLowerCase().trim();
 
-const getRelativeTime = (dateValue) => {
-  if (!dateValue) return '';
-  const parsed = dayjs(dateValue);
-  return parsed.isValid() ? parsed.fromNow() : '';
+const getRelativeTime = (date) => {
+  if (!date || !dayjs(date).isValid()) {
+    return 'Just now';
+  }
+
+  const createdDate = dayjs(date);
+  const hoursDiff = dayjs().diff(createdDate, 'hour');
+
+  return hoursDiff < 24
+    ? createdDate.fromNow()
+    : createdDate.utc().format('MMM DD, YYYY HH:mm [UTC]');
 };
 
 const MuiCategoryNewsDashboardSection = () => {
@@ -315,7 +324,7 @@ const MuiCategoryNewsDashboardSection = () => {
                                 </Typography>
                                 {featured?.created_at && (
                                   <Typography sx={{ mt: 1, fontSize: 13, color: mutedColor }}>
-                                    {getRelativeTime(featured.created_at)}
+                                    {getRelativeTime(featured?.created_at)}
                                   </Typography>
                                 )}
                               </Box>
@@ -340,6 +349,9 @@ const MuiCategoryNewsDashboardSection = () => {
                                   }}
                                 >
                                   {item?.title}
+                                  <Typography sx={{ mt: 1, fontSize: 13, color: mutedColor }}>
+                                    {getRelativeTime(item?.created_at)}
+                                  </Typography>
                                 </Typography>
                                 {i < secondaryItems.length - 1 && (
                                   <Divider sx={{ borderColor }} />

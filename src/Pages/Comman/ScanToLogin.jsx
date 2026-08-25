@@ -13,7 +13,6 @@ import ScanImg from '../../../public/assets/images/scanner.png';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import IconButton from "@mui/material/IconButton";
 
-
 const ScanToLogin = () => {
     const navigate = useNavigate();
     return (

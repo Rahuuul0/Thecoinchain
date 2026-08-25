@@ -4,11 +4,16 @@ import { Box, Button, Card, Container, Grid, Typography } from '@mui/material';
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import YouTube from 'react-youtube';
 import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import utc from 'dayjs/plugin/utc';
 import { Apis, RoutesName } from '../../../_common/app.constants';
 import { useFetchWrapper } from '../../../_helpers';
 import { switchDarkModeAtom } from '../../../_state';
 import { useRecoilValue } from 'recoil';
 import { Helmet } from "react-helmet-async";
+
+dayjs.extend(relativeTime);
+dayjs.extend(utc);
 
 const getMediaUrl = (mediaPath) => {
   if (!mediaPath) return '';
@@ -83,6 +88,19 @@ const MuiPressReleaseDashboardSection = () => {
           .replace(":slug", slugify(title))
       );
     }
+  };
+
+  const getRelativeTime = (date) => {
+    if (!date || !dayjs(date).isValid()) {
+      return 'Just now';
+    }
+
+    const createdDate = dayjs(date);
+    const hoursDiff = dayjs().diff(createdDate, 'hour');
+
+    return hoursDiff < 24
+      ? createdDate.fromNow()
+      : createdDate.utc().format('MMM DD, YYYY HH:mm [UTC]');
   };
 
   return (
@@ -232,7 +250,7 @@ const MuiPressReleaseDashboardSection = () => {
                       </Typography>
                       {item?.created_at && (
                         <Typography sx={{ mt: 1, fontSize: 11.5, color: '#808080', fontWeight: 600 }}>
-                          {dayjs(item.created_at).format('MMM DD, YYYY hh:mm A')}
+                          {getRelativeTime(item.created_at)}
                         </Typography>
                       )}
                     </Box>

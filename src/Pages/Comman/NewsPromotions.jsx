@@ -5,8 +5,8 @@ import { theme, RoutesName } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
-import { newsListActions, promotionsActions, useTutorialActions, useHomeActions } from '../../_actions';
-import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom, headingListAtom, breadCrumbAtom } from "../../_state";
+import { newsListActions, promotionsActions, useTutorialActions, useHomeActions, bannerListActions } from '../../_actions';
+import { newsListAtom, promotionAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom, headingListAtom, breadCrumbAtom, setLogoListAtom, switchDarkModeAtom } from "../../_state";
 import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate } from 'react-router-dom';
 import CryptoTickerMarquee from './Components/CryptoTickerMarquee';
@@ -34,6 +34,9 @@ const NewsPromotions = (props) => {
     const headingList = useRecoilValue(headingListAtom);
     const homeActions = useHomeActions();
     const [breadcrumb, setBreadCrumb] = useRecoilState(breadCrumbAtom);
+    const isDarkMode = useRecoilValue(switchDarkModeAtom);
+    const LogoList = useRecoilValue(setLogoListAtom)
+    const LogoListAction = bannerListActions();
 
     const newsCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "News";
@@ -96,6 +99,26 @@ const NewsPromotions = (props) => {
             })
         setPromotionCategoryList(tutorialsArr);
     };
+
+
+    const headerLogo = LogoList?.find(
+        (item) => item.position === "Header"
+    );
+
+    const footerLogo = LogoList?.find(
+        (item) => item.position === "Footer"
+    );
+
+    const selectedLogo = isDarkMode ? headerLogo : footerLogo;
+
+    const logoSrc = selectedLogo?.image
+        ? `${process.env.REACT_APP_IMAGE_URL}/${selectedLogo.image}`
+        : selectedLogo?.image_link || "";
+
+    useEffect(() => {
+        const response = LogoListAction.logoList();
+        response.then((res) => { (res) })
+    }, []);
 
     // Subscription action get function   API data call 
     useEffect(() => {
@@ -464,7 +487,7 @@ const NewsPromotions = (props) => {
                     <Container>
                         <Box>
                             <Box textAlign="center">
-                                <img src={DarkLogo} className='coinguru-logo' />
+                                <img src={logoSrc} className='coinguru-logo' />
                                 <Typography
                                     variant="h2"
                                     component="h2"

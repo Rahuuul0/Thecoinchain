@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -18,7 +18,8 @@ import { useUserActions } from "../../_actions/user.actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useAlertActions } from "../../_actions/alert.actions";
-import { userErrorAtom } from "../../_state";
+import { bannerListActions } from '../../_actions';
+import { userErrorAtom, setLogoListAtom, switchDarkModeAtom } from "../../_state";
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
@@ -47,6 +48,9 @@ const LogIn = () => {
   const userActions = useUserActions();
   const navigate = useNavigate();
   const alertActions = useAlertActions();
+  const LogoList = useRecoilValue(setLogoListAtom)
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
+  const LogoListAction = bannerListActions();
 
   Yup.addMethod(Yup.string, "phoneString", function () {
     return this.transform(
@@ -91,6 +95,10 @@ const LogIn = () => {
     window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
   }, [userError])
 
+  useEffect(() => {
+    const response = LogoListAction.logoList();
+    response.then((res) => { (res) })
+  }, []);
 
   const handleFormSubmit = () => {
     if (value != 1) {
@@ -108,6 +116,24 @@ const LogIn = () => {
     }
   };
 
+  const headerLogo = LogoList?.find(
+    (item) => item.position === "Header"
+  );
+
+  const footerLogo = LogoList?.find(
+    (item) => item.position === "Footer"
+  );
+
+  const selectedLogo = isDarkMode ? headerLogo : footerLogo;
+
+  const logoSrcLight = headerLogo?.image
+    ? `${process.env.REACT_APP_IMAGE_URL}/${headerLogo.image}`
+    : headerLogo?.image_link || "";
+
+  const logoSrc = selectedLogo?.image
+    ? `${process.env.REACT_APP_IMAGE_URL}/${selectedLogo.image}`
+    : selectedLogo?.image_link || "";
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -120,20 +146,20 @@ const LogIn = () => {
               justifyContent: "space-between",
             }}
           >
-            <Box className="auth-header-logo">
+            <Box className="auth-header-logo" sx={{ width: '180px' }}>
               <Link
                 onClick={() => {
                   navigate("/");
                 }}
               >
-                <img src={LogoLight} alt="Coin Guru" className="desktop" />
+                <img src={logoSrcLight} alt="The Coin Chain" className="desktop" />
               </Link>
               <Link
                 onClick={() => {
                   navigate("/");
                 }}
               >
-                <img src={LogoDark} alt="Coin Guru" className="ipad coinguru-logo" />
+                <img src={logoSrc} alt="Coin Guru" className="ipad coinguru-logo" />
               </Link>
             </Box>
             <Box className="dont-have-acc">
@@ -177,7 +203,7 @@ const LogIn = () => {
                 </IconButton>
               </Box>
               <Box className="auth-wrapper-form-inner">
-                <Typography component="h5" variant="h5" sx={{textAlign:'center' , mb:2, fontWeight:700}}>
+                <Typography component="h5" variant="h5" sx={{ textAlign: 'center', mb: 2, fontWeight: 700 }}>
                   Sign in to The Coin Chain
                 </Typography>
                 <Box className="ensure">
@@ -202,7 +228,7 @@ const LogIn = () => {
                     component="small"
                     variant="body2"
                     sx={{
-                      marginTop:'12px',
+                      marginTop: '12px',
                       textAlign: "center",
                       color: "#777E91",
                       display: "block",

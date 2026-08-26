@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import { ThemeProvider } from "@mui/material/styles";
@@ -8,8 +8,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useAlertActions } from "../../_actions/alert.actions";
-import { switchAtom, loginDataAtom } from "../../_state/users";
+import { switchAtom, loginDataAtom, setLogoListAtom, switchDarkModeAtom } from "../../_state";
 import { useUserActions } from "../../_actions/user.actions";
+import { bannerListActions } from '../../_actions';
 import {
   Container,
   Box,
@@ -41,6 +42,9 @@ const ForgotPasswordPhone = () => {
   const [mobile_value, setMobile_value] = useState();
   const [phone_hide, setPhone_hide] = useState(false);
   const [timer, setTimer] = useState(60);
+  const LogoList = useRecoilValue(setLogoListAtom)
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
+  const LogoListAction = bannerListActions();
 
   // form validation rules
   const validationSchema = Yup.object().shape({
@@ -76,6 +80,29 @@ const ForgotPasswordPhone = () => {
     []
   );
 
+  const headerLogo = LogoList?.find(
+    (item) => item.position === "Header"
+  );
+
+  const footerLogo = LogoList?.find(
+    (item) => item.position === "Footer"
+  );
+
+  const selectedLogo = isDarkMode ? headerLogo : footerLogo;
+
+  const logoSrcLight = headerLogo?.image
+    ? `${process.env.REACT_APP_IMAGE_URL}/${headerLogo.image}`
+    : headerLogo?.image_link || "";
+
+  const logoSrc = selectedLogo?.image
+    ? `${process.env.REACT_APP_IMAGE_URL}/${selectedLogo.image}`
+    : selectedLogo?.image_link || "";
+
+  useEffect(() => {
+    const response = LogoListAction.logoList();
+    response.then((res) => { (res) })
+  }, []);
+
   useEffect(() => {
     timer > 0 && setTimeout(timeOutCallback, 1000);
   }, [timer, timeOutCallback]);
@@ -98,22 +125,20 @@ const ForgotPasswordPhone = () => {
               justifyContent: "space-between",
             }}
           >
-            <Box className="auth-header-logo">
+            <Box className="auth-header-logo" sx={{ width: '180px' }}>
               <Link
                 onClick={() => {
                   navigate("/");
-                  setSoption(true);
                 }}
               >
-                <img src={LogoLight} alt="Coin Guru" className="desktop" />
+                <img src={logoSrcLight} alt="The Coin Chain" className="desktop" />
               </Link>
               <Link
                 onClick={() => {
                   navigate("/");
-                  setSoption(true);
                 }}
               >
-                <img src={LogoDark} alt="Coin Guru" className="ipad coinguru-logo" />
+                <img src={logoSrc} alt="Coin Guru" className="ipad coinguru-logo" />
               </Link>
             </Box>
             <Box className="dont-have-acc">

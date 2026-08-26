@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme, RoutesName } from "../../_common/app.constants";
 import { Box, Container, Typography, Grid, Button, FormControl, Select, MenuItem } from '@mui/material';
-import { guidesAnalysisActions, analyticsActions, useTutorialActions } from "../../_actions";
-import { guidesAtom, analyticAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom, breadCrumbAtom } from "../../_state";
+import { guidesAnalysisActions, analyticsActions, useTutorialActions, bannerListActions } from "../../_actions";
+import { guidesAtom, analyticAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, blogVideoAtom, breadCrumbAtom, setLogoListAtom, switchDarkModeAtom } from "../../_state";
 import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import { ArrowRightAlt, } from "@mui/icons-material";
 import { TabContext, TabPanel } from "@mui/lab/";
@@ -42,6 +42,9 @@ const GuidesAnalysis = (props) => {
     const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
     const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
     const [breadcrumb, setBreadCrumb] = useRecoilState(breadCrumbAtom);
+    const isDarkMode = useRecoilValue(switchDarkModeAtom);
+    const LogoList = useRecoilValue(setLogoListAtom)
+    const LogoListAction = bannerListActions();
 
     const guidesCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
         return item.type === "Guide";
@@ -121,6 +124,11 @@ const GuidesAnalysis = (props) => {
         setAnalyticCategoryList(tutorialsArr);
     };
 
+    useEffect(() => {
+        const response = LogoListAction.logoList();
+        response.then((res) => { (res) })
+    }, []);
+
     // Subscription action get function   API data call 
     useEffect(() => {
         const response = guidesActions.get()
@@ -185,6 +193,20 @@ const GuidesAnalysis = (props) => {
     const handleChangeIndexTab3 = (index3) => {
         setValueTab3(index3);
     };
+
+    const headerLogo = LogoList?.find(
+        (item) => item.position === "Header"
+    );
+
+    const footerLogo = LogoList?.find(
+        (item) => item.position === "Footer"
+    );
+
+    const selectedLogo = isDarkMode ? headerLogo : footerLogo;
+
+    const logoSrc = selectedLogo?.image
+        ? `${process.env.REACT_APP_IMAGE_URL}/${selectedLogo.image}`
+        : selectedLogo?.image_link || "";
 
     const [guidesList, setGuidesList] = useState(guides);
     const handleGuides = (guideCategory) => {
@@ -540,7 +562,7 @@ const GuidesAnalysis = (props) => {
                     <Container>
                         <Box>
                             <Box textAlign="center">
-                                <img src={DarkLogo} className='coinguru-logo' />
+                                <img src={logoSrc} alt='The Coin Chain' className='coinguru-logo' />
                                 <Typography
                                     variant="h2"
                                     component="h2"

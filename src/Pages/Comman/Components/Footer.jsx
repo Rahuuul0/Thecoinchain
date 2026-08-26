@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { useEffect } from 'react';
 import { useFooterActions } from '../../../_actions';
 import { RoutesName } from '../../../_common/app.constants';
-import { loaderAtom, setLogoListAtom } from '../../../_state';
+import { loaderAtom, setLogoListAtom, switchDarkModeAtom } from '../../../_state';
 import * as Yup from "yup";
 import Darklogo from "../../../../public/assets/images/cg.svg";
 import BehanceIcon from "../../../../public/assets/images/icons/behance.svg";
@@ -23,9 +23,8 @@ const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const loader = useRecoilValue(loaderAtom);
-  const LogoList = useRecoilValue(setLogoListAtom).filter((item) => {
-    return item.position === "Footer"
-  });
+  const LogoList = useRecoilValue(setLogoListAtom)
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
 
   // form validation rules 
   const validationSchema = Yup.object().shape({
@@ -54,14 +53,32 @@ const Footer = () => {
 
   }
 
+  const headerLogo = LogoList?.find(
+    (item) => item.position === "Header"
+  );
+
+  const footerLogo = LogoList?.find(
+    (item) => item.position === "Footer"
+  );
+
+  const selectedLogo = isDarkMode ? headerLogo : footerLogo;
+
+  const logoSrc = selectedLogo?.image
+    ? `${process.env.REACT_APP_IMAGE_URL}/${selectedLogo.image}`
+    : selectedLogo?.image_link || "";
+
   return (<>
     <footer className="footer">
       <Container>
         <Box>
           <Grid container sx={{ justifyContent: 'space-between' }}>
-            <Grid item xs={12} sm={12} md={2} paddingTop={{ xs: 4 , sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
+            <Grid item xs={12} sm={12} md={2} paddingTop={{ xs: 4, sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
               <Button sx={{ padding: 0 }} onClick={() => { navigate(RoutesName.User_Dashboard); }}
-              > <img className='coinguru-logo logo-cg' src={LogoList[0]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}` : LogoList[0]?.image_link} alt="Coin Guru" />
+              >   <img
+                  src={logoSrc}
+                  alt="The Coin Chain"
+                  style={{ borderRadius: "15px" }}
+                />
               </Button>
             </Grid>
             <Grid item xs={12} sm={12} md={3} className='footer-col' paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 0, sm: 0, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >

@@ -49,10 +49,7 @@ function Header(props) {
 
   const LogoListAction = bannerListActions();
   const isDarkMode = useRecoilValue(switchDarkModeAtom);
-  const LogoList = useRecoilValue(setLogoListAtom).filter((item) => {
-    return item.position === "Header"
-  });
-
+  const LogoList = useRecoilValue(setLogoListAtom)
 
   useEffect(() => {
     const response = LogoListAction.logoList();
@@ -207,13 +204,27 @@ function Header(props) {
     }
   }, [isDark])
 
+    const headerLogo = LogoList?.find(
+    (item) => item.position === "Header"
+  );
+
+    const footerLogo = LogoList?.find(
+      (item) => item.position === "Footer"
+    );
+
+  const selectedLogo = isDarkMode ? headerLogo : footerLogo;
+
+  const logoSrc = selectedLogo?.image
+    ? `${process.env.REACT_APP_IMAGE_URL}/${selectedLogo.image}`
+    : selectedLogo?.image_link || "";
+
 
   const drawer = (
     <>
       <Box className='mobile-nav-box mobile-navbar' sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
         <Box className='close-btn' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}><p>+</p></Box>
         <Box>
-          <img onClick={() => { handleDrawerToggle(), navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
+          <img onClick={() => { handleDrawerToggle(), navigate('/') }} src={logoSrc} alt='The Coin Chain' style={{ cursor: 'pointer' , width:'170px' }} />
           <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
             <Button variant='standard' className='nav-mobile-btn btn' onClick={() => { handleDrawerToggle(), navigate(RoutesName.Learn_Cypto) }}>Crypto</Button>
             <Accordion className='submenu mobile-nav-dropdown'>
@@ -327,10 +338,12 @@ function Header(props) {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar component="nav" className="app-nav">
-        <Toolbar className='mobile-nav'>
-          <Box className='mobile-in-nav' sx={{ display: { sm: 'none' } }}>
-            <img onClick={() => { navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
+        <Toolbar className='mobile-nav' sx={{justifyContent:'space-between'}}>
+          <Box className='mobile-in-nav' sx={{ display: { sm: 'none' }, maxWidth:{xs:'120px', sm:'150px', lg:'180px'},
+                pr:2 }}>
+            <img onClick={() => { navigate('/') }} src={logoSrc} alt='Coin Guru' style={{ cursor: 'pointer' }} />
 
+          </Box>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -340,9 +353,7 @@ function Header(props) {
             >
               <MenuIcon />
             </IconButton>
-          </Box>
-          <Typography
-            variant="h6"
+          <Box
             className='header-logo-border'
             onClick={() => {
               navigate("/");
@@ -356,11 +367,17 @@ function Header(props) {
                 flex: 1,
                 cursor: "pointer",
               },
+               maxWidth:{xs:'120px', sm:'150px', lg:'180px'},
+                pr:2
               // borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
             }}
           >
-            <img src={LogoList[0]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}` : LogoList[0]?.image_link} className='coinguru-logo' alt='coinguru-logo' />
-          </Typography>
+            <img
+              src={logoSrc}
+              alt="the coin chain"
+              style={{ borderRadius: "15px" }}
+            />
+          </Box>
           <Box
             className=""
             sx={{
@@ -566,8 +583,8 @@ function Header(props) {
 
           <Box
             sx={{
-              display: { xs: "none", sm: "flex", flex: 2, textAlign: "right"},
-              gap: {xs:'10px', sm:"5px" ,md:'10px'}
+              display: { xs: "none", sm: "flex", flex: 2, textAlign: "right" },
+              gap: { xs: '10px', sm: "5px", md: '10px' }
             }}
             justifyContent="end"
           >

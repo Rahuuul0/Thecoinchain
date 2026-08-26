@@ -3474,6 +3474,10 @@ span.currency_name {
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
 }
 
+.auth-header .coinguru-logo {
+   filter:unset;
+}
+
 .coinguru-logo {
   max-width: 142px;
 }

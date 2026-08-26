@@ -44,9 +44,7 @@ function Header(props) {
   const notificaionCount = useRecoilValue(notificationCountAtom);
 
   const LogoListAction = bannerListActions();
-  const LogoList = useRecoilValue(setLogoListAtom).filter((item) => {
-    return item.position === "Header"
-  });
+  const LogoList = useRecoilValue(setLogoListAtom)
 
   useEffect(() => {
     const response = LogoListAction.logoList();
@@ -158,30 +156,30 @@ function Header(props) {
     navigate(RoutesName.Price_Prediction);
   };
 
-    const handleResearchReport = () => {
-      setInformationAnchorEl(null);
-      navigate(RoutesName.Research_Report);
-    };
-  
-    const handlePressRelease = () => {
-      setInformationAnchorEl(null);
-      navigate(RoutesName.Press_Release);
-    };
-  
-    const handleGuestPost = () => {
-      setInformationAnchorEl(null);
-      navigate(RoutesName.Guest_Post);
-    };
-  
-    const handleSponsored = () => {
-      setInformationAnchorEl(null);
-      navigate(RoutesName.Sponsored);
-    };
-  
-    const handleCryptoRegulation = () => {
-      setInformationAnchorEl(null);
-      navigate(RoutesName.Crypto_Regulation);
-    };
+  const handleResearchReport = () => {
+    setInformationAnchorEl(null);
+    navigate(RoutesName.Research_Report);
+  };
+
+  const handlePressRelease = () => {
+    setInformationAnchorEl(null);
+    navigate(RoutesName.Press_Release);
+  };
+
+  const handleGuestPost = () => {
+    setInformationAnchorEl(null);
+    navigate(RoutesName.Guest_Post);
+  };
+
+  const handleSponsored = () => {
+    setInformationAnchorEl(null);
+    navigate(RoutesName.Sponsored);
+  };
+
+  const handleCryptoRegulation = () => {
+    setInformationAnchorEl(null);
+    navigate(RoutesName.Crypto_Regulation);
+  };
 
   const [anchorElAnchor, setAnchorElAnchor] = React.useState(null);
   const openAnchor = Boolean(anchorElAnchor);
@@ -223,12 +221,26 @@ function Header(props) {
     }
   }, [isDark])
 
+  const headerLogo = LogoList?.find(
+    (item) => item.position === "Header"
+  );
+
+  const footerLogo = LogoList?.find(
+    (item) => item.position === "Footer"
+  );
+
+  const selectedLogo = isDarkMode ? headerLogo : footerLogo;
+
+  const logoSrc = selectedLogo?.image
+    ? `${process.env.REACT_APP_IMAGE_URL}/${selectedLogo.image}`
+    : selectedLogo?.image_link || "";
+
   const drawer = (
     <Box className='mobile-nav-box' sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
       <Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Box>
-            <img onClick={() => { handleDrawerToggle(), navigate('/') }} src={CoinGuru} alt='Coin Guru' style={{ cursor: 'pointer' }} className="coinguru-logo" />
+            <img onClick={() => { handleDrawerToggle(), navigate('/') }} src={logoSrc} alt='the Coin Chain' style={{ cursor: 'pointer', width:'170px'  }}  />
           </Box>
           <Box display='flex' alignItems='center' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}>
             <Box className='close'><p>+</p></Box>
@@ -307,19 +319,23 @@ function Header(props) {
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar component="nav" className="app-nav">
         <Toolbar>
-          <Typography
-            variant="h6"
+          <Box
             className='header-logo-border'
             onClick={() => { navigate('/') }}
-            sx={{ flexGrow: 1, display: { xs: 'block', md: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer' } }}
+            sx={{ flexGrow: 1, display: { xs: 'block', md: 'block', lineHeight: '100%', flex: 1, cursor: 'pointer' }, maxWidth: { xs: '120px', sm: '150px', lg: '180px' }, pr: 2 }}
           >
-            <img src={LogoList[0]?.image ? `${process.env.REACT_APP_IMAGE_URL}/${LogoList[0]?.image}` : LogoList[0]?.image_link} alt="Coin Guru" className="coinguru-logo" />
-          </Typography>
+            <img
+              src={logoSrc}
+              alt="The Coin Chain"
+              style={{ borderRadius: "15px" }}
+            />
+          </Box>
           <Box className='' sx={{ display: { xs: 'none ', md: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>
               <li >
@@ -591,7 +607,7 @@ function Header(props) {
               Account
             </Button>
             <IconButton onClick={handleDarkMode} aria-label="sunny" color="primary " className=' mobile-none'>
-               {isDarkMode ? <BedtimeIcon /> : <WbSunnyOutlined />}
+              {isDarkMode ? <BedtimeIcon /> : <WbSunnyOutlined />}
             </IconButton>
             <Tooltip arrow title={userDetails.user_name ? userDetails.user_name : userDetails.email.split("@")[0]}>
               <IconButton onClick={handleClickAnchor}

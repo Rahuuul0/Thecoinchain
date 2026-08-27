@@ -154,6 +154,7 @@ const MuiLatestNewsDashboardSection = () => {
               const isVideo = ['video', 'video-file', 'video_file'].includes(mediaType);
               const isYouTube = ['youtube', 'youtube-link', 'youtube_link'].includes(mediaType);
               const youtubeVideoId = getYouTubeVideoId(item?.get_media_display);
+              const profileName = item?.profile?.profile_name || item?.profile_name || item?.name;
 
               return (
                 <Grid item xs={12} sm={6} md={4} key={item?.id}>
@@ -223,6 +224,65 @@ const MuiLatestNewsDashboardSection = () => {
                       )}
                     </Box>
                     <Box sx={{ p: 2.5 }}>
+                      {(profileName || item?.created_at) && (
+                        <Box
+                          sx={{
+                            mb: 1,
+                            display: 'flex',
+                            alignItems: 'center',
+                            flexWrap: 'nowrap',
+                            gap: '6px',
+                            overflow: 'hidden',
+                          }}
+                        >
+                          {profileName && (
+                            <Typography
+                              sx={{
+                                fontSize: { xs: 11, sm: 11.5 },
+                                fontWeight: 600,
+                                color: '#2F6FED',
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                flexShrink: 1,
+                                minWidth: 0,
+                                lineHeight: 1.2,
+                              }}
+                            >
+                              {profileName}
+                            </Typography>
+                          )}
+
+                          {profileName && item?.created_at && (
+                            <Box
+                              component="span"
+                              sx={{
+                                color: '#9e9e9e',
+                                fontSize: { xs: 10, sm: 11 },
+                                flexShrink: 0,
+                                lineHeight: 1,
+                              }}
+                            >
+                              |
+                            </Box>
+                          )}
+
+                          {item?.created_at && (
+                            <Typography
+                              sx={{
+                                fontSize: { xs: 11, sm: 11.5 },
+                                color: '#757575',
+                                fontWeight: 500,
+                                whiteSpace: 'nowrap',
+                                flexShrink: 0,
+                                lineHeight: 1.2,
+                              }}
+                            >
+                              {getRelativeTime(item.created_at)}
+                            </Typography>
+                          )}
+                        </Box>
+                      )}
                       <Typography
                         role="button"
                         tabIndex={0}
@@ -241,11 +301,6 @@ const MuiLatestNewsDashboardSection = () => {
                       >
                         {item?.title}
                       </Typography>
-                      {item?.created_at && (
-                        <Typography sx={{ mt: 2, fontSize: 14, color: '#808080', fontWeight: 600 }}>
-                          {getRelativeTime(item.created_at)}
-                        </Typography>
-                      )}
                     </Box>
                   </Card>
                 </Grid>

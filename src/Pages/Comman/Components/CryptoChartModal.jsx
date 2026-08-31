@@ -926,7 +926,7 @@ const CryptoChartModal = ({ open, onClose, coin }) => {
           >
             <Box sx={{ display: "flex", gap: 2 }}>
               <Typography sx={{ color: "#777e90", fontSize: "0.8rem" }}>
-                Source: <Box component="span" sx={{ color: "#9ea4b4" }}>CoinGecko Live API</Box>
+                <Box component="span" sx={{ color: "#9ea4b4" }}>The Coin Chain Live</Box>
               </Typography>
             </Box>
 

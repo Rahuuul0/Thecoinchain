@@ -361,7 +361,7 @@ const LogIn = () => {
                                 textDecoration: "none",
                               }}
                             >
-                              Scan to login
+
                             </Link>
                             <Link
                               href="#"

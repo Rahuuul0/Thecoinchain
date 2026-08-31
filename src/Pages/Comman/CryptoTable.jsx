@@ -92,7 +92,7 @@ const CryptoTable = (props) => {
   const [selectedChartCoin, setSelectedChartCoin] = useState(null);
   const count = Math.ceil(coinsList.length / 4);
 
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(location.pathname === "/prediction-dashboard" ? 100 : 10);
   const [page, setPage] = useState(1);
 
   const subscriptionAction = subscriptionActions();
@@ -141,14 +141,16 @@ const CryptoTable = (props) => {
     }
   }, []);
 
-  //  Latest Listing API call
+  // Latest Listing API call
   useEffect(() => {
     setLoader(true);
 
-    location.pathname === "/prediction-dashboard"
-      ? coinActions.predictionListing()
-      : getLastestListing();
-  }, [subscriptionDetails]);
+    if (location.pathname === "/prediction-dashboard") {
+      coinActions.predictionListing(`?page=${page}&limit=100`);
+    } else {
+      getLastestListing();
+    }
+  }, [subscriptionDetails, location.pathname]);
 
   const getLastestListing = async () => {
     let param = "";
@@ -163,62 +165,38 @@ const CryptoTable = (props) => {
   useEffect(() => {
     const refreshMarkets = () => {
       if (location.pathname === "/prediction-dashboard") {
-        return coinActions.predictionListing();
+        return coinActions.predictionListing(`?page=${page}&limit=100`);
       }
       return getLastestListing();
     };
 
     const interval = setInterval(refreshMarkets, 60000);
     return () => clearInterval(interval);
-  }, [location.pathname, subscriptionDetails]);
+  }, [location.pathname, subscriptionDetails, page]);
 
-  useEffect(() => {
-    if (location.pathname === "/prediction-dashboard") {
-      if (coinsList.length === 0) {
-        coinActions.latestListing("?limit=5");
+  const handlePageChange = async (event, newPage) => {
+    if (newPage === page) return;
+    setPage(newPage);
+    setLoader(true);
+    try {
+      if (location.pathname === "/prediction-dashboard") {
+        await coinActions.predictionListing(`?page=${newPage}&limit=100`);
+      } else if (location.pathname === "/market") {
+        await coinActions.latestListing(`?page=${newPage}&limit=20`);
+      } else {
+        await coinActions.latestListing(`?page=${newPage}&limit=10`);
       }
+    } catch (err) {
+      console.warn(err);
+    } finally {
+      setLoader(false);
     }
-  }, [])
 
-  const data = {
-    labels: chartData[0]?.sparkline?.map((_, index) => index + 1) || [],
-    datasets: [
-      {
-        data: chartData[0]?.sparkline || [],
-        fill: true,
-        backgroundColor: "rgba(75,192,192,0.2)",
-        borderColor: "#54BB7A",
-      },
-    ],
+    const tableEl = document.querySelector(".crypto-list-table");
+    if (tableEl) {
+      tableEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
-
-  const options = {
-    plugins: {
-      legend: false,
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-      },
-      y: {
-        grid: {
-          display: false,
-        },
-      },
-    },
-  };
-
-
-
-  const handleChanges = (event, value) => {
-
-    setIsSubmitting(true)
-    setTimeout(() => {
-      setLimit(value);
-    }, 400);
-  }
 
   return (
     <>
@@ -265,7 +243,10 @@ const CryptoTable = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {paginator(coinsList, page, limit).data.map((item, index) => {
+                  {(location.pathname === "/prediction-dashboard"
+                    ? coinsList
+                    : paginator(coinsList, page, limit).data
+                  ).map((item, index) => {
                     let newPrice =
                       item?.price > 1
                         ? Math.round(item.price * 100) / 100
@@ -298,7 +279,7 @@ const CryptoTable = (props) => {
                               style={{ cursor: "pointer" }}
                             />
                           )} */}
-                          {index + 1}
+                          {item.cmc_rank || (page - 1) * 100 + index + 1}
                         </TableCell>
                         <TableCell>
                           <div className="crypto-name">
@@ -599,30 +580,72 @@ const CryptoTable = (props) => {
                 </TableBody>
               </Table>
             </Stack>
-            {location.pathname === "/prediction-dashboard" && limit < 100 && (
-              <LoadingButton
-                onClick={(e) => handleChanges(e, 100)}
-                //loading={isSubmitting}
-                loadingPosition="end"
-                sx={{ width: "160px", alignItems: "center", margin: "0 auto" }}
-                variant="outlined"
-                className="btn btn-outlined-secondary"
-                disabled={isSubmitting}
+            {location.pathname === "/prediction-dashboard" && (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: { xs: "center", sm: "space-between" },
+                  flexWrap: "wrap",
+                  gap: 2,
+                  mt: 3,
+                  pt: 2.5,
+                  px: { xs: 1, sm: 2 },
+                  borderTop: "1px solid rgba(119, 126, 144, 0.15)",
+                }}
               >
-                {isSubmitting ? <span > Loading <img className="loading-img" src={LoadingImg} alt="loading" /> </span> : (<> {isSubmitting && <img className="loading-img" src={LoadingImg} alt="loading" />} Load more </>)}
-              </LoadingButton>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "var(--color-grey, #777E90)",
+                    fontSize: "0.88rem",
+                    fontWeight: 500,
+                  }}
+                >
+                  Showing{" "}
+                  <Box component="span" sx={{ color: "var(--color_dark, #23262f)", fontWeight: 700 }}>
+                    {(page - 1) * 100 + 1}–{(page - 1) * 100 + coinsList.length}
+                  </Box>{" "}
+                  of{" "}
+                  <Box component="span" sx={{ color: "var(--color_dark, #23262f)", fontWeight: 700 }}>
+                    1,000
+                  </Box>{" "}
+                  Cryptocurrencies (100 per page)
+                </Typography>
+
+                <Pagination
+                  count={10}
+                  page={page}
+                  onChange={handlePageChange}
+                  color="primary"
+                  shape="rounded"
+                  showFirstButton
+                  showLastButton
+                  sx={{
+                    "& .MuiPaginationItem-root": {
+                      color: "var(--color-grey, #777E90)",
+                      borderRadius: "10px",
+                      fontWeight: 600,
+                      fontSize: "0.9rem",
+                      minWidth: "36px",
+                      height: "36px",
+                      border: "1px solid rgba(119, 126, 144, 0.2)",
+                      "&:hover": {
+                        bgcolor: "rgba(55, 114, 255, 0.12)",
+                        color: "#3772ff",
+                        borderColor: "rgba(55, 114, 255, 0.4)",
+                      },
+                      "&.Mui-selected": {
+                        bgcolor: "#3772ff !important",
+                        color: "#ffffff !important",
+                        borderColor: "#3772ff",
+                        boxShadow: "0 4px 12px rgba(55, 114, 255, 0.4)",
+                      },
+                    },
+                  }}
+                />
+              </Box>
             )}
-            {/* {location.pathname === "/prediction-dashboard" ? (
-              <Pagination
-                sx={{ float: "right" }}
-                count={count}
-                page={page}
-                onChange={handleChanges}
-                color="success"
-              />
-            ) : (
-              ""
-            )}  */}
           </TableContainer>
         </Box>
       </Box>

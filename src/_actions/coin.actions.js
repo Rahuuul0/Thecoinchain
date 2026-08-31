@@ -16,21 +16,22 @@ import {
 const COINGECKO_MARKETS_URL =
   "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=true&price_change_percentage=1h,7d&x_cg_demo_api_key=CG-sxwitfwabJ6rxwXCVPJymjH9";
 const MARKET_REFRESH_INTERVAL = 60 * 1000;
+const marketCache = {};
+const marketRequests = {};
 
-let cachedMarkets = [];
-let lastMarketFetchAt = 0;
-let marketRequest;
-
-const getMarketCoins = async () => {
+const getMarketCoins = async (page = 1, perPage = 100) => {
   const now = Date.now();
+  const cacheKey = `${page}_${perPage}`;
 
-  if (cachedMarkets.length && now - lastMarketFetchAt < MARKET_REFRESH_INTERVAL) {
-    return cachedMarkets;
+  if (marketCache[cacheKey] && now - marketCache[cacheKey].fetchedAt < MARKET_REFRESH_INTERVAL) {
+    return marketCache[cacheKey].data;
   }
 
-  if (marketRequest) return marketRequest;
+  if (marketRequests[cacheKey]) return marketRequests[cacheKey];
 
-  marketRequest = fetch(COINGECKO_MARKETS_URL)
+  const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=true&price_change_percentage=1h,7d&per_page=${perPage}&page=${page}&x_cg_demo_api_key=CG-sxwitfwabJ6rxwXCVPJymjH9`;
+
+  marketRequests[cacheKey] = fetch(url)
     .then(async (response) => {
       if (!response.ok) {
         throw new Error(`CoinGecko request failed (${response.status})`);
@@ -39,15 +40,17 @@ const getMarketCoins = async () => {
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error("Invalid CoinGecko market response");
 
-      cachedMarkets = data;
-      lastMarketFetchAt = Date.now();
-      return cachedMarkets;
+      marketCache[cacheKey] = {
+        data,
+        fetchedAt: Date.now(),
+      };
+      return data;
     })
     .finally(() => {
-      marketRequest = undefined;
+      delete marketRequests[cacheKey];
     });
 
-  return marketRequest;
+  return marketRequests[cacheKey];
 };
 
 const normalizeCoin = (coin) => ({
@@ -68,7 +71,12 @@ const normalizeCoin = (coin) => ({
 
 const requestedLimit = (params) => {
   const match = String(params || "").match(/[?&]?limit=(\d+)/);
-  return match ? Number(match[1]) : undefined;
+  return match ? Number(match[1]) : 100;
+};
+
+const requestedPage = (params) => {
+  const match = String(params || "").match(/[?&]?page=(\d+)/);
+  return match ? Number(match[1]) : 1;
 };
 
 const useCoinActions = () => {
@@ -82,13 +90,17 @@ const useCoinActions = () => {
 
   const loadMarkets = async (params) => {
     try {
-      const markets = await getMarketCoins();
-      const coins = markets.map(normalizeCoin);
+      const page = requestedPage(params);
       const limit = requestedLimit(params);
-      const visibleCoins = limit ? coins.slice(0, limit) : coins;
+      const perPage = limit > 100 ? 100 : limit < 5 ? 5 : limit;
+      const markets = await getMarketCoins(page, perPage);
+      const coins = markets.map(normalizeCoin);
+      const visibleCoins = limit && limit < coins.length ? coins.slice(0, limit) : coins;
 
       setCoinList(visibleCoins);
-      setCardCoins(coins.slice(0, 5));
+      if (page === 1) {
+        setCardCoins(coins.slice(0, 5));
+      }
       return visibleCoins;
     } catch (error) {
       console.warn(error);
@@ -119,7 +131,7 @@ const useCoinActions = () => {
   };
 
   // The prediction dashboard is a public live-market view backed by CoinGecko.
-  const predictionListing = async () => loadMarkets();
+  const predictionListing = async (params = "?page=1&limit=100") => loadMarkets(params);
 
   return {
     categoriesList,

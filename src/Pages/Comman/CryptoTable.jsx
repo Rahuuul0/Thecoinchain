@@ -20,6 +20,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import ChartUp from "../../../public/assets/images/chart-up.svg";
 import LiveSparkline from "./Components/LiveSparkline";
+import CryptoChartModal from "./Components/CryptoChartModal";
 import DollarImg from "../../../public/assets/images/icons/dollar.svg";
 import FavoriteIc from "../../../public/assets/images/icons/star.svg";
 import FavoritefilledIc from "../../../public/assets/images/icons/star-filled.svg";
@@ -88,6 +89,7 @@ const CryptoTable = (props) => {
   const [open, setOpen] = useState(false);
   const [chartData, setChartData] = useState("");
   const [chartOpen, setChartOpen] = useState(false);
+  const [selectedChartCoin, setSelectedChartCoin] = useState(null);
   const count = Math.ceil(coinsList.length / 4);
 
   const [limit, setLimit] = useState(10);
@@ -123,19 +125,14 @@ const CryptoTable = (props) => {
     setChartData("");
   };
 
-  const handleChartOpen = (id) => {
+  const handleChartOpen = (item) => {
+    setSelectedChartCoin(item);
     setChartOpen(true);
-    setChartData(coinsList.filter((item) => item.id === id.id));
-    setTimeFrame("1h");
   };
 
-  const handleTimeFrame = (event) => {
-    setTimeFrame(event.target.value);
-  };
-
-  const handleChartClose = (id) => {
+  const handleChartClose = () => {
     setChartOpen(false);
-    setChartData("");
+    setSelectedChartCoin(null);
   };
 
   useEffect(() => {
@@ -232,7 +229,7 @@ const CryptoTable = (props) => {
         >
           <CircularProgress color="inherit" />
         </Backdrop>
-        <Box className="crypto-list-table" sx={{border:'1px solid #6b656540', padding:'20px 0' }}>
+        <Box className="crypto-list-table" sx={{ border: '1px solid #6b656540', padding: '20px 0' }}>
           <TableContainer>
             <Stack spacing={2}>
               <Table sx={{ minWidth: 650 }}>
@@ -1070,99 +1067,12 @@ const CryptoTable = (props) => {
         </Box>
       </Modal>
 
-      {/* chartModal */}
-      <Modal
+      {/* Professional Crypto Chart Modal */}
+      <CryptoChartModal
         open={chartOpen}
         onClose={handleChartClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        className="backdrop-custom"
-      >
-        <Box className="modal-dialog modal-crypto-table">
-          <Backdrop
-            sx={{
-              color: "#fff",
-              zIndex: (theme) => theme.zIndex.drawer + 2,
-            }}
-            open={loader}
-          >
-            <CircularProgress color="inherit" />
-          </Backdrop>
-          <Button
-            onClick={handleChartClose}
-            variant="outlined"
-            className="btn btn-outlined-secondary btn-round btn-close"
-          >
-            <CloseIcon />
-          </Button>
-          <Box className="modal-head">
-            <Button
-              id="modal-modal-title"
-              className="modal-modal-title"
-              variant="h6"
-              component="h2"
-              onClick={handleChartClose}
-            >
-              <NavigateBeforeIcon />
-            </Button>
-          </Box>
-          <Box
-            id="modal-modal-description"
-            className="modal-modal-description"
-            sx={{ mt: 2, p: 2 }}
-          >
-            <Box
-              className="value-details"
-              sx={{ display: "flex", justifyContent: "space-between" }}
-            >
-              <Typography
-                className="crypto-fullname"
-                variant="h5"
-                component="h5"
-              >
-                {chartData[0]?.symbol}
-              </Typography>
-              <Select
-                value={timeFrame}
-                // variant="outlined"
-                className="btn-round btn-close"
-                onChange={handleTimeFrame}
-              >
-                {/* <MenuItem value="15m">15m</MenuItem> */}
-                <MenuItem value="1h">1h</MenuItem>
-                <MenuItem value="4h">4h</MenuItem>
-                <MenuItem value="1d">1d</MenuItem>
-                <MenuItem value="1w">1w</MenuItem>
-
-                {/* <KeyboardArrowDownIcon /> */}
-              </Select>
-              {/* <span className="badge">1x</span> */}
-            </Box>
-            <Typography
-              className="crypto-fullname-small"
-              variant="body2"
-              component="small"
-              sx={{ color: "#777E91", fontWeight: "600" }}
-            >
-              {chartData[0]?.name}
-            </Typography>
-
-            <Typography className="crypto-value" variant="h5" component="h5">
-              {chartData[0]?.price?.toFixed(3) || "-"}
-            </Typography>
-
-            <Line data={data} options={options} />
-          </Box>
-          <Button
-            fullWidth
-            variant="contained"
-            className="btn btn-primary"
-            onClick={handleChartClose}
-          >
-            Back
-          </Button>
-        </Box>
-      </Modal>
+        coin={selectedChartCoin}
+      />
     </>
   );
 };

@@ -48,6 +48,22 @@ const getNewsItems = (response) => {
   return [];
 };
 
+const getAuthorInfo = (item) => {
+  const profileObj = item?.profile || item;
+  const name =
+    profileObj?.profile_name?.trim() ||
+    item?.author?.trim() ||
+    item?.author_name?.trim() ||
+    "";
+  const profileId = profileObj?.profile_id || item?.profile_id;
+  return { name, profileId };
+};
+
+const formatUtcTime = (date) => {
+  if (!date || !dayjs(date).isValid()) return "";
+  return dayjs(date).utc().format("MMM DD, YYYY HH:mm [UTC]");
+};
+
 const MuiPressReleaseDashboardSection = () => {
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
@@ -90,19 +106,6 @@ const MuiPressReleaseDashboardSection = () => {
     }
   };
 
-  const getRelativeTime = (date) => {
-    if (!date || !dayjs(date).isValid()) {
-      return 'Just now';
-    }
-
-    const createdDate = dayjs(date);
-    const hoursDiff = dayjs().diff(createdDate, 'hour');
-
-    return hoursDiff < 24
-      ? createdDate.fromNow()
-      : createdDate.utc().format('MMM DD, YYYY HH:mm [UTC]');
-  };
-
   return (
     <>
       <Helmet>
@@ -132,13 +135,13 @@ const MuiPressReleaseDashboardSection = () => {
 
       <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
-          <Typography variant="h5" sx={{ fontSize: 25, fontWeight: 600, color: '#000000', color: isDarkMode ? "#fff" : "none", }}>
+          <Typography variant="h5" sx={{ fontSize: 25, fontWeight: 600, color: isDarkMode ? "#fff" : "#000000" }}>
             Press Releases
           </Typography>
           {news.length > 8 && (
             <Button
               onClick={() => navigate(RoutesName.Press_Release)}
-              sx={{ color: '#000000', fontSize: 16, fontWeight: 500, textTransform: 'none', p: 0, minWidth: 'auto', color: isDarkMode ? "#fff" : "#000000", }}
+              sx={{ fontSize: 16, fontWeight: 500, textTransform: 'none', p: 0, minWidth: 'auto', color: isDarkMode ? "#fff" : "#000000" }}
             >
               View all
             </Button>
@@ -157,6 +160,8 @@ const MuiPressReleaseDashboardSection = () => {
               const isVideo = ['video', 'video-file', 'video_file'].includes(mediaType);
               const isYouTube = ['youtube', 'youtube-link', 'youtube_link'].includes(mediaType);
               const youtubeVideoId = getYouTubeVideoId(item?.get_media_display);
+              const { name: authorName, profileId } = getAuthorInfo(item);
+              const timeStr = formatUtcTime(item?.created_at);
 
               return (
                 <Grid item xs={6} sm={4} md={3} key={item?.id}>
@@ -226,6 +231,74 @@ const MuiPressReleaseDashboardSection = () => {
                       )}
                     </Box>
                     <Box sx={{ p: 1.5 }}>
+                      {/* Author Profile Name & Date Time - ABOVE THE TITLE */}
+                      {(authorName || timeStr) && (
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            flexWrap: 'nowrap',
+                            gap: '4px',
+                            mb: 0.8,
+                            fontSize: { xs: '10.5px', sm: '11px' },
+                            color: '#808080',
+                            lineHeight: 1.2,
+                            overflow: 'hidden',
+                            whiteSpace: 'nowrap',
+                            width: '100%',
+                          }}
+                        >
+                          {authorName && (
+                            <>
+                              <Typography
+                                component="span"
+                                title={authorName}
+                                onClick={(e) => {
+                                  if (profileId) {
+                                    e.stopPropagation();
+                                    navigate(RoutesName.Profile_Detail.replace(':id', String(profileId)));
+                                  }
+                                }}
+                                sx={{
+                                  fontSize: 'inherit',
+                                  fontWeight: 600,
+                                  color: '#444444',
+                                  cursor: profileId ? 'pointer' : 'inherit',
+                                  '&:hover': profileId ? { color: '#3772ff' } : {},
+                                  whiteSpace: 'nowrap',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  flexShrink: 1,
+                                  minWidth: 0,
+                                  display: 'inline-block',
+                                }}
+                              >
+                                {authorName}
+                              </Typography>
+                              {timeStr && (
+                                <Typography component="span" sx={{ fontSize: 'inherit', color: '#808080', opacity: 0.6, flexShrink: 0 }}>
+                                  |
+                                </Typography>
+                              )}
+                            </>
+                          )}
+                          {timeStr && (
+                            <Typography
+                              component="span"
+                              sx={{
+                                fontSize: 'inherit',
+                                color: '#808080',
+                                whiteSpace: 'nowrap',
+                                flexShrink: 0,
+                              }}
+                            >
+                              {timeStr}
+                            </Typography>
+                          )}
+                        </Box>
+                      )}
+
+                      {/* Title */}
                       <Typography
                         role="button"
                         tabIndex={0}
@@ -248,11 +321,6 @@ const MuiPressReleaseDashboardSection = () => {
                       >
                         {item?.title}
                       </Typography>
-                      {item?.created_at && (
-                        <Typography sx={{ mt: 1, fontSize: 11.5, color: '#808080', fontWeight: 600 }}>
-                          {getRelativeTime(item.created_at)}
-                        </Typography>
-                      )}
                     </Box>
                   </Card>
                 </Grid>

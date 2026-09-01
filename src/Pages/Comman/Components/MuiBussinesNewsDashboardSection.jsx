@@ -334,18 +334,22 @@ const MuiCategoryNewsDashboardSection = () => {
                                     sx={{
                                       display: 'flex',
                                       alignItems: 'center',
-                                      flexWrap: 'wrap',
-                                      gap: '5px',
+                                      flexWrap: 'nowrap',
+                                      gap: '4px',
                                       mt: 0.8,
-                                      fontSize: { xs: '11px', sm: '12px' },
+                                      fontSize: { xs: '10.5px', sm: '11px' },
                                       color: mutedColor,
-                                      lineHeight: 1.35,
+                                      lineHeight: 1.2,
+                                      overflow: 'hidden',
+                                      whiteSpace: 'nowrap',
+                                      width: '100%',
                                     }}
                                   >
                                     {featuredAuthorName && (
                                       <>
                                         <Typography
                                           component="span"
+                                          title={featuredAuthorName}
                                           onClick={(e) => {
                                             if (featuredProfileId) {
                                               e.stopPropagation();
@@ -358,19 +362,33 @@ const MuiCategoryNewsDashboardSection = () => {
                                             color: textColor,
                                             cursor: featuredProfileId ? 'pointer' : 'inherit',
                                             '&:hover': featuredProfileId ? { color: '#3772ff' } : {},
+                                            whiteSpace: 'nowrap',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            flexShrink: 1,
+                                            minWidth: 0,
+                                            display: 'inline-block',
                                           }}
                                         >
                                           {featuredAuthorName}
                                         </Typography>
                                         {featuredTimeStr && (
-                                          <Typography component="span" sx={{ fontSize: 'inherit', color: mutedColor, opacity: 0.6 }}>
+                                          <Typography component="span" sx={{ fontSize: 'inherit', color: mutedColor, opacity: 0.6, flexShrink: 0 }}>
                                             |
                                           </Typography>
                                         )}
                                       </>
                                     )}
                                     {featuredTimeStr && (
-                                      <Typography component="span" sx={{ fontSize: 'inherit', color: mutedColor }}>
+                                      <Typography
+                                        component="span"
+                                        sx={{
+                                          fontSize: 'inherit',
+                                          color: mutedColor,
+                                          whiteSpace: 'nowrap',
+                                          flexShrink: 0,
+                                        }}
+                                      >
                                         {featuredTimeStr}
                                       </Typography>
                                     )}
@@ -408,18 +426,22 @@ const MuiCategoryNewsDashboardSection = () => {
                                       sx={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        flexWrap: 'wrap',
-                                        gap: '5px',
+                                        flexWrap: 'nowrap',
+                                        gap: '4px',
                                         mt: 0.6,
-                                        fontSize: { xs: '11px', sm: '12px' },
+                                        fontSize: { xs: '10.5px', sm: '11px' },
                                         color: mutedColor,
-                                        lineHeight: 1.35,
+                                        lineHeight: 1.2,
+                                        overflow: 'hidden',
+                                        whiteSpace: 'nowrap',
+                                        width: '100%',
                                       }}
                                     >
                                       {itemAuthorName && (
                                         <>
                                           <Typography
                                             component="span"
+                                            title={itemAuthorName}
                                             onClick={(e) => {
                                               if (itemProfileId) {
                                                 e.stopPropagation();
@@ -432,19 +454,33 @@ const MuiCategoryNewsDashboardSection = () => {
                                               color: textColor,
                                               cursor: itemProfileId ? 'pointer' : 'inherit',
                                               '&:hover': itemProfileId ? { color: '#3772ff' } : {},
+                                              whiteSpace: 'nowrap',
+                                              overflow: 'hidden',
+                                              textOverflow: 'ellipsis',
+                                              flexShrink: 1,
+                                              minWidth: 0,
+                                              display: 'inline-block',
                                             }}
                                           >
                                             {itemAuthorName}
                                           </Typography>
                                           {itemTimeStr && (
-                                            <Typography component="span" sx={{ fontSize: 'inherit', color: mutedColor, opacity: 0.6 }}>
+                                            <Typography component="span" sx={{ fontSize: 'inherit', color: mutedColor, opacity: 0.6, flexShrink: 0 }}>
                                               |
                                             </Typography>
                                           )}
                                         </>
                                       )}
                                       {itemTimeStr && (
-                                        <Typography component="span" sx={{ fontSize: 'inherit', color: mutedColor }}>
+                                        <Typography
+                                          component="span"
+                                          sx={{
+                                            fontSize: 'inherit',
+                                            color: mutedColor,
+                                            whiteSpace: 'nowrap',
+                                            flexShrink: 0,
+                                          }}
+                                        >
                                           {itemTimeStr}
                                         </Typography>
                                       )}

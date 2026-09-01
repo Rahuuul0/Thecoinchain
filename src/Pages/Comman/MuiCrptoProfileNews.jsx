@@ -192,6 +192,10 @@ export default function AuthorProfile() {
     fetchProfileData();
   }, [id]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
+  }, []);
+
   const mapProfileToAuthor = (profileObj) => {
     const imageBaseUrl = process.env.REACT_APP_IMAGE_URL || "";
 
@@ -313,7 +317,7 @@ export default function AuthorProfile() {
       >
         <CryptoTickerMarquee />
       </Box>
-    
+
       <Container maxWidth="lg" sx={{ mt: 12 }}>
         <Box
           sx={{

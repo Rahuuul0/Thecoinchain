@@ -48,6 +48,22 @@ const getNewsItems = (response) => {
   return [];
 };
 
+const getAuthorInfo = (item) => {
+  const profileObj = item?.profile || item;
+  const name =
+    profileObj?.profile_name?.trim() ||
+    item?.author?.trim() ||
+    item?.author_name?.trim() ||
+    "";
+  const profileId = profileObj?.profile_id || item?.profile_id;
+  return { name, profileId };
+};
+
+const formatUtcTime = (date) => {
+  if (!date || !dayjs(date).isValid()) return "";
+  return dayjs(date).utc().format("MMM DD, YYYY HH:mm [UTC]");
+};
+
 const MuiLatestNewsDashboardSection = () => {
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
@@ -88,19 +104,6 @@ const MuiLatestNewsDashboardSection = () => {
           .replace(":slug", slugify(title))
       );
     }
-  };
-
-  const getRelativeTime = (date) => {
-    if (!date || !dayjs(date).isValid()) {
-      return 'Just now';
-    }
-
-    const createdDate = dayjs(date);
-    const hoursDiff = dayjs().diff(createdDate, 'hour');
-
-    return hoursDiff < 24
-      ? createdDate.fromNow()
-      : createdDate.utc().format('MMM DD, YYYY HH:mm [UTC]');
   };
 
   return (
@@ -154,7 +157,8 @@ const MuiLatestNewsDashboardSection = () => {
               const isVideo = ['video', 'video-file', 'video_file'].includes(mediaType);
               const isYouTube = ['youtube', 'youtube-link', 'youtube_link'].includes(mediaType);
               const youtubeVideoId = getYouTubeVideoId(item?.get_media_display);
-              const profileName = item?.profile?.profile_name || item?.profile_name || item?.name;
+              const { name: authorName, profileId } = getAuthorInfo(item);
+              const timeStr = formatUtcTime(item?.created_at);
 
               return (
                 <Grid item xs={12} sm={6} md={4} key={item?.id}>
@@ -224,65 +228,73 @@ const MuiLatestNewsDashboardSection = () => {
                       )}
                     </Box>
                     <Box sx={{ p: 2.5 }}>
-                      {(profileName || item?.created_at) && (
+                      {/* Author Profile Name & Date Time - ABOVE THE TITLE */}
+                      {(authorName || timeStr) && (
                         <Box
                           sx={{
-                            mb: 1,
                             display: 'flex',
                             alignItems: 'center',
                             flexWrap: 'nowrap',
-                            gap: '6px',
+                            gap: '4px',
+                            mb: 1,
+                            fontSize: { xs: '10.5px', sm: '11px' },
+                            color: '#808080',
+                            lineHeight: 1.2,
                             overflow: 'hidden',
+                            whiteSpace: 'nowrap',
+                            width: '100%',
                           }}
                         >
-                          {profileName && (
-                            <Typography
-                              sx={{
-                                fontSize: { xs: 11, sm: 11.5 },
-                                fontWeight: 600,
-                                color: '#2F6FED',
-                                whiteSpace: 'nowrap',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                flexShrink: 1,
-                                minWidth: 0,
-                                lineHeight: 1.2,
-                              }}
-                            >
-                              {profileName}
-                            </Typography>
+                          {authorName && (
+                            <>
+                              <Typography
+                                component="span"
+                                title={authorName}
+                                onClick={(e) => {
+                                  if (profileId) {
+                                    e.stopPropagation();
+                                    navigate(RoutesName.Profile_Detail.replace(':id', String(profileId)));
+                                  }
+                                }}
+                                sx={{
+                                  fontSize: 'inherit',
+                                  fontWeight: 600,
+                                  color: '#444444',
+                                  cursor: profileId ? 'pointer' : 'inherit',
+                                  '&:hover': profileId ? { color: '#3772ff' } : {},
+                                  whiteSpace: 'nowrap',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  flexShrink: 1,
+                                  minWidth: 0,
+                                  display: 'inline-block',
+                                }}
+                              >
+                                {authorName}
+                              </Typography>
+                              {timeStr && (
+                                <Typography component="span" sx={{ fontSize: 'inherit', color: '#808080', opacity: 0.6, flexShrink: 0 }}>
+                                  |
+                                </Typography>
+                              )}
+                            </>
                           )}
-
-                          {profileName && item?.created_at && (
-                            <Box
+                          {timeStr && (
+                            <Typography
                               component="span"
                               sx={{
-                                color: '#9e9e9e',
-                                fontSize: { xs: 10, sm: 11 },
-                                flexShrink: 0,
-                                lineHeight: 1,
-                              }}
-                            >
-                              |
-                            </Box>
-                          )}
-
-                          {item?.created_at && (
-                            <Typography
-                              sx={{
-                                fontSize: { xs: 11, sm: 11.5 },
-                                color: '#757575',
-                                fontWeight: 500,
+                                fontSize: 'inherit',
+                                color: '#808080',
                                 whiteSpace: 'nowrap',
                                 flexShrink: 0,
-                                lineHeight: 1.2,
                               }}
                             >
-                              {getRelativeTime(item.created_at)}
+                              {timeStr}
                             </Typography>
                           )}
                         </Box>
                       )}
+
                       <Typography
                         role="button"
                         tabIndex={0}

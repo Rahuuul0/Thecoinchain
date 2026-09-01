@@ -62,17 +62,20 @@ const getNewsItems = (response) => {
 
 const getItemType = (item) => String(item?.type || item?.category || '').toLowerCase().trim();
 
-const getRelativeTime = (date) => {
-  if (!date || !dayjs(date).isValid()) {
-    return 'Just now';
-  }
+const getAuthorInfo = (item) => {
+  const profileObj = item?.profile || item;
+  const name =
+    profileObj?.profile_name?.trim() ||
+    item?.author?.trim() ||
+    item?.author_name?.trim() ||
+    "";
+  const profileId = profileObj?.profile_id || item?.profile_id;
+  return { name, profileId };
+};
 
-  const createdDate = dayjs(date);
-  const hoursDiff = dayjs().diff(createdDate, 'hour');
-
-  return hoursDiff < 24
-    ? createdDate.fromNow()
-    : createdDate.utc().format('MMM DD, YYYY HH:mm [UTC]');
+const formatUtcTime = (date) => {
+  if (!date || !dayjs(date).isValid()) return "";
+  return dayjs(date).utc().format("MMM DD, YYYY HH:mm [UTC]");
 };
 
 const MuiCategoryNewsDashboardSection = () => {
@@ -202,6 +205,9 @@ const MuiCategoryNewsDashboardSection = () => {
               const isRightCol = index % 2 === 1;
               const isBottomRow = index >= CATEGORY_CONFIG.length - 2;
 
+              const { name: featuredAuthorName, profileId: featuredProfileId } = getAuthorInfo(featured);
+              const featuredTimeStr = formatUtcTime(featured?.created_at);
+
               return (
                 <Grid
                   item
@@ -305,9 +311,9 @@ const MuiCategoryNewsDashboardSection = () => {
                                 />
                               )}
                             </Box>
-                            {/* Featured story title + timestamp, below the image row */}
+                            {/* Featured story title + Author & Timestamp */}
                             {featured && (
-                              <Box sx={{ mt: 2 }}>
+                              <Box sx={{ mt: 1.5 }}>
                                 <Typography
                                   onClick={() => openDetail(featured?.id, featured?.title)}
                                   sx={{
@@ -322,10 +328,53 @@ const MuiCategoryNewsDashboardSection = () => {
                                 >
                                   {featured?.title}
                                 </Typography>
-                                {featured?.created_at && (
-                                  <Typography sx={{ mt: 1, fontSize: 13, color: mutedColor }}>
-                                    {getRelativeTime(featured?.created_at)}
-                                  </Typography>
+
+                                {(featuredAuthorName || featuredTimeStr) && (
+                                  <Box
+                                    sx={{
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      flexWrap: 'wrap',
+                                      gap: '5px',
+                                      mt: 0.8,
+                                      fontSize: { xs: '11px', sm: '12px' },
+                                      color: mutedColor,
+                                      lineHeight: 1.35,
+                                    }}
+                                  >
+                                    {featuredAuthorName && (
+                                      <>
+                                        <Typography
+                                          component="span"
+                                          onClick={(e) => {
+                                            if (featuredProfileId) {
+                                              e.stopPropagation();
+                                              navigate(RoutesName.Profile_Detail.replace(':id', String(featuredProfileId)));
+                                            }
+                                          }}
+                                          sx={{
+                                            fontSize: 'inherit',
+                                            fontWeight: 600,
+                                            color: textColor,
+                                            cursor: featuredProfileId ? 'pointer' : 'inherit',
+                                            '&:hover': featuredProfileId ? { color: '#3772ff' } : {},
+                                          }}
+                                        >
+                                          {featuredAuthorName}
+                                        </Typography>
+                                        {featuredTimeStr && (
+                                          <Typography component="span" sx={{ fontSize: 'inherit', color: mutedColor, opacity: 0.6 }}>
+                                            |
+                                          </Typography>
+                                        )}
+                                      </>
+                                    )}
+                                    {featuredTimeStr && (
+                                      <Typography component="span" sx={{ fontSize: 'inherit', color: mutedColor }}>
+                                        {featuredTimeStr}
+                                      </Typography>
+                                    )}
+                                  </Box>
                                 )}
                               </Box>
                             )}
@@ -333,34 +382,83 @@ const MuiCategoryNewsDashboardSection = () => {
                         )}
                         {secondaryItems.length > 0 && (
                           <Grid item xs={7} sm={7}>
-                            {secondaryItems.map((item, i) => (
-                              <Box key={item?.id ?? i}>
-                                <Typography
-                                  onClick={() => openDetail(item?.id, item?.title)}
-                                  sx={{
-                                    fontFamily: 'Georgia, "Times New Roman", serif',
-                                    fontSize: { xs: 14, sm: 16 },
-                                    fontWeight: 600,
-                                    lineHeight: 1.35,
-                                    color: textColor,
-                                    cursor: 'pointer',
-                                    py: 1.2,
-                                    '&:hover': { color: '#3772ff' },
-                                  }}
-                                >
-                                  {item?.title}
-                                  <Typography sx={{ mt: 1, fontSize: 13, color: mutedColor }}>
-                                    {getRelativeTime(item?.created_at)}
+                            {secondaryItems.map((item, i) => {
+                              const { name: itemAuthorName, profileId: itemProfileId } = getAuthorInfo(item);
+                              const itemTimeStr = formatUtcTime(item?.created_at);
+
+                              return (
+                                <Box key={item?.id ?? i} sx={{ py: 1 }}>
+                                  <Typography
+                                    onClick={() => openDetail(item?.id, item?.title)}
+                                    sx={{
+                                      fontFamily: 'Georgia, "Times New Roman", serif',
+                                      fontSize: { xs: 14, sm: 16 },
+                                      fontWeight: 600,
+                                      lineHeight: 1.35,
+                                      color: textColor,
+                                      cursor: 'pointer',
+                                      '&:hover': { color: '#3772ff' },
+                                    }}
+                                  >
+                                    {item?.title}
                                   </Typography>
-                                </Typography>
-                                {i < secondaryItems.length - 1 && (
-                                  <Divider sx={{ borderColor }} />
-                                )}
-                              </Box>
-                            ))}
+
+                                  {(itemAuthorName || itemTimeStr) && (
+                                    <Box
+                                      sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        flexWrap: 'wrap',
+                                        gap: '5px',
+                                        mt: 0.6,
+                                        fontSize: { xs: '11px', sm: '12px' },
+                                        color: mutedColor,
+                                        lineHeight: 1.35,
+                                      }}
+                                    >
+                                      {itemAuthorName && (
+                                        <>
+                                          <Typography
+                                            component="span"
+                                            onClick={(e) => {
+                                              if (itemProfileId) {
+                                                e.stopPropagation();
+                                                navigate(RoutesName.Profile_Detail.replace(':id', String(itemProfileId)));
+                                              }
+                                            }}
+                                            sx={{
+                                              fontSize: 'inherit',
+                                              fontWeight: 600,
+                                              color: textColor,
+                                              cursor: itemProfileId ? 'pointer' : 'inherit',
+                                              '&:hover': itemProfileId ? { color: '#3772ff' } : {},
+                                            }}
+                                          >
+                                            {itemAuthorName}
+                                          </Typography>
+                                          {itemTimeStr && (
+                                            <Typography component="span" sx={{ fontSize: 'inherit', color: mutedColor, opacity: 0.6 }}>
+                                              |
+                                            </Typography>
+                                          )}
+                                        </>
+                                      )}
+                                      {itemTimeStr && (
+                                        <Typography component="span" sx={{ fontSize: 'inherit', color: mutedColor }}>
+                                          {itemTimeStr}
+                                        </Typography>
+                                      )}
+                                    </Box>
+                                  )}
+
+                                  {i < secondaryItems.length - 1 && (
+                                    <Divider sx={{ borderColor, mt: 1.2 }} />
+                                  )}
+                                </Box>
+                              );
+                            })}
                           </Grid>
                         )}
-
                       </Grid>
                     </>
                   )}

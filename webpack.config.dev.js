@@ -13,7 +13,6 @@ module.exports = (env) => {
       path: path.resolve('build'),
       publicPath: '/',
       clean: true,
-      publicPath: '/'
     },
     plugins: [
       new Dotenv({ path: './.env.development' }),

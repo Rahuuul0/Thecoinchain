@@ -911,13 +911,17 @@ nav .MuiButtonBase-root:hover {
   margin-top: -10px;
 }
 
+.confirm-account label span.MuiButtonBase-root.MuiRadio-root {
+  color: var(--secondary-color);
+}
+
 .confirm-account label span.MuiButtonBase-root.MuiRadio-root.Mui-checked {
   color: var(--primary-color);
 }
 
 .confirm-account label .MuiTypography-root {
   text-transform: capitalize;
-  color: var(--color-dark2);
+  color: var(--color_dark);
   font-size: 14px;
 }
 
@@ -938,11 +942,13 @@ nav .MuiButtonBase-root:hover {
   font-weight: 700;
   border-radius: 8px;
   flex: 1;
+  color: var(--color_dark);
 }
 
 .auth-otp>div input:focus {
   background-color: var(--color_light);
   border: 1px solid var(--color-2);
+  color: var(--color_dark);
 }
 
 .auth-otp-cta {
@@ -4070,7 +4076,7 @@ span.currency_name {
 
   .mobile-menu .MuiTypography-root:active,
   .mobile-menu .MuiButtonBase-root:active {
-    color: var(--color-dark2);
+    color: var(--color_dark);
   }
 
   .mobile-menu .MuiAccordionSummary-content {

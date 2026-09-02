@@ -22,8 +22,9 @@ import LogoDark from '../../../public/assets/images/logo.svg';
 import AuthBg from "../../../public/assets/images/auth-bg.svg";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useAlertActions } from '../../_actions/alert.actions';
-import { switchAtom, userErrorAtom } from '../../_state';
-import { useRecoilState } from 'recoil';
+import { switchAtom, userErrorAtom, setLogoListAtom, switchDarkModeAtom } from '../../_state';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { bannerListActions } from '../../_actions';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 const AccountConfirm = () => {
@@ -36,6 +37,9 @@ const AccountConfirm = () => {
   const [Soption, setSoption] = useRecoilState(switchAtom);
   const [userError, setUserError] = useRecoilState(userErrorAtom);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const LogoList = useRecoilValue(setLogoListAtom);
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
+  const LogoListAction = bannerListActions();
 
   const [timer, setTimer] = useState(60);
   const timeOutCallback = useCallback(() => setTimer(currTimer => currTimer - 1), []);
@@ -54,6 +58,29 @@ const AccountConfirm = () => {
     if (userError)
       setIsSubmitting(false)
   }, [userError])
+
+  useEffect(() => {
+    const response = LogoListAction.logoList();
+    response.then((res) => { (res) })
+  }, []);
+
+  const headerLogo = LogoList?.find(
+    (item) => item.position === "Header"
+  );
+
+  const footerLogo = LogoList?.find(
+    (item) => item.position === "Footer"
+  );
+
+  const selectedLogo = isDarkMode ? headerLogo : footerLogo;
+
+  const logoSrcLight = headerLogo?.image
+    ? `${process.env.REACT_APP_IMAGE_URL}/${headerLogo.image}`
+    : headerLogo?.image_link || LogoLight;
+
+  const logoSrc = selectedLogo?.image
+    ? `${process.env.REACT_APP_IMAGE_URL}/${selectedLogo.image}`
+    : selectedLogo?.image_link || LogoDark;
 
   const onSubmitFun = async () => {
 
@@ -91,13 +118,27 @@ const AccountConfirm = () => {
               justifyContent: "space-between",
             }}
           >
-            <Box className='auth-header-logo' >
-              <img src={LogoLight} alt='Coin Guru' className='desktop' />
-              <img src={LogoDark} alt='Coin Guru' className='ipad coinguru-logo' />
+            <Box className="auth-header-logo" sx={{ width: '180px' }}>
+              <Link
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                <img src={logoSrcLight} alt="The Coin Chain" className="desktop" />
+              </Link>
+              <Link
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                <img src={logoSrc} alt="Coin Guru" className="ipad coinguru-logo" />
+              </Link>
             </Box>
             <Box component="div" className="dont-have-acc">
               <Typography
                 component="p"
+                position="relative"
+                zIndex="2"
                 variant="body2"
                 sx={{ fontSize: "14px" }}
               >

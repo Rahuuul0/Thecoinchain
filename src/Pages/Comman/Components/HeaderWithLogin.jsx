@@ -153,7 +153,7 @@ function Header(props) {
 
   const handleStockPricePrediction = () => {
     setAnalysisAnchorEl(null);
-    navigate(RoutesName.Price_Prediction);
+    navigate(RoutesName.Crypto_Stock_Price_Prediction);
   };
 
   const handleResearchReport = () => {
@@ -240,7 +240,7 @@ function Header(props) {
       <Box>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Box>
-            <img onClick={() => { handleDrawerToggle(), navigate('/') }} src={logoSrc} alt='the Coin Chain' style={{ cursor: 'pointer', width:'170px'  }}  />
+            <img onClick={() => { handleDrawerToggle(), navigate('/') }} src={logoSrc} alt='the Coin Chain' style={{ cursor: 'pointer', width: '170px' }} />
           </Box>
           <Box display='flex' alignItems='center' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}>
             <Box className='close'><p>+</p></Box>

@@ -27,7 +27,7 @@ const MuiShortNewsDashboardSection = () => {
     useEffect(() => {
         const fetchShortNews = async () => {
             try {
-                const response = await fetchWrapper.get(Apis.All_Content('latest_news'));
+                const response = await fetchWrapper.get(Apis.All_Content('price_prediction'));
                 setNews(getNewsItems(response));
             } catch (error) {
                 console.error('Unable to fetch short news:', error);
@@ -323,7 +323,7 @@ const MuiShortNewsDashboardSection = () => {
                     <Box sx={{ px: 2.5, py: 2.5, textAlign: 'center' }}>
                         <Button
                             variant="outlined"
-                            onClick={() => navigate(RoutesName.Latest_News)}
+                            onClick={() => navigate(RoutesName.Price_Prediction)}
                             sx={{
                                 textTransform: 'none',
                                 fontWeight: 600,

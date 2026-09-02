@@ -143,7 +143,7 @@ function Header(props) {
 
   const handleStockPricePrediction = () => {
     setAnalysisAnchorEl(null);
-    navigate(RoutesName.Price_Prediction);
+    navigate(RoutesName.Crypto_Stock_Price_Prediction);
   };
 
   const handleResearchReport = () => {
@@ -204,13 +204,13 @@ function Header(props) {
     }
   }, [isDark])
 
-    const headerLogo = LogoList?.find(
+  const headerLogo = LogoList?.find(
     (item) => item.position === "Header"
   );
 
-    const footerLogo = LogoList?.find(
-      (item) => item.position === "Footer"
-    );
+  const footerLogo = LogoList?.find(
+    (item) => item.position === "Footer"
+  );
 
   const selectedLogo = isDarkMode ? headerLogo : footerLogo;
 
@@ -224,7 +224,7 @@ function Header(props) {
       <Box className='mobile-nav-box mobile-navbar' sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
         <Box className='close-btn' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}><p>+</p></Box>
         <Box>
-          <img onClick={() => { handleDrawerToggle(), navigate('/') }} src={logoSrc} alt='The Coin Chain' style={{ cursor: 'pointer' , width:'170px' }} />
+          <img onClick={() => { handleDrawerToggle(), navigate('/') }} src={logoSrc} alt='The Coin Chain' style={{ cursor: 'pointer', width: '170px' }} />
           <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
             <Button variant='standard' className='nav-mobile-btn btn' onClick={() => { handleDrawerToggle(), navigate(RoutesName.Learn_Cypto) }}>Crypto</Button>
             <Accordion className='submenu mobile-nav-dropdown'>
@@ -338,21 +338,23 @@ function Header(props) {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar component="nav" className="app-nav">
-        <Toolbar className='mobile-nav' sx={{justifyContent:'space-between'}}>
-          <Box className='mobile-in-nav' sx={{ display: { sm: 'none' }, maxWidth:{xs:'120px', sm:'150px', lg:'180px'},
-                pr:2 }}>
+        <Toolbar className='mobile-nav' sx={{ justifyContent: 'space-between' }}>
+          <Box className='mobile-in-nav' sx={{
+            display: { sm: 'none' }, maxWidth: { xs: '120px', sm: '150px', lg: '180px' },
+            pr: 2
+          }}>
             <img onClick={() => { navigate('/') }} src={logoSrc} alt='Coin Guru' style={{ cursor: 'pointer' }} />
 
           </Box>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { md: 'none' } }}
-            >
-              <MenuIcon />
-            </IconButton>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { md: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Box
             className='header-logo-border'
             onClick={() => {
@@ -367,8 +369,8 @@ function Header(props) {
                 flex: 1,
                 cursor: "pointer",
               },
-               maxWidth:{xs:'120px', sm:'150px', lg:'180px'},
-                pr:2
+              maxWidth: { xs: '120px', sm: '150px', lg: '180px' },
+              pr: 2
               // borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
             }}
           >

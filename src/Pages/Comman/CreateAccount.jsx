@@ -18,6 +18,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useAlertActions } from "../../_actions/alert.actions";
 import { KeyboardArrowLeft } from "@mui/icons-material/";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { bannerListActions } from '../../_actions';
 import * as Yup from "yup";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
@@ -31,6 +32,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import GoogleAuth from "./GoogleAuth.jsx";
 import LoadingButton from '@mui/lab/LoadingButton';
 import PhoneInput, { formatPhoneNumber, isPossiblePhoneNumber, formatPhoneNumberIntl, isValidPhoneNumber } from 'react-phone-number-input'
+import { switchDarkModeAtom, setLogoListAtom } from "../../_state";
+import { useRecoilValue } from "recoil";
 
 const CreateAccount = () => {
   const navigate = useNavigate();
@@ -72,6 +75,9 @@ const CreateAccount = () => {
   const [phone_hide, setPhone_hide] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const [showCnfrmPassword, setShowCnfrmPassword] = useState(false);
+  const LogoList = useRecoilValue(setLogoListAtom)
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
+  const LogoListAction = bannerListActions();
 
 
   const handleClickShowCnfrmPassword = () =>
@@ -117,6 +123,29 @@ const CreateAccount = () => {
     window.scrollTo({ top: 1, left: 1, behavior: "smooth" })
   }, []);
 
+  useEffect(() => {
+    const response = LogoListAction.logoList();
+    response.then((res) => { (res) })
+  }, []);
+
+  const headerLogo = LogoList?.find(
+    (item) => item.position === "Header"
+  );
+
+  const footerLogo = LogoList?.find(
+    (item) => item.position === "Footer"
+  );
+
+  const selectedLogo = isDarkMode ? headerLogo : footerLogo;
+
+  const logoSrcLight = headerLogo?.image
+    ? `${process.env.REACT_APP_IMAGE_URL}/${headerLogo.image}`
+    : headerLogo?.image_link || "";
+
+  const logoSrc = selectedLogo?.image
+    ? `${process.env.REACT_APP_IMAGE_URL}/${selectedLogo.image}`
+    : selectedLogo?.image_link || "";
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -129,22 +158,20 @@ const CreateAccount = () => {
               justifyContent: "space-between",
             }}
           >
-            <Box className="auth-header-logo">
+            <Box className="auth-header-logo" sx={{ width: '180px' }}>
               <Link
                 onClick={() => {
                   navigate("/");
                 }}
               >
-                {" "}
-                <img src={LogoLight} alt="Coin Guru" className="desktop" />
+                <img src={logoSrcLight} alt="The Coin Chain" className="desktop" />
               </Link>
               <Link
                 onClick={() => {
                   navigate("/");
                 }}
               >
-                {" "}
-                <img src={LogoDark} alt="Coin Guru" className="ipad coinguru-logo" />
+                <img src={logoSrc} alt="Coin Guru" className="ipad coinguru-logo" />
               </Link>
             </Box>
             <Box className="dont-have-acc">

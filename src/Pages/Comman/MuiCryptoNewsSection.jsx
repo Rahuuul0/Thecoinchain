@@ -76,7 +76,7 @@ const MarqueeTrack = styled(Box)({
   flexWrap: 'nowrap',
   whiteSpace: 'nowrap',
   width: 'max-content',
-  animation: `${scrollLeft} 30s linear infinite`,
+  animation: `${scrollLeft} 80s linear infinite`,
   willChange: 'transform',
   '&:hover': {
     animationPlayState: 'paused',
@@ -215,24 +215,49 @@ const getYouTubeVideoId = (url) => {
 };
 
 // ---- Crypto Price Marquee Component ----
-const CryptoTickerMarquee = ({ data }) => {
-  // Duplicate the list once for a seamless infinite loop
-  const doubledData = [...data, ...data];
+const CryptoTickerMarquee = ({ data, isDark }) => {
+  // Duplicate the list to ensure seamless infinite loop
+  const doubledData = [...data, ...data, ...data, ...data];
 
   return (
-    <MarqueeOuter className="website-all-crypto-ticker-marquee">
+    <MarqueeOuter
+      sx={{
+        background: isDark ? '#141416' : '#FFFFFF',
+        borderTop: isDark ? '1px solid #23262F' : '1px solid #EDEDED',
+        borderBottom: isDark ? '1px solid #23262F' : '1px solid #EDEDED',
+      }}
+      className="website-all-crypto-ticker-marquee"
+    >
       <MarqueeTrack>
         {doubledData.map((item, index) => (
           <TickerItem key={`${item.symbol}-${index}`}>
+            {item.image && (
+              <Box
+                component="img"
+                src={item.image}
+                alt={item.symbol}
+                sx={{
+                  width: 20,
+                  height: 20,
+                  borderRadius: '50%',
+                  objectFit: 'contain',
+                  flexShrink: 0,
+                  display: 'inline-block',
+                }}
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+            )}
             <Typography
               component="span"
-              sx={{ fontWeight: 700, fontSize: '14px', color: '#111827' }}
+              sx={{ fontWeight: 700, fontSize: '14px', color: isDark ? '#FFFFFF' : '#111827' }}
             >
               {item.symbol}
             </Typography>
             <Typography
               component="span"
-              sx={{ fontSize: '14px', color: '#111827' }}
+              sx={{ fontSize: '14px', fontWeight: 500, color: isDark ? '#E6E8EC' : '#111827' }}
             >
               {item.price}
             </Typography>
@@ -242,7 +267,7 @@ const CryptoTickerMarquee = ({ data }) => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '2px',
-                color: item.direction === 'down' ? '#DC2626' : '#16A34A',
+                color: item.direction === 'down' ? (isDark ? '#F87171' : '#DC2626') : (isDark ? '#4ADE80' : '#16A34A'),
                 fontSize: '14px',
                 fontWeight: 600,
               }}
@@ -412,18 +437,24 @@ const MuiCryptoSection = () => {
     };
   };
 
-  const cryptoTickerData = coinsList.slice(0, 10).map((coin) => {
-    const change = coin.percent_change_24h ?? 0;
+  const cryptoTickerData = [...coinsList]
+    .filter((coin) => coin?.id)
+    .sort((a, b) => (Number(a.cmc_rank) || 999) - (Number(b.cmc_rank) || 999))
+    .slice(0, 10)
+    .map((coin) => {
+      const change = coin.percent_change_24h ?? 0;
 
-    return {
-      symbol: coin.symbol?.toUpperCase(),
-      price: `$${Number(coin.price || 0).toLocaleString('en-US', {
-        maximumFractionDigits: 6,
-      })}`,
-      change: `${Math.abs(change).toFixed(2)}%`,
-      direction: change >= 0 ? 'up' : 'down',
-    };
-  });
+      return {
+        id: coin.id,
+        image: coin.image,
+        symbol: coin.symbol?.toUpperCase(),
+        price: `$${Number(coin.price || 0).toLocaleString('en-US', {
+          maximumFractionDigits: 6,
+        })}`,
+        change: `${Math.abs(change).toFixed(2)}%`,
+        direction: change >= 0 ? 'up' : 'down',
+      };
+    });
 
   useEffect(() => {
     latestListing();
@@ -627,7 +658,7 @@ const formattedDate =
 
       {/* Crypto Price Marquee */}
       <Box sx={{ mt: { xs: '56px', sm: '64px' }, position: 'relative', zIndex: 1 }}>
-        <CryptoTickerMarquee data={cryptoTickerData} />
+        <CryptoTickerMarquee data={cryptoTickerData} isDark={isDarkMode} />
       </Box>
 
       <Container maxWidth="lg" sx={{ mt: 5 }}>

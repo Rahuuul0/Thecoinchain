@@ -683,7 +683,7 @@ const Home = () => {
                       className="btn btn-primary "
                       sx={{ borderRadius: "90px" }}
                       onClick={() => {
-                        navigate("./market");
+                        navigate("./prediction-dashboard");
                       }}
                     >
                       Get started now

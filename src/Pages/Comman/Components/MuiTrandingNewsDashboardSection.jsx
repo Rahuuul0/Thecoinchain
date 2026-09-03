@@ -5,8 +5,10 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Apis, RoutesName } from '../../../_common/app.constants';
 import { useFetchWrapper } from '../../../_helpers';
-import Bitcoinimg from '../../../../public/assets/coin_img/Code_Generated_Image.png';
+import Bitcoinimg from '../../../../public/assets/coin_img/TheCoinChainImage.png';
 import { Helmet } from "react-helmet-async";
+import { useRecoilValue } from 'recoil';
+import { switchDarkModeAtom } from '../../../_state';
 
 dayjs.extend(relativeTime);
 
@@ -33,6 +35,7 @@ const getMediaUrl = (mediaPath) => {
 const MuiTrandingNewsDashboardSection = () => {
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -111,15 +114,21 @@ const MuiTrandingNewsDashboardSection = () => {
         sx={{
           width: '100%',
           maxWidth: 550,
-          ml:'auto',   
-          // mr: 'auto',
+          ml: 'auto',
           position: 'relative',
           overflow: 'hidden',
           isolation: 'isolate',
-          bgcolor: '#182235',
+          bgcolor: isDarkMode ? '#182235' : 'rgba(255, 255, 255, 0.88)',
+          // backgroundImage: backgroundImage
+          //   ? (isDarkMode
+          //     ? `linear-gradient(125deg, rgba(7, 13, 27, .78), rgba(25, 39, 67, .5)), url(${backgroundImage})`
+          //     : `linear-gradient(125deg, rgba(255, 255, 255, .94), rgba(246, 248, 252, .8)), url(${backgroundImage})`)
+          //   : (isDarkMode ? 'linear-gradient(125deg, #111b2d, #263d65)' : '#ffffff'),
           backgroundImage: backgroundImage
-            ? `linear-gradient(125deg, rgba(7, 13, 27, .78), rgba(25, 39, 67, .5)), url(${backgroundImage})`
-            : 'linear-gradient(125deg, #111b2d, #263d65)',
+            ? (isDarkMode
+              ? `linear-gradient(125deg, rgba(10 10 10), rgba(48 47 47 / 54%)), url(${backgroundImage})`
+              : `linear-gradient(125deg, rgba(255, 255, 255, .94), rgba(246, 248, 252, .8)), url(${backgroundImage})`)
+            : (isDarkMode ? 'linear-gradient(125deg, #13171fff, #263d65)' : '#ffffff'),
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backdropFilter: 'blur(14px)',
@@ -127,8 +136,11 @@ const MuiTrandingNewsDashboardSection = () => {
           borderRadius: { xs: '24px', sm: '28px' },
           px: { xs: 3, sm: 3 },
           py: { xs: 2.5, sm: 3 },
-          border: '1px solid rgba(255, 255, 255, .28)',
-          boxShadow: '0 16px 38px rgba(0, 0, 0, .36), inset 0 1px 0 rgba(255, 255, 255, .24)',
+          // border: isDarkMode ? '1px solid rgba(255, 255, 255, .28)' : '1px solid rgba(225, 229, 235, 0.9)',
+          border: isDarkMode ? '1px solid rgb(136 135 135 / 61%)' : '1px solid rgba(225, 229, 235, 0.9)',
+          boxShadow: isDarkMode
+            ? '0 16px 38px rgba(0, 0, 0, .36), inset 0 1px 0 rgba(255, 255, 255, .24)'
+            : '0 16px 38px rgba(0, 0, 0, .07), inset 0 1px 0 rgba(255, 255, 255, .9)',
         }}
       >
         <Box
@@ -137,14 +149,14 @@ const MuiTrandingNewsDashboardSection = () => {
             alignItems: 'center',
             gap: 1,
             pb: 1.25,
-            //   borderBottom: '1px solid #d8d8d8',
           }}
         >
           <Typography
             component="h5"
             sx={{
-              color: '#fff',
-              fontWeight: 600,
+              color: isDarkMode ? '#fff' : '#141416',
+              fontWeight: 700,
+              fontSize: 18,
               letterSpacing: '-.5px',
               lineHeight: 1.1,
             }}
@@ -179,11 +191,11 @@ const MuiTrandingNewsDashboardSection = () => {
           }}
         >
           {loading ? (
-            <Typography sx={{ py: 3, color: 'rgba(255,255,255,.72)', fontSize: 14, textAlign: 'center' }}>
+            <Typography sx={{ py: 3, color: isDarkMode ? 'rgba(255,255,255,.72)' : '#777E90', fontSize: 14, textAlign: 'center' }}>
               Loading trending news…
             </Typography>
           ) : visibleStories.length === 0 ? (
-            <Typography sx={{ py: 3, color: 'rgba(255,255,255,.72)', fontSize: 14, textAlign: 'center' }}>
+            <Typography sx={{ py: 3, color: isDarkMode ? 'rgba(255,255,255,.72)' : '#777E90', fontSize: 14, textAlign: 'center' }}>
               No trending stories available right now.
             </Typography>
           ) : (
@@ -229,19 +241,22 @@ const MuiTrandingNewsDashboardSection = () => {
                       py: { xs: 1.1, sm: 1.25 },
                       minHeight: 58,
                       px: { xs: 1.1, sm: 1.25 },
-                      borderBottom: '1px solid rgba(255,255,255,.22)',
+                      borderBottom: isDarkMode ? '1px solid rgba(255,255,255,.22)' : '1px solid rgba(0,0,0,.08)',
                       cursor: 'pointer',
                       transition: 'background-color .2s ease, transform .2s ease',
-                      '&:hover': { bgcolor: 'rgba(255,255,255,.12)', transform: 'translateX(3px)' },
+                      '&:hover': {
+                        bgcolor: isDarkMode ? 'rgba(255,255,255,.12)' : 'rgba(0,0,0,.04)',
+                        transform: 'translateX(3px)',
+                      },
                       '&:focus-visible': { outline: '2px solid #ff5b39', outlineOffset: '2px' },
                     }}
                   >
-                    <Typography sx={{ color: 'rgba(255,255,255,.68)', fontSize: { xs: 12, sm: 13 }, whiteSpace: 'nowrap' }}>
+                    <Typography sx={{ color: isDarkMode ? 'rgba(255,255,255,.68)' : '#777E90', fontSize: { xs: 12, sm: 13 }, whiteSpace: 'nowrap' }}>
                       {timeLabel}
                     </Typography>
                     <Typography
                       sx={{
-                        color: '#fff',
+                        color: isDarkMode ? '#fff' : '#141416',
                         fontSize: { xs: 15, sm: 16 },
                         fontWeight: 500,
                         lineHeight: 1.18,
@@ -262,15 +277,19 @@ const MuiTrandingNewsDashboardSection = () => {
             variant="outlined"
             sx={{
               minWidth: 126,
-              borderRadius: 3,
-              borderColor: '#106ef1',
-              color: '#fff',
+              borderRadius: '999px',
+              borderColor: isDarkMode ? '#106ef1' : 'rgba(0, 0, 0, 0.25)',
+              color: isDarkMode ? '#fff' : '#141416',
               fontSize: 14,
               fontWeight: 600,
               textTransform: 'none',
-              px: 2.5,
+              px: 2.8,
               py: 0.8,
-              '&:hover': { borderColor: '#5da1ff', bgcolor: 'rgba(16,110,241,.25)' },
+              '&:hover': {
+                borderColor: '#3772ff',
+                color: '#3772ff',
+                bgcolor: isDarkMode ? 'rgba(16,110,241,.25)' : 'rgba(55,114,255,.08)',
+              },
             }}
           >
             Top stories

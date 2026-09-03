@@ -320,10 +320,39 @@ function Header(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
+  const navBtnSx = {
+    color: isDarkMode ? '#FFFFFF !important' : '#141416 !important',
+    fontFamily: 'var(--secondary-font) !important',
+    fontWeight: '700 !important',
+    fontSize: '15px !important',
+    textTransform: 'capitalize',
+    px: { xs: 1, md: 1.5 },
+    minWidth: 'auto',
+    transition: 'color 0.2s ease',
+    '&:hover': {
+      color: '#3772ff !important',
+      backgroundColor: 'transparent !important',
+    },
+    '& .MuiSvgIcon-root': {
+      color: isDarkMode ? '#FFFFFF !important' : '#141416 !important',
+      transition: 'color 0.2s ease',
+    },
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar component="nav" className="app-nav">
+      <AppBar
+        component="nav"
+        className="app-nav"
+        sx={{
+          backgroundColor: isDarkMode ? 'rgba(20, 20, 22, 0.95) !important' : 'rgba(255, 255, 255, 0.95) !important',
+          backdropFilter: 'blur(10px)',
+          borderBottom: isDarkMode ? '1px solid rgba(255, 255, 255, 0.08) !important' : '1px solid #EDEDED !important',
+          boxShadow: isDarkMode ? 'none' : '0 1px 3px rgba(0, 0, 0, 0.04)',
+          transition: 'background-color 0.3s ease, border-color 0.3s ease',
+        }}
+      >
         <Toolbar>
           <Box
             className='header-logo-border'
@@ -339,7 +368,7 @@ function Header(props) {
           <Box className='' sx={{ display: { xs: 'none ', md: 'flex', flex: 2, textAlign: 'left', } }} alignItems='center'>
             <ul className='navItem'>
               <li >
-                <Button
+                {/* <Button
                   id="demo-positioned-button"
                   aria-controls={open ? 'demo-positioned-menu' : undefined}
                   aria-haspopup="true"
@@ -348,8 +377,8 @@ function Header(props) {
                   endIcon={<KeyboardArrowDown />}
                   sx={{ display: { xs: 'none ', md: 'flex' } }}
                 >
-                  Academy
-                </Button>
+                  Academy123
+                </Button> */}
                 <Menu
                   className='dropdown-menu'
                   id="demo-positioned-menu"
@@ -372,7 +401,8 @@ function Header(props) {
                   aria-haspopup="true"
                   aria-expanded={newsOpen ? "true" : undefined}
                   onClick={handleNewsClick}
-                  endIcon={<KeyboardArrowDown />}
+                  endIcon={<KeyboardArrowDown sx={{ color: isDarkMode ? '#FFFFFF !important' : '#141416 !important' }} />}
+                  sx={navBtnSx}
                 >
                   News
                 </Button>
@@ -402,7 +432,8 @@ function Header(props) {
                   aria-haspopup="true"
                   aria-expanded={informationOpen ? "true" : undefined}
                   onClick={handleInformationClick}
-                  endIcon={<KeyboardArrowDown />}
+                  endIcon={<KeyboardArrowDown sx={{ color: isDarkMode ? '#FFFFFF !important' : '#141416 !important' }} />}
+                  sx={navBtnSx}
                 >
                   Information
                 </Button>
@@ -470,7 +501,8 @@ function Header(props) {
                   aria-haspopup="true"
                   aria-expanded={analysisOpen ? "true" : undefined}
                   onClick={handleAnalysisClick}
-                  endIcon={<KeyboardArrowDown />}
+                  endIcon={<KeyboardArrowDown sx={{ color: isDarkMode ? '#FFFFFF !important' : '#141416 !important' }} />}
+                  sx={navBtnSx}
                 >
                   Analysis
                 </Button>
@@ -509,8 +541,7 @@ function Header(props) {
               </li>
             </ul>
             {navItems.map((item, i) => (
-
-              <Button onClick={() => { navigate(item.link) }} key={i} sx={{ color: '#fff' }}>
+              <Button onClick={() => { navigate(item.link) }} key={i} sx={navBtnSx}>
                 {item.icon &&
                   <img src={item.icon} alt={item.page} />
                 }

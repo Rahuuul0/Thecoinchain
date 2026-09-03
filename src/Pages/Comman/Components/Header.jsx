@@ -334,10 +334,39 @@ function Header(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  const navBtnSx = {
+    color: isDarkMode ? '#FFFFFF !important' : '#141416 !important',
+    fontFamily: 'var(--secondary-font) !important',
+    fontWeight: '700 !important',
+    fontSize: '15px !important',
+    textTransform: 'capitalize',
+    px: { xs: 1, md: 1.5 },
+    minWidth: 'auto',
+    transition: 'color 0.2s ease',
+    '&:hover': {
+      color: '#3772ff !important',
+      backgroundColor: 'transparent !important',
+    },
+    '& .MuiSvgIcon-root': {
+      color: isDarkMode ? '#FFFFFF !important' : '#141416 !important',
+      transition: 'color 0.2s ease',
+    },
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav" className="app-nav">
+      <AppBar
+        component="nav"
+        className="app-nav"
+        sx={{
+          backgroundColor: isDarkMode ? 'rgba(20, 20, 22, 0.95) !important' : 'rgba(255, 255, 255, 0.95) !important',
+          backdropFilter: 'blur(10px)',
+          borderBottom: isDarkMode ? '1px solid rgba(255, 255, 255, 0.08) !important' : '1px solid #EDEDED !important',
+          boxShadow: isDarkMode ? 'none' : '0 1px 3px rgba(0, 0, 0, 0.04)',
+          transition: 'background-color 0.3s ease, border-color 0.3s ease',
+        }}
+      >
         <Toolbar className='mobile-nav' sx={{ justifyContent: 'space-between' }}>
           <Box className='mobile-in-nav' sx={{
             display: { sm: 'none' }, maxWidth: { xs: '120px', sm: '150px', lg: '180px' },
@@ -430,7 +459,8 @@ function Header(props) {
                   aria-haspopup="true"
                   aria-expanded={newsOpen ? "true" : undefined}
                   onClick={handleNewsClick}
-                  endIcon={<KeyboardArrowDown />}
+                  endIcon={<KeyboardArrowDown sx={{ color: isDarkMode ? '#FFFFFF !important' : '#141416 !important' }} />}
+                  sx={navBtnSx}
                 >
                   News
                 </Button>
@@ -463,7 +493,8 @@ function Header(props) {
                   aria-haspopup="true"
                   aria-expanded={informationOpen ? "true" : undefined}
                   onClick={handleInformationClick}
-                  endIcon={<KeyboardArrowDown />}
+                  endIcon={<KeyboardArrowDown sx={{ color: isDarkMode ? '#FFFFFF !important' : '#141416 !important' }} />}
+                  sx={navBtnSx}
                 >
                   Information
                 </Button>
@@ -531,7 +562,8 @@ function Header(props) {
                   aria-haspopup="true"
                   aria-expanded={analysisOpen ? "true" : undefined}
                   onClick={handleAnalysisClick}
-                  endIcon={<KeyboardArrowDown />}
+                  endIcon={<KeyboardArrowDown sx={{ color: isDarkMode ? '#FFFFFF !important' : '#141416 !important' }} />}
+                  sx={navBtnSx}
                 >
                   Analysis
                 </Button>
@@ -575,7 +607,7 @@ function Header(props) {
                   handleDrawerToggle(), navigate(item.link);
                 }}
                 key={i}
-                sx={{ color: "#fff" }}
+                sx={navBtnSx}
               >
                 {item.icon && <img src={item.icon} alt={item.page} />}
                 {item.page}
@@ -586,13 +618,25 @@ function Header(props) {
           <Box
             sx={{
               display: { xs: "none", sm: "flex", flex: 2, textAlign: "right" },
-              gap: { xs: '10px', sm: "5px", md: '10px' }
+              gap: { xs: '10px', sm: "8px", md: '12px' },
+              alignItems: "center",
             }}
             justifyContent="end"
           >
-
-            <IconButton onClick={handleDarkMode} aria-label="sunny" color="primary " className=' mobile-none'>
-              {isDarkMode ? <BedtimeIcon /> : <WbSunnyOutlined />}
+            <IconButton
+              onClick={handleDarkMode}
+              aria-label="theme toggle"
+              className="mobile-none"
+              sx={{
+                color: isDarkMode ? '#FFD700' : '#23262F',
+                transition: 'all 0.2s ease',
+                p: 1,
+                '&:hover': {
+                  backgroundColor: isDarkMode ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.04)',
+                },
+              }}
+            >
+              {isDarkMode ? <WbSunnyOutlined sx={{ fontSize: 22 }} /> : <BedtimeIcon sx={{ fontSize: 22 }} />}
             </IconButton>
 
             <Button
@@ -601,7 +645,20 @@ function Header(props) {
               }}
               variant="contained"
               className="btn btn-primary"
-              sx={{ color: "#fff" }}
+              sx={{
+                color: "#FFFFFF !important",
+                backgroundColor: "#3772ff !important",
+                borderRadius: "90px !important",
+                px: { sm: 2, md: 2.8 },
+                py: 0.8,
+                fontWeight: 700,
+                fontSize: "14px",
+                textTransform: "capitalize",
+                boxShadow: "none",
+                "&:hover": {
+                  backgroundColor: "#2055d4 !important",
+                },
+              }}
             >
               Sign up
             </Button>
@@ -609,12 +666,23 @@ function Header(props) {
               onClick={() => {
                 navigate("/login");
               }}
-              variant="outline"
+              variant="outlined"
               className="btn btn-outline"
               sx={{
-                color: "#23262F",
-                backgroundColor: "#ffffff00",
-                border: "1px solid",
+                color: isDarkMode ? "#FFFFFF !important" : "#23262F !important",
+                backgroundColor: isDarkMode ? "transparent !important" : "#FFFFFF !important",
+                border: isDarkMode ? "1px solid rgba(255, 255, 255, 0.25) !important" : "1px solid #E6E8EC !important",
+                borderRadius: "90px !important",
+                px: { sm: 2, md: 2.8 },
+                py: 0.8,
+                fontWeight: 700,
+                fontSize: "14px",
+                textTransform: "capitalize",
+                boxShadow: "none",
+                "&:hover": {
+                  borderColor: "#3772ff !important",
+                  color: "#3772ff !important",
+                },
               }}
             >
               Login

@@ -23,6 +23,8 @@ import {
   PlayArrow,
 } from "@mui/icons-material";
 import HeroImage from "../../../../../public/assets/images/banner.svg";
+import LightHeroBg from "../../../../../public/assets/Background_img/Gemini_Generated_Image_4ualgp4ualgp4ual.png";
+import DarkHeroBg from "../../../../../public/assets/Background_img/Gemini_Generated_Image_m9io3hm9io3hm9io.png";
 import Leveraged from "../../../../../public/assets/images/leveraged.svg";
 import BuyCypto from "../../../../../public/assets/images/crypto-trader-01.svg";
 import Market from "../../../../../public/assets/images/market.svg";
@@ -486,6 +488,7 @@ const GlobalCommunitySection = () => {
 };
 
 const Home = () => {
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
   const [marketTrend, setMarketTrend] = useState(1);
 
   const handleChangeMarketTrend = (event) => {
@@ -629,91 +632,129 @@ const Home = () => {
         sx={{
           mt: { xs: '56px', sm: '64px' },
           position: 'relative',
-          zIndex: 1,
+          zIndex: 2,
         }}
       >
         <CryptoTickerMarquee />
       </Box>
-      <Box component="main" sx={{ pt: 8 }}></Box>
-      {/* Banner starts */}
-      {homeBannerData?.map((items) => {
-        let title = items.title;
-        let decription = items.decription;
-        let image = items.image ? `${process.env.REACT_APP_IMAGE_URL}/${items.image}` : items.image_link;
-        return (
-          <Container>
-            <Box sx={{ pb: { xs: 4, sm: 6 } }}>
-              {subscribeUser?.status === "expired" && auth !== null ?
-                <Stack sx={{ width: '100%', marginLeft: 'auto', marginTop: '22px', marginBottom: '1rem' }} spacing={2}>
-                  <Alert severity="info">You don't have any current plan please <Link to={'/subscription'}> <b>subscribe </b></Link> !</Alert>
-                </Stack>
-                : ""}
-              <Grid container sx={{ alignItems: "center" }}>
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={6}
-                  sx={{
-                    paddingRight: { xs: "0px", md: "50px" },
-                    paddingTop: { xs: "0px", md: "0px" },
-                  }}
-                >
-                  <Typography
-                    variant="h1 "
-                    component="div"
-                    className="hero-heading primary-color"
-                  >
-                    {title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    component="div"
-                    className="hero-para primary-font secondary-color"
+
+      {/* Dynamic Theme Hero Banner */}
+      <Box
+        className="home-hero-banner-section"
+        sx={{
+          backgroundImage: `url(${isDarkMode ? DarkHeroBg : LightHeroBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
+          backgroundRepeat: "no-repeat",
+          position: "relative",
+          pt: { xs: 4, sm: 5, md: 6 },
+          pb: { xs: 6, sm: 8, md: 10 },
+          minHeight: { xs: "auto", md: "560px" },
+          display: "flex",
+          alignItems: "center",
+          transition: "background-image 0.4s ease-in-out",
+        }}
+      >
+        <Container>
+          {homeBannerData?.map((items, idx) => {
+            let title = items.title;
+            let decription = items.decription;
+            return (
+              <Box key={idx} sx={{ pb: { xs: 2, sm: 3 } }}>
+                {subscribeUser?.status === "expired" && auth !== null ? (
+                  <Stack sx={{ width: '100%', marginLeft: 'auto', marginTop: '22px', marginBottom: '1rem' }} spacing={2}>
+                    <Alert severity="info">You don't have any current plan please <Link to={'/subscription'}> <b>subscribe </b></Link> !</Alert>
+                  </Stack>
+                ) : ""}
+                <Grid container sx={{ alignItems: "center" }} spacing={{ xs: 3, md: 4 }}>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={6}
                     sx={{
-                      paddingBottom: { xs: "30px", md: "45px" },
-                      paddingTop: { xs: "20px" },
+                      paddingRight: { xs: "0px", md: "40px" },
                     }}
                   >
-                    {ReactHtmlParser(decription)}
-                  </Typography>
-                  <Typography paddingBottom={2}>
-                    <Button
-                      variant="contained"
-                      className="btn btn-primary "
-                      sx={{ borderRadius: "90px" }}
-                      onClick={() => {
-                        navigate("./prediction-dashboard");
+                    <Typography
+                      variant="h1"
+                      component="h1"
+                      className="hero-heading"
+                      sx={{
+                        color: isDarkMode ? "#FFFFFF !important" : "#141416 !important",
+                        fontSize: { xs: "36px", sm: "46px", md: "54px" },
+                        fontWeight: "700 !important",
+                        lineHeight: 1.15,
+                        fontFamily: "var(--secondary-font) !important",
+                        mb: 2,
                       }}
                     >
-                      Get started now
-                    </Button>
-                  </Typography>
-                  <IconButton
-                    aria-label="ArrowCircleDown"
-                    variant="outlined"
-                    color="#B1B5C3"
-                    padding={0}
-                  >
-                    <ArrowCircleDownSharp
-                      sx={{ color: "#B1B5C3" }}
-                      onClick={() => {
-                        window.scrollTo({ top: 1800, left: 0, behavior: "smooth" });
+                      {title}
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      component="div"
+                      className="hero-para primary-font"
+                      sx={{
+                        color: isDarkMode ? "#B1B5C4 !important" : "#777E90 !important",
+                        fontSize: { xs: "15px", sm: "17px" },
+                        lineHeight: 1.6,
+                        pb: { xs: "24px", md: "36px" },
                       }}
-                    />
-                  </IconButton>
+                    >
+                      {ReactHtmlParser(decription)}
+                    </Typography>
+                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 3 }}>
+                      <Button
+                        variant="contained"
+                        className="btn btn-primary"
+                        sx={{
+                          borderRadius: "90px !important",
+                          backgroundColor: "#3772ff !important",
+                          color: "#FFFFFF !important",
+                          px: 3.5,
+                          py: 1.2,
+                          fontSize: "15px",
+                          fontWeight: 700,
+                          textTransform: "none",
+                          boxShadow: "0 8px 20px rgba(55, 114, 255, 0.35)",
+                          "&:hover": {
+                            backgroundColor: "#2055d4 !important",
+                          },
+                        }}
+                        onClick={() => {
+                          navigate("./prediction-dashboard");
+                        }}
+                      >
+                        Get started now
+                      </Button>
+                      <IconButton
+                        aria-label="ArrowCircleDown"
+                        onClick={() => {
+                          window.scrollTo({ top: 700, left: 0, behavior: "smooth" });
+                        }}
+                        sx={{
+                          p: 0,
+                          color: isDarkMode ? "#777E90" : "#B1B5C3",
+                          "&:hover": {
+                            color: "#3772ff",
+                          },
+                        }}
+                      >
+                        <ArrowCircleDownSharp sx={{ fontSize: 32 }} />
+                      </IconButton>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <MuiTrendingNewsDashboardSection />
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6} md={6}>
-                  {/* <img className="heroImage" src={image} alt='' /> */}
-                  < MuiTrendingNewsDashboardSection />
-                </Grid>
-              </Grid>
-            </Box>
-          </Container >
-        )
-      })}
-      {/* Banner Ends */}
-      <Container sx={{ pb: { xs: 4, sm: 6 } }}>
+              </Box>
+            );
+          })}
+        </Container>
+      </Box>
+      <Container sx={{ pb: { xs: 4, sm: 6 }, pt: { xs: 4, sm: 6 } }}>
         <Box
           sx={{ alignItems: "center" }}
           className="grid-bit"

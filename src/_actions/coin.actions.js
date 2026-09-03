@@ -14,7 +14,7 @@ import {
 // components that need prices, but CoinGecko should receive only one request
 // per minute for the whole browser session.
 const COINGECKO_MARKETS_URL =
-  "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=true&price_change_percentage=1h,7d&x_cg_demo_api_key=CG-sxwitfwabJ6rxwXCVPJymjH9";
+  "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=true&price_change_percentage=1h,7d,30d&x_cg_demo_api_key=CG-sxwitfwabJ6rxwXCVPJymjH9";
 const MARKET_REFRESH_INTERVAL = 60 * 1000;
 const marketCache = {};
 const marketRequests = {};
@@ -29,7 +29,7 @@ const getMarketCoins = async (page = 1, perPage = 100) => {
 
   if (marketRequests[cacheKey]) return marketRequests[cacheKey];
 
-  const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=true&price_change_percentage=1h,7d&per_page=${perPage}&page=${page}&x_cg_demo_api_key=CG-sxwitfwabJ6rxwXCVPJymjH9`;
+  const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=true&price_change_percentage=1h,7d,30d&per_page=${perPage}&page=${page}&x_cg_demo_api_key=CG-sxwitfwabJ6rxwXCVPJymjH9`;
 
   marketRequests[cacheKey] = fetch(url)
     .then(async (response) => {
@@ -64,9 +64,16 @@ const normalizeCoin = (coin) => ({
   percent_change_24h: coin.price_change_percentage_24h,
   percent_change_1h: coin.price_change_percentage_1h_in_currency,
   percent_change_7d: coin.price_change_percentage_7d_in_currency,
+  percent_change_30d: coin.price_change_percentage_30d_in_currency,
   sparkline: coin.sparkline_in_7d?.price || [],
   volume_24h: coin.total_volume,
   market_cap: coin.market_cap,
+  high_24h: coin.high_24h,
+  low_24h: coin.low_24h,
+  total_supply: coin.total_supply,
+  circulating_supply: coin.circulating_supply,
+  max_supply: coin.max_supply,
+  ath: coin.ath,
 });
 
 const requestedLimit = (params) => {

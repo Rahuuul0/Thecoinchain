@@ -21,6 +21,7 @@ import TabList from "@mui/lab/TabList";
 import ChartUp from "../../../public/assets/images/chart-up.svg";
 import LiveSparkline from "./Components/LiveSparkline";
 import CryptoChartModal from "./Components/CryptoChartModal";
+import CryptoMarketStatsModal from "./Components/CryptoMarketStatsModal";
 import DollarImg from "../../../public/assets/images/icons/dollar.svg";
 import FavoriteIc from "../../../public/assets/images/icons/star.svg";
 import FavoritefilledIc from "../../../public/assets/images/icons/star-filled.svg";
@@ -90,6 +91,8 @@ const CryptoTable = (props) => {
   const [chartData, setChartData] = useState("");
   const [chartOpen, setChartOpen] = useState(false);
   const [selectedChartCoin, setSelectedChartCoin] = useState(null);
+  const [statsOpen, setStatsOpen] = useState(false);
+  const [selectedStatsCoin, setSelectedStatsCoin] = useState(null);
   const count = Math.ceil(coinsList.length / 4);
 
   const [limit, setLimit] = useState(location.pathname === "/prediction-dashboard" ? 100 : 10);
@@ -133,6 +136,16 @@ const CryptoTable = (props) => {
   const handleChartClose = () => {
     setChartOpen(false);
     setSelectedChartCoin(null);
+  };
+
+  const handleStatsOpen = (item) => {
+    setSelectedStatsCoin(item);
+    setStatsOpen(true);
+  };
+
+  const handleStatsClose = () => {
+    setStatsOpen(false);
+    setSelectedStatsCoin(null);
   };
 
   useEffect(() => {
@@ -281,14 +294,25 @@ const CryptoTable = (props) => {
                           )} */}
                           {item.cmc_rank || (page - 1) * 100 + index + 1}
                         </TableCell>
-                        <TableCell>
-                          <div className="crypto-name">
+                        <TableCell
+                          onClick={() => handleStatsOpen(item)}
+                          sx={{
+                            cursor: "pointer",
+                            "&:hover .crypto-name-title": {
+                              color: "#3772ff",
+                              textDecoration: "underline",
+                            },
+                          }}
+                        >
+                          <div className="crypto-name" style={{ cursor: "pointer" }}>
                             <img
                               src={item.image}
                               alt={item.symbol}
                               width="33px"
                             />
-                            {item.name}{" "}
+                            <span className="crypto-name-title">
+                              {item.name}
+                            </span>{" "}
                             <span className="currency_name">{item.symbol}</span>
                           </div>
                         </TableCell>
@@ -1095,6 +1119,16 @@ const CryptoTable = (props) => {
         open={chartOpen}
         onClose={handleChartClose}
         coin={selectedChartCoin}
+      />
+
+      {/* Dynamic Coin Market Statistics Modal */}
+      <CryptoMarketStatsModal
+        open={statsOpen}
+        onClose={handleStatsClose}
+        coin={selectedStatsCoin}
+        onOpenChart={(coin) => {
+          handleChartOpen(coin);
+        }}
       />
     </>
   );

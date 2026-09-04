@@ -399,7 +399,7 @@ function Header(props) {
                 cursor: "pointer",
               },
               maxWidth: { xs: '120px', sm: '150px', lg: '180px' },
-              pr: 2
+               pr: {xs: '4px',sm: '4px',lg: '16px',}
               // borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
             }}
           >
@@ -618,7 +618,7 @@ function Header(props) {
           <Box
             sx={{
               display: { xs: "none", sm: "flex", flex: 2, textAlign: "right" },
-              gap: { xs: '10px', sm: "8px", md: '12px' },
+              gap: { xs: '10px', sm: "6px", md: '12px' },
               alignItems: "center",
             }}
             justifyContent="end"

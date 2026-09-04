@@ -1011,6 +1011,10 @@ input[type="number"] {
   font-family: var(--primary-font);
 }
 
+.dropdown-menu .MuiPaper-root li:hover , .dropdown-menu .MuiPaper-root li .MuiSvgIcon-root:hover{
+  color:#3772ff;
+}
+
 .customer-panel .app-nav {
   background: var(--body-grey);
 }
@@ -5190,7 +5194,8 @@ span.currency_name {
   }
 
   .app-nav button.MuiButtonBase-root {
-      margin-left: 3px;
+      margin-left: 4px;
+      font-size: 11px !important;
   }
 
   #root .app-nav .btn {
@@ -5199,5 +5204,9 @@ span.currency_name {
 
   #root .app-nav .btn{
     padding:8px 10px;
+  }
+
+  #root .body-large {
+    font-size: 20px;
   }
 }

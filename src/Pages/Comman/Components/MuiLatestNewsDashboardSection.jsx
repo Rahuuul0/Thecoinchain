@@ -183,7 +183,7 @@ const MuiLatestNewsDashboardSection = () => {
                       },
                     }}
                   >
-                    <Box sx={{ height: { xs: 230, sm: 260, md: 260 }, overflow: 'hidden', bgcolor: '#f3f3f3' }}>
+                    <Box sx={{ height: { xs: 175, sm: 175, md: 190 }, overflow: 'hidden', bgcolor: '#f3f3f3' }}>
                       {isVideo ? (
                         <video
                           src={mediaUrl}
@@ -284,7 +284,7 @@ const MuiLatestNewsDashboardSection = () => {
                               component="span"
                               sx={{
                                 fontSize: 'inherit',
-                                color: '#808080',
+                                color: '#686868',
                                 whiteSpace: 'nowrap',
                                 flexShrink: 0,
                               }}

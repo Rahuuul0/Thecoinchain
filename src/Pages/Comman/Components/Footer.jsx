@@ -73,7 +73,7 @@ const Footer = () => {
         <Box>
           <Grid container sx={{ justifyContent: 'space-between' }}>
             <Grid item xs={12} sm={12} md={2} paddingTop={{ xs: 4, sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
-              <Button sx={{ padding: 0 }} onClick={() => { navigate(RoutesName.User_Dashboard); }}
+              <Button sx={{ padding: 0, width:{xs:'250px', sm:'250px', md:'auto'} }} onClick={() => { navigate(RoutesName.User_Dashboard); }}
               >   <img
                   src={logoSrc}
                   alt="The Coin Chain"
@@ -186,7 +186,7 @@ const Footer = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-              <Box className="copyright-text social-links" sx={{ py: { xs: 0, sm: 3 } }} >
+              <Box className="copyright-text social-links" sx={{ py: { xs: 0, sm: 3 }, justifySelf: { xs: 'flex-start', sm:'flex-end', lg:'flex-end'}, }} >
                 <Stack direction="row" spacing={2} sx={{ justifyContent: { sm: 'right', xs: "left" } }}>
                   <img className='social-icon' src={FacebookIcon} />
                   <img className='social-icon' src={TwitterIcon} />

@@ -185,10 +185,10 @@ const GuidesAndAnalyticsDetail = () => {
 
       {/* video section ends */}
       <Container>
-        <Box paddingBottom={{ xs: 4, sm: 10 }}>
+        <Box paddingBottom={{ xs: 4, sm: 5 }}>
           <Box>
             {blogNew === true  && blogVideo === false ?
-              <Box sx={{ maxWidth: "100%", justifyContent: "center", "display": "flex" }} paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 10, lg: 17 }}
+              <Box sx={{ maxWidth: "100%", justifyContent: "center", "display": "flex" }} paddingTop={{ xs: 4, sm: 10 }} paddingBottom={{ xs: 4, md: 5, lg: 5 }}
               >
                 <img
                     sx={{ maxWidth: "100%", }}

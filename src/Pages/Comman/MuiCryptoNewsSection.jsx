@@ -960,7 +960,7 @@ const formattedDate =
                               position: 'relative',
                               overflow: 'hidden',
                               borderRadius: "16px",
-                              bgcolor: isDarkMode ? "#ffffff" : "#ffffff",
+                              background: isDarkMode ? "linear-gradient( 180deg, #ffffff00 49%, #ffffff 0%)" : "linear-gradient( 180deg, #ffffff00 49%, #ffffff 0%)",
                               cursor: 'pointer',
                               transition:
                                 'transform 0.3s ease, box-shadow 0.3s ease',

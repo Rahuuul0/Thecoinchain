@@ -1520,7 +1520,8 @@ input[type="number"] {
 
 .right-tab .MuiTabs-flexContainer {
   gap: 12px;
-  margin-top: 64px;
+  /* margin-top: 64px; */
+  margin-top: 15px;
 }
 
 .right-tab .MuiTabPanel-root {
@@ -2054,7 +2055,7 @@ video {
 }
 
 .crypto-list-table table tbody:before {
-  line-height: 3em;
+  line-height: 0em;
   content: "_";
   color: var(--body-grey);
   display: block;
@@ -3500,7 +3501,8 @@ span.currency_name {
 }
 
 .learn-crypto-details {
-  padding-top: 158px;
+  /* padding-top: 158px; */
+  padding-top: 60px;
 }
 
 #root .notification-wrapper .btn.MuiButton-sizeSmall {
@@ -4769,7 +4771,8 @@ span.currency_name {
   }
 
   .right-tab .MuiTabs-flexContainer {
-    margin-top: 48px;
+    /* margin-top: 48px; */
+    margin-top: 16px;
   }
 
   .right-tab .MuiTabPanel-root {

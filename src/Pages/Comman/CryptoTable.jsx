@@ -95,8 +95,14 @@ const CryptoTable = (props) => {
   const [selectedStatsCoin, setSelectedStatsCoin] = useState(null);
   const count = Math.ceil(coinsList.length / 4);
 
-  const [limit, setLimit] = useState(location.pathname === "/prediction-dashboard" ? 100 : 10);
+  const isHomePage = location.pathname === "/" || props.isIt === false;
+  const currentLimit = location.pathname === "/prediction-dashboard" ? 100 : isHomePage ? 5 : 10;
+  const [limit, setLimit] = useState(currentLimit);
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    setLimit(currentLimit);
+  }, [location.pathname, props.isIt]);
 
   const subscriptionAction = subscriptionActions();
   const subscriptionDetails = useRecoilValue(forecastSubAtom);

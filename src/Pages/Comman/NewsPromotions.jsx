@@ -212,7 +212,7 @@ const NewsPromotions = (props) => {
                 <CryptoTickerMarquee />
             </Box>
             <ThemeProvider theme={theme}>
-                <Container sx={{ pt: 14 }}>
+                <Container sx={{ pt: 6 }}>
                     <Box paddingBottom={0}>
                         <Typography
                             variant="h1"

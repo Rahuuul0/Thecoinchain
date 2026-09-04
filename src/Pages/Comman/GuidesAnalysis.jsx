@@ -291,7 +291,7 @@ const GuidesAnalysis = (props) => {
                 <CryptoTickerMarquee />
             </Box>
             <ThemeProvider theme={theme}>
-                <Container sx={{ pt: 14 }}>
+                <Container sx={{ pt: 6 }}>
                     <Box>
                         <Typography
                             variant="h1"

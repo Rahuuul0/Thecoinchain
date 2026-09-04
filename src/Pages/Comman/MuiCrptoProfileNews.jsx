@@ -201,11 +201,10 @@ export default function AuthorProfile() {
 
     return {
       name: profileObj?.profile_name || "",
-      role: "Editor / Journalist",
+      role: profileObj?.profile_designation || "",
       image: profileObj?.profile_image
         ? `${imageBaseUrl}${profileObj.profile_image}`
         : "",
-      email: profileObj?.profile_email || "",
       bio: profileObj?.profile_description || "",
       socialLinks: profileObj?.profile_social_link || {},
       expertise: profileObj?.expertise || [],
@@ -495,49 +494,6 @@ export default function AuthorProfile() {
                           }}
                         />
                       ))}
-                    </Stack>
-                  </InfoRow>
-                )}
-
-                {author.email && (
-                  <InfoRow
-                    icon={<MailOutlineIcon sx={{ fontSize: 17 }} />}
-                    label="Email"
-                  >
-                    <Stack direction="row" alignItems="center" spacing={0.5}>
-                      <Link
-                        href={`mailto:${author.email}`}
-                        underline="hover"
-                        sx={{
-                          color: "#1685ca !important",
-                          lineHeight: 1.55,
-                          fontWeight: 500,
-                          fontSize: "13px",
-                        }}
-                      >
-                        {author.email}
-                      </Link>
-
-                      <CustomTooltip
-                        title={emailCopied ? "Copied!" : "Copy Email"}
-                        placement="top"
-                      >
-                        <IconButton
-                          size="small"
-                          onClick={handleCopyEmail}
-                          sx={{
-                            width: "28px",
-                            height: "28px",
-                            color: emailCopied ? "#1685ca" : "#6b7280",
-                            "&:hover": {
-                              color: "#1685ca",
-                              backgroundColor: "#eef8ff",
-                            },
-                          }}
-                        >
-                          <ContentCopyIcon sx={{ fontSize: 15 }} />
-                        </IconButton>
-                      </CustomTooltip>
                     </Stack>
                   </InfoRow>
                 )}

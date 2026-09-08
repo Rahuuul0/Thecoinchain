@@ -143,7 +143,19 @@ const MuiResearchReportsDashboardSection = () => {
           {news.length > 8 && (
             <Button
               onClick={() => navigate(RoutesName.Research_Report)}
-              sx={{ color: isDarkMode ? '#fff' : '#000000', fontSize: 16, fontWeight: 500, textTransform: 'none', p: 0, minWidth: 'auto' }}
+              sx={{
+                color: isDarkMode ? '#fff' : '#000000',
+                fontSize: 16,
+                fontWeight: 500,
+                textTransform: 'none',
+                p: 0,
+                minWidth: 'auto',
+                transition: 'color 0.2s ease',
+                '&:hover': {
+                  color: '#3772ff',
+                  backgroundColor: 'transparent',
+                },
+              }}
             >
               View all
             </Button>

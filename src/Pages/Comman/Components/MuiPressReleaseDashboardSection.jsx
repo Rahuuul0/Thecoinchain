@@ -142,7 +142,19 @@ const MuiPressReleaseDashboardSection = () => {
           {news.length > 8 && (
             <Button
               onClick={() => navigate(RoutesName.Press_Release)}
-              sx={{ fontSize: 16, fontWeight: 500, textTransform: 'none', p: 0, minWidth: 'auto', color: isDarkMode ? "#fff" : "#000000" }}
+              sx={{
+                fontSize: 16,
+                fontWeight: 500,
+                textTransform: 'none',
+                p: 0,
+                minWidth: 'auto',
+                color: isDarkMode ? "#fff" : "#000000",
+                transition: 'color 0.2s ease',
+                '&:hover': {
+                  color: '#3772ff',
+                  backgroundColor: 'transparent',
+                },
+              }}
             >
               View all
             </Button>

@@ -387,6 +387,7 @@ function Header(props) {
                   open={open}
                   sx={{ borderRadius: '12px' }}
                   onClose={click}
+                  disableScrollLock={true}
                 >
                   <MenuItem onClick={handleClose} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </MenuItem>
                   <MenuItem onClick={handle}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</MenuItem>
@@ -414,6 +415,7 @@ function Header(props) {
                   open={newsOpen}
                   sx={{ borderRadius: "12px" }}
                   onClose={handleNewsClose}
+                  disableScrollLock={true}
                 >
                   <MenuItem
                     onClick={handleLatestNews}
@@ -445,6 +447,7 @@ function Header(props) {
                   open={informationOpen}
                   sx={{ borderRadius: "12px" }}
                   onClose={handleInformationClose}
+                  disableScrollLock={true}
                 >
                   <MenuItem
                     onClick={handleLatestInformation}
@@ -515,6 +518,7 @@ function Header(props) {
                   open={analysisOpen}
                   sx={{ borderRadius: "12px" }}
                   onClose={handleAnalysisClose}
+                  disableScrollLock={true}
                 >
                   <MenuItem
                     onClick={handlePriceAnalysis}
@@ -568,6 +572,7 @@ function Header(props) {
               open={openAnchorbtn}
               onClose={handleCloseAnchorbtn}
               onClick={handleCloseAnchorbtn}
+              disableScrollLock={true}
               PaperProps={{
                 elevation: 0,
                 sx: {
@@ -657,6 +662,7 @@ function Header(props) {
               open={openAnchor}
               onClose={handleCloseAnchor}
               onClick={handleCloseAnchor}
+              disableScrollLock={true}
 
               PaperProps={{
                 elevation: 0,
@@ -745,8 +751,10 @@ function Header(props) {
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
+          disableScrollLock={true}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
+            disableScrollLock: true,
           }}
           sx={{
             display: { xs: 'block', sm: 'block', md: 'block', lg: 'none' },

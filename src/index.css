@@ -1585,6 +1585,7 @@ input[type="number"] {
 
 body {
   overflow: unset !important;
+  padding-right: 0px !important;
 }
 
 /* Homepage Ends */

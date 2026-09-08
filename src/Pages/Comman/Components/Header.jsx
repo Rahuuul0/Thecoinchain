@@ -436,6 +436,7 @@ function Header(props) {
                   open={open}
                   sx={{ borderRadius: "12px" }}
                   onClose={click}
+                  disableScrollLock={true}
                 >
                   <MenuItem
                     onClick={handleClose}
@@ -472,6 +473,7 @@ function Header(props) {
                   open={newsOpen}
                   sx={{ borderRadius: "12px" }}
                   onClose={handleNewsClose}
+                  disableScrollLock={true}
                 >
                   <MenuItem
                     onClick={handleLatestNews}
@@ -506,6 +508,7 @@ function Header(props) {
                   open={informationOpen}
                   sx={{ borderRadius: "12px" }}
                   onClose={handleInformationClose}
+                  disableScrollLock={true}
                 >
                   <MenuItem
                     onClick={handleLatestInformation}
@@ -576,6 +579,7 @@ function Header(props) {
                   open={analysisOpen}
                   sx={{ borderRadius: "12px" }}
                   onClose={handleAnalysisClose}
+                  disableScrollLock={true}
                 >
                   <MenuItem
                     onClick={handlePriceAnalysis}
@@ -604,7 +608,7 @@ function Header(props) {
             {navItems.map((item, i) => (
               <Button
                 onClick={() => {
-                  handleDrawerToggle(), navigate(item.link);
+                  navigate(item.link);
                 }}
                 key={i}
                 sx={navBtnSx}
@@ -699,8 +703,10 @@ function Header(props) {
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
+            disableScrollLock={true}
             ModalProps={{
               keepMounted: true, // Better open performance on mobile.
+              disableScrollLock: true,
             }}
             sx={{
               display: { xs: 'block', sm: 'block', md: 'block', lg: 'none' },

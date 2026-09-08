@@ -232,46 +232,81 @@ function Header(props) {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
                 id="acadamy"
-
               >
-                <Button
-                  id="acedamy-btn"
-
-                >
+                <Button id="acedamy-btn">
                   Academy
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography onClick={() => { handleDrawerToggle(), navigate(RoutesName.Academy_about_crypto) }} sx={{ borderBottom: '1px solid #E6E8EC' }} ><img className='gallery-menu-icon' src={galleryImage} /> All About Crypto </Typography>
-                <Typography onClick={() => { handleDrawerToggle(), navigate(RoutesName.Master_Course) }}><img className='gallery-menu-icon' src={galleryImage} /> Master Course</Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Academy_about_crypto); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}><img className='gallery-menu-icon' src={galleryImage} alt="" /> All About Crypto </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Master_Course); }} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', pt: 1 }}><img className='gallery-menu-icon' src={galleryImage} alt="" /> Master Course</Typography>
               </AccordionDetails>
             </Accordion>
             <Accordion className='submenu mobile-nav-dropdown'>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2a-content"
-                id="news"
+                id="news-accordion"
               >
                 <Button id="news-btn">
                   News
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography onClick={() => { handleDrawerToggle(), navigate(RoutesName.Latest_News) }} sx={{ borderBottom: '1px solid #E6E8EC' }}><img className='gallery-menu-icon' src={galleryImage} /> Latest News</Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Latest_News); }} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}><ArticleOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Latest News</Typography>
               </AccordionDetails>
             </Accordion>
             <Accordion className='submenu mobile-nav-dropdown'>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel2a-content"
-                id="news"
+                aria-controls="panel3a-content"
+                id="information-accordion"
               >
-                <Button id="news-btn">
+                <Button id="information-btn">
                   Information
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography onClick={() => { handleDrawerToggle(), navigate(RoutesName.Home) }} sx={{ borderBottom: '1px solid #E6E8EC' }}><img className='gallery-menu-icon' src={galleryImage} /> Information</Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Information); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
+                  <InfoOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Information
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Research_Report); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
+                  <DescriptionOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Research Report
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Press_Release); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
+                  <CampaignOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Press Release
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Guest_Post); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
+                  <EditNoteOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Guest Post
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Sponsored); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
+                  <PaidOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Sponsored
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Crypto_Regulation); }} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', pt: 1 }}>
+                  <GavelOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Crypto Regulation
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion className='submenu mobile-nav-dropdown'>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel4a-content"
+                id="analysis-accordion"
+              >
+                <Button id="analysis-btn">
+                  Analysis
+                </Button>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Price_Analysis); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
+                  <AnalyticsOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Price Analysis
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Price_Prediction); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
+                  <TrendingUpOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Cryptocurrency Price Prediction
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Crypto_Stock_Price_Prediction); }} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', pt: 1 }}>
+                  <TrendingUpOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Crypto Stock Price Prediction
+                </Typography>
               </AccordionDetails>
             </Accordion>
 
@@ -283,25 +318,11 @@ function Header(props) {
                       {item.icon &&
                         <img src={item.icon} alt={item.page} />
                       }
-                      <ListItemText primary={`${item.page}`} onClick={() => { handleDrawerToggle(), navigate(item.link) }} />
+                      <ListItemText primary={`${item.page}`} onClick={() => { handleDrawerToggle(); navigate(item.link); }} />
                     </ListItemButton>
                   </ListItem>
                 )
               })}
-              <ListItem disablePadding>
-                <ListItemButton >
-                  <ListItemText primary="" onClick={() => { navigate(item.link) }}>
-                    Search
-                  </ListItemText>
-                </ListItemButton>
-              </ListItem>
-              <ListItem disablePadding>
-                <ListItemButton sx={{ textAlign: 'center' }}>
-                  <ListItemText primary="" onClick={() => { navigate(item.link) }}>
-                    Login
-                  </ListItemText>
-                </ListItemButton>
-              </ListItem>
             </List>
           </Box>
         </Box>

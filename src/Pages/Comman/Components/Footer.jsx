@@ -15,8 +15,7 @@ import Darklogo from "../../../../public/assets/images/cg.svg";
 import BehanceIcon from "../../../../public/assets/images/icons/behance.svg";
 import FacebookIcon from "../../../../public/assets/images/icons/facebook.svg";
 import InstagramIcon from "../../../../public/assets/images/icons/instagram.svg";
-import DribbbleIcon from "../../../../public/assets/images/icons/dribbble.svg";
-import TwitterIcon from "../../../../public/assets/images/icons/twitter.svg";
+import XIcon from "../../../../public/assets/images/icons/x.svg";
 
 const Footer = () => {
   const useFooterAddActions = useFooterActions()
@@ -73,7 +72,7 @@ const Footer = () => {
         <Box>
           <Grid container sx={{ justifyContent: 'space-between' }}>
             <Grid item xs={12} sm={12} md={2} paddingTop={{ xs: 4, sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
-              <Button sx={{ padding: 0, width:{xs:'250px', sm:'250px', md:'auto'} }} onClick={() => { navigate(RoutesName.User_Dashboard); }}
+              <Button sx={{ padding: 0, width: { xs: '250px', sm: '250px', md: 'auto' } }} onClick={() => { navigate(RoutesName.User_Dashboard); }}
               >   <img
                   src={logoSrc}
                   alt="The Coin Chain"
@@ -186,13 +185,12 @@ const Footer = () => {
               </Box>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
-              <Box className="copyright-text social-links" sx={{ py: { xs: 0, sm: 3 }, justifySelf: { xs: 'flex-start', sm:'flex-end', lg:'flex-end'}, }} >
+              <Box className="copyright-text social-links" sx={{ py: { xs: 0, sm: 3 }, justifySelf: { xs: 'flex-start', sm: 'flex-end', lg: 'flex-end' }, }} >
                 <Stack direction="row" spacing={2} sx={{ justifyContent: { sm: 'right', xs: "left" } }}>
-                  <img className='social-icon' src={FacebookIcon} />
-                  <img className='social-icon' src={TwitterIcon} />
-                  <img className='social-icon' src={InstagramIcon} />
-                  <img className='social-icon' src={DribbbleIcon} />
-                  <img className='social-icon' src={BehanceIcon} />
+                  <a title='facebook' href="https://www.facebook.com/"><img className='social-icon' src={FacebookIcon} alt="Facebook" /></a>
+                  <a title='X' href="https://x.com/"><img className='social-icon' src={XIcon} alt="X" /></a>
+                  <a title='instagram' href="https://www.instagram.com/?hl=en"><img className='social-icon' src={InstagramIcon} alt="Instagram" /></a>
+                  <a title='behance' href="https://www.behance.net"><img className='social-icon' src={BehanceIcon} /></a>
                 </Stack>
               </Box>
             </Grid>

@@ -59,9 +59,12 @@ const getAuthorInfo = (item) => {
   return { name, profileId };
 };
 
-const formatUtcTime = (date) => {
-  if (!date || !dayjs(date).isValid()) return "";
-  return dayjs(date).utc().format("MMM DD, YYYY HH:mm [UTC]");
+const formatUtcTime = (createdAt) => {
+  return createdAt && dayjs(createdAt).isValid()
+    ? dayjs().diff(dayjs(createdAt), 'hour') < 24
+      ? dayjs(createdAt).fromNow()
+      : dayjs(createdAt).utc().format('MMM DD, YYYY HH:mm [UTC]')
+    : 'Just now';
 };
 
 const MuiPressReleaseDashboardSection = () => {
@@ -197,10 +200,10 @@ const MuiPressReleaseDashboardSection = () => {
                       '&:hover .news-card-media': {
                         transform: 'scale(1.06)',
                       },
-                      display:'flex',
+                      display: 'flex',
                       flexDirection: 'column',
                     }}
-                    >
+                  >
                     <Box sx={{ height: { xs: 90, sm: 130, md: 150 }, overflow: 'hidden', bgcolor: '#f3f3f3' }}>
                       {isVideo ? (
                         <video
@@ -245,17 +248,19 @@ const MuiPressReleaseDashboardSection = () => {
                         />
                       )}
                     </Box>
-                    <Box sx={{ p: 1.5 , minHeight: {xs:'107px', sm:'90px'},
+                    <Box sx={{
+                      p: 1.5, minHeight: { xs: '107px', sm: '90px' },
                       display: 'flex',
                       flexDirection: 'column',
-                      justifyContent: 'space-between',}}>
+                      justifyContent: 'space-between',
+                    }}>
                       {/* Author Profile Name & Date Time - ABOVE THE TITLE */}
                       {(authorName || timeStr) && (
                         <Box
                           sx={{
                             display: 'flex',
                             alignItems: 'center',
-                            flexWrap:{xs:'wrap', sm:'nowrap'},
+                            flexWrap: { xs: 'wrap', sm: 'nowrap' },
                             gap: '4px',
                             mb: 0.8,
                             fontSize: { xs: '10.5px', sm: '11px' },
@@ -265,7 +270,7 @@ const MuiPressReleaseDashboardSection = () => {
                             whiteSpace: 'nowrap',
                             width: '100%',
                           }}
-                          >
+                        >
                           {authorName && (
                             <>
                               <Typography
@@ -294,7 +299,7 @@ const MuiPressReleaseDashboardSection = () => {
                                 {authorName}
                               </Typography>
                               {timeStr && (
-                                <Typography component="span" sx={{ fontSize: 'inherit', color: '#808080', opacity: 0.6, flexShrink: 0 , display:{xs:'none' , sm:'block'} }}>
+                                <Typography component="span" sx={{ fontSize: 'inherit', color: '#808080', opacity: 0.6, flexShrink: 0, display: { xs: 'none', sm: 'block' } }}>
                                   |
                                 </Typography>
                               )}

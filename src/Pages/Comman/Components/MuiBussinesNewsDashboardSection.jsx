@@ -73,9 +73,12 @@ const getAuthorInfo = (item) => {
   return { name, profileId };
 };
 
-const formatUtcTime = (date) => {
-  if (!date || !dayjs(date).isValid()) return "";
-  return dayjs(date).utc().format("MMM DD, YYYY HH:mm [UTC]");
+const formatUtcTime = (createdAt) => {
+  return createdAt && dayjs(createdAt).isValid()
+    ? dayjs().diff(dayjs(createdAt), 'hour') < 24
+      ? dayjs(createdAt).fromNow()
+      : dayjs(createdAt).utc().format('MMM DD, YYYY HH:mm [UTC]')
+    : 'Just now';
 };
 
 const MuiCategoryNewsDashboardSection = () => {

@@ -29,7 +29,7 @@ import TimeImg from "../../../public/assets/images/icons/time-ic.svg";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
@@ -99,6 +99,24 @@ const CryptoTable = (props) => {
   const currentLimit = location.pathname === "/prediction-dashboard" ? 100 : isHomePage ? 5 : 10;
   const [limit, setLimit] = useState(currentLimit);
   const [page, setPage] = useState(1);
+
+  const searchTerm = (props.search || "").trim().toLowerCase();
+
+  const displayCoins = useMemo(() => {
+    if (!searchTerm) return coinsList;
+    return coinsList.filter((item) => {
+      const nameMatch = item?.name?.toLowerCase().includes(searchTerm);
+      const symbolMatch = item?.symbol?.toLowerCase().includes(searchTerm);
+      return nameMatch || symbolMatch;
+    });
+  }, [coinsList, searchTerm]);
+
+  const visibleCoins = useMemo(() => {
+    if (location.pathname === "/prediction-dashboard") {
+      return displayCoins;
+    }
+    return paginator(displayCoins, page, limit).data;
+  }, [location.pathname, displayCoins, page, limit]);
 
   useEffect(() => {
     setLimit(currentLimit);
@@ -262,33 +280,47 @@ const CryptoTable = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {(location.pathname === "/prediction-dashboard"
-                    ? coinsList
-                    : paginator(coinsList, page, limit).data
-                  ).map((item, index) => {
-                    let newPrice =
-                      item?.price > 1
-                        ? Math.round(item.price * 100) / 100
-                        : item?.price < 1 && item?.price >= 0.1
-                          ? (Math.round(item.price * 10000) / 10000)?.toFixed(2)
-                          : item?.price < 0.1 && item?.price > 0.01
-                            ? (Math.round(item.price * 1000000) / 1000000)?.toFixed(
-                              6
-                            )
-                            : item?.price < 0.01
-                              ? (
-                                Math.round(item.price * 100000000) / 100000000
-                              )?.toFixed(8)
-                              : item?.price;
-                    return (
-                      <TableRow
-                        key={index}
-                        divider={index < coinsList.length - 1}
-                        hover
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
+                  {displayCoins.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={12} align="center" sx={{ py: 6 }}>
+                        <Typography
+                          variant="body1"
+                          sx={{
+                            color: "var(--secondary-color, #777E90)",
+                            fontWeight: 500,
+                          }}
+                        >
+                          {searchTerm
+                            ? `No cryptocurrency found matching "${props.search}"`
+                            : "No cryptocurrency available"}
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    visibleCoins.map((item, index) => {
+                      let newPrice =
+                        item?.price > 1
+                          ? Math.round(item.price * 100) / 100
+                          : item?.price < 1 && item?.price >= 0.1
+                            ? (Math.round(item.price * 10000) / 10000)?.toFixed(2)
+                            : item?.price < 0.1 && item?.price > 0.01
+                              ? (Math.round(item.price * 1000000) / 1000000)?.toFixed(
+                                6
+                              )
+                              : item?.price < 0.01
+                                ? (
+                                  Math.round(item.price * 100000000) / 100000000
+                                )?.toFixed(8)
+                                : item?.price;
+                      return (
+                        <TableRow
+                          key={index}
+                          divider={index < displayCoins.length - 1}
+                          hover
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
                         <TableCell>
                           {/* {location.pathname === "/prediction-dashboard" && (
                             <img
@@ -628,12 +660,14 @@ const CryptoTable = (props) => {
                         )}
                       </TableRow>
                     );
-                  })}
+                  })
+                )}
                 </TableBody>
               </Table>
             </Stack>
             {location.pathname === "/prediction-dashboard" && (
               <Box
+                id="prediction-pagination"
                 sx={{
                   display: "flex",
                   alignItems: "center",
@@ -654,48 +688,62 @@ const CryptoTable = (props) => {
                     fontWeight: 500,
                   }}
                 >
-                  Showing{" "}
-                  <Box component="span" sx={{ color: "var(--color_dark, #23262f)", fontWeight: 700 }}>
-                    {(page - 1) * 100 + 1}–{(page - 1) * 100 + coinsList.length}
-                  </Box>{" "}
-                  of{" "}
-                  <Box component="span" sx={{ color: "var(--color_dark, #23262f)", fontWeight: 700 }}>
-                    1,000
-                  </Box>{" "}
-                  Cryptocurrencies (100 per page)
+                  {searchTerm ? (
+                    <>
+                      Found{" "}
+                      <Box component="span" sx={{ color: "var(--color_dark, #23262f)", fontWeight: 700 }}>
+                        {displayCoins.length}
+                      </Box>{" "}
+                      result{displayCoins.length === 1 ? "" : "s"} for "{props.search}"
+                    </>
+                  ) : (
+                    <>
+                      Showing{" "}
+                      <Box component="span" sx={{ color: "var(--color_dark, #23262f)", fontWeight: 700 }}>
+                        {(page - 1) * 100 + 1}–{(page - 1) * 100 + coinsList.length}
+                      </Box>{" "}
+                      of{" "}
+                      <Box component="span" sx={{ color: "var(--color_dark, #23262f)", fontWeight: 700 }}>
+                        1,000
+                      </Box>{" "}
+                      Cryptocurrencies (100 per page)
+                    </>
+                  )}
                 </Typography>
 
-                <Pagination
-                  count={10}
-                  page={page}
-                  onChange={handlePageChange}
-                  color="primary"
-                  shape="rounded"
-                  showFirstButton
-                  showLastButton
-                  sx={{
-                    "& .MuiPaginationItem-root": {
-                      color: "var(--color-grey, #777E90)",
-                      borderRadius: "10px",
-                      fontWeight: 600,
-                      fontSize: "0.9rem",
-                      minWidth: "36px",
-                      height: "36px",
-                      border: "1px solid rgba(119, 126, 144, 0.2)",
-                      "&:hover": {
-                        bgcolor: "rgba(55, 114, 255, 0.12)",
-                        color: "#3772ff",
-                        borderColor: "rgba(55, 114, 255, 0.4)",
+                {!searchTerm && (
+                  <Pagination
+                    count={10}
+                    page={page}
+                    onChange={handlePageChange}
+                    color="primary"
+                    shape="rounded"
+                    showFirstButton
+                    showLastButton
+                    sx={{
+                      "& .MuiPaginationItem-root": {
+                        color: "var(--color-grey, #777E90)",
+                        borderRadius: "10px",
+                        fontWeight: 600,
+                        fontSize: "0.9rem",
+                        minWidth: "36px",
+                        height: "36px",
+                        border: "1px solid rgba(119, 126, 144, 0.2)",
+                        "&:hover": {
+                          bgcolor: "rgba(55, 114, 255, 0.12)",
+                          color: "#3772ff",
+                          borderColor: "rgba(55, 114, 255, 0.4)",
+                        },
+                        "&.Mui-selected": {
+                          bgcolor: "#3772ff !important",
+                          color: "#ffffff !important",
+                          borderColor: "#3772ff",
+                          boxShadow: "0 4px 12px rgba(55, 114, 255, 0.4)",
+                        },
                       },
-                      "&.Mui-selected": {
-                        bgcolor: "#3772ff !important",
-                        color: "#ffffff !important",
-                        borderColor: "#3772ff",
-                        boxShadow: "0 4px 12px rgba(55, 114, 255, 0.4)",
-                      },
-                    },
-                  }}
-                />
+                    }}
+                  />
+                )}
               </Box>
             )}
           </TableContainer>

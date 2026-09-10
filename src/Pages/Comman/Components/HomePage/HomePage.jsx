@@ -230,8 +230,8 @@ const NotificationCard = ({
             fontSize: 30,
             lineHeight: 1.15,
             display: {
-            xs: '-webkit-box',
-            sm: 'block',
+              xs: '-webkit-box',
+              sm: 'block',
             },
             WebkitLineClamp: {
               xs: 2,
@@ -792,12 +792,12 @@ const Home = () => {
                         : item?.price;
               if (index < 4) {
                 return (
-                  <Grid item xs={12} sm={4} md={4} lg={3} className="gridBox"sx={{
-                      textAlign: {
-                        xs: 'center',
-                        sm: 'start',
-                      },
-                    }}>
+                  <Grid item xs={12} sm={4} md={4} lg={3} className="gridBox" sx={{
+                    textAlign: {
+                      xs: 'center',
+                      sm: 'start',
+                    },
+                  }}>
                     <img
                       src={item.image}
                       alt={item.symbol}
@@ -807,7 +807,7 @@ const Home = () => {
                       direction="row"
                       spacing={2}
                       alignItems="center"
-                      sx={{justifyContent:{xs:'center',sm:'start'}}}
+                      sx={{ justifyContent: { xs: 'center', sm: 'start' } }}
                       paddingTop={1}
                       paddingBottom={1}
                     >
@@ -1364,6 +1364,29 @@ const Home = () => {
               })}
           </Stack> */}
           <CryptoTable selectedCat={selectedCat} isIt={false} />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              mt: { xs: 3, sm: 4 },
+            }}
+          >
+            <Button
+              variant="outlined"
+              className="btn btn-outlined-secondary"
+              sx={{
+                borderRadius: "90px",
+                px: { xs: 3, sm: 4 },
+                py: 1,
+                fontWeight: 600,
+              }}
+              onClick={() => {
+                navigate("/prediction-dashboard");
+              }}
+            >
+              View All
+            </Button>
+          </Box>
         </Box>
       </Container>
 
@@ -1382,7 +1405,7 @@ const Home = () => {
           >
 
             <Grid item xs={12} sm={12} md={5}>
-              <Box sx={{ paddingBottom: { xs: "15px", md: "50px" }, display:'none' }}>
+              <Box sx={{ paddingBottom: { xs: "15px", md: "50px" }, display: 'none' }}>
                 <Typography
                   variant="h2"
                   marginBottom={2}
@@ -1399,7 +1422,7 @@ const Home = () => {
                   variant="h5"
                   fontSize={24}
                   paddingBottom={5}
-                  >
+                >
                   Coming soon...
                 </Typography>
 

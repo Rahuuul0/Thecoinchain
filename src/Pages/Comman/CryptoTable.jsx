@@ -254,8 +254,8 @@ const CryptoTable = (props) => {
                       <TableCell align="right">24h Change </TableCell>
                     )}
                     <TableCell align="right">Chart</TableCell>
-                    {location.pathname === "/" ? (
-                      <TableCell align="right">Predict</TableCell>
+                    {isHomePage ? (
+                      <TableCell align="right">View</TableCell>
                     ) : (
                       ""
                     )}
@@ -301,22 +301,44 @@ const CryptoTable = (props) => {
                           {item.cmc_rank || (page - 1) * 100 + index + 1}
                         </TableCell>
                         <TableCell
-                          onClick={() => handleStatsOpen(item)}
+                          onClick={!isHomePage ? () => handleStatsOpen(item) : undefined}
                           sx={{
-                            cursor: "pointer",
-                            "&:hover .crypto-name-title": {
-                              color: "#3772ff",
-                              textDecoration: "underline",
-                            },
+                            cursor: !isHomePage ? "pointer" : "default",
+                            ...(isHomePage && {
+                              cursor: "default !important",
+                              "& .crypto-name": {
+                                cursor: "default !important",
+                              },
+                              "& .crypto-name:hover .crypto-name-title": {
+                                color: "inherit !important",
+                                textDecoration: "none !important",
+                              },
+                            }),
+                            ...(!isHomePage && {
+                              "&:hover .crypto-name-title": {
+                                color: "#3772ff",
+                                textDecoration: "underline",
+                              },
+                            }),
                           }}
                         >
-                          <div className="crypto-name" style={{ cursor: "pointer" }}>
+                          <div
+                            className={`crypto-name ${isHomePage ? "no-hover" : ""}`}
+                            style={{ cursor: !isHomePage ? "pointer" : "default" }}
+                          >
                             <img
                               src={item.image}
                               alt={item.symbol}
                               width="33px"
                             />
-                            <span className="crypto-name-title">
+                            <span
+                              className="crypto-name-title"
+                              style={
+                                isHomePage
+                                  ? { color: "inherit", textDecoration: "none", cursor: "default" }
+                                  : undefined
+                              }
+                            >
                               {item.name}
                             </span>{" "}
                             <span className="currency_name">{item.symbol}</span>
@@ -583,9 +605,9 @@ const CryptoTable = (props) => {
                         ) : (
                           ""
                         )}
-                        {location.pathname === "/" ? (
+                        {isHomePage ? (
                           <>
-                            <TableCell align="right" sx={{ cursor: "pointer" }}>
+                            <TableCell align="right">
                               <Button
                                 variant="outlined"
                                 sx={{
@@ -594,10 +616,10 @@ const CryptoTable = (props) => {
                                 }}
                                 className="btn-outlined-secondary btn"
                                 onClick={() => {
-                                  navigate("/prediction-dashboard");
+                                  handleStatsOpen(item);
                                 }}
                               >
-                                Predict
+                                View
                               </Button>
                             </TableCell>
                           </>

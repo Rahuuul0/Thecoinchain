@@ -2142,6 +2142,16 @@ video {
   text-decoration: underline;
 }
 
+.crypto-name.no-hover {
+  cursor: default !important;
+}
+
+.crypto-name.no-hover:hover .crypto-name-title {
+  color: inherit !important;
+  text-decoration: none !important;
+  cursor: default !important;
+}
+
 .crypto-name .currency_name {
   color: var(--secondary-color);
   text-transform: uppercase;

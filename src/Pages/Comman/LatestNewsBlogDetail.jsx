@@ -569,7 +569,7 @@ const LatestNewsBlogDetail = () => {
                                         mt: 0.20,
                                       }}
                                     >
-                                      Author
+                                      {blogData?.profile?.profile_designation}
                                     </Typography>
                                   </Box>
                                 </Box>

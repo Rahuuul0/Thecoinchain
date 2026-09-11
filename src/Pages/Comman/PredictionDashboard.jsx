@@ -77,7 +77,7 @@ const PredictionDashboard = () => {
                 </Typography>
                 <TextField
                   size="small"
-                  placeholder="Search all coins by name or symbol..."
+                  placeholder="Search all coins by name"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   InputProps={{

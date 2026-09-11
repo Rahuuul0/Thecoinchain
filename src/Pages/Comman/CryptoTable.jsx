@@ -101,15 +101,75 @@ const CryptoTable = (props) => {
   const [page, setPage] = useState(1);
 
   const searchTerm = (props.search || "").trim().toLowerCase();
+  const [searchResults, setSearchResults] = useState(null);
+  const [isSearching, setIsSearching] = useState(false);
+
+  useEffect(() => {
+    if (!searchTerm) {
+      setSearchResults(null);
+      setIsSearching(false);
+      return;
+    }
+
+    let isMounted = true;
+    setIsSearching(true);
+
+    const timer = setTimeout(async () => {
+      try {
+        const results = await coinActions.searchCoins(searchTerm);
+        if (isMounted) {
+          setSearchResults(results || []);
+        }
+      } catch (err) {
+        console.warn("Search coins error:", err);
+        if (isMounted) {
+          setSearchResults([]);
+        }
+      } finally {
+        if (isMounted) {
+          setIsSearching(false);
+        }
+      }
+    }, 400);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timer);
+    };
+  }, [searchTerm]);
 
   const displayCoins = useMemo(() => {
     if (!searchTerm) return coinsList;
+
+    if (searchResults !== null) {
+      const map = new Map();
+      searchResults.forEach((c) => {
+        if (c && c.id) map.set(c.id, c);
+      });
+      coinsList.forEach((c) => {
+        if (c && c.id && !map.has(c.id)) {
+          const nameMatch = c?.name?.toLowerCase().includes(searchTerm);
+          const symbolMatch = c?.symbol?.toLowerCase().includes(searchTerm);
+          if (nameMatch || symbolMatch) {
+            map.set(c.id, c);
+          }
+        }
+      });
+      const merged = Array.from(map.values());
+      merged.sort((a, b) => {
+        const rankA = a.cmc_rank != null ? a.cmc_rank : 999999;
+        const rankB = b.cmc_rank != null ? b.cmc_rank : 999999;
+        return rankA - rankB;
+      });
+      return merged;
+    }
+
     return coinsList.filter((item) => {
       const nameMatch = item?.name?.toLowerCase().includes(searchTerm);
       const symbolMatch = item?.symbol?.toLowerCase().includes(searchTerm);
       return nameMatch || symbolMatch;
     });
-  }, [coinsList, searchTerm]);
+  }, [coinsList, searchTerm, searchResults]);
 
   const visibleCoins = useMemo(() => {
     if (location.pathname === "/prediction-dashboard") {
@@ -283,17 +343,32 @@ const CryptoTable = (props) => {
                   {displayCoins.length === 0 ? (
                     <TableRow>
                       <TableCell colSpan={12} align="center" sx={{ py: 6 }}>
-                        <Typography
-                          variant="body1"
-                          sx={{
-                            color: "var(--secondary-color, #777E90)",
-                            fontWeight: 500,
-                          }}
-                        >
-                          {searchTerm
-                            ? `No cryptocurrency found matching "${props.search}"`
-                            : "No cryptocurrency available"}
-                        </Typography>
+                        {isSearching ? (
+                          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 1.5, py: 2 }}>
+                            <CircularProgress size={22} sx={{ color: "#3772ff" }} />
+                            <Typography
+                              variant="body1"
+                              sx={{
+                                color: "var(--secondary-color, #777E90)",
+                                fontWeight: 500,
+                              }}
+                            >
+                              Searching all cryptocurrencies...
+                            </Typography>
+                          </Box>
+                        ) : (
+                          <Typography
+                            variant="body1"
+                            sx={{
+                              color: "var(--secondary-color, #777E90)",
+                              fontWeight: 500,
+                            }}
+                          >
+                            {searchTerm
+                              ? `No cryptocurrency found matching "${props.search}"`
+                              : "No cryptocurrency available"}
+                          </Typography>
+                        )}
                       </TableCell>
                     </TableRow>
                   ) : (
@@ -330,7 +405,7 @@ const CryptoTable = (props) => {
                               style={{ cursor: "pointer" }}
                             />
                           )} */}
-                          {item.cmc_rank || (page - 1) * 100 + index + 1}
+                          {item.cmc_rank || (searchTerm ? index + 1 : (page - 1) * 100 + index + 1)}
                         </TableCell>
                         <TableCell
                           onClick={!isHomePage ? () => handleStatsOpen(item) : undefined}
@@ -689,13 +764,25 @@ const CryptoTable = (props) => {
                   }}
                 >
                   {searchTerm ? (
-                    <>
-                      Found{" "}
-                      <Box component="span" sx={{ color: "var(--color_dark, #23262f)", fontWeight: 700 }}>
-                        {displayCoins.length}
-                      </Box>{" "}
-                      result{displayCoins.length === 1 ? "" : "s"} for "{props.search}"
-                    </>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: "var(--color-grey, #777E90)",
+                          fontSize: "0.88rem",
+                          fontWeight: 500,
+                        }}
+                      >
+                        Found{" "}
+                        <Box component="span" sx={{ color: "var(--color_dark, #23262f)", fontWeight: 700 }}>
+                          {displayCoins.length}
+                        </Box>{" "}
+                        result{displayCoins.length === 1 ? "" : "s"} for "{props.search}"
+                      </Typography>
+                      {isSearching && (
+                        <CircularProgress size={14} sx={{ color: "#3772ff" }} />
+                      )}
+                    </Box>
                   ) : (
                     <>
                       Showing{" "}

@@ -53,6 +53,76 @@ const getMarketCoins = async (page = 1, perPage = 100) => {
   return marketRequests[cacheKey];
 };
 
+const searchCache = {};
+const searchRequests = {};
+
+const searchMarketCoins = async (query) => {
+  const cleanQuery = (query || "").trim().toLowerCase();
+  if (!cleanQuery) return [];
+
+  const now = Date.now();
+  if (searchCache[cleanQuery] && now - searchCache[cleanQuery].fetchedAt < MARKET_REFRESH_INTERVAL) {
+    return searchCache[cleanQuery].data;
+  }
+
+  if (searchRequests[cleanQuery]) return searchRequests[cleanQuery];
+
+  searchRequests[cleanQuery] = (async () => {
+    try {
+      const searchRes = await fetch(
+        `https://api.coingecko.com/api/v3/search?query=${encodeURIComponent(cleanQuery)}&x_cg_demo_api_key=CG-sxwitfwabJ6rxwXCVPJymjH9`
+      );
+      if (!searchRes.ok) {
+        throw new Error(`CoinGecko search failed (${searchRes.status})`);
+      }
+      const searchData = await searchRes.json();
+      const coins = searchData?.coins || [];
+      if (!coins.length) {
+        searchCache[cleanQuery] = { data: [], fetchedAt: Date.now() };
+        return [];
+      }
+
+      // Take top 50 matching coin IDs
+      const topCoins = coins.slice(0, 50);
+      const ids = topCoins.map((c) => c.id).filter(Boolean).join(",");
+
+      const marketsRes = await fetch(
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=true&price_change_percentage=1h,7d,30d&ids=${encodeURIComponent(ids)}&x_cg_demo_api_key=CG-sxwitfwabJ6rxwXCVPJymjH9`
+      );
+      if (!marketsRes.ok) {
+        throw new Error(`CoinGecko markets failed (${marketsRes.status})`);
+      }
+      const marketsData = await marketsRes.json();
+      if (!Array.isArray(marketsData)) {
+        return [];
+      }
+
+      const normalized = marketsData.map(normalizeCoin);
+
+      // Keep sorted by market_cap_rank
+      normalized.sort((a, b) => {
+        const rankA = a.cmc_rank != null ? a.cmc_rank : 999999;
+        const rankB = b.cmc_rank != null ? b.cmc_rank : 999999;
+        return rankA - rankB;
+      });
+
+      searchCache[cleanQuery] = {
+        data: normalized,
+        fetchedAt: Date.now(),
+      };
+      return normalized;
+    } catch (err) {
+      console.warn("searchMarketCoins error:", err);
+      return [];
+    } finally {
+      delete searchRequests[cleanQuery];
+    }
+  })();
+
+  return searchRequests[cleanQuery];
+};
+
+
 const normalizeCoin = (coin) => ({
   id: coin.id,
   name: coin.name,
@@ -140,11 +210,14 @@ const useCoinActions = () => {
   // The prediction dashboard is a public live-market view backed by CoinGecko.
   const predictionListing = async (params = "?page=1&limit=100") => loadMarkets(params);
 
+  const searchCoins = async (query) => searchMarketCoins(query);
+
   return {
     categoriesList,
     coinListbByCategoty,
     latestListing,
     predictionListing,
+    searchCoins,
   };
 };
 

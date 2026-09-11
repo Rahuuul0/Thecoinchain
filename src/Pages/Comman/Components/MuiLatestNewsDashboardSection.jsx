@@ -11,6 +11,7 @@ import { useFetchWrapper } from '../../../_helpers';
 import { useRecoilValue } from 'recoil';
 import { switchDarkModeAtom } from '../../../_state';
 import { Helmet } from "react-helmet-async";
+import { KeyboardArrowRight } from '@mui/icons-material';
 
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
@@ -141,21 +142,16 @@ const MuiLatestNewsDashboardSection = () => {
           {news.length > 3 && (
             <Button
               onClick={() => navigate(RoutesName.Latest_News)}
+              variant="outlined"
+              className="btn btn-outlined-secondary"
+              // endIcon={<KeyboardArrowRight sx={{ color: "#777E90" }} />}
               sx={{
-                color: isDarkMode ? "#fff" : "#000000",
-                fontSize: 16,
-                fontWeight: 500,
-                textTransform: 'none',
-                p: 0,
-                minWidth: 'auto',
-                transition: 'color 0.2s ease',
-                '&:hover': {
-                  color: '#3772ff',
-                  backgroundColor: 'transparent',
-                },
+                height: "50px",
+                whiteSpace: "nowrap",
+                minWidth: "auto",
               }}
             >
-              View all
+              View All
             </Button>
           )}
         </Box>

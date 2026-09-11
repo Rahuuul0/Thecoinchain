@@ -1062,7 +1062,7 @@ const Home = () => {
                     navigate("./learn-cypto");
                   }}
                 >
-                  View more
+                  View All
                 </Button>
               </Grid>
             </Grid>

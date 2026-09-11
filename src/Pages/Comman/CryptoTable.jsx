@@ -432,22 +432,24 @@ const CryptoTable = (props) => {
                           <div
                             className={`crypto-name ${isHomePage ? "no-hover" : ""}`}
                             style={{ cursor: !isHomePage ? "pointer" : "default" }}
-                          >
-                            <img
-                              src={item.image}
-                              alt={item.symbol}
-                              width="33px"
-                            />
-                            <span
-                              className="crypto-name-title"
-                              style={
-                                isHomePage
-                                  ? { color: "inherit", textDecoration: "none", cursor: "default" }
-                                  : undefined
-                              }
                             >
-                              {item.name}
-                            </span>{" "}
+                            <Box sx={{ display: "flex", alignItems: "center" , gap:1.5}}>
+                              <img
+                                src={item.image}
+                                alt={item.symbol}
+                                width="33px"
+                              />
+                              <span
+                                className="crypto-name-title"
+                                style={
+                                  isHomePage
+                                    ? { color: "inherit", textDecoration: "none", cursor: "default" }
+                                    : undefined
+                                }
+                              >
+                                {item.name}
+                              </span>{" "}
+                            </Box>
                             <span className="currency_name">{item.symbol}</span>
                           </div>
                         </TableCell>
@@ -720,6 +722,8 @@ const CryptoTable = (props) => {
                                 sx={{
                                   borderRadius: "90px",
                                   marginLeft: "auto",
+                                  height:{xs:'30px', sm:'35px'},
+                                  fontSize:{xs:'12px', sm:'12px'},
                                 }}
                                 className="btn-outlined-secondary btn"
                                 onClick={() => {

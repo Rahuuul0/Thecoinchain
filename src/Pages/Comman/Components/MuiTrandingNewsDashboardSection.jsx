@@ -129,8 +129,8 @@ const MuiTrandingNewsDashboardSection = () => {
               ? `linear-gradient(125deg, rgba(10 10 10), rgba(48 47 47 / 54%)), url(${backgroundImage})`
               : `linear-gradient(125deg, rgba(255, 255, 255, .94), rgba(246, 248, 252, .8)), url(${backgroundImage})`)
             : (isDarkMode ? 'linear-gradient(125deg, #13171fff, #263d65)' : '#ffffff'),
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
+          backgroundPosition: {xs: 'left', sm: 'center'},
+          backgroundSize: {xs: 'cover', sm: 'cover'},
           backdropFilter: 'blur(14px)',
           WebkitBackdropFilter: 'blur(14px)',
           borderRadius: { xs: '24px', sm: '28px' },
@@ -231,39 +231,70 @@ const MuiTrandingNewsDashboardSection = () => {
                     tabIndex={0}
                     onClick={() => openDetail(item?.id, item?.title)}
                     onKeyDown={(event) => {
-                      if (event.key === 'Enter' || event.key === ' ') openDetail(item?.id, item?.title);
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        openDetail(item?.id, item?.title);
+                      }
                     }}
                     sx={{
                       display: 'grid',
-                      gridTemplateColumns: { xs: '82px minmax(0, 1fr)', sm: '100px minmax(0, 1fr)' },
+                      gridTemplateColumns: 'minmax(0, 1fr)',
                       gap: { xs: '53px', sm: '32px' },
                       alignItems: 'center',
                       py: { xs: 1.1, sm: 1.25 },
                       minHeight: 58,
                       px: { xs: 1.1, sm: 1.25 },
-                      borderBottom: isDarkMode ? '1px solid rgba(255,255,255,.22)' : '1px solid rgba(0,0,0,.08)',
+                      borderBottom: isDarkMode
+                        ? '1px solid rgba(255,255,255,.22)'
+                        : '1px solid rgba(0,0,0,.08)',
                       cursor: 'pointer',
                       transition: 'background-color .2s ease, transform .2s ease',
                       '&:hover': {
                         bgcolor: isDarkMode ? 'rgba(255,255,255,.12)' : 'rgba(0,0,0,.04)',
                         transform: 'translateX(3px)',
                       },
-                      '&:focus-visible': { outline: '2px solid #ff5b39', outlineOffset: '2px' },
+                      '&:focus-visible': {
+                        outline: '2px solid #ff5b39',
+                        outlineOffset: '2px',
+                      },
                     }}
                   >
-                    <Typography sx={{ color: isDarkMode ? 'rgba(255,255,255,.68)' : '#777E90', fontSize: { xs: 12, sm: 13 }, whiteSpace: 'nowrap' }}>
-                      {timeLabel}
-                    </Typography>
-                    <Typography
+                    <Box
                       sx={{
-                        color: isDarkMode ? '#fff' : '#141416',
-                        fontSize: { xs: 15, sm: 16 },
-                        fontWeight: 500,
-                        lineHeight: 1.18,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        minWidth: 0,
+                        width: '100%',
                       }}
                     >
-                      {item?.title || 'Latest crypto market update'}
-                    </Typography>
+                      <Typography
+                        sx={{
+                          color: isDarkMode ? '#fff' : '#141416',
+                          fontSize: { xs: 15, sm: 16 },
+                          fontWeight: 500,
+                          lineHeight: 1.18,
+                        }}
+                      >
+                        {item?.title || 'Latest crypto market update'}
+                      </Typography>
+
+                      <Box
+                        component="label"
+                        sx={{
+                          color: isDarkMode
+                            ? 'rgba(255,255,255,.55)'
+                            : '#777E90',
+                          fontSize: '11px',
+                          fontWeight: 500,
+                          lineHeight: 1.2,
+                          textAlign: 'right',
+                          mt: 0.5,
+                          whiteSpace: 'nowrap',
+                          display: 'block',
+                        }}
+                      >
+                        {timeLabel}
+                      </Box>
+                    </Box>
                   </Box>
                 );
               })}

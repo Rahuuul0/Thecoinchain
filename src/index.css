@@ -2137,6 +2137,15 @@ video {
   user-select: none;
 }
 
+.crypto-list-table .crypto-name {
+  max-width: 220px;
+  justify-content: space-between;
+}
+
+.crypto-list-table span.currency_name{
+  margin:0px;
+}
+
 .crypto-name:hover .crypto-name-title {
   color: #3772ff;
   text-decoration: underline;

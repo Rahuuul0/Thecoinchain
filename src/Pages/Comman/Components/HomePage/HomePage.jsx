@@ -1045,7 +1045,7 @@ const Home = () => {
                   Learn crypto
                 </Typography>
               </Grid>
-              <Grid
+              {/* <Grid
                 item
                 xs={12}
                 sm={4}
@@ -1064,7 +1064,7 @@ const Home = () => {
                 >
                   View All
                 </Button>
-              </Grid>
+              </Grid> */}
             </Grid>
 
             {/* tabs starts */}

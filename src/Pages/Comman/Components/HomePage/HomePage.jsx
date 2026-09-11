@@ -1065,6 +1065,7 @@ const Home = () => {
                   View All
                 </Button>
               </Grid> */}
+
             </Grid>
 
             {/* tabs starts */}

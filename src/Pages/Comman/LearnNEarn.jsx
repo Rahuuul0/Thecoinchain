@@ -56,7 +56,7 @@ const LearnNEarn = () => {
             <Box className='learn-n-earn'>
                 <Box className='learn-n-earn-head'>
                     <Typography component="h2" variant='h2'>
-                        Learn and earn
+                        Learn And Earn
                     </Typography>
                     <Typography className='short-subhead' component="p" variant='body1' sx={{ color: '#353945' }} pt={2}>
                         Stacks is a production-ready library of stackablecontent blocks built in React Native.

@@ -1119,7 +1119,7 @@ const Home = () => {
                                     {item.category}
                                   </Typography>
                                   <Typography
-                                    sx={{ fontSize: "14px !important", maxHeight: '110px', overflow: 'hidden' }}
+                                    sx={{ fontSize: "14px !important", maxHeight: '110px', overflow: 'hidden',  }}
                                     className="secondary-color primary-font"
                                   >
                                     {ReactHtmlParser(description)}
@@ -1245,7 +1245,7 @@ const Home = () => {
                   </Swiper>
                 </Box>
               </Box>
-              <Button
+              {/* <Button
                 variant="outlined"
                 className="btn btn-outlined-secondary"
                 sx={{
@@ -1263,7 +1263,7 @@ const Home = () => {
                 }}
               >
                 View more
-              </Button>
+              </Button> */}
             </Box>
           </Box>
         </Container>

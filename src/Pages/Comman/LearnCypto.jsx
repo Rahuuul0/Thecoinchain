@@ -227,7 +227,7 @@ const LearnCypto = () => {
               spacing={3}
               justifyContent="center"
               paddingTop={3}
-              paddingBottom={10}
+              paddingBottom={{ xs: 5, sm: 10 }}
             >
               <Button variant="contained" className="btn btn-primary">
                 Learn Now{" "}
@@ -244,14 +244,27 @@ const LearnCypto = () => {
                 Video Tutorial{" "}
               </Button>
             </Stack>
-            <ReactPlayer
-              url={videoUrl}
-              controls={true}
-              light={imageUrl}
-              playing={false}
-              width="100%"
-              height="640px"
-            />
+            <Box
+              sx={{
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '16 / 9',
+                overflow: 'hidden',
+                '& > div': {
+                  width: '100% !important',
+                  height: '100% !important',
+                },
+              }}
+              >
+              <ReactPlayer
+                url={videoUrl}
+                controls
+                light={imageUrl}
+                playing={false}
+                width="100%"
+                height="100%"
+              />
+            </Box>
             {blogNew === true ? <>
               <Typography
                 variant="h2"

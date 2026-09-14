@@ -585,7 +585,7 @@ const formattedDate =
       <Box
         sx={{
           position: 'fixed',
-          top: { xs: 90, sm: 124 },
+          top: { xs: 105, sm: 124 },
           left: { xs: 16, sm: 24 },
           zIndex: 10,
         }}

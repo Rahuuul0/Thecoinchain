@@ -1046,7 +1046,7 @@ const formattedDate =
                                   fontSize: '1.25rem',
                                   lineHeight: 1.3,
                                   display: '-webkit-box',
-                                  WebkitLineClamp: 3,
+                                  WebkitLineClamp: 2,
                                   WebkitBoxOrient: 'vertical',
                                   overflow: 'hidden',
                                   mb: 1,

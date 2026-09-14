@@ -45,6 +45,7 @@ import { RoutesName } from "../../../_common/app.constants";
 const drawerWidth = '100%';
 const drawerHeight = '100vh';
 
+
 function Header(props) {
 
   const LogoListAction = bannerListActions();
@@ -390,10 +391,10 @@ function Header(props) {
       >
         <Toolbar className='mobile-nav' sx={{ justifyContent: 'space-between' }}>
           <Box className='mobile-in-nav' sx={{
-            display: { sm: 'none' }, maxWidth: { xs: '120px', sm: '150px', lg: '180px' },
+            display: { sm: 'none' }, maxWidth: { xs: '150px', sm: '150px', lg: '180px' },
             pr: 2
           }}>
-            <img onClick={() => { navigate('/') }} src={logoSrc} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+            <img onClick={() => { navigate('/') }} src={logoSrc} alt='Coin Guru' style={{ cursor: 'pointer' }}/>
 
           </Box>
           <IconButton

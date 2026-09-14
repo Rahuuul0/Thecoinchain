@@ -1274,7 +1274,8 @@ input[type="number"] {
 
 .learn-cypto-tab .MuiTabPanel-root {
   padding-bottom: 0;
-  padding-top: 80px;
+  /* padding-top: 80px; */
+    padding-top: 50px;
 }
 
 /* Homepage Ends */
@@ -3789,6 +3790,18 @@ span.currency_name {
   max-height: 120px;
 }
 
+/* 14-9-26 */
+
+.mobile-menu{
+  overflow-y: scroll;
+  height: calc(100vh - 112px);
+  overflow-x: hidden
+}
+
+body:has(.MuiModal-root:not(.MuiModal-hidden)) {
+  overflow-y: hidden !important;
+}
+
 @keyframes rotate {
   to {
     transform: rotate(360deg);
@@ -4892,6 +4905,15 @@ span.currency_name {
 
   .notification-wrapper .notification-wrapper-head h4 {
     margin-bottom: 20px;
+  }
+
+  /* 14-9-26 s */
+  .about-crypto {
+    margin-bottom: 0px;
+  }
+
+  .swiper-styles .swiper{
+    padding-bottom: 0px;
   }
 
 }

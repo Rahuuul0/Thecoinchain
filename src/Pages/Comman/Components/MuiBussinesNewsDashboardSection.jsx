@@ -267,7 +267,7 @@ const MuiCategoryNewsDashboardSection = () => {
                               onClick={() => openDetail(featured?.id, featured?.title)}
                               sx={{
                                 width: '100%',
-                                height: { xs: 120, sm: 150, md: 175 },
+                                height: { xs: 95, sm: 150, md: 175 },
                                 borderRadius: "16px",
                                 overflow: 'hidden',
                                 bgcolor: '#f0f0f0',

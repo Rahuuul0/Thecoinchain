@@ -1396,7 +1396,7 @@ const Home = () => {
       <Container>
         <Box
           className="app-store"
-          sx={{ pb: { xs: 4, sm: 6 }, pt: { xs: '10px', sm: "10px" } }}
+          sx={{ pb: { xs: 0, sm: 6 }, pt: { xs: '10px', sm: "10px" } }}
         >
           <Grid
             container
@@ -1577,7 +1577,7 @@ const Home = () => {
           </Grid>
         </Container>
       </Box> */}
-      <Container maxWidth="fluid" sx={{ pb: { xs: 4, md: 6 } }}>
+      <Container maxWidth="fluid" sx={{ pb: { xs: 0, md: 6 } }}>
         <Marquee>
           {bannerList.map((item) => {
             let image = item.image_url ? `${process.env.REACT_APP_IMAGE_URL}/${item.image_url}` : item.image_link;

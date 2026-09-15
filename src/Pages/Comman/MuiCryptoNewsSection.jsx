@@ -501,12 +501,12 @@ const MuiCryptoSection = () => {
 
   const createdAt = cryptoNewsData?.data?.[0]?.created_at;
 
-const formattedDate =
-  createdAt && dayjs(createdAt).isValid()
-    ? dayjs().diff(dayjs(createdAt), 'hour') < 24
-      ? dayjs(createdAt).fromNow()
-      : dayjs(createdAt).utc().format('MMM DD, YYYY HH:mm [UTC]')
-    : 'Just now';
+  const formattedDate =
+    createdAt && dayjs(createdAt).isValid()
+      ? dayjs().diff(dayjs(createdAt), 'hour') < 24
+        ? dayjs(createdAt).fromNow()
+        : dayjs(createdAt).utc().format('MMM DD, YYYY HH:mm [UTC]')
+      : 'Just now';
 
   const getRelativeTime = (date) => {
     if (!date || !dayjs(date).isValid()) {

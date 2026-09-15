@@ -398,6 +398,7 @@ const LatestNewsBlogDetail = () => {
                     borderColor: '#9ca3af',
                     color: '#374151',
                   },
+                  top:{xs:'30px', sm:'auto'}
                 }}
                 onClick={() => navigate(-1)}
               >

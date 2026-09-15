@@ -319,7 +319,7 @@ const MuiLatestNewsDashboardSection = () => {
                           lineHeight: 1.35,
                           cursor: 'pointer',
                           transition: 'color 0.2s ease',
-                          '.MuiCard-root:hover &': { color: '#323232' },
+                          '.MuiCard-root:hover &': { color: '#3772ff' },
                         }}
                       >
                         {item?.title}

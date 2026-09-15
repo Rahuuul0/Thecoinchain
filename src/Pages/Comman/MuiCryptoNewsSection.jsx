@@ -585,7 +585,7 @@ const formattedDate =
       <Box
         sx={{
           position: 'fixed',
-          top: { xs: 90, sm: 124 },
+          top: { xs: 105, sm: 124 },
           left: { xs: 16, sm: 24 },
           zIndex: 10,
         }}
@@ -1046,7 +1046,7 @@ const formattedDate =
                                   fontSize: '1.25rem',
                                   lineHeight: 1.3,
                                   display: '-webkit-box',
-                                  WebkitLineClamp: 3,
+                                  WebkitLineClamp: 2,
                                   WebkitBoxOrient: 'vertical',
                                   overflow: 'hidden',
                                   mb: 1,

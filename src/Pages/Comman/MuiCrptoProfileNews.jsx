@@ -321,7 +321,7 @@ export default function AuthorProfile() {
         <Box
           sx={{
             position: 'fixed',
-            top: { xs: 90, sm: 124 },
+            top: { xs: 130, sm: 124 },
             left: { xs: 16, sm: 24 },
             zIndex: 10,
           }}
@@ -387,7 +387,7 @@ export default function AuthorProfile() {
                 variant="rounded"
                 sx={{
                   width: "100%",
-                  height: { xs: "180px", md: "226px" },
+                  height: { xs: "250px", md: "226px" },
                   borderRadius: "14px",
                   objectFit: "cover",
                   border: "1px solid #dfe5ea",

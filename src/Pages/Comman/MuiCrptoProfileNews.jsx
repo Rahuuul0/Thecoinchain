@@ -12,13 +12,14 @@ import {
   CircularProgress,
   Alert,
   Container,
-  Tooltip
+  Tooltip,
+  Zoom,
 } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import YouTube from "react-youtube";
 import { styled, keyframes } from '@mui/material/styles';
-import { ArrowBack } from '@mui/icons-material';
+import { ArrowBack, ArrowUpward } from '@mui/icons-material';
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -144,6 +145,29 @@ export default function AuthorProfile() {
   const [error, setError] = useState(null);
   const isDarkMode = useRecoilValue(switchDarkModeAtom);
   const [emailCopied, setEmailCopied] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -801,6 +825,45 @@ export default function AuthorProfile() {
           )}
         </Box>
       </Container>
+
+      <Zoom in={showScrollTop}>
+        <Box
+          role="presentation"
+          sx={{
+            position: "fixed",
+            bottom: { xs: 24, sm: 32, md: 40 },
+            right: { xs: 16, sm: 24, md: 32 },
+            zIndex: 1200,
+          }}
+        >
+          <Tooltip title="Scroll to top" placement="left" arrow>
+            <IconButton
+              onClick={handleScrollToTop}
+              aria-label="Scroll to top"
+              sx={{
+                width: 44,
+                height: 44,
+                borderRadius: "50%",
+                border: "2px solid #8e95a5",
+                bgcolor: isDarkMode ? "rgba(29, 31, 43, 0.92)" : "rgba(255, 255, 255, 0.92)",
+                backdropFilter: "blur(6px)",
+                boxShadow: "0 4px 14px rgba(0, 0, 0, 0.12)",
+                color: isDarkMode ? "#a0a5b5" : "#6e7687",
+                transition: "all 0.25s ease-in-out",
+                "&:hover": {
+                  borderColor: "#3772ff",
+                  color: "#3772ff",
+                  bgcolor: isDarkMode ? "rgba(55, 114, 255, 0.15)" : "#f0f5ff",
+                  transform: "translateY(-3px)",
+                  boxShadow: "0 6px 18px rgba(55, 114, 255, 0.25)",
+                },
+              }}
+            >
+              <ArrowUpward sx={{ fontSize: 22 }} />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      </Zoom>
     </>
   );
 }

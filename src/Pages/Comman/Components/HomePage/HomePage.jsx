@@ -12,6 +12,8 @@ import {
   MenuItem,
   FormControl,
   Avatar,
+  Tooltip,
+  Zoom,
 } from "@mui/material";
 import {
   ArrowCircleDownSharp,
@@ -21,6 +23,7 @@ import {
   Block,
   Mic,
   PlayArrow,
+  ArrowUpward,
 } from "@mui/icons-material";
 import HeroImage from "../../../../../public/assets/images/banner.svg";
 import LightHeroBg from "../../../../../public/assets/Background_img/Gemini_Generated_Image_4ualgp4ualgp4ual.png";
@@ -543,6 +546,30 @@ const Home = () => {
   const subscribeUser = useRecoilValue(forecastSubAtom);
   const auth = useRecoilValue(authAtom);
   const [breadcrumb, setBreadCrumb] = useRecoilState(breadCrumbAtom);
+
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -1119,7 +1146,7 @@ const Home = () => {
                                     {item.category}
                                   </Typography>
                                   <Typography
-                                    sx={{ fontSize: "14px !important", maxHeight: '110px', overflow: 'hidden',  }}
+                                    sx={{ fontSize: "14px !important", maxHeight: '110px', overflow: 'hidden', }}
                                     className="secondary-color primary-font"
                                   >
                                     {ReactHtmlParser(description)}
@@ -1594,6 +1621,45 @@ const Home = () => {
           })}
         </Marquee>
       </Container>
+
+      <Zoom in={showScrollTop}>
+        <Box
+          role="presentation"
+          sx={{
+            position: "fixed",
+            bottom: { xs: 24, sm: 32, md: 40 },
+            right: { xs: 16, sm: 24, md: 32 },
+            zIndex: 1200,
+          }}
+        >
+          <Tooltip title="Scroll to top" placement="left" arrow>
+            <IconButton
+              onClick={handleScrollToTop}
+              aria-label="Scroll to top"
+              sx={{
+                width: 44,
+                height: 44,
+                borderRadius: "50%",
+                border: "2px solid #8e95a5",
+                bgcolor: isDarkMode ? "rgba(29, 31, 43, 0.92)" : "rgba(255, 255, 255, 0.92)",
+                backdropFilter: "blur(6px)",
+                boxShadow: "0 4px 14px rgba(0, 0, 0, 0.12)",
+                color: isDarkMode ? "#a0a5b5" : "#6e7687",
+                transition: "all 0.25s ease-in-out",
+                "&:hover": {
+                  borderColor: "#3772ff",
+                  color: "#3772ff",
+                  bgcolor: isDarkMode ? "rgba(55, 114, 255, 0.15)" : "#f0f5ff",
+                  transform: "translateY(-3px)",
+                  boxShadow: "0 6px 18px rgba(55, 114, 255, 0.25)",
+                },
+              }}
+            >
+              <ArrowUpward sx={{ fontSize: 22 }} />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      </Zoom>
 
     </>
   );

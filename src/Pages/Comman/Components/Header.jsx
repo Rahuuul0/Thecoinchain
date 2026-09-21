@@ -226,7 +226,7 @@ function Header(props) {
         <Box className='close-btn' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}><p>+</p></Box>
         <Box>
           <img onClick={() => { handleDrawerToggle(), navigate('/') }} src={logoSrc} alt='The Coin Chain' style={{ cursor: 'pointer', width: '170px' }} />
-          <Box sx={{ paddingTop: { xs: '60px' } }} className='mobile-menu'>
+          <Box sx={{ paddingTop: { xs: '12px', sm: '60px' } }} className='mobile-menu'>
             <Button variant='standard' className='nav-mobile-btn btn' onClick={() => { handleDrawerToggle(), navigate(RoutesName.Learn_Cypto) }}>Crypto</Button>
             <Accordion className='submenu mobile-nav-dropdown'>
               <AccordionSummary

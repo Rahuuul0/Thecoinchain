@@ -386,7 +386,7 @@ export default function AuthorProfile() {
               "linear-gradient(135deg, #ffffff 0%, #ffffff 55%, #f5faff 100%)",
             boxShadow: "0 12px 35px rgba(20, 50, 80, 0.06)",
           }}
-        >
+         >
           {/* TOP SECTION */}
           <Box
             sx={{
@@ -395,7 +395,7 @@ export default function AuthorProfile() {
               gridTemplateColumns: { xs: "1fr", sm: 'auto 1fr', md: "210px minmax(0, 1fr)" },
               gap: { xs: "22px", md: "30px" },
             }}
-          >
+            >
             {/* PHOTO */}
             <Box
               sx={{
@@ -404,7 +404,8 @@ export default function AuthorProfile() {
                 maxWidth: { xs: "250px", md: "210px" },
                 mx: { xs: "auto", md: 0 },
               }}
-            >
+              >
+              <Box sx={{position:'relative'}}>  
               <Avatar
                 src={author.image}
                 alt={author.name}
@@ -422,109 +423,17 @@ export default function AuthorProfile() {
                 sx={{
                   position: "absolute",
                   left: "0px",
-                  bottom: "-5%",
+                  bottom: "-12px",
                   width: "100%",
                   height: "5px",
                   borderRadius: "5px",
                   background: "linear-gradient(180deg, #08a4e8, #0065d8)",
                 }}
               />
-            </Box>
-
-            {/* RIGHT CONTENT */}
-            <Box sx={{ minWidth: 0 }}>
-              <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: "7px" }}>
-                <Box
-                  sx={{
-                    width: "24px",
-                    height: "2px",
-                    borderRadius: "5px",
-                    background: "linear-gradient(90deg, #0099e8, #0065d8)",
-                  }}
-                />
-                <Typography
-                  sx={{
-                    fontSize: "12px !important",
-                    fontWeight: 500,
-                    letterSpacing: "1.3px",
-                    color: "#1685ca",
-                  }}
-                >
-                  JOURNALIST PROFILE
-                </Typography>
-              </Stack>
-
-              <Typography
-                component="h4"
-                sx={{
-                  lineHeight: 1.08,
-                  fontWeight: '600 !important',
-                  letterSpacing: "-1.2px",
-                  color: "#17202a",
-                  mb: "4px",
-                }}
-              >
-                {author.name}
-              </Typography>
-
-              <Typography sx={{ color: "#1685ca", fontWeight: '600 !important', mb: { xs: "20px", sm: "25px" } }}>
-                {author.role}
-              </Typography>
-
-              <Stack spacing={2}>
-                {author.expertise.length > 0 && (
-                  <InfoRow
-                    icon={<WorkspacePremiumOutlinedIcon sx={{ fontSize: 18 }} />}
-                    label="Expertise"
-                  >
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
-                      {author.expertise.map((item) => (
-                        <Chip
-                          key={item}
-                          label={item}
-                          size="small"
-                          sx={{
-                            height: "26px",
-                            borderRadius: "7px",
-                            background: "#f7fbfe",
-                            border: "1px solid #dcecf7",
-                            color: "#39434c",
-                            fontSize: "11px",
-                            fontWeight: 500,
-                            "& .MuiChip-label": { px: "9px" },
-                          }}
-                        />
-                      ))}
-                    </Box>
-                  </InfoRow>
-                )}
-
-                {author.languages.length > 0 && (
-                  <InfoRow icon={<LanguageIcon sx={{ fontSize: 17 }} />} label="Languages">
-                    <Stack direction="row" spacing={0.7} flexWrap="wrap" useFlexGap>
-                      {author.languages.map((language) => (
-                        <Chip
-                          key={language}
-                          label={language}
-                          size="small"
-                          sx={{
-                            height: "25px",
-                            borderRadius: "7px",
-                            backgroundColor: "#fff",
-                            border: "1px solid #e1e7ed",
-                            color: "#4a535c",
-                            fontSize: "11px",
-                            fontWeight: 600,
-                          }}
-                        />
-                      ))}
-                    </Stack>
-                  </InfoRow>
-                )}
-              </Stack>
+              </Box>
 
               {/* SOCIAL */}
-              <Stack direction="row" spacing={1} sx={{ mt: "20px" }}>
+              <Stack direction="row" spacing={1} sx={{ mt: "20px" , display: author.socialLinks ? 'block' : 'none',}}>
                 {author.socialLinks?.twitter && (
                   <IconButton
                     component="a"
@@ -615,54 +524,149 @@ export default function AuthorProfile() {
                 )}
               </Stack>
             </Box>
-          </Box>
 
-          {/* BIO SECTION */}
-          <Box
-            sx={{
-              mx: { xs: "18px", sm: "25px", md: "30px" },
-              mb: { xs: "18px", sm: "25px", md: "30px" },
-              p: { xs: "17px", sm: "20px" },
-              borderRadius: "13px",
-              border: "1px solid rgba(0, 113, 190, 0.08)",
-              background: "linear-gradient(135deg, #f7fbfe 0%, #ffffff 100%)",
-            }}
-          >
-            <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: "9px" }}>
-              <Box
-                sx={{
-                  width: "7px",
-                  height: "7px",
-                  borderRadius: "50%",
-                  background: "#0787d1",
-                  boxShadow: "0 0 0 4px #e4f4fc",
-                }}
-              />
+            {/* RIGHT CONTENT */}
+            <Box sx={{ minWidth: 0 }}>
+              <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: "7px" }}>
+                <Box
+                  sx={{
+                    width: "24px",
+                    height: "2px",
+                    borderRadius: "5px",
+                    background: "linear-gradient(90deg, #0099e8, #0065d8)",
+                  }}
+                />
+                <Typography
+                  sx={{
+                    fontSize: "12px !important",
+                    fontWeight: 500,
+                    letterSpacing: "1.3px",
+                    color: "#1685ca",
+                  }}
+                >
+                  JOURNALIST PROFILE
+                </Typography>
+              </Stack>
+
               <Typography
+                component="h4"
                 sx={{
-                  fontSize: "11px",
-                  fontWeight: 800,
-                  letterSpacing: "1px",
-                  textTransform: "uppercase",
-                  color: "#65717c",
+                  lineHeight: 1.08,
+                  fontWeight: '600 !important',
+                  letterSpacing: "-1.2px",
+                  color: "#17202a",
+                  mb: "4px",
                 }}
               >
-                About the Author
+                {author.name}
               </Typography>
-            </Stack>
 
-            <Typography
-              component="p"
-              sx={{
-                m: 0,
-                color: "#59636c",
-                fontSize: { xs: "13px", sm: "14px" },
-                lineHeight: 1.65,
-              }}
-            >
-              {author.bio}
-            </Typography>
-          </Box>
+              <Typography sx={{ color: "#1685ca", fontWeight: '600 !important', mb: { xs: "20px", sm: "25px" } , display: author.role ? 'block' : 'none',}}>
+                {author.role}
+              </Typography>
+
+              <Stack spacing={2}>
+                {author.expertise.length > 0 && (
+                  <InfoRow
+                    icon={<WorkspacePremiumOutlinedIcon sx={{ fontSize: 18 }} />}
+                    label="Expertise"
+                  >
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
+                      {author.expertise.map((item) => (
+                        <Chip
+                          key={item}
+                          label={item}
+                          size="small"
+                          sx={{
+                            height: "26px",
+                            borderRadius: "7px",
+                            background: "#f7fbfe",
+                            border: "1px solid #dcecf7",
+                            color: "#39434c",
+                            fontSize: "11px",
+                            fontWeight: 500,
+                            "& .MuiChip-label": { px: "9px" },
+                          }}
+                        />
+                      ))}
+                    </Box>
+                  </InfoRow>
+                )}
+
+                {author.languages.length > 0 && (
+                  <InfoRow icon={<LanguageIcon sx={{ fontSize: 17 }} />} label="Languages">
+                    <Stack direction="row" spacing={0.7} flexWrap="wrap" useFlexGap>
+                      {author.languages.map((language) => (
+                        <Chip
+                          key={language}
+                          label={language}
+                          size="small"
+                          sx={{
+                            height: "25px",
+                            borderRadius: "7px",
+                            backgroundColor: "#fff",
+                            border: "1px solid #e1e7ed",
+                            color: "#4a535c",
+                            fontSize: "11px",
+                            fontWeight: 600,
+                          }}
+                        />
+                      ))}
+                    </Stack>
+                  </InfoRow>
+                )}
+              </Stack>
+
+              
+              {/* BIO SECTION */}
+              <Box
+                sx={{
+                  mx: { xs: "0px", sm: "0px", md: "0px" },
+                  mt: { xs: "15px", sm: "20px", md: "20px" },
+                  p: { xs: "17px", sm: "20px" },
+                  borderRadius: "13px",
+                  border: "1px solid rgba(0, 113, 190, 0.08)",
+                  background: "linear-gradient(135deg, #f7fbfe 0%, #ffffff 100%)",
+                }}
+              >
+                <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: "9px" }}>
+                  <Box
+                    sx={{
+                      width: "7px",
+                      height: "7px",
+                      borderRadius: "50%",
+                      background: "#0787d1",
+                      boxShadow: "0 0 0 4px #e4f4fc",
+                    }}
+                  />
+                  <Typography
+                    sx={{
+                      fontSize: "11px",
+                      fontWeight: 800,
+                      letterSpacing: "1px",
+                      textTransform: "uppercase",
+                      color: "#65717c",
+                    }}
+                  >
+                    About the Author
+                  </Typography>
+                </Stack>
+
+                <Typography
+                  component="p"
+                  sx={{
+                    m: 0,
+                    color: "#59636c",
+                    fontSize: { xs: "13px", sm: "14px" },
+                    lineHeight: 1.65,
+                  }}
+                >
+                  {author.bio}
+                </Typography>
+              </Box>
+              </Box>
+            </Box>
+
         </Card>
 
         {/* =================================================

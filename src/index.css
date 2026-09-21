@@ -3771,7 +3771,7 @@ span.currency_name {
 .community-ic-img img {
   width: 50px !important;
   height: 50px !important;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 50%;
   background-color: #f5f5f5;
 }
@@ -3785,7 +3785,7 @@ span.currency_name {
 }
 
 .market-prediction-faq-item-img img {
-  object-fit: contain;
+  object-fit:cover;
   height: 100%;
   max-height: 120px;
 }
@@ -4111,7 +4111,7 @@ body:has(.MuiModal-root:not(.MuiModal-hidden)) {
 
   .mobile-menu .MuiTypography-root,
   .mobile-menu .MuiButtonBase-root {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 600;
     font-family: var(--primary-font);
     padding: 3px 0;
@@ -5254,4 +5254,21 @@ body:has(.MuiModal-root:not(.MuiModal-hidden)) {
   #root .body-large {
     font-size: 20px;
   }
+}
+
+@media screen and (max-width:576px) {
+    /* s 21-9-26 */
+.crypto-list-table .crypto-name {
+    max-width: 100%;
+    justify-content: space-between;
+}
+
+span.crypto-name-title {
+    min-width: 193px;
+}
+  
+.market-prediction-faq-item-img img {
+    max-height: 175px;
+    width: -webkit-fill-available;
+}
 }

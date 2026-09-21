@@ -11,8 +11,9 @@ import {
   Backdrop,
   CircularProgress,
   Avatar,
+  Zoom,
 } from '@mui/material';
-import { ArrowBack } from '@mui/icons-material';
+import { ArrowBack, ArrowUpward } from '@mui/icons-material';
 import { styled, keyframes } from '@mui/material/styles';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
 import { CardMedia } from '@mui/material';
@@ -347,6 +348,7 @@ const MuiCryptoSection = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [loader, setLoader] = useState(false);
   const [profileLoader, setProfileLoader] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const location = useLocation();
   const isDarkMode = useRecoilValue(switchDarkModeAtom);
   const history = useNavigate();
@@ -480,7 +482,29 @@ const MuiCryptoSection = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  });
+  }, [currentContentConfig.type]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   const handleProfileClick = async (profileId) => {
     if (!profileId) return;
@@ -940,7 +964,11 @@ const MuiCryptoSection = () => {
         </Box>
 
         {/* Bottom Section - Remaining Cards */}
-        <Box className="website-all-bottom-cards-section" sx={{ mt: { xs: 3, mt: 6 } }}>
+        <Box
+          id="news-bottom-cards-section"
+          className="website-all-bottom-cards-section"
+          sx={{ mt: { xs: 3, mt: 6 } }}
+        >
           {remainingItems.length > 0 && (
             <ThemeProvider theme={theme}>
               <Box
@@ -1100,6 +1128,46 @@ const MuiCryptoSection = () => {
           )}
         </Box>
       </Container>
+
+      {/* Scroll to Top Arrow */}
+      <Zoom in={showScrollTop}>
+        <Box
+          role="presentation"
+          sx={{
+            position: 'fixed',
+            bottom: { xs: 24, sm: 32, md: 40 },
+            right: { xs: 16, sm: 24, md: 32 },
+            zIndex: 1200,
+          }}
+        >
+          <Tooltip title="Scroll to top" placement="left" arrow>
+            <IconButton
+              onClick={handleScrollToTop}
+              aria-label="Scroll to top"
+              sx={{
+                width: 44,
+                height: 44,
+                borderRadius: '50%',
+                border: '2px solid #8e95a5',
+                bgcolor: isDarkMode ? 'rgba(29, 31, 43, 0.92)' : 'rgba(255, 255, 255, 0.92)',
+                backdropFilter: 'blur(6px)',
+                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.12)',
+                color: isDarkMode ? '#a0a5b5' : '#6e7687',
+                transition: 'all 0.25s ease-in-out',
+                '&:hover': {
+                  borderColor: '#3772ff',
+                  color: '#3772ff',
+                  bgcolor: isDarkMode ? 'rgba(55, 114, 255, 0.15)' : '#f0f5ff',
+                  transform: 'translateY(-3px)',
+                  boxShadow: '0 6px 18px rgba(55, 114, 255, 0.25)',
+                },
+              }}
+            >
+              <ArrowUpward sx={{ fontSize: 22 }} />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      </Zoom>
     </Box>
   );
 };

@@ -881,7 +881,7 @@ const Home = () => {
                         September 24, 2026 12:30 AM EDT
                       </Typography>
                       </Box>
-                    </Box>
+                    </Box> 
                     
                   </Grid>
                   <Grid item xs={12} sm={6} md={6}>

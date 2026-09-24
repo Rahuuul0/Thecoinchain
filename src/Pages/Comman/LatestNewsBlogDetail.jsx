@@ -196,13 +196,33 @@ const LatestNewsBlogDetail = () => {
     latestListing();
   }, []);
 
-  const handleProfileClick = (profileId) => {
-    if (!profileId) {
+  const slugify = (text = '') =>
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '')
+      .split(/\s+/)
+      .slice(0, 6)
+      .join('-');
+
+  const handleProfileClick = (profileId, profileName) => {
+    const id = profileId || blogData?.profile?.profile_id;
+    const name = profileName || blogData?.profile?.profile_name || '';
+
+    if (!id && !name) {
       console.error("Profile ID not found");
       return;
     }
 
-    navigate(`/profile/${profileId}`);
+    const nameSlug = slugify(name) || String(id);
+    if (id && nameSlug) {
+      sessionStorage.setItem(`profile_id_${nameSlug}`, String(id));
+      localStorage.setItem(`profile_id_${nameSlug}`, String(id));
+    }
+
+    navigate(RoutesName.Profile_Detail.replace(':name', nameSlug), {
+      state: { id, name },
+    });
   };
 
   useEffect(() => {
@@ -398,7 +418,7 @@ const LatestNewsBlogDetail = () => {
                     borderColor: '#9ca3af',
                     color: '#374151',
                   },
-                  top:{xs:'30px', sm:'auto'}
+                  top: { xs: '30px', sm: 'auto' }
                 }}
                 onClick={() => navigate(-1)}
               >
@@ -448,7 +468,12 @@ const LatestNewsBlogDetail = () => {
                         >
                           {/* Profile Name */}
                           <Typography
-                            onClick={() => handleProfileClick(blogData?.profile?.profile_id)}
+                            onClick={() =>
+                              handleProfileClick(
+                                blogData?.profile?.profile_id,
+                                blogData?.profile?.profile_name
+                              )
+                            }
                             sx={{
                               fontSize: 13,
                               fontWeight: 600,
@@ -535,19 +560,29 @@ const LatestNewsBlogDetail = () => {
 
                                     }
                                     alt={blogData?.profile?.profile_name}
+                                    onClick={() =>
+                                      handleProfileClick(
+                                        blogData?.profile?.profile_id,
+                                        blogData?.profile?.profile_name
+                                      )
+                                    }
                                     sx={{
                                       width: 46,
                                       height: 46,
                                       borderRadius: '50%',
                                       objectFit: 'cover',
                                       border: '2px solid #2084EA',
+                                      cursor: 'pointer',
                                     }}
                                   />
 
                                   <Box>
                                     <Typography
                                       onClick={() =>
-                                        handleProfileClick(blogData?.profile?.profile_id)
+                                        handleProfileClick(
+                                          blogData?.profile?.profile_id,
+                                          blogData?.profile?.profile_name
+                                        )
                                       }
                                       sx={{
                                         fontSize: 15,

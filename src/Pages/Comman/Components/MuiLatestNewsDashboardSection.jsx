@@ -262,9 +262,16 @@ const MuiLatestNewsDashboardSection = () => {
                                 component="span"
                                 title={authorName}
                                 onClick={(e) => {
-                                  if (profileId) {
+                                  if (profileId || authorName) {
                                     e.stopPropagation();
-                                    navigate(RoutesName.Profile_Detail.replace(':id', String(profileId)));
+                                    const nameSlug = slugify(authorName) || String(profileId);
+                                    if (profileId && nameSlug) {
+                                      sessionStorage.setItem(`profile_id_${nameSlug}`, String(profileId));
+                                      localStorage.setItem(`profile_id_${nameSlug}`, String(profileId));
+                                    }
+                                    navigate(RoutesName.Profile_Detail.replace(':name', nameSlug), {
+                                      state: { id: profileId, name: authorName },
+                                    });
                                   }
                                 }}
                                 sx={{

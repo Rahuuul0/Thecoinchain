@@ -354,9 +354,16 @@ const MuiCategoryNewsDashboardSection = () => {
                                           component="span"
                                           title={featuredAuthorName}
                                           onClick={(e) => {
-                                            if (featuredProfileId) {
+                                            if (featuredProfileId || featuredAuthorName) {
                                               e.stopPropagation();
-                                              navigate(RoutesName.Profile_Detail.replace(':id', String(featuredProfileId)));
+                                              const nameSlug = slugify(featuredAuthorName) || String(featuredProfileId);
+                                              if (featuredProfileId && nameSlug) {
+                                                sessionStorage.setItem(`profile_id_${nameSlug}`, String(featuredProfileId));
+                                                localStorage.setItem(`profile_id_${nameSlug}`, String(featuredProfileId));
+                                              }
+                                              navigate(RoutesName.Profile_Detail.replace(':name', nameSlug), {
+                                                state: { id: featuredProfileId, name: featuredAuthorName },
+                                              });
                                             }
                                           }}
                                           sx={{
@@ -446,9 +453,16 @@ const MuiCategoryNewsDashboardSection = () => {
                                             component="span"
                                             title={itemAuthorName}
                                             onClick={(e) => {
-                                              if (itemProfileId) {
+                                              if (itemProfileId || itemAuthorName) {
                                                 e.stopPropagation();
-                                                navigate(RoutesName.Profile_Detail.replace(':id', String(itemProfileId)));
+                                                const nameSlug = slugify(itemAuthorName) || String(itemProfileId);
+                                                if (itemProfileId && nameSlug) {
+                                                  sessionStorage.setItem(`profile_id_${nameSlug}`, String(itemProfileId));
+                                                  localStorage.setItem(`profile_id_${nameSlug}`, String(itemProfileId));
+                                                }
+                                                navigate(RoutesName.Profile_Detail.replace(':name', nameSlug), {
+                                                  state: { id: itemProfileId, name: itemAuthorName },
+                                                });
                                               }
                                             }}
                                             sx={{

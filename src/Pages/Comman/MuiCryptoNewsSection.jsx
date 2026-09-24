@@ -302,7 +302,7 @@ const ProfileBadge = ({ name, avatarUrl, size = 56, ringColor = '#5602a5', profi
       onClick={(e) => {
         e.stopPropagation();
         if (profileId && onProfileClick) {
-          onProfileClick(profileId);
+          onProfileClick(profileId, name);
         }
       }}
     >
@@ -510,16 +510,30 @@ const MuiCryptoSection = () => {
     });
   };
 
-  const handleProfileClick = async (profileId) => {
-    if (!profileId) return;
+  const handleProfileClick = async (profileId, profileName) => {
+    if (!profileId && !profileName) return;
     try {
-      setProfileLoader(true);
-      const response = await getProfileDetail(profileId);
-      if (response?.data || response?.id) {
+      let resolvedName = profileName;
+      if (!resolvedName && profileId) {
+        setProfileLoader(true);
+        const response = await getProfileDetail(profileId);
         const profileData = response?.data || response;
-        sessionStorage.setItem('profileDetail', JSON.stringify(profileData));
-        history(`/profile/${profileId}`);
+        if (profileData) {
+          resolvedName = profileData.profile_name || profileData.name || '';
+          sessionStorage.setItem('profileDetail', JSON.stringify(profileData));
+        }
       }
+      const nameSlug = slugify(resolvedName || '') || String(profileId);
+      if (profileId && nameSlug) {
+        sessionStorage.setItem(`profile_id_${nameSlug}`, String(profileId));
+        localStorage.setItem(`profile_id_${nameSlug}`, String(profileId));
+        if (resolvedName) {
+          sessionStorage.setItem(`profile_id_${resolvedName}`, String(profileId));
+        }
+      }
+      history(RoutesName.Profile_Detail.replace(':name', nameSlug), {
+        state: { id: profileId, name: resolvedName },
+      });
     } catch (error) {
       console.error('Error fetching profile detail:', error);
     } finally {

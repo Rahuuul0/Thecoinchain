@@ -71,7 +71,7 @@ export const RoutesName = {
   policy: "/policy",
   tech: "/tech",
   Trending_News: "/trending-news",
-  Profile_Detail: "/journalist/:name",
+  Profile_Detail: "/journalist-profile/:name",
 };
 
 export const Apis = {

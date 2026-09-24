@@ -72,7 +72,6 @@ export const RoutesName = {
   tech: "/tech",
   Trending_News: "/trending-news",
   Profile_Detail: "/profile/:id",
-
 };
 
 export const Apis = {

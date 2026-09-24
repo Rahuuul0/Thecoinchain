@@ -102,10 +102,13 @@ const MuiLatestNewsDashboardSection = () => {
 
   const openDetail = (id, title) => {
     if (id !== undefined && id !== null) {
+      const slug = slugify(title);
+      sessionStorage.setItem(`blog_id_${slug}`, String(id));
+      localStorage.setItem(`blog_id_${slug}`, String(id));
       navigate(
         RoutesName.Blog_Detail
-          .replace(":id", String(id))
-          .replace(":slug", slugify(title))
+          .replace(":slug", slug),
+        { state: { id } }
       );
     }
   };

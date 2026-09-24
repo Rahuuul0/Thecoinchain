@@ -281,6 +281,15 @@ const GlobalCommunitySection = () => {
   const fetchWrapper = useFetchWrapper();
   const [loading, setLoading] = useState(true);
 
+  const slugify = (text = "") =>
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .split(/\s+/)
+      .slice(0, 6)
+      .join("-");
+
   const podcastNotifications = guestPosts.map((item) => ({
     id: item.id,
     type: item.type?.replace(/_/g, " ").toUpperCase(),
@@ -299,7 +308,7 @@ const GlobalCommunitySection = () => {
     image: item.get_media_display
       ? `${process.env.REACT_APP_IMAGE_URL}/${item.get_media_display}`
       : "",
-    url: RoutesName.Blog_Detail.replace(":id", item.id),
+    url: RoutesName.Blog_Detail.replace(":slug", slugify(item?.title || "")),
   }));
 
   useEffect(() => {
@@ -342,21 +351,15 @@ const GlobalCommunitySection = () => {
     fetchLatestNews();
   }, []);
 
-  const slugify = (text = "") =>
-    text
-      .toLowerCase()
-      .trim()
-      .replace(/[^\w\s-]/g, "")
-      .split(/\s+/)
-      .slice(0, 6)
-      .join("-");
-
   const openDetail = (id, title) => {
     if (id !== undefined && id !== null) {
+      const slug = slugify(title);
+      sessionStorage.setItem(`blog_id_${slug}`, String(id));
+      localStorage.setItem(`blog_id_${slug}`, String(id));
       navigate(
         RoutesName.Blog_Detail
-          .replace(":id", String(id))
-          .replace(":slug", slugify(title))
+          .replace(":slug", slug),
+        { state: { id } }
       );
     }
   };

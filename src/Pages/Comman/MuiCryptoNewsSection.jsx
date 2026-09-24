@@ -377,10 +377,14 @@ const MuiCryptoSection = () => {
       .slice(0, 6)
       .join("-");
 
-  const getBlogDetailRoute = (id, title) =>
-    RoutesName.Blog_Detail
-      .replace(":id", id)
-      .replace(":slug", slugify(title));
+  const getBlogDetailRoute = (id, title) => {
+    const slug = slugify(title);
+    if (id !== undefined && id !== null) {
+      sessionStorage.setItem(`blog_id_${slug}`, String(id));
+      localStorage.setItem(`blog_id_${slug}`, String(id));
+    }
+    return RoutesName.Blog_Detail.replace(":slug", slug);
+  };
   const getMediaUrl = (mediaPath) => {
     if (!mediaPath) {
       return '';
@@ -744,7 +748,8 @@ const MuiCryptoSection = () => {
                     getBlogDetailRoute(
                       cryptoNewsData?.data?.[0]?.id,
                       cryptoNewsData?.data?.[0]?.title
-                    )
+                    ),
+                    { state: { id: cryptoNewsData?.data?.[0]?.id } }
                   )
                 }
               >
@@ -817,7 +822,8 @@ const MuiCryptoSection = () => {
                     getBlogDetailRoute(
                       cryptoNewsData?.data?.[0]?.id,
                       cryptoNewsData?.data?.[0]?.title
-                    )
+                    ),
+                    { state: { id: cryptoNewsData?.data?.[0]?.id } }
                   )
                 }
               >
@@ -874,7 +880,9 @@ const MuiCryptoSection = () => {
                     cursor: 'pointer',
                   }}
                   onClick={() =>
-                    history(getBlogDetailRoute(item.id, item.title))
+                    history(getBlogDetailRoute(item.id, item.title), {
+                      state: { id: item.id },
+                    })
                   }
                 >
                   {item?.media_type === 'youtube-link' ? (
@@ -998,7 +1006,9 @@ const MuiCryptoSection = () => {
                               },
                             }}
                             onClick={() =>
-                              history(getBlogDetailRoute(item.id, item.title))
+                              history(getBlogDetailRoute(item.id, item.title), {
+                                state: { id: item.id },
+                              })
                             }
                           >
                             {item.media_type === 'youtube-link' ? (

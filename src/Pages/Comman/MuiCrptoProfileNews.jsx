@@ -296,11 +296,14 @@ export default function AuthorProfile() {
   // ✅ Blog detail navigation — works for any dynamic "type"
   const openBlogDetail = (item) => {
     if (item?.id === undefined || item?.id === null) return;
+    const slug = slugify(item?.title);
+    sessionStorage.setItem(`blog_id_${slug}`, String(item.id));
+    localStorage.setItem(`blog_id_${slug}`, String(item.id));
 
     navigate(
       RoutesName.Blog_Detail
-        .replace(":id", String(item.id))
-        .replace(":slug", slugify(item?.title))
+        .replace(":slug", slug),
+      { state: { id: item.id } }
     );
   };
 

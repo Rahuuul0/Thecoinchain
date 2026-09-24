@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import { styled, keyframes } from '@mui/material/styles';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { Apis, RoutesName } from '../../_common/app.constants';
 import { useFetchWrapper } from '../../_helpers';
@@ -161,7 +161,8 @@ const CustomTooltip = styled(({ className, ...props }) => (
 }));
 
 const LatestNewsBlogDetail = () => {
-  const { id, slug } = useParams();
+  const { id: paramId, slug: paramSlug } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
   const { getProfileDetail } = allContentActions();
@@ -172,6 +173,8 @@ const LatestNewsBlogDetail = () => {
   const { latestListing } = useCoinActions();
   const coinsList = useRecoilValue(coinsAtom);
   const [showProfilePopup, setShowProfilePopup] = useState(false);
+
+  const routeId = !isNaN(paramId) ? paramId : (!isNaN(paramSlug) ? paramSlug : undefined);
 
   const cryptoTickerData = [...coinsList]
     .filter((coin) => coin?.id)
@@ -227,19 +230,110 @@ const LatestNewsBlogDetail = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  }, [id]);
+  }, [paramId, paramSlug, location.state?.id]);
 
   useEffect(() => {
     const fetchBlogDetail = async () => {
-      if (!id) {
+      const currentParam = paramSlug || paramId;
+      if (!currentParam && !location.state?.id) {
+        setLoader(false);
+        setBlogData(null);
+        return;
+      }
+
+      setLoader(true);
+      let targetId = location.state?.id;
+
+      if (!targetId && routeId) {
+        targetId = routeId;
+      }
+
+      if (!targetId && currentParam) {
+        const cleanParam = decodeURIComponent(currentParam).trim().replace(/\/$/, '');
+        const slugParam = slugify(cleanParam);
+        const cachedId =
+          sessionStorage.getItem(`blog_id_${cleanParam}`) ||
+          sessionStorage.getItem(`blog_id_${slugParam}`) ||
+          localStorage.getItem(`blog_id_${cleanParam}`) ||
+          localStorage.getItem(`blog_id_${slugParam}`);
+
+        if (cachedId) {
+          targetId = cachedId;
+        } else if (!isNaN(cleanParam)) {
+          targetId = cleanParam;
+        }
+      }
+
+      // If not found in state or storage and currentParam is not numeric, lookup in content
+      if (!targetId && currentParam) {
+        const cleanParam = decodeURIComponent(currentParam).trim().replace(/\/$/, '');
+        const targetSlug = slugify(cleanParam);
+        const contentTypes = [
+          'latest_news',
+          'trending_news',
+          'press_release',
+          'price_prediction',
+          'research_report',
+          'guest_post',
+          'market',
+          'finance',
+          'policy',
+          'tech',
+        ];
+
+        for (const cType of contentTypes) {
+          try {
+            const res = await fetchWrapper.get(Apis.All_Content(cType));
+            const items = Array.isArray(res?.data)
+              ? res.data
+              : Array.isArray(res?.data?.data)
+              ? res.data.data
+              : Array.isArray(res)
+              ? res
+              : [];
+            const matched = items.find((it) => {
+              const itemTitleSlug = slugify(it?.title || '');
+              return (
+                itemTitleSlug === targetSlug ||
+                itemTitleSlug.startsWith(targetSlug) ||
+                targetSlug.startsWith(itemTitleSlug)
+              );
+            });
+
+            if (matched?.id) {
+              targetId = matched.id;
+              break;
+            }
+          } catch (lookupErr) {
+            console.warn(`Could not lookup blog in ${cType}:`, lookupErr);
+          }
+        }
+      }
+
+      if (!targetId) {
+        console.error('Blog ID not found for:', currentParam);
+        setBlogData(null);
+        setLoader(false);
         return;
       }
 
       try {
-        setLoader(true);
-        const response = await fetchWrapper.get(Apis.BLOG_DETAIL(id));
+        const response = await fetchWrapper.get(Apis.BLOG_DETAIL(targetId));
         const itemData = response?.data || response || null;
         setBlogData(itemData);
+
+        if (itemData?.id) {
+          if (currentParam) {
+            const cleanParam = decodeURIComponent(currentParam).trim().replace(/\/$/, '');
+            sessionStorage.setItem(`blog_id_${cleanParam}`, String(itemData.id));
+            localStorage.setItem(`blog_id_${cleanParam}`, String(itemData.id));
+          }
+          if (itemData.title) {
+            const titleSlug = slugify(itemData.title);
+            sessionStorage.setItem(`blog_id_${titleSlug}`, String(itemData.id));
+            localStorage.setItem(`blog_id_${titleSlug}`, String(itemData.id));
+          }
+        }
       } catch (error) {
         console.error('Error fetching blog detail:', error);
         setBlogData(null);
@@ -249,10 +343,14 @@ const LatestNewsBlogDetail = () => {
     };
 
     fetchBlogDetail();
-  }, [id]);
+  }, [paramId, paramSlug, location.state?.id]);
 
-  if (!id) {
-    return null;
+  if (loader && !blogData) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
   const sanitizeConfig = {

@@ -133,7 +133,7 @@ function Header(props) {
 
   const handlePriceAnalysis = () => {
     setAnalysisAnchorEl(null);
-    navigate(RoutesName.Price_Analysis);
+    navigate(RoutesName.Price_Prediction);
   };
 
   const handlePricePrediction = () => {
@@ -394,7 +394,7 @@ function Header(props) {
             display: { sm: 'none' }, maxWidth: { xs: '150px', sm: '150px', lg: '180px' },
             pr: 2
           }}>
-            <img onClick={() => { navigate('/') }} src={logoSrc} alt='Coin Guru' style={{ cursor: 'pointer' }}/>
+            <img onClick={() => { navigate('/') }} src={logoSrc} alt='Coin Guru' style={{ cursor: 'pointer' }} />
 
           </Box>
           <IconButton
@@ -421,7 +421,7 @@ function Header(props) {
                 cursor: "pointer",
               },
               maxWidth: { xs: '120px', sm: '150px', lg: '180px' },
-               pr: {xs: '4px',sm: '4px',lg: '16px',}
+              pr: { xs: '4px', sm: '4px', lg: '16px', }
               // borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
             }}
           >
@@ -610,7 +610,7 @@ function Header(props) {
                     <AnalyticsOutlinedIcon
                       sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
                     />
-                    Price Analysis
+                    Price Prediction
                   </MenuItem>
                   <MenuItem onClick={handlePricePrediction}>
                     <TrendingUpOutlinedIcon

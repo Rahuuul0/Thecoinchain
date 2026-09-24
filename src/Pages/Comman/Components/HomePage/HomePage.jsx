@@ -710,7 +710,7 @@ const Home = () => {
                   </Stack>
                 ) : ""}
                 <Grid container sx={{ alignItems: "center" }} spacing={{ xs: 3, md: 4 }}>
-                  <Grid
+                  {/* <Grid
                     item
                     xs={12}
                     sm={6}
@@ -787,6 +787,102 @@ const Home = () => {
                         <ArrowCircleDownSharp sx={{ fontSize: 32 }} />
                       </IconButton>
                     </Box>
+                  </Grid> */}
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={6}
+                    sx={{
+                      paddingRight: { xs: "0px", md: "40px" },
+                    }}
+                  >
+                    <Typography
+                      variant="h1"
+                      component="h1"
+                      className="hero-heading"
+                      sx={{
+                        color: isDarkMode ? "#FFFFFF !important" : "#141416 !important",
+                        fontSize: { xs: "28px !important", sm: "28px !important", md: "35px !important" },
+                        fontWeight: "700 !important",
+                        lineHeight: 1.15,
+                        fontFamily: "var(--secondary-font) !important",
+                        mb: 2,
+                      }}
+                    >
+                      Crypto News: Raiffeisen Expands Crypto Access With Bitpanda Across Europe
+                    </Typography>
+                    <Typography
+                        variant="body1"
+                        component="p"
+                        className="hero-para primary-font"
+                        sx={{
+                          color: isDarkMode
+                            ? "#ffffff !important"
+                            : "#0e0e0e !important",
+                          fontSize: { xs: "14px", sm: "16px" },
+                          lineHeight: 1.6,
+                          marginBottom: { xs: "15px", md: "24px" },
+
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 2,
+                          overflow: "hidden",
+                        }}
+                    >
+                    Key Insights Crypto news: Raiffeisen plans to offer digital asset purchases to about 18 million customers across Central and Eastern Europe. Bitpanda will provide infrastructure as individual Raiffeisen network banks determine their local digital asset offerings. The partnership follows an earlier Bitpanda integration with Raiffeisenlandesbank Niederösterreich-Wien in Austria. Raiffeisen Bank International has partnered
+                    </Typography>
+                    
+                    <Box sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexWrap: "wrap",
+                      gap: { xs: 2, sm: 4 },
+                      mb: 4,
+                      }}>
+
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 2,
+                        }}
+                       >
+
+                        <Typography
+                          sx={{
+                            backgroundColor:'#c5c5c5',
+                            color: isDarkMode
+                            ? "#0e0e0e !important"
+                            : "#0e0e0e !important",
+                            fontSize: "12px !important",
+                            fontWeight: 500,
+                            textTransform: "uppercase",
+                            padding:'6px',
+                            borderRadius:'8px'
+                          }}
+                        >
+                          Glory Kaburu
+                        </Typography>
+
+                      <Typography
+                        sx={{
+                           backgroundColor:'#c5c5c5',
+                          color: isDarkMode
+                            ? "#0e0e0e !important"
+                            : "#0e0e0e !important",
+                          fontSize: "12px !important",
+                          fontWeight: 500,
+                          textTransform: "uppercase",
+                          padding:'6px',
+                          borderRadius:'8px'
+                        }}
+                      >
+                        September 24, 2026 12:30 AM EDT
+                      </Typography>
+                      </Box>
+                    </Box>
+                    
                   </Grid>
                   <Grid item xs={12} sm={6} md={6}>
                     <MuiTrendingNewsDashboardSection />

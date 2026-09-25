@@ -8,8 +8,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
 import { Apis, RoutesName } from '../../../_common/app.constants';
 import { useFetchWrapper } from '../../../_helpers';
-import { useRecoilValue } from 'recoil';
-import { switchDarkModeAtom } from '../../../_state';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { switchDarkModeAtom, latestNewsAtom } from '../../../_state';
 import { Helmet } from "react-helmet-async";
 import { KeyboardArrowRight } from '@mui/icons-material';
 
@@ -71,7 +71,7 @@ const formatUtcTime = (createdAt) => {
 const MuiLatestNewsDashboardSection = () => {
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
-  const [news, setNews] = useState([]);
+  const [news, setNews] = useRecoilState(latestNewsAtom);
   const [loading, setLoading] = useState(true);
   const isDarkMode = useRecoilValue(switchDarkModeAtom);
 

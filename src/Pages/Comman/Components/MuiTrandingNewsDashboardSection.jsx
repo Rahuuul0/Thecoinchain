@@ -132,8 +132,8 @@ const MuiTrandingNewsDashboardSection = () => {
               ? `linear-gradient(125deg, rgba(10 10 10), rgba(48 47 47 / 54%)), url(${backgroundImage})`
               : `linear-gradient(125deg, rgba(255, 255, 255, .94), rgba(246, 248, 252, .8)), url(${backgroundImage})`)
             : (isDarkMode ? 'linear-gradient(125deg, #13171fff, #263d65)' : '#ffffff'),
-          backgroundPosition: {xs: 'left', sm: 'center'},
-          backgroundSize: {xs: 'cover', sm: 'cover'},
+          backgroundPosition: { xs: 'left', sm: 'center' },
+          backgroundSize: { xs: 'cover', sm: 'cover' },
           backdropFilter: 'blur(14px)',
           WebkitBackdropFilter: 'blur(14px)',
           borderRadius: { xs: '24px', sm: '28px' },
@@ -284,8 +284,8 @@ const MuiTrandingNewsDashboardSection = () => {
                         component="label"
                         sx={{
                           color: isDarkMode
-                            ? 'rgba(255,255,255,.55)'
-                            : '#777E90',
+                            ? '#d5d5d5'
+                            : '#6f6f6f',
                           fontSize: '11px',
                           fontWeight: 500,
                           lineHeight: 1.2,

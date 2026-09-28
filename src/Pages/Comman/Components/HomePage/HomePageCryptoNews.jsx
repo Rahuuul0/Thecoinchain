@@ -1,22 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Grid, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { switchDarkModeAtom, latestNewsAtom } from "../../../../_state";
-import { Apis, RoutesName } from "../../../../_common/app.constants";
-import { useFetchWrapper } from "../../../../_helpers";
+import { RoutesName } from "../../../../_common/app.constants";
 
 dayjs.extend(utc);
-
-const getNewsItems = (response) => {
-    if (Array.isArray(response?.data)) return response.data;
-    if (Array.isArray(response?.data?.data)) return response.data.data;
-    if (Array.isArray(response?.results)) return response.results;
-    if (Array.isArray(response)) return response;
-    return [];
-};
 
 const stripHtml = (html = "") => {
     if (!html) return "";
@@ -34,35 +25,17 @@ const slugify = (text = "") =>
 
 const HomePageCryptoNews = ({
     isDarkMode: isDarkModeProp,
-    title = "Crypto News: Raiffeisen Expands Crypto Access With Bitpanda Across Europe",
-    description = "Key Insights Crypto news: Raiffeisen plans to offer digital asset purchases to about 18 million customers across Central and Eastern Europe. Bitpanda will provide infrastructure as individual Raiffeisen network banks determine their local digital asset offerings. The partnership follows an earlier Bitpanda integration with Raiffeisenlandesbank Niederösterreich-Wien in Austria. Raiffeisen Bank International has partnered",
-    author = "Glory Kaburu",
-    date = "September 24, 2026 12:30 AM EDT",
+    title = "",
+    description = "",
+    author = "",
+    date = "",
 }) => {
     const navigate = useNavigate();
-    const fetchWrapper = useFetchWrapper();
     const recoilDarkMode = useRecoilValue(switchDarkModeAtom);
     const isDarkMode = isDarkModeProp !== undefined ? isDarkModeProp : recoilDarkMode;
 
-    const [latestNews, setLatestNews] = useRecoilState(latestNewsAtom);
-
-    useEffect(() => {
-        if (!latestNews || latestNews.length === 0) {
-            const fetchLatestNews = async () => {
-                try {
-                    const response = await fetchWrapper.get(Apis.All_Content("latest_news"));
-                    const items = getNewsItems(response);
-                    if (items && items.length > 0) {
-                        setLatestNews(items);
-                    }
-                } catch (error) {
-                    console.error("Unable to fetch latest news in HomePageCryptoNews:", error);
-                }
-            };
-            fetchLatestNews();
-        }
-    }, [latestNews, setLatestNews, fetchWrapper]);
-
+    // API call MuiLatestNewsDashboardSection 
+    const latestNews = useRecoilValue(latestNewsAtom);
     const activeNews = latestNews?.[0];
 
     const displayTitle = activeNews?.title || title;

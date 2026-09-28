@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography, Box, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import dayjs from "dayjs";
@@ -34,7 +34,7 @@ const HomePageCryptoNews = ({
     const recoilDarkMode = useRecoilValue(switchDarkModeAtom);
     const isDarkMode = isDarkModeProp !== undefined ? isDarkModeProp : recoilDarkMode;
 
-    // API call MuiLatestNewsDashboardSection 
+    // API call MuiLatestNewsDashboardSection se ho rahi hai, yahan sirf Atom se data read hoga
     const latestNews = useRecoilValue(latestNewsAtom);
     const activeNews = latestNews?.[0];
 
@@ -73,98 +73,114 @@ const HomePageCryptoNews = ({
                 paddingRight: { xs: "0px", md: "40px" },
             }}
         >
-            <Typography
-                variant="h1"
-                component="h1"
-                className="hero-heading"
-                onClick={activeNews?.id ? handleNewsClick : undefined}
-                sx={{
-                    color: isDarkMode ? "#FFFFFF !important" : "#141416 !important",
-                    fontSize: { xs: "28px !important", sm: "28px !important", md: "35px !important" },
-                    fontWeight: "700 !important",
-                    lineHeight: 1.15,
-                    fontFamily: "var(--secondary-font) !important",
-                    mb: 2,
-                    cursor: activeNews?.id ? "pointer" : "default",
-                    "&:hover": activeNews?.id ? { color: "#3772ff !important" } : {},
-                    transition: "color 0.2s ease-in-out",
-                }}
-            >
-                Crypto News: {displayTitle}
-            </Typography>
-            <Typography
-                variant="body1"
-                component="p"
-                className="hero-para primary-font"
-                sx={{
-                    color: isDarkMode
-                        ? "#ffffff !important"
-                        : "#0e0e0e !important",
-                    fontSize: { xs: "14px", sm: "16px" },
-                    lineHeight: 1.6,
-                    marginBottom: { xs: "15px", md: "24px" },
-                    display: "-webkit-box",
-                    WebkitBoxOrient: "vertical",
-                    WebkitLineClamp: 2,
-                    overflow: "hidden",
-                }}
-            >
-                {displayDescription}
-            </Typography>
-
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    gap: { xs: 2, sm: 4 },
-                    mb: 4,
-                }}
-            >
+            {!activeNews ? (
                 <Box
                     sx={{
                         display: "flex",
+                        justifyContent: "center",
                         alignItems: "center",
-                        gap: 2,
+                        minHeight: { xs: "180px", md: "240px" },
+                        width: "100%",
                     }}
                 >
-                    {displayAuthor && (
-                        <Typography
-                            sx={{
-                                backgroundColor: "#c5c5c5",
-                                color: isDarkMode
-                                    ? "#0e0e0e !important"
-                                    : "#0e0e0e !important",
-                                fontSize: "12px !important",
-                                fontWeight: 500,
-                                textTransform: "uppercase",
-                                padding: "6px",
-                                borderRadius: "8px",
-                            }}
-                        >
-                            {displayAuthor}
-                        </Typography>
-                    )}
-
-                    {displayDate && (
-                        <Typography
-                            sx={{
-                                backgroundColor: "#c5c5c5",
-                                color: isDarkMode
-                                    ? "#0e0e0e !important"
-                                    : "#0e0e0e !important",
-                                fontSize: "12px !important",
-                                fontWeight: 500,
-                                textTransform: "uppercase",
-                                padding: "6px",
-                                borderRadius: "8px",
-                            }}
-                        >
-                            {displayDate}
-                        </Typography>
-                    )}
+                    <CircularProgress size={40} sx={{ color: "#3772ff" }} />
                 </Box>
-            </Box>
+            ) : (
+                <>
+                    <Typography
+                        variant="h1"
+                        component="h1"
+                        className="hero-heading"
+                        onClick={activeNews?.id ? handleNewsClick : undefined}
+                        sx={{
+                            color: isDarkMode ? "#FFFFFF !important" : "#141416 !important",
+                            fontSize: { xs: "28px !important", sm: "28px !important", md: "35px !important" },
+                            fontWeight: "700 !important",
+                            lineHeight: 1.15,
+                            fontFamily: "var(--secondary-font) !important",
+                            mb: 2,
+                            cursor: activeNews?.id ? "pointer" : "default",
+                            "&:hover": activeNews?.id ? { color: "#3772ff !important" } : {},
+                            transition: "color 0.2s ease-in-out",
+                        }}
+                    >
+                        Crypto News: {displayTitle}
+                    </Typography>
+                    <Typography
+                        variant="body1"
+                        component="p"
+                        className="hero-para primary-font"
+                        sx={{
+                            color: isDarkMode
+                                ? "#ffffff !important"
+                                : "#0e0e0e !important",
+                            fontSize: { xs: "14px", sm: "16px" },
+                            lineHeight: 1.6,
+                            marginBottom: { xs: "15px", md: "24px" },
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 2,
+                            overflow: "hidden",
+                        }}
+                    >
+                        {displayDescription}
+                    </Typography>
+
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            flexWrap: "wrap",
+                            gap: { xs: 2, sm: 4 },
+                            mb: 4,
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 2,
+                            }}
+                        >
+                            {displayAuthor && (
+                                <Typography
+                                    sx={{
+                                        backgroundColor: "#c5c5c5",
+                                        color: isDarkMode
+                                            ? "#0e0e0e !important"
+                                            : "#0e0e0e !important",
+                                        fontSize: "12px !important",
+                                        fontWeight: 500,
+                                        textTransform: "uppercase",
+                                        padding: "6px",
+                                        borderRadius: "8px",
+                                    }}
+                                >
+                                    {displayAuthor}
+                                </Typography>
+                            )}
+
+                            {displayDate && (
+                                <Typography
+                                    sx={{
+                                        backgroundColor: "#c5c5c5",
+                                        color: isDarkMode
+                                            ? "#0e0e0e !important"
+                                            : "#0e0e0e !important",
+                                        fontSize: "12px !important",
+                                        fontWeight: 500,
+                                        textTransform: "uppercase",
+                                        padding: "6px",
+                                        borderRadius: "8px",
+                                    }}
+                                >
+                                    {displayDate}
+                                </Typography>
+                            )}
+                        </Box>
+                    </Box>
+                </>
+            )}
         </Grid>
     );
 };

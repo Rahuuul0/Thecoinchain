@@ -9,8 +9,8 @@ import {
   CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { fetchCoinGecko } from "../../../_helpers";
 
-const COINGECKO_API_KEY = "CG-sxwitfwabJ6rxwXCVPJymjH9";
 const statsCache = {};
 
 // Number formatting helpers
@@ -105,8 +105,9 @@ const CryptoMarketStatsModal = ({ open, onClose, coin, onOpenChart }) => {
 
     const fetchDetailedStats = async () => {
       try {
-        const url = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=90&x_cg_demo_api_key=${COINGECKO_API_KEY}`;
-        const res = await fetch(url);
+        const res = await fetchCoinGecko(
+          `/coins/${coinId}/market_chart?vs_currency=usd&days=90`
+        );
         if (!res.ok) throw new Error(`Chart fetch status: ${res.status}`);
 
         const json = await res.json();

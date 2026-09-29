@@ -21,8 +21,7 @@ import { Chart } from "react-chartjs-2";
 import dayjs from "dayjs";
 
 ChartJS.register(...registerables);
-
-const COINGECKO_API_KEY = "CG-sxwitfwabJ6rxwXCVPJymjH9";
+import { fetchCoinGecko } from "../../../_helpers";
 
 const TIMEFRAMES = [
   { key: "24h", label: "24h", days: 1, unit: "hour" },
@@ -156,8 +155,9 @@ const CryptoChartModal = ({ open, onClose, coin }) => {
     const targetTf = TIMEFRAMES.find((t) => t.key === tfKey) || TIMEFRAMES[0];
 
     try {
-      const url = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${targetTf.days}&x_cg_demo_api_key=${COINGECKO_API_KEY}`;
-      const res = await fetch(url);
+      const res = await fetchCoinGecko(
+        `/coins/${coinId}/market_chart?vs_currency=usd&days=${targetTf.days}`
+      );
       if (!res.ok) throw new Error(`Status ${res.status}`);
 
       const data = await res.json();

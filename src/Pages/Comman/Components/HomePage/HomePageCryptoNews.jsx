@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { switchDarkModeAtom, latestNewsAtom } from "../../../../_state";
+import { switchDarkModeAtom, TrendingNewsAtom } from "../../../../_state";
 import { RoutesName } from "../../../../_common/app.constants";
 
 dayjs.extend(utc);
@@ -38,7 +38,7 @@ const HomePageCryptoNews = ({
     const isDarkMode = isDarkModeProp !== undefined ? isDarkModeProp : recoilDarkMode;
 
     // API call MuiLatestNewsDashboardSection se ho rahi hai, yahan sirf Atom se data read hoga
-    const latestNews = useRecoilValue(latestNewsAtom);
+    const latestNews = useRecoilValue(TrendingNewsAtom);
     const activeNews = latestNews?.[0];
 
     const displayTitle = activeNews?.title || title;
@@ -49,9 +49,12 @@ const HomePageCryptoNews = ({
         activeNews?.author_name?.trim() ||
         author;
 
+    const localCreatedAt = typeof activeNews?.created_at === 'string'
+        ? activeNews.created_at.replace(/Z$/i, '')
+        : activeNews?.created_at;
     const displayDate =
-        activeNews?.created_at && dayjs(activeNews.created_at).isValid()
-            ? dayjs(activeNews.created_at).format("MMMM DD, YYYY hh:mm A")
+        localCreatedAt && dayjs(localCreatedAt).isValid()
+            ? dayjs(localCreatedAt).format("MMMM DD, YYYY hh:mm A")
             : date;
 
     const handleNewsClick = () => {

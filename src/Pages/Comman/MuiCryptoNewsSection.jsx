@@ -367,6 +367,26 @@ const MuiCryptoSection = () => {
   const currentContentConfig =
     contentTypeConfig[contentKey] || contentTypeConfig['latest-news'];
 
+  const isTrendingNews = contentKey === "trending-news";
+
+  const getItemTypeLabel = (item) => {
+    if (!isTrendingNews) {
+      return item?.category || currentContentConfig.label;
+    }
+
+    const itemType = item?.type?.toLowerCase()?.trim();
+
+    const matchedConfig = Object.values(contentTypeConfig).find(
+      (config) => config.type === itemType
+    );
+
+    return (
+      matchedConfig?.label ||
+      item?.category ||
+      currentContentConfig.label
+    );
+  };
+
   const headingText = currentContentConfig.heading;
   const slugify = (text = "", isTitle = false) => {
     if (!text) return "";
@@ -546,31 +566,35 @@ const MuiCryptoSection = () => {
     }
   };
 
-  const createdAt = cryptoNewsData?.data?.[0]?.created_at;
+  const formatNewsDate = (date) => {
+    if (!date) return 'Just now';
+    const localDateStr = typeof date === 'string' ? date.replace(/Z$/i, '') : date;
+    const parsed = dayjs(localDateStr);
+    if (!parsed.isValid()) return 'Just now';
 
-  const formattedDate =
-    createdAt && dayjs(createdAt).isValid()
-      ? dayjs().diff(dayjs(createdAt), 'hour') < 24
-        ? dayjs(createdAt).fromNow()
-        : dayjs(createdAt).utc().format('MMM DD, YYYY HH:mm [UTC]')
-      : 'Just now';
+    const diffMs = dayjs().diff(parsed);
+    if (diffMs < 60000) return 'Just now';
 
-  const getRelativeTime = (date) => {
-    if (!date || !dayjs(date).isValid()) {
-      return 'Just now';
+    const diffHours = dayjs().diff(parsed, 'hour');
+    if (diffHours >= 0 && diffHours < 24) {
+      const fromNow = parsed.fromNow();
+      return fromNow.startsWith('in ') ? 'Just now' : fromNow;
     }
-
-    const createdDate = dayjs(date);
-    const hoursDiff = dayjs().diff(createdDate, 'hour');
-
-    return hoursDiff < 24
-      ? createdDate.fromNow()
-      : createdDate.utc().format('MMM DD, YYYY HH:mm [UTC]');
+    return parsed.format('MMM DD, YYYY HH:mm');
   };
 
-  const displayText = cryptoNewsData?.data?.[0]?.created_at
-    ? `${currentContentConfig.label} · ${formattedDate}`
-    : currentContentConfig.label;
+  const createdAt = cryptoNewsData?.data?.[0]?.created_at;
+  const formattedDate = formatNewsDate(createdAt);
+
+  const getRelativeTime = (date) => {
+    return formatNewsDate(date);
+  };
+
+  const featuredItem = cryptoNewsData?.data?.[0];
+
+  const displayText = featuredItem?.created_at
+    ? `${getItemTypeLabel(featuredItem)} · ${formattedDate}`
+    : getItemTypeLabel(featuredItem);
 
   // Featured item author info
   const featuredAuthor = getAuthorInfo(cryptoNewsData?.data?.[0], 0);
@@ -982,7 +1006,7 @@ const MuiCryptoSection = () => {
                       {item.title || 'Untitled'}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-                      {currentContentConfig.label} ·{' '}
+                      {getItemTypeLabel(item)} ·{" "}
                       {getRelativeTime(item.created_at)}
                     </Typography>
                   </CardContent>
@@ -1128,7 +1152,7 @@ const MuiCryptoSection = () => {
                                     fontWeight: 500,
                                   }}
                                 >
-                                  {item.category || currentContentConfig.label}
+                                  {getItemTypeLabel(item)}
                                 </Typography>
                                 <Box
                                   sx={{

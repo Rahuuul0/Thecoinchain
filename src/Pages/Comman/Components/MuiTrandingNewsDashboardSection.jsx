@@ -7,8 +7,8 @@ import { Apis, RoutesName } from '../../../_common/app.constants';
 import { useFetchWrapper } from '../../../_helpers';
 import Bitcoinimg from '../../../../public/assets/coin_img/TheCoinChainImage.png';
 import { Helmet } from "react-helmet-async";
-import { useRecoilValue } from 'recoil';
-import { switchDarkModeAtom } from '../../../_state';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { switchDarkModeAtom, TrendingNewsAtom } from '../../../_state';
 
 dayjs.extend(relativeTime);
 
@@ -36,7 +36,7 @@ const MuiTrandingNewsDashboardSection = () => {
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
   const isDarkMode = useRecoilValue(switchDarkModeAtom);
-  const [news, setNews] = useState([]);
+  const [news, setNews] = useRecoilState(TrendingNewsAtom);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -227,10 +227,18 @@ const MuiTrandingNewsDashboardSection = () => {
             >
               {scrollingStories.map((item, index) => {
                 const publishedAt = item?.created_at || item?.published_at || item?.date;
-                const timeLabel =
-                  publishedAt && dayjs(publishedAt).isValid()
-                    ? dayjs(publishedAt).fromNow()
-                    : 'Just now';
+                const localPublishedAt = typeof publishedAt === 'string' ? publishedAt.replace(/Z$/i, '') : publishedAt;
+                const parsedDate = localPublishedAt && dayjs(localPublishedAt).isValid() ? dayjs(localPublishedAt) : null;
+                let timeLabel = 'Just now';
+                if (parsedDate) {
+                  const diffMs = dayjs().diff(parsedDate);
+                  if (diffMs < 60000) {
+                    timeLabel = 'Just now';
+                  } else {
+                    const fromNow = parsedDate.fromNow();
+                    timeLabel = fromNow.startsWith('in ') ? 'Just now' : fromNow;
+                  }
+                }
 
                 return (
                   <Box
@@ -300,7 +308,7 @@ const MuiTrandingNewsDashboardSection = () => {
                           display: 'block',
                         }}
                       >
-                        {timeLabel}
+                        {timeLabel} | {item?.type}
                       </Box>
                     </Box>
                   </Box>

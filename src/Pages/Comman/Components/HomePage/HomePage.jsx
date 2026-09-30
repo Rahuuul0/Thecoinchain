@@ -306,12 +306,20 @@ const GlobalCommunitySection = () => {
       title: item.title,
       host: item?.profile?.profile_name,
       duration: null,
-      time:
-        item.created_at && dayjs(item.created_at).isValid()
-          ? dayjs().diff(dayjs(item.created_at), "hour") < 24
-            ? dayjs(item.created_at).fromNow()
-            : dayjs(item.created_at).utc().format("MMM DD, YYYY hh:mm A [UTC]")
-          : "Just now",
+      time: (() => {
+        if (!item.created_at) return "Just now";
+        const localCreatedAt = typeof item.created_at === "string" ? item.created_at.replace(/Z$/i, "") : item.created_at;
+        const parsed = dayjs(localCreatedAt);
+        if (!parsed.isValid()) return "Just now";
+        const diffMs = dayjs().diff(parsed);
+        if (diffMs < 60000) return "Just now";
+        const diffHours = dayjs().diff(parsed, "hour");
+        if (diffHours >= 0 && diffHours < 24) {
+          const fromNow = parsed.fromNow();
+          return fromNow.startsWith("in ") ? "Just now" : fromNow;
+        }
+        return parsed.format("MMM DD, YYYY hh:mm A");
+      })(),
       avatar: item?.profile?.profile_image
         ? `${process.env.REACT_APP_IMAGE_URL}/${item?.profile?.profile_image}`
         : "",

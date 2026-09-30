@@ -471,13 +471,17 @@ const LatestNewsBlogDetail = () => {
     normalizeMediaSrc(blogData?.description || ''),
     sanitizeConfig
   );
-  const formattedCreatedAt = blogData?.created_at
-    ? dayjs(blogData.created_at).format('MMMM DD, YYYY')
+  const localCreatedAt = typeof blogData?.created_at === 'string'
+    ? blogData.created_at.replace(/Z$/i, '')
+    : blogData?.created_at;
+
+  const formattedCreatedAt = localCreatedAt && dayjs(localCreatedAt).isValid()
+    ? dayjs(localCreatedAt).format('MMMM DD, YYYY')
     : '';
 
-  // Author + timestamp shown opposite "Published on" (profile_name is dynamic, date uses dayjs on created_at)
-  const formattedAuthorDate = blogData?.created_at
-    ? dayjs(blogData.created_at).format('MMM DD, YYYY HH:mm [UTC]')
+  // Author + timestamp shown opposite "Published on"
+  const formattedAuthorDate = localCreatedAt && dayjs(localCreatedAt).isValid()
+    ? dayjs(localCreatedAt).format('MMM DD, YYYY HH:mm')
     : '';
 
   if (!loader && !blogData) {

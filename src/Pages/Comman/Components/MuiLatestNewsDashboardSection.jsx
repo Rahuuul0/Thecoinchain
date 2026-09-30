@@ -61,11 +61,20 @@ const getAuthorInfo = (item) => {
 };
 
 const formatUtcTime = (createdAt) => {
-  return createdAt && dayjs(createdAt).isValid()
-    ? dayjs().diff(dayjs(createdAt), 'hour') < 24
-      ? dayjs(createdAt).fromNow()
-      : dayjs(createdAt).utc().format('MMM DD, YYYY HH:mm [UTC]')
-    : 'Just now';
+  if (!createdAt) return 'Just now';
+  const localDateStr = typeof createdAt === 'string' ? createdAt.replace(/Z$/i, '') : createdAt;
+  const parsed = dayjs(localDateStr);
+  if (!parsed.isValid()) return 'Just now';
+
+  const diffMs = dayjs().diff(parsed);
+  if (diffMs < 60000) return 'Just now';
+
+  const diffHours = dayjs().diff(parsed, 'hour');
+  if (diffHours >= 0 && diffHours < 24) {
+    const fromNow = parsed.fromNow();
+    return fromNow.startsWith('in ') ? 'Just now' : fromNow;
+  }
+  return parsed.format('MMM DD, YYYY HH:mm');
 };
 
 const MuiLatestNewsDashboardSection = () => {

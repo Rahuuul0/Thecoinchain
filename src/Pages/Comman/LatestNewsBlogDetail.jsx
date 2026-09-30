@@ -199,14 +199,26 @@ const LatestNewsBlogDetail = () => {
     latestListing();
   }, []);
 
-  const slugify = (text = '') =>
-    text
+  const lastFetchedIdRef = React.useRef(null);
+
+  const slugify = (text = '', isTitle = false) => {
+    if (!text) return '';
+    const clean = text
       .toLowerCase()
       .trim()
-      .replace(/[^\w\s-]/g, '')
-      .split(/\s+/)
-      .slice(0, 6)
-      .join('-');
+      .replace(/[^\w\s-]/g, '');
+    if (isTitle) {
+      return clean.split(/\s+/).slice(0, 6).join('-');
+    }
+    return clean.replace(/[\s_]+/g, '-').replace(/^-+|-+$/g, '');
+  };
+
+  const getBlogSlug = (item) => {
+    if (item?.slug && String(item.slug).trim()) {
+      return slugify(String(item.slug), false);
+    }
+    return slugify(item?.title || '', true);
+  };
 
   const handleProfileClick = (profileId, profileName) => {
     const id = profileId || blogData?.profile?.profile_id;
@@ -217,7 +229,7 @@ const LatestNewsBlogDetail = () => {
       return;
     }
 
-    const nameSlug = slugify(name) || String(id);
+    const nameSlug = slugify(name, true) || String(id);
     if (id && nameSlug) {
       sessionStorage.setItem(`profile_id_${nameSlug}`, String(id));
       localStorage.setItem(`profile_id_${nameSlug}`, String(id));
@@ -241,7 +253,6 @@ const LatestNewsBlogDetail = () => {
         return;
       }
 
-      setLoader(true);
       let targetId = location.state?.id;
 
       if (!targetId && routeId) {
@@ -250,12 +261,15 @@ const LatestNewsBlogDetail = () => {
 
       if (!targetId && currentParam) {
         const cleanParam = decodeURIComponent(currentParam).trim().replace(/\/$/, '');
-        const slugParam = slugify(cleanParam);
+        const slugParamCustom = slugify(cleanParam, false);
+        const slugParamTitle = slugify(cleanParam, true);
         const cachedId =
           sessionStorage.getItem(`blog_id_${cleanParam}`) ||
-          sessionStorage.getItem(`blog_id_${slugParam}`) ||
+          sessionStorage.getItem(`blog_id_${slugParamCustom}`) ||
+          sessionStorage.getItem(`blog_id_${slugParamTitle}`) ||
           localStorage.getItem(`blog_id_${cleanParam}`) ||
-          localStorage.getItem(`blog_id_${slugParam}`);
+          localStorage.getItem(`blog_id_${slugParamCustom}`) ||
+          localStorage.getItem(`blog_id_${slugParamTitle}`);
 
         if (cachedId) {
           targetId = cachedId;
@@ -264,10 +278,23 @@ const LatestNewsBlogDetail = () => {
         }
       }
 
+      // If already fetched this blog data, don't trigger loader or re-fetch
+      if (
+        targetId &&
+        lastFetchedIdRef.current &&
+        String(lastFetchedIdRef.current) === String(targetId) &&
+        blogData?.id === targetId
+      ) {
+        return;
+      }
+
+      setLoader(true);
+
       // If not found in state or storage and currentParam is not numeric, lookup in content
       if (!targetId && currentParam) {
         const cleanParam = decodeURIComponent(currentParam).trim().replace(/\/$/, '');
-        const targetSlug = slugify(cleanParam);
+        const targetSlug = slugify(cleanParam, false);
+        const targetTitleSlug = slugify(cleanParam, true);
         const contentTypes = [
           'latest_news',
           'trending_news',
@@ -292,8 +319,17 @@ const LatestNewsBlogDetail = () => {
               ? res
               : [];
             const matched = items.find((it) => {
-              const itemTitleSlug = slugify(it?.title || '');
+              const itemCustomSlug = it?.slug && String(it.slug).trim() ? slugify(String(it.slug), false) : '';
+              const itemTitleSlug = slugify(it?.title || '', true);
               return (
+                (itemCustomSlug && (
+                  itemCustomSlug === targetSlug ||
+                  itemCustomSlug.startsWith(targetSlug) ||
+                  targetSlug.startsWith(itemCustomSlug)
+                )) ||
+                itemTitleSlug === targetTitleSlug ||
+                itemTitleSlug.startsWith(targetTitleSlug) ||
+                targetTitleSlug.startsWith(itemTitleSlug) ||
                 itemTitleSlug === targetSlug ||
                 itemTitleSlug.startsWith(targetSlug) ||
                 targetSlug.startsWith(itemTitleSlug)
@@ -323,15 +359,33 @@ const LatestNewsBlogDetail = () => {
         setBlogData(itemData);
 
         if (itemData?.id) {
+          lastFetchedIdRef.current = String(itemData.id);
           if (currentParam) {
             const cleanParam = decodeURIComponent(currentParam).trim().replace(/\/$/, '');
             sessionStorage.setItem(`blog_id_${cleanParam}`, String(itemData.id));
             localStorage.setItem(`blog_id_${cleanParam}`, String(itemData.id));
           }
+          if (itemData.slug && String(itemData.slug).trim()) {
+            const customSlug = slugify(String(itemData.slug), false);
+            sessionStorage.setItem(`blog_id_${customSlug}`, String(itemData.id));
+            localStorage.setItem(`blog_id_${customSlug}`, String(itemData.id));
+          }
           if (itemData.title) {
-            const titleSlug = slugify(itemData.title);
+            const titleSlug = slugify(itemData.title, true);
             sessionStorage.setItem(`blog_id_${titleSlug}`, String(itemData.id));
             localStorage.setItem(`blog_id_${titleSlug}`, String(itemData.id));
+          }
+
+          // If itemData has a slug or title, ensure the browser displays the preferred slug
+          const preferredSlug = getBlogSlug(itemData);
+          if (preferredSlug && currentParam) {
+            const cleanParam = decodeURIComponent(currentParam).trim().replace(/\/$/, '');
+            if (cleanParam !== preferredSlug) {
+              navigate(RoutesName.Blog_Detail.replace(':slug', preferredSlug), {
+                replace: true,
+                state: { id: itemData.id },
+              });
+            }
           }
         }
       } catch (error) {

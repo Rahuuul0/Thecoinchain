@@ -282,35 +282,45 @@ const GlobalCommunitySection = () => {
   const fetchWrapper = useFetchWrapper();
   const [loading, setLoading] = useState(true);
 
-  const slugify = (text = "") =>
-    text
+  const slugify = (text = "", isTitle = false) => {
+    if (!text) return "";
+    const clean = text
       .toLowerCase()
       .trim()
-      .replace(/[^\w\s-]/g, "")
-      .split(/\s+/)
-      .slice(0, 6)
-      .join("-");
+      .replace(/[^\w\s-]/g, "");
+    if (isTitle) {
+      return clean.split(/\s+/).slice(0, 6).join("-");
+    }
+    return clean.replace(/[\s_]+/g, "-").replace(/^-+|-+$/g, "");
+  };
 
-  const podcastNotifications = guestPosts.map((item) => ({
-    id: item.id,
-    type: item.type?.replace(/_/g, " ").toUpperCase(),
-    title: item.title,
-    host: item?.profile?.profile_name,
-    duration: null,
-    time:
-      item.created_at && dayjs(item.created_at).isValid()
-        ? dayjs().diff(dayjs(item.created_at), "hour") < 24
-          ? dayjs(item.created_at).fromNow()
-          : dayjs(item.created_at).utc().format("MMM DD, YYYY hh:mm A [UTC]")
-        : "Just now",
-    avatar: item?.profile?.profile_image
-      ? `${process.env.REACT_APP_IMAGE_URL}/${item?.profile?.profile_image}`
-      : "",
-    image: item.get_media_display
-      ? `${process.env.REACT_APP_IMAGE_URL}/${item.get_media_display}`
-      : "",
-    url: RoutesName.Blog_Detail.replace(":slug", slugify(item?.title || "")),
-  }));
+  const podcastNotifications = guestPosts.map((item) => {
+    const slug = item?.slug && String(item.slug).trim()
+      ? slugify(String(item.slug), false)
+      : slugify(item?.title || "", true);
+
+    return {
+      id: item.id,
+      slug: item.slug,
+      type: item.type?.replace(/_/g, " ").toUpperCase(),
+      title: item.title,
+      host: item?.profile?.profile_name,
+      duration: null,
+      time:
+        item.created_at && dayjs(item.created_at).isValid()
+          ? dayjs().diff(dayjs(item.created_at), "hour") < 24
+            ? dayjs(item.created_at).fromNow()
+            : dayjs(item.created_at).utc().format("MMM DD, YYYY hh:mm A [UTC]")
+          : "Just now",
+      avatar: item?.profile?.profile_image
+        ? `${process.env.REACT_APP_IMAGE_URL}/${item?.profile?.profile_image}`
+        : "",
+      image: item.get_media_display
+        ? `${process.env.REACT_APP_IMAGE_URL}/${item.get_media_display}`
+        : "",
+      url: RoutesName.Blog_Detail.replace(":slug", slug),
+    };
+  });
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
@@ -352,9 +362,11 @@ const GlobalCommunitySection = () => {
     fetchLatestNews();
   }, []);
 
-  const openDetail = (id, title) => {
+  const openDetail = (id, title, customSlug) => {
     if (id !== undefined && id !== null) {
-      const slug = slugify(title);
+      const slug = customSlug && String(customSlug).trim()
+        ? slugify(String(customSlug), false)
+        : slugify(title || "", true);
       sessionStorage.setItem(`blog_id_${slug}`, String(id));
       localStorage.setItem(`blog_id_${slug}`, String(id));
       navigate(
@@ -476,7 +488,7 @@ const GlobalCommunitySection = () => {
               key={current.id}
               data={current}
               entering={entering}
-              onClick={() => current?.id && openDetail(current.id, current.title)}
+              onClick={() => current?.id && openDetail(current.id, current.title, current.slug)}
               sx={{
                 position: "absolute",
 

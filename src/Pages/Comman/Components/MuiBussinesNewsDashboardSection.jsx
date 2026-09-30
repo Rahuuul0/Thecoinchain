@@ -123,18 +123,23 @@ const MuiCategoryNewsDashboardSection = () => {
     fetchCategoryNews();
   }, []);
 
-  const slugify = (text = "") =>
-    text
+  const slugify = (text = "", isTitle = false) => {
+    if (!text) return "";
+    const clean = text
       .toLowerCase()
       .trim()
-      .replace(/[^\w\s-]/g, "")
-      .split(/\s+/)
-      .slice(0, 6)
-      .join("-");
+      .replace(/[^\w\s-]/g, "");
+    if (isTitle) {
+      return clean.split(/\s+/).slice(0, 6).join("-");
+    }
+    return clean.replace(/[\s_]+/g, "-").replace(/^-+|-+$/g, "");
+  };
 
-  const openDetail = (id, title) => {
+  const openDetail = (id, title, customSlug) => {
     if (id !== undefined && id !== null) {
-      const slug = slugify(title);
+      const slug = customSlug && String(customSlug).trim()
+        ? slugify(String(customSlug), false)
+        : slugify(title || "", true);
       sessionStorage.setItem(`blog_id_${slug}`, String(id));
       localStorage.setItem(`blog_id_${slug}`, String(id));
       navigate(
@@ -267,7 +272,7 @@ const MuiCategoryNewsDashboardSection = () => {
                         {featured && (
                           <Grid item xs={5} sm={5}>
                             <Box
-                              onClick={() => openDetail(featured?.id, featured?.title)}
+                              onClick={() => openDetail(featured?.id, featured?.title, featured?.slug)}
                               sx={{
                                 width: '100%',
                                 height: { xs: 95, sm: 150, md: 175 },
@@ -321,7 +326,7 @@ const MuiCategoryNewsDashboardSection = () => {
                             {featured && (
                               <Box sx={{ mt: 1.5 }}>
                                 <Typography
-                                  onClick={() => openDetail(featured?.id, featured?.title)}
+                                  onClick={() => openDetail(featured?.id, featured?.title, featured?.slug)}
                                   sx={{
                                     fontFamily: 'Georgia, "Times New Roman", serif',
                                     fontSize: { xs: 14, sm: 16 },
@@ -420,7 +425,7 @@ const MuiCategoryNewsDashboardSection = () => {
                               return (
                                 <Box key={item?.id ?? i} sx={{ py: 1 }}>
                                   <Typography
-                                    onClick={() => openDetail(item?.id, item?.title)}
+                                    onClick={() => openDetail(item?.id, item?.title, item?.slug)}
                                     sx={{
                                       fontFamily: 'Georgia, "Times New Roman", serif',
                                       fontSize: { xs: 14, sm: 16 },

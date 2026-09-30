@@ -55,18 +55,23 @@ const MuiTrandingNewsDashboardSection = () => {
     fetchTrendingNews();
   }, []);
 
-  const slugify = (text = "") =>
-    text
+  const slugify = (text = "", isTitle = false) => {
+    if (!text) return "";
+    const clean = text
       .toLowerCase()
       .trim()
-      .replace(/[^\w\s-]/g, "")
-      .split(/\s+/)
-      .slice(0, 6)
-      .join("-");
+      .replace(/[^\w\s-]/g, "");
+    if (isTitle) {
+      return clean.split(/\s+/).slice(0, 6).join("-");
+    }
+    return clean.replace(/[\s_]+/g, "-").replace(/^-+|-+$/g, "");
+  };
 
-  const openDetail = (id, title) => {
+  const openDetail = (id, title, customSlug) => {
     if (id !== undefined && id !== null) {
-      const slug = slugify(title);
+      const slug = customSlug && String(customSlug).trim()
+        ? slugify(String(customSlug), false)
+        : slugify(title || "", true);
       sessionStorage.setItem(`blog_id_${slug}`, String(id));
       localStorage.setItem(`blog_id_${slug}`, String(id));
       navigate(
@@ -232,10 +237,10 @@ const MuiTrandingNewsDashboardSection = () => {
                     key={`${item?.id ?? index}-${index}`}
                     role="button"
                     tabIndex={0}
-                    onClick={() => openDetail(item?.id, item?.title)}
+                    onClick={() => openDetail(item?.id, item?.title, item?.slug)}
                     onKeyDown={(event) => {
                       if (event.key === 'Enter' || event.key === ' ') {
-                        openDetail(item?.id, item?.title);
+                        openDetail(item?.id, item?.title, item?.slug);
                       }
                     }}
                     sx={{

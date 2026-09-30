@@ -368,17 +368,22 @@ const MuiCryptoSection = () => {
     contentTypeConfig[contentKey] || contentTypeConfig['latest-news'];
 
   const headingText = currentContentConfig.heading;
-  const slugify = (text = "") =>
-    text
+  const slugify = (text = "", isTitle = false) => {
+    if (!text) return "";
+    const clean = text
       .toLowerCase()
       .trim()
-      .replace(/[^\w\s-]/g, "")
-      .split(/\s+/)
-      .slice(0, 6)
-      .join("-");
+      .replace(/[^\w\s-]/g, "");
+    if (isTitle) {
+      return clean.split(/\s+/).slice(0, 6).join("-");
+    }
+    return clean.replace(/[\s_]+/g, "-").replace(/^-+|-+$/g, "");
+  };
 
-  const getBlogDetailRoute = (id, title) => {
-    const slug = slugify(title);
+  const getBlogDetailRoute = (id, title, customSlug) => {
+    const slug = customSlug && String(customSlug).trim()
+      ? slugify(String(customSlug), false)
+      : slugify(title || "", true);
     if (id !== undefined && id !== null) {
       sessionStorage.setItem(`blog_id_${slug}`, String(id));
       localStorage.setItem(`blog_id_${slug}`, String(id));
@@ -761,7 +766,8 @@ const MuiCryptoSection = () => {
                   history(
                     getBlogDetailRoute(
                       cryptoNewsData?.data?.[0]?.id,
-                      cryptoNewsData?.data?.[0]?.title
+                      cryptoNewsData?.data?.[0]?.title,
+                      cryptoNewsData?.data?.[0]?.slug
                     ),
                     { state: { id: cryptoNewsData?.data?.[0]?.id } }
                   )
@@ -835,7 +841,8 @@ const MuiCryptoSection = () => {
                   history(
                     getBlogDetailRoute(
                       cryptoNewsData?.data?.[0]?.id,
-                      cryptoNewsData?.data?.[0]?.title
+                      cryptoNewsData?.data?.[0]?.title,
+                      cryptoNewsData?.data?.[0]?.slug
                     ),
                     { state: { id: cryptoNewsData?.data?.[0]?.id } }
                   )
@@ -894,7 +901,7 @@ const MuiCryptoSection = () => {
                     cursor: 'pointer',
                   }}
                   onClick={() =>
-                    history(getBlogDetailRoute(item.id, item.title), {
+                    history(getBlogDetailRoute(item.id, item.title, item.slug), {
                       state: { id: item.id },
                     })
                   }
@@ -1020,7 +1027,7 @@ const MuiCryptoSection = () => {
                               },
                             }}
                             onClick={() =>
-                              history(getBlogDetailRoute(item.id, item.title), {
+                              history(getBlogDetailRoute(item.id, item.title, item.slug), {
                                 state: { id: item.id },
                               })
                             }

@@ -76,14 +76,17 @@ const getYouTubeVideoId = (url) => {
   return match?.[1] || "";
 };
 
-const slugify = (text = "") =>
-  text
+const slugify = (text = "", isTitle = false) => {
+  if (!text) return "";
+  const clean = text
     .toLowerCase()
     .trim()
-    .replace(/[^\w\s-]/g, "")
-    .split(/\s+/)
-    .slice(0, 6)
-    .join("-");
+    .replace(/[^\w\s-]/g, "");
+  if (isTitle) {
+    return clean.split(/\s+/).slice(0, 6).join("-");
+  }
+  return clean.replace(/[\s_]+/g, "-").replace(/^-+|-+$/g, "");
+};
 
 /* =========================================================
    INFO ROW
@@ -296,7 +299,9 @@ export default function AuthorProfile() {
   // ✅ Blog detail navigation — works for any dynamic "type"
   const openBlogDetail = (item) => {
     if (item?.id === undefined || item?.id === null) return;
-    const slug = slugify(item?.title);
+    const slug = item?.slug && String(item.slug).trim()
+      ? slugify(String(item.slug), false)
+      : slugify(item?.title || "", true);
     sessionStorage.setItem(`blog_id_${slug}`, String(item.id));
     localStorage.setItem(`blog_id_${slug}`, String(item.id));
 

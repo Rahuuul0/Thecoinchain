@@ -14,14 +14,17 @@ const stripHtml = (html = "") => {
     return html.replace(/<[^>]*>?/gm, "").replace(/&nbsp;/g, " ").trim();
 };
 
-const slugify = (text = "") =>
-    text
+const slugify = (text = "", isTitle = false) => {
+    if (!text) return "";
+    const clean = text
         .toLowerCase()
         .trim()
-        .replace(/[^\w\s-]/g, "")
-        .split(/\s+/)
-        .slice(0, 6)
-        .join("-");
+        .replace(/[^\w\s-]/g, "");
+    if (isTitle) {
+        return clean.split(/\s+/).slice(0, 6).join("-");
+    }
+    return clean.replace(/[\s_]+/g, "-").replace(/^-+|-+$/g, "");
+};
 
 const HomePageCryptoNews = ({
     isDarkMode: isDarkModeProp,
@@ -53,7 +56,9 @@ const HomePageCryptoNews = ({
 
     const handleNewsClick = () => {
         if (activeNews?.id) {
-            const slug = slugify(activeNews.title || "");
+            const slug = activeNews.slug && String(activeNews.slug).trim()
+                ? slugify(String(activeNews.slug), false)
+                : slugify(activeNews.title || "", true);
             sessionStorage.setItem(`blog_id_${slug}`, String(activeNews.id));
             localStorage.setItem(`blog_id_${slug}`, String(activeNews.id));
             navigate(

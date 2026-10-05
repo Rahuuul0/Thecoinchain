@@ -4,7 +4,12 @@ export { fakeBackend };
 const usersKey = 'coinguru-users';
 let users = JSON.parse(localStorage.getItem(usersKey)) || [];
 
+let isInitialized = false;
+
 function fakeBackend() {
+    if (isInitialized) return;
+    isInitialized = true;
+
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
         return new Promise((resolve, reject) => {

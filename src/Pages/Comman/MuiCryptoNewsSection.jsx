@@ -302,7 +302,7 @@ const ProfileBadge = ({ name, avatarUrl, size = 56, ringColor = '#5602a5', profi
       onClick={(e) => {
         e.stopPropagation();
         if (profileId && onProfileClick) {
-          onProfileClick(profileId);
+          onProfileClick(profileId, name);
         }
       }}
     >
@@ -367,20 +367,49 @@ const MuiCryptoSection = () => {
   const currentContentConfig =
     contentTypeConfig[contentKey] || contentTypeConfig['latest-news'];
 
+  const isTrendingNews = contentKey === "trending-news";
+
+  const getItemTypeLabel = (item) => {
+    if (!isTrendingNews) {
+      return item?.category || currentContentConfig.label;
+    }
+
+    const itemType = item?.type?.toLowerCase()?.trim();
+
+    const matchedConfig = Object.values(contentTypeConfig).find(
+      (config) => config.type === itemType
+    );
+
+    return (
+      matchedConfig?.label ||
+      item?.category ||
+      currentContentConfig.label
+    );
+  };
+
   const headingText = currentContentConfig.heading;
-  const slugify = (text = "") =>
-    text
+  const slugify = (text = "", isTitle = false) => {
+    if (!text) return "";
+    const clean = text
       .toLowerCase()
       .trim()
-      .replace(/[^\w\s-]/g, "")
-      .split(/\s+/)
-      .slice(0, 6)
-      .join("-");
+      .replace(/[^\w\s-]/g, "");
+    if (isTitle) {
+      return clean.split(/\s+/).slice(0, 6).join("-");
+    }
+    return clean.replace(/[\s_]+/g, "-").replace(/^-+|-+$/g, "");
+  };
 
-  const getBlogDetailRoute = (id, title) =>
-    RoutesName.Blog_Detail
-      .replace(":id", id)
-      .replace(":slug", slugify(title));
+  const getBlogDetailRoute = (id, title, customSlug) => {
+    const slug = customSlug && String(customSlug).trim()
+      ? slugify(String(customSlug), false)
+      : slugify(title || "", true);
+    if (id !== undefined && id !== null) {
+      sessionStorage.setItem(`blog_id_${slug}`, String(id));
+      localStorage.setItem(`blog_id_${slug}`, String(id));
+    }
+    return RoutesName.Blog_Detail.replace(":slug", slug);
+  };
   const getMediaUrl = (mediaPath) => {
     if (!mediaPath) {
       return '';
@@ -506,16 +535,30 @@ const MuiCryptoSection = () => {
     });
   };
 
-  const handleProfileClick = async (profileId) => {
-    if (!profileId) return;
+  const handleProfileClick = async (profileId, profileName) => {
+    if (!profileId && !profileName) return;
     try {
-      setProfileLoader(true);
-      const response = await getProfileDetail(profileId);
-      if (response?.data || response?.id) {
+      let resolvedName = profileName;
+      if (!resolvedName && profileId) {
+        setProfileLoader(true);
+        const response = await getProfileDetail(profileId);
         const profileData = response?.data || response;
-        sessionStorage.setItem('profileDetail', JSON.stringify(profileData));
-        history(`/profile/${profileId}`);
+        if (profileData) {
+          resolvedName = profileData.profile_name || profileData.name || '';
+          sessionStorage.setItem('profileDetail', JSON.stringify(profileData));
+        }
       }
+      const nameSlug = slugify(resolvedName || '') || String(profileId);
+      if (profileId && nameSlug) {
+        sessionStorage.setItem(`profile_id_${nameSlug}`, String(profileId));
+        localStorage.setItem(`profile_id_${nameSlug}`, String(profileId));
+        if (resolvedName) {
+          sessionStorage.setItem(`profile_id_${resolvedName}`, String(profileId));
+        }
+      }
+      history(RoutesName.Profile_Detail.replace(':name', nameSlug), {
+        state: { id: profileId, name: resolvedName },
+      });
     } catch (error) {
       console.error('Error fetching profile detail:', error);
     } finally {
@@ -523,31 +566,35 @@ const MuiCryptoSection = () => {
     }
   };
 
-  const createdAt = cryptoNewsData?.data?.[0]?.created_at;
+  const formatNewsDate = (date) => {
+    if (!date) return 'Just now';
+    const localDateStr = typeof date === 'string' ? date.replace(/Z$/i, '') : date;
+    const parsed = dayjs(localDateStr);
+    if (!parsed.isValid()) return 'Just now';
 
-  const formattedDate =
-    createdAt && dayjs(createdAt).isValid()
-      ? dayjs().diff(dayjs(createdAt), 'hour') < 24
-        ? dayjs(createdAt).fromNow()
-        : dayjs(createdAt).utc().format('MMM DD, YYYY HH:mm [UTC]')
-      : 'Just now';
+    const diffMs = dayjs().diff(parsed);
+    if (diffMs < 60000) return 'Just now';
 
-  const getRelativeTime = (date) => {
-    if (!date || !dayjs(date).isValid()) {
-      return 'Just now';
+    const diffHours = dayjs().diff(parsed, 'hour');
+    if (diffHours >= 0 && diffHours < 24) {
+      const fromNow = parsed.fromNow();
+      return fromNow.startsWith('in ') ? 'Just now' : fromNow;
     }
-
-    const createdDate = dayjs(date);
-    const hoursDiff = dayjs().diff(createdDate, 'hour');
-
-    return hoursDiff < 24
-      ? createdDate.fromNow()
-      : createdDate.utc().format('MMM DD, YYYY HH:mm [UTC]');
+    return parsed.format('MMM DD, YYYY HH:mm');
   };
 
-  const displayText = cryptoNewsData?.data?.[0]?.created_at
-    ? `${currentContentConfig.label} · ${formattedDate}`
-    : currentContentConfig.label;
+  const createdAt = cryptoNewsData?.data?.[0]?.created_at;
+  const formattedDate = formatNewsDate(createdAt);
+
+  const getRelativeTime = (date) => {
+    return formatNewsDate(date);
+  };
+
+  const featuredItem = cryptoNewsData?.data?.[0];
+
+  const displayText = featuredItem?.created_at
+    ? `${getItemTypeLabel(featuredItem)} · ${formattedDate}`
+    : getItemTypeLabel(featuredItem);
 
   // Featured item author info
   const featuredAuthor = getAuthorInfo(cryptoNewsData?.data?.[0], 0);
@@ -743,8 +790,10 @@ const MuiCryptoSection = () => {
                   history(
                     getBlogDetailRoute(
                       cryptoNewsData?.data?.[0]?.id,
-                      cryptoNewsData?.data?.[0]?.title
-                    )
+                      cryptoNewsData?.data?.[0]?.title,
+                      cryptoNewsData?.data?.[0]?.slug
+                    ),
+                    { state: { id: cryptoNewsData?.data?.[0]?.id } }
                   )
                 }
               >
@@ -816,8 +865,10 @@ const MuiCryptoSection = () => {
                   history(
                     getBlogDetailRoute(
                       cryptoNewsData?.data?.[0]?.id,
-                      cryptoNewsData?.data?.[0]?.title
-                    )
+                      cryptoNewsData?.data?.[0]?.title,
+                      cryptoNewsData?.data?.[0]?.slug
+                    ),
+                    { state: { id: cryptoNewsData?.data?.[0]?.id } }
                   )
                 }
               >
@@ -874,7 +925,9 @@ const MuiCryptoSection = () => {
                     cursor: 'pointer',
                   }}
                   onClick={() =>
-                    history(getBlogDetailRoute(item.id, item.title))
+                    history(getBlogDetailRoute(item.id, item.title, item.slug), {
+                      state: { id: item.id },
+                    })
                   }
                 >
                   {item?.media_type === 'youtube-link' ? (
@@ -953,7 +1006,7 @@ const MuiCryptoSection = () => {
                       {item.title || 'Untitled'}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-                      {currentContentConfig.label} ·{' '}
+                      {getItemTypeLabel(item)} ·{" "}
                       {getRelativeTime(item.created_at)}
                     </Typography>
                   </CardContent>
@@ -998,7 +1051,9 @@ const MuiCryptoSection = () => {
                               },
                             }}
                             onClick={() =>
-                              history(getBlogDetailRoute(item.id, item.title))
+                              history(getBlogDetailRoute(item.id, item.title, item.slug), {
+                                state: { id: item.id },
+                              })
                             }
                           >
                             {item.media_type === 'youtube-link' ? (
@@ -1097,7 +1152,7 @@ const MuiCryptoSection = () => {
                                     fontWeight: 500,
                                   }}
                                 >
-                                  {item.category || currentContentConfig.label}
+                                  {getItemTypeLabel(item)}
                                 </Typography>
                                 <Box
                                   sx={{

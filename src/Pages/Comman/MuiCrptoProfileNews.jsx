@@ -15,7 +15,7 @@ import {
   Tooltip,
   Zoom,
 } from "@mui/material";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import dayjs from "dayjs";
 import YouTube from "react-youtube";
 import { styled, keyframes } from '@mui/material/styles';
@@ -29,7 +29,8 @@ import LanguageIcon from "@mui/icons-material/Language";
 import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
 
 import { allContentActions } from "../../_actions/allcontent.actions";
-import { RoutesName } from "../../_common/app.constants"; // ✅ adjust path if different in your project
+import { Apis, RoutesName } from "../../_common/app.constants"; // ✅ adjust path if different in your project
+import { useFetchWrapper } from "../../_helpers";
 import { switchDarkModeAtom } from "../../_state";
 import { useRecoilValue } from "recoil";
 import CryptoTickerMarquee from "./Components/CryptoTickerMarquee";
@@ -75,14 +76,17 @@ const getYouTubeVideoId = (url) => {
   return match?.[1] || "";
 };
 
-const slugify = (text = "") =>
-  text
+const slugify = (text = "", isTitle = false) => {
+  if (!text) return "";
+  const clean = text
     .toLowerCase()
     .trim()
-    .replace(/[^\w\s-]/g, "")
-    .split(/\s+/)
-    .slice(0, 6)
-    .join("-");
+    .replace(/[^\w\s-]/g, "");
+  if (isTitle) {
+    return clean.split(/\s+/).slice(0, 6).join("-");
+  }
+  return clean.replace(/[\s_]+/g, "-").replace(/^-+|-+$/g, "");
+};
 
 /* =========================================================
    INFO ROW
@@ -135,8 +139,10 @@ function InfoRow({ icon, label, children }) {
 ========================================================= */
 
 export default function AuthorProfile() {
-  const { id } = useParams();
+  const { id, name } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
+  const fetchWrapper = useFetchWrapper();
   const { getProfileDetail } = allContentActions();
 
   const [author, setAuthor] = useState(defaultAuthor);
@@ -171,7 +177,8 @@ export default function AuthorProfile() {
 
   useEffect(() => {
     const fetchProfileData = async () => {
-      if (!id) {
+      const routeParam = name || id;
+      if (!routeParam) {
         setAuthor(defaultAuthor);
         setBlogs([]);
         setLoading(false);
@@ -182,7 +189,53 @@ export default function AuthorProfile() {
         setLoading(true);
         setError(null);
 
-        const response = await getProfileDetail(id);
+        let targetId = location.state?.id;
+
+        if (!targetId && routeParam) {
+          const cleanParam = decodeURIComponent(routeParam).trim();
+          const slugParam = slugify(cleanParam);
+          const cachedId =
+            sessionStorage.getItem(`profile_id_${cleanParam}`) ||
+            sessionStorage.getItem(`profile_id_${slugParam}`) ||
+            localStorage.getItem(`profile_id_${cleanParam}`) ||
+            localStorage.getItem(`profile_id_${slugParam}`);
+
+          if (cachedId) {
+            targetId = cachedId;
+          } else if (!isNaN(cleanParam)) {
+            targetId = cleanParam;
+          }
+        }
+
+        // If not found in state or storage and routeParam is not numeric, lookup in content
+        if (!targetId && routeParam) {
+          const targetSlug = slugify(decodeURIComponent(routeParam));
+          const contentTypes = ['latest_news', 'press_release', 'price_prediction', 'research_report'];
+
+          for (const cType of contentTypes) {
+            try {
+              const res = await fetchWrapper.get(Apis.All_Content(cType));
+              const items = Array.isArray(res?.data) ? res.data : [];
+              const matched = items.find((it) => {
+                const pName = it?.profile?.profile_name || it?.author || it?.author_name || '';
+                return slugify(pName) === targetSlug;
+              });
+
+              if (matched?.profile?.profile_id || matched?.profile_id) {
+                targetId = matched?.profile?.profile_id || matched?.profile_id;
+                break;
+              }
+            } catch (lookupErr) {
+              console.warn(`Could not lookup profile in ${cType}:`, lookupErr);
+            }
+          }
+        }
+
+        if (!targetId) {
+          throw new Error("Profile not found");
+        }
+
+        const response = await getProfileDetail(targetId);
 
         console.log("Profile API response:", response);
 
@@ -195,6 +248,13 @@ export default function AuthorProfile() {
 
         if (!profileObj) {
           throw new Error("Profile data not found");
+        }
+
+        if (profileObj?.profile_name && profileObj?.profile_id) {
+          const pSlug = slugify(profileObj.profile_name);
+          sessionStorage.setItem(`profile_id_${pSlug}`, String(profileObj.profile_id));
+          sessionStorage.setItem(`profile_id_${profileObj.profile_name}`, String(profileObj.profile_id));
+          localStorage.setItem(`profile_id_${pSlug}`, String(profileObj.profile_id));
         }
 
         const mappedAuthor = mapProfileToAuthor(profileObj);
@@ -214,7 +274,7 @@ export default function AuthorProfile() {
     };
 
     fetchProfileData();
-  }, [id]);
+  }, [id, name, location.state?.id]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
@@ -239,11 +299,16 @@ export default function AuthorProfile() {
   // ✅ Blog detail navigation — works for any dynamic "type"
   const openBlogDetail = (item) => {
     if (item?.id === undefined || item?.id === null) return;
+    const slug = item?.slug && String(item.slug).trim()
+      ? slugify(String(item.slug), false)
+      : slugify(item?.title || "", true);
+    sessionStorage.setItem(`blog_id_${slug}`, String(item.id));
+    localStorage.setItem(`blog_id_${slug}`, String(item.id));
 
     navigate(
       RoutesName.Blog_Detail
-        .replace(":id", String(item.id))
-        .replace(":slug", slugify(item?.title))
+        .replace(":slug", slug),
+      { state: { id: item.id } }
     );
   };
 
@@ -386,7 +451,7 @@ export default function AuthorProfile() {
               "linear-gradient(135deg, #ffffff 0%, #ffffff 55%, #f5faff 100%)",
             boxShadow: "0 12px 35px rgba(20, 50, 80, 0.06)",
           }}
-         >
+        >
           {/* TOP SECTION */}
           <Box
             sx={{
@@ -395,7 +460,7 @@ export default function AuthorProfile() {
               gridTemplateColumns: { xs: "1fr", sm: 'auto 1fr', md: "210px minmax(0, 1fr)" },
               gap: { xs: "22px", md: "30px" },
             }}
-            >
+          >
             {/* PHOTO */}
             <Box
               sx={{
@@ -404,36 +469,36 @@ export default function AuthorProfile() {
                 maxWidth: { xs: "250px", md: "210px" },
                 mx: { xs: "auto", md: 0 },
               }}
-              >
-              <Box sx={{position:'relative'}}>  
-              <Avatar
-                src={author.image}
-                alt={author.name}
-                variant="rounded"
-                sx={{
-                  width: "100%",
-                  height: { xs: "250px", md: "226px" },
-                  borderRadius: "14px",
-                  objectFit: "cover",
-                  border: "1px solid #dfe5ea",
-                  boxShadow: "0 8px 25px rgba(0,0,0,0.08)",
-                }}
-              />
-              <Box
-                sx={{
-                  position: "absolute",
-                  left: "0px",
-                  bottom: "-12px",
-                  width: "100%",
-                  height: "5px",
-                  borderRadius: "5px",
-                  background: "linear-gradient(180deg, #08a4e8, #0065d8)",
-                }}
-              />
+            >
+              <Box sx={{ position: 'relative' }}>
+                <Avatar
+                  src={author.image}
+                  alt={author.name}
+                  variant="rounded"
+                  sx={{
+                    width: "100%",
+                    height: { xs: "250px", md: "226px" },
+                    borderRadius: "14px",
+                    objectFit: "cover",
+                    border: "1px solid #dfe5ea",
+                    boxShadow: "0 8px 25px rgba(0,0,0,0.08)",
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: "absolute",
+                    left: "0px",
+                    bottom: "-12px",
+                    width: "100%",
+                    height: "5px",
+                    borderRadius: "5px",
+                    background: "linear-gradient(180deg, #08a4e8, #0065d8)",
+                  }}
+                />
               </Box>
 
               {/* SOCIAL */}
-              <Stack direction="row" spacing={1} sx={{ mt: "20px" , display: author.socialLinks ? 'block' : 'none',}}>
+              <Stack direction="row" spacing={1} sx={{ mt: "20px", display: author.socialLinks ? 'block' : 'none', }}>
                 {author.socialLinks?.twitter && (
                   <IconButton
                     component="a"
@@ -561,7 +626,7 @@ export default function AuthorProfile() {
                 {author.name}
               </Typography>
 
-              <Typography sx={{ color: "#1685ca", fontWeight: '600 !important', mb: { xs: "20px", sm: "25px" } , display: author.role ? 'block' : 'none',}}>
+              <Typography sx={{ color: "#1685ca", fontWeight: '600 !important', mb: { xs: "20px", sm: "25px" }, display: author.role ? 'block' : 'none', }}>
                 {author.role}
               </Typography>
 
@@ -617,7 +682,7 @@ export default function AuthorProfile() {
                 )}
               </Stack>
 
-              
+
               {/* BIO SECTION */}
               <Box
                 sx={{
@@ -664,8 +729,8 @@ export default function AuthorProfile() {
                   {author.bio}
                 </Typography>
               </Box>
-              </Box>
             </Box>
+          </Box>
 
         </Card>
 

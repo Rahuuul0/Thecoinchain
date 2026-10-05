@@ -59,11 +59,20 @@ const getAuthorInfo = (item) => {
 };
 
 const formatUtcTime = (createdAt) => {
-  return createdAt && dayjs(createdAt).isValid()
-    ? dayjs().diff(dayjs(createdAt), 'hour') < 24
-      ? dayjs(createdAt).fromNow()
-      : dayjs(createdAt).utc().format('MMM DD, YYYY HH:mm [UTC]')
-    : 'Just now';
+  if (!createdAt) return 'Just now';
+  const localDateStr = typeof createdAt === 'string' ? createdAt.replace(/Z$/i, '') : createdAt;
+  const parsed = dayjs(localDateStr);
+  if (!parsed.isValid()) return 'Just now';
+
+  const diffMs = dayjs().diff(parsed);
+  if (diffMs < 60000) return 'Just now';
+
+  const diffHours = dayjs().diff(parsed, 'hour');
+  if (diffHours >= 0 && diffHours < 24) {
+    const fromNow = parsed.fromNow();
+    return fromNow.startsWith('in ') ? 'Just now' : fromNow;
+  }
+  return parsed.format('MMM DD, YYYY HH:mm');
 };
 
 const MuiResearchReportsDashboardSection = () => {
@@ -89,21 +98,29 @@ const MuiResearchReportsDashboardSection = () => {
     fetchResearchReports();
   }, []);
 
-  const slugify = (text = "") =>
-    text
+  const slugify = (text = "", isTitle = false) => {
+    if (!text) return "";
+    const clean = text
       .toLowerCase()
       .trim()
-      .replace(/[^\w\s-]/g, "")
-      .split(/\s+/)
-      .slice(0, 6)
-      .join("-");
+      .replace(/[^\w\s-]/g, "");
+    if (isTitle) {
+      return clean.split(/\s+/).slice(0, 6).join("-");
+    }
+    return clean.replace(/[\s_]+/g, "-").replace(/^-+|-+$/g, "");
+  };
 
-  const openDetail = (id, title) => {
+  const openDetail = (id, title, customSlug) => {
     if (id !== undefined && id !== null) {
+      const slug = customSlug && String(customSlug).trim()
+        ? slugify(String(customSlug), false)
+        : slugify(title || "", true);
+      sessionStorage.setItem(`blog_id_${slug}`, String(id));
+      localStorage.setItem(`blog_id_${slug}`, String(id));
       navigate(
         RoutesName.Blog_Detail
-          .replace(":id", String(id))
-          .replace(":slug", slugify(title))
+          .replace(":slug", slug),
+        { state: { id } }
       );
     }
   };
@@ -178,7 +195,7 @@ const MuiResearchReportsDashboardSection = () => {
               return (
                 <Grid item xs={6} sm={4} md={3} key={item?.id}>
                   <Card
-                    onClick={() => openDetail(item?.id, item?.title)}
+                    onClick={() => openDetail(item?.id, item?.title, item?.slug)}
                     sx={{
                       height: '100%',
                       borderRadius: '15px',
@@ -270,9 +287,16 @@ const MuiResearchReportsDashboardSection = () => {
                                 component="span"
                                 title={authorName}
                                 onClick={(e) => {
-                                  if (profileId) {
+                                  if (profileId || authorName) {
                                     e.stopPropagation();
-                                    navigate(RoutesName.Profile_Detail.replace(':id', String(profileId)));
+                                    const nameSlug = slugify(authorName) || String(profileId);
+                                    if (profileId && nameSlug) {
+                                      sessionStorage.setItem(`profile_id_${nameSlug}`, String(profileId));
+                                      localStorage.setItem(`profile_id_${nameSlug}`, String(profileId));
+                                    }
+                                    navigate(RoutesName.Profile_Detail.replace(':name', nameSlug), {
+                                      state: { id: profileId, name: authorName },
+                                    });
                                   }
                                 }}
                                 sx={{
@@ -319,7 +343,7 @@ const MuiResearchReportsDashboardSection = () => {
                         role="button"
                         tabIndex={0}
                         onKeyDown={(event) => {
-                          if (event.key === 'Enter' || event.key === ' ') openDetail(item?.id, item?.title);
+                          if (event.key === 'Enter' || event.key === ' ') openDetail(item?.id, item?.title, item?.slug);
                         }}
                         sx={{
                           fontSize: { xs: 13, md: 14.5 },

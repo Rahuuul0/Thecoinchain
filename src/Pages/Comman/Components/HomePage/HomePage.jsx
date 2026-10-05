@@ -91,6 +91,7 @@ import MuiBussinesNewsDashboard from "../../../Comman/Components/MuiBussinesNews
 import MuiResearchReportsDashboard from "../../../Comman/Components/MuiResearchReportsDashboardSection";
 import MuiPricePredictionDashboardSection from "../../../Comman/Components/MuiPricePredictionDashboardSection";
 import MuiTrendingNewsDashboardSection from "../MuiTrandingNewsDashboardSection";
+import HomePageCryptoNews from "./HomePageCryptoNews";
 import { useFetchWrapper } from "../../../../_helpers";
 import { Helmet } from "react-helmet-async";
 import CryptoTickerMarquee from "../../../Comman/Components/CryptoTickerMarquee";
@@ -281,26 +282,53 @@ const GlobalCommunitySection = () => {
   const fetchWrapper = useFetchWrapper();
   const [loading, setLoading] = useState(true);
 
-  const podcastNotifications = guestPosts.map((item) => ({
-    id: item.id,
-    type: item.type?.replace(/_/g, " ").toUpperCase(),
-    title: item.title,
-    host: item?.profile?.profile_name,
-    duration: null,
-    time:
-      item.created_at && dayjs(item.created_at).isValid()
-        ? dayjs().diff(dayjs(item.created_at), "hour") < 24
-          ? dayjs(item.created_at).fromNow()
-          : dayjs(item.created_at).utc().format("MMM DD, YYYY hh:mm A [UTC]")
-        : "Just now",
-    avatar: item?.profile?.profile_image
-      ? `${process.env.REACT_APP_IMAGE_URL}/${item?.profile?.profile_image}`
-      : "",
-    image: item.get_media_display
-      ? `${process.env.REACT_APP_IMAGE_URL}/${item.get_media_display}`
-      : "",
-    url: RoutesName.Blog_Detail.replace(":id", item.id),
-  }));
+  const slugify = (text = "", isTitle = false) => {
+    if (!text) return "";
+    const clean = text
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "");
+    if (isTitle) {
+      return clean.split(/\s+/).slice(0, 6).join("-");
+    }
+    return clean.replace(/[\s_]+/g, "-").replace(/^-+|-+$/g, "");
+  };
+
+  const podcastNotifications = guestPosts.map((item) => {
+    const slug = item?.slug && String(item.slug).trim()
+      ? slugify(String(item.slug), false)
+      : slugify(item?.title || "", true);
+
+    return {
+      id: item.id,
+      slug: item.slug,
+      type: item.type?.replace(/_/g, " ").toUpperCase(),
+      title: item.title,
+      host: item?.profile?.profile_name,
+      duration: null,
+      time: (() => {
+        if (!item.created_at) return "Just now";
+        const localCreatedAt = typeof item.created_at === "string" ? item.created_at.replace(/Z$/i, "") : item.created_at;
+        const parsed = dayjs(localCreatedAt);
+        if (!parsed.isValid()) return "Just now";
+        const diffMs = dayjs().diff(parsed);
+        if (diffMs < 60000) return "Just now";
+        const diffHours = dayjs().diff(parsed, "hour");
+        if (diffHours >= 0 && diffHours < 24) {
+          const fromNow = parsed.fromNow();
+          return fromNow.startsWith("in ") ? "Just now" : fromNow;
+        }
+        return parsed.format("MMM DD, YYYY hh:mm A");
+      })(),
+      avatar: item?.profile?.profile_image
+        ? `${process.env.REACT_APP_IMAGE_URL}/${item?.profile?.profile_image}`
+        : "",
+      image: item.get_media_display
+        ? `${process.env.REACT_APP_IMAGE_URL}/${item.get_media_display}`
+        : "",
+      url: RoutesName.Blog_Detail.replace(":slug", slug),
+    };
+  });
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
@@ -342,21 +370,17 @@ const GlobalCommunitySection = () => {
     fetchLatestNews();
   }, []);
 
-  const slugify = (text = "") =>
-    text
-      .toLowerCase()
-      .trim()
-      .replace(/[^\w\s-]/g, "")
-      .split(/\s+/)
-      .slice(0, 6)
-      .join("-");
-
-  const openDetail = (id, title) => {
+  const openDetail = (id, title, customSlug) => {
     if (id !== undefined && id !== null) {
+      const slug = customSlug && String(customSlug).trim()
+        ? slugify(String(customSlug), false)
+        : slugify(title || "", true);
+      sessionStorage.setItem(`blog_id_${slug}`, String(id));
+      localStorage.setItem(`blog_id_${slug}`, String(id));
       navigate(
         RoutesName.Blog_Detail
-          .replace(":id", String(id))
-          .replace(":slug", slugify(title))
+          .replace(":slug", slug),
+        { state: { id } }
       );
     }
   };
@@ -472,7 +496,7 @@ const GlobalCommunitySection = () => {
               key={current.id}
               data={current}
               entering={entering}
-              onClick={() => current?.id && openDetail(current.id, current.title)}
+              onClick={() => current?.id && openDetail(current.id, current.title, current.slug)}
               sx={{
                 position: "absolute",
 
@@ -788,102 +812,7 @@ const Home = () => {
                       </IconButton>
                     </Box>
                   </Grid> */}
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={6}
-                    sx={{
-                      paddingRight: { xs: "0px", md: "40px" },
-                    }}
-                  >
-                    <Typography
-                      variant="h1"
-                      component="h1"
-                      className="hero-heading"
-                      sx={{
-                        color: isDarkMode ? "#FFFFFF !important" : "#141416 !important",
-                        fontSize: { xs: "28px !important", sm: "28px !important", md: "35px !important" },
-                        fontWeight: "700 !important",
-                        lineHeight: 1.15,
-                        fontFamily: "var(--secondary-font) !important",
-                        mb: 2,
-                      }}
-                    >
-                      Crypto News: Raiffeisen Expands Crypto Access With Bitpanda Across Europe
-                    </Typography>
-                    <Typography
-                        variant="body1"
-                        component="p"
-                        className="hero-para primary-font"
-                        sx={{
-                          color: isDarkMode
-                            ? "#ffffff !important"
-                            : "#0e0e0e !important",
-                          fontSize: { xs: "14px", sm: "16px" },
-                          lineHeight: 1.6,
-                          marginBottom: { xs: "15px", md: "24px" },
-
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 2,
-                          overflow: "hidden",
-                        }}
-                    >
-                    Key Insights Crypto news: Raiffeisen plans to offer digital asset purchases to about 18 million customers across Central and Eastern Europe. Bitpanda will provide infrastructure as individual Raiffeisen network banks determine their local digital asset offerings. The partnership follows an earlier Bitpanda integration with Raiffeisenlandesbank Niederösterreich-Wien in Austria. Raiffeisen Bank International has partnered
-                    </Typography>
-                    
-                    <Box sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      flexWrap: "wrap",
-                      gap: { xs: 2, sm: 4 },
-                      mb: 4,
-                      }}>
-
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 2,
-                        }}
-                       >
-
-                        <Typography
-                          sx={{
-                            backgroundColor:'#c5c5c5',
-                            color: isDarkMode
-                            ? "#0e0e0e !important"
-                            : "#0e0e0e !important",
-                            fontSize: "12px !important",
-                            fontWeight: 500,
-                            textTransform: "uppercase",
-                            padding:'6px',
-                            borderRadius:'8px'
-                          }}
-                        >
-                          Glory Kaburu
-                        </Typography>
-
-                      <Typography
-                        sx={{
-                           backgroundColor:'#c5c5c5',
-                          color: isDarkMode
-                            ? "#0e0e0e !important"
-                            : "#0e0e0e !important",
-                          fontSize: "12px !important",
-                          fontWeight: 500,
-                          textTransform: "uppercase",
-                          padding:'6px',
-                          borderRadius:'8px'
-                        }}
-                      >
-                        September 24, 2026 12:30 AM EDT
-                      </Typography>
-                      </Box>
-                    </Box> 
-                    
-                  </Grid>
+                  <HomePageCryptoNews isDarkMode={isDarkMode} />
                   <Grid item xs={12} sm={6} md={6}>
                     <MuiTrendingNewsDashboardSection />
                   </Grid>

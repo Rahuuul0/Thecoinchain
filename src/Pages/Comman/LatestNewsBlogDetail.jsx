@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import { styled, keyframes } from '@mui/material/styles';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { Apis, RoutesName } from '../../_common/app.constants';
 import { useFetchWrapper } from '../../_helpers';
@@ -161,7 +161,8 @@ const CustomTooltip = styled(({ className, ...props }) => (
 }));
 
 const LatestNewsBlogDetail = () => {
-  const { id, slug } = useParams();
+  const { id: paramId, slug: paramSlug } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
   const { getProfileDetail } = allContentActions();
@@ -172,6 +173,8 @@ const LatestNewsBlogDetail = () => {
   const { latestListing } = useCoinActions();
   const coinsList = useRecoilValue(coinsAtom);
   const [showProfilePopup, setShowProfilePopup] = useState(false);
+
+  const routeId = !isNaN(paramId) ? paramId : (!isNaN(paramSlug) ? paramSlug : undefined);
 
   const cryptoTickerData = [...coinsList]
     .filter((coin) => coin?.id)
@@ -196,30 +199,195 @@ const LatestNewsBlogDetail = () => {
     latestListing();
   }, []);
 
-  const handleProfileClick = (profileId) => {
-    if (!profileId) {
+  const lastFetchedIdRef = React.useRef(null);
+
+  const slugify = (text = '', isTitle = false) => {
+    if (!text) return '';
+    const clean = text
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '');
+    if (isTitle) {
+      return clean.split(/\s+/).slice(0, 6).join('-');
+    }
+    return clean.replace(/[\s_]+/g, '-').replace(/^-+|-+$/g, '');
+  };
+
+  const getBlogSlug = (item) => {
+    if (item?.slug && String(item.slug).trim()) {
+      return slugify(String(item.slug), false);
+    }
+    return slugify(item?.title || '', true);
+  };
+
+  const handleProfileClick = (profileId, profileName) => {
+    const id = profileId || blogData?.profile?.profile_id;
+    const name = profileName || blogData?.profile?.profile_name || '';
+
+    if (!id && !name) {
       console.error("Profile ID not found");
       return;
     }
 
-    navigate(`/profile/${profileId}`);
+    const nameSlug = slugify(name, true) || String(id);
+    if (id && nameSlug) {
+      sessionStorage.setItem(`profile_id_${nameSlug}`, String(id));
+      localStorage.setItem(`profile_id_${nameSlug}`, String(id));
+    }
+
+    navigate(RoutesName.Profile_Detail.replace(':name', nameSlug), {
+      state: { id, name },
+    });
   };
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  }, [id]);
+  }, [paramId, paramSlug, location.state?.id]);
 
   useEffect(() => {
     const fetchBlogDetail = async () => {
-      if (!id) {
+      const currentParam = paramSlug || paramId;
+      if (!currentParam && !location.state?.id) {
+        setLoader(false);
+        setBlogData(null);
+        return;
+      }
+
+      let targetId = location.state?.id;
+
+      if (!targetId && routeId) {
+        targetId = routeId;
+      }
+
+      if (!targetId && currentParam) {
+        const cleanParam = decodeURIComponent(currentParam).trim().replace(/\/$/, '');
+        const slugParamCustom = slugify(cleanParam, false);
+        const slugParamTitle = slugify(cleanParam, true);
+        const cachedId =
+          sessionStorage.getItem(`blog_id_${cleanParam}`) ||
+          sessionStorage.getItem(`blog_id_${slugParamCustom}`) ||
+          sessionStorage.getItem(`blog_id_${slugParamTitle}`) ||
+          localStorage.getItem(`blog_id_${cleanParam}`) ||
+          localStorage.getItem(`blog_id_${slugParamCustom}`) ||
+          localStorage.getItem(`blog_id_${slugParamTitle}`);
+
+        if (cachedId) {
+          targetId = cachedId;
+        } else if (!isNaN(cleanParam)) {
+          targetId = cleanParam;
+        }
+      }
+
+      // If already fetched this blog data, don't trigger loader or re-fetch
+      if (
+        targetId &&
+        lastFetchedIdRef.current &&
+        String(lastFetchedIdRef.current) === String(targetId) &&
+        blogData?.id === targetId
+      ) {
+        return;
+      }
+
+      setLoader(true);
+
+      // If not found in state or storage and currentParam is not numeric, lookup in content
+      if (!targetId && currentParam) {
+        const cleanParam = decodeURIComponent(currentParam).trim().replace(/\/$/, '');
+        const targetSlug = slugify(cleanParam, false);
+        const targetTitleSlug = slugify(cleanParam, true);
+        const contentTypes = [
+          'latest_news',
+          'trending_news',
+          'press_release',
+          'price_prediction',
+          'research_report',
+          'guest_post',
+          'market',
+          'finance',
+          'policy',
+          'tech',
+        ];
+
+        for (const cType of contentTypes) {
+          try {
+            const res = await fetchWrapper.get(Apis.All_Content(cType));
+            const items = Array.isArray(res?.data)
+              ? res.data
+              : Array.isArray(res?.data?.data)
+              ? res.data.data
+              : Array.isArray(res)
+              ? res
+              : [];
+            const matched = items.find((it) => {
+              const itemCustomSlug = it?.slug && String(it.slug).trim() ? slugify(String(it.slug), false) : '';
+              const itemTitleSlug = slugify(it?.title || '', true);
+              return (
+                (itemCustomSlug && (
+                  itemCustomSlug === targetSlug ||
+                  itemCustomSlug.startsWith(targetSlug) ||
+                  targetSlug.startsWith(itemCustomSlug)
+                )) ||
+                itemTitleSlug === targetTitleSlug ||
+                itemTitleSlug.startsWith(targetTitleSlug) ||
+                targetTitleSlug.startsWith(itemTitleSlug) ||
+                itemTitleSlug === targetSlug ||
+                itemTitleSlug.startsWith(targetSlug) ||
+                targetSlug.startsWith(itemTitleSlug)
+              );
+            });
+
+            if (matched?.id) {
+              targetId = matched.id;
+              break;
+            }
+          } catch (lookupErr) {
+            console.warn(`Could not lookup blog in ${cType}:`, lookupErr);
+          }
+        }
+      }
+
+      if (!targetId) {
+        console.error('Blog ID not found for:', currentParam);
+        setBlogData(null);
+        setLoader(false);
         return;
       }
 
       try {
-        setLoader(true);
-        const response = await fetchWrapper.get(Apis.BLOG_DETAIL(id));
+        const response = await fetchWrapper.get(Apis.BLOG_DETAIL(targetId));
         const itemData = response?.data || response || null;
         setBlogData(itemData);
+
+        if (itemData?.id) {
+          lastFetchedIdRef.current = String(itemData.id);
+          if (currentParam) {
+            const cleanParam = decodeURIComponent(currentParam).trim().replace(/\/$/, '');
+            sessionStorage.setItem(`blog_id_${cleanParam}`, String(itemData.id));
+            localStorage.setItem(`blog_id_${cleanParam}`, String(itemData.id));
+          }
+          if (itemData.slug && String(itemData.slug).trim()) {
+            const customSlug = slugify(String(itemData.slug), false);
+            sessionStorage.setItem(`blog_id_${customSlug}`, String(itemData.id));
+            localStorage.setItem(`blog_id_${customSlug}`, String(itemData.id));
+          }
+          if (itemData.title) {
+            const titleSlug = slugify(itemData.title, true);
+            sessionStorage.setItem(`blog_id_${titleSlug}`, String(itemData.id));
+            localStorage.setItem(`blog_id_${titleSlug}`, String(itemData.id));
+          }
+
+          // If itemData has a slug or title, ensure the browser displays the preferred slug
+          const preferredSlug = getBlogSlug(itemData);
+          if (preferredSlug && currentParam) {
+            const cleanParam = decodeURIComponent(currentParam).trim().replace(/\/$/, '');
+            if (cleanParam !== preferredSlug) {
+              navigate(RoutesName.Blog_Detail.replace(':slug', preferredSlug), {
+                replace: true,
+                state: { id: itemData.id },
+              });
+            }
+          }
+        }
       } catch (error) {
         console.error('Error fetching blog detail:', error);
         setBlogData(null);
@@ -229,10 +397,14 @@ const LatestNewsBlogDetail = () => {
     };
 
     fetchBlogDetail();
-  }, [id]);
+  }, [paramId, paramSlug, location.state?.id]);
 
-  if (!id) {
-    return null;
+  if (loader && !blogData) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
   const sanitizeConfig = {
@@ -299,13 +471,17 @@ const LatestNewsBlogDetail = () => {
     normalizeMediaSrc(blogData?.description || ''),
     sanitizeConfig
   );
-  const formattedCreatedAt = blogData?.created_at
-    ? dayjs(blogData.created_at).format('MMMM DD, YYYY')
+  const localCreatedAt = typeof blogData?.created_at === 'string'
+    ? blogData.created_at.replace(/Z$/i, '')
+    : blogData?.created_at;
+
+  const formattedCreatedAt = localCreatedAt && dayjs(localCreatedAt).isValid()
+    ? dayjs(localCreatedAt).format('MMMM DD, YYYY')
     : '';
 
-  // Author + timestamp shown opposite "Published on" (profile_name is dynamic, date uses dayjs on created_at)
-  const formattedAuthorDate = blogData?.created_at
-    ? dayjs(blogData.created_at).format('MMM DD, YYYY HH:mm [UTC]')
+  // Author + timestamp shown opposite "Published on"
+  const formattedAuthorDate = localCreatedAt && dayjs(localCreatedAt).isValid()
+    ? dayjs(localCreatedAt).format('MMM DD, YYYY HH:mm')
     : '';
 
   if (!loader && !blogData) {
@@ -398,7 +574,7 @@ const LatestNewsBlogDetail = () => {
                     borderColor: '#9ca3af',
                     color: '#374151',
                   },
-                  top:{xs:'30px', sm:'auto'}
+                  top: { xs: '30px', sm: 'auto' }
                 }}
                 onClick={() => navigate(-1)}
               >
@@ -448,7 +624,12 @@ const LatestNewsBlogDetail = () => {
                         >
                           {/* Profile Name */}
                           <Typography
-                            onClick={() => handleProfileClick(blogData?.profile?.profile_id)}
+                            onClick={() =>
+                              handleProfileClick(
+                                blogData?.profile?.profile_id,
+                                blogData?.profile?.profile_name
+                              )
+                            }
                             sx={{
                               fontSize: 13,
                               fontWeight: 600,
@@ -535,19 +716,29 @@ const LatestNewsBlogDetail = () => {
 
                                     }
                                     alt={blogData?.profile?.profile_name}
+                                    onClick={() =>
+                                      handleProfileClick(
+                                        blogData?.profile?.profile_id,
+                                        blogData?.profile?.profile_name
+                                      )
+                                    }
                                     sx={{
                                       width: 46,
                                       height: 46,
                                       borderRadius: '50%',
                                       objectFit: 'cover',
                                       border: '2px solid #2084EA',
+                                      cursor: 'pointer',
                                     }}
                                   />
 
                                   <Box>
                                     <Typography
                                       onClick={() =>
-                                        handleProfileClick(blogData?.profile?.profile_id)
+                                        handleProfileClick(
+                                          blogData?.profile?.profile_id,
+                                          blogData?.profile?.profile_name
+                                        )
                                       }
                                       sx={{
                                         fontSize: 15,

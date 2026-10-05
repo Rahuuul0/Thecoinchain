@@ -10,4 +10,15 @@ const newsListAtomSingle = atom({
   default: [],
 });
 
-export { newsListAtom, newsListAtomSingle };
+const latestNewsAtom = atom({
+  key: "latestNewsAtom",
+  default: [],
+});
+
+const TrendingNewsAtom = atom({
+  key: "TrendingNewsAtom",
+  default: [],
+});
+
+
+export { newsListAtom, newsListAtomSingle, latestNewsAtom, TrendingNewsAtom };

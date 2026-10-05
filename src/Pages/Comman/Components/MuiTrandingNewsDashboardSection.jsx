@@ -7,8 +7,8 @@ import { Apis, RoutesName } from '../../../_common/app.constants';
 import { useFetchWrapper } from '../../../_helpers';
 import Bitcoinimg from '../../../../public/assets/coin_img/TheCoinChainImage.png';
 import { Helmet } from "react-helmet-async";
-import { useRecoilValue } from 'recoil';
-import { switchDarkModeAtom } from '../../../_state';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { switchDarkModeAtom, TrendingNewsAtom } from '../../../_state';
 
 dayjs.extend(relativeTime);
 
@@ -36,7 +36,7 @@ const MuiTrandingNewsDashboardSection = () => {
   const navigate = useNavigate();
   const fetchWrapper = useFetchWrapper();
   const isDarkMode = useRecoilValue(switchDarkModeAtom);
-  const [news, setNews] = useState([]);
+  const [news, setNews] = useRecoilState(TrendingNewsAtom);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -55,21 +55,29 @@ const MuiTrandingNewsDashboardSection = () => {
     fetchTrendingNews();
   }, []);
 
-  const slugify = (text = "") =>
-    text
+  const slugify = (text = "", isTitle = false) => {
+    if (!text) return "";
+    const clean = text
       .toLowerCase()
       .trim()
-      .replace(/[^\w\s-]/g, "")
-      .split(/\s+/)
-      .slice(0, 6)
-      .join("-");
+      .replace(/[^\w\s-]/g, "");
+    if (isTitle) {
+      return clean.split(/\s+/).slice(0, 6).join("-");
+    }
+    return clean.replace(/[\s_]+/g, "-").replace(/^-+|-+$/g, "");
+  };
 
-  const openDetail = (id, title) => {
+  const openDetail = (id, title, customSlug) => {
     if (id !== undefined && id !== null) {
+      const slug = customSlug && String(customSlug).trim()
+        ? slugify(String(customSlug), false)
+        : slugify(title || "", true);
+      sessionStorage.setItem(`blog_id_${slug}`, String(id));
+      localStorage.setItem(`blog_id_${slug}`, String(id));
       navigate(
         RoutesName.Blog_Detail
-          .replace(":id", String(id))
-          .replace(":slug", slugify(title))
+          .replace(":slug", slug),
+        { state: { id } }
       );
     }
   };
@@ -129,8 +137,8 @@ const MuiTrandingNewsDashboardSection = () => {
               ? `linear-gradient(125deg, rgba(10 10 10), rgba(48 47 47 / 54%)), url(${backgroundImage})`
               : `linear-gradient(125deg, rgba(255, 255, 255, .94), rgba(246, 248, 252, .8)), url(${backgroundImage})`)
             : (isDarkMode ? 'linear-gradient(125deg, #13171fff, #263d65)' : '#ffffff'),
-          backgroundPosition: {xs: 'left', sm: 'center'},
-          backgroundSize: {xs: 'cover', sm: 'cover'},
+          backgroundPosition: { xs: 'left', sm: 'center' },
+          backgroundSize: { xs: 'cover', sm: 'cover' },
           backdropFilter: 'blur(14px)',
           WebkitBackdropFilter: 'blur(14px)',
           borderRadius: { xs: '24px', sm: '28px' },
@@ -219,20 +227,28 @@ const MuiTrandingNewsDashboardSection = () => {
             >
               {scrollingStories.map((item, index) => {
                 const publishedAt = item?.created_at || item?.published_at || item?.date;
-                const timeLabel =
-                  publishedAt && dayjs(publishedAt).isValid()
-                    ? dayjs(publishedAt).fromNow()
-                    : 'Just now';
+                const localPublishedAt = typeof publishedAt === 'string' ? publishedAt.replace(/Z$/i, '') : publishedAt;
+                const parsedDate = localPublishedAt && dayjs(localPublishedAt).isValid() ? dayjs(localPublishedAt) : null;
+                let timeLabel = 'Just now';
+                if (parsedDate) {
+                  const diffMs = dayjs().diff(parsedDate);
+                  if (diffMs < 60000) {
+                    timeLabel = 'Just now';
+                  } else {
+                    const fromNow = parsedDate.fromNow();
+                    timeLabel = fromNow.startsWith('in ') ? 'Just now' : fromNow;
+                  }
+                }
 
                 return (
                   <Box
                     key={`${item?.id ?? index}-${index}`}
                     role="button"
                     tabIndex={0}
-                    onClick={() => openDetail(item?.id, item?.title)}
+                    onClick={() => openDetail(item?.id, item?.title, item?.slug)}
                     onKeyDown={(event) => {
                       if (event.key === 'Enter' || event.key === ' ') {
-                        openDetail(item?.id, item?.title);
+                        openDetail(item?.id, item?.title, item?.slug);
                       }
                     }}
                     sx={{
@@ -281,8 +297,8 @@ const MuiTrandingNewsDashboardSection = () => {
                         component="label"
                         sx={{
                           color: isDarkMode
-                            ? 'rgba(255,255,255,.55)'
-                            : '#777E90',
+                            ? '#d5d5d5'
+                            : '#6f6f6f',
                           fontSize: '11px',
                           fontWeight: 500,
                           lineHeight: 1.2,
@@ -292,7 +308,7 @@ const MuiTrandingNewsDashboardSection = () => {
                           display: 'block',
                         }}
                       >
-                        {timeLabel}
+                        {timeLabel} | {item?.type}
                       </Box>
                     </Box>
                   </Box>

@@ -325,7 +325,7 @@ const Contact = () => {
       {/* contact form */}  
     <Box sx={{ backgroundColor: '#F9FAFB', paddingTop: { xs: '20px', sm: '40px' }, paddingBottom: { xs: '20px', sm: '40px' } }}>
         <Container className="smallwidth">
-          <Card sx={{ padding: { xs: "15px 15px", sm: "20px 20px"} , marginTop:"24px", borderRadius: '12px'  }}>
+          <Card sx={{ padding: { xs: "15px 15px", sm: "20px 20px"} , marginTop:"24px 24px", borderRadius: '12px'  }}>
           <Box
             className="topic-que" sx={{ p:0 }}
           >

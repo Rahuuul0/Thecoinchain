@@ -1696,9 +1696,11 @@ body {
 
 .contact-hero-image {
   width: 100%;
-
 }
 
+.contact-hero .contact-hero-image {
+  height: 440px;
+}
 .margin10 {
   margin-left: 75px;
 }

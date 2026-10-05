@@ -12,7 +12,8 @@ import {
   AccordionDetails,
   FormControl,
   MenuItem,
-  Select
+  Select,
+  Card
 } from '@mui/material'
 import * as React from 'react';
 import { useState, useRef, useEffect } from 'react';
@@ -296,7 +297,7 @@ const Contact = () => {
       <Container>
         <Box className="contact-hero" >
           <Grid container sx={{ alignItems: 'center' }}>
-            <Grid item xs={12} sm={6} md={6} className='padding-0-mobile'>
+            {/* <Grid item xs={12} sm={6} md={6} className='padding-0-mobile'>
               <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} sx={{ fontWeight: 700 }} >Save your time with Stacks</Typography>
               <Typography variant='h1' component="h1" className='hero-heading primary-color' sx={{ lineHeight: 1, mb: "20px" }}>
                 How can we help
@@ -304,7 +305,15 @@ const Contact = () => {
               <Typography variant='body1' component="p" className='hero-para secondary-color' paddingBottom={2}>
                 A creative agency that lead and inspire
               </Typography>
-
+            </Grid> */}
+              <Grid item xs={12} sm={6} md={6} className='padding-0-mobile'>
+              <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} sx={{ fontWeight: 700 }} >Save your time with Stacks</Typography>
+              <Typography variant='h1' component="h1" className='hero-heading primary-color' sx={{ lineHeight: 1, mb: "20px" }}>
+                How can we help
+              </Typography>
+              <Typography variant='body1' component="p" className='hero-para secondary-color' paddingBottom={2}>
+                A creative agency that lead and inspire
+              </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
               <img className='contact-hero-image' src={ContactHeroImage} />
@@ -313,66 +322,229 @@ const Contact = () => {
         </Box>
       </Container>
       {/* Banner Ends */}
-      <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
-        <Box paddingTop={5} className='newdesignbox swiper-styles'>
-          <Container maxWidth="xs">
-            <Typography variant='body1' component="p" className='hero-para secondary-color' textAlign={"center"} paddingBottom={5}>
-              Before asking for an answer, you may find it in our learn crypto center
-            </Typography>
-          </Container>
-          <Swiper
-            slidesPerView={1}
-            navigation={true}
-            spaceBetween={0}
-            breakpoints={{
-              480: {
-                slidesPerView: 1,
-              },
-              640: {
-                slidesPerView: 2,
-              },
-              768: {
-                slidesPerView: 3,
-              },
-              1080: {
-                slidesPerView: 4,
-              },
-            }}
-            modules={[Navigation]}
-            className="mySwiper"
+      {/* contact form */}  
+    <Box sx={{ backgroundColor: '#F9FAFB', paddingTop: { xs: '20px', sm: '40px' }, paddingBottom: { xs: '20px', sm: '40px' } }}>
+        <Container className="smallwidth">
+          <Card sx={{ padding: { xs: "15px 15px", sm: "20px 20px"} , marginTop:"24px", borderRadius: '12px'  }}>
+          <Box
+            className="topic-que" sx={{ p:0 }}
           >
-            {contactBlogLists.map((item) => {
-              return (
-                <SwiperSlide>
-                  <Box className='about-crypto'
-                    onClick={() => imgLink(item)}
-                    sx={{ cursor: "pointer" }}
+            <Box
+              component="form"
+              noValidate
+              sx={{ mt: "0px" , '& .MuiTextField-root': { marginTop: '0px'} }}
+              onSubmit={handleSubmit(handleFormSubmit)}
+              >
+
+              {/* Email */}
+              <Box paddingBottom={2}>
+                <TextField
+                  label="Email *"
+                  className="form-control"
+                  type="email"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  placeholder="Email address"
+                  name="email"
+                  autoComplete="off"
+                  size="small"
+                  {...register("email")}
+                  onChange={(e) =>
+                    reset({
+                      ...formData,
+                      email: e.target.value.replace(
+                        /\s+/g,
+                        e.target.value.length > 1 ? " " : ""
+                      ),
+                    })
+                  }
+                />
+
+                <div className="frm-message">
+                  {errors.email?.message}
+                </div>
+              </Box>
+
+              {/* Subject */}
+              <Box paddingBottom={2}>
+                <TextField
+                  label="Subject *"
+                  className="form-control"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="Subject"
+                  placeholder="Subject"
+                  name="subject"
+                  autoComplete="off"
+                  {...register("subject")}
+                  onChange={(e) =>
+                    reset({
+                      ...formData,
+                      subject: e.target.value.replace(
+                        /\s+/g,
+                        e.target.value.length > 1 ? " " : ""
+                      ),
+                    })
+                  }
+                />
+
+                <div className="frm-message">
+                  {errors.subject?.message}
+                </div>
+              </Box>
+
+              {/* Message */}
+              <Box paddingTop="2">
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Message *"
+                  variant="standard"
+                  className="form-control"
+                  placeholder="Say something"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  multiline
+                  rows={4}
+                  fullWidth
+                  {...register("msg")}
+                  onChange={(e) =>
+                    reset({
+                      ...formData,
+                      msg: e.target.value.replace(
+                        /\s+/g,
+                        e.target.value.length > 1 ? " " : ""
+                      ),
+                    })
+                  }
+                />
+
+                <div className="frm-message">
+                  {errors.msg?.message}
+                </div>
+              </Box>
+
+              {/* Captcha + Submit */}
+              <Box paddingTop="2">
+                <Typography
+                  textAlign="end"
+                  sx={{ paddingTop: "40px" }}
+                >
+                  <ReCAPTCHA
+                    style={{
+                      display: "flex",
+                    }}
+                    theme="light"
+                    ref={captchaRef}
+                    sitekey={SITE_KEY}
+                    onChange={handleRecaptch}
+                    asyncScriptOnLoad={asyncScriptOnLoad}
+                  />
+
+                  <LoadingButton
+                    type="submit"
+                    loading={isSubmitting}
+                    loadingPosition="end"
+                    className="btn btn-primary"
+                    sx={{
+                      marginLeft: {
+                        xs: "0",
+                        sm: "auto",
+                      },
+                      minWidth: "160px",
+                      mt: "15px",
+                    }}
+                    disabled={isSubmitting}
+                    variant="contained"
                   >
-                    <Box className=''>
-                      <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
-                      <img className="crypto-center" sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
-                    </Box>
-                    <Box paddingTop={4} className="inner-con-box">
-                      <Typography fontWeight='500' paddingBottom={2} sx={{ maxHeight: '30px', overflow: 'hidden' }}>{item.title}</Typography>
-                      <Typography className='body-caption secondary-color' sx={{ maxHeight: '85px', overflow: 'hidden' }}>{ReactHtmlParser(item.description)}</Typography>
-                    </Box>
+                    {isSubmitting ? (
+                      <span className="spinner-border">
+                        Loading
+                      </span>
+                    ) : (
+                      "Send message"
+                    )}
+                  </LoadingButton>
+                </Typography>
+              </Box>
+
+            </Box>
+          </Box>
+          </Card>
+        </Container>
+    </Box>
+    {/* end */}
+    <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
+      <Box paddingTop={5} className='newdesignbox swiper-styles'>
+        <Container maxWidth="xs">
+          <Typography variant='body1' component="p" className='hero-para secondary-color' textAlign={"center"} paddingBottom={5}>
+            Before asking for an answer, you may find it in our learn crypto center
+          </Typography>
+        </Container>
+        <Swiper
+          slidesPerView={1}
+          navigation={true}
+          spaceBetween={0}
+          breakpoints={{
+            480: {
+              slidesPerView: 1,
+            },
+            640: {
+              slidesPerView: 2,
+            },
+            768: {
+              slidesPerView: 3,
+            },
+            1080: {
+              slidesPerView: 4,
+            },
+          }}
+          modules={[Navigation]}
+          className="mySwiper"
+        >
+          {contactBlogLists.map((item) => {
+            return (
+              <SwiperSlide>
+                <Box className='about-crypto'
+                  onClick={() => imgLink(item)}
+                  sx={{ cursor: "pointer" }}
+                >
+                  <Box className=''>
+                    <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
+                    <img className="crypto-center" sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
                   </Box>
-                </SwiperSlide>
-              )
-            })}
-          </Swiper>
-        </Box>
-      </Container>
+                  <Box paddingTop={4} className="inner-con-box">
+                    <Typography fontWeight='500' paddingBottom={2} sx={{ maxHeight: '30px', overflow: 'hidden' }}>{item.title}</Typography>
+                    <Typography className='body-caption secondary-color' sx={{ maxHeight: '85px', overflow: 'hidden' }}>{ReactHtmlParser(item.description)}</Typography>
+                  </Box>
+                </Box>
+              </SwiperSlide>
+            )
+          })}
+        </Swiper>
+      </Box>
+    </Container>
 
 
       {/* Slider ends */}
 
-      <Container>
+      {/* <Container>
         <Box className="faq-box" sx={{padding:{xs:'40px 0', sm:'60px 0'}}}>
           <Box>
             <Box className='smallwidth'>
               <Typography variant='h2' fontWeight='700' textAlign='center' className='secondary-font' paddingBottom={4}>Frequently asked questions</Typography>
-              {/* tabs starts */}
+              tabs starts
               <Box className="learn-cypto-tab center-tab" sx={{ width: '100%', typography: 'body1' }}>
                 <TabContext value={value}>
 
@@ -416,9 +588,9 @@ const Contact = () => {
           </Box>
 
         </Box>
-      </Container>
+      </Container> */}
 
-      <Container maxWidth='fluid' className='contact-form-sec'>
+      {/* <Container maxWidth='fluid' className='contact-form-sec'>
         <Container className='smallwidth' padding={'0'}>
           <Box className="topic-que" sx={{padding:{xs:'40px 0', sm:'60px 0'}}}>
             <Box
@@ -427,9 +599,9 @@ const Contact = () => {
               sx={{ mt: '24px' }}
               onSubmit={handleSubmit(handleFormSubmit)}
             >
-              {/* <Typography component="h5" variant='h5' sx={{ width: '33%', flexShrink: 0 }}>
+              <Typography component="h5" variant='h5' sx={{ width: '33%', flexShrink: 0 }}>
                 Contact-Us
-              </Typography> */}
+              </Typography>
               <Box paddingBottom={2} className='topic-select-radio'>
                 <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>Select a topic</Typography>
 
@@ -549,7 +721,7 @@ const Contact = () => {
             </Box>
           </Box>
         </Container>
-      </Container>
+      </Container> */}
     </>
   )
 }

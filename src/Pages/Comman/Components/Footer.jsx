@@ -16,7 +16,8 @@ import BehanceIcon from "../../../../public/assets/images/icons/behance.svg";
 import FacebookIcon from "../../../../public/assets/images/icons/facebook.svg";
 import InstagramIcon from "../../../../public/assets/images/icons/instagram.svg";
 import XIcon from "../../../../public/assets/images/icons/x.svg";
-
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 const Footer = () => {
   const useFooterAddActions = useFooterActions()
   const navigate = useNavigate();
@@ -72,13 +73,21 @@ const Footer = () => {
         <Box>
           <Grid container sx={{ justifyContent: 'space-between' }}>
             <Grid item xs={12} sm={12} md={2} paddingTop={{ xs: 4, sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
-              <Button sx={{ padding: 0, width: { xs: '250px', sm: '250px', md: 'auto' } }} onClick={() => { navigate(RoutesName.User_Dashboard); }}
-              >   <img
+              <Button sx={{ padding: 0, width: { xs: '250px', sm: '250px', md: 'auto' } }} onClick={() => { navigate(RoutesName.User_Dashboard); }}>  
+                <img
                   src={logoSrc}
                   alt="The Coin Chain"
                   style={{ borderRadius: "15px" }}
                 />
               </Button>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 2 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1}}>
+                 <MailOutlineIcon sx={{ fontSize: '0.875rem' }} /> : <Link href="mailto:info@thecoinchain.com" sx={{ color: 'inherit', textDecoration: 'underline' ,'&.MuiTypography-root':{fontSize: '12px'} }}>info@thecoinchain.com</Link>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1}}>
+                 <LocationOnOutlinedIcon sx={{ fontSize: '0.875rem' }} /> : <Link href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" sx={{ color: 'inherit', textDecoration: 'underline' , '&.MuiTypography-root':{fontSize: '12px'} }}>123 Main Street, City, Country</Link>
+                </Box>
+              </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={3} className='footer-col' paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 0, sm: 0, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
               <Box className="quick-links">
@@ -108,7 +117,7 @@ const Footer = () => {
                 component="form"
                 className='newsletter-form'
                 onSubmit={handleSubmit(handleFormSubmit)}
-              >
+                >
                 <Typography
                   variant='h6'
 

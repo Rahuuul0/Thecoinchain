@@ -1,0 +1,48 @@
+[build]
+  publish = "build"
+  command = "npm run build-prod"
+
+# Static SEO Files Headers
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/sitemap*.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"
+    X-Content-Type-Options = "nosniff"
+
+# Static SEO Files Direct Serving
+[[redirects]]
+  from = "/robots.txt"
+  to = "/robots.txt"
+  status = 200
+
+[[redirects]]
+  from = "/sitemap_index.xml"
+  to = "/sitemap_index.xml"
+  status = 200
+
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap.xml"
+  status = 200
+
+[[redirects]]
+  from = "/sitemap-pages.xml"
+  to = "/sitemap-pages.xml"
+  status = 200
+
+[[redirects]]
+  from = "/sitemap-posts.xml"
+  to = "/sitemap-posts.xml"
+  status = 200
+
+# React SPA Fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

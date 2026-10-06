@@ -55,9 +55,10 @@
   },
   "scripts": {
     "start": "webpack server --mode=development  --config webpack.config.dev.js ",
-    "build": "webpack --mode=development --config webpack.config.dev.js",
+    "build": "node scripts/generate-sitemap.js && webpack --mode=development --config webpack.config.dev.js",
     "start-prod": "webpack server --mode=production --config webpack.config.prod.js",
-    "build-prod": "webpack --mode=production --config webpack.config.prod.js"
+    "build-prod": "node scripts/generate-sitemap.js && webpack --mode=production --config webpack.config.prod.js",
+    "generate-sitemap": "node scripts/generate-sitemap.js"
   },
   "eslintConfig": {
     "extends": [

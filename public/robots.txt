@@ -1,3 +1,16 @@
-# https://www.robotstxt.org/robotstxt.html
+# Termly scanner
+User-agent: TermlyBot
+Allow: /
+
+# Search Engine Crawlers
 User-agent: *
-Disallow:
+Allow: /
+
+# Private/Admin Pages
+Disallow: /admin/
+Disallow: /login/
+Disallow: /create-account/
+Disallow: /create-account
+Disallow: /account/
+
+Sitemap: https://www.thecoinchain.com/sitemap_index.xml

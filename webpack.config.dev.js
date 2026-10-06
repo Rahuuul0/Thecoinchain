@@ -21,7 +21,21 @@ module.exports = (env) => {
         template: './public/index.html',
         filename: './index.html',
         favicon: './public/favicon.ico'
-      })
+      }),
+      {
+        apply: (compiler) => {
+          compiler.hooks.afterEmit.tap('CopyPublicStaticFilesPlugin', () => {
+            const publicDir = path.resolve(__dirname, 'public');
+            const buildDir = path.resolve(__dirname, 'build');
+            if (fs.existsSync(publicDir)) {
+              fs.cpSync(publicDir, buildDir, {
+                recursive: true,
+                filter: (src) => path.basename(src) !== 'index.html'
+              });
+            }
+          });
+        }
+      }
     ],
     devServer: {
       port: 3000, // you can change the port,

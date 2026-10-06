@@ -1,0 +1,9 @@
+# Static SEO Files (Serve directly with 200, do not route to SPA index.html)
+/robots.txt        /robots.txt        200
+/sitemap_index.xml /sitemap_index.xml 200
+/sitemap.xml       /sitemap.xml       200
+/sitemap-pages.xml /sitemap-pages.xml 200
+/sitemap-posts.xml /sitemap-posts.xml 200
+
+# React SPA Fallback
+/*                 /index.html        200

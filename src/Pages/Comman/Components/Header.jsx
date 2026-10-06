@@ -612,12 +612,12 @@ function Header(props) {
                     />
                     Price Prediction
                   </MenuItem>
-                  <MenuItem onClick={handlePricePrediction}>
+                  {/* <MenuItem onClick={handlePricePrediction}>
                     <TrendingUpOutlinedIcon
                       sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
                     />
                     Cryptocurrency Price Prediction
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem onClick={handleStockPricePrediction}>
                     <TrendingUpOutlinedIcon
                       sx={{ fontSize: 18, mr: 1, color: "#777E90" }}

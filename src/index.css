@@ -498,6 +498,30 @@ img,
   color: var(var(--color-3))
 }
 
+#root .footer-contact-link,
+#root .footer-contact-link .contact-text {
+  color: var(--secondary-color) !important;
+  font-family: var(--secondary-font) !important;
+  text-decoration: none !important;
+  transition: color 0.25s ease-in-out;
+}
+
+#root .footer-contact-link:hover,
+#root .footer-contact-link:hover .contact-text {
+  color: var(--primary-color) !important;
+  text-decoration: none !important;
+}
+
+#root .footer-contact-link:hover .contact-icon-box {
+  border-color: var(--primary-color) !important;
+  background-color: rgba(55, 114, 255, 0.08) !important;
+  transform: translateY(-1px);
+}
+
+#root .footer-contact-link:hover .contact-icon-img {
+  filter: brightness(0) saturate(100%) invert(35%) sepia(85%) saturate(2250%) hue-rotate(213deg) brightness(101%) contrast(101%);
+}
+
 .para-gray {
   color: var(--color-cc);
 }

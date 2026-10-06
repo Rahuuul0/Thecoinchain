@@ -1,13 +1,14 @@
 import * as React from 'react';
 
-import { Box, Grid, Container, Typography, Link, Stack, TextField, InputAdornment, IconButton, Button } from '@mui/material';
+import { Box, Grid, Container, Typography, Link, Stack, TextField, InputAdornment, IconButton, Button, Tooltip } from '@mui/material';
 import { ArrowRightAlt } from '@mui/icons-material';
 import { useNavigate, Link as RouterLink, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useFooterActions } from '../../../_actions';
+import { useAlertActions } from '../../../_actions/alert.actions';
 import { RoutesName } from '../../../_common/app.constants';
 import { loaderAtom, setLogoListAtom, switchDarkModeAtom } from '../../../_state';
 import * as Yup from "yup";
@@ -16,10 +17,12 @@ import BehanceIcon from "../../../../public/assets/images/icons/behance.svg";
 import FacebookIcon from "../../../../public/assets/images/icons/facebook.svg";
 import InstagramIcon from "../../../../public/assets/images/icons/instagram.svg";
 import XIcon from "../../../../public/assets/images/icons/x.svg";
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import MailIcon from "../../../../public/assets/images/icons/mail.svg";
+import LocationIcon from "../../../../public/assets/images/icons/location.svg";
 const Footer = () => {
   const useFooterAddActions = useFooterActions()
+  const alertActions = useAlertActions();
+  const [copiedType, setCopiedType] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const loader = useRecoilValue(loaderAtom);
@@ -53,6 +56,26 @@ const Footer = () => {
 
   }
 
+  const handleCopy = (e, text, type, successMsg) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(text);
+    } else {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+    }
+    setCopiedType(type);
+    alertActions.success(successMsg);
+    setTimeout(() => {
+      setCopiedType(null);
+    }, 2000);
+  };
+
   const headerLogo = LogoList?.find(
     (item) => item.position === "Header"
   );
@@ -73,20 +96,171 @@ const Footer = () => {
         <Box>
           <Grid container sx={{ justifyContent: 'space-between' }}>
             <Grid item xs={12} sm={12} md={2} paddingTop={{ xs: 4, sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
-              <Button sx={{ padding: 0, width: { xs: '250px', sm: '250px', md: 'auto' } }} onClick={() => { navigate(RoutesName.User_Dashboard); }}>  
+              <Button sx={{ padding: 0, width: { xs: '250px', sm: '250px', md: 'auto' } }} onClick={() => { navigate(RoutesName.User_Dashboard); }}>
                 <img
                   src={logoSrc}
                   alt="The Coin Chain"
                   style={{ borderRadius: "15px" }}
                 />
               </Button>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 2 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1}}>
-                 <MailOutlineIcon sx={{ fontSize: '0.875rem' }} /> : <Link href="mailto:info@thecoinchain.com" sx={{ color: 'inherit', textDecoration: 'underline' ,'&.MuiTypography-root':{fontSize: '12px'} }}>info@thecoinchain.com</Link>
-                </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1}}>
-                 <LocationOnOutlinedIcon sx={{ fontSize: '0.875rem' }} /> : <Link href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" sx={{ color: 'inherit', textDecoration: 'underline' , '&.MuiTypography-root':{fontSize: '12px'} }}>123 Main Street, City, Country</Link>
-                </Box>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mt: 2.5 }}>
+                <Link
+                  className="footer-contact-link"
+                  href="mailto:info@thecoinchain.com"
+                  underline="none"
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 1.25,
+                    color: 'var(--secondary-color) !important',
+                    textDecoration: 'none !important',
+                    transition: 'all 0.25s ease-in-out',
+                    cursor: 'pointer',
+                    '&:hover': {
+                      color: 'var(--primary-color) !important',
+                      textDecoration: 'none !important',
+                      '& .contact-icon-box': {
+                        borderColor: 'var(--primary-color)',
+                        backgroundColor: isDarkMode ? 'rgba(55, 114, 255, 0.15)' : 'rgba(55, 114, 255, 0.08)',
+                        transform: 'translateY(-1px)',
+                      },
+                      '& .contact-icon-img': {
+                        filter: 'brightness(0) saturate(100%) invert(35%) sepia(85%) saturate(2250%) hue-rotate(213deg) brightness(101%) contrast(101%)',
+                      },
+                    },
+                  }}
+                >
+                  <Tooltip
+                    title={copiedType === 'email' ? "Copied!" : "Click to copy email"}
+                    arrow
+                    placement="top"
+                  >
+                    <Box
+                      className="contact-icon-box"
+                      onClick={(e) => handleCopy(e, "info@thecoinchain.com", "email", "Email address copied to clipboard!")}
+                      role="button"
+                      aria-label="Copy email address"
+                      sx={{
+                        width: 28,
+                        height: 28,
+                        minWidth: 28,
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.05)' : '#F4F5F6',
+                        border: '1px solid',
+                        borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'var(--footer-border)',
+                        transition: 'all 0.25s ease-in-out',
+                        cursor: 'pointer',
+                        '&:hover': {
+                          transform: 'scale(1.1)',
+                        },
+                      }}
+                    >
+                      <img
+                        src={MailIcon}
+                        alt="Email"
+                        className="contact-icon-img"
+                        style={{ width: 14, height: 14, transition: 'all 0.25s ease-in-out', display: 'block' }}
+                      />
+                    </Box>
+                  </Tooltip>
+                  <Typography
+                    component="span"
+                    className="contact-text"
+                    sx={{
+                      fontSize: '13px',
+                      fontWeight: 500,
+                      fontFamily: 'var(--secondary-font) !important',
+                      color: 'inherit',
+                      transition: 'color 0.25s ease-in-out',
+                      wordBreak: 'break-all',
+                    }}
+                  >
+                    contact@thecoinchain.com
+                  </Typography>
+                </Link>
+
+                <Link
+                  className="footer-contact-link"
+                  href="https://www.google.com/maps"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  underline="none"
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 1.25,
+                    color: 'var(--secondary-color) !important',
+                    textDecoration: 'none !important',
+                    transition: 'all 0.25s ease-in-out',
+                    cursor: 'pointer',
+                    '&:hover': {
+                      color: 'var(--primary-color) !important',
+                      textDecoration: 'none !important',
+                      '& .contact-icon-box': {
+                        borderColor: 'var(--primary-color)',
+                        backgroundColor: isDarkMode ? 'rgba(55, 114, 255, 0.15)' : 'rgba(55, 114, 255, 0.08)',
+                        transform: 'translateY(-1px)',
+                      },
+                      '& .contact-icon-img': {
+                        filter: 'brightness(0) saturate(100%) invert(35%) sepia(85%) saturate(2250%) hue-rotate(213deg) brightness(101%) contrast(101%)',
+                      },
+                    },
+                  }}
+                >
+                  <Tooltip
+                    title={copiedType === 'address' ? "Copied!" : "Click to copy address"}
+                    arrow
+                    placement="top"
+                  >
+                    <Box
+                      className="contact-icon-box"
+                      onClick={(e) => handleCopy(e, "123 Main Street, City, Country", "address", "Address copied to clipboard!")}
+                      role="button"
+                      aria-label="Copy address"
+                      sx={{
+                        width: 28,
+                        height: 28,
+                        minWidth: 28,
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.05)' : '#F4F5F6',
+                        border: '1px solid',
+                        borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'var(--footer-border)',
+                        transition: 'all 0.25s ease-in-out',
+                        cursor: 'pointer',
+                        '&:hover': {
+                          transform: 'scale(1.1)',
+                        },
+                      }}
+                    >
+                      <img
+                        src={LocationIcon}
+                        alt="Location"
+                        className="contact-icon-img"
+                        style={{ width: 14, height: 14, transition: 'all 0.25s ease-in-out', display: 'block' }}
+                      />
+                    </Box>
+                  </Tooltip>
+                  <Typography
+                    component="span"
+                    className="contact-text"
+                    sx={{
+                      fontSize: '13px',
+                      fontWeight: 500,
+                      fontFamily: 'var(--secondary-font) !important',
+                      color: 'inherit',
+                      transition: 'color 0.25s ease-in-out',
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    123 Main Street, City, Country
+                  </Typography>
+                </Link>
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={3} className='footer-col' paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 0, sm: 0, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
@@ -117,7 +291,7 @@ const Footer = () => {
                 component="form"
                 className='newsletter-form'
                 onSubmit={handleSubmit(handleFormSubmit)}
-                >
+              >
                 <Typography
                   variant='h6'
 

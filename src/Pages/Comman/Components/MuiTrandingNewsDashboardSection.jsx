@@ -308,7 +308,7 @@ const MuiTrandingNewsDashboardSection = () => {
                           display: 'block',
                         }}
                       >
-                        {timeLabel} | {item?.type}
+                        {timeLabel} | {item?.type?.replace(/_/g, ' ')}
                       </Box>
                     </Box>
                   </Box>

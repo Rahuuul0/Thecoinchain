@@ -1,3 +1,4 @@
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Container,
   Typography,
@@ -5,171 +6,81 @@ import {
   Box,
   Stack,
   Button,
-  Tab,
-  Accordion,
-  AccordionSummary,
   TextField,
-  AccordionDetails,
-  FormControl,
-  MenuItem,
-  Select,
-  Card
-} from '@mui/material'
-import * as React from 'react';
-import { useState, useRef, useEffect } from 'react';
-import { useTheme } from '@mui/material/styles';
-import { ArrowRightAlt, ExpandMore } from '@mui/icons-material';
+  InputAdornment,
+  CircularProgress,
+} from '@mui/material';
 import { useContactActions, useTutorialActions } from '../../_actions';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { contact_AddAtom, contactListAtom, tutorialCategoryAtom, blogListAtom, blogimgAtom, contactBlogListAtom, blogVideoAtom } from '../../_state';
+import {
+  contact_AddAtom,
+  contactListAtom,
+  tutorialCategoryAtom,
+  blogListAtom,
+  blogimgAtom,
+  contactBlogListAtom,
+  blogVideoAtom,
+  switchDarkModeAtom,
+} from '../../_state';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { West, East } from '@mui/icons-material';
-import { General, Subscriptions } from './Questions';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import { useNavigate } from 'react-router-dom';
-import { styled, alpha } from '@mui/material/styles';
 import { useAlertActions } from "../../_actions/alert.actions";
 import { RoutesName } from "../../_common/app.constants";
 import CryptoTickerMarquee from './Components/CryptoTickerMarquee';
 import * as Yup from "yup";
-import ContactHeroImage from "../../../public/assets/images/learn-cypto.svg";
-import InputBase from '@mui/material/InputBase';
-import Media from "../../../public/assets/images/media-img.svg";
-import Design from "../../../public/assets/images/design-sys.svg";
-import GenralIcon from "../../../public/assets/images/icons/genralicon.svg";
-import MediaContainer from "../../../public/assets/images/media-container.svg";
-import SubsIcon from "../../../public/assets/images/subscription.svg";
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
-import Autocomplete from '@mui/material/Autocomplete';
 import "swiper/css";
 import "swiper/css/navigation";
-import LoadingButton from '@mui/lab/LoadingButton';
 import ReCAPTCHA from "react-google-recaptcha";
 import ReactHtmlParser from 'react-html-parser';
 
+// Icons
+import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
+import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
 
-
-
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-  maxWidth: '350px',
-  fontSize: '14px',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(0),
-    width: 'auto',
-  },
-}));
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(1)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '300px',
-      border: '2px solid #E6E8EC',
-      borderRadius: '90px',
-      '&:focus': {
-        width: '300px',
-      },
-    },
-  },
-}));
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  top: '0%',
-  right: '1%',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
+// Images
+import Bitcoinimg from "../../../public/assets/images/Contact us fotter image.png";
 
 const Contact = () => {
-  const [faqfilter, setFaqfilter] = useState("");
-
-  const handleChangeFAQfilter = (event) => {
-    setFaqfilter(event.target.value);
-  };
   const navigate = useNavigate();
   const useContactAddActions = useContactActions();
   const categoryActions = useTutorialActions();
-  const theme = useTheme();
-  const [personName, setPersonName] = useState([]);
-  const [contactError, setContactError] = useRecoilState(contact_AddAtom)
-  const [question, setQuestion] = useState("");
+  const [contactError, setContactError] = useRecoilState(contact_AddAtom);
   const [category, setCategory] = useState("general");
   const contactLists = useRecoilValue(contactListAtom);
   const contactBlogLists = useRecoilValue(contactBlogListAtom);
-  const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
-  const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
-  const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
+  const [, setBlogimg] = useRecoilState(blogListAtom);
+  const [, setBlognew] = useRecoilState(blogimgAtom);
+  const [, setBlogvideo] = useRecoilState(blogVideoAtom);
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
   const captchaRef = useRef(null);
   const alertActions = useAlertActions();
 
-  const contactCategory = useRecoilValue(tutorialCategoryAtom).filter((item) => {
-    return item.type === "Contact_Faq";
-  });
-
-  const [contactCategoryList, setContactCategoryList] = useState(contactLists);
-  const [value, setValue] = React.useState(0);
-
-  // form validation rules 
+  // Form validation rules matching the design
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .required("Email Address is required")
-      .matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, "Email is invalid")
-      .trim()
-      .required('Email is required'),
+      .matches(
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        "Email is invalid"
+      )
+      .trim(),
     subject: Yup.string()
       .trim()
-      .required('Subject is required'),
-    question: Yup.string()
-      .required('Question is required'),
+      .required("Subject is required"),
     msg: Yup.string()
-      .required('Message is required')
-      .max(250)
+      .trim()
+      .required("Message is required")
+      .max(1000, "Message cannot exceed 1000 characters"),
   });
 
-  //yup validation
   const formOptions = { resolver: yupResolver(validationSchema) };
-  // get functions to build form with useForm() hook
   const { register, handleSubmit, formState, reset, watch } = useForm(formOptions);
   const { errors } = formState;
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -177,99 +88,55 @@ const Contact = () => {
   const formData = watch();
 
   useEffect(() => {
-    if (contactError)
-      setIsSubmitting(false)
-  }, [contactError])
+    if (contactError) setIsSubmitting(false);
+  }, [contactError]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
 
   const handleFormSubmit = async (data) => {
-
-    const token = captchaRef.current.getValue();
+    const token = captchaRef.current?.getValue();
     if (token) {
       captchaRef.current.reset();
-      data.category = category;
-      setIsSubmitting(true)
-      setContactError(false)
-      await useContactAddActions.add(data);
-      reset({ email: " ", subject: " ", msg: " " });
+      data.category = category || "general";
+      data.question = data.subject || "General Inquiry";
+      setIsSubmitting(true);
+      setContactError(false);
+      try {
+        await useContactAddActions.add(data);
+        reset({ email: "", subject: "", msg: "" });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsSubmitting(false);
+      }
     } else {
       alertActions.error("reCAPTCHA is mandatory");
     }
-
-  }
-
-  const handleChange = (event) => {
-
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
   };
-
-  useEffect(() => {
-    setQuestion(General)
-    window.scrollTo({ top: 1, left: 1, behavior: "smooth" });
-  }, [])
-
-  const handleGenral = () => {
-    setQuestion(General);
-  }
-
-  const handleSubscription = () => {
-    setQuestion(Subscriptions);
-  }
-  useEffect(() => {
-    reset({ ...formData, question: question[0] })
-  }, [question]);
-
-  // *ConactCategoryList*
-  const handleChanges = (value) => {
-    setValue(value);
-    handleTutorials(value);
-  };
-
-  const handleTutorials = (contactCategory) => {
-    let tutorialsArr = [];
-    tutorialsArr = contactLists
-      .filter((items) => {
-        return items.category === contactCategory;
-      })
-    setContactCategoryList(tutorialsArr);
-  };
-
-  // Category Api
-
-  useEffect(() => {
-    const contact = contactLists.filter((items) => {
-      return items.category === "General";
-    })
-    setContactCategoryList(contact)
-
-  }, [contactLists]);
 
   useEffect(() => {
     const response = categoryActions.categoryList();
-    response.then((res) => { (res) })
+    response?.then?.(() => {});
   }, []);
 
   useEffect(() => {
     const response = useContactAddActions.contactBlogList();
-    response.then((res) => { (res) })
+    response?.then?.(() => {});
   }, []);
 
   useEffect(() => {
     const response = useContactAddActions.contactList();
-    response.then((res) => { (res) })
+    response?.then?.(() => {});
   }, []);
 
   const imgLink = (data) => {
-    let newsSeo = data.slug
-    navigate(`${RoutesName.Contact_Detail}/contact/${newsSeo}`)
-    setBlogimg(data)
-    setBlognew(true)
-  }
+    let newsSeo = data.slug;
+    navigate(`${RoutesName.Contact_Detail}/contact/${newsSeo}`);
+    setBlogimg(data);
+    setBlognew(true);
+  };
 
   const SITE_KEY = process.env.REACT_APP_reCAPTCHA_SITE_KEY;
 
@@ -281,9 +148,16 @@ const Contact = () => {
     console.log("scriptLoad - reCaptcha Ref-");
   };
 
-
   return (
-    <>
+    <Box
+      sx={{
+        backgroundColor: isDarkMode ? '#0E1015' : '#FAFCFF',
+        minHeight: '100vh',
+        pb: { xs: 6, md: 10 },
+        transition: 'background-color 0.3s ease',
+      }}
+    >
+      {/* Ticker marquee at top */}
       <Box
         sx={{
           mt: { xs: '56px', sm: '64px' },
@@ -293,478 +167,965 @@ const Contact = () => {
       >
         <CryptoTickerMarquee />
       </Box>
-      {/* Banner starts */}
-      <Container>
-        <Box className="contact-hero" >
-          <Grid container sx={{ alignItems: 'center' }}>
-            {/* <Grid item xs={12} sm={6} md={6} className='padding-0-mobile'>
-              <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} sx={{ fontWeight: 700 }} >Save your time with Stacks</Typography>
-              <Typography variant='h1' component="h1" className='hero-heading primary-color' sx={{ lineHeight: 1, mb: "20px" }}>
-                How can we help
-              </Typography>
-              <Typography variant='body1' component="p" className='hero-para secondary-color' paddingBottom={2}>
-                A creative agency that lead and inspire
-              </Typography>
-            </Grid> */}
-            <Grid item xs={12} sm={6} md={6} className='padding-0-mobile'>
-              <Typography textTransform='uppercase' variant='body2' component="div" className='secondary-color primary-font' paddingBottom={1} sx={{ fontWeight: 700 }} >Save your time with Stacks</Typography>
-              <Typography variant='h1' component="h1" className='hero-heading primary-color' sx={{ lineHeight: 1, mb: "20px" }}>
-                How can we help
-              </Typography>
-              <Typography variant='body1' component="p" className='hero-para secondary-color' paddingBottom={2}>
-                A creative agency that lead and inspire
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={6} md={6}>
-              <img className='contact-hero-image' src={ContactHeroImage} />
-            </Grid>
-          </Grid>
-        </Box>
-      </Container>
-      {/* Banner Ends */}
-      {/* contact form */}
-      <Box sx={{ paddingTop: { xs: '20px', sm: '40px' }, paddingBottom: { xs: '20px', sm: '40px' } }}>
-        <Container className="smallwidth">
-          <Card
-            className="contact-form-card"
-            sx={{
-              backgroundColor: '#ffffff !important',
-              color: '#141416 !important',
-              padding: { xs: "15px 15px", sm: "20px 20px" },
-              marginTop: "24px",
-              borderRadius: '12px',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)',
-              '& .MuiFormControl-root label': {
-                color: '#777E90 !important',
-              },
-              '& .MuiFormControl-root label.Mui-focused': {
-                color: 'var(--primary-color) !important',
-              },
-              '& .MuiFormControl-root label + .MuiInputBase-root': {
-                backgroundColor: '#ffffff !important',
-                background: '#ffffff !important',
-                borderColor: '#E6E8EC !important',
-                color: '#141416 !important',
-              },
-              '& .MuiFormControl-root label.Mui-focused + .MuiInputBase-root': {
-                borderColor: 'var(--primary-color) !important',
-              },
-              '& .MuiInputBase-root': {
-                backgroundColor: '#ffffff !important',
-                background: '#ffffff !important',
-                borderColor: '#E6E8EC !important',
-                color: '#141416 !important',
-              },
-              '& .MuiInputBase-input, & input, & textarea': {
-                color: '#141416 !important',
-                WebkitTextFillColor: '#141416 !important',
-                backgroundColor: '#ffffff !important',
-              },
-              '& input::placeholder, & textarea::placeholder': {
-                color: '#777E90 !important',
-                WebkitTextFillColor: '#777E90 !important',
-                opacity: 1,
-              },
-            }}
-          >
-            <Box
-              className="topic-que" sx={{ p: 0 }}
-            >
-              <Box
-                component="form"
-                noValidate
-                sx={{ mt: "0px", '& .MuiTextField-root': { marginTop: '0px' } }}
-                onSubmit={handleSubmit(handleFormSubmit)}
-              >
 
-                {/* Email */}
-                <Box paddingBottom={2}>
-                  <TextField
-                    label="Email *"
-                    className="form-control"
-                    type="email"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="standard"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    placeholder="Email address"
-                    name="email"
-                    autoComplete="off"
-                    size="small"
-                    {...register("email")}
-                    onChange={(e) =>
-                      reset({
-                        ...formData,
-                        email: e.target.value.replace(
-                          /\s+/g,
-                          e.target.value.length > 1 ? " " : ""
-                        ),
-                      })
-                    }
-                  />
+      {/* Main Hero & Form Section */}
+      <Box
+        sx={{
+          position: 'relative',
+          overflow: 'hidden',
+          pt: { xs: 4, sm: 6, md: 8 },
+          pb: { xs: 6, sm: 8, md: 10 },
+          background: isDarkMode
+            ? `
+              radial-gradient(circle at 95% 8%, rgba(79, 70, 229, 0.20) 0%, rgba(147, 51, 234, 0.12) 35%, transparent 60%),
+              radial-gradient(circle at 5% 45%, rgba(37, 99, 235, 0.16) 0%, transparent 50%),
+              #0E1015
+            `
+            : `
+              radial-gradient(circle at 95% 8%, rgba(224, 231, 255, 0.55) 0%, rgba(243, 232, 255, 0.35) 30%, transparent 60%),
+              radial-gradient(circle at 5% 45%, rgba(219, 234, 254, 0.45) 0%, rgba(254, 243, 199, 0.25) 30%, transparent 60%)
+            `,
+          transition: 'background 0.3s ease',
+        }}
+      >
+        {/* Subtle decorative dot grid background accent on top right */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 40,
+            right: 20,
+            width: 140,
+            height: 180,
+            opacity: isDarkMode ? 0.2 : 0.35,
+            pointerEvents: 'none',
+            backgroundImage: isDarkMode
+              ? 'radial-gradient(#6366F1 1.5px, transparent 1.5px)'
+              : 'radial-gradient(#93C5FD 1.5px, transparent 1.5px)',
+            backgroundSize: '16px 16px',
+            display: { xs: 'none', lg: 'block' },
+          }}
+        />
 
-                  <div className="frm-message">
-                    {errors.email?.message}
-                  </div>
-                </Box>
-
-                {/* Subject */}
-                <Box paddingBottom={2}>
-                  <TextField
-                    label="Subject *"
-                    className="form-control"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="standard"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="Subject"
-                    placeholder="Subject"
-                    name="subject"
-                    autoComplete="off"
-                    {...register("subject")}
-                    onChange={(e) =>
-                      reset({
-                        ...formData,
-                        subject: e.target.value.replace(
-                          /\s+/g,
-                          e.target.value.length > 1 ? " " : ""
-                        ),
-                      })
-                    }
-                  />
-
-                  <div className="frm-message">
-                    {errors.subject?.message}
-                  </div>
-                </Box>
-
-                {/* Message */}
-                <Box paddingTop="2">
-                  <TextField
-                    id="outlined-multiline-static"
-                    label="Message *"
-                    variant="standard"
-                    className="form-control"
-                    placeholder="Say something"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    multiline
-                    rows={4}
-                    fullWidth
-                    {...register("msg")}
-                    onChange={(e) =>
-                      reset({
-                        ...formData,
-                        msg: e.target.value.replace(
-                          /\s+/g,
-                          e.target.value.length > 1 ? " " : ""
-                        ),
-                      })
-                    }
-                  />
-
-                  <div className="frm-message">
-                    {errors.msg?.message}
-                  </div>
-                </Box>
-
-                {/* Captcha + Submit */}
-                <Box paddingTop="2">
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
+          <Grid container spacing={{ xs: 5, md: 6, lg: 8 }} alignItems="flex-start">
+            {/* ================= LEFT COLUMN ================= */}
+            <Grid item xs={12} md={6}>
+              <Box sx={{ maxWidth: { xs: '100%', md: '520px' } }}>
+                {/* Eyebrow */}
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
                   <Typography
-                    textAlign="end"
-                    sx={{ paddingTop: "40px" }}
+                    sx={{
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      letterSpacing: '1.5px',
+                      color: isDarkMode ? '#818CF8' : '#4F46E5',
+                      textTransform: 'uppercase',
+                      fontFamily: "'Poppins', sans-serif",
+                    }}
+                  >
+                    CONTACT US
+                  </Typography>
+                  <Box
+                    sx={{
+                      width: 28,
+                      height: '2px',
+                      borderRadius: '2px',
+                      background: isDarkMode
+                        ? 'linear-gradient(90deg, #818CF8, rgba(129, 140, 248, 0.1))'
+                        : 'linear-gradient(90deg, #4F46E5, rgba(79, 70, 229, 0.1))',
+                    }}
+                  />
+                </Box>
+
+                {/* Main Heading */}
+                <Typography
+                  component="h1"
+                  sx={{
+                    fontSize: { xs: '32px', sm: '42px', md: '48px' },
+                    fontWeight: 800,
+                    lineHeight: 1.15,
+                    color: isDarkMode ? '#FFFFFF' : '#0F172A',
+                    letterSpacing: '-0.025em',
+                    fontFamily: "'Poppins', sans-serif",
+                    mb: 2.5,
+                  }}
+                >
+                  Get in Touch <br />
+                  with{' '}
+                  <Box
+                    component="span"
+                    sx={{
+                      color: '#EAB308',
+                      fontWeight: 800,
+                    }}
+                  >
+                    The Coin
+                  </Box>{' '}
+                  <Box component="span" sx={{ color: isDarkMode ? '#FFFFFF' : '#0F172A' }}>
+                    Chain
+                  </Box>
+                </Typography>
+
+                {/* Subtitle / Paragraph */}
+                <Typography
+                  sx={{
+                    fontSize: { xs: '14px', sm: '15px' },
+                    lineHeight: 1.65,
+                    color: isDarkMode ? '#94A3B8' : '#64748B',
+                    mb: 4,
+                  }}
+                >
+                  Have a question, partnership idea, or feedback? We’d love to hear from you. Our team will get back to you as soon as possible.
+                </Typography>
+
+                {/* Three Contact Information Cards */}
+                <Stack spacing={2.2} sx={{ mb: 4 }}>
+                  {/* Card 1: Email */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2.2,
+                      p: '16px 20px',
+                      backgroundColor: isDarkMode ? '#171B26' : '#F3F7FF',
+                      borderRadius: '16px',
+                      border: isDarkMode ? '1px solid #252D40' : '1px solid #E2ECFE',
+                      transition: 'transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease',
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        boxShadow: isDarkMode
+                          ? '0 8px 20px -6px rgba(0, 0, 0, 0.4)'
+                          : '0 8px 20px -6px rgba(59, 130, 246, 0.15)',
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 46,
+                        height: 46,
+                        borderRadius: '50%',
+                        backgroundColor: isDarkMode ? 'rgba(37, 99, 235, 0.2)' : '#DBEAFE',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <MailOutlineRoundedIcon sx={{ color: isDarkMode ? '#60A5FA' : '#2563EB', fontSize: 24 }} />
+                    </Box>
+                    <Box>
+                      <Typography
+                        sx={{
+                          fontSize: '12px',
+                          fontWeight: 500,
+                          color: isDarkMode ? '#94A3B8' : '#64748B',
+                          lineHeight: 1.2,
+                          mb: 0.3,
+                        }}
+                      >
+                        Email Us
+                      </Typography>
+                      <Typography
+                        component="a"
+                        href="mailto:contact@thecoinchain.com"
+                        sx={{
+                          fontSize: '15px',
+                          fontWeight: 700,
+                          color: isDarkMode ? '#FFFFFF' : '#0F172A',
+                          textDecoration: 'none',
+                          display: 'block',
+                          lineHeight: 1.3,
+                          '&:hover': { color: '#60A5FA' },
+                        }}
+                      >
+                        contact@thecoinchain.com
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: '12px',
+                          color: isDarkMode ? '#64748B' : '#94A3B8',
+                          lineHeight: 1.2,
+                          mt: 0.3,
+                        }}
+                      >
+                        We usually respond within 24 hours.
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  {/* Card 2: Our Address */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2.2,
+                      p: '16px 20px',
+                      backgroundColor: isDarkMode ? '#13211B' : '#F0FDF4',
+                      borderRadius: '16px',
+                      border: isDarkMode ? '1px solid #1E382C' : '1px solid #DCFCE7',
+                      transition: 'transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease',
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        boxShadow: isDarkMode
+                          ? '0 8px 20px -6px rgba(0, 0, 0, 0.4)'
+                          : '0 8px 20px -6px rgba(34, 197, 94, 0.15)',
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 46,
+                        height: 46,
+                        borderRadius: '50%',
+                        backgroundColor: isDarkMode ? 'rgba(22, 163, 74, 0.2)' : '#DCFCE7',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <LocationOnRoundedIcon sx={{ color: isDarkMode ? '#4ADE80' : '#16A34A', fontSize: 24 }} />
+                    </Box>
+                    <Box>
+                      <Typography
+                        sx={{
+                          fontSize: '12px',
+                          fontWeight: 500,
+                          color: isDarkMode ? '#94A3B8' : '#64748B',
+                          lineHeight: 1.2,
+                          mb: 0.3,
+                        }}
+                      >
+                        Our Address
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: '15px',
+                          fontWeight: 700,
+                          color: isDarkMode ? '#FFFFFF' : '#0F172A',
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        Indore, Madhya Pradesh, India
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: '12px',
+                          color: isDarkMode ? '#64748B' : '#94A3B8',
+                          lineHeight: 1.2,
+                          mt: 0.3,
+                        }}
+                      >
+                        Headquarters
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  {/* Card 3: Follow Us */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 2.2,
+                      p: '16px 20px',
+                      backgroundColor: isDarkMode ? '#1E1929' : '#FAF5FF',
+                      borderRadius: '16px',
+                      border: isDarkMode ? '1px solid #332646' : '1px solid #F3E8FF',
+                      transition: 'transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease',
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        boxShadow: isDarkMode
+                          ? '0 8px 20px -6px rgba(0, 0, 0, 0.4)'
+                          : '0 8px 20px -6px rgba(168, 85, 247, 0.15)',
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 46,
+                        height: 46,
+                        borderRadius: '50%',
+                        backgroundColor: isDarkMode ? 'rgba(147, 51, 234, 0.2)' : '#F3E8FF',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <ShareRoundedIcon sx={{ color: isDarkMode ? '#C084FC' : '#9333EA', fontSize: 22 }} />
+                    </Box>
+                    <Box>
+                      <Typography
+                        sx={{
+                          fontSize: '12px',
+                          fontWeight: 500,
+                          color: isDarkMode ? '#94A3B8' : '#64748B',
+                          lineHeight: 1.2,
+                          mb: 0.8,
+                        }}
+                      >
+                        Follow Us
+                      </Typography>
+                      <Stack direction="row" spacing={1.2} alignItems="center">
+                        {/* X / Twitter */}
+                        <Box
+                          component="a"
+                          href="https://x.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="X (Twitter)"
+                          sx={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: '50%',
+                            backgroundColor: '#000000',
+                            border: isDarkMode ? '1px solid #334155' : 'none',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            textDecoration: 'none',
+                            transition: 'transform 0.2s',
+                            '&:hover': { transform: 'scale(1.12)' },
+                          }}
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                          </svg>
+                        </Box>
+
+                        {/* Facebook */}
+                        <Box
+                          component="a"
+                          href="https://www.facebook.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Facebook"
+                          sx={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: '50%',
+                            backgroundColor: '#1877F2',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            textDecoration: 'none',
+                            transition: 'transform 0.2s',
+                            '&:hover': { transform: 'scale(1.12)' },
+                          }}
+                        >
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="#FFFFFF">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                          </svg>
+                        </Box>
+
+                        {/* Instagram */}
+                        <Box
+                          component="a"
+                          href="https://www.instagram.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Instagram"
+                          sx={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: '50%',
+                            background: 'linear-gradient(45deg, #F58529, #DD2A7B, #8134AF)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            textDecoration: 'none',
+                            transition: 'transform 0.2s',
+                            '&:hover': { transform: 'scale(1.12)' },
+                          }}
+                        >
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="#FFFFFF">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                          </svg>
+                        </Box>
+
+                        {/* YouTube */}
+                        <Box
+                          component="a"
+                          href="https://www.youtube.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="YouTube"
+                          sx={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: '50%',
+                            backgroundColor: '#FF0000',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            textDecoration: 'none',
+                            transition: 'transform 0.2s',
+                            '&:hover': { transform: 'scale(1.12)' },
+                          }}
+                        >
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="#FFFFFF">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                          </svg>
+                        </Box>
+
+                        {/* LinkedIn */}
+                        <Box
+                          component="a"
+                          href="https://www.linkedin.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="LinkedIn"
+                          sx={{
+                            width: 32,
+                            height: 32,
+                            borderRadius: '50%',
+                            backgroundColor: '#0A66C2',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            textDecoration: 'none',
+                            transition: 'transform 0.2s',
+                            '&:hover': { transform: 'scale(1.12)' },
+                          }}
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                          </svg>
+                        </Box>
+                      </Stack>
+                    </Box>
+                  </Box>
+                </Stack>
+
+                {/* Bottom Bitcoin Graphic */}
+                <Box
+                  sx={{
+                    pt: 1,
+                    display: 'flex',
+                    justifyContent: { xs: 'center', md: 'flex-start' },
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={Bitcoinimg}
+                    alt="The Coin Chain Crypto Graphic"
+                    sx={{
+                      width: '100%',
+                      maxWidth: { xs: '280px', sm: '320px', md: '360px' },
+                      height: 'auto',
+                      objectFit: 'contain',
+                      filter: isDarkMode
+                        ? 'drop-shadow(0 15px 25px rgba(234, 179, 8, 0.2)) brightness(0.95)'
+                        : 'drop-shadow(0 15px 25px rgba(234, 179, 8, 0.12))',
+                    }}
+                  />
+                </Box>
+              </Box>
+            </Grid>
+
+            {/* ================= RIGHT COLUMN (FORM CARD) ================= */}
+            <Grid item xs={12} md={6}>
+              <Box
+                sx={{
+                  backgroundColor: isDarkMode ? '#181A22' : '#FFFFFF',
+                  borderRadius: { xs: '22px', sm: '28px' },
+                  border: isDarkMode ? '1px solid #282C3A' : '1px solid #EEF2F6',
+                  boxShadow: isDarkMode
+                    ? '0 20px 45px -15px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3)'
+                    : '0 20px 45px -15px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(15, 23, 42, 0.02)',
+                  p: { xs: '26px 20px', sm: '36px 32px', md: '40px 38px' },
+                  position: 'relative',
+                  transition: 'background-color 0.3s ease, border-color 0.3s ease',
+                }}
+              >
+                {/* Form Card Header */}
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3.5 }}>
+                  <Box
+                    sx={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: '50%',
+                      backgroundColor: isDarkMode ? 'rgba(79, 70, 229, 0.25)' : '#EEF2FF',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <SendRoundedIcon
+                      sx={{
+                        color: isDarkMode ? '#818CF8' : '#4F46E5',
+                        fontSize: 24,
+                        transform: 'rotate(-25deg)',
+                        ml: '2px',
+                        mt: '-2px',
+                      }}
+                    />
+                  </Box>
+                  <Box>
+                    <Typography
+                      component="h2"
+                      sx={{
+                        fontSize: { xs: '22px', sm: '24px' },
+                        fontWeight: 700,
+                        color: isDarkMode ? '#FFFFFF' : '#0F172A',
+                        lineHeight: 1.25,
+                        fontFamily: "'Poppins', sans-serif",
+                      }}
+                    >
+                      Send us a Message
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: '13px',
+                        color: isDarkMode ? '#94A3B8' : '#64748B',
+                        mt: 0.3,
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      Fill out the form below and we’ll get back to you soon.
+                    </Typography>
+                  </Box>
+                </Box>
+
+                {/* Form Fields */}
+                <Box
+                  component="form"
+                  onSubmit={handleSubmit(handleFormSubmit)}
+                  noValidate
+                  sx={{ mt: 0 }}
+                >
+                  {/* Email Address */}
+                  <Box sx={{ mb: 2.5 }}>
+                    <Typography
+                      component="label"
+                      htmlFor="email"
+                      sx={{
+                        display: 'block',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        color: isDarkMode ? '#E2E8F0' : '#1E293B',
+                        mb: 0.8,
+                      }}
+                    >
+                      Email Address{' '}
+                      <Box component="span" sx={{ color: '#EF4444' }}>
+                        *
+                      </Box>
+                    </Typography>
+                    <TextField
+                      id="email"
+                      fullWidth
+                      type="email"
+                      placeholder="yourname@example.com"
+                      autoComplete="off"
+                      {...register("email")}
+                      onChange={(e) =>
+                        reset({
+                          ...formData,
+                          email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : ""),
+                        })
+                      }
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <MailOutlineRoundedIcon sx={{ color: isDarkMode ? '#64748B' : '#94A3B8', fontSize: 20 }} />
+                          </InputAdornment>
+                        ),
+                      }}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          height: '48px',
+                          borderRadius: '12px',
+                          backgroundColor: isDarkMode ? '#13151D' : '#FFFFFF',
+                          '& fieldset': {
+                            borderColor: errors.email
+                              ? '#EF4444'
+                              : isDarkMode
+                              ? '#2E3344'
+                              : '#E2E8F0',
+                            borderWidth: '1.5px',
+                          },
+                          '&:hover fieldset': {
+                            borderColor: errors.email
+                              ? '#EF4444'
+                              : isDarkMode
+                              ? '#475569'
+                              : '#CBD5E1',
+                          },
+                          '&.Mui-focused fieldset': {
+                            borderColor: errors.email
+                              ? '#EF4444'
+                              : isDarkMode
+                              ? '#818CF8'
+                              : '#4F46E5',
+                            borderWidth: '1.5px',
+                          },
+                        },
+                        '& input': {
+                          fontSize: '14px',
+                          color: isDarkMode ? '#FFFFFF' : '#0F172A',
+                          WebkitTextFillColor: isDarkMode ? '#FFFFFF' : '#0F172A',
+                          '&::placeholder': {
+                            color: isDarkMode ? '#64748B' : '#94A3B8',
+                            WebkitTextFillColor: isDarkMode ? '#64748B' : '#94A3B8',
+                            opacity: 1,
+                          },
+                        },
+                      }}
+                    />
+                    {errors.email && (
+                      <Typography sx={{ color: '#EF4444', fontSize: '12px', mt: 0.6 }}>
+                        {errors.email?.message}
+                      </Typography>
+                    )}
+                  </Box>
+
+                  {/* Subject */}
+                  <Box sx={{ mb: 2.5 }}>
+                    <Typography
+                      component="label"
+                      htmlFor="subject"
+                      sx={{
+                        display: 'block',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        color: isDarkMode ? '#E2E8F0' : '#1E293B',
+                        mb: 0.8,
+                      }}
+                    >
+                      Subject{' '}
+                      <Box component="span" sx={{ color: '#EF4444' }}>
+                        *
+                      </Box>
+                    </Typography>
+                    <TextField
+                      id="subject"
+                      fullWidth
+                      placeholder="Subject"
+                      autoComplete="off"
+                      {...register("subject")}
+                      onChange={(e) =>
+                        reset({
+                          ...formData,
+                          subject: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : ""),
+                        })
+                      }
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <DescriptionOutlinedIcon sx={{ color: isDarkMode ? '#64748B' : '#94A3B8', fontSize: 20 }} />
+                          </InputAdornment>
+                        ),
+                      }}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          height: '48px',
+                          borderRadius: '12px',
+                          backgroundColor: isDarkMode ? '#13151D' : '#FFFFFF',
+                          '& fieldset': {
+                            borderColor: errors.subject
+                              ? '#EF4444'
+                              : isDarkMode
+                              ? '#2E3344'
+                              : '#E2E8F0',
+                            borderWidth: '1.5px',
+                          },
+                          '&:hover fieldset': {
+                            borderColor: errors.subject
+                              ? '#EF4444'
+                              : isDarkMode
+                              ? '#475569'
+                              : '#CBD5E1',
+                          },
+                          '&.Mui-focused fieldset': {
+                            borderColor: errors.subject
+                              ? '#EF4444'
+                              : isDarkMode
+                              ? '#818CF8'
+                              : '#4F46E5',
+                            borderWidth: '1.5px',
+                          },
+                        },
+                        '& input': {
+                          fontSize: '14px',
+                          color: isDarkMode ? '#FFFFFF' : '#0F172A',
+                          WebkitTextFillColor: isDarkMode ? '#FFFFFF' : '#0F172A',
+                          '&::placeholder': {
+                            color: isDarkMode ? '#64748B' : '#94A3B8',
+                            WebkitTextFillColor: isDarkMode ? '#64748B' : '#94A3B8',
+                            opacity: 1,
+                          },
+                        },
+                      }}
+                    />
+                    {errors.subject && (
+                      <Typography sx={{ color: '#EF4444', fontSize: '12px', mt: 0.6 }}>
+                        {errors.subject?.message}
+                      </Typography>
+                    )}
+                  </Box>
+
+                  {/* Message */}
+                  <Box sx={{ mb: 2.5 }}>
+                    <Typography
+                      component="label"
+                      htmlFor="message"
+                      sx={{
+                        display: 'block',
+                        fontSize: '13px',
+                        fontWeight: 600,
+                        color: isDarkMode ? '#E2E8F0' : '#1E293B',
+                        mb: 0.8,
+                      }}
+                    >
+                      Message{' '}
+                      <Box component="span" sx={{ color: '#EF4444' }}>
+                        *
+                      </Box>
+                    </Typography>
+                    <TextField
+                      id="message"
+                      fullWidth
+                      multiline
+                      rows={4}
+                      placeholder="Write your message here..."
+                      {...register("msg")}
+                      onChange={(e) =>
+                        reset({
+                          ...formData,
+                          msg: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : ""),
+                        })
+                      }
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start" sx={{ alignSelf: 'flex-start', mt: 0.8 }}>
+                            <ChatBubbleOutlineRoundedIcon sx={{ color: isDarkMode ? '#64748B' : '#94A3B8', fontSize: 18 }} />
+                          </InputAdornment>
+                        ),
+                      }}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          borderRadius: '12px',
+                          backgroundColor: isDarkMode ? '#13151D' : '#FFFFFF',
+                          '& fieldset': {
+                            borderColor: errors.msg
+                              ? '#EF4444'
+                              : isDarkMode
+                              ? '#2E3344'
+                              : '#E2E8F0',
+                            borderWidth: '1.5px',
+                          },
+                          '&:hover fieldset': {
+                            borderColor: errors.msg
+                              ? '#EF4444'
+                              : isDarkMode
+                              ? '#475569'
+                              : '#CBD5E1',
+                          },
+                          '&.Mui-focused fieldset': {
+                            borderColor: errors.msg
+                              ? '#EF4444'
+                              : isDarkMode
+                              ? '#818CF8'
+                              : '#4F46E5',
+                            borderWidth: '1.5px',
+                          },
+                        },
+                        '& textarea': {
+                          fontSize: '14px',
+                          color: isDarkMode ? '#FFFFFF' : '#0F172A',
+                          WebkitTextFillColor: isDarkMode ? '#FFFFFF' : '#0F172A',
+                          lineHeight: 1.5,
+                          '&::placeholder': {
+                            color: isDarkMode ? '#64748B' : '#94A3B8',
+                            WebkitTextFillColor: isDarkMode ? '#64748B' : '#94A3B8',
+                            opacity: 1,
+                          },
+                        },
+                      }}
+                    />
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 0.5 }}>
+                      {errors.msg ? (
+                        <Typography sx={{ color: '#EF4444', fontSize: '12px' }}>
+                          {errors.msg?.message}
+                        </Typography>
+                      ) : (
+                        <Box />
+                      )}
+                      <Typography sx={{ fontSize: '12px', color: isDarkMode ? '#64748B' : '#94A3B8', ml: 'auto' }}>
+                        {formData?.msg ? String(formData.msg).length : 0}/1000
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  {/* reCAPTCHA */}
+                  <Box
+                    sx={{
+                      mb: 3,
+                      display: 'flex',
+                      justifyContent: 'flex-start',
+                      overflowX: 'auto',
+                    }}
                   >
                     <ReCAPTCHA
-                      style={{
-                        display: "flex",
-                      }}
-                      theme="light"
+                      theme={isDarkMode ? "dark" : "light"}
                       ref={captchaRef}
                       sitekey={SITE_KEY}
                       onChange={handleRecaptch}
                       asyncScriptOnLoad={asyncScriptOnLoad}
                     />
+                  </Box>
 
-                    <LoadingButton
-                      type="submit"
-                      loading={isSubmitting}
-                      loadingPosition="end"
-                      className="btn btn-primary"
-                      sx={{
-                        marginLeft: {
-                          xs: "0",
-                          sm: "auto",
-                        },
-                        minWidth: "160px",
-                        mt: "15px",
-                      }}
-                      disabled={isSubmitting}
-                      variant="contained"
-                    >
-                      {isSubmitting ? (
-                        <span className="spinner-border">
-                          Loading
-                        </span>
-                      ) : (
-                        "Send message"
-                      )}
-                    </LoadingButton>
-                  </Typography>
+                  {/* Send Message Button */}
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    fullWidth
+                    variant="contained"
+                    endIcon={
+                      !isSubmitting && (
+                        <SendRoundedIcon
+                          sx={{
+                            fontSize: 18,
+                            transform: 'rotate(-20deg)',
+                            ml: 0.5,
+                          }}
+                        />
+                      )
+                    }
+                    sx={{
+                      height: '52px',
+                      borderRadius: '14px',
+                      background: 'linear-gradient(135deg, #4F46E5 0%, #6366F1 100%)',
+                      color: '#FFFFFF',
+                      fontSize: '16px',
+                      fontWeight: 600,
+                      textTransform: 'none',
+                      fontFamily: "'Poppins', sans-serif",
+                      boxShadow: isDarkMode
+                        ? '0 10px 22px -5px rgba(99, 102, 241, 0.4)'
+                        : '0 10px 22px -5px rgba(79, 70, 229, 0.45)',
+                      transition: 'all 0.25s ease',
+                      '&:hover': {
+                        background: 'linear-gradient(135deg, #4338CA 0%, #4F46E5 100%)',
+                        boxShadow: isDarkMode
+                          ? '0 14px 28px -5px rgba(99, 102, 241, 0.55)'
+                          : '0 14px 28px -5px rgba(79, 70, 229, 0.55)',
+                        transform: 'translateY(-1px)',
+                      },
+                      '&:disabled': {
+                        background: '#94A3B8',
+                        color: '#FFFFFF',
+                      },
+                    }}
+                  >
+                    {isSubmitting ? (
+                      <CircularProgress size={24} sx={{ color: '#FFFFFF' }} />
+                    ) : (
+                      'Send Message'
+                    )}
+                  </Button>
                 </Box>
-
               </Box>
-            </Box>
-          </Card>
+            </Grid>
+          </Grid>
         </Container>
       </Box>
-      {/* end */}
-      <Container maxWidth='fluid' sx={{ padding: '0px !important' }}>
-        <Box paddingTop={5} className='newdesignbox swiper-styles'>
-          <Container maxWidth="xs">
-            <Typography variant='body1' component="p" className='hero-para secondary-color' textAlign={"center"} paddingBottom={5}>
-              Before asking for an answer, you may find it in our learn crypto center
-            </Typography>
-          </Container>
-          <Swiper
-            slidesPerView={1}
-            navigation={true}
-            spaceBetween={0}
-            breakpoints={{
-              480: {
-                slidesPerView: 1,
-              },
-              640: {
-                slidesPerView: 2,
-              },
-              768: {
-                slidesPerView: 3,
-              },
-              1080: {
-                slidesPerView: 4,
-              },
-            }}
-            modules={[Navigation]}
-            className="mySwiper"
-          >
-            {contactBlogLists.map((item) => {
-              return (
-                <SwiperSlide>
-                  <Box className='about-crypto'
-                    onClick={() => imgLink(item)}
-                    sx={{ cursor: "pointer" }}
-                  >
-                    <Box className=''>
-                      <Typography textTransform='uppercase' className='orange-btn float-right small-new-btn contact-new'>New</Typography>
-                      <img className="crypto-center" sx={{ maxWidth: "100%" }} src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`} />
-                    </Box>
-                    <Box paddingTop={4} className="inner-con-box">
-                      <Typography fontWeight='500' paddingBottom={2} sx={{ maxHeight: '30px', overflow: 'hidden' }}>{item.title}</Typography>
-                      <Typography className='body-caption secondary-color' sx={{ maxHeight: '85px', overflow: 'hidden' }}>{ReactHtmlParser(item.description)}</Typography>
-                    </Box>
-                  </Box>
-                </SwiperSlide>
-              )
-            })}
-          </Swiper>
-        </Box>
-      </Container>
 
-
-      {/* Slider ends */}
-
-      {/* <Container>
-        <Box className="faq-box" sx={{padding:{xs:'40px 0', sm:'60px 0'}}}>
-          <Box>
-            <Box className='smallwidth'>
-              <Typography variant='h2' fontWeight='700' textAlign='center' className='secondary-font' paddingBottom={4}>Frequently asked questions</Typography>
-              tabs starts
-              <Box className="learn-cypto-tab center-tab" sx={{ width: '100%', typography: 'body1' }}>
-                <TabContext value={value}>
-
-                  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <TabList
-                      value={value}
-                      aria-label="tabs">
-
-                      {contactCategory?.map((item, idx) => {
-                        return <Tab className='tab-selected' indicatorColor="secondary" textColor="inherit" onClick={e => handleChanges(item.title)} label={item.title} key={item.id} value={idx === value ? value : item.title} />;
-                      })}
-                    </TabList>
-
-                  </Box>
-                  <TabPanel value={value} sx={{ paddingRight: '0', paddingLeft: '0' }} >
-                    <Box className='faq-accordian'>
-                      {contactCategoryList.map((items) => {
-                        return (
-                          <Accordion sx={{ p: 0 }}>
-                            <AccordionSummary
-                              expandIcon={<ExpandMore />}
-                              aria-controls="panel1a-content"
-                              id="panel1a-header"
-                            >
-                              <Typography><span className='faq-count'></span>{items.question}</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                              <Typography>
-                                {items.answer}
-                              </Typography>
-                            </AccordionDetails>
-                          </Accordion>
-                        )
-                      })}
-
-                    </Box>
-                  </TabPanel>
-                </TabContext>
-              </Box>
-            </Box>
-          </Box>
-
-        </Box>
-      </Container> */}
-
-      {/* <Container maxWidth='fluid' className='contact-form-sec'>
-        <Container className='smallwidth' padding={'0'}>
-          <Box className="topic-que" sx={{padding:{xs:'40px 0', sm:'60px 0'}}}>
-            <Box
-              noValidate
-              component="form"
-              sx={{ mt: '24px' }}
-              onSubmit={handleSubmit(handleFormSubmit)}
-            >
-              <Typography component="h5" variant='h5' sx={{ width: '33%', flexShrink: 0 }}>
-                Contact-Us
+      {/* Learn Crypto Center Slider */}
+      {contactBlogLists && contactBlogLists.length > 0 && (
+        <Container maxWidth="fluid" sx={{ padding: '0px !important', mt: 4 }}>
+          <Box paddingTop={5} className="newdesignbox swiper-styles">
+            <Container maxWidth="xs">
+              <Typography
+                variant="body1"
+                component="p"
+                className="hero-para secondary-color"
+                textAlign="center"
+                paddingBottom={4}
+                sx={{
+                  color: isDarkMode ? '#94A3B8' : '#64748B',
+                  fontSize: '15px',
+                }}
+              >
+                Before asking for an answer, you may find it in our learn crypto center
               </Typography>
-              <Box paddingBottom={2} className='topic-select-radio'>
-                <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>Select a topic</Typography>
-
-                <Stack direction='row' spacing={3} className='button-img' >
-                  <Button className={category == "general" ? "active btn" : "btn"} variant="outlined" onClick={() => { setCategory("general"); handleGenral(); }} > <span><img src={GenralIcon} /></span> General</Button>
-                  <Button className={category == "subscriptions" ? "active btn" : "btn"} variant="outlined" onClick={() => { setCategory("subscriptions"); handleSubscription(); }} > <span><img src={SubsIcon} /></span> Subscription</Button>
-                </Stack>
-              </Box>
-              <Box paddingBottom={2}>
-                <Typography textTransform='uppercase' paddingY={1} fontWeight='700' color='#B1B5C4' className='label-text small-caption primary-font secondary-color'>What is your issue about? *</Typography>
-                <Grid item xs={12}>
-                  <Autocomplete
-                    required
-                    disablePortal
-                    fullWidth
-                    id="combo-box-demo"
-                    size="small"
-                    className='select-input'
-                    value={formData?.question || ''}
-                    options={question}
-                    onChange={(e, props) => reset({ ...formData, question: props })}
-                    renderInput={(params) => <TextField autoFocus {...register('question')} required {...params} InputLabelProps={{ shrink: true }} />}
-                  />
-                  <div className='frm-message'>{errors.question?.message}</div>
-                </Grid>
-              </Box>
-
-              <Box paddingBottom={2}>
-                <TextField
-                  label="Email *"
-                  className="form-control"
-                  type="email"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant="standard"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  placeholder='Email address'
-                  name="email"
-                  autoComplete="off"
-                  size="small"
-                  {...register("email")}
-                  onChange={(e) => reset({ ...formData, email: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-                />
-                <div className='frm-message'>{errors.email?.message}</div>
-              </Box>
-
-              <Box paddingBottom={2}>
-                <TextField
-                  label="Subject *"
-                  className="form-control"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant="standard"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="Subject"
-                  placeholder='Subject'
-                  name="subject"
-                  autoComplete="off"
-                  {...register("subject")}
-                  onChange={(e) => reset({ ...formData, subject: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-                />
-                <div className='frm-message'>{errors.subject?.message}</div>
-              </Box>
-
-              <Box paddingTop='2'>
-                <TextField
-                  id="outlined-multiline-static"
-                  label="Message *"
-                  variant="standard"
-                  className="form-control"
-                  placeholder='Say something'
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  multiline
-                  rows={4}
-                  maxlength={10}
-                  fullWidth
-                  {...register("msg")}
-                  onChange={(e) => reset({ ...formData, msg: e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : "") })}
-                />
-                <div className='frm-message'>{errors.msg?.message}</div>
-              </Box>
-              <Box paddingTop='2'>
-                <Typography textAlign='end' sx={{ paddingTop: "40px" }}>
-                  <ReCAPTCHA
-                    style={{
-                      display: "flex",
-                      // justifyContent: "center",
-                    }}
-                    theme="light"
-                    ref={captchaRef}
-                    sitekey={SITE_KEY}
-                    onChange={handleRecaptch}
-                    asyncScriptOnLoad={asyncScriptOnLoad}
-                  />
-                  <LoadingButton
-                    type='submit'
-                    loading={isSubmitting}
-                    loadingPosition="end"
-                    className='btn btn-primary'
-                    sx={{ marginLeft: { xs: "0", sm: "auto" }, minWidth: "160px", mt:'15px'}}
-                    disabled={isSubmitting}
-                    variant='contained'>
-                    {isSubmitting ? <span className="spinner-border ">Loading</span> : " Send message "}
-                  </LoadingButton>
-                </Typography>
-              </Box>
-
-            </Box>
+            </Container>
+            <Swiper
+              slidesPerView={1}
+              navigation={true}
+              spaceBetween={0}
+              breakpoints={{
+                480: { slidesPerView: 1 },
+                640: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                1080: { slidesPerView: 4 },
+              }}
+              modules={[Navigation]}
+              className="mySwiper"
+            >
+              {contactBlogLists.map((item, idx) => {
+                return (
+                  <SwiperSlide key={item.id || idx}>
+                    <Box
+                      className="about-crypto"
+                      onClick={() => imgLink(item)}
+                      sx={{
+                        cursor: 'pointer',
+                        backgroundColor: isDarkMode ? '#181A22 !important' : '#FFFFFF',
+                        border: isDarkMode ? '1px solid #282C3A !important' : '1px solid #E6E8EC',
+                        borderRadius: '16px',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <Box>
+                        <Typography
+                          textTransform="uppercase"
+                          className="orange-btn float-right small-new-btn contact-new"
+                        >
+                          New
+                        </Typography>
+                        <img
+                          className="crypto-center"
+                          style={{ maxWidth: '100%' }}
+                          src={`${process.env.REACT_APP_IMAGE_URL}/${item.image}`}
+                          alt={item.title}
+                        />
+                      </Box>
+                      <Box paddingTop={4} className="inner-con-box">
+                        <Typography
+                          fontWeight="500"
+                          paddingBottom={2}
+                          sx={{
+                            maxHeight: '30px',
+                            overflow: 'hidden',
+                            color: isDarkMode ? '#FFFFFF !important' : '#141416',
+                          }}
+                        >
+                          {item.title}
+                        </Typography>
+                        <Typography
+                          className="body-caption secondary-color"
+                          sx={{
+                            maxHeight: '85px',
+                            overflow: 'hidden',
+                            color: isDarkMode ? '#94A3B8 !important' : '#777E90',
+                          }}
+                        >
+                          {ReactHtmlParser(item.description)}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
           </Box>
         </Container>
-      </Container> */}
-    </>
-  )
-}
+      )}
+    </Box>
+  );
+};
 
-export default Contact
+export default Contact;

@@ -203,12 +203,6 @@ async function main() {
   fs.writeFileSync(pagesPath, pagesXml, 'utf-8');
   console.log(`[sitemap] Wrote ${pagesPath}`);
 
-  // 4. Write combined sitemap.xml
-  const combinedEntries = [...pagesEntries, ...postsEntries];
-  const combinedXml = generateUrlsetXml(combinedEntries);
-  const combinedPath = path.join(publicDir, 'sitemap.xml');
-  fs.writeFileSync(combinedPath, combinedXml, 'utf-8');
-  console.log(`[sitemap] Wrote ${combinedPath}`);
 
   // 5. Write sitemap_index.xml
   let latestPostMod = today;
@@ -228,6 +222,11 @@ async function main() {
   const indexPath = path.join(publicDir, 'sitemap_index.xml');
   fs.writeFileSync(indexPath, indexXml, 'utf-8');
   console.log(`[sitemap] Wrote ${indexPath}`);
+
+  // Mirror sitemap_index.xml to sitemap.xml so opening sitemap.xml shows sitemap_index.xml
+  const sitemapPath = path.join(publicDir, 'sitemap.xml');
+  fs.writeFileSync(sitemapPath, indexXml, 'utf-8');
+  console.log(`[sitemap] Wrote ${sitemapPath} (mirror of sitemap_index.xml)`);
 
   console.log('[sitemap] Sitemap generation completed successfully.');
 }

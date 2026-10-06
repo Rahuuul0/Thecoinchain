@@ -522,6 +522,36 @@ img,
   filter: brightness(0) saturate(100%) invert(35%) sepia(85%) saturate(2250%) hue-rotate(213deg) brightness(101%) contrast(101%);
 }
 
+/* Contact form card & fields - keep white background in dark mode */
+.dark-theme .contact-form-card,
+.dark-theme .contact-form-card.MuiCard-root,
+.dark-theme .contact-form-card.MuiPaper-root {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  color: #141416 !important;
+}
+
+.dark-theme .contact-form-card .MuiFormControl-root label+.MuiInputBase-root,
+.dark-theme .contact-form-card .MuiInputBase-root,
+.dark-theme .contact-form-card input,
+.dark-theme .contact-form-card textarea {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  color: #141416 !important;
+  -webkit-text-fill-color: #141416 !important;
+  border-color: #E6E8EC !important;
+}
+
+.dark-theme .contact-form-card .MuiFormControl-root label {
+  color: #777E90 !important;
+}
+
+.dark-theme .contact-form-card input::placeholder,
+.dark-theme .contact-form-card textarea::placeholder {
+  color: #777E90 !important;
+  -webkit-text-fill-color: #777E90 !important;
+}
+
 .para-gray {
   color: var(--color-cc);
 }
@@ -1035,8 +1065,9 @@ input[type="number"] {
   font-family: var(--primary-font);
 }
 
-.dropdown-menu .MuiPaper-root li:hover , .dropdown-menu .MuiPaper-root li .MuiSvgIcon-root:hover{
-  color:#3772ff;
+.dropdown-menu .MuiPaper-root li:hover,
+.dropdown-menu .MuiPaper-root li .MuiSvgIcon-root:hover {
+  color: #3772ff;
 }
 
 .customer-panel .app-nav {
@@ -1299,7 +1330,7 @@ input[type="number"] {
 .learn-cypto-tab .MuiTabPanel-root {
   padding-bottom: 0;
   /* padding-top: 80px; */
-    padding-top: 50px;
+  padding-top: 50px;
 }
 
 /* Homepage Ends */
@@ -1725,6 +1756,7 @@ body {
 .contact-hero .contact-hero-image {
   height: 440px;
 }
+
 .margin10 {
   margin-left: 75px;
 }
@@ -1952,12 +1984,12 @@ body {
   padding-top: 136px;
 }
 
-.market-inner .price-prediction{
-  padding-top:80px;
+.market-inner .price-prediction {
+  padding-top: 80px;
 }
 
-.market-inner .learn-n-earn{
-    padding: 80px 0;
+.market-inner .learn-n-earn {
+  padding: 80px 0;
 }
 
 .price-prediction h2 {
@@ -2169,8 +2201,8 @@ video {
   justify-content: space-between;
 }
 
-.crypto-list-table span.currency_name{
-  margin:0px;
+.crypto-list-table span.currency_name {
+  margin: 0px;
 }
 
 .crypto-name:hover .crypto-name-title {
@@ -3540,7 +3572,7 @@ span.currency_name {
 }
 
 .auth-header .coinguru-logo {
-   filter:unset;
+  filter: unset;
 }
 
 .coinguru-logo {
@@ -3726,7 +3758,7 @@ span.currency_name {
   max-height: 397px;
   min-width: 264px;
   overflow-y: auto;
-    background-color: var(--mui-menu-paper);
+  background-color: var(--mui-menu-paper);
   color: var(--txt-color);
 }
 
@@ -3773,7 +3805,7 @@ span.currency_name {
   border-bottom: 1px solid var(--make-informed-devider);
 }
 
-.app-store .stacks img{
+.app-store .stacks img {
   width: 56px;
   height: 56px;
 }
@@ -3811,16 +3843,16 @@ span.currency_name {
 }
 
 .market-prediction-faq-item-img img {
-  object-fit:cover;
+  object-fit: cover;
   height: 100%;
   max-height: 120px;
 }
 
 /* 14-9-26 */
 
-.mobile-menu{
+.mobile-menu {
   overflow-y: scroll;
-  height: calc(100vh - 112px);
+  height: calc(100vh - 200px);
   overflow-x: hidden
 }
 
@@ -4205,7 +4237,7 @@ body:has(.MuiModal-root:not(.MuiModal-hidden)) {
 
   .MuiDrawer-paper .MuiBox-root.mobile-nav-box {
     min-height: 100vh;
-    display: flex;  
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
@@ -4226,9 +4258,10 @@ body:has(.MuiModal-root:not(.MuiModal-hidden)) {
     min-height: 100vh !important;
     overflow: hidden;
   }
+
   .mobile-navbar .MuiBox-root.css-gg4vpm {
     padding-bottom: 7rem;
- }
+  }
 }
 
 @media (max-width: 767.98px) {
@@ -4909,9 +4942,11 @@ body:has(.MuiModal-root:not(.MuiModal-hidden)) {
   .crypto-list-table table tr::after {
     left: 0;
   }
+
   .crypto-list-table table tr::before {
     right: 0;
   }
+
   .learn-n-earn-head {
     padding: 0 8%;
   }
@@ -4938,7 +4973,7 @@ body:has(.MuiModal-root:not(.MuiModal-hidden)) {
     margin-bottom: 0px;
   }
 
-  .swiper-styles .swiper{
+  .swiper-styles .swiper {
     padding-bottom: 0px;
   }
 
@@ -5256,25 +5291,26 @@ body:has(.MuiModal-root:not(.MuiModal-hidden)) {
 }
 
 @media screen and (min-width: 768px) and (max-width: 930px) {
-    .app-nav .coinguru-logo {
-      max-width: 51px;
+  .app-nav .coinguru-logo {
+    max-width: 51px;
   }
 
-  .app-nav button.MuiButtonBase-root, #root .app-nav .btn {
-      font-size: 12.5px;
+  .app-nav button.MuiButtonBase-root,
+  #root .app-nav .btn {
+    font-size: 12.5px;
   }
 
   .app-nav button.MuiButtonBase-root {
-      margin-left: 4px;
-      font-size: 11px !important;
+    margin-left: 4px;
+    font-size: 11px !important;
   }
 
   #root .app-nav .btn {
-     min-width: 70px;
+    min-width: 70px;
   }
 
-  #root .app-nav .btn{
-    padding:8px 10px;
+  #root .app-nav .btn {
+    padding: 8px 10px;
   }
 
   #root .body-large {
@@ -5283,18 +5319,19 @@ body:has(.MuiModal-root:not(.MuiModal-hidden)) {
 }
 
 @media screen and (max-width:576px) {
-    /* s 21-9-26 */
-.crypto-list-table .crypto-name {
+
+  /* s 21-9-26 */
+  .crypto-list-table .crypto-name {
     max-width: 100%;
     justify-content: space-between;
-}
+  }
 
-span.crypto-name-title {
+  span.crypto-name-title {
     min-width: 193px;
-}
-  
-.market-prediction-faq-item-img img {
+  }
+
+  .market-prediction-faq-item-img img {
     max-height: 175px;
     width: -webkit-fill-available;
-}
+  }
 }

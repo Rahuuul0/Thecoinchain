@@ -170,10 +170,8 @@ const Footer = () => {
                     component="span"
                     className="contact-text"
                     sx={{
-                      fontSize: '13px',
+                      fontSize: '16px',
                       fontWeight: 500,
-                      fontFamily: 'var(--secondary-font) !important',
-                      color: 'inherit',
                       transition: 'color 0.25s ease-in-out',
                       wordBreak: 'break-all',
                     }}
@@ -250,10 +248,8 @@ const Footer = () => {
                     component="span"
                     className="contact-text"
                     sx={{
-                      fontSize: '13px',
+                      fontSize: '16px',
                       fontWeight: 500,
-                      fontFamily: 'var(--secondary-font) !important',
-                      color: 'inherit',
                       transition: 'color 0.25s ease-in-out',
                       lineHeight: 1.3,
                     }}

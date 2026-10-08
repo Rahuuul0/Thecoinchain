@@ -830,7 +830,7 @@ const MuiCryptoSection = () => {
                     src={
                       cryptoNewsData?.data?.[0]?.get_media_display
                         ? `${process.env.REACT_APP_IMAGE_URL}/${cryptoNewsData?.data?.[0]?.get_media_display}`
-                        : "https://via.placeholder.com/150"
+                        : ""
                     }
                     alt={cryptoNewsData.data?.[0]?.title || 'Crypto'}
                     style={{ width: '100%', borderRadius: '8px' }}

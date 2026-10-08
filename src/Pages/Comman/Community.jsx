@@ -67,7 +67,7 @@ const Community = () => {
 
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>
-                                Top Crypto Experts Reviews for May 2023
+                                Top Crypto Experts Reviews for 2026
                             </Typography>
                         </Box>
                         <Box className="community-wrapper-inner">

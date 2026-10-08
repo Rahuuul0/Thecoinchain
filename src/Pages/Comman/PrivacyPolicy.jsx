@@ -14,7 +14,7 @@ import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
 import { Link } from "react-router-dom";
 import { useFooterActions } from "../../_actions";
-import { PrivacyListAtom } from "../../_state";
+import { PrivacyListAtom, switchDarkModeAtom } from "../../_state";
 import { useRecoilValue } from "recoil";
 import ReactHtmlParser from "react-html-parser";
 import dayjs from "dayjs";
@@ -23,67 +23,67 @@ import HeroCryptoImg from "../../../public/assets/images/privacy-hero-crypto.jpg
 import DocBadgeImg from "../../../public/assets/images/privacy-doc-badge.jpg";
 
 /**
- * Helper to determine badge icon and palette dynamically for definition items.
+ * Dynamically resolves icon and badge color palette based on definition term and dark mode state.
  */
-const getDefinitionBadge = (term = "") => {
+const getDefinitionBadge = (term = "", isDarkMode = false) => {
   const lower = term.toLowerCase();
   if (lower.includes("personal")) {
     return {
-      bg: "#F3E8FF",
-      color: "#9333EA",
+      bg: isDarkMode ? "rgba(147, 51, 234, 0.2)" : "#F3E8FF",
+      color: isDarkMode ? "#C084FC" : "#9333EA",
       icon: <PersonOutlineIcon sx={{ fontSize: 22 }} />,
     };
   }
   if (lower.includes("usage")) {
     return {
-      bg: "#E0F2FE",
-      color: "#0284C7",
+      bg: isDarkMode ? "rgba(2, 132, 199, 0.2)" : "#E0F2FE",
+      color: isDarkMode ? "#38BDF8" : "#0284C7",
       icon: <BarChartOutlinedIcon sx={{ fontSize: 22 }} />,
     };
   }
   if (lower.includes("cookie")) {
     return {
-      bg: "#FEF3C7",
-      color: "#D97706",
+      bg: isDarkMode ? "rgba(217, 119, 6, 0.2)" : "#FEF3C7",
+      color: isDarkMode ? "#FBBF24" : "#D97706",
       icon: <CookieOutlinedIcon sx={{ fontSize: 22 }} />,
     };
   }
   if (lower.includes("controller")) {
     return {
-      bg: "#DCFCE7",
-      color: "#16A34A",
+      bg: isDarkMode ? "rgba(22, 163, 74, 0.2)" : "#DCFCE7",
+      color: isDarkMode ? "#4ADE80" : "#16A34A",
       icon: <SettingsOutlinedIcon sx={{ fontSize: 22 }} />,
     };
   }
   if (lower.includes("processor") || lower.includes("provider")) {
     return {
-      bg: "#FCE7F3",
-      color: "#DB2777",
+      bg: isDarkMode ? "rgba(219, 39, 119, 0.2)" : "#FCE7F3",
+      color: isDarkMode ? "#F472B6" : "#DB2777",
       icon: <GroupsOutlinedIcon sx={{ fontSize: 22 }} />,
     };
   }
   if (lower.includes("subject") || lower.includes("user")) {
     return {
-      bg: "#EDE9FE",
-      color: "#6366F1",
+      bg: isDarkMode ? "rgba(99, 102, 241, 0.2)" : "#EDE9FE",
+      color: isDarkMode ? "#818CF8" : "#6366F1",
       icon: <ShieldOutlinedIcon sx={{ fontSize: 22 }} />,
     };
   }
   return {
-    bg: "#EFF6FF",
-    color: "#2563EB",
+    bg: isDarkMode ? "rgba(37, 99, 235, 0.2)" : "#EFF6FF",
+    color: isDarkMode ? "#ffffffff" : "#3772ff",
     icon: <ArticleOutlinedIcon sx={{ fontSize: 22 }} />,
   };
 };
 
 /**
- * Parses dynamic HTML description into structured sections (Introduction, Definitions, etc.)
- * while maintaining 100% dynamic content compatibility and preserving original HTML tags.
+ * Parses dynamic HTML description into structured sections while preserving
+ * 100% of the dynamic HTML content from the API.
  */
 const parseHtmlSections = (htmlContent) => {
   if (!htmlContent) return [];
 
-  // Split by <h3> tags while preserving delimiters
+  // Split by <h3> tags while preserving section boundaries
   const rawSections = htmlContent
     .split(/(?=<h3>)/i)
     .filter((s) => s.trim().length > 0);
@@ -105,7 +105,7 @@ const parseHtmlSections = (htmlContent) => {
     let sectionTitle = rawHeadingText;
     let isIntro = false;
 
-    // Detect if this is the introductory section (often includes "operates the" or first heading)
+    // Detect if this is the introductory section
     if (rawHeadingText.toLowerCase().includes("operates the") || idx === 0) {
       sectionTitle = "Introduction";
       isIntro = true;
@@ -122,12 +122,32 @@ const parseHtmlSections = (htmlContent) => {
       );
 
       // Pair terms with their explanations
-      const defs = [];
+      const rawDefs = [];
       for (let i = 0; i < pMatches.length; i += 2) {
         const term = pMatches[i];
         const defText = pMatches[i + 1] || "";
         if (term) {
-          defs.push({ term, defText });
+          rawDefs.push({ term, defText });
+        }
+      }
+
+      // If "Data Subject" and "User" are consecutive separate items, combine them to match reference card
+      const defs = [];
+      for (let i = 0; i < rawDefs.length; i++) {
+        const current = rawDefs[i];
+        const next = rawDefs[i + 1];
+        if (
+          current.term.toLowerCase().includes("data subject") &&
+          next &&
+          next.term.toLowerCase() === "user"
+        ) {
+          defs.push({
+            term: "Data Subject / User",
+            defText: `${current.defText} ${next.defText}`,
+          });
+          i++; // skip next since it's merged
+        } else {
+          defs.push(current);
         }
       }
 
@@ -160,6 +180,7 @@ const parseHtmlSections = (htmlContent) => {
 const PrivacyPolicy = () => {
   const privacyActions = useFooterActions();
   const DisclaimersList = useRecoilValue(PrivacyListAtom);
+  const isDarkMode = useRecoilValue(switchDarkModeAtom);
 
   useEffect(() => {
     const response = privacyActions.PrivacyList();
@@ -177,21 +198,25 @@ const PrivacyPolicy = () => {
       to="/"
       key="1"
       style={{
-        color: "#64748B",
+        color: isDarkMode ? "#94A3B8" : "#64748B",
         textDecoration: "none",
         fontWeight: 500,
         fontSize: "0.875rem",
         transition: "color 0.2s ease",
       }}
-      onMouseEnter={(e) => (e.target.style.color = "#2563EB")}
-      onMouseLeave={(e) => (e.target.style.color = "#64748B")}
+      onMouseEnter={(e) =>
+        (e.target.style.color = isDarkMode ? "#60A5FA" : "#2563EB")
+      }
+      onMouseLeave={(e) =>
+        (e.target.style.color = isDarkMode ? "#94A3B8" : "#64748B")
+      }
     >
       Home
     </Link>,
     <Typography
       key="3"
       sx={{
-        color: "#0F172A",
+        color: isDarkMode ? "#FFFFFF !important" : "#0F172A !important",
         fontWeight: 600,
         fontSize: "0.875rem",
         fontFamily: "'Poppins', sans-serif",
@@ -218,12 +243,14 @@ const PrivacyPolicy = () => {
     <ThemeProvider theme={theme}>
       <Box
         component="main"
-        className="extra-wrapper subscription-wrapper bredcrum-div"
+        className="subscription-wrapper bredcrum-div"
         sx={{
           mt: { xs: 8, md: 10 },
-          pb: 10,
-          backgroundColor: "#FAFCFF",
+          pb: 12,
+          backgroundColor: isDarkMode ? "#0E1015" : "#F8FAFC",
+          color: isDarkMode ? "#F1F5F9" : "#334155",
           minHeight: "100vh",
+          transition: "background-color 0.3s ease, color 0.3s ease",
         }}
       >
         <Container maxWidth="lg">
@@ -236,12 +263,15 @@ const PrivacyPolicy = () => {
               alignItems: "center",
             }}
           >
-            <Box className="about-bread">
+            <Box>
               <Breadcrumbs
                 separator={
                   <NavigateNext
                     fontSize="small"
-                    sx={{ color: "#94A3B8", fontSize: "1.1rem" }}
+                    sx={{
+                      color: isDarkMode ? "#64748B" : "#94A3B8",
+                      fontSize: "1.1rem",
+                    }}
                   />
                 }
                 aria-label="breadcrumb"
@@ -258,12 +288,17 @@ const PrivacyPolicy = () => {
               position: "relative",
               overflow: "hidden",
               borderRadius: { xs: "20px", md: "28px" },
-              background:
-                "radial-gradient(ellipse at 85% 35%, rgba(219, 234, 254, 0.6) 0%, rgba(243, 232, 255, 0.4) 35%, rgba(248, 250, 252, 0.1) 70%), linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%)",
-              border: "1px solid #E2E8F0",
+              background: isDarkMode
+                ? "radial-gradient(ellipse at 85% 35%, rgba(59, 130, 246, 0.18) 0%, rgba(139, 92, 246, 0.12) 40%, rgba(15, 23, 42, 0.2) 75%), linear-gradient(135deg, #151824 0%, #12141F 50%, #161526 100%)"
+                : "linear-gradient(135deg, #fff4c0 0%, #ffffff 45%, #fff3bb 100%)",
+              border: isDarkMode
+                ? "1px solid rgba(255, 255, 255, 0.08)"
+                : "1px solid #E2E8F0",
               p: { xs: 3, sm: 4, md: 6 },
               mb: 4,
-              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.02)",
+              boxShadow: isDarkMode
+                ? "0 4px 24px rgba(0, 0, 0, 0.4)"
+                : "0 4px 24px rgba(0, 0, 0, 0.02)",
             }}
           >
             <Grid
@@ -277,11 +312,9 @@ const PrivacyPolicy = () => {
                 <Typography
                   component="h1"
                   sx={{
-                    fontFamily: "'Poppins', sans-serif",
                     fontSize: { xs: "2.4rem", sm: "3.2rem", md: "3.75rem" },
-                    fontWeight: 800,
-                    lineHeight: 1.15,
-                    color: "#0F172A",
+                    fontWeight: '600 !important',
+                    color: isDarkMode ? "#FFFFFF" : "#0F172A",
                     letterSpacing: "-0.025em",
                     mb: 2,
                   }}
@@ -290,11 +323,7 @@ const PrivacyPolicy = () => {
                   <Box
                     component="span"
                     sx={{
-                      color: "#2563EB",
-                      background:
-                        "linear-gradient(135deg, #2563EB 0%, #4F46E5 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
+                      color: "#EAB308",
                     }}
                   >
                     Policy
@@ -305,7 +334,7 @@ const PrivacyPolicy = () => {
                   sx={{
                     fontFamily: "'Poppins', sans-serif",
                     fontSize: { xs: "0.95rem", sm: "1.05rem", md: "1.1rem" },
-                    color: "#475569",
+                    color: isDarkMode ? "#94A3B8" : "#475569",
                     lineHeight: 1.65,
                     maxWidth: "540px",
                     mb: formattedDate ? 2.5 : 0,
@@ -325,20 +354,29 @@ const PrivacyPolicy = () => {
                       px: 2,
                       py: 0.8,
                       borderRadius: "20px",
-                      background: "rgba(255, 255, 255, 0.85)",
+                      background: isDarkMode
+                        ? "rgba(30, 41, 59, 0.75)"
+                        : "rgba(255, 255, 255, 0.9)",
                       backdropFilter: "blur(8px)",
-                      border: "1px solid #E2E8F0",
+                      border: isDarkMode
+                        ? "1px solid rgba(255, 255, 255, 0.12)"
+                        : "1px solid #CBD5E1",
+                      boxShadow: "0 2px 6px rgba(0, 0, 0, 0.03)",
                     }}
                   >
                     <CalendarTodayOutlinedIcon
-                      sx={{ fontSize: 16, color: "#3B82F6" }}
+                      sx={{
+                        fontSize: 16,
+                        color: isDarkMode ? "#ffffffff" : "#3772ff",
+                      }}
                     />
                     <Typography
                       variant="body2"
                       sx={{
-                        fontWeight: 600,
+                        lineHeight: 1.20,
+                        fontWeight: 500,
                         fontSize: "0.875rem",
-                        color: "#1E293B",
+                        color: isDarkMode ? "#E2E8F0" : "#1E293B",
                         fontFamily: "'Poppins', sans-serif",
                       }}
                     >
@@ -365,10 +403,17 @@ const PrivacyPolicy = () => {
                   alt="The Coin Chain Privacy Protection"
                   sx={{
                     width: "100%",
-                    maxWidth: { xs: 340, sm: 440, md: 500 },
+                    maxWidth: { xs: 340, sm: 440, md: 520 },
                     height: "auto",
                     objectFit: "contain",
-                    filter: "drop-shadow(0 16px 32px rgba(37, 99, 235, 0.12))",
+                    borderRadius: "20px",
+                    WebkitMaskImage:
+                      "radial-gradient(ellipse 92% 92% at 50% 50%, black 72%, transparent 100%)",
+                    maskImage:
+                      "radial-gradient(ellipse 92% 92% at 50% 50%, black 72%, transparent 100%)",
+                    filter: isDarkMode
+                      ? "drop-shadow(0 12px 28px rgba(59, 130, 246, 0.25))"
+                      : "drop-shadow(0 12px 28px rgba(37, 99, 235, 0.12))",
                     transition: "transform 0.4s ease",
                     "&:hover": {
                       transform: "scale(1.02)",
@@ -383,10 +428,17 @@ const PrivacyPolicy = () => {
           <Box
             sx={{
               borderRadius: "20px",
-              background: "linear-gradient(135deg, #F0F6FF 0%, #F5F3FF 100%)",
-              border: "1px solid #E0EAFF",
+              background: isDarkMode
+                ? "linear-gradient(135deg, #151924 0%, #181C29 100%)"
+                : "linear-gradient(135deg, #EEF4FD 0%, #F3F5FC 100%)",
+              border: isDarkMode
+                ? "1px solid rgba(255, 255, 255, 0.08)"
+                : "1px solid #E0EAFF",
               p: { xs: 2.5, sm: 3, md: 3.5 },
               mb: 5,
+              boxShadow: isDarkMode
+                ? "0 4px 16px rgba(0, 0, 0, 0.2)"
+                : "none",
             }}
           >
             <Grid container spacing={3} alignItems="center">
@@ -405,8 +457,10 @@ const PrivacyPolicy = () => {
                       height: 48,
                       minWidth: 48,
                       borderRadius: "50%",
-                      bgcolor: "#DBEAFE",
-                      color: "#2563EB",
+                      bgcolor: isDarkMode
+                        ? "rgba(37, 99, 235, 0.2)"
+                        : "#DBEAFE",
+                      color: isDarkMode ? "#ffffffff" : "#3772ff",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -417,9 +471,9 @@ const PrivacyPolicy = () => {
                   <Box>
                     <Typography
                       sx={{
-                        fontWeight: 700,
+                        fontWeight: 600,
                         fontSize: "1.125rem",
-                        color: "#0F172A",
+                        color: isDarkMode ? "#FFFFFF" : "#0F172A",
                         mb: 0.5,
                         fontFamily: "'Poppins', sans-serif",
                       }}
@@ -429,7 +483,7 @@ const PrivacyPolicy = () => {
                     <Typography
                       sx={{
                         fontSize: "0.9rem",
-                        color: "#475569",
+                        color: isDarkMode ? "#94A3B8" : "#475569",
                         lineHeight: 1.55,
                         fontFamily: "'Poppins', sans-serif",
                       }}
@@ -447,7 +501,11 @@ const PrivacyPolicy = () => {
                 xs={12}
                 md={6}
                 sx={{
-                  borderLeft: { md: "1px solid #E0EAFF" },
+                  borderLeft: {
+                    md: isDarkMode
+                      ? "1px solid rgba(255, 255, 255, 0.08)"
+                      : "1px solid #D8E2F0",
+                  },
                   pt: { xs: 2, md: 0 },
                 }}
               >
@@ -464,8 +522,10 @@ const PrivacyPolicy = () => {
                       height: 48,
                       minWidth: 48,
                       borderRadius: "50%",
-                      bgcolor: "#DBEAFE",
-                      color: "#2563EB",
+                      bgcolor: isDarkMode
+                        ? "rgba(37, 99, 235, 0.2)"
+                        : "#DBEAFE",
+                      color: isDarkMode ? "#ffffffff" : "#3772ff",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -476,9 +536,9 @@ const PrivacyPolicy = () => {
                   <Box>
                     <Typography
                       sx={{
-                        fontWeight: 700,
+                        fontWeight: 600,
                         fontSize: "1.125rem",
-                        color: "#0F172A",
+                        color: isDarkMode ? "#FFFFFF" : "#0F172A",
                         mb: 0.5,
                         fontFamily: "'Poppins', sans-serif",
                       }}
@@ -488,7 +548,7 @@ const PrivacyPolicy = () => {
                     <Typography
                       sx={{
                         fontSize: "0.9rem",
-                        color: "#475569",
+                        color: isDarkMode ? "#94A3B8" : "#475569",
                         lineHeight: 1.55,
                         fontFamily: "'Poppins', sans-serif",
                       }}
@@ -519,8 +579,7 @@ const PrivacyPolicy = () => {
                         component="h2"
                         sx={{
                           fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" },
-                          fontWeight: 800,
-                          color: "#0F172A",
+                          color: isDarkMode ? "#FFFFFF" : "#0F172A",
                           letterSpacing: "-0.01em",
                           fontFamily: "'Poppins', sans-serif",
                           mb: 1,
@@ -534,26 +593,33 @@ const PrivacyPolicy = () => {
                           height: 4,
                           borderRadius: "2px",
                           background:
-                            "linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)",
+                            "linear-gradient(90deg, #3B82F6 0%, #8B5CF6 100%)",
                         }}
                       />
                     </Box>
                     <Box
                       className="privacy-policy-body"
                       sx={{
-                        color: "#334155",
+                        color: isDarkMode ? "#CBD5E1" : "#334155",
                         fontFamily: "'Poppins', sans-serif",
                         fontSize: "0.95rem",
                         lineHeight: 1.75,
-                        "& p": { mb: 2, color: "#334155", lineHeight: 1.75 },
+                        "& p": {
+                          mb: 2,
+                          color: isDarkMode ? "#CBD5E1" : "#334155",
+                          lineHeight: 1.75,
+                        },
                         "& a": {
-                          color: "#2563EB",
+                          color: isDarkMode ? "#ffffffff" : "#3772ff",
                           textDecoration: "none",
                           fontWeight: 500,
-                          "&:hover": { textDecoration: "underline" },
+                          "&:hover": {
+                            textDecoration: "underline",
+                            color: isDarkMode ? "#93C5FD" : "#1D4ED8",
+                          },
                         },
                         "& strong, & b": {
-                          color: "#0F172A",
+                          color: isDarkMode ? "#FFFFFF" : "#0F172A",
                           fontWeight: 600,
                         },
                       }}
@@ -577,7 +643,7 @@ const PrivacyPolicy = () => {
                                   md: "2.25rem",
                                 },
                                 fontWeight: 800,
-                                color: "#0F172A",
+                                color: isDarkMode ? "#FFFFFF" : "#0F172A",
                                 letterSpacing: "-0.01em",
                                 fontFamily: "'Poppins', sans-serif",
                                 mb: 1,
@@ -590,8 +656,7 @@ const PrivacyPolicy = () => {
                                 width: 48,
                                 height: 4,
                                 borderRadius: "2px",
-                                background:
-                                  "linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)",
+                                background: isDarkMode ? "linear-gradient(90deg, #b9c7ffff 0%, #ffffffff 100%)" : "linear-gradient(90deg, #3772ff 0%, #0435a8ff 100%)",
                               }}
                             />
                           </Box>
@@ -606,23 +671,26 @@ const PrivacyPolicy = () => {
                               <Box
                                 className="privacy-policy-body"
                                 sx={{
-                                  color: "#334155",
+                                  color: isDarkMode ? "#CBD5E1" : "#334155",
                                   fontFamily: "'Poppins', sans-serif",
                                   fontSize: "0.95rem",
                                   lineHeight: 1.75,
                                   "& p": {
                                     mb: 2,
-                                    color: "#334155",
+                                    color: isDarkMode ? "#CBD5E1" : "#334155",
                                     lineHeight: 1.75,
                                   },
                                   "& a": {
-                                    color: "#2563EB",
+                                    color: isDarkMode ? "#ffffffff" : "#3772ff",
                                     textDecoration: "none",
                                     fontWeight: 500,
-                                    "&:hover": { textDecoration: "underline" },
+                                    "&:hover": {
+                                      textDecoration: "underline",
+                                      color: isDarkMode ? "#93C5FD" : "#1D4ED8",
+                                    },
                                   },
                                   "& strong, & b": {
-                                    color: "#0F172A",
+                                    color: isDarkMode ? "#FFFFFF" : "#0F172A",
                                     fontWeight: 600,
                                   },
                                 }}
@@ -647,11 +715,23 @@ const PrivacyPolicy = () => {
                                 alt="Policy Document"
                                 sx={{
                                   width: "100%",
-                                  maxWidth: 220,
+                                  maxWidth: 270,
                                   height: "auto",
                                   objectFit: "contain",
-                                  filter:
-                                    "drop-shadow(0 12px 24px rgba(37, 99, 235, 0.12))",
+                                  borderRadius: "16px",
+                                  bgcolor: isDarkMode
+                                    ? "rgba(255, 255, 255, 0.04)"
+                                    : "transparent",
+                                  p: isDarkMode ? 1.5 : 0,
+                                  border: isDarkMode
+                                    ? "1px solid rgba(255, 255, 255, 0.08)"
+                                    : "none",
+                                  mixBlendMode: isDarkMode
+                                    ? "normal"
+                                    : "multiply",
+                                  filter: isDarkMode
+                                    ? "drop-shadow(0 12px 24px rgba(59, 130, 246, 0.2))"
+                                    : "drop-shadow(0 12px 24px rgba(37, 99, 235, 0.12))",
                                   transition: "transform 0.3s ease",
                                   "&:hover": {
                                     transform: "translateY(-4px)",
@@ -678,7 +758,7 @@ const PrivacyPolicy = () => {
                                   md: "2.25rem",
                                 },
                                 fontWeight: 800,
-                                color: "#0F172A",
+                                color: isDarkMode ? "#FFFFFF" : "#0F172A",
                                 letterSpacing: "-0.01em",
                                 fontFamily: "'Poppins', sans-serif",
                                 mb: 1,
@@ -692,33 +772,44 @@ const PrivacyPolicy = () => {
                                 height: 4,
                                 borderRadius: "2px",
                                 background:
-                                  "linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)",
+                                  "linear-gradient(90deg, #3B82F6 0%, #8B5CF6 100%)",
                               }}
                             />
                           </Box>
 
                           <Grid container spacing={2.5}>
                             {section.defs.map((def, defIdx) => {
-                              const badge = getDefinitionBadge(def.term);
+                              const badge = getDefinitionBadge(
+                                def.term,
+                                isDarkMode
+                              );
                               return (
                                 <Grid item xs={12} sm={6} md={4} key={defIdx}>
                                   <Box
                                     sx={{
                                       p: 2.5,
                                       borderRadius: "16px",
-                                      background: "#FFFFFF",
-                                      border: "1px solid #E2E8F0",
-                                      boxShadow:
-                                        "0 2px 10px rgba(0, 0, 0, 0.02)",
+                                      background: isDarkMode
+                                        ? "#161922"
+                                        : "#FFFFFF",
+                                      border: isDarkMode
+                                        ? "1px solid rgba(255, 255, 255, 0.08)"
+                                        : "1px solid #E2E8F0",
+                                      boxShadow: isDarkMode
+                                        ? "0 4px 16px rgba(0, 0, 0, 0.25)"
+                                        : "0 2px 10px rgba(0, 0, 0, 0.02)",
                                       display: "flex",
                                       gap: 2,
                                       alignItems: "flex-start",
                                       height: "100%",
                                       transition: "all 0.25s ease",
                                       "&:hover": {
-                                        boxShadow:
-                                          "0 8px 24px rgba(37, 99, 235, 0.08)",
-                                        borderColor: "#BFDBFE",
+                                        boxShadow: isDarkMode
+                                          ? "0 8px 24px rgba(59, 130, 246, 0.2)"
+                                          : "0 8px 24px rgba(37, 99, 235, 0.08)",
+                                        borderColor: isDarkMode
+                                          ? "rgba(59, 130, 246, 0.5)"
+                                          : "#BFDBFE",
                                         transform: "translateY(-2px)",
                                       },
                                     }}
@@ -743,7 +834,9 @@ const PrivacyPolicy = () => {
                                         sx={{
                                           fontWeight: 700,
                                           fontSize: "1rem",
-                                          color: "#0F172A",
+                                          color: isDarkMode
+                                            ? "#FFFFFF"
+                                            : "#0F172A",
                                           mb: 0.75,
                                           fontFamily: "'Poppins', sans-serif",
                                         }}
@@ -753,7 +846,9 @@ const PrivacyPolicy = () => {
                                       <Typography
                                         sx={{
                                           fontSize: "0.875rem",
-                                          color: "#475569",
+                                          color: isDarkMode
+                                            ? "#94A3B8"
+                                            : "#475569",
                                           lineHeight: 1.6,
                                           fontFamily: "'Poppins', sans-serif",
                                         }}
@@ -783,7 +878,7 @@ const PrivacyPolicy = () => {
                                 md: "2.25rem",
                               },
                               fontWeight: 800,
-                              color: "#0F172A",
+                              color: isDarkMode ? "#FFFFFF" : "#0F172A",
                               letterSpacing: "-0.01em",
                               fontFamily: "'Poppins', sans-serif",
                               mb: 1,
@@ -797,7 +892,7 @@ const PrivacyPolicy = () => {
                               height: 4,
                               borderRadius: "2px",
                               background:
-                                "linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)",
+                                "linear-gradient(90deg, #3B82F6 0%, #8B5CF6 100%)",
                             }}
                           />
                         </Box>
@@ -805,23 +900,26 @@ const PrivacyPolicy = () => {
                         <Box
                           className="privacy-policy-body"
                           sx={{
-                            color: "#334155",
+                            color: isDarkMode ? "#CBD5E1" : "#334155",
                             fontFamily: "'Poppins', sans-serif",
                             fontSize: "0.95rem",
                             lineHeight: 1.75,
                             "& p": {
                               mb: 2,
-                              color: "#334155",
+                              color: isDarkMode ? "#CBD5E1" : "#334155",
                               lineHeight: 1.75,
                             },
                             "& a": {
-                              color: "#2563EB",
+                              color: isDarkMode ? "#ffffffff" : "#3772ff",
                               textDecoration: "none",
                               fontWeight: 500,
-                              "&:hover": { textDecoration: "underline" },
+                              "&:hover": {
+                                textDecoration: "underline",
+                                color: isDarkMode ? "#93C5FD" : "#1D4ED8",
+                              },
                             },
                             "& strong, & b": {
-                              color: "#0F172A",
+                              color: isDarkMode ? "#FFFFFF" : "#0F172A",
                               fontWeight: 600,
                             },
                             "& ul, & ol": {
@@ -831,6 +929,7 @@ const PrivacyPolicy = () => {
                             "& li": {
                               mb: 0.75,
                               lineHeight: 1.6,
+                              color: isDarkMode ? "#CBD5E1" : "#334155",
                             },
                           }}
                         >

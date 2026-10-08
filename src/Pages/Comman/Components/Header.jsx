@@ -227,7 +227,7 @@ function Header(props) {
         <Box>
           <img onClick={() => { handleDrawerToggle(), navigate('/') }} src={logoSrc} alt='The Coin Chain' style={{ cursor: 'pointer', width: '170px' }} />
           <Box sx={{ paddingTop: { xs: '12px', sm: '60px' } }} className='mobile-menu'>
-            <Button variant='standard' className='nav-mobile-btn btn' onClick={() => { handleDrawerToggle(), navigate(RoutesName.Learn_Cypto) }}>Crypto</Button>
+            <Button variant='standard' className='nav-mobile-btn btn' onClick={() => { handleDrawerToggle(), navigate(RoutesName.User_Dashboard) }}>Crypto</Button>
             <Accordion className='submenu mobile-nav-dropdown'>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -299,12 +299,12 @@ function Header(props) {
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Price_Analysis); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
-                  <AnalyticsOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Price Analysis
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Price_Prediction); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
+                  <AnalyticsOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Price Prediction
                 </Typography>
-                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Price_Prediction); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
+                {/* <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Price_Prediction); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
                   <TrendingUpOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Cryptocurrency Price Prediction
-                </Typography>
+                </Typography> */}
                 <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Crypto_Stock_Price_Prediction); }} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', pt: 1 }}>
                   <TrendingUpOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Crypto Stock Price Prediction
                 </Typography>
@@ -394,7 +394,7 @@ function Header(props) {
             display: { sm: 'none' }, maxWidth: { xs: '150px', sm: '150px', lg: '180px' },
             pr: 2
           }}>
-            <img onClick={() => { navigate('/') }} src={logoSrc} alt='Coin Guru' style={{ cursor: 'pointer' }} />
+            <img onClick={() => { navigate('/') }} src={logoSrc} alt='TheCoinChain' style={{ cursor: 'pointer' }} />
 
           </Box>
           <IconButton

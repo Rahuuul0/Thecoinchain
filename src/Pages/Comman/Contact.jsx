@@ -118,17 +118,17 @@ const Contact = () => {
 
   useEffect(() => {
     const response = categoryActions.categoryList();
-    response?.then?.(() => {});
+    response?.then?.(() => { });
   }, []);
 
   useEffect(() => {
     const response = useContactAddActions.contactBlogList();
-    response?.then?.(() => {});
+    response?.then?.(() => { });
   }, []);
 
   useEffect(() => {
     const response = useContactAddActions.contactList();
-    response?.then?.(() => {});
+    response?.then?.(() => { });
   }, []);
 
   const imgLink = (data) => {
@@ -174,7 +174,7 @@ const Contact = () => {
           position: 'relative',
           overflow: 'hidden',
           pt: { xs: 4, sm: 6, md: 8 },
-          pb: { xs: 6, sm: 8, md: 10 },
+          pb: { xs: 6, sm: 6, md: 6 },
           background: isDarkMode
             ? `
               radial-gradient(circle at 95% 8%, rgba(79, 70, 229, 0.20) 0%, rgba(147, 51, 234, 0.12) 35%, transparent 60%),
@@ -218,7 +218,7 @@ const Contact = () => {
                       fontSize: '13px',
                       fontWeight: 700,
                       letterSpacing: '1.5px',
-                      color: isDarkMode ? '#818CF8' : '#4F46E5',
+                      color: isDarkMode ? '#3772ff' : '#3772ff',
                       textTransform: 'uppercase',
                       fontFamily: "'Poppins', sans-serif",
                     }}
@@ -231,8 +231,8 @@ const Contact = () => {
                       height: '2px',
                       borderRadius: '2px',
                       background: isDarkMode
-                        ? 'linear-gradient(90deg, #818CF8, rgba(129, 140, 248, 0.1))'
-                        : 'linear-gradient(90deg, #4F46E5, rgba(79, 70, 229, 0.1))',
+                        ? 'linear-gradient(90deg, #6b78eeff, rgba(129, 140, 248, 0.1))'
+                        : 'linear-gradient(90deg, #3772ff, rgba(79, 70, 229, 0.1))',
                     }}
                   />
                 </Box>
@@ -241,7 +241,7 @@ const Contact = () => {
                 <Typography
                   component="h1"
                   sx={{
-                    fontSize: { xs: '32px', sm: '42px', md: '48px' },
+                    fontSize: { xs: '32px !important', sm: '42px !important', md: '48px !important' },
                     fontWeight: 800,
                     lineHeight: 1.15,
                     color: isDarkMode ? '#FFFFFF' : '#0F172A',
@@ -611,7 +611,7 @@ const Contact = () => {
                     alt="The Coin Chain Crypto Graphic"
                     sx={{
                       width: '100%',
-                      maxWidth: { xs: '280px', sm: '320px', md: '360px' },
+                      maxWidth: { xs: '280px', sm: '420px', md: '560px' },
                       height: 'auto',
                       objectFit: 'contain',
                       filter: isDarkMode
@@ -654,7 +654,7 @@ const Contact = () => {
                   >
                     <SendRoundedIcon
                       sx={{
-                        color: isDarkMode ? '#818CF8' : '#4F46E5',
+                        color: isDarkMode ? '#ffffffff' : '#3772ff',
                         fontSize: 24,
                         transform: 'rotate(-25deg)',
                         ml: '2px',
@@ -664,9 +664,9 @@ const Contact = () => {
                   </Box>
                   <Box>
                     <Typography
-                      component="h2"
+                      component="h3"
                       sx={{
-                        fontSize: { xs: '22px', sm: '24px' },
+                        fontSize: { xs: '25px !important', sm: '28px !important' },
                         fontWeight: 700,
                         color: isDarkMode ? '#FFFFFF' : '#0F172A',
                         lineHeight: 1.25,
@@ -742,23 +742,23 @@ const Contact = () => {
                             borderColor: errors.email
                               ? '#EF4444'
                               : isDarkMode
-                              ? '#2E3344'
-                              : '#E2E8F0',
+                                ? '#2E3344'
+                                : '#E2E8F0',
                             borderWidth: '1.5px',
                           },
                           '&:hover fieldset': {
                             borderColor: errors.email
                               ? '#EF4444'
                               : isDarkMode
-                              ? '#475569'
-                              : '#CBD5E1',
+                                ? '#475569'
+                                : '#CBD5E1',
                           },
                           '&.Mui-focused fieldset': {
                             borderColor: errors.email
                               ? '#EF4444'
                               : isDarkMode
-                              ? '#818CF8'
-                              : '#4F46E5',
+                                ? '#818CF8'
+                                : '#4F46E5',
                             borderWidth: '1.5px',
                           },
                         },
@@ -827,23 +827,23 @@ const Contact = () => {
                             borderColor: errors.subject
                               ? '#EF4444'
                               : isDarkMode
-                              ? '#2E3344'
-                              : '#E2E8F0',
+                                ? '#2E3344'
+                                : '#E2E8F0',
                             borderWidth: '1.5px',
                           },
                           '&:hover fieldset': {
                             borderColor: errors.subject
                               ? '#EF4444'
                               : isDarkMode
-                              ? '#475569'
-                              : '#CBD5E1',
+                                ? '#475569'
+                                : '#CBD5E1',
                           },
                           '&.Mui-focused fieldset': {
                             borderColor: errors.subject
                               ? '#EF4444'
                               : isDarkMode
-                              ? '#818CF8'
-                              : '#4F46E5',
+                                ? '#818CF8'
+                                : '#4F46E5',
                             borderWidth: '1.5px',
                           },
                         },
@@ -912,23 +912,23 @@ const Contact = () => {
                             borderColor: errors.msg
                               ? '#EF4444'
                               : isDarkMode
-                              ? '#2E3344'
-                              : '#E2E8F0',
+                                ? '#2E3344'
+                                : '#E2E8F0',
                             borderWidth: '1.5px',
                           },
                           '&:hover fieldset': {
                             borderColor: errors.msg
                               ? '#EF4444'
                               : isDarkMode
-                              ? '#475569'
-                              : '#CBD5E1',
+                                ? '#475569'
+                                : '#CBD5E1',
                           },
                           '&.Mui-focused fieldset': {
                             borderColor: errors.msg
                               ? '#EF4444'
                               : isDarkMode
-                              ? '#818CF8'
-                              : '#4F46E5',
+                                ? '#818CF8'
+                                : '#4F46E5',
                             borderWidth: '1.5px',
                           },
                         },
@@ -965,7 +965,6 @@ const Contact = () => {
                       mb: 3,
                       display: 'flex',
                       justifyContent: 'flex-start',
-                      overflowX: 'auto',
                     }}
                   >
                     <ReCAPTCHA
@@ -997,7 +996,7 @@ const Contact = () => {
                     sx={{
                       height: '52px',
                       borderRadius: '14px',
-                      background: 'linear-gradient(135deg, #4F46E5 0%, #6366F1 100%)',
+                      background: 'linear-gradient(135deg, #566cff 0%, #5662ff 100%)',
                       color: '#FFFFFF',
                       fontSize: '16px',
                       fontWeight: 600,
@@ -1008,7 +1007,7 @@ const Contact = () => {
                         : '0 10px 22px -5px rgba(79, 70, 229, 0.45)',
                       transition: 'all 0.25s ease',
                       '&:hover': {
-                        background: 'linear-gradient(135deg, #4338CA 0%, #4F46E5 100%)',
+                        background: 'linear-gradient(135deg, #566cff 0%, #566cff 100%)',
                         boxShadow: isDarkMode
                           ? '0 14px 28px -5px rgba(99, 102, 241, 0.55)'
                           : '0 14px 28px -5px rgba(79, 70, 229, 0.55)',
@@ -1035,7 +1034,7 @@ const Contact = () => {
 
       {/* Learn Crypto Center Slider */}
       {contactBlogLists && contactBlogLists.length > 0 && (
-        <Container maxWidth="fluid" sx={{ padding: '0px !important', mt: 4 }}>
+        <Container maxWidth="fluid" sx={{ padding: '0px !important', mt: 0 }}>
           <Box paddingTop={5} className="newdesignbox swiper-styles">
             <Container maxWidth="xs">
               <Typography

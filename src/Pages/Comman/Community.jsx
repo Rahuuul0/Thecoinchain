@@ -67,7 +67,7 @@ const Community = () => {
 
                         <Box className='subscription-wrapper-head'>
                             <Typography component="h2" variant='h2'>
-                                Top Crypto Experts Reviews for 2026
+                                Top Crypto Experts Reviews for {dayjs().year()}
                             </Typography>
                         </Box>
                         <Box className="community-wrapper-inner">
@@ -99,7 +99,7 @@ const Community = () => {
                             })}
 
                         </Box>
-                        <Typography component='p' variant='p' className='small-caption' sx={{ mt: 3 }}> * Coin Guru accepts no liability for content of the comments or reviews made by the site users. The entire responsibility for the contents rests with the authors.</Typography>
+                        <Typography component='p' variant='p' className='small-caption' sx={{ mt: 3 }}> * TheCoinChain accepts no liability for content of the comments or reviews made by the site users. The entire responsibility for the contents rests with the authors.</Typography>
                     </Container>
                 </Box>
             </ThemeProvider>

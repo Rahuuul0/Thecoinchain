@@ -19,7 +19,7 @@ import { useRecoilValue } from "recoil";
 import ReactHtmlParser from "react-html-parser";
 import dayjs from "dayjs";
 
-import HeroCryptoImg from "../../../public/assets/images/privacy-hero-crypto.jpg";
+import HeroCryptoImg from "../../../public/assets/images/Privacy Policy.png";
 import DocBadgeImg from "../../../public/assets/images/privacy-doc-badge.jpg";
 
 /**

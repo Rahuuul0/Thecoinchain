@@ -20,7 +20,7 @@ import ReactHtmlParser from "react-html-parser";
 import dayjs from "dayjs";
 
 import HeroCryptoImg from "../../../public/assets/images/Privacy Policy.png";
-import DocBadgeImg from "../../../public/assets/images/privacy-doc-badge.jpg";
+import DocBadgeImg from "../../../public/assets/images/pr.png";
 
 /**
  * Dynamically resolves icon and badge color palette based on definition term and dark mode state.

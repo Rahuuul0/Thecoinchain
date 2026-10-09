@@ -406,7 +406,7 @@ const Contact = () => {
                           lineHeight: 1.3,
                         }}
                       >
-                        Indore, Madhya Pradesh, India
+                        Dubai Digital Park - Nadd Hessa - Dubai Silicon Oasis - Dubai - United Arab Emirates
                       </Typography>
                       <Typography
                         sx={{

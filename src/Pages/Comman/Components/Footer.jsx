@@ -110,7 +110,7 @@ const Footer = () => {
                   underline="none"
                   sx={{
                     display: 'inline-flex',
-                    alignItems: 'center',
+                    alignItems: 'self-start',
                     gap: 1.25,
                     color: 'var(--secondary-color) !important',
                     textDecoration: 'none !important',
@@ -188,7 +188,7 @@ const Footer = () => {
                   underline="none"
                   sx={{
                     display: 'inline-flex',
-                    alignItems: 'center',
+                    alignItems: 'self-start',
                     gap: 1.25,
                     color: 'var(--secondary-color) !important',
                     textDecoration: 'none !important',
@@ -215,7 +215,7 @@ const Footer = () => {
                   >
                     <Box
                       className="contact-icon-box"
-                      onClick={(e) => handleCopy(e, "123 Main Street, City, Country", "address", "Address copied to clipboard!")}
+                      onClick={(e) => handleCopy(e, "Dubai Digital Park - Nadd Hessa - Dubai Silicon Oasis - Dubai - United Arab Emirates", "address", "Address copied to clipboard!")}
                       role="button"
                       aria-label="Copy address"
                       sx={{
@@ -254,7 +254,7 @@ const Footer = () => {
                       lineHeight: 1.3,
                     }}
                   >
-                    123 Main Street, City, Country
+                    Dubai Digital Park - Nadd Hessa - Dubai Silicon Oasis - Dubai - United Arab Emirates
                   </Typography>
                 </Link>
               </Box>

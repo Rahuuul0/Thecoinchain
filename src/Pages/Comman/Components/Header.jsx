@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
-import { Box, Grid, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Accordion, AccordionDetails, AccordionSummary } from '@mui/material/';
+import { Box, CircularProgress, Grid, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Accordion, AccordionDetails, AccordionSummary } from '@mui/material/';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -51,12 +51,16 @@ function Header(props) {
   const LogoListAction = bannerListActions();
   const isDarkMode = useRecoilValue(switchDarkModeAtom);
   const LogoList = useRecoilValue(setLogoListAtom)
+  const [logoLoading, setLogoLoading] = useState(true);
 
   useEffect(() => {
     const response = LogoListAction.logoList();
     response.then((res) => { (res) })
   }, []);
 
+  useEffect(() => {
+    setLogoLoading(true);
+  }, [logoSrc]);
 
   const navItems = [
     {
@@ -394,8 +398,41 @@ function Header(props) {
             display: { sm: 'none' }, maxWidth: { xs: '150px', sm: '150px', lg: '180px' },
             pr: 2
           }}>
-            <img onClick={() => { navigate('/') }} src={logoSrc} alt='TheCoinChain' style={{ cursor: 'pointer' }} />
+            {logoLoading && (
+              <Box
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <CircularProgress
+                  size={24}
+                  thickness={4}
+                  sx={{ color: "#3772ff" }}
+                />
+              </Box>
+            )}
 
+            {logoSrc && (
+              <img
+                key={logoSrc}
+                onClick={() => { navigate('/') }}
+                src={logoSrc}
+                alt="The Coin Chain"
+                onLoad={() => setLogoLoading(false)}
+                onError={() => setLogoLoading(false)}
+                style={{
+                  width: "100%",
+                  maxHeight: "45px",
+                  objectFit: "contain",
+                  borderRadius: "15px",
+                  display: logoLoading ? "none" : "block",
+                }}
+              />
+            )}
           </Box>
           <IconButton
             color="inherit"
@@ -406,31 +443,61 @@ function Header(props) {
           >
             <MenuIcon />
           </IconButton>
+
           <Box
-            className='header-logo-border'
-            onClick={() => {
-              navigate("/");
-            }}
+            className="header-logo-border"
+            onClick={() => navigate("/")}
             sx={{
               flexGrow: 1,
               display: {
                 xs: "none",
                 sm: "block",
-                lineHeight: "100%",
-                flex: 1,
-                cursor: "pointer",
               },
-              maxWidth: { xs: '120px', sm: '150px', lg: '180px' },
-              pr: { xs: '4px', sm: '4px', lg: '16px', }
-              // borderRight: { xs: 'none', sm: '1px solid #E6E8EC' }
+              lineHeight: "100%",
+              flex: 1,
+              cursor: "pointer",
+              maxWidth: { xs: "120px", sm: "150px", lg: "180px" },
+              pr: { xs: "4px", sm: "4px", lg: "16px" },
+              height: "45px",
+              position: "relative",
             }}
           >
-            <img
-              src={logoSrc}
-              alt="the coin chain"
-              style={{ borderRadius: "15px" }}
-            />
+            {logoLoading && (
+              <Box
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <CircularProgress
+                  size={24}
+                  thickness={4}
+                  sx={{ color: "#3772ff" }}
+                />
+              </Box>
+            )}
+
+            {logoSrc && (
+              <img
+                key={logoSrc}
+                src={logoSrc}
+                alt="The Coin Chain"
+                onLoad={() => setLogoLoading(false)}
+                onError={() => setLogoLoading(false)}
+                style={{
+                  width: "100%",
+                  maxHeight: "45px",
+                  objectFit: "contain",
+                  borderRadius: "15px",
+                  display: logoLoading ? "none" : "block",
+                }}
+              />
+            )}
           </Box>
+
           <Box
             className=""
             sx={{

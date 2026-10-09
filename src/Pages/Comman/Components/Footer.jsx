@@ -274,9 +274,9 @@ const Footer = () => {
               <Box className="quick-links">
                 <Stack spacing={2}>
                   <RouterLink to={RoutesName.Prediction_Dashboard} >Price Forecast</RouterLink>
-                  <RouterLink to={RoutesName.Guides_Analysis} >Guides & Analysis</RouterLink>
+                  <RouterLink to={RoutesName.Latest_News}>Latest News</RouterLink>
+                  <RouterLink to={RoutesName.Crypto_Stock_Price_Prediction} >Stock Price Prediction</RouterLink>
                   <RouterLink to={RoutesName.Academy}>Academy</RouterLink>
-                  <RouterLink to={RoutesName.News_Promotions}>News & Promotions</RouterLink>
                   <RouterLink to={RoutesName.Subscription}>Subscription</RouterLink>
                 </Stack>
               </Box>

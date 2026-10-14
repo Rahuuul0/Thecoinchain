@@ -154,7 +154,7 @@ const MuiLatestNewsDashboardSection = () => {
       <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
           <Typography variant="h5" sx={{ fontSize: 25, fontWeight: 600, color: isDarkMode ? "#fff" : "#000000" }}>
-            Latest news
+            Latest News
           </Typography>
           {news.length > 3 && (
             <Button

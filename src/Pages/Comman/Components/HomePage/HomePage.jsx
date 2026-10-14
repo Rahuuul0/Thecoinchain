@@ -1347,7 +1347,7 @@ const Home = () => {
               access to the most precise short and long-term predictions of
               cryptocurrency prices.
             </Typography>
-            <Button
+            {/* <Button
               sx={{ display: { xs: "block", sm: "none", md: "none" } }}
               className="btn btn-outlined-secondary mobile-none"
               onClick={() => {
@@ -1355,7 +1355,7 @@ const Home = () => {
               }}
             >
               Learn more
-            </Button>
+            </Button> */}
           </Box>
           {/* <Stack
             direction="row"

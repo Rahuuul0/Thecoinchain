@@ -732,7 +732,7 @@ function Header(props) {
               {isDarkMode ? <WbSunnyOutlined sx={{ fontSize: 22 }} /> : <BedtimeIcon sx={{ fontSize: 22 }} />}
             </IconButton>
 
-            <Button
+            {/* <Button
               onClick={() => {
                 navigate("/create-account");
               }}
@@ -754,8 +754,8 @@ function Header(props) {
               }}
             >
               Sign up
-            </Button>
-            <Button
+            </Button> */}
+            {/* <Button
               onClick={() => {
                 navigate("/login");
               }}
@@ -779,7 +779,7 @@ function Header(props) {
               }}
             >
               Login
-            </Button>
+            </Button> */}
           </Box>
         </Toolbar>
       </AppBar>

@@ -95,7 +95,7 @@ const Footer = () => {
       <Container>
         <Box>
           <Grid container sx={{ justifyContent: 'space-between' }}>
-            <Grid item xs={12} sm={12} md={2} paddingTop={{ xs: 4, sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
+            <Grid item xs={12} sm={12} md={2.3} lg={2.1} paddingTop={{ xs: 4, sm: 8, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} paddingRight={{ xs: 0, md: 1 }}>
               <Button sx={{ padding: 0, width: { xs: '250px', sm: '250px', md: 'auto' } }} onClick={() => { navigate(RoutesName.User_Dashboard); }}>
                 <img
                   src={logoSrc}
@@ -259,29 +259,146 @@ const Footer = () => {
                 </Link>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} className='footer-col' paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 0, sm: 0, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }} >
+            <Grid
+              item
+              xs={6}
+              sm={3}
+              md={1.6}
+              lg={1.6}
+              className='footer-col'
+              paddingLeft={{ xs: 1.5, sm: 2, md: 1.5, lg: 2 }}
+              paddingRight={{ xs: 1.5, sm: 2, md: 0.5, lg: 1 }}
+              paddingTop={{ xs: 3, sm: 3, md: 8 }}
+              paddingBottom={{ xs: 3, sm: 3, md: 8 }}
+            >
+              <Typography
+                variant='h6'
+                paddingBottom={3}
+                fontWeight="700"
+                textTransform='uppercase'
+                fontSize='16px !important'
+                fontFamily="var(--secondary-font) !important"
+              >
+                News
+              </Typography>
               <Box className="quick-links">
-                <Stack spacing={2}>
-                  <RouterLink to={RoutesName.Contact_Us}>Contacts</RouterLink>
-                  <RouterLink to={RoutesName.Privacy_Policy}>Privacy Policy</RouterLink>
-                  <RouterLink to={RoutesName.Terms_of_Use}>Terms of use</RouterLink>
-                  <RouterLink to={RoutesName.Disclaimer}>Disclaimers</RouterLink>
-                  <RouterLink to={RoutesName.Community}>Join our community</RouterLink>
-                </Stack>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={12} md={3} className='footer-col' paddingLeft={{ md: 5, sm: 2 }} paddingRight={{ md: 5, sm: 2 }} paddingTop={{ xs: 3, sm: 3, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }}   >
-              <Box className="quick-links">
-                <Stack spacing={2}>
-                  <RouterLink to={RoutesName.Prediction_Dashboard} >Price Forecast</RouterLink>
+                <Stack spacing={2} sx={{ '& a': { whiteSpace: { lg: 'nowrap' } } }}>
                   <RouterLink to={RoutesName.Latest_News}>Latest News</RouterLink>
-                  <RouterLink to={RoutesName.Crypto_Stock_Price_Prediction} >Stock Price Prediction</RouterLink>
-                  <RouterLink to={RoutesName.Academy}>Academy</RouterLink>
-                  <RouterLink to={RoutesName.Subscription}>Subscription</RouterLink>
+                  <RouterLink to={RoutesName.Bitcoin}>Bitcoin</RouterLink>
+                  <RouterLink to={RoutesName.Ethereum}>Ethereum</RouterLink>
+                  <RouterLink to={RoutesName.Altcoin}>Altcoin</RouterLink>
+                  <RouterLink to={RoutesName.Global_News}>Global News</RouterLink>
                 </Stack>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} className='footer-col' paddingLeft={{ md: 5, sm: 2 }} paddingTop={{ xs: 3, sm: 3, md: 8 }} paddingBottom={{ xs: 3, sm: 3, md: 8 }}   >
+
+            <Grid
+              item
+              xs={6}
+              sm={3}
+              md={2.1}
+              lg={2.1}
+              className='footer-col'
+              paddingLeft={{ xs: 1.5, sm: 2, md: 1.5, lg: 2 }}
+              paddingRight={{ xs: 1.5, sm: 2, md: 0.5, lg: 1 }}
+              paddingTop={{ xs: 3, sm: 3, md: 8 }}
+              paddingBottom={{ xs: 3, sm: 3, md: 8 }}
+            >
+              <Typography
+                variant='h6'
+                paddingBottom={3}
+                fontWeight="700"
+                textTransform='uppercase'
+                fontSize='16px !important'
+                fontFamily="var(--secondary-font) !important"
+              >
+                Analysis
+              </Typography>
+              <Box className="quick-links">
+                <Stack spacing={2} sx={{ '& a': { whiteSpace: { lg: 'nowrap' } } }}>
+                  <RouterLink to={RoutesName.Price_Prediction}>Price Analysis</RouterLink>
+                  <RouterLink to={RoutesName.Crypto_Stock_Price_Prediction}>Stock Price Analysis</RouterLink>
+                  <RouterLink to={RoutesName.Bitcoin_Analysis}>Bitcoin Analysis</RouterLink>
+                  <RouterLink to={RoutesName.Ethereum_Analysis}>Ethereum Analysis</RouterLink>
+                  <RouterLink to={RoutesName.Memecoin_Analysis}>Memecoin Analysis</RouterLink>
+                </Stack>
+              </Box>
+            </Grid>
+
+            <Grid
+              item
+              xs={6}
+              sm={3}
+              md={1.6}
+              lg={1.6}
+              className='footer-col'
+              paddingLeft={{ xs: 1.5, sm: 2, md: 1.5, lg: 2 }}
+              paddingRight={{ xs: 1.5, sm: 2, md: 0.5, lg: 1 }}
+              paddingTop={{ xs: 3, sm: 3, md: 8 }}
+              paddingBottom={{ xs: 3, sm: 3, md: 8 }}
+            >
+              <Typography
+                variant='h6'
+                paddingBottom={3}
+                fontWeight="700"
+                textTransform='uppercase'
+                fontSize='16px !important'
+                fontFamily="var(--secondary-font) !important"
+              >
+                Information
+              </Typography>
+              <Box className="quick-links">
+                <Stack spacing={2} sx={{ '& a': { whiteSpace: { lg: 'nowrap' } } }}>
+                  <RouterLink to={RoutesName.Explain}>Explain</RouterLink>
+                  <RouterLink to={RoutesName.Finance}>Finance</RouterLink>
+                  <RouterLink to={RoutesName.Press_Release}>Press Release</RouterLink>
+                </Stack>
+              </Box>
+            </Grid>
+
+            <Grid
+              item
+              xs={6}
+              sm={3}
+              md={1.9}
+              lg={1.9}
+              className='footer-col'
+              paddingLeft={{ xs: 1.5, sm: 2, md: 1.5, lg: 2 }}
+              paddingRight={{ xs: 1.5, sm: 2, md: 0.5, lg: 1 }}
+              paddingTop={{ xs: 3, sm: 3, md: 8 }}
+              paddingBottom={{ xs: 3, sm: 3, md: 8 }}
+            >
+              <Typography
+                variant='h6'
+                paddingBottom={3}
+                fontWeight="700"
+                textTransform='uppercase'
+                fontSize='16px !important'
+                fontFamily="var(--secondary-font) !important"
+              >
+                Contact
+              </Typography>
+              <Box className="quick-links">
+                <Stack spacing={2} sx={{ '& a': { whiteSpace: { lg: 'nowrap' } } }}>
+                  <RouterLink to={RoutesName.Contact_Us}>Contact Us</RouterLink>
+                  <RouterLink to={RoutesName.Privacy_Policy}>Privacy Policy</RouterLink>
+                  <RouterLink to={RoutesName.Terms_of_Use}>Terms of Use</RouterLink>
+                  <RouterLink to={RoutesName.Disclaimer}>Disclaimers</RouterLink>
+                </Stack>
+              </Box>
+            </Grid>
+
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={2.5}
+              lg={2.7}
+              className='footer-col'
+              paddingLeft={{ xs: 1.5, sm: 2, md: 2, lg: 3 }}
+              paddingTop={{ xs: 3, sm: 3, md: 8 }}
+              paddingBottom={{ xs: 3, sm: 3, md: 8 }}
+            >
               <Box
                 noValidate
                 component="form"

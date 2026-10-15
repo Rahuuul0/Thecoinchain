@@ -355,28 +355,7 @@ function Header(props) {
               </AccordionDetails>
               <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Global_News); }} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}><PublicIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Global News</Typography>
             </Accordion>
-            <Accordion className='submenu mobile-nav-dropdown' sx={{ ...menuBorderTopSx, '&:before': { display: 'none !important' }, boxShadow: 'none' }}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel3a-content"
-                id="information-accordion"
-              >
-                <Button id="information-btn">
-                  Information
-                </Button>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Explain); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
-                  <MenuBookOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Expain
-                </Typography>
-                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Finance); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
-                  <AccountBalanceOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Finance
-                </Typography>
-                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Press_Release); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
-                  <CampaignOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Press Release
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
+
             <Accordion className='submenu mobile-nav-dropdown' sx={{ ...menuBorderTopSx, '&:before': { display: 'none !important' }, boxShadow: 'none' }}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -402,6 +381,29 @@ function Header(props) {
                 </Typography>
                 <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Memecoin_Analysis); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
                   <TrendingUpOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Memecoin Analysis
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+
+            <Accordion className='submenu mobile-nav-dropdown' sx={{ ...menuBorderTopSx, '&:before': { display: 'none !important' }, boxShadow: 'none' }}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel3a-content"
+                id="information-accordion"
+              >
+                <Button id="information-btn">
+                  Information
+                </Button>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Explain); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
+                  <MenuBookOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Expain
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Finance); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
+                  <AccountBalanceOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Finance
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Press_Release); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
+                  <CampaignOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Press Release
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -719,52 +721,6 @@ function Header(props) {
             <ul className="navItem">
               <li>
                 <Button
-                  id="information-positioned-button"
-                  aria-controls={informationOpen ? "information-positioned-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={informationOpen ? "true" : undefined}
-                  onClick={handleInformationClick}
-                  endIcon={<KeyboardArrowDown sx={{ color: isDarkMode ? '#FFFFFF !important' : '#141416 !important' }} />}
-                  sx={navBtnSx}
-                >
-                  Information
-                </Button>
-                <Menu
-                  className="dropdown-menu"
-                  id="information-positioned-menu"
-                  aria-labelledby="information-positioned-button"
-                  anchorEl={informationAnchorEl}
-                  open={informationOpen}
-                  sx={{ borderRadius: "12px" }}
-                  onClose={handleInformationClose}
-                  disableScrollLock={true}
-                >
-
-                  <MenuItem
-                    onClick={handleExplain}
-                    sx={{ borderBottom: "1px solid #E6E8EC" }}
-                  >
-                    <MenuBookOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
-                    Expain
-                  </MenuItem>
-
-                  <MenuItem onClick={handleFinance} sx={{ borderBottom: "1px solid #E6E8EC" }}>
-                    <AccountBalanceOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
-                    Finance
-                  </MenuItem>
-
-                  <MenuItem
-                    onClick={handlePressRelease}
-                  >
-                    <CampaignOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
-                    Press Release
-                  </MenuItem>
-                </Menu>
-              </li>
-            </ul>
-            <ul className="navItem">
-              <li>
-                <Button
                   id="analysis-positioned-button"
                   aria-controls={analysisOpen ? "analysis-positioned-menu" : undefined}
                   aria-haspopup="true"
@@ -825,6 +781,52 @@ function Header(props) {
                       sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
                     />
                     Memecoin Analysis
+                  </MenuItem>
+                </Menu>
+              </li>
+            </ul>
+            <ul className="navItem">
+              <li>
+                <Button
+                  id="information-positioned-button"
+                  aria-controls={informationOpen ? "information-positioned-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={informationOpen ? "true" : undefined}
+                  onClick={handleInformationClick}
+                  endIcon={<KeyboardArrowDown sx={{ color: isDarkMode ? '#FFFFFF !important' : '#141416 !important' }} />}
+                  sx={navBtnSx}
+                >
+                  Information
+                </Button>
+                <Menu
+                  className="dropdown-menu"
+                  id="information-positioned-menu"
+                  aria-labelledby="information-positioned-button"
+                  anchorEl={informationAnchorEl}
+                  open={informationOpen}
+                  sx={{ borderRadius: "12px" }}
+                  onClose={handleInformationClose}
+                  disableScrollLock={true}
+                >
+
+                  <MenuItem
+                    onClick={handleExplain}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <MenuBookOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Expain
+                  </MenuItem>
+
+                  <MenuItem onClick={handleFinance} sx={{ borderBottom: "1px solid #E6E8EC" }}>
+                    <AccountBalanceOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Finance
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={handlePressRelease}
+                  >
+                    <CampaignOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Press Release
                   </MenuItem>
                 </Menu>
               </li>

@@ -72,6 +72,14 @@ export const RoutesName = {
   tech: "/tech",
   Trending_News: "/trending-news",
   Profile_Detail: "/journalist-profile/:name",
+  Bitcoin: "/bitcoin",
+  Ethereum: "/ethereum",
+  Altcoin: "/altcoin",
+  Global_News: "/global-news",
+  Memecoin_Analysis: "/memecoin-analysis",
+  Ethereum_Analysis: "/ethereum-analysis",
+  Bitcoin_Analysis: "/bitcoin-analysis",
+  Explain: "/explain"
 };
 
 export const Apis = {

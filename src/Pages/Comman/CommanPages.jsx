@@ -151,6 +151,14 @@ const Customer = () => {
           <Route path={`academy`} exact element={<Academy />} />
           <Route path={`contentnotfound`} exact element={<ContentNotFound />} />
           <Route path={`unsubscribe`} exact element={<UnSubscribe />} />
+          <Route path={`${RoutesName.Bitcoin}`} exact element={<MuiCryptoNewsSection />} />
+          <Route path={`${RoutesName.Ethereum}`} exact element={<MuiCryptoNewsSection />} />
+          <Route path={`${RoutesName.Altcoin}`} exact element={<MuiCryptoNewsSection />} />
+          <Route path={`${RoutesName.Global_News}`} exact element={<MuiCryptoNewsSection />} />
+          <Route path={`${RoutesName.Memecoin_Analysis}`} exact element={<MuiCryptoNewsSection />} />
+          <Route path={`${RoutesName.Ethereum_Analysis}`} exact element={<MuiCryptoNewsSection />} />
+          <Route path={`${RoutesName.Bitcoin_Analysis}`} exact element={<MuiCryptoNewsSection />} />
+          <Route path={`${RoutesName.Explain}`} exact element={<MuiCryptoNewsSection />} />
 
           <Route
             path={`academy-about-crypto`}

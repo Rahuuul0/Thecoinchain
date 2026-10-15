@@ -98,63 +98,26 @@ const contentTypeConfig = {
     heading: 'Latest News',
     label: 'Latest News',
   },
-  information: {
-    type: 'information',
-    heading: 'Information',
-    label: 'Information',
-  },
-  'research-report': {
-    type: 'research_report',
-    heading: 'Research Report',
-    label: 'Research Report',
-  },
   'press-release': {
     type: 'press_release',
     heading: 'Press Release',
     label: 'Press Release',
-  },
-  'guest-post': {
-    type: 'guest_post',
-    heading: 'Guest Post',
-    label: 'Guest Post',
-  },
-  sponsored: {
-    type: 'sponsored',
-    heading: 'Sponsored',
-    label: 'Sponsored',
   },
   'crypto-regulation': {
     type: 'crypto_regulation',
     heading: 'Crypto Regulation',
     label: 'Crypto Regulation',
   },
-  'price-analysis': {
-    type: 'price_analysis',
+  'price-prediction': {
+    type: 'price_prediction',
     heading: 'Price Analysis',
     label: 'Price Analysis',
   },
-  'price-prediction': {
-    type: 'price_prediction',
-    heading: 'Price Prediction',
-    label: 'Price Prediction',
-  },
-  'stock-price-prediction': {
-    type: 'stock_price_prediction',
-    heading: 'Stock Price Prediction',
-    label: 'Stock Price Prediction',
-  },
   'crypto-stock-price-prediction': {
     type: 'stock_price_prediction',
-    heading: 'Stock Price Prediction',
-    label: 'Stock Price Prediction',
+    heading: 'Stock Price Analysis',
+    label: 'Stock Price Analysis',
   },
-  // Business/sector categories
-  market: {
-    type: 'market',
-    heading: 'Market',
-    label: 'Market',
-  },
-  // `market` is already used by the market-prices page, so news uses this URL.
   'market-news': {
     type: 'market',
     heading: 'Market',
@@ -165,20 +128,50 @@ const contentTypeConfig = {
     heading: 'Finance',
     label: 'Finance',
   },
-  policy: {
-    type: 'policy',
-    heading: 'Policy',
-    label: 'Policy',
-  },
-  tech: {
-    type: 'tech',
-    heading: 'Tech',
-    label: 'Tech',
-  },
   'trending-news': {
     type: 'trending_news',
     heading: 'Trending News',
     label: 'Trending News',
+  },
+  'bitcoin': {
+    type: 'bitcoin',
+    heading: 'Bitcoin',
+    label: 'Bitcoin',
+  },
+  'ethereum': {
+    type: 'ethereum',
+    heading: 'Ethereum',
+    label: 'Ethereum',
+  },
+  'altcoin': {
+    type: 'altcoin',
+    heading: 'Altcoin',
+    label: 'Altcoin',
+  },
+  'global-news': {
+    type: 'global_news',
+    heading: 'Global News',
+    label: 'Global News',
+  },
+  'memecoin-analysis': {
+    type: 'memecoin_analysis',
+    heading: 'Memecoin Analysis',
+    label: 'Memecoin Analysis',
+  },
+  'ethereum-analysis': {
+    type: 'ethereum_analysis',
+    heading: 'Ethereum Analysis',
+    label: 'Ethereum Analysis',
+  },
+  'bitcoin-analysis': {
+    type: 'bitcoin_analysis',
+    heading: 'Bitcoin Analysis',
+    label: 'Bitcoin Analysis',
+  },
+  'explain': {
+    type: 'explain',
+    heading: 'Explain',
+    label: 'Explain',
   }
 };
 

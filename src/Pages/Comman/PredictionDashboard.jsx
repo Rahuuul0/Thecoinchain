@@ -73,7 +73,7 @@ const PredictionDashboard = () => {
                 }}
               >
                 <Typography component="h4" variant="h4" sx={{ fontWeight: 700, m: 0 }}>
-                  Cryptocurrency Prediction
+                  Cryptocurrency Market Cap
                 </Typography>
                 <TextField
                   size="small"

@@ -22,14 +22,23 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import galleryImage from '../../../../public/assets/images/icons/gallery.svg';
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin';
+import TollIcon from '@mui/icons-material/Toll';
+import InsertEmoticonOutlinedIcon from "@mui/icons-material/InsertEmoticonOutlined";
+import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
-import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
+import PublicIcon from '@mui/icons-material/Public';
+import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
 import AnalyticsOutlinedIcon from "@mui/icons-material/AnalyticsOutlined";
 import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
+import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
+import PrivacyTipOutlinedIcon from "@mui/icons-material/PrivacyTipOutlined";
+import GavelOutlinedIcon from "@mui/icons-material/GavelOutlined";
+import ReportProblemOutlinedIcon from "@mui/icons-material/ReportProblemOutlined";
 import { KeyboardArrowDown, WbSunnyOutlined, Search } from '@mui/icons-material/';
 import USA from '../../../../public/assets/images/icons/usa.svg';
 import japan from '../../../../public/assets/images/icons/japan.svg';
@@ -64,19 +73,14 @@ function Header(props) {
 
   const navItems = [
     {
-      page: "Community",
-      icon: "",
-      link: "/community",
-    },
-    {
-      page: "Prediction",
-      icon: "",
-      link: "/prediction-dashboard",
-    },
-    {
-      page: 'Market',
+      page: 'Learn crypto',
       icon: '',
-      link: '/market',
+      link: RoutesName.Learn_Cypto,
+    },
+    {
+      page: 'Markets',
+      icon: '',
+      link: RoutesName.Prediction_Dashboard,
     },
   ];
 
@@ -111,6 +115,22 @@ function Header(props) {
     setNewsAnchorEl(null);
     navigate(RoutesName.Latest_News);
   };
+  const handleBitcoinNews = () => {
+    setNewsAnchorEl(null);
+    navigate(RoutesName.Bitcoin);
+  };
+  const handleEthereumNews = () => {
+    setNewsAnchorEl(null);
+    navigate(RoutesName.Ethereum);
+  };
+  const handleAltcoinNews = () => {
+    setNewsAnchorEl(null);
+    navigate(RoutesName.Altcoin);
+  };
+  const handleGlobalNews = () => {
+    setNewsAnchorEl(null);
+    navigate(RoutesName.Global_News);
+  };
 
   const [informationAnchorEl, setInformationAnchorEl] = React.useState(null);
   const informationOpen = Boolean(informationAnchorEl);
@@ -120,12 +140,11 @@ function Header(props) {
   const handleInformationClose = () => {
     setInformationAnchorEl(null);
   };
-  const handleLatestInformation = () => {
-    setInformationAnchorEl(null);
-    navigate(RoutesName.Information);
-  };
   const [analysisAnchorEl, setAnalysisAnchorEl] = React.useState(null);
   const analysisOpen = Boolean(analysisAnchorEl);
+
+  const [contactAnchorEl, setContactAnchorEl] = React.useState(null);
+  const contactOpen = Boolean(contactAnchorEl);
 
   const handleAnalysisClick = (event) => {
     setAnalysisAnchorEl(event.currentTarget);
@@ -135,25 +154,57 @@ function Header(props) {
     setAnalysisAnchorEl(null);
   };
 
+  const handleContactClick = (event) => {
+    setContactAnchorEl(event.currentTarget);
+  };
+
+  const handleContactClose = () => {
+    setContactAnchorEl(null);
+  };
+
+  const handleContactUs = () => {
+    setContactAnchorEl(null);
+    navigate(RoutesName.Contact_Us);
+  };
+
+  const handleTermsOfUse = () => {
+    setContactAnchorEl(null);
+    navigate(RoutesName.Terms_of_Use);
+  };
+
+  const handlePrivacyPolicy = () => {
+    setContactAnchorEl(null);
+    navigate(RoutesName.Privacy_Policy);
+  };
+
+  const handleDisclaimer = () => {
+    setContactAnchorEl(null);
+    navigate(RoutesName.Disclaimer);
+  };
+
   const handlePriceAnalysis = () => {
     setAnalysisAnchorEl(null);
     navigate(RoutesName.Price_Prediction);
   };
-
-  const handlePricePrediction = () => {
-    setAnalysisAnchorEl(null);
-    navigate(RoutesName.Price_Prediction);
-  };
-
 
   const handleStockPricePrediction = () => {
     setAnalysisAnchorEl(null);
     navigate(RoutesName.Crypto_Stock_Price_Prediction);
   };
 
-  const handleResearchReport = () => {
-    setInformationAnchorEl(null);
-    navigate(RoutesName.Research_Report);
+  const handleBitcoinAnalysis = () => {
+    setAnalysisAnchorEl(null);
+    navigate(RoutesName.Bitcoin_Analysis);
+  };
+
+  const handleEthereumAnalysis = () => {
+    setAnalysisAnchorEl(null);
+    navigate(RoutesName.Ethereum_Analysis);
+  };
+
+  const handleMemecoinAnalysis = () => {
+    setAnalysisAnchorEl(null);
+    navigate(RoutesName.Memecoin_Analysis);
   };
 
   const handlePressRelease = () => {
@@ -161,19 +212,14 @@ function Header(props) {
     navigate(RoutesName.Press_Release);
   };
 
-  const handleGuestPost = () => {
+  const handleExplain = () => {
     setInformationAnchorEl(null);
-    navigate(RoutesName.Guest_Post);
+    navigate(RoutesName.Explain);
   };
 
-  const handleSponsored = () => {
+  const handleFinance = () => {
     setInformationAnchorEl(null);
-    navigate(RoutesName.Sponsored);
-  };
-
-  const handleCryptoRegulation = () => {
-    setInformationAnchorEl(null);
-    navigate(RoutesName.Crypto_Regulation);
+    navigate(RoutesName.Finance);
   };
 
   const [anchorElB, setAnchorElB] = React.useState(null);
@@ -224,15 +270,41 @@ function Header(props) {
     : selectedLogo?.image_link || "";
 
 
+  const menuBorderTopSx = {
+    borderTop: isDarkMode ? '1px solid rgba(255,255,255,0.1) !important' : '1px solid #E6E8EC !important',
+  };
+
   const drawer = (
     <>
       <Box className='mobile-nav-box mobile-navbar' sx={{ padding: { xs: '20px', md: '10px' }, width: '100%' }}>
         <Box className='close-btn' sx={{ cursor: 'pointer' }} onClick={handleDrawerToggle}><p>+</p></Box>
         <Box>
-          <img onClick={() => { handleDrawerToggle(), navigate('/') }} src={logoSrc} alt='The Coin Chain' style={{ cursor: 'pointer', width: '170px' }} />
+          <img
+            onClick={() => {
+              handleDrawerToggle();
+              navigate('/');
+            }}
+            src={logoSrc}
+            alt="The Coin Chain"
+            style={{ cursor: 'pointer', width: '170px' }}
+          />
+          <IconButton onClick={handleDarkMode} aria-label="sunny" className='theme-selector theme-mode-switcher' color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
           <Box sx={{ paddingTop: { xs: '12px', sm: '60px' } }} className='mobile-menu'>
-            <Button variant='standard' className='nav-mobile-btn btn' onClick={() => { handleDrawerToggle(), navigate(RoutesName.User_Dashboard) }}>Crypto</Button>
-            <Accordion className='submenu mobile-nav-dropdown'>
+            <Button
+              variant='standard'
+              className='nav-mobile-btn btn'
+              onClick={() => { handleDrawerToggle(), navigate(RoutesName.User_Dashboard) }}
+              sx={{
+                // ...menuBorderTopSx,
+                width: '100%',
+                justifyContent: 'flex-start',
+                borderRadius: 0,
+                py: 1,
+              }}
+            >
+              Crypto
+            </Button>
+            {/* <Accordion className='submenu mobile-nav-dropdown'>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
@@ -246,8 +318,19 @@ function Header(props) {
                 <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Academy_about_crypto); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}><img className='gallery-menu-icon' src={galleryImage} alt="" /> All About Crypto </Typography>
                 <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Master_Course); }} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', pt: 1 }}><img className='gallery-menu-icon' src={galleryImage} alt="" /> Master Course</Typography>
               </AccordionDetails>
-            </Accordion>
-            <Accordion className='submenu mobile-nav-dropdown'>
+            </Accordion> */}
+            <Accordion
+              className='submenu mobile-nav-dropdown'
+              sx={{
+                ...menuBorderTopSx,
+                '&:before': {
+                  display: 'block !important',
+                  opacity: '1 !important',
+                  backgroundColor: isDarkMode ? 'rgba(255,255,255,0.1) !important' : '#E6E8EC !important',
+                },
+                boxShadow: 'none',
+              }}
+            >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2a-content"
@@ -258,10 +341,21 @@ function Header(props) {
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Latest_News); }} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}><ArticleOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Latest News</Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Latest_News); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}><ArticleOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Latest News</Typography>
               </AccordionDetails>
+              <AccordionDetails>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Bitcoin); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}><CurrencyBitcoinIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Bitcoin</Typography>
+
+              </AccordionDetails>
+              <AccordionDetails>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Ethereum); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}><PaidOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Ethereum</Typography>
+              </AccordionDetails>
+              <AccordionDetails>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Altcoin); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}><TollIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Altcoin</Typography>
+              </AccordionDetails>
+              <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Global_News); }} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}><PublicIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Global News</Typography>
             </Accordion>
-            <Accordion className='submenu mobile-nav-dropdown'>
+            <Accordion className='submenu mobile-nav-dropdown' sx={{ ...menuBorderTopSx, '&:before': { display: 'none !important' }, boxShadow: 'none' }}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel3a-content"
@@ -272,27 +366,18 @@ function Header(props) {
                 </Button>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Information); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
-                  <InfoOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Information
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Explain); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
+                  <MenuBookOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Expain
                 </Typography>
-                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Research_Report); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
-                  <DescriptionOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Research Report
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Finance); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
+                  <AccountBalanceOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Finance
                 </Typography>
                 <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Press_Release); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
                   <CampaignOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Press Release
                 </Typography>
-                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Guest_Post); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
-                  <EditNoteOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Guest Post
-                </Typography>
-                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Sponsored); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
-                  <PaidOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Sponsored
-                </Typography>
-                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Crypto_Regulation); }} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', pt: 1 }}>
-                  <GavelOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Crypto Regulation
-                </Typography>
               </AccordionDetails>
             </Accordion>
-            <Accordion className='submenu mobile-nav-dropdown'>
+            <Accordion className='submenu mobile-nav-dropdown' sx={{ ...menuBorderTopSx, '&:before': { display: 'none !important' }, boxShadow: 'none' }}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel4a-content"
@@ -304,13 +389,19 @@ function Header(props) {
               </AccordionSummary>
               <AccordionDetails>
                 <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Price_Prediction); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
-                  <AnalyticsOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Price Prediction
+                  <AnalyticsOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Price Analysis
                 </Typography>
-                {/* <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Price_Prediction); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1, pt: 1 }}>
-                  <TrendingUpOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Cryptocurrency Price Prediction
-                </Typography> */}
-                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Crypto_Stock_Price_Prediction); }} sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', pt: 1 }}>
-                  <TrendingUpOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Crypto Stock Price Prediction
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Crypto_Stock_Price_Prediction); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
+                  <TrendingUpOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Stock Price Analysis
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Bitcoin_Analysis); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
+                  <TrendingUpOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Bitcoin Analysis
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Ethereum_Analysis); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
+                  <TrendingUpOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Ethereum Analysis
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Memecoin_Analysis); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
+                  <TrendingUpOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Memecoin Analysis
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -318,7 +409,7 @@ function Header(props) {
             <List sx={{ padding: '0px' }}>
               {navItems.map((item, i) => {
                 return (
-                  <ListItem key={i} disablePadding>
+                  <ListItem key={i} disablePadding sx={menuBorderTopSx}>
                     <ListItemButton >
                       {item.icon &&
                         <img src={item.icon} alt={item.page} />
@@ -329,11 +420,36 @@ function Header(props) {
                 )
               })}
             </List>
-          </Box>
-        </Box>
-        <Box display='flex' justifyContent='space-between'>
-          {/* <Button variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', borderRadius: '90px' }}>Sign Up</Button> */}
-          {/* <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Login</Button> */}
+            <Accordion className='submenu mobile-nav-dropdown' sx={{ ...menuBorderTopSx, '&:before': { display: 'none !important' }, boxShadow: 'none' }}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel5a-content"
+                id="contact-accordion"
+              >
+                <Button id="contact-btn">
+                  Contact
+                </Button>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Contact_Us); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
+                  <ContactMailOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Contact Us
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Privacy_Policy); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
+                  <PrivacyTipOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Privacy Policy
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Terms_of_Use); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
+                  <GavelOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Terms Of Use
+                </Typography>
+                <Typography onClick={() => { handleDrawerToggle(); navigate(RoutesName.Disclaimer); }} sx={{ borderBottom: isDarkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E6E8EC', display: 'flex', alignItems: 'center', cursor: 'pointer', pb: 1 }}>
+                  <ReportProblemOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} /> Disclaimer
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </Box >
+        </Box >
+        {/* <Box display='flex' justifyContent='space-between'>
+          <Button variant="contained" className='btn btn-primary' sx={{ color: '#ffffff', backgroundColor: '#3772FF', borderRadius: '90px' }}>Sign Up</Button>
+          <Button variant="outlined" className='btn btn-outlined-secondary' sx={{ color: '#777e90', backgroundColor: 'transparent', border: '1px solid #777e90', borderRadius: '90px' }}>Login</Button>
           <Button
             onClick={() => {
               navigate("/create-account");
@@ -348,12 +464,12 @@ function Header(props) {
             Login</Button>
 
           <IconButton onClick={handleDarkMode} aria-label="sunny" className='theme-selector' color="primary " sx={{ border: '1px solid #777e90', borderRadius: '90px' }} ><WbSunnyOutlined /></IconButton>
-          {/* <IconButton className='mobile-search' aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton> */}
+          <IconButton className='mobile-search' aria-label="sunny" color="primary " sx={{}} ><Search /></IconButton>
 
 
-        </Box>
+        </Box> */}
 
-      </Box>
+      </Box >
     </>
   );
 
@@ -573,6 +689,30 @@ function Header(props) {
                     />
                     Latest News
                   </MenuItem>
+                  <MenuItem onClick={handleBitcoinNews} sx={{ borderBottom: "1px solid #E6E8EC" }}>
+                    <CurrencyBitcoinIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Bitcoin
+                  </MenuItem>
+                  <MenuItem onClick={handleEthereumNews} sx={{ borderBottom: "1px solid #E6E8EC" }}>
+                    <PaidOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Ethereum
+                  </MenuItem>
+                  <MenuItem onClick={handleAltcoinNews} sx={{ borderBottom: "1px solid #E6E8EC" }}>
+                    <TollIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Altcoin
+                  </MenuItem>
+                  <MenuItem onClick={handleGlobalNews} >
+                    <PublicIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Global News
+                  </MenuItem>
                 </Menu>
               </li>
             </ul>
@@ -599,49 +739,25 @@ function Header(props) {
                   onClose={handleInformationClose}
                   disableScrollLock={true}
                 >
-                  <MenuItem
-                    onClick={handleLatestInformation}
-                    sx={{ borderBottom: "1px solid #E6E8EC" }}
-                  >
-                    <InfoOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
-                    Information
-                  </MenuItem>
 
                   <MenuItem
-                    onClick={handleResearchReport}
+                    onClick={handleExplain}
                     sx={{ borderBottom: "1px solid #E6E8EC" }}
                   >
-                    <DescriptionOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
-                    Research Report
+                    <MenuBookOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Expain
+                  </MenuItem>
+
+                  <MenuItem onClick={handleFinance} sx={{ borderBottom: "1px solid #E6E8EC" }}>
+                    <AccountBalanceOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
+                    Finance
                   </MenuItem>
 
                   <MenuItem
                     onClick={handlePressRelease}
-                    sx={{ borderBottom: "1px solid #E6E8EC" }}
                   >
                     <CampaignOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
                     Press Release
-                  </MenuItem>
-
-                  <MenuItem
-                    onClick={handleGuestPost}
-                    sx={{ borderBottom: "1px solid #E6E8EC" }}
-                  >
-                    <EditNoteOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
-                    Guest Post
-                  </MenuItem>
-
-                  <MenuItem
-                    onClick={handleSponsored}
-                    sx={{ borderBottom: "1px solid #E6E8EC" }}
-                  >
-                    <PaidOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
-                    Sponsored
-                  </MenuItem>
-
-                  <MenuItem onClick={handleCryptoRegulation}>
-                    <GavelOutlinedIcon sx={{ fontSize: 18, mr: 1, color: "#777E90" }} />
-                    Crypto Regulation
                   </MenuItem>
                 </Menu>
               </li>
@@ -677,19 +793,38 @@ function Header(props) {
                     <AnalyticsOutlinedIcon
                       sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
                     />
-                    Price Prediction
+                    Price Analysis
                   </MenuItem>
-                  {/* <MenuItem onClick={handlePricePrediction}>
+
+                  <MenuItem onClick={handleStockPricePrediction}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}>
                     <TrendingUpOutlinedIcon
                       sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
                     />
-                    Cryptocurrency Price Prediction
-                  </MenuItem> */}
-                  <MenuItem onClick={handleStockPricePrediction}>
-                    <TrendingUpOutlinedIcon
+                    Stock Price Analysis
+                  </MenuItem>
+
+                  <MenuItem onClick={handleBitcoinAnalysis}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}>
+                    <CurrencyBitcoinIcon
                       sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
                     />
-                    Crypto Stock Price Prediction
+                    Bitcoin Analysis
+                  </MenuItem>
+
+                  <MenuItem onClick={handleEthereumAnalysis}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}>
+                    <PaidOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Ethereum Analysis
+                  </MenuItem>
+
+                  <MenuItem onClick={handleMemecoinAnalysis}>
+                    <InsertEmoticonOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Memecoin Analysis
                   </MenuItem>
                 </Menu>
               </li>
@@ -700,12 +835,74 @@ function Header(props) {
                   navigate(item.link);
                 }}
                 key={i}
-                sx={navBtnSx}
+                sx={{ ...navBtnSx, width: '145px' }}
               >
                 {item.icon && <img src={item.icon} alt={item.page} />}
                 {item.page}
               </Button>
             ))}
+
+            <ul className="navItem">
+              <li>
+                <Button
+                  id="contact-positioned-button"
+                  aria-controls={contactOpen ? "contact-positioned-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={contactOpen ? "true" : undefined}
+                  onClick={handleContactClick}
+                  endIcon={<KeyboardArrowDown sx={{ color: isDarkMode ? '#FFFFFF !important' : '#141416 !important' }} />}
+                  sx={navBtnSx}
+                >
+                  Contact
+                </Button>
+
+                <Menu
+                  className="dropdown-menu"
+                  id="contact-positioned-menu"
+                  aria-labelledby="contact-positioned-button"
+                  anchorEl={contactAnchorEl}
+                  open={contactOpen}
+                  sx={{ borderRadius: "12px" }}
+                  onClose={handleContactClose}
+                  disableScrollLock={true}
+                >
+                  <MenuItem
+                    onClick={handleContactUs}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <ContactMailOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Contact Us
+                  </MenuItem>
+
+                  <MenuItem onClick={handlePrivacyPolicy}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <PrivacyTipOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Privacy Policy
+                  </MenuItem>
+
+                  <MenuItem onClick={handleTermsOfUse}
+                    sx={{ borderBottom: "1px solid #E6E8EC" }}
+                  >
+                    <GavelOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Terms of Use
+                  </MenuItem>
+
+                  <MenuItem onClick={handleDisclaimer}>
+                    <ReportProblemOutlinedIcon
+                      sx={{ fontSize: 18, mr: 1, color: "#777E90" }}
+                    />
+                    Disclaimers
+                  </MenuItem>
+                </Menu>
+              </li>
+            </ul>
           </Box>
 
           <Box

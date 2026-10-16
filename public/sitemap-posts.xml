@@ -1,60 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.thecoinchain.com/blog/openai-model-spent-testnet-eth-without-permission/</loc>
-    <lastmod>2026-10-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.thecoinchain.com/blog/elon-musk-flying-tesla-roadster-polymarket-crypto/</loc>
-    <lastmod>2026-10-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.thecoinchain.com/blog/balaji-farcaster-takeover-ai-moderation-user-bans/</loc>
-    <lastmod>2026-10-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.thecoinchain.com/blog/c3-ai-stock-price-analysis-ai-stock-16-target/</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.thecoinchain.com/blog/vitalik-says-ethereum-zk-speed-race-is-won-security-comes-next/</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.thecoinchain.com/blog/evernorth-473m-xrp-ripple-coinbase-kraken-bitgo/</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.thecoinchain.com/blog/sk-hynix-us-factory-china-chip-equipment-exports/</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.thecoinchain.com/blog/michael-saylor-bitcoin-price-prediction-100k/</loc>
-    <lastmod>2026-10-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.thecoinchain.com/blog/openai-engineer-hidden-recording-device-arrest/</loc>
-    <lastmod>2026-10-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://www.thecoinchain.com/blog/ledger-hardware-implants-cryptobilis-wallets/</loc>
     <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -235,7 +181,37 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.thecoinchain.com/blog/google-quantum-ai-40x-error-reduction-bitcoin-security/</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/blog/us-judge-rejects-gemini-cftc-5-million-settlement/</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.thecoinchain.com/blog/australia-oecd-crypto-tax-reporting-rules-2028/</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/blog/openai-model-spent-testnet-eth-without-permission/</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/blog/elon-musk-flying-tesla-roadster-polymarket-crypto/</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/blog/balaji-farcaster-takeover-ai-moderation-user-bans/</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -247,7 +223,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.thecoinchain.com/blog/c3-ai-stock-price-analysis-ai-stock-16-target/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.thecoinchain.com/blog/binance-adr-fees-us-stock-trading-record-dates/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/blog/vitalik-says-ethereum-zk-speed-race-is-won-security-comes-next/</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -255,6 +243,30 @@
   <url>
     <loc>https://www.thecoinchain.com/blog/australia-crypto-platform-rules-2027/</loc>
     <lastmod>2026-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/blog/evernorth-473m-xrp-ripple-coinbase-kraken-bitgo/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/blog/sk-hynix-us-factory-china-chip-equipment-exports/</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/blog/michael-saylor-bitcoin-price-prediction-100k/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/blog/openai-engineer-hidden-recording-device-arrest/</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

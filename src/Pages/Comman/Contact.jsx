@@ -470,7 +470,7 @@ const Contact = () => {
                         {/* X / Twitter */}
                         <Box
                           component="a"
-                          href="https://x.com/"
+                          href="https://x.com/thecoinchain01"
                           target="_blank"
                           rel="noopener noreferrer"
                           title="X (Twitter)"
@@ -496,7 +496,7 @@ const Contact = () => {
                         {/* Facebook */}
                         <Box
                           component="a"
-                          href="https://www.facebook.com/"
+                          href="https://www.facebook.com/thecoinchain"
                           target="_blank"
                           rel="noopener noreferrer"
                           title="Facebook"
@@ -521,7 +521,7 @@ const Contact = () => {
                         {/* Instagram */}
                         <Box
                           component="a"
-                          href="https://www.instagram.com/"
+                          href="https://www.instagram.com/thecoinchain01/"
                           target="_blank"
                           rel="noopener noreferrer"
                           title="Instagram"

@@ -88,8 +88,8 @@ import { Apis, RoutesName } from "../../../../_common/app.constants";
 import MuiLatestNewsDashboard from "../../../Comman/Components/MuiLatestNewsDashboardSection";
 import MuiPressReleaseDashboard from "../../../Comman/Components/MuiPressReleaseDashboardSection";
 import MuiBussinesNewsDashboard from "../../../Comman/Components/MuiBussinesNewsDashboardSection";
-import MuiResearchReportsDashboard from "../../../Comman/Components/MuiResearchReportsDashboardSection";
 import MuiPricePredictionDashboardSection from "../../../Comman/Components/MuiPricePredictionDashboardSection";
+import MuiGlobalNewsDashboardSection from "../../../Comman/Components/MuiGlobalNewsDashboardSection";
 import MuiTrendingNewsDashboardSection from "../MuiTrandingNewsDashboardSection";
 import HomePageCryptoNews from "./HomePageCryptoNews";
 import { useFetchWrapper } from "../../../../_helpers";
@@ -1073,7 +1073,7 @@ const Home = () => {
         </Box>
 
         <Box sx={{ py: 0 }}>
-          <MuiResearchReportsDashboard />
+          <MuiGlobalNewsDashboardSection />
         </Box>
 
         <Container>

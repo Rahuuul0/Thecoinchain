@@ -483,9 +483,9 @@ const Footer = () => {
             <Grid item xs={12} sm={6} md={6}>
               <Box className="copyright-text social-links" sx={{ py: { xs: 0, sm: 3 }, justifySelf: { xs: 'flex-start', sm: 'flex-end', lg: 'flex-end' }, }} >
                 <Stack direction="row" spacing={2} sx={{ justifyContent: { sm: 'right', xs: "left" } }}>
-                  <a title='facebook' href="https://www.facebook.com/"><img className='social-icon' src={FacebookIcon} alt="Facebook" /></a>
-                  <a title='X' href="https://x.com/"><img className='social-icon' src={XIcon} alt="X" /></a>
-                  <a title='instagram' href="https://www.instagram.com/?hl=en"><img className='social-icon' src={InstagramIcon} alt="Instagram" /></a>
+                  <a title='facebook' href="https://www.facebook.com/thecoinchain"><img className='social-icon' src={FacebookIcon} alt="Facebook" /></a>
+                  <a title='X' href="https://x.com/thecoinchain01"><img className='social-icon' src={XIcon} alt="X" /></a>
+                  <a title='instagram' href="https://www.instagram.com/thecoinchain01/"><img className='social-icon' src={InstagramIcon} alt="Instagram" /></a>
                   <a title='behance' href="https://www.behance.net"><img className='social-icon' src={BehanceIcon} /></a>
                 </Stack>
               </Box>

@@ -578,6 +578,7 @@ function Header(props) {
               pr: { xs: "4px", sm: "4px", lg: "16px" },
               height: "45px",
               position: "relative",
+              alignContent: 'center'
             }}
           >
             {logoLoading && (

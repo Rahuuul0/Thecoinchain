@@ -92,6 +92,7 @@ import MuiPricePredictionDashboardSection from "../../../Comman/Components/MuiPr
 import MuiGlobalNewsDashboardSection from "../../../Comman/Components/MuiGlobalNewsDashboardSection";
 import MuiTrendingNewsDashboardSection from "../MuiTrandingNewsDashboardSection";
 import HomePageCryptoNews from "./HomePageCryptoNews";
+import CryptoMarketOverview from "./CryptoMarketOverview";
 import { useFetchWrapper } from "../../../../_helpers";
 import { Helmet } from "react-helmet-async";
 import CryptoTickerMarquee from "../../../Comman/Components/CryptoTickerMarquee";
@@ -822,93 +823,8 @@ const Home = () => {
           })}
         </Container>
       </Box>
-      <Container sx={{ pb: { xs: 4, sm: 6 }, pt: { xs: 4, sm: 6 } }}>
-        <Box
-          sx={{ alignItems: "center" }}
-          className="grid-bit"
-          padding={3}
-          borderRadius={6}
-          border="1px solid rgb(86 98 255 / 14%)"
-        >
-          <Grid container>
-            {cardCoinsList?.map((item, index) => {
-              let newPrice =
-                item?.price > 1
-                  ? Math.round(item.price * 100) / 100
-                  : item?.price < 1 && item?.price >= 0.1
-                    ? (Math.round(item.price * 10000) / 10000)?.toFixed(2)
-                    : item?.price < 0.1 && item?.price > 0.01
-                      ? (Math.round(item.price * 1000000) / 1000000)?.toFixed(6)
-                      : item?.price < 0.01
-                        ? (Math.round(item.price * 100000000) / 100000000)?.toFixed(8)
-                        : item?.price;
-              if (index < 4) {
-                return (
-                  <Grid item xs={12} sm={4} md={4} lg={3} className="gridBox" sx={{
-                    textAlign: {
-                      xs: 'center',
-                      sm: 'start',
-                    },
-                  }}>
-                    <img
-                      src={item.image}
-                      alt={item.symbol}
-                      width="33px"
-                    />
-                    <Stack
-                      direction="row"
-                      spacing={2}
-                      alignItems="center"
-                      sx={{ justifyContent: { xs: 'center', sm: 'start' } }}
-                      paddingTop={1}
-                      paddingBottom={1}
-                    >
-                      <Typography
-                        className="top-head"
-                        sx={{ fontSize: "12px !important" }}
-                      >
-                        {item.symbol}/USDT
-                      </Typography>
-                      <Button
-                        variant="contained"
-                        className={
-                          item.percent_change_24h < 0
-                            ? "orange-btn"
-                            : "green-btn"
-                        }
-                        sx={{ borderRadius: "90px", cursor: "default" }}
-                      >
-                        {item.percent_change_24h?.toFixed(2)}%
-                      </Button>
-                    </Stack>
-                    <Typography
-                      variant="h4"
-                      component="div"
-                      sx={{ fontSize: "20px !important" }}
-                      fontWeight={600}
-                      paddingBottom={1}
-                      className="primary-font"
-                    >
-                      {newPrice.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                      })}
-                    </Typography>
-                    <Typography
-                      variant="h6"
-                      component="div"
-                      sx={{ fontSize: "12px !important" }}
-                      fontWeight={400}
-                      className="primary-font"
-                    >
-                      {item.volume_24h?.toFixed(2)}
-                    </Typography>
-                  </Grid>
-                );
-              }
-            })}
-          </Grid>
-        </Box>
-      </Container>
+      {/* Crypto Market Overview Section */}
+      <CryptoMarketOverview />
       {/* Latest News */}
       <Box className="become-crypto" sx={{ paddingY: 0 }}>
         <Container sx={{ paddingY: 0 }}>

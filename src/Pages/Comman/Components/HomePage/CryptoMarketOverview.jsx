@@ -213,7 +213,7 @@ const CryptoMarketOverview = () => {
           }}
         >
           {/* Vertical Yellow Accent Bar */}
-          <Box
+          {/* <Box
             sx={{
               width: "4px",
               height: "28px",
@@ -222,13 +222,13 @@ const CryptoMarketOverview = () => {
               mr: 1.5,
               flexShrink: 0,
             }}
-          />
+          /> */}
 
           {/* Heading and Subtitle */}
           <Box>
             <Typography
               variant="h3"
-              component="h2"
+              component="h5"
               sx={{
                 fontFamily: "var(--secondary-font), sans-serif",
                 fontWeight: 800,

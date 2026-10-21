@@ -45,7 +45,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Marquee from "react-fast-marquee";
 import CryptoTable from "../../CryptoTable";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useNavigationType } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
 import {
   useCoinActions,
@@ -373,6 +373,10 @@ const GlobalCommunitySection = () => {
 
   const openDetail = (id, title, customSlug) => {
     if (id !== undefined && id !== null) {
+      sessionStorage.setItem('home_scroll_position', String(window.scrollY));
+      sessionStorage.setItem('home_scroll_section', 'global-community-section');
+      sessionStorage.setItem('home_scroll_card_id', String(id));
+      sessionStorage.setItem('restore_scroll_on_home', 'true');
       const slug = customSlug && String(customSlug).trim()
         ? slugify(String(customSlug), false)
         : slugify(title || "", true);
@@ -381,7 +385,7 @@ const GlobalCommunitySection = () => {
       navigate(
         RoutesName.Blog_Detail
           .replace(":slug", slug),
-        { state: { id } }
+        { state: { id, from: 'home' } }
       );
     }
   };
@@ -545,6 +549,7 @@ const Home = () => {
   const tutorialsData = useRecoilValue(tutorialAtom);
   const tutorialAction = useTutorialActions();
   const navigate = useNavigate();
+  const navigationType = useNavigationType();
   const [value, setValue] = React.useState("1");
   const categoryList = useRecoilValue(coinCategoryAtom);
   const selectedCat = useRecoilValue(selectedCategoryAtom);
@@ -637,8 +642,86 @@ const Home = () => {
     const responsed = bannerActions.get();
     responsed.then((res) => { (res) })
 
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
+    const shouldRestore =
+      sessionStorage.getItem('restore_scroll_on_home') === 'true' ||
+      Boolean(sessionStorage.getItem('home_scroll_section')) ||
+      Boolean(sessionStorage.getItem('home_scroll_position'));
+
+    if (!shouldRestore) {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    } else {
+      const targetSectionId = sessionStorage.getItem('home_scroll_section');
+      const targetCardId = sessionStorage.getItem('home_scroll_card_id');
+      const targetYStr = sessionStorage.getItem('home_scroll_position');
+      const targetY = targetYStr ? parseFloat(targetYStr) : null;
+
+      if (!targetSectionId && !targetCardId && (!targetY || targetY <= 0)) {
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+        sessionStorage.removeItem("restore_scroll_on_home");
+        return;
+      }
+
+      let attempts = 0;
+      const restoreInterval = setInterval(() => {
+        attempts++;
+
+        if (targetCardId) {
+          const cardEl = document.getElementById(`news-card-${targetCardId}`);
+          if (cardEl) {
+            const yOffset = -90;
+            const top =
+              cardEl.getBoundingClientRect().top +
+              (window.pageYOffset || document.documentElement.scrollTop) +
+              yOffset;
+            window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+            clearInterval(restoreInterval);
+            sessionStorage.removeItem("restore_scroll_on_home");
+            sessionStorage.removeItem("home_scroll_section");
+            sessionStorage.removeItem("home_scroll_position");
+            sessionStorage.removeItem("home_scroll_card_id");
+            return;
+          }
+        }
+
+        if (targetSectionId) {
+          const el = document.getElementById(targetSectionId);
+          if (el && (el.offsetHeight > 50 || attempts >= 15)) {
+            const yOffset = -90;
+            const top =
+              el.getBoundingClientRect().top +
+              (window.pageYOffset || document.documentElement.scrollTop) +
+              yOffset;
+            window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+            clearInterval(restoreInterval);
+            sessionStorage.removeItem("restore_scroll_on_home");
+            sessionStorage.removeItem("home_scroll_section");
+            sessionStorage.removeItem("home_scroll_position");
+            sessionStorage.removeItem("home_scroll_card_id");
+            return;
+          }
+        } else if (targetY && targetY > 0) {
+          const docHeight = document.documentElement.scrollHeight;
+          if (docHeight >= targetY || attempts >= 20) {
+            window.scrollTo({ top: targetY, behavior: "smooth" });
+            clearInterval(restoreInterval);
+            sessionStorage.removeItem("restore_scroll_on_home");
+            sessionStorage.removeItem("home_scroll_section");
+            sessionStorage.removeItem("home_scroll_position");
+            sessionStorage.removeItem("home_scroll_card_id");
+            return;
+          }
+        }
+
+        if (attempts >= 25) {
+          clearInterval(restoreInterval);
+          sessionStorage.removeItem("restore_scroll_on_home");
+          sessionStorage.removeItem("home_scroll_section");
+          sessionStorage.removeItem("home_scroll_position");
+          sessionStorage.removeItem("home_scroll_card_id");
+        }
+      }, 100);
+    }
+  }, [navigationType]);
 
   const videoLink = (data) => {
     setBreadCrumb(data.category)
@@ -814,7 +897,7 @@ const Home = () => {
                     </Box>
                   </Grid> */}
                   <HomePageCryptoNews isDarkMode={isDarkMode} />
-                  <Grid item xs={12} sm={6} md={6}>
+                  <Grid item xs={12} sm={6} md={6} id="trending-news-section">
                     <MuiTrendingNewsDashboardSection />
                   </Grid>
                 </Grid>
@@ -844,7 +927,7 @@ const Home = () => {
               paddingTop={2}
             >
             </Typography>
-            <Box sx={{ paddingY: 0 }}>
+            <Box id="latest-news-section" sx={{ paddingY: 0 }}>
               <MuiLatestNewsDashboard />
             </Box>
             <Button
@@ -858,7 +941,9 @@ const Home = () => {
               Contact Us
             </Button>
           </Box>
-          <MuiPressReleaseDashboard />
+          <Box id="press-release-section">
+            <MuiPressReleaseDashboard />
+          </Box>
         </Container>
       </Box>
 
@@ -868,7 +953,7 @@ const Home = () => {
 
 
       {/* learn cypto star*/}
-      <Container>
+      <Container id="business-news-section">
 
         <MuiBussinesNewsDashboard />
 
@@ -988,7 +1073,7 @@ const Home = () => {
           <GlobalCommunitySection />
         </Box>
 
-        <Box sx={{ py: 0 }}>
+        <Box id="global-news-section" sx={{ py: 0 }}>
           <MuiGlobalNewsDashboardSection />
         </Box>
 
@@ -1477,7 +1562,7 @@ const Home = () => {
                 </Stack>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={12} md={7}>
+            <Grid item xs={12} sm={12} md={7} id="price-prediction-section">
               <MuiPricePredictionDashboardSection />
               {/* <img className="app-store-img" src={`${process.env.REACT_APP_IMAGE_URL}/${headingList[1]?.image}`} /> */}
             </Grid>

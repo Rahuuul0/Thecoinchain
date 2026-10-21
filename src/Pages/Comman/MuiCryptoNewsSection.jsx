@@ -17,7 +17,7 @@ import { ArrowBack, ArrowUpward } from '@mui/icons-material';
 import { styled, keyframes } from '@mui/material/styles';
 import { useTheme, ThemeProvider } from '@mui/material/styles';
 import { CardMedia } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import YouTube from 'react-youtube';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import dayjs from 'dayjs';
@@ -345,6 +345,7 @@ const MuiCryptoSection = () => {
   const location = useLocation();
   const isDarkMode = useRecoilValue(switchDarkModeAtom);
   const history = useNavigate();
+  const navigationType = useNavigationType();
   const fetchWrapper = useFetchWrapper();
   const currentSlug = location.pathname.split('/').filter(Boolean).pop() || '';
   const requestedType = new URLSearchParams(location.search)
@@ -394,10 +395,12 @@ const MuiCryptoSection = () => {
   };
 
   const getBlogDetailRoute = (id, title, customSlug) => {
+    sessionStorage.setItem('crypto_news_scroll_y', String(window.scrollY));
     const slug = customSlug && String(customSlug).trim()
       ? slugify(String(customSlug), false)
       : slugify(title || "", true);
     if (id !== undefined && id !== null) {
+      sessionStorage.setItem('crypto_news_card_id', String(id));
       sessionStorage.setItem(`blog_id_${slug}`, String(id));
       localStorage.setItem(`blog_id_${slug}`, String(id));
     }
@@ -503,8 +506,72 @@ const MuiCryptoSection = () => {
   }, [currentContentConfig.type]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  }, [currentContentConfig.type]);
+    const isPopNavigation = navigationType === 'POP';
+    const isReturningToNews = sessionStorage.getItem('restore_scroll_on_news') === 'true';
+    const savedCardId = sessionStorage.getItem('crypto_news_card_id');
+    const savedYStr = sessionStorage.getItem('crypto_news_scroll_y');
+    const savedY = savedYStr ? parseFloat(savedYStr) : null;
+
+    const shouldRestore =
+      isPopNavigation &&
+      isReturningToNews &&
+      Boolean(savedCardId || savedY);
+
+    if (!shouldRestore) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      sessionStorage.removeItem('crypto_news_card_id');
+      sessionStorage.removeItem('crypto_news_scroll_y');
+      sessionStorage.removeItem('restore_scroll_on_news');
+      return;
+    }
+
+    if (!cryptoNewsData?.data || cryptoNewsData.data.length === 0) {
+      return;
+    }
+
+    let attempts = 0;
+    const restoreInterval = setInterval(() => {
+      attempts++;
+
+      if (savedCardId) {
+        const cardEl = document.getElementById(`news-card-${savedCardId}`);
+        if (cardEl) {
+          const yOffset = -90;
+          const top =
+            cardEl.getBoundingClientRect().top +
+            (window.pageYOffset || document.documentElement.scrollTop) +
+            yOffset;
+          window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+          clearInterval(restoreInterval);
+          sessionStorage.removeItem('crypto_news_card_id');
+          sessionStorage.removeItem('crypto_news_scroll_y');
+          sessionStorage.removeItem('restore_scroll_on_news');
+          return;
+        }
+      }
+
+      if (savedY && savedY > 0) {
+        const docHeight = document.documentElement.scrollHeight;
+        if (docHeight >= savedY || attempts >= 15) {
+          window.scrollTo({ top: savedY, behavior: 'smooth' });
+          clearInterval(restoreInterval);
+          sessionStorage.removeItem('crypto_news_card_id');
+          sessionStorage.removeItem('crypto_news_scroll_y');
+          sessionStorage.removeItem('restore_scroll_on_news');
+          return;
+        }
+      }
+
+      if (attempts >= 20) {
+        clearInterval(restoreInterval);
+        sessionStorage.removeItem('crypto_news_card_id');
+        sessionStorage.removeItem('crypto_news_scroll_y');
+        sessionStorage.removeItem('restore_scroll_on_news');
+      }
+    }, 100);
+
+    return () => clearInterval(restoreInterval);
+  }, [cryptoNewsData, currentContentConfig.type, navigationType]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -526,6 +593,15 @@ const MuiCryptoSection = () => {
       top: 0,
       behavior: 'smooth',
     });
+  };
+
+  const handleBack = () => {
+    sessionStorage.setItem('restore_scroll_on_home', 'true');
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      history('/');
+    }
   };
 
   const handleProfileClick = async (profileId, profileName) => {
@@ -669,7 +745,7 @@ const MuiCryptoSection = () => {
                 color: '#374151',
               },
             }}
-            onClick={() => window.history.back()}
+            onClick={handleBack}
           >
             <ArrowBack sx={{ fontSize: { xs: 18, sm: 20 } }} />
           </IconButton>
@@ -713,7 +789,7 @@ const MuiCryptoSection = () => {
               },
               transition: 'all 0.3s',
             }}
-            onClick={() => window.history.back()}
+            onClick={handleBack}
           >
             <ArrowBack sx={{ fontSize: { xs: 14, sm: 16 } }} />
           </IconButton>
@@ -758,6 +834,7 @@ const MuiCryptoSection = () => {
             </Typography>
 
             <Card
+              id={cryptoNewsData?.data?.[0]?.id ? `news-card-${cryptoNewsData.data[0].id}` : undefined}
               className="website-all-crypto-featured-card"
               sx={{
                 backgroundColor: 'transparent',
@@ -786,7 +863,7 @@ const MuiCryptoSection = () => {
                       cryptoNewsData?.data?.[0]?.title,
                       cryptoNewsData?.data?.[0]?.slug
                     ),
-                    { state: { id: cryptoNewsData?.data?.[0]?.id } }
+                    { state: { id: cryptoNewsData?.data?.[0]?.id, from: 'crypto_news' } }
                   )
                 }
               >
@@ -909,6 +986,7 @@ const MuiCryptoSection = () => {
               const author = getAuthorInfo(item, index + 1);
               return (
                 <Card
+                  id={`news-card-${item.id}`}
                   className="website-all-right-top-card"
                   key={item.id || index}
                   sx={{
@@ -919,7 +997,7 @@ const MuiCryptoSection = () => {
                   }}
                   onClick={() =>
                     history(getBlogDetailRoute(item.id, item.title, item.slug), {
-                      state: { id: item.id },
+                      state: { id: item.id, from: 'crypto_news' },
                     })
                   }
                 >
@@ -1028,6 +1106,7 @@ const MuiCryptoSection = () => {
                       return (
                         <Grid item xs={12} md={4} key={item.id || index}>
                           <Card
+                            id={`news-card-${item.id}`}
                             className="website-all-bottom-card"
                             sx={{
                               height: 370,
@@ -1045,7 +1124,7 @@ const MuiCryptoSection = () => {
                             }}
                             onClick={() =>
                               history(getBlogDetailRoute(item.id, item.title, item.slug), {
-                                state: { id: item.id },
+                                state: { id: item.id, from: 'crypto_news' },
                               })
                             }
                           >

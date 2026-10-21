@@ -146,6 +146,9 @@ const MuiCategoryNewsDashboardSection = () => {
 
   const openDetail = (id, title, customSlug) => {
     if (id !== undefined && id !== null) {
+      sessionStorage.setItem('home_scroll_position', String(window.scrollY));
+      sessionStorage.setItem('home_scroll_section', 'business-news-section');
+      sessionStorage.setItem('restore_scroll_on_home', 'true');
       const slug = customSlug && String(customSlug).trim()
         ? slugify(String(customSlug), false)
         : slugify(title || "", true);
@@ -154,7 +157,7 @@ const MuiCategoryNewsDashboardSection = () => {
       navigate(
         RoutesName.Blog_Detail
           .replace(":slug", slug),
-        { state: { id } }
+        { state: { id, from: 'home' } }
       );
     }
   };
@@ -166,7 +169,12 @@ const MuiCategoryNewsDashboardSection = () => {
       policy: RoutesName.policy,
       tech: RoutesName.tech,
     };
-
+    sessionStorage.removeItem('restore_scroll_on_news');
+    sessionStorage.removeItem('crypto_news_card_id');
+    sessionStorage.removeItem('crypto_news_scroll_y');
+    sessionStorage.setItem('home_scroll_position', String(window.scrollY));
+    sessionStorage.setItem('home_scroll_section', 'business-news-section');
+    sessionStorage.setItem('restore_scroll_on_home', 'true');
     navigate(categoryRoutes[categoryType] || RoutesName.Latest_News);
   };
 
@@ -205,7 +213,7 @@ const MuiCategoryNewsDashboardSection = () => {
         <meta property="og:url" content={window.location.href} />
       </Helmet>
 
-      <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
+      <Container id="business-news-section" maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
         {loading ? (
           <Typography sx={{ color: '#3772ff' }}>Loading latest news...</Typography>
         ) : news.length === 0 ? (

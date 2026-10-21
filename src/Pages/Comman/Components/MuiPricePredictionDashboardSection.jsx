@@ -54,6 +54,9 @@ const MuiShortNewsDashboardSection = () => {
 
     const openDetail = (id, title, customSlug) => {
         if (id !== undefined && id !== null) {
+            sessionStorage.setItem('home_scroll_position', String(window.scrollY));
+            sessionStorage.setItem('home_scroll_section', 'price-prediction-section');
+            sessionStorage.setItem('restore_scroll_on_home', 'true');
             const slug = customSlug && String(customSlug).trim()
                 ? slugify(String(customSlug), false)
                 : slugify(title || '', true);
@@ -62,7 +65,7 @@ const MuiShortNewsDashboardSection = () => {
             navigate(
                 RoutesName.Blog_Detail
                     .replace(':slug', slug),
-                { state: { id } }
+                { state: { id, from: 'home' } }
             );
         }
     };
@@ -331,7 +334,15 @@ const MuiShortNewsDashboardSection = () => {
                     <Box sx={{ px: 2.5, py: 2.5, textAlign: 'center' }}>
                         <Button
                             variant="outlined"
-                            onClick={() => navigate(RoutesName.Price_Prediction)}
+                            onClick={() => {
+                                sessionStorage.removeItem('restore_scroll_on_news');
+                                sessionStorage.removeItem('crypto_news_card_id');
+                                sessionStorage.removeItem('crypto_news_scroll_y');
+                                sessionStorage.setItem('home_scroll_position', String(window.scrollY));
+                                sessionStorage.setItem('home_scroll_section', 'price-prediction-section');
+                                sessionStorage.setItem('restore_scroll_on_home', 'true');
+                                navigate(RoutesName.Price_Prediction);
+                            }}
                             sx={{
                                 textTransform: 'none',
                                 fontWeight: 600,

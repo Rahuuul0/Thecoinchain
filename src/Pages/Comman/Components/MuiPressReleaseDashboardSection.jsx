@@ -114,6 +114,9 @@ const MuiPressReleaseDashboardSection = () => {
 
   const openDetail = (id, title, customSlug) => {
     if (id !== undefined && id !== null) {
+      sessionStorage.setItem('home_scroll_position', String(window.scrollY));
+      sessionStorage.setItem('home_scroll_section', 'press-release-section');
+      sessionStorage.setItem('restore_scroll_on_home', 'true');
       const slug = customSlug && String(customSlug).trim()
         ? slugify(String(customSlug), false)
         : slugify(title || "", true);
@@ -122,7 +125,7 @@ const MuiPressReleaseDashboardSection = () => {
       navigate(
         RoutesName.Blog_Detail
           .replace(":slug", slug),
-        { state: { id } }
+        { state: { id, from: 'home' } }
       );
     }
   };
@@ -154,14 +157,22 @@ const MuiPressReleaseDashboardSection = () => {
         <meta property="og:url" content={window.location.href} />
       </Helmet>
 
-      <Container maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
+      <Container id="press-release-section" maxWidth="xl" sx={{ px: { xs: 2, md: 4 }, py: 6 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
           <Typography variant="h5" sx={{ fontSize: 25, fontWeight: 600, color: isDarkMode ? "#fff" : "#000000" }}>
             Press Releases
           </Typography>
           {news.length > 8 && (
             <Button
-              onClick={() => navigate(RoutesName.Press_Release)}
+              onClick={() => {
+                sessionStorage.removeItem('restore_scroll_on_news');
+                sessionStorage.removeItem('crypto_news_card_id');
+                sessionStorage.removeItem('crypto_news_scroll_y');
+                sessionStorage.setItem('home_scroll_position', String(window.scrollY));
+                sessionStorage.setItem('home_scroll_section', 'press-release-section');
+                sessionStorage.setItem('restore_scroll_on_home', 'true');
+                navigate(RoutesName.Press_Release);
+              }}
               variant="outlined"
               className="btn btn-outlined-secondary"
               // endIcon={<KeyboardArrowRight sx={{ color: "#777E90" }} />}

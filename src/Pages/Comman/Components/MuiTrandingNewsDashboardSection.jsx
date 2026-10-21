@@ -69,6 +69,9 @@ const MuiTrandingNewsDashboardSection = () => {
 
   const openDetail = (id, title, customSlug) => {
     if (id !== undefined && id !== null) {
+      sessionStorage.setItem('home_scroll_position', String(window.scrollY));
+      sessionStorage.setItem('home_scroll_section', 'trending-news-section');
+      sessionStorage.setItem('restore_scroll_on_home', 'true');
       const slug = customSlug && String(customSlug).trim()
         ? slugify(String(customSlug), false)
         : slugify(title || "", true);
@@ -77,7 +80,7 @@ const MuiTrandingNewsDashboardSection = () => {
       navigate(
         RoutesName.Blog_Detail
           .replace(":slug", slug),
-        { state: { id } }
+        { state: { id, from: 'home' } }
       );
     }
   };

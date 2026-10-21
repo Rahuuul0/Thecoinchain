@@ -314,10 +314,10 @@ const LatestNewsBlogDetail = () => {
             const items = Array.isArray(res?.data)
               ? res.data
               : Array.isArray(res?.data?.data)
-              ? res.data.data
-              : Array.isArray(res)
-              ? res
-              : [];
+                ? res.data.data
+                : Array.isArray(res)
+                  ? res
+                  : [];
             const matched = items.find((it) => {
               const itemCustomSlug = it?.slug && String(it.slug).trim() ? slugify(String(it.slug), false) : '';
               const itemTitleSlug = slugify(it?.title || '', true);
@@ -519,6 +519,23 @@ const LatestNewsBlogDetail = () => {
     .replace(/_/g, " ")
     .replace(/\b\w/g, (char) => char.toUpperCase());
 
+  const handleBack = () => {
+    if (location.state?.from === 'crypto_news') {
+      sessionStorage.setItem('restore_scroll_on_news', 'true');
+      sessionStorage.removeItem('restore_scroll_on_home');
+    } else {
+      sessionStorage.setItem('restore_scroll_on_home', 'true');
+      sessionStorage.removeItem('restore_scroll_on_news');
+      sessionStorage.removeItem('crypto_news_card_id');
+      sessionStorage.removeItem('crypto_news_scroll_y');
+    }
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate(RoutesName.Latest_News);
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -576,7 +593,7 @@ const LatestNewsBlogDetail = () => {
                   },
                   top: { xs: '30px', sm: 'auto' }
                 }}
-                onClick={() => navigate(-1)}
+                onClick={handleBack}
               >
                 <ArrowBack sx={{ fontSize: { xs: 18, sm: 20 } }} />
               </IconButton>

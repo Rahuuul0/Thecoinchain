@@ -59,6 +59,10 @@ const HomePageCryptoNews = ({
 
     const handleNewsClick = () => {
         if (activeNews?.id) {
+            sessionStorage.setItem('home_scroll_position', String(window.scrollY));
+            sessionStorage.setItem('home_scroll_section', 'trending-news-section');
+            sessionStorage.setItem('home_scroll_card_id', String(activeNews.id));
+            sessionStorage.setItem('restore_scroll_on_home', 'true');
             const slug = activeNews.slug && String(activeNews.slug).trim()
                 ? slugify(String(activeNews.slug), false)
                 : slugify(activeNews.title || "", true);
@@ -66,7 +70,7 @@ const HomePageCryptoNews = ({
             localStorage.setItem(`blog_id_${slug}`, String(activeNews.id));
             navigate(
                 RoutesName.Blog_Detail.replace(":slug", slug),
-                { state: { id: activeNews.id } }
+                { state: { id: activeNews.id, from: 'home' } }
             );
         }
     };

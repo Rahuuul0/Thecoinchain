@@ -26,8 +26,8 @@ import {
   ArrowUpward,
 } from "@mui/icons-material";
 import HeroImage from "../../../../../public/assets/images/banner.svg";
-import LightHeroBg from "../../../../../public/assets/Background_img/Gemini_Generated_Image_4ualgp4ualgp4ual.png";
-import DarkHeroBg from "../../../../../public/assets/Background_img/Gemini_Generated_Image_m9io3hm9io3hm9io.png";
+import LightHeroBg from "../../../../../public/assets/Background_img/Golden_Market_Waves.png";
+import DarkHeroBg from "../../../../../public/assets/Background_img/Golden_Coins.png";
 import Leveraged from "../../../../../public/assets/images/leveraged.svg";
 import BuyCypto from "../../../../../public/assets/images/crypto-trader-01.svg";
 import Market from "../../../../../public/assets/images/market.svg";

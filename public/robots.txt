@@ -13,4 +13,4 @@ Disallow: /create-account/
 Disallow: /create-account
 Disallow: /account/
 
-Sitemap: https://www.thecoinchain.com/sitemap_index.xml
+Sitemap: https://thecoinchain.com/sitemap.xml

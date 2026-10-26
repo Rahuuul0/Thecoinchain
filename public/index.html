@@ -2,50 +2,90 @@
 <html lang="en">
 
 <head>
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-563D2Z64');</script>
-  <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" sizes="any" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-  <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-  <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        "gtm.start": new Date().getTime(),
+        event: "gtm.js"
+      });
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-  <title>The Coin Chain</title>
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l !== "dataLayer" ? "&l=" + l : "";
+
+      j.async = true;
+      j.src =
+        "https://www.googletagmanager.com/gtm.js?id=" +
+        i + dl;
+
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-563D2Z64");
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Primary SEO -->
+  <title>
+    The Coin Chain | Latest Crypto News, Bitcoin &amp; Market Analysis
+  </title>
+
+  <meta name="description"
+    content="Stay updated with the latest cryptocurrency news, Bitcoin and Ethereum updates, crypto market analysis, price predictions, blockchain technology and regulation." />
+
+  <meta name="robots" content="index, follow" />
+
+  <!-- Canonical: homepage default.
+         Update dynamically for every other route. -->
+  <link rel="canonical" href="https://www.thecoinchain.com/" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" sizes="any" />
+
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website" />
+
+  <meta property="og:site_name" content="The Coin Chain" />
+
+  <meta property="og:title" content="The Coin Chain | Latest Crypto News &amp; Market Analysis" />
+
+  <meta property="og:description"
+    content="Get the latest crypto news, Bitcoin updates, market analysis, price predictions and blockchain insights on The Coin Chain." />
+
+  <meta property="og:url" content="https://www.thecoinchain.com/" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="twitter:title" content="The Coin Chain | Latest Crypto News" />
+
+  <meta name="twitter:description"
+    content="Latest cryptocurrency news, Bitcoin updates, market analysis and blockchain insights." />
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 </head>
 
 <body>
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-563D2Z64" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-563D2Z64" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+
   <div id="root"></div>
-  <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
 </body>
 
 </html>

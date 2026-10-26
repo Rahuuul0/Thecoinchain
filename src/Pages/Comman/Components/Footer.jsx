@@ -106,7 +106,7 @@ const Footer = () => {
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mt: 2.5 }}>
                 <Link
                   className="footer-contact-link"
-                  href="mailto:info@thecoinchain.com"
+                  href="mailto:contact@thecoinchain.com"
                   underline="none"
                   sx={{
                     display: 'inline-flex',
@@ -137,7 +137,7 @@ const Footer = () => {
                   >
                     <Box
                       className="contact-icon-box"
-                      onClick={(e) => handleCopy(e, "info@thecoinchain.com", "email", "Email address copied to clipboard!")}
+                      onClick={(e) => handleCopy(e, "contact@thecoinchain.com", "email", "Email address copied to clipboard!")}
                       role="button"
                       aria-label="Copy email address"
                       sx={{

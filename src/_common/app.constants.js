@@ -80,6 +80,7 @@ export const RoutesName = {
   Ethereum_Analysis: "/ethereum-analysis",
   Bitcoin_Analysis: "/bitcoin-analysis",
   Explain: "/explain"
+
 };
 
 export const Apis = {

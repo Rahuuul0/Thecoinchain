@@ -1,8 +1,5 @@
-import { atom } from 'recoil';
+import { atom } from 'jotai';
 
-const sidebarAtom = atom({
-    key: 'sidebarAtom',
-    default: "profile"
-});
+const sidebarAtom = atom("profile");
 
 export { sidebarAtom };

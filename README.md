@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# The Coin Chain
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Crypto news, market data and learning site. Built with **Next.js (App Router)**, **React 19**, **Tailwind CSS v4** and **Jotai**.
 
-## Available Scripts
+## Getting started
 
-In the project directory, you can run:
+```bash
+cp .env.example .env.local   # fill in the values
+npm install
+npm run dev                  # http://localhost:3000
+```
 
-### `npm start`
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Development server with hot reload |
+| `npm run build` | Regenerates `public/sitemap*.xml`, then builds the production bundle |
+| `npm start` | Serves the production build |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Requires Node.js 20.9 or newer.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Environment
 
-### `npm test`
+All variables are public (inlined into the browser bundle at build time). See `.env.example`.
+The old `REACT_APP_*` names are still accepted as a fallback (mapped in `next.config.mjs`).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project layout
 
-### `npm run build`
+```
+src/
+  app/                 Routes (App Router)
+    (site)/            Pages with the site header and footer
+      [category]/      News listings (/latest-news, /bitcoin, …)
+      blog/[slug]/     Articles — fetched and rendered on the server for SEO
+      account/         Signed-in area (client-side auth guard)
+    (auth)/            Login, sign-up and recovery screens (no header/footer)
+    layout.jsx         Fonts, metadata, GTM, theme script, providers
+    globals.css        Tailwind setup, design tokens (light/dark), CMS content styles
+  views/               Page components rendered by the routes
+  components/          Shared components
+    ui/                Small Tailwind component kit (Button, Modal, Tabs, …)
+  lib/                 Content helpers, server-side API access, SEO helpers
+  _actions/            API actions (hooks)
+  _state/              Jotai atoms
+  _helpers/            fetch wrapper, CoinGecko client, dark-mode hook
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Styling
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Styling is Tailwind utility classes only. Theme colours are CSS variables that switch
+when `<html>` has the `dark` class, exposed as Tailwind colours (`bg-page`, `text-fg`,
+`border-line`, …). Breakpoints match the previous MUI theme (`sm` 600px, `md` 900px,
+`lg` 1200px, `xl` 1536px).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Deployment
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+`next build` produces a standalone Node server (`.next/standalone/server.js`).
+The GitHub workflow (`.github/workflows/prod.yml`) builds it, uploads it over SCP and
+(re)starts it with pm2 on port 3000. The server needs Node.js 20.9+ and pm2, and a reverse
+proxy (e.g. nginx) in front of port 3000.

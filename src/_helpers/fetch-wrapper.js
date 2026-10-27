@@ -1,13 +1,13 @@
-import { useRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { useAtom } from "jotai";
+import { useRouter } from "next/navigation";
 import { authAtom } from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
 
 export { useFetchWrapper };
 
 function useFetchWrapper() {
-  const navigate = useNavigate();
-  const [auth, setAuth] = useRecoilState(authAtom);
+  const router = useRouter();
+  const [auth, setAuth] = useAtom(authAtom);
   const alertActions = useAlertActions();
 
   return {
@@ -20,7 +20,7 @@ function useFetchWrapper() {
 
   function request(method) {
     return (url, body, file = false) => {
-      const baseUrl = `${process.env.REACT_APP_API_URL}`;
+      const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`;
       url = `${baseUrl}/${url}`;
       const requestOptions = {
         method,
@@ -41,7 +41,7 @@ function useFetchWrapper() {
     // return auth header with jwt if user is logged in and request is to the api url
     const token = auth?.access_token;
     const isLoggedIn = !!token;
-    const isApiUrl = url.startsWith(process.env.REACT_APP_API_URL);
+    const isApiUrl = url.startsWith(process.env.NEXT_PUBLIC_API_URL);
     if (isLoggedIn && isApiUrl) {
       return { Authorization: `${token}` };
     } else {
@@ -57,11 +57,11 @@ function useFetchWrapper() {
           // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
           localStorage.removeItem("user");
           setAuth(null);
-          navigate(`/login`);
+          router.push(`/login`);
         }
 
+        const error = (data && data.message) || response.statusText;
         if (![402, 404].includes(response.status)) {
-          const error = (data && data.message) || response.statusText;
           alertActions.error(error);
         }
         return Promise.reject(error);
@@ -69,7 +69,7 @@ function useFetchWrapper() {
         if ([403].includes(data.statusCode) && data.status === "unauthorized") {
           localStorage.removeItem("user");
           setAuth(null);
-          navigate(`/login`);
+          router.push(`/login`);
         }
       }
       return data;

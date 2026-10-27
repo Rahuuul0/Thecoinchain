@@ -1,14 +1,14 @@
-import { useSetRecoilState } from 'recoil';
-import { useNavigate } from "react-router-dom";
+import { useSetAtom } from 'jotai';
+import { useRouter } from "next/navigation";
 import { useFetchWrapper } from '../_helpers';
 import { Apis } from '../_common/app.constants';
 import { historyAtom } from '../_state'; 
 
 const userLoginHistoryActions = () => {
-    const navigate = useNavigate()
+    const router = useRouter();
     const fetchWrapper = useFetchWrapper();
 
-    const setHistory = useSetRecoilState(historyAtom);
+    const setHistory = useSetAtom(historyAtom);
 
     const getAll =  () => {
         return fetchWrapper.get(Apis.User_Login_History )

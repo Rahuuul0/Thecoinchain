@@ -1,8 +1,5 @@
-import { atom } from 'recoil';
+import { atom } from 'jotai';
 
-const setUnsubscribeAtom = atom({
-    key: 'Unsubscribe',
-    default: {}
-});
+const setUnsubscribeAtom = atom({});
 
 export { setUnsubscribeAtom };

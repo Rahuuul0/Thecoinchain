@@ -2,20 +2,20 @@ import { useFetchWrapper } from '../_helpers';
 import { useAlertActions } from './alert.actions';
 import { Labels, Apis } from '../_common/app.constants'
 import { contact_AddAtom, contactListAtom, contactBlogListAtom, blogListAtom, blogimgAtom, blogVideoAtom } from '../_state';
-import { useSetRecoilState, useRecoilState } from 'recoil';
-import { useNavigate } from 'react-router-dom';
+import { useSetAtom, useAtom } from 'jotai';
+import { useRouter } from "next/navigation";
 
 
 const useContactActions = () => {
   const fetchWrapper = useFetchWrapper();
   const alertActions = useAlertActions();
-  const setContactError = useSetRecoilState(contact_AddAtom);
-  const [contactLists, setContactList] = useRecoilState(contactListAtom);
-  const [contactBlogLists, setContactBlogList] = useRecoilState(contactBlogListAtom);
-  const setBlogimg = useSetRecoilState(blogListAtom);
-  const setBlognew = useSetRecoilState(blogimgAtom);
-  const setBlogvideo = useSetRecoilState(blogVideoAtom);
-  const navigate = useNavigate();
+  const setContactError = useSetAtom(contact_AddAtom);
+  const [contactLists, setContactList] = useAtom(contactListAtom);
+  const [contactBlogLists, setContactBlogList] = useAtom(contactBlogListAtom);
+  const setBlogimg = useSetAtom(blogListAtom);
+  const setBlognew = useSetAtom(blogimgAtom);
+  const setBlogvideo = useSetAtom(blogVideoAtom);
+  const router = useRouter();
 
   const add = (data) => {
     return fetchWrapper.post(Apis.Contact, data)
@@ -61,7 +61,7 @@ const getSingleContact = (title) => {
               setBlognew(true)
               setBlogvideo(false)
           }
-      }).catch((err) => { navigate("/page-not-found"); console.warn(err) })
+      }).catch((err) => { router.push("/page-not-found"); console.warn(err) })
 }
 
   return {

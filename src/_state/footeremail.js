@@ -1,23 +1,11 @@
-import { atom } from 'recoil';
+import { atom } from 'jotai';
 
-const FooterAddAtom = atom({
-    key: 'addTempAtomFooter',
-    default: {}
-});
+const FooterAddAtom = atom({});
 
-const TermsListAtom = atom({
-    key: 'TermsList',
-    default: []
-});
+const TermsListAtom = atom([]);
 
-const DisclaimersListAtom = atom({
-    key: 'DisclaimersList',
-    default: []
-});
+const DisclaimersListAtom = atom([]);
 
-const PrivacyListAtom = atom({
-    key: 'PrivacyList',
-    default: []
-});
+const PrivacyListAtom = atom([]);
 
 export { FooterAddAtom, TermsListAtom, DisclaimersListAtom, PrivacyListAtom };

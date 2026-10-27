@@ -1,4 +1,4 @@
-import { useSetRecoilState } from "recoil";
+import { useSetAtom } from "jotai";
 import { useAlertActions } from "./alert.actions";
 import { Labels } from "../_common/app.constants";
 import {
@@ -348,22 +348,22 @@ const useCoinActions = () => {
   const alertActions = useAlertActions();
 
   const setCoinList =
-    useSetRecoilState(coinsAtom);
+    useSetAtom(coinsAtom);
 
   const setCoinsCategory =
-    useSetRecoilState(coinCategoryAtom);
+    useSetAtom(coinCategoryAtom);
 
   const setSelectedCategory =
-    useSetRecoilState(selectedCategoryAtom);
+    useSetAtom(selectedCategoryAtom);
 
   const setCardCoins =
-    useSetRecoilState(cardCoinsAtom);
+    useSetAtom(cardCoinsAtom);
 
   const setCategoryCoins =
-    useSetRecoilState(categoryCoinsAtom);
+    useSetAtom(categoryCoinsAtom);
 
   const setLoader =
-    useSetRecoilState(loaderAtom);
+    useSetAtom(loaderAtom);
 
   /**
    * ==========================================================

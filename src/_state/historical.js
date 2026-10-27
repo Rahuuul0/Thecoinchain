@@ -1,8 +1,5 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-const historicalAtom = atom({
-  key: "historical",
-  default: {},
-});
+const historicalAtom = atom({});
 
 export { historicalAtom };

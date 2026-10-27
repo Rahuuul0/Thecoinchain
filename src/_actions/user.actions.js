@@ -1,5 +1,5 @@
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { useAtom, useSetAtom } from "jotai";
+import { useRouter } from "next/navigation";
 import { useFetchWrapper } from "../_helpers";
 import {
   switchAtom,
@@ -11,20 +11,19 @@ import {
 } from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
 import { Labels, Apis } from "../_common/app.constants";
-import axios from "axios";
 
 const useUserActions = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const fetchWrapper = useFetchWrapper();
   const alertActions = useAlertActions();
-  const [Soption, setSoption] = useRecoilState(switchAtom);
-  const setUserError = useSetRecoilState(userErrorAtom);
-  const [auth, setAuth] = useRecoilState(authAtom);
-  const [loader, setLoader] = useRecoilState(loaderAtom);
-  const subscription = useSetRecoilState(forecastSubAtom);
-  const [loginData, setLoginData] = useRecoilState(loginDataAtom);
-  let referralToken = "";
-  referralToken = localStorage.getItem("refToken");
+  const [Soption, setSoption] = useAtom(switchAtom);
+  const setUserError = useSetAtom(userErrorAtom);
+  const [auth, setAuth] = useAtom(authAtom);
+  const [loader, setLoader] = useAtom(loaderAtom);
+  const subscription = useSetAtom(forecastSubAtom);
+  const [loginData, setLoginData] = useAtom(loginDataAtom);
+
+
 
   const login = async ({ email, password, phone }) => {
     return fetchWrapper
@@ -43,8 +42,8 @@ const useUserActions = () => {
           );
           setAuth({ ...data, access_token, login_attempt, isSubscribed: true });
           res.data.is_profile_completed == 0
-            ? navigate("/account/profile")
-            : navigate("/");
+            ? router.push("/account/profile")
+            : router.push("/");
           setLoader(false);
           alertActions.success(Labels.Login_Success);
         } else {
@@ -65,7 +64,7 @@ const useUserActions = () => {
     authData.name = data.name;
     authData.google_id = data.id;
     authData.email = data.email;
-    authData.referral_code = referralToken;
+    authData.referral_code = localStorage.getItem("refToken");
     return fetchWrapper
       .post(Apis.Social_Media_Login, authData)
       .then((res) => {
@@ -83,8 +82,8 @@ const useUserActions = () => {
           setAuth({ ...data, access_token, login_attempt, isSubscribed: true });
           alertActions.success(Labels.Login_Success);
           res.data.is_profile_completed == 0
-            ? navigate("/account/profile")
-            : navigate("/");
+            ? router.push("/account/profile")
+            : router.push("/");
         } else {
           alertActions.error(res.msg);
         }
@@ -94,39 +93,17 @@ const useUserActions = () => {
       });
   };
 
-  const googleAuth = async (user) => {
-    axios
-      .get(
-        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user?.access_token}`,
-        {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-            Accept: "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        loginAuth(res.data);
-      })
+  // Both Google flows fetch the profile and then sign in with it.
+  const googleSignIn = (user) =>
+    fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user?.access_token}`, {
+      headers: { Authorization: `Bearer ${user.access_token}`, Accept: "application/json" },
+    })
+      .then((res) => res.json())
+      .then(loginAuth)
       .catch((err) => console.log(err));
-  };
 
-  const googleLogin = async (user) => {
-    axios
-      .get(
-        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user?.access_token}`,
-        {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-            Accept: "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        loginAuth(res.data);
-      })
-      .catch((err) => console.log(err));
-  };
+  const googleAuth = googleSignIn;
+  const googleLogin = googleSignIn;
 
   const loginMobile = ({ number, passwordMob }) => {};
 
@@ -160,7 +137,7 @@ const useUserActions = () => {
       .then((res) => {
         if (res.statusCode === 200) {
           alertActions.success(Labels.Success);
-          navigate("/reset-password");
+          router.push("/reset-password");
           setSoption(true);
         } else {
           alertActions.error(Labels.Error);
@@ -183,7 +160,7 @@ const useUserActions = () => {
         confirm_password,
         type,
         name,
-        referral_code: referralToken,
+        referral_code: localStorage.getItem("refToken"),
       })
       .then((res) => {
         if (res.statusCode === 200) {
@@ -191,7 +168,7 @@ const useUserActions = () => {
           localStorage.setItem("email", res.data.email);
           localStorage.setItem("phone", res.data.phone);
           setSoption(true);
-          navigate("/confirm-account");
+          router.push("/confirm-account");
         } else {
           alertActions.error(Labels.Error);
         }
@@ -226,7 +203,7 @@ const useUserActions = () => {
       .then((res) => {
         if (res.statusCode === 200) {
           alertActions.success(Labels.Verified);
-          navigate("/login");
+          router.push("/login");
         } else {
          
           alertActions.error(Labels.verify_Register_Otp_Error);
@@ -246,7 +223,7 @@ const useUserActions = () => {
       .then((res) => {
         if (res.statusCode === 200) {
           alertActions.success(Labels.Password_Reset_Success);
-          navigate("/login");
+          router.push("/login");
         } else {
           alertActions.error(Labels.Error);
         }
@@ -262,7 +239,7 @@ const useUserActions = () => {
       .then((res) => {
         if (res.statusCode === 200) {
           alertActions.success(Labels.Change_Password);
-          navigate("/login");
+          router.push("/login");
         } else {
           alertActions.error(Labels.Error);
         }
@@ -274,7 +251,7 @@ const useUserActions = () => {
 
   const createPassword = ({ newPassword, confirmPassword }) => {
     alertActions.success(Labels.Create_Password);
-    navigate("/login");
+    router.push("/login");
   };
 
   const updateUser = ({ name, email, mobile, password }) => {
@@ -302,7 +279,7 @@ const useUserActions = () => {
   const logout = () => {
     // remove user from local storage, set auth state to null and redirect to login page
     localStorage.removeItem(Labels.Local_Storage_User);
-    navigate("/");
+    router.push("/");
     alertActions.success(Labels.Logout_Success);
     setTimeout(() => {
       setAuth(null);

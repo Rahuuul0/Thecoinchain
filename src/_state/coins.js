@@ -1,38 +1,17 @@
-import { atom } from "recoil";
-const coinsAtom = atom({
-  key: "coinsAtom",
-  default: [],
-});
+import { atom } from "jotai";
+const coinsAtom = atom([]);
 
-const coinsErrorAtom = atom({
-  key: "coinsErrorAtom",
-  default: false,
-});
+const coinsErrorAtom = atom(false);
 
-const selectedCategoryAtom = atom({
-  key: "categoryName",
-  default: 0 /* 0 for all */,
-});
+const selectedCategoryAtom = atom(0 /* 0 for all */);
 
-const coinCategoryAtom = atom({
-  key: "categoryListAtom",
-  default: [],
-});
+const coinCategoryAtom = atom([]);
 
-const cardCoinsAtom = atom({
-  key: "cardCoinsAtom",
-  default: [],
-});
+const cardCoinsAtom = atom([]);
 
-const predictionAtom = atom({
-  key: "predictionAtom",
-  default: [],
-});
+const predictionAtom = atom([]);
 
-const categoryCoinsAtom = atom({
-  key: "categoryCoinsAtom",
-  default: [],
-});
+const categoryCoinsAtom = atom([]);
 
 export {
   coinsAtom,

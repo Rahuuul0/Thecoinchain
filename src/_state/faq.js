@@ -1,8 +1,5 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-const faqAtom = atom({
-  key: "faq",
-  default: [],
-});
+const faqAtom = atom([]);
 
 export { faqAtom };

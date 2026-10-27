@@ -1,8 +1,10 @@
+# Netlify detects Next.js and runs it with its Next.js runtime (SSR via
+# functions). Sitemap proxying and trailing-slash handling live in
+# next.config.mjs.
 [build]
-  publish = "build"
-  command = "npm run build-prod"
+  command = "npm run build"
+  publish = ".next"
 
-# Static SEO Files Headers
 [[headers]]
   for = "/robots.txt"
   [headers.values]
@@ -15,39 +17,3 @@
     Content-Type = "application/xml; charset=utf-8"
     X-Content-Type-Options = "nosniff"
     Cache-Control = "public, max-age=0, must-revalidate"
-
-
-# Static SEO Files Direct Serving
-[[redirects]]
-  from = "/robots.txt"
-  to = "/robots.txt"
-  status = 200
-
-[[redirects]]
-  from = "/sitemap_index.xml"
-  to = "/sitemap_index.xml"
-  status = 200
-
-[[redirects]]
-  from = "/sitemap.xml"
-  to = "/sitemap.xml"
-  status = 200
-
-[[redirects]]
-  from = "/sitemap-pages.xml"
-  to = "/sitemap-pages.xml"
-  status = 200
-
-# Dynamic Blog Sitemap Proxy (Live from Backend)
-[[redirects]]
-  from = "/sitemap-posts.xml"
-  to = "https://api.thecoinchain.com/sitemap.xml"
-  status = 200
-  force = true
-
-
-# React SPA Fallback
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200

@@ -1,17 +1,17 @@
-import { useSetRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { useSetAtom } from "jotai";
+import { useRouter } from "next/navigation";
 import { useFetchWrapper } from "../_helpers";
 import { Apis, Labels } from "../_common/app.constants";
 import { forecastSubAtom, loaderAtom, setUnsubscribeAtom } from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
 
 const subscriptionActions = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const fetchWrapper = useFetchWrapper();
   const alertActions = useAlertActions();
-  const setForecastSub = useSetRecoilState(forecastSubAtom);
-  const setUnsubscribeUser = useSetRecoilState(setUnsubscribeAtom);
-  const loader = useSetRecoilState(loaderAtom);
+  const setForecastSub = useSetAtom(forecastSubAtom);
+  const setUnsubscribeUser = useSetAtom(setUnsubscribeAtom);
+  const loader = useSetAtom(loaderAtom);
 
   const subscription = () => {
     return fetchWrapper
@@ -89,7 +89,7 @@ const subscriptionActions = () => {
         if (res.statusCode === 200) {
          
           alertActions.success(Labels.Unsubscribe);
-          navigate('/')
+          router.push('/')
         } else {
           console.log(res.msg, "res.msg");
           loader(false);

@@ -1,15 +1,15 @@
-import { useRecoilState } from 'recoil';
-import { useNavigate } from "react-router-dom";
+import { useAtom } from 'jotai';
+import { useRouter } from "next/navigation";
 import { useFetchWrapper } from '../_helpers';
 import { Apis } from '../_common/app.constants';
 import { allContentAtom } from '../_state';
 import { useAlertActions } from '../_actions/alert.actions';
 
 const allContentActions = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const fetchWrapper = useFetchWrapper();
     const alertActions = useAlertActions();
-    const [allContent, setAllContent] = useRecoilState(allContentAtom);
+    const [allContent, setAllContent] = useAtom(allContentAtom);
 
     // Get Content List by Type
     const get = (type) => {

@@ -1,8 +1,5 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-const loaderAtom = atom({
-  key: "loader",
-  default: false,
-});
+const loaderAtom = atom(false);
 
 export { loaderAtom };

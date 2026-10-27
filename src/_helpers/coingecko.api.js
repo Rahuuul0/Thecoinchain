@@ -20,11 +20,11 @@ const COINGECKO_BASE_URL = "https://api.coingecko.com/api/v3";
  */
 const loadApiKeys = () => {
   const envKeys = [
-    process.env.REACT_APP_COINGECKO_API_KEY_1,
-    process.env.REACT_APP_COINGECKO_API_KEY_2,
-    process.env.REACT_APP_COINGECKO_API_KEY_3,
-    process.env.REACT_APP_COINGECKO_API_KEY_4,
-    process.env.REACT_APP_COINGECKO_API_KEYS,
+    process.env.NEXT_PUBLIC_COINGECKO_API_KEY_1,
+    process.env.NEXT_PUBLIC_COINGECKO_API_KEY_2,
+    process.env.NEXT_PUBLIC_COINGECKO_API_KEY_3,
+    process.env.NEXT_PUBLIC_COINGECKO_API_KEY_4,
+    process.env.NEXT_PUBLIC_COINGECKO_API_KEYS,
   ]
     .flatMap((val) => (val ? val.split(",") : []))
     .map((k) => k?.trim())

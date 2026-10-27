@@ -1,4 +1,3 @@
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export const Labels = {
   Success: "Success..!",
@@ -45,7 +44,7 @@ export const RoutesName = {
   News_Promotions: "/news-promotions",
   Subscription: "/subscription",
   Market: "/market",
-  learn_Crypto_Details: "../learn-cypto-detail",
+  learn_Crypto_Details: "/learn-cypto-detail",
   Learn_Cypto: "/learn-cypto",
   Contact_Detail: "/contact-detail",
   Marketblog_detail: "/marketblog-detail",
@@ -147,13 +146,3 @@ export const Apis = {
   PROFILE_DETAIL: (id) => `profile/contents?id=${id}`,
 
 };
-
-export const theme = createTheme({
-  typography: {
-    fontFamily: `'Poppins', sans-serif`,
-    fontSize: 14,
-    fontWeightLight: 300,
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-  },
-});

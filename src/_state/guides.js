@@ -1,13 +1,7 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-const guidesAtom = atom({
-  key: "guides",
-  default: [],
-});
+const guidesAtom = atom([]);
 
-const guideListSingleAtom = atom({
-  key: "guideListSingle",
-  default: [],
-});
+const guideListSingleAtom = atom([]);
 
 export { guidesAtom, guideListSingleAtom };

@@ -1,13 +1,7 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-const analyticAtom = atom({
-  key: "analytic",
-  default: [],
-});
+const analyticAtom = atom([]);
 
-const analyticListSingleAtom = atom({
-  key: "analyticListSingle",
-  default: [],
-});
+const analyticListSingleAtom = atom([]);
 
 export { analyticAtom, analyticListSingleAtom };

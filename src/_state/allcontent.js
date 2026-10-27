@@ -1,8 +1,5 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-const allContentAtom = atom({
-  key: "allContent",
-  default: [],
-});
+const allContentAtom = atom([]);
 
 export { allContentAtom };

@@ -1,16 +1,16 @@
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { useNavigate } from "react-router-dom";
+import { useAtom, useSetAtom } from 'jotai';
+import { useRouter } from "next/navigation";
 import { useFetchWrapper } from '../_helpers';
 import { Apis } from '../_common/app.constants';
 import {  communityAtom, loaderAtom } from '../_state';
 import { useAlertActions } from '../_actions/alert.actions';
 
 const communityActions = () => {
-    const navigate = useNavigate()
+    const router = useRouter();
     const fetchWrapper = useFetchWrapper();
     const alertActions = useAlertActions();
-    const [Community, setcommunity] = useRecoilState(communityAtom);
-    const loader = useSetRecoilState(loaderAtom);
+    const [Community, setcommunity] = useAtom(communityAtom);
+    const loader = useSetAtom(loaderAtom);
 
     const community =  () => {
         loader(true);

@@ -1,13 +1,13 @@
 import { useFetchWrapper } from "../_helpers";
 import { loaderAtom, tutorialCategoryAtom, blogCategoryAtom } from "../_state";
 import { Apis } from "../_common/app.constants";
-import { useSetRecoilState } from "recoil";
+import { useSetAtom } from "jotai";
 
 const useCategoryActions = () => {
   const fetchWrapper = useFetchWrapper();
-  const loader = useSetRecoilState(loaderAtom);
-  const tutorialCategory = useSetRecoilState(tutorialCategoryAtom);
-  const blogCategory = useSetRecoilState(blogCategoryAtom);
+  const loader = useSetAtom(loaderAtom);
+  const tutorialCategory = useSetAtom(tutorialCategoryAtom);
+  const blogCategory = useSetAtom(blogCategoryAtom);
 
   const categoryList = () => {
     loader(true);

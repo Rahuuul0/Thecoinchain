@@ -1,23 +1,11 @@
-import { atom } from 'recoil';
+import { atom } from 'jotai';
 
-const bannerListAtom = atom({
-    key: 'bannerList',
-    default: []
-});
+const bannerListAtom = atom([]);
 
-const homeBannerAtom = atom({
-    key: 'marketBanner',
-    default: []
-});
+const homeBannerAtom = atom([]);
 
-const MarketBannerAtom = atom({
-    key: 'MarketBanner',
-    default: []
-});
+const MarketBannerAtom = atom([]);
 
-const setLogoListAtom = atom({
-    key: 'setLogoList',
-    default: []
-});
+const setLogoListAtom = atom([]);
 
 export { bannerListAtom, homeBannerAtom, MarketBannerAtom, setLogoListAtom };

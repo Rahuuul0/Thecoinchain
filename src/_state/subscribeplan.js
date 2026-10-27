@@ -1,8 +1,5 @@
-import { atom } from 'recoil';
+import { atom } from 'jotai';
 
-const subscribePlanAtom = atom({
-    key: 'subscribePlan',
-    default: {}
-});
+const subscribePlanAtom = atom({});
 
 export { subscribePlanAtom };

@@ -1,18 +1,18 @@
-import { useRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { useAtom } from "jotai";
+import { useRouter } from "next/navigation";
 import { useFetchWrapper } from "../_helpers";
 import { Apis } from "../_common/app.constants";
 import { historicalAtom, loaderAtom } from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
-import { useSetRecoilState } from "recoil";
+import { useSetAtom } from "jotai";
 import dayjs from "dayjs";
 
 const quotesHistoricalActions = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const fetchWrapper = useFetchWrapper();
   const alertActions = useAlertActions();
-  const setHistorical = useSetRecoilState(historicalAtom);
-  const loader = useSetRecoilState(loaderAtom);
+  const setHistorical = useSetAtom(historicalAtom);
+  const loader = useSetAtom(loaderAtom);
 
   const add = (coinSymbol, timeFrame) => {
     loader(true);

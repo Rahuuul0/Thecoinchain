@@ -14,6 +14,8 @@
   [headers.values]
     Content-Type = "application/xml; charset=utf-8"
     X-Content-Type-Options = "nosniff"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 
 # Static SEO Files Direct Serving
 [[redirects]]
@@ -36,10 +38,13 @@
   to = "/sitemap-pages.xml"
   status = 200
 
+# Dynamic Blog Sitemap Proxy (Live from Backend)
 [[redirects]]
   from = "/sitemap-posts.xml"
-  to = "/sitemap-posts.xml"
+  to = "https://api.thecoinchain.com/sitemap.xml"
   status = 200
+  force = true
+
 
 # React SPA Fallback
 [[redirects]]

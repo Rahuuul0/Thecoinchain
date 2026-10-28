@@ -9,11 +9,11 @@ export const BLOG_CONTENT_TYPES = [
   "press_release",
   "price_prediction",
   "research_report",
-  "guest_post",
+  // "guest_post",
   "market",
   "finance",
-  "policy",
-  "tech",
+  // "policy",
+  // "tech",
 ];
 
 /**

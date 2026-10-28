@@ -256,8 +256,8 @@ export function NewsCardGrid({ id, title, type, limit, viewAllHref, viewAllAfter
 const BUSINESS_CATEGORIES = [
   { type: "market", label: "Markets", href: RoutesName.Market_News },
   { type: "finance", label: "Finance", href: RoutesName.Finance },
-  { type: "policy", label: "Policy", href: RoutesName.policy },
-  { type: "tech", label: "Tech", href: RoutesName.tech },
+  // { type: "policy", label: "Policy", href: RoutesName.policy },
+  // { type: "tech", label: "Tech", href: RoutesName.tech },
 ];
 
 export function BusinessNewsPanels() {

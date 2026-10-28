@@ -310,8 +310,6 @@ export default function HomePage() {
     tutorialAction.categoryList();
     homeActions.cryptoTrader();
     homeActions.cryptoNews();
-    homeActions.crytoWorkList();
-    homeActions.headingList();
     bannerActions.homeBannerList();
     bannerActions.get();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -326,30 +324,28 @@ export default function HomePage() {
       {/* Hero: headline story + trending ticker */}
       <section className="relative flex items-center bg-[url(/assets/Background_img/Golden_Market_Waves.png)] bg-cover bg-top bg-no-repeat pt-8 pb-12 transition-[background-image] duration-500 sm:pt-10 sm:pb-16 md:min-h-[560px] md:pt-12 md:pb-20 dark:bg-[url(/assets/Background_img/Golden_Coins.png)]">
         <Container>
-          {homeBannerData?.map((_, idx) => (
-            <div key={idx} className="pb-4 sm:pb-6">
-              {subscribeUser?.status === "expired" && auth !== null && (
-                <div className="mt-[22px] mb-4 flex items-center gap-3 rounded bg-[rgb(229,246,253)] px-4 py-1.5 text-sm text-[rgb(1,67,97)]">
-                  <Info className="size-5 text-[#0288d1]" />
-                  <span>
-                    You don&apos;t have any current plan please{" "}
-                    <Link href="/subscription">
-                      <b>subscribe </b>
-                    </Link>
-                    !
-                  </span>
-                </div>
-              )}
-              <div className="grid grid-cols-1 items-center gap-6 sm:grid-cols-2 md:gap-8">
-                <div className="md:pr-10">
-                  <HomePageCryptoNews />
-                </div>
-                <div id="trending-news-section">
-                  <MuiTrandingNewsDashboardSection />
-                </div>
+          <div className="pb-4 sm:pb-6">
+            {subscribeUser?.status === "expired" && auth !== null && (
+              <div className="mt-[22px] mb-4 flex items-center gap-3 rounded bg-[rgb(229,246,253)] px-4 py-1.5 text-sm text-[rgb(1,67,97)]">
+                <Info className="size-5 text-[#0288d1]" />
+                <span>
+                  You don&apos;t have any current plan please{" "}
+                  <Link href="/subscription">
+                    <b>subscribe </b>
+                  </Link>
+                  !
+                </span>
+              </div>
+            )}
+            <div className="grid grid-cols-1 items-center gap-6 sm:grid-cols-2 md:gap-8">
+              <div className="md:pr-10">
+                <HomePageCryptoNews />
+              </div>
+              <div id="trending-news-section">
+                <MuiTrandingNewsDashboardSection />
               </div>
             </div>
-          ))}
+          </div>
         </Container>
       </section>
 

@@ -3,7 +3,50 @@ import { useRouter } from "next/navigation";
 import { authAtom } from "../_state";
 import { useAlertActions } from "../_actions/alert.actions";
 
-export { useFetchWrapper };
+export { useFetchWrapper, clearFetchCache };
+
+// Concurrency queue to prevent burst of parallel requests from exhausting backend MySQL connections
+const MAX_CONCURRENT = 4;
+let activeRequests = 0;
+const requestQueue = [];
+
+// In-flight deduplication & short-lived response cache for GET requests
+const inFlightRequests = new Map();
+const responseCache = new Map();
+const CACHE_TTL_MS = 20000; // 20s TTL to prevent duplicate requests across components
+
+function clearFetchCache() {
+  responseCache.clear();
+  inFlightRequests.clear();
+}
+
+function enqueueRequest(fn) {
+  return new Promise((resolve, reject) => {
+    const execute = () => {
+      activeRequests++;
+      fn()
+        .then(resolve)
+        .catch(reject)
+        .finally(() => {
+          activeRequests--;
+          if (requestQueue.length > 0) {
+            const next = requestQueue.shift();
+            next();
+          }
+        });
+    };
+
+    if (activeRequests < MAX_CONCURRENT) {
+      execute();
+    } else {
+      requestQueue.push(execute);
+    }
+  });
+}
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 function useFetchWrapper() {
   const router = useRouter();
@@ -23,23 +66,117 @@ function useFetchWrapper() {
       const baseUrl = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/+$/, "");
       const cleanPath = String(url || "").replace(/^\/+/, "");
       const fullUrl = cleanPath ? `${baseUrl}/${cleanPath}` : baseUrl;
+
+      // In-flight deduplication & cache check for GET requests
+      if (method === "GET") {
+        const cached = responseCache.get(fullUrl);
+        if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
+          return Promise.resolve(cached.data);
+        }
+        if (inFlightRequests.has(fullUrl)) {
+          return inFlightRequests.get(fullUrl);
+        }
+      } else {
+        // Mutations invalidate the read cache
+        responseCache.clear();
+      }
+
       const requestOptions = {
         method,
         headers: authHeader(fullUrl),
       };
-      if (body && file == false) {
+      if (body && file === false) {
         requestOptions.headers["Content-Type"] = "application/json";
         requestOptions.body = JSON.stringify(body);
-      } else {
+      } else if (body) {
         requestOptions.body = body;
       }
-      return fetch(fullUrl, requestOptions).then(handleResponse);
+
+      // Max 2 silent retries for transient 5xx / database connection drops on idempotent (GET) requests
+      const maxRetries = method === "GET" ? 2 : 0;
+
+      const executeFetch = async (retryCount = 0) => {
+        try {
+          const response = await fetch(fullUrl, requestOptions);
+          const text = await response.text();
+          let data = null;
+          if (text) {
+            try {
+              data = JSON.parse(text);
+            } catch {
+              data = null;
+            }
+          }
+
+          if (!response.ok) {
+            const rawError =
+              (data && (data.message || data.error || data.error_info || data.msg)) ||
+              response.statusText ||
+              (text && text.length < 200 ? text : `Request failed with status ${response.status}`);
+
+            const isSqlError = typeof rawError === "string" && /SQLSTATE|SQL syntax|database/i.test(rawError);
+
+            // If backend returned transient database connection error or 5xx, retry with short backoff
+            if (retryCount < maxRetries && (response.status >= 500 || isSqlError)) {
+              await delay(350 * (retryCount + 1));
+              return executeFetch(retryCount + 1);
+            }
+
+            if ([401, 403].includes(response.status) && auth?.access_token) {
+              clearFetchCache();
+              localStorage.removeItem("user");
+              setAuth(null);
+              router.push(`/login`);
+            }
+
+            const userFacingError = isSqlError
+              ? "Server temporarily unavailable. Please try again later."
+              : rawError;
+
+            if (![402, 404].includes(response.status)) {
+              alertActions.error(userFacingError);
+            }
+            return Promise.reject(rawError);
+          } else {
+            if (data && [403].includes(data.statusCode) && data.status === "unauthorized") {
+              clearFetchCache();
+              localStorage.removeItem("user");
+              setAuth(null);
+              router.push(`/login`);
+            }
+            return data ?? text;
+          }
+        } catch (networkErr) {
+          if (retryCount < maxRetries) {
+            await delay(350 * (retryCount + 1));
+            return executeFetch(retryCount + 1);
+          }
+          throw networkErr;
+        }
+      };
+
+      if (method === "GET") {
+        const promise = enqueueRequest(() => executeFetch(0))
+          .then((result) => {
+            responseCache.set(fullUrl, { data: result, timestamp: Date.now() });
+            inFlightRequests.delete(fullUrl);
+            return result;
+          })
+          .catch((err) => {
+            inFlightRequests.delete(fullUrl);
+            throw err;
+          });
+
+        inFlightRequests.set(fullUrl, promise);
+        return promise;
+      }
+
+      return enqueueRequest(() => executeFetch(0));
     };
   }
 
   // helper functions
   function authHeader(url) {
-    // return auth header with jwt if user is logged in and request is to the api url
     const token = auth?.access_token;
     const isLoggedIn = !!token;
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
@@ -49,51 +186,5 @@ function useFetchWrapper() {
     } else {
       return {};
     }
-  }
-
-  function handleResponse(response) {
-    return response.text().then((text) => {
-      let data = null;
-      if (text) {
-        try {
-          data = JSON.parse(text);
-        } catch {
-          // Response is not JSON (e.g. HTML 404/500 error page from server)
-          data = null;
-        }
-      }
-
-      if (!response.ok) {
-        if ([401, 403].includes(response.status) && auth?.access_token) {
-          // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
-          localStorage.removeItem("user");
-          setAuth(null);
-          router.push(`/login`);
-        }
-
-        const rawError =
-          (data && (data.message || data.error || data.error_info || data.msg)) ||
-          response.statusText ||
-          (text && text.length < 200 ? text : `Request failed with status ${response.status}`);
-
-        // Sanitize database internal errors for user-facing snackbars
-        const isSqlError = typeof rawError === "string" && /SQLSTATE|SQL syntax|database/i.test(rawError);
-        const userFacingError = isSqlError
-          ? "Server temporarily unavailable. Please try again later."
-          : rawError;
-
-        if (![402, 404].includes(response.status)) {
-          alertActions.error(userFacingError);
-        }
-        return Promise.reject(rawError);
-      } else {
-        if (data && [403].includes(data.statusCode) && data.status === "unauthorized") {
-          localStorage.removeItem("user");
-          setAuth(null);
-          router.push(`/login`);
-        }
-      }
-      return data ?? text;
-    });
   }
 }

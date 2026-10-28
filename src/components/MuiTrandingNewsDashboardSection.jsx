@@ -29,14 +29,36 @@ export default function MuiTrandingNewsDashboardSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchWrapper
-      .get(Apis.All_Content("trending_news"))
-      .then((res) => setNews(Array.isArray(res?.results) ? res.results : listFrom(res)))
-      .catch((err) => {
-        console.warn("Unable to fetch trending news:", err);
-        setNews([]);
-      })
-      .finally(() => setLoading(false));
+    let cancelled = false;
+
+    const loadNews = (retries = 2) => {
+      fetchWrapper
+        .get(Apis.All_Content("trending_news"))
+        .then((res) => {
+          if (cancelled) return;
+          const list = Array.isArray(res?.results) ? res.results : listFrom(res);
+          setNews(list);
+          setLoading(false);
+        })
+        .catch((err) => {
+          if (cancelled) return;
+          if (retries > 0) {
+            setTimeout(() => {
+              if (!cancelled) loadNews(retries - 1);
+            }, 600);
+            return;
+          }
+          console.warn("Unable to fetch trending news:", err);
+          setNews([]);
+          setLoading(false);
+        });
+    };
+
+    loadNews();
+
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

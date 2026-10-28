@@ -22,12 +22,12 @@ export const NEWS_CATEGORIES = {
   // Listed in the router but not configured: show latest news.
   information: { heading: "Information" },
   "research-report": { heading: "Research Report" },
-  "guest-post": { heading: "Guest Post" },
+  // "guest-post": { heading: "Guest Post" },
   sponsored: { heading: "Sponsored" },
   "price-analysis": { heading: "Price Analysis" },
   "stock-price-prediction": { heading: "Stock Price Prediction" },
-  policy: { heading: "Policy" },
-  tech: { heading: "Tech" },
+  // policy: { heading: "Policy" },
+  // tech: { heading: "Tech" },
 };
 
 export const DEFAULT_CATEGORY = NEWS_CATEGORIES["latest-news"];

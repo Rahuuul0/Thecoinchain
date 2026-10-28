@@ -1,14 +1,8 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-const academyAtom = atom({
-  key: "academy",
-  default: [],
-});
+const academyAtom = atom([]);
 
-const masterAtom = atom({
-    key: "master",
-    default: [],
-  });
+const masterAtom = atom([]);
   
 
 export { academyAtom, masterAtom };

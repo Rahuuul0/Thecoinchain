@@ -1,39 +1,29 @@
-.DS_STORE
+# dependencies
 node_modules
-scripts/flow/*/.flowconfig
-.flowconfig
-*~
-*.pyc
-.grunt
-_SpecRunner.html
-__benchmarks__
+
+# next.js
+.next/
+out/
 build/
-remote-repo/
-coverage/
-.module-cache
-fixtures/dom/public/react-dom.js
-fixtures/dom/public/react.js
-test/the-files-to-test.generated.js
+next-env.d.ts
+
+# env files (keep the example)
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env*.local
+.env*
+!.env.example
+
+# logs
 *.log*
-chrome-user-data
-*.sublime-project
-*.sublime-workspace
+
+# misc
+.DS_Store
 .idea
-*.iml
 .vscode
 *.swp
 *.swo
-package-lock.json
-.env*
-packages/react-devtools-core/dist
-packages/react-devtools-extensions/chrome/build
-packages/react-devtools-extensions/chrome/*.crx
-packages/react-devtools-extensions/chrome/*.pem
-packages/react-devtools-extensions/firefox/build
-packages/react-devtools-extensions/firefox/*.xpi
-packages/react-devtools-extensions/firefox/*.pem
-packages/react-devtools-extensions/shared/build
-packages/react-devtools-extensions/.tempUserDataDir
-packages/react-devtools-inline/dist
-packages/react-devtools-shell/dist
-packages/react-devtools-timeline/dist
+coverage/

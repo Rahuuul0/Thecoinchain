@@ -1,39 +1,18 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-const tutorialAtom = atom({
-  key: "tutorialAtom",
-  default: [],
-});
+const tutorialAtom = atom([]);
 
-const blogAtom = atom({
-  key: "blogs",
-  default: [],
-});
+const blogAtom = atom([]);
 
-const blogListAtom = atom({
-  key: "blogListAtom",
-  default: [],
-});
+const blogListAtom = atom([]);
 
-const marketBlogListAtom = atom({
-  key: "marketBlogListAtom",
-  default: [],
-});
+const marketBlogListAtom = atom([]);
 
-const blogimgAtom = atom({
-  key: "blogimgAtom",
-  default: false,
-});
+const blogimgAtom = atom(false);
 
-const blogVideoAtom = atom({
-  key: "blogVideoAtom",
-  default: false,
-});
+const blogVideoAtom = atom(false);
 
 
-const blogListSingleAtom = atom({
-  key: "blogListSingle",
-  default: [],
-});
+const blogListSingleAtom = atom([]);
 
 export { tutorialAtom, blogAtom, blogListAtom, blogimgAtom, marketBlogListAtom, blogVideoAtom, blogListSingleAtom };

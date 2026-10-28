@@ -1,7 +1,4 @@
-import { atom } from 'recoil';
+import { atom } from 'jotai';
 
-const alertAtom = atom({
-    key: 'alert',
-    default:null
-});
+const alertAtom = atom(null);
 export { alertAtom };

@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: <html class="dark"> (set before paint in layout.jsx). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Breakpoints match the old MUI theme so responsive layouts stay put. */
+@theme {
+  --breakpoint-sm: 600px;
+  --breakpoint-md: 900px;
+  --breakpoint-lg: 1200px;
+  --breakpoint-xl: 1536px;
+  --breakpoint-2xl: initial;
+
+  /* Static palette */
+  --color-primary: #3772ff;
+  --color-primary-dark: #2563eb;
+  --color-gold: #ffd700;
+  --color-danger: #ff6838;
+  --color-success: #58bd7d;
+  --color-purple: #9757d7;
+  --color-n1: #141416;
+  --color-n2: #23262f;
+  --color-n3: #353945;
+  --color-n4: #777e90;
+  --color-n5: #b1b5c4;
+  --color-n6: #e6e8ec;
+  --color-n7: #f4f5f6;
+  --color-n8: #fcfcfd;
+  --color-ink: #18191d;
+
+  --radius-card: 12px;
+
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-ticker-up: ticker-up var(--ticker-duration, 20s) linear infinite;
+  --animate-fade-in: fade-in 0.4s ease-out both;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes ticker-up {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+  }
+  @keyframes card-shimmer {
+    from { transform: translateX(-130%) skewX(-18deg); }
+    to { transform: translateX(130%) skewX(-18deg); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Theme-aware tokens: swap with .dark */
+@theme inline {
+  --font-sans: var(--font-poppins), "Poppins", sans-serif;
+  --font-display: var(--font-dm-sans), "DM Sans", sans-serif;
+  --font-article: var(--font-inter), "Inter", sans-serif;
+
+  --color-fg: var(--fg);
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-subtle: var(--subtle);
+  --color-section: var(--section);
+  --color-line: var(--line);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-inverse: var(--inverse);
+}
+
+:root {
+  --fg: #23262f;
+  --page: #fcfcfd;
+  --surface: #fcfcfd;
+  --subtle: #f4f5f6;
+  --section: #f8f8f9;
+  --line: #e6e8ec;
+  --body: #353945;
+  --muted: #777e90;
+  --inverse: #fcfcfd;
+  color-scheme: light;
+}
+
+.dark {
+  --fg: #ffffff;
+  --page: #141416;
+  --surface: #23262f;
+  --subtle: #23262f;
+  --section: #18191d;
+  --line: #353945;
+  --body: #b1b5c3;
+  --muted: #777e90;
+  --inverse: #23262f;
+  color-scheme: dark;
+}
+
+@layer base {
+  body {
+    @apply bg-page font-sans text-fg antialiased;
+  }
+
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+
+  /* Global type scale carried over from the previous stylesheet. */
+  #root h1 { font-size: 64px; font-weight: 700; }
+  #root h2 { font-size: 48px; font-weight: 700; }
+  #root h3 { font-size: 40px; font-weight: 700; }
+  #root h4 { font-size: 32px; }
+  #root h5 { font-size: 22px; }
+  #root h6 { font-size: 18px; line-height: 1.6; }
+  #root p { font-size: 16px; }
+  #root a { color: var(--color-primary); cursor: pointer; }
+
+  p {
+    color: var(--body);
+  }
+
+  @media (max-width: 767.98px) {
+    #root h1 { font-size: 40px; }
+    #root h2 { font-size: 32px; }
+  }
+}
+
+@utility container-app {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 1200px;
+  padding-inline: 16px;
+
+  @variant sm {
+    padding-inline: 24px;
+  }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+/*
+ * Article HTML from the CMS can't carry utility classes, so it is styled
+ * here as one scoped component (matches the previous article styles).
+ */
+@layer components {
+  .blog-content {
+    color: #475569;
+    font-size: 1rem;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+
+    @variant sm {
+      font-size: 1.1rem;
+    }
+  }
+  .blog-content * { font-family: var(--font-sans) !important; }
+  .blog-content p { margin: 0; color: inherit; }
+  .blog-content a { color: var(--color-primary); }
+  .blog-content ul { list-style: disc; padding-left: 1.5rem; }
+  .blog-content ol { list-style: decimal; padding-left: 1.5rem; }
+  .blog-content :is(img, video) { max-width: 100%; height: auto; border-radius: 12px; margin: 20px 0; }
+  .blog-content iframe { max-width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; margin: 20px 0; }
+  .blog-content table { display: block; max-width: 100%; overflow-x: auto; }
+
+  /* Swiper's generated nav buttons: "➜" arrows pinned bottom-left. */
+  .swiper-arrows .swiper { padding-bottom: 40px; }
+  .swiper-arrows .swiper-button-prev,
+  .swiper-arrows .swiper-button-next {
+    top: auto;
+    bottom: 0;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    color: var(--fg);
+  }
+  .swiper-arrows .swiper-button-prev { left: 0; }
+  .swiper-arrows .swiper-button-next { left: 40px; right: auto; }
+  .swiper-arrows .swiper-navigation-icon { display: none; }
+  .swiper-arrows .swiper-button-prev::after,
+  .swiper-arrows .swiper-button-next::after {
+    content: "➜";
+    font-family: inherit;
+    font-size: 21px;
+  }
+  .swiper-arrows .swiper-button-prev::after { transform: rotate(-180deg); }
+
+  /* Variant: arrows centered under the slides. */
+  .swiper-arrows-center .swiper { padding-bottom: 80px; }
+  .swiper-arrows-center .swiper-button-prev { left: calc(49vw - 27px); bottom: 20px; }
+  .swiper-arrows-center .swiper-button-next { left: auto; right: calc(49vw - 27px); bottom: 20px; }
+
+  /* HTML descriptions on CMS-driven pages (courses, guides, policies). */
+  .html-content { overflow-wrap: anywhere; }
+  .html-content ul { list-style: disc; padding-left: 1.5rem; }
+  .html-content ol { list-style: decimal; padding-left: 1.5rem; }
+  .html-content img { max-width: 100%; height: auto; }
+  .html-content a { color: var(--color-primary); }
+}

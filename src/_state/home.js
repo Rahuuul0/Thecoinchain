@@ -1,46 +1,23 @@
-import { atom } from 'recoil';
+import { atom } from 'jotai';
 
-const homeAtom = atom({
-    key: 'homeAtom',
-    default: []
-});
+const homeAtom = atom([]);
 
 
-const userErrorAtom = atom({
-    key: 'userErrorHome',
-    default: false,   
-});
+const userErrorAtom = atom(false);
 
-const marketTrendAtom = atom({
-    key: 'marketTrendAtom',
-    default: {}
-});
+const marketTrendAtom = atom({});
 
 
-const cryptoTraderAtom = atom({
-    key: 'cryptoTraderAtom',
-    default: []
-});
+const cryptoTraderAtom = atom([]);
 
-const cryptoNewsAtom = atom({
-    key: 'cryptoNewsAtom',
-    default: []
-});
+const cryptoNewsAtom = atom([]);
 
-const switchDarkModeAtom = atom({
-    key: "darkMode",
-    default: localStorage.getItem('theme') === 'dark' ? true : false
-  });
+// Hydrated from localStorage on the client by <StoreHydrator />.
+const switchDarkModeAtom = atom(false);
 
-  const WorkListAtom = atom({
-    key: 'WorkList',
-    default: []
-});
+const WorkListAtom = atom([]);
 
-const headingListAtom = atom({
-    key: 'headingList',
-    default: []
-});
+const headingListAtom = atom([]);
 
 
 export { homeAtom, marketTrendAtom, cryptoTraderAtom, cryptoNewsAtom, switchDarkModeAtom, WorkListAtom, headingListAtom };

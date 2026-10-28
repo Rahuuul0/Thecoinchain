@@ -1,14 +1,8 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-const planAtom = atom({
-  key: "paymentAtom",
-  default:{},
-});
+const planAtom = atom({});
 
-const subplanAtom = atom({
-  key: "subplanAtom",
-  default:false,
-});
+const subplanAtom = atom(false);
 
 
 export { planAtom, subplanAtom };

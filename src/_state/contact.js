@@ -1,17 +1,8 @@
-import { atom } from 'recoil';
+import { atom } from 'jotai';
 
-const contact_AddAtom = atom({
-    key: 'addTempAtom',
-    default: {}
-});
+const contact_AddAtom = atom({});
 
-const contactListAtom = atom({
-    key: "contactListAtom",
-    default: [],
-  });
+const contactListAtom = atom([]);
 
-  const contactBlogListAtom = atom({
-    key: "contactBlogListAtom",
-    default: [],
-  });
+  const contactBlogListAtom = atom([]);
 export { contact_AddAtom, contactListAtom, contactBlogListAtom };

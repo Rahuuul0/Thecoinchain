@@ -2,17 +2,17 @@ import { useFetchWrapper } from '../_helpers';
 import { useAlertActions } from './alert.actions';
 import { Labels, Apis } from '../_common/app.constants'
 import { FooterAddAtom, loaderAtom, TermsListAtom, DisclaimersListAtom, PrivacyListAtom } from '../_state';
-import { useSetRecoilState } from 'recoil';
+import { useSetAtom } from 'jotai';
 
 
 const useFooterActions = () => {
   const fetchWrapper = useFetchWrapper();
   const alertActions = useAlertActions();
-  const setFooterError = useSetRecoilState(FooterAddAtom);
-  const loader = useSetRecoilState(loaderAtom)
-  const setTermsList = useSetRecoilState(TermsListAtom);
-  const setDisclaimersList = useSetRecoilState(DisclaimersListAtom);
-  const setPrivacyList = useSetRecoilState(PrivacyListAtom);
+  const setFooterError = useSetAtom(FooterAddAtom);
+  const loader = useSetAtom(loaderAtom)
+  const setTermsList = useSetAtom(TermsListAtom);
+  const setDisclaimersList = useSetAtom(DisclaimersListAtom);
+  const setPrivacyList = useSetAtom(PrivacyListAtom);
 
   const add = (data) => {
     loader(true)

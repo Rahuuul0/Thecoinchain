@@ -1,24 +1,12 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-const newsListAtom = atom({
-  key: "newsList",
-  default: [],
-});
+const newsListAtom = atom([]);
 
-const newsListAtomSingle = atom({
-  key: "newsListSingle",
-  default: [],
-});
+const newsListAtomSingle = atom([]);
 
-const latestNewsAtom = atom({
-  key: "latestNewsAtom",
-  default: [],
-});
+const latestNewsAtom = atom([]);
 
-const TrendingNewsAtom = atom({
-  key: "TrendingNewsAtom",
-  default: [],
-});
+const TrendingNewsAtom = atom([]);
 
 
 export { newsListAtom, newsListAtomSingle, latestNewsAtom, TrendingNewsAtom };

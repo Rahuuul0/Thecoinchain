@@ -1,16 +1,7 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-const notificationAtom = atom({
-  key: "notificationAtom",
-  default: [],
-});
-const notificationCountAtom = atom({
-  key: "notificationCountAtom",
-  default: 0,
-});
-const notificationViewAtom = atom({
-  key: "notificationViewAtom",
-  default: [],
-});
+const notificationAtom = atom([]);
+const notificationCountAtom = atom(0);
+const notificationViewAtom = atom([]);
 
 export { notificationAtom, notificationCountAtom, notificationViewAtom };

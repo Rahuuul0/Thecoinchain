@@ -1,14 +1,8 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-const promotionAtom = atom({
-  key: "promotion",
-  default: [],
-});
+const promotionAtom = atom([]);
 
-const promotionAtomSingle = atom({
-  key: "promotionSingle",
-  default: [],
-});
+const promotionAtomSingle = atom([]);
 
 
 export { promotionAtom, promotionAtomSingle };

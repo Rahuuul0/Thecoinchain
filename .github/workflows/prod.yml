@@ -1,4 +1,4 @@
-name: Deploy React App
+name: Deploy Next.js App
 
 on:
   push:
@@ -16,20 +16,54 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+          cache: npm
 
       - name: Install Dependencies
-        run: npm install --legacy-peer-deps
+        run: npm ci
 
+      # NEXT_PUBLIC_* values are inlined into the client bundle at build time.
       - name: Build Project
         run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_IMAGE_URL: ${{ vars.NEXT_PUBLIC_IMAGE_URL }}
+          NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID: ${{ vars.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID }}
+          NEXT_PUBLIC_reCAPTCHA_SITE_KEY: ${{ vars.NEXT_PUBLIC_reCAPTCHA_SITE_KEY }}
+          NEXT_PUBLIC_COINGECKO_API_KEYS: ${{ secrets.NEXT_PUBLIC_COINGECKO_API_KEYS }}
 
-      - name: Deploy to Server
+      # The standalone server doesn't include static assets; copy them in.
+      - name: Assemble Release
+        run: |
+          cp -r public .next/standalone/public
+          cp -r .next/static .next/standalone/.next/static
+          tar -czf release.tgz -C .next/standalone .
+
+      - name: Upload Release
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          source: "build/*"
+          source: "release.tgz"
           target: ${{ secrets.TARGET_DIR }}
+
+      # Requires Node 20.9+ and pm2 on the server; the app listens on $PORT (default 3000).
+      - name: Restart Server
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            set -e
+            cd "${{ secrets.TARGET_DIR }}"
+            rm -rf current && mkdir current
+            tar -xzf release.tgz -C current
+            rm release.tgz
+            cd current
+            pm2 delete thecoinchain 2>/dev/null || true
+            PORT=3000 HOSTNAME=0.0.0.0 pm2 start server.js --name thecoinchain
+            pm2 save

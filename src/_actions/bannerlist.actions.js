@@ -1,18 +1,18 @@
-import { useSetRecoilState } from 'recoil';
-import { useNavigate } from "react-router-dom";
+import { useSetAtom } from 'jotai';
+import { useRouter } from "next/navigation";
 import { useFetchWrapper } from '../_helpers';
-import { Apis } from '../_common/app.constants';
+import { Apis, Labels } from '../_common/app.constants';
 import {  bannerListAtom, homeBannerAtom, MarketBannerAtom, setLogoListAtom } from '../_state';
 import { useAlertActions } from './alert.actions';
 
 const bannerListActions = () => {
-    const navigate = useNavigate()
+    const router = useRouter();
     const fetchWrapper = useFetchWrapper();
     const alertActions = useAlertActions();
-    const setBanner = useSetRecoilState(bannerListAtom);
-    const HomeBanner = useSetRecoilState(homeBannerAtom);
-    const setMarketBanner = useSetRecoilState(MarketBannerAtom);
-    const setLogoList = useSetRecoilState(setLogoListAtom)
+    const setBanner = useSetAtom(bannerListAtom);
+    const HomeBanner = useSetAtom(homeBannerAtom);
+    const setMarketBanner = useSetAtom(MarketBannerAtom);
+    const setLogoList = useSetAtom(setLogoListAtom)
 
     const get =  () => {
         return fetchWrapper.get(Apis.Banner_List)
@@ -20,7 +20,7 @@ const bannerListActions = () => {
                 if (res.statusCode === 200) {
                     setBanner([...res.data])
                     // alertActions.success("Logged In Successfully");
-                    // navigate("/")
+                    // router.push("/")
                 } else {
                     // alertActions.error(res.msg);
                 }

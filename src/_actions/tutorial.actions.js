@@ -8,22 +8,22 @@ import {
   blogListAtom, 
   blogimgAtom, blogVideoAtom } from "../_state";
 import { Apis } from "../_common/app.constants";
-import { useRecoilValue, useRecoilState } from "recoil";
-import { useSetRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { useAtomValue, useAtom } from "jotai";
+import { useSetAtom } from "jotai";
+import { useRouter } from "next/navigation";
 
 const useTutorialActions = () => {
   const fetchWrapper = useFetchWrapper();
-  const navigate = useNavigate()
-  const [blogImg, setBlogimg] = useRecoilState(blogListAtom);
-  const [blogNew, setBlognew] = useRecoilState(blogimgAtom);
-  const setTutorialData = useSetRecoilState(tutorialAtom);
-  const setBlogData = useSetRecoilState(blogAtom);
-  const loader = useSetRecoilState(loaderAtom);
-  const tutorialCategory = useSetRecoilState(tutorialCategoryAtom);
-  const marketBlogLists = useSetRecoilState(marketBlogListAtom);
-  const setBlogListSingle = useSetRecoilState(blogListSingleAtom);
-  const [blogVideo, setBlogvideo] = useRecoilState(blogVideoAtom);
+  const router = useRouter();
+  const [blogImg, setBlogimg] = useAtom(blogListAtom);
+  const [blogNew, setBlognew] = useAtom(blogimgAtom);
+  const setTutorialData = useSetAtom(tutorialAtom);
+  const setBlogData = useSetAtom(blogAtom);
+  const loader = useSetAtom(loaderAtom);
+  const tutorialCategory = useSetAtom(tutorialCategoryAtom);
+  const marketBlogLists = useSetAtom(marketBlogListAtom);
+  const setBlogListSingle = useSetAtom(blogListSingleAtom);
+  const [blogVideo, setBlogvideo] = useAtom(blogVideoAtom);
 
   const tutorialData = () => {
     loader(true);
@@ -97,7 +97,7 @@ const useTutorialActions = () => {
           setBlognew(true)
           setBlogvideo(true)
         }
-      }).catch((err) => {navigate("/page-not-found"); console.warn(err) })
+      }).catch((err) => {router.push("/page-not-found"); console.warn(err) })
   }
   const getSingle = (title) => {
     return fetchWrapper.get(`${Apis.Blog_List}?slug=${title}`)
@@ -107,7 +107,7 @@ const useTutorialActions = () => {
           setBlognew(true)
           setBlogvideo(false)
         }
-      }).catch((err) => { navigate("/page-not-found"); console.warn(err) })
+      }).catch((err) => { router.push("/page-not-found"); console.warn(err) })
   }
   const getSingleVideo = (title) => {
     return fetchWrapper.get(`${Apis.Tutorial_Video}?slug=${title}`)
@@ -117,7 +117,7 @@ const useTutorialActions = () => {
           setBlognew(true)
           setBlogvideo(true)
         }
-      }).catch((err) => { navigate("/page-not-found"); console.warn(err) })
+      }).catch((err) => { router.push("/page-not-found"); console.warn(err) })
   }
 
   return {

@@ -1,8 +1,5 @@
-import { atom } from 'recoil';
+import { atom } from 'jotai';
 
-const communityAtom = atom({
-    key: 'communityAtom',
-    default: []
-});
+const communityAtom = atom([]);
 
 export { communityAtom };

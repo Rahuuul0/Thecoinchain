@@ -1,18 +1,9 @@
-import { atom } from "recoil";
+import { atom } from "jotai";
 
-const tutorialCategoryAtom = atom({
-  key: "tutorialCategory",
-  default: [],
-});
+const tutorialCategoryAtom = atom([]);
 
-const blogCategoryAtom = atom({
-  key: "blogCategory",
-  default: [],
-});
+const blogCategoryAtom = atom([]);
 
-const breadCrumbAtom = atom({
-  key: "breadCrumb",
-  default: "",
-});
+const breadCrumbAtom = atom("");
 
 export { tutorialCategoryAtom, blogCategoryAtom, breadCrumbAtom };

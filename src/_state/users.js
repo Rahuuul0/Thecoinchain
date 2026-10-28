@@ -1,38 +1,17 @@
-import { atom } from "recoil";
-const usersAtom = atom({
-  key: "users",
-  default: [],
-});
+import { atom } from "jotai";
+const usersAtom = atom([]);
 
-const userAtom = atom({
-  key: "user",
-  default: { isSubscribed: true },
-});
+const userAtom = atom({ isSubscribed: true });
 
-const userErrorAtom = atom({
-  key: "userError",
-  default: false,
-});
+const userErrorAtom = atom(false);
 
-const switchAtom = atom({
-  key: "switchAtom",
-  default: true,
-});
+const switchAtom = atom(true);
 
-const forecastSubAtom = atom({
-  key: "forecast",
-  default: { status: "expired" },
-});
+const forecastSubAtom = atom({ status: "expired" });
 
-const homePageAtom = atom({
-  key: "homePageAtom",
-  default: [],
-});
+const homePageAtom = atom([]);
 
-const loginDataAtom = atom({
-  key: "loginDataAtom",
-  default: {'email':'','phone':'','pass':'','otp':''},
-});
+const loginDataAtom = atom({'email':'','phone':'','pass':'','otp':''});
 export {
   usersAtom,
   userAtom,

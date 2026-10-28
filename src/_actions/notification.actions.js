@@ -1,18 +1,18 @@
-import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { useNavigate } from "react-router-dom";
+import { useSetAtom, useAtomValue } from 'jotai';
+import { useRouter } from "next/navigation";
 import { useFetchWrapper } from '../_helpers';
 import { Apis } from '../_common/app.constants';
 import { useAlertActions } from '../_actions/alert.actions';
 import { notificationAtom, notificationCountAtom, notificationViewAtom } from '../_state';
 
 const notificationActions = () => {
-    const navigate = useNavigate()
+    const router = useRouter();
     const fetchWrapper = useFetchWrapper();
     const alertActions = useAlertActions();
-    const test = useRecoilValue(notificationAtom);
-    const notificationLists = useSetRecoilState(notificationAtom);
-    const notificationLists_View = useSetRecoilState(notificationViewAtom);
-    const notificationCount = useSetRecoilState(notificationCountAtom);
+    const test = useAtomValue(notificationAtom);
+    const notificationLists = useSetAtom(notificationAtom);
+    const notificationLists_View = useSetAtom(notificationViewAtom);
+    const notificationCount = useSetAtom(notificationCountAtom);
     
     const notificationList = () => {
         return fetchWrapper.get(Apis.Notifications_List)

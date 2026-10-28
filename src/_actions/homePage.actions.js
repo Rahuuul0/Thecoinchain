@@ -1,4 +1,4 @@
-import {  useSetRecoilState } from 'recoil';
+import {  useSetAtom } from 'jotai';
 import { useFetchWrapper } from '../_helpers';
 import { useAlertActions } from './alert.actions';
 import { Labels, Apis, RoutesName } from '../_common/app.constants'
@@ -8,13 +8,13 @@ import {homeAtom} from '../_state/home';
 const useHomeActions = () => {
   const fetchWrapper = useFetchWrapper();
   const alertActions = useAlertActions();
-  const setmarketTrend = useSetRecoilState(homePageAtom);
-  const sethome = useSetRecoilState(homeAtom);
-  const setMarketTrend = useSetRecoilState(marketTrendAtom);
-  const setCtyptoTrader = useSetRecoilState(cryptoTraderAtom);
-  const setCtyptoNews = useSetRecoilState(cryptoNewsAtom);
-  const setWorkList = useSetRecoilState(WorkListAtom);
-  const setHeadingList = useSetRecoilState(headingListAtom);
+  const setmarketTrend = useSetAtom(homePageAtom);
+  const sethome = useSetAtom(homeAtom);
+  const setMarketTrend = useSetAtom(marketTrendAtom);
+  const setCtyptoTrader = useSetAtom(cryptoTraderAtom);
+  const setCtyptoNews = useSetAtom(cryptoNewsAtom);
+  const setWorkList = useSetAtom(WorkListAtom);
+  const setHeadingList = useSetAtom(headingListAtom);
 
   const categoriesData = async () => {
       
@@ -85,28 +85,30 @@ const useHomeActions = () => {
   }
 
   const crytoWorkList = async () => {
-  
-    return fetchWrapper.get(Apis.Cryto_Work_List)
-        .then(res => {
-         if (res.statusCode === 200) {
-            setWorkList(res.data)
-         } else {
-             alertActions.error(Labels.Error);
-         }
-     }).catch((err)=>{console.warn(err)})
-  }
+    return fetchWrapper
+      .get(Apis.Cryto_Work_List)
+      .then((res) => {
+        if (res?.statusCode === 200) {
+          setWorkList(res.data);
+        }
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  };
 
   const headingList = async () => {
-  
-    return fetchWrapper.get(Apis.Heading_List)
-        .then(res => {
-         if (res.statusCode === 200) {
-            setHeadingList(res.data)
-         } else {
-             alertActions.error(Labels.Error);
-         }
-     }).catch((err)=>{console.warn(err)})
-  }
+    return fetchWrapper
+      .get(Apis.Heading_List)
+      .then((res) => {
+        if (res?.statusCode === 200) {
+          setHeadingList(res.data);
+        }
+      })
+      .catch((err) => {
+        console.warn(err);
+      });
+  };
    
   return {
     categoriesData,

@@ -174,7 +174,13 @@ function MobileMenu({ nav, open, onClose, isMember }) {
   return (
     <Drawer open={open} onClose={onClose} className="h-dvh w-full max-w-none bg-white p-5 dark:bg-black">
       <div className="flex items-center justify-between">
-        <Link href="/" onClick={onClose}>
+        <Link
+          href="/"
+          onClick={() => {
+            onClose();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
           {logoSrc && <img src={logoSrc} alt="The Coin Chain" className="w-[170px]" />}
         </Link>
         <IconButton onClick={onClose} aria-label="Close menu" className="text-fg">

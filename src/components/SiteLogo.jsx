@@ -2,6 +2,7 @@
 
 import { useAtomValue } from "jotai";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { bannerListActions } from "@/_actions";
 import { setLogoListAtom, switchDarkModeAtom } from "@/_state";
@@ -29,6 +30,7 @@ export function useSiteLogo() {
 }
 
 export default function SiteLogo({ className, href = "/", onClick }) {
+  const pathname = usePathname();
   const src = useSiteLogo();
   const imgRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
@@ -39,8 +41,15 @@ export default function SiteLogo({ className, href = "/", onClick }) {
     }
   }, [src]);
 
+  const handleClick = (e) => {
+    onClick?.(e);
+    if (pathname === "/" || pathname === href) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
-    <Link href={href} onClick={onClick} aria-label="The Coin Chain home" className={cn("relative flex h-[45px] items-center", className)}>
+    <Link href={href} onClick={handleClick} aria-label="The Coin Chain home" className={cn("relative flex h-[45px] items-center", className)}>
       <img
         ref={imgRef}
         key={src}

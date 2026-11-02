@@ -49,11 +49,7 @@ export default function SiteLogo({ className, href = "/", onClick }) {
   };
 
   return (
-<<<<<<< HEAD
     <Link href={href} onClick={onClick} aria-label="The Coin Chain home" className={cn("relative flex h-[32px] items-center", className)}>
-=======
-    <Link href={href} onClick={handleClick} aria-label="The Coin Chain home" className={cn("relative flex h-[45px] items-center", className)}>
->>>>>>> 5869d6d67a765f96738f1fbb9673210ce274136e
       <img
         ref={imgRef}
         key={src}

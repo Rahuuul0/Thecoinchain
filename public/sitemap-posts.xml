@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/blog/binance-hacker-1-4-billion-bitcoin-19-wallets/</loc>
     <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-=======
->>>>>>> 5869d6d67a765f96738f1fbb9673210ce274136e
     <loc>https://www.thecoinchain.com/blog/amplitude-security-incident-coinbase-customer-data/</loc>
     <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>

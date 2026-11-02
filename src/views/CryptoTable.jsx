@@ -1,6 +1,8 @@
 "use client";
 
 import { useAtom, useAtomValue } from "jotai";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { subscriptionActions, useCoinActions } from "@/_actions";
@@ -26,9 +28,28 @@ const displayPrice = (price) => {
 
 const Change = ({ value, children }) => <span className={value < 0 ? "text-danger" : "text-success"}>{children}</span>;
 
+/** Pill badge used for the 24 hr change column. */
+function ChangeBadge({ value }) {
+  const n = Number(value);
+  const down = n < 0;
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center gap-1 rounded-full px-2.5 py-1 font-[Inter] text-[16px] font-medium leading-none",
+        down ? "bg-[#FDECEC] text-[#E5484D]" : "bg-[#E6F8EF] text-[#16A66A]"
+      )}
+    >
+      <svg width="9" height="8" viewBox="0 0 9 7" fill="currentColor" aria-hidden="true">
+        {down ? <path d="M4.5 7 0 0h9z" /> : <path d="M4.5 0 9 7H0z" />}
+      </svg>
+      {Number.isFinite(n) ? `${Math.abs(n).toFixed(2)}%` : "—"}
+    </span>
+  );
+}
+
 /**
  * Coin price table. Columns and paging depend on the page it is on:
- * home (top 5 + View buttons), /market (top 10, extra columns),
+ * home (top 10 + View buttons + "Market Trends" heading), /market (top 10, extra columns),
  * /prediction-dashboard (100 per page, 1h/24h/7d columns).
  */
 export default function CryptoTable({ isIt, search }) {
@@ -43,7 +64,7 @@ export default function CryptoTable({ isIt, search }) {
   const isPrediction = pathname === PREDICTION_PATH;
   const isMarket = pathname === MARKET_PATH;
   const isHomePage = pathname === "/" || isIt === false;
-  const limit = isPrediction ? 100 : isHomePage ? 5 : 10;
+  const limit = isPrediction ? 100 : 10; // home ab 10 coins dikhata hai (design ke hisaab se)
 
   const [page, setPage] = useState(1);
   const [chartCoin, setChartCoin] = useState(null);
@@ -93,7 +114,7 @@ export default function CryptoTable({ isIt, search }) {
   const visibleCoins = isPrediction ? displayCoins : displayCoins.slice((page - 1) * limit, page * limit);
 
   const loadListing = (p = page) =>
-    isPrediction ? coinActions.predictionListing(`?page=${p}&limit=100`) : coinActions.latestListing(isMarket ? "?limit=10" : "?limit=5");
+    isPrediction ? coinActions.predictionListing(`?page=${p}&limit=100`) : coinActions.latestListing("?limit=10");
 
   useEffect(() => {
     if (userDetail && !subscriptionDetails.id) subscriptionAction.subscribedUser();
@@ -127,21 +148,24 @@ export default function CryptoTable({ isIt, search }) {
     document.getElementById("crypto-list-table")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  // Home aligns every column left; elsewhere numbers are right-aligned.
+  // Home: Price left, Change/Chart/View centered. Elsewhere numbers are right-aligned.
   const num = isHomePage ? "text-left" : "text-right";
-  const th = cn("border-b border-[rgba(224,224,224,1)] px-4 py-4 text-sm font-medium text-n3 dark:border-n3 dark:text-[#B1B5C3]");
-  const td = "border-b border-[rgba(224,224,224,1)] px-4 py-4 text-sm text-n2 dark:border-n3 dark:text-n8";
+  const mid = isHomePage ? "text-center" : "text-right";
+  const th =
+    "whitespace-nowrap border-b border-r border-[#EAECF0] bg-[#F8F9FB] px-4 py-3.5 font-[Manrope] text-[16px] font-medium text-[#111318] last:border-r-0 dark:border-white/10 dark:bg-white/5 dark:text-white";
+  const td =
+    "border-b border-r border-[#EAECF0] px-4 py-3 font-[Manrope] text-[16px] font-normal text-[#111318] last:border-r-0 dark:border-white/10 dark:text-white";
 
-  return (
+  const tableBlock = (
     <>
-      <div className={isHomePage ? "pt-10 pb-0 max-md:mb-8 max-md:pt-8" : "py-4"}>
-        <LoadingOverlay open={loader} />
-        <div id="crypto-list-table" className="scroll-mt-24 border border-[#6b656540] py-5">
+      <LoadingOverlay open={loader} />
+      <div id="crypto-list-table" className="scroll-mt-24">
+        <div className="overflow-hidden rounded-lg border border-[#EAECF0] bg-white dark:border-white/10 dark:bg-[#141416]">
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[650px] border-collapse">
+            <table className="w-full min-w-[680px] border-collapse">
               <thead>
                 <tr>
-                  <th className={cn(th, "text-left")}>#</th>
+                  <th className={cn(th, "w-[90px] text-center")}>Sr. No.</th>
                   <th className={cn(th, "text-left")}>Name</th>
                   <th className={cn(th, num)}>Price</th>
                   {isPrediction ? (
@@ -160,10 +184,10 @@ export default function CryptoTable({ isIt, search }) {
                       <th className={cn(th, num)}>Volume(24h)</th>
                     </>
                   ) : (
-                    <th className={cn(th, num)}>24h Change</th>
+                    <th className={cn(th, mid)}>24 hr Change</th>
                   )}
-                  <th className={cn(th, num)}>Chart</th>
-                  {isHomePage && <th className={cn(th, num)}>View</th>}
+                  <th className={cn(th, mid)}>Chart</th>
+                  {isHomePage && <th className={cn(th, "text-center")}>View</th>}
                 </tr>
               </thead>
               <tbody>
@@ -182,17 +206,22 @@ export default function CryptoTable({ isIt, search }) {
                   </tr>
                 ) : (
                   visibleCoins.map((item, index) => (
-                    <tr key={item.id ?? index} className="transition-colors last:[&>td]:border-0 hover:bg-black/4 dark:hover:bg-white/4">
-                      <td className={td}>{item.cmc_rank || (searchTerm ? index + 1 : (page - 1) * 100 + index + 1)}</td>
+                    <tr
+                      key={item.id ?? index}
+                      className="transition-colors even:bg-[#F8F9FB] hover:bg-[#FFFBF0] last:[&>td]:border-b-0 dark:even:bg-white/[0.03] dark:hover:bg-white/5"
+                    >
+                      <td className={cn(td, "text-center")}>
+                        {item.cmc_rank || (searchTerm ? index + 1 : (page - 1) * 100 + index + 1)}.
+                      </td>
                       <td
                         className={cn(td, !isHomePage && "group cursor-pointer")}
                         onClick={!isHomePage ? () => setStatsCoin(item) : undefined}
                       >
                         <div className="flex items-center gap-3">
-                          <img src={item.image} alt={item.symbol} width={33} />
+                          <img src={item.image} alt={item.symbol} className="size-6 shrink-0 rounded-full object-contain" />
                           <span className="group-hover:text-primary group-hover:underline">{item.name}</span>
                         </div>
-                        <span className="mt-0.5 block text-xs text-n4 uppercase">{item.symbol}</span>
+                        {!isHomePage && <span className="mt-0.5 block pl-9 text-xs uppercase text-[#667085]">{item.symbol}</span>}
                       </td>
                       <td className={cn(td, num)}>${displayPrice(item?.price)?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
 
@@ -211,8 +240,8 @@ export default function CryptoTable({ isIt, search }) {
                           <td className={cn(td, num)}>{item.market_cap?.toLocaleString() || "—"}</td>
                         </>
                       ) : (
-                        <td className={cn(td, num)}>
-                          <Change value={item.percent_change_24h}>{Math.round((item.percent_change_24h + Number.EPSILON) * 100) / 100}%</Change>
+                        <td className={cn(td, mid)}>
+                          <ChangeBadge value={item.percent_change_24h} />
                         </td>
                       )}
 
@@ -226,20 +255,21 @@ export default function CryptoTable({ isIt, search }) {
                         </>
                       )}
 
-                      <td className={cn(td, num, "cursor-pointer")} onClick={() => setChartCoin(item)}>
-                        <span className={cn("inline-block", !isHomePage && "float-right")}>
+                      <td className={cn(td, mid, "cursor-pointer")} onClick={() => setChartCoin(item)}>
+                        <span className={cn("inline-block align-middle", !isHomePage && "float-right")}>
                           <LiveSparkline prices={item.sparkline} change={item.percent_change_24h} />
                         </span>
                       </td>
 
                       {isHomePage && (
-                        <td className={cn(td, num)}>
+                        <td className={cn(td, "text-center")}>
                           <button
                             type="button"
                             onClick={() => setStatsCoin(item)}
-                            className="h-[30px] rounded-full border-2 border-line px-[15px] font-display text-xs font-bold text-fg hover:border-fg sm:h-[35px]"
+                            aria-label={`View ${item.name}`}
+                            className="inline-flex size-7 cursor-pointer items-center justify-center rounded-full border border-[#D7AE42]/60 bg-[linear-gradient(180deg,#F0D667_0%,#D7AE42_100%)] text-[#111318] shadow-[0px_1px_3px_0px_#0000002E] transition-transform hover:scale-110"
                           >
-                            View
+                            <ArrowRight className="size-3.5" />
                           </button>
                         </td>
                       )}
@@ -251,7 +281,7 @@ export default function CryptoTable({ isIt, search }) {
           </div>
 
           {isPrediction && (
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 border-t border-[rgba(119,126,144,0.15)] px-2 pt-5 sm:justify-between sm:px-4">
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 border-t border-[rgba(119,126,144,0.15)] px-2 py-5 sm:justify-between sm:px-4">
               <p className="flex items-center gap-2 text-[0.88rem]! font-medium text-n4!">
                 {searchTerm ? (
                   <>
@@ -282,6 +312,40 @@ export default function CryptoTable({ isIt, search }) {
           )}
         </div>
       </div>
+    </>
+  );
+
+  return (
+    <>
+      {isHomePage ? (
+        <section className="bg-white py-[35px] transition-colors sm:py-[40px] lg:py-[50px] dark:bg-[#141416]">
+          <div className="mx-auto container px-3 md:px-0">
+            {/* ---------- Heading ---------- */}
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
+              <div className="min-w-0 flex-1">
+                <h2 className="m-0 font-[Manrope] text-[26px] font-extrabold leading-tight text-[#111318] sm:text-[32px] dark:text-white">
+                  Market <span className="text-[#F58A07]">Trends</span>
+                </h2>
+                <p className="mb-0 mt-3 max-w-[640px] font-[Inter] text-[14px] font-normal leading-normal text-[#667085] sm:text-[16px] dark:text-white/60">
+                  Live prices and performance of leading cryptocurrencies.
+                </p>
+              </div>
+
+              <Link
+                href={MARKET_PATH}
+                className="inline-flex shrink-0 items-center gap-2 rounded-md bg-[linear-gradient(270deg,#D7AE42_0%,#F0D667_33%,#F0D667_65.7%,#D7AE42_100%)] px-4 py-2.5 font-[Manrope] text-[14px] font-semibold text-[#111318] no-underline transition-opacity hover:opacity-90 border border-transparent hover:border-[#010101] dark:hover:border-white"
+              >
+                View All
+                <ArrowRight className="size-4" />
+              </Link>
+            </div>
+
+            {tableBlock}
+          </div>
+        </section>
+      ) : (
+        <div className="py-4">{tableBlock}</div>
+      )}
 
       <CryptoChartModal open={!!chartCoin} onClose={() => setChartCoin(null)} coin={chartCoin} />
       <CryptoMarketStatsModal open={!!statsCoin} onClose={() => setStatsCoin(null)} coin={statsCoin} onOpenChart={setChartCoin} />

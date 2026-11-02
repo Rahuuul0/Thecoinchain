@@ -39,6 +39,13 @@ import CryptoTable from "@/views/CryptoTable";
 import CryptoMarketOverview from "./CryptoMarketOverview";
 import { BusinessNewsPanels, NewsCardGrid, PricePredictionTimeline, useContentList, useHomeNavigation } from "./HomeNews";
 import HomePageCryptoNews from "./HomePageCryptoNews";
+import TopBannerSection from './TopBannerSection';
+import BreakingNewsStepsSection from "./BreakingNewsStepsSection";
+import AnalysisSection from "./AnalysisSection";
+import MarketNewsSection from "./MarketNewsSection"
+import LearncryptoSection from "./Learncryptosection"
+import FirstToKnow from "./FirstToKnow";
+import CryptoTableSection from "@/views/CryptoTable";
 
 const NOTIFICATION_INTERVAL = 5000;
 
@@ -317,12 +324,12 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="relative z-[2] mt-14 sm:mt-16">
+      {/* <div className="relative z-[2] mt-14 sm:mt-16">
         <CryptoTickerMarquee />
-      </div>
+      </div> */}
 
       {/* Hero: headline story + trending ticker */}
-      <section className="relative flex items-center bg-[url(/assets/Background_img/Golden_Market_Waves.png)] bg-cover bg-top bg-no-repeat pt-8 pb-12 transition-[background-image] duration-500 sm:pt-10 sm:pb-16 md:min-h-[560px] md:pt-12 md:pb-20 dark:bg-[url(/assets/Background_img/Golden_Coins.png)]">
+      {/* <section className="relative flex items-center bg-[url(/assets/Background_img/Golden_Market_Waves.png)] bg-cover bg-top bg-no-repeat pt-8 pb-12 transition-[background-image] duration-500 sm:pt-10 sm:pb-16 md:min-h-[560px] md:pt-12 md:pb-20 dark:bg-[url(/assets/Background_img/Golden_Coins.png)]">
         <Container>
           <div className="pb-4 sm:pb-6">
             {subscribeUser?.status === "expired" && auth !== null && (
@@ -347,12 +354,17 @@ export default function HomePage() {
             </div>
           </div>
         </Container>
-      </section>
-
-      <CryptoMarketOverview />
-
+      </section> */}
+      <TopBannerSection />
+      <BreakingNewsStepsSection/>
+      <AnalysisSection/>
+      <MarketNewsSection />
+      <LearncryptoSection />
+      <CryptoTableSection />
+      <FirstToKnow />
+      {/* <CryptoMarketOverview /> */}
       {/* Latest news + press releases */}
-      <div className="bg-n7 dark:bg-ink">
+      {/* <div className="bg-n7 dark:bg-ink">
         <Container>
           <div>
             <h2 className="mx-auto max-w-[500px] text-left font-display text-[40px]! font-bold min-[768px]:text-center">{parse(headingList[0]?.title ?? "")}</h2>
@@ -387,8 +399,8 @@ export default function HomePage() {
             emptyText="No press releases are available right now."
           />
         </Container>
-      </div>
-
+      </div> */}
+{/* 
       <Container>
         <BusinessNewsPanels />
         <GlobalCommunitySection />
@@ -426,10 +438,10 @@ export default function HomePage() {
             </Button>
           </div>
         </div>
-      </Container>
+      </Container> */}
 
       {/* Apps + price prediction timeline */}
-      <Container>
+      {/* <Container>
         <div className="pt-2.5 sm:pb-12">
           <div className="grid grid-cols-1 gap-4 max-md:flex max-md:flex-col-reverse md:grid-cols-12 md:gap-6">
             <div className="md:col-span-5">
@@ -454,19 +466,19 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </Container>
+      </Container> */}
 
       {/* Partner banners */}
-      <div className="pb-0 md:pb-12">
+      {/* <div className="pb-0 md:pb-12">
         <Marquee>
           {bannerList.map((item, i) => {
             const image = item.image_url ? `${IMAGE_URL}/${item.image_url}` : item.image_link;
             return image ? <img key={i} src={image} alt="" className="ml-[75px] min-h-[100px] max-w-[200px] object-contain" /> : null;
           })}
         </Marquee>
-      </div>
+      </div> */}
 
-      <ScrollToTopButton />
+      {/* <ScrollToTopButton /> */}
     </>
   );
 }

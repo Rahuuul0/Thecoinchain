@@ -22,6 +22,7 @@ import {
   Moon,
   Newspaper,
   NotebookPen,
+  Search,
   ShieldCheck,
   Smile,
   Sun,
@@ -38,7 +39,7 @@ import { useDarkMode } from "@/_helpers/useDarkMode";
 import { authAtom, notificationAtom, notificationCountAtom } from "@/_state";
 import { Accordion, Badge, Button, cn, Drawer, Dropdown, DropdownItem, IconButton, Tooltip } from "@/components/ui";
 import SiteLogo, { useSiteLogo } from "./SiteLogo";
-
+import { useRouter } from "next/navigation";
 const icon = (Icon) => <Icon className="size-[18px] shrink-0 text-n4" />;
 
 // Navigation for visitors.
@@ -74,10 +75,15 @@ const PUBLIC_NAV = {
       ],
     },
   ],
+  // Screenshot shows a chevron on these two. Currently plain links: move them into
+  // `groups` (with items) if they should open a dropdown.
   links: [
-    { label: "Learn crypto", href: RoutesName.Learn_Cypto },
-    { label: "Markets", href: RoutesName.Prediction_Dashboard },
+    { label: "Learn Crypto", href: RoutesName.Learn_Cypto, chevron: true },
+    { label: "Markets", href: RoutesName.Prediction_Dashboard, chevron: true },
   ],
+  // Desktop: single "contact" link (no chevron, like the design).
+  // Mobile: still shows the full Contact accordion below.
+  // contact: { label: "contact", href: RoutesName.Contact_Us },
   trailingGroups: [
     {
       label: "Contact",
@@ -123,6 +129,7 @@ const MEMBER_NAV = {
     { label: "Prediction", href: RoutesName.Prediction_Dashboard },
     { label: "Market", href: RoutesName.Market },
   ],
+  contact: null,
   trailingGroups: [],
 };
 
@@ -133,8 +140,9 @@ const ACCOUNT_LINKS = [
   { label: "Settings", hint: "View additional settings", href: "/account/profile" },
 ];
 
+// Font color #353942, medium weight, no uppercase/capitalize (matches the design).
 const navButton =
-  "inline-flex items-center gap-1 whitespace-nowrap rounded-md px-2 py-1.5 font-display text-[15px] font-bold capitalize text-n1 no-underline transition-colors hover:text-primary md:px-3 dark:text-white dark:hover:text-primary";
+  "inline-flex items-center gap-1 whitespace-nowrap rounded-md px-2.5 py-2 font-nav font-medium leading-none text-[#353942] no-underline transition-colors hover:text-primary xl:px-3.5 xl:text-[14px] dark:text-white dark:hover:text-primary focus:outline-none";
 
 function NavDropdown({ group }) {
   return (
@@ -144,7 +152,7 @@ function NavDropdown({ group }) {
       button={
         <>
           {group.label}
-          <ChevronDown className="size-4 transition-transform group-data-open:rotate-180" />
+          <ChevronDown className="size-3.5 transition-transform group-data-open:rotate-180" strokeWidth={1.75} />
         </>
       }
     >
@@ -164,6 +172,61 @@ function ThemeToggle({ className }) {
     <IconButton onClick={toggleDarkMode} aria-label="Toggle theme" className={cn("text-n2 dark:text-gold", className)}>
       {isDarkMode ? <Sun className="size-[22px]" /> : <Moon className="size-[22px]" />}
     </IconButton>
+  );
+}
+
+function SearchButton({ className }) {
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+
+  const handleSubmit = (e, close) => {
+    e.preventDefault();
+    const q = query.trim();
+    if (!q) return;
+    router.push(`/search?q=${encodeURIComponent(q)}`); // apna search route yahan lagao
+    setQuery("");
+    close(); // search ke baad input band
+  };
+
+  return (
+    <Popover className="relative">
+      <PopoverButton
+        aria-label="Search"
+        className={cn(
+          "inline-flex size-10 items-center justify-center rounded-full text-black transition-colors hover:bg-black/5 focus:outline-none data-open:bg-black/5 dark:text-white dark:hover:bg-white/10 dark:data-open:bg-white/10",
+          className
+        )}
+      >
+        <Search className="size-5" strokeWidth={2} />
+      </PopoverButton>
+
+      <PopoverPanel
+        anchor="bottom end"
+        transition
+        className="z-[1250] w-[250] max-w-80 rounded-xl bg-white p-2 shadow-[0px_0px_10px_0px_#0000001A] [--anchor-gap:10px] transition duration-150 data-closed:-translate-y-1 data-closed:opacity-0 dark:bg-[#1c1c1f]"
+      >
+        {({ close }) => (
+          <form onSubmit={(e) => handleSubmit(e, close)} className="flex items-center gap-2">
+            {/* <Search className="ml-2 size-4 shrink-0 text-[#353942] dark:text-white/70" /> */}
+            <input
+              autoFocus
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search..."
+              aria-label="Search"
+              className="h-9 w-full bg-transparent text-sm text-[#353942] outline-none placeholder:text-[#353942]/50 dark:text-white dark:placeholder:text-white/40"
+            />
+            <button
+              type="submit"
+              className="shrink-0 rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+            >
+              Search
+            </button>
+          </form>
+        )}
+      </PopoverPanel>
+    </Popover>
   );
 }
 
@@ -192,13 +255,13 @@ function MobileMenu({ nav, open, onClose, isMember }) {
         <ThemeToggle className="border border-n4" />
       </div>
 
-      <nav className="mt-4 flex flex-col font-display font-bold">
+      <nav className="mt-4 flex flex-col font-nav font-bold">
         <Link href={nav.home.href} onClick={onClose} className="py-3 text-base text-fg! no-underline">
           {nav.home.label}
         </Link>
         {nav.groups.map((group) => (
           <Accordion key={group.label} title={group.label} className="border-t border-b-0 border-n6 dark:border-white/10" buttonClassName="font-bold">
-            <div className="flex flex-col font-sans font-normal">
+            <div className="flex flex-col font-nav font-normal">
               {group.items.map((item) => (
                 <Link key={item.href} href={item.href} onClick={onClose} className={rowLink}>
                   {icon(item.icon)}
@@ -215,7 +278,7 @@ function MobileMenu({ nav, open, onClose, isMember }) {
         ))}
         {nav.trailingGroups.map((group) => (
           <Accordion key={group.label} title={group.label} className="border-t border-b-0 border-n6 dark:border-white/10" buttonClassName="font-bold">
-            <div className="flex flex-col font-sans font-normal">
+            <div className="flex flex-col font-nav font-normal">
               {group.items.map((item) => (
                 <Link key={item.href} href={item.href} onClick={onClose} className={rowLink}>
                   {icon(item.icon)}
@@ -317,7 +380,7 @@ function AccountMenu({ user }) {
           <img src="/assets/images/avatarUser.svg" alt="" className="size-10" />
         </Tooltip>
       }
-    >
+      >
       {ACCOUNT_LINKS.map((link) => (
         <DropdownItem key={link.label} href={link.href} className="flex-col items-start gap-0.5 border-b border-line py-2.5">
           <span className="flex items-center gap-2 font-bold">
@@ -344,34 +407,38 @@ export default function SiteHeader() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-[1100] border-b border-[#EDEDED] bg-white/95 shadow-[0_1px_3px_rgba(0,0,0,0.04)] backdrop-blur-[10px] transition-colors duration-300 dark:border-white/[0.08] dark:bg-[rgba(20,20,22,0.95)] dark:shadow-none">
-        <div className="flex min-h-14 items-center justify-between px-4 sm:min-h-16 sm:px-6">
-          <SiteLogo className="w-[150px] shrink-0 pr-2 lg:w-[180px] lg:pr-4" />
+      <header className="fixed inset-x-0 top-0 z-[1100] bg-white shadow-[0px_0px_10px_0px_#0000001A] transition-colors duration-300 dark:bg-[rgba(20,20,22,0.95)] dark:shadow-none dark:backdrop-blur-[10px]">
+        <div className="mx-auto flex min-h-16 container items-center justify-between gap-4 px-4 sm:px-6 lg:px-10 xl:px-[5%]">
+          <SiteLogo className="shrink-0 sm:w-[150px] lg:w-[192px]" />
 
-          <nav className="hidden flex-[2] items-center md:flex">
-            {nav.groups.map((group) => (
-              <NavDropdown key={group.label} group={group} />
-            ))}
-            {nav.links.map((link) => (
-              <Link key={link.href} href={link.href} className={navButton}>
-                {link.label}
-              </Link>
-            ))}
-            {nav.trailingGroups.map((group) => (
-              <NavDropdown key={group.label} group={group} />
-            ))}
-          </nav>
+          <div className="flex items-center justify-end gap-1 lg:gap-2">
+            {/* Desktop nav: lg and up */}
+              <nav className="hidden items-center font-nav lg:flex">
+                {nav.groups.map((group) => (
+                  <NavDropdown key={group.label} group={group} />
+                ))}
+                {nav.links.map((link) => (
+                  <Link key={link.href} href={link.href} className={navButton}>
+                    {link.label}
+                  </Link>
+                ))}
+                {nav.trailingGroups.map((group) => (
+                  <NavDropdown key={group.label} group={group} />
+                ))}
+              </nav>
 
-          <div className="flex flex-1 items-center justify-end gap-1.5 md:flex-[2] md:gap-3">
+            <SearchButton />
+            <ThemeToggle className="hidden lg:inline-flex" />
+
             {isMember && <NotificationsMenu />}
             {isMember && (
-              <Button variant="outlined" href="/account" className="hidden border border-current px-4 py-1.5 md:inline-flex">
+              <Button variant="outlined" href="/account" className="ml-1 hidden border border-current px-4 py-1.5 lg:inline-flex">
                 Account
               </Button>
             )}
-            <ThemeToggle className="hidden md:inline-flex" />
             {isMember && <AccountMenu user={auth} />}
-            <IconButton onClick={() => setMobileOpen(true)} aria-label="Open menu" className="text-fg md:hidden">
+
+            <IconButton onClick={() => setMobileOpen(true)} aria-label="Open menu" className="text-[#353942] lg:hidden dark:text-white">
               <MenuIcon className="size-6" />
             </IconButton>
           </div>

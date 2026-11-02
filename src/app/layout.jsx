@@ -1,4 +1,4 @@
-import { DM_Sans, Inter, Poppins } from "next/font/google";
+import { DM_Sans, Inter, Poppins , Manrope} from "next/font/google";
 import Script from "next/script";
 import { SITE_URL } from "@/lib/seo";
 import Providers from "./providers";
@@ -7,6 +7,7 @@ import "./globals.css";
 const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800"], variable: "--font-poppins" });
 const dmSans = DM_Sans({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-dm-sans" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 
 const GTM_ID = "GTM-563D2Z64";
 
@@ -45,7 +46,7 @@ const themeScript = `try{if(localStorage.getItem('theme')==='dark')document.docu
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${dmSans.variable} ${inter.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${poppins.variable} ${dmSans.variable} ${inter.variable} ${manrope.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

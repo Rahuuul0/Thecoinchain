@@ -49,7 +49,7 @@ export default function SiteLogo({ className, href = "/", onClick }) {
   };
 
   return (
-    <Link href={href} onClick={handleClick} aria-label="The Coin Chain home" className={cn("relative flex h-[45px] items-center", className)}>
+    <Link href={href} onClick={onClick} aria-label="The Coin Chain home" className={cn("relative flex h-[32px] items-center", className)}>
       <img
         ref={imgRef}
         key={src}
@@ -58,7 +58,7 @@ export default function SiteLogo({ className, href = "/", onClick }) {
         onLoad={() => setLoaded(true)}
         onError={() => setLoaded(true)}
         className={cn(
-          "max-h-[45px] w-full rounded-[15px] object-contain transition-opacity duration-200",
+          "max-h-[32px] w-full object-contain transition-opacity duration-200",
           loaded ? "opacity-100" : "opacity-90"
         )}
       />

@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/latest-news/binance-hacker-1-4-billion-bitcoin-19-wallets/</loc>
+=======
+<<<<<<< HEAD
+    <loc>https://www.thecoinchain.com/blog/binance-hacker-1-4-billion-bitcoin-19-wallets/</loc>
+>>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/latest-news/amplitude-security-incident-coinbase-customer-data/</loc>
+=======
+=======
+>>>>>>> 5869d6d67a765f96738f1fbb9673210ce274136e
+    <loc>https://www.thecoinchain.com/blog/amplitude-security-incident-coinbase-customer-data/</loc>
+>>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -211,6 +222,7 @@
     <priority>0.8</priority>
   </url>
   <url>
+<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/ethereum/ethereum-etfs-record-1-61-billion-october-outflows/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -284,48 +296,82 @@
   </url>
   <url>
     <loc>https://www.thecoinchain.com/altcoin/ripple-ceo-rejects-shifting-focus-away-from-xrp/</loc>
+=======
+<<<<<<< HEAD
+    <loc>https://www.thecoinchain.com/blog/ripple-ceo-rejects-shifting-focus-away-from-xrp/</loc>
+>>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/bitcoin/bitcoin-falls-below-80k-hawkish-fed-liquidations/</loc>
+=======
+    <loc>https://www.thecoinchain.com/blog/bitcoin-falls-below-80k-hawkish-fed-liquidations/</loc>
+>>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/global-news/cftc-know-your-agent-ai-crypto-trading/</loc>
+=======
+    <loc>https://www.thecoinchain.com/blog/cftc-know-your-agent-ai-crypto-trading/</loc>
+>>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/global-news/volt-typhoon-silent-train-four-zero-day-campaigns/</loc>
+=======
+    <loc>https://www.thecoinchain.com/blog/volt-typhoon-silent-train-four-zero-day-campaigns/</loc>
+>>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/market-news/galaxy-digital-shares-rise-q3-2026-earnings/</loc>
+=======
+    <loc>https://www.thecoinchain.com/blog/galaxy-digital-shares-rise-q3-2026-earnings/</loc>
+>>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/altcoin/cancore-raises-7-2m-canton-tokenized-asset-liquidity/</loc>
+=======
+    <loc>https://www.thecoinchain.com/blog/cancore-raises-7-2m-canton-tokenized-asset-liquidity/</loc>
+>>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/global-news/raoul-pal-ai-spending-hyperscaler-capex/</loc>
+=======
+    <loc>https://www.thecoinchain.com/blog/raoul-pal-ai-spending-hyperscaler-capex/</loc>
+>>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/market-news/cramer-ai-financing-risk-coreweave-bond-yields/</loc>
+=======
+=======
+>>>>>>> 5869d6d67a765f96738f1fbb9673210ce274136e
+    <loc>https://www.thecoinchain.com/blog/cramer-ai-financing-risk-coreweave-bond-yields/</loc>
+>>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

@@ -54,7 +54,7 @@ export const RoutesName = {
   Academy_about_crypto: "/academy-about-crypto",
   Master_Course: "/master-course",
   Profile: "/account/profile",
-  Blog_Detail: "/blog/:slug/",
+  Blog_Detail: "/:type/:slug/",
   Information: "/information",
   Research_Report: "/research-report",
   Press_Release: "/press-release",

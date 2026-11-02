@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { Apis, RoutesName } from "@/_common/app.constants";
 import { useFetchWrapper } from "@/_helpers";
 import { TrendingNewsAtom } from "@/_state";
-import { getBlogSlug, listFrom, rememberBlogId } from "@/lib/content";
+import { blogPath, getBlogSlug, listFrom, rememberBlogId } from "@/lib/content";
 
 dayjs.extend(relativeTime);
 
@@ -69,7 +69,7 @@ export default function MuiTrandingNewsDashboardSection() {
     sessionStorage.setItem("restore_scroll_on_home", "true");
     const slug = getBlogSlug(item);
     rememberBlogId(slug, item.id);
-    router.push(RoutesName.Blog_Detail.replace(":slug", slug));
+    router.push(blogPath(item, "trending-news"));
   };
 
   // Duplicate the list once so the vertical ticker loops without a visible jump.

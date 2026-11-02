@@ -112,8 +112,13 @@ export default function LatestNewsBlogDetail({ blog, html }) {
                   {profile?.profile_name && authorDate && <span className="text-[#d5d5d5]">|</span>}
                   {authorDate && (
                     <time dateTime={createdAt.format("YYYY-MM-DDTHH:mm")} className="text-[13px] whitespace-nowrap text-[#555]">
-                      Published on {authorDate}
+                      Published on {authorDate} |
                     </time>
+                  )}
+                  {formattedType && (
+                    <span className="text-[13px] whitespace-nowrap text-[#555]">
+                      {formattedType}
+                    </span>
                   )}
                 </div>
               )}

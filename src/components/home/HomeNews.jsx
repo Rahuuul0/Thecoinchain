@@ -9,7 +9,7 @@ import { Apis, RoutesName } from "@/_common/app.constants";
 import { useFetchWrapper } from "@/_helpers";
 import { formatNewsDate } from "@/components/news/NewsParts";
 import { Button, cn, Container } from "@/components/ui";
-import { getBlogSlug, getMediaUrl, getYouTubeVideoId, listFrom, rememberBlogId, slugify } from "@/lib/content";
+import { blogPath, getBlogSlug, getMediaUrl, getYouTubeVideoId, listFrom, rememberBlogId, slugify } from "@/lib/content";
 
 /* ------------------------------------------------------------------ */
 /* Shared                                                              */
@@ -62,7 +62,7 @@ export function useContentList(type, { onLoaded } = {}) {
 }
 
 /** Navigation helpers that remember where on the home page the reader was. */
-export function useHomeNavigation(sectionId) {
+export function useHomeNavigation(sectionId, defaultType) {
   const router = useRouter();
 
   const rememberSection = () => {
@@ -72,12 +72,12 @@ export function useHomeNavigation(sectionId) {
   };
 
   return {
-    openBlog(item) {
+    openBlog(item, fallbackType = defaultType) {
       if (item?.id === undefined || item?.id === null) return;
       rememberSection();
       const slug = getBlogSlug(item);
       rememberBlogId(slug, item.id);
-      router.push(RoutesName.Blog_Detail.replace(":slug", slug));
+      router.push(blogPath(item, fallbackType));
     },
     openProfile(name, profileId) {
       if (!name && !profileId) return;
@@ -200,7 +200,7 @@ const GRID_VARIANTS = {
 
 export function NewsCardGrid({ id, title, type, limit, viewAllHref, viewAllAfter, variant = "large", placeholder, loadingText, emptyText, onLoaded }) {
   const [news, loading] = useContentList(type, { onLoaded });
-  const nav = useHomeNavigation(id);
+  const nav = useHomeNavigation(id, type);
   const v = GRID_VARIANTS[variant];
 
   return (
@@ -311,11 +311,11 @@ export function BusinessNewsPanels() {
                 ) : (
                   <div className="grid grid-cols-[5fr_7fr] gap-5">
                     <div>
-                      <div onClick={() => nav.openBlog(featured)} className="h-[95px] w-full cursor-pointer overflow-hidden rounded-2xl sm:h-[150px] md:h-[175px]">
+                      <div onClick={() => nav.openBlog(featured, category.type)} className="h-[95px] w-full cursor-pointer overflow-hidden rounded-2xl sm:h-[150px] md:h-[175px]">
                         <CardMedia item={featured} placeholder="https://via.placeholder.com/400x300?text=News" className="size-full bg-[#f0f0f0]" />
                       </div>
                       <div className="mt-3">
-                        <p onClick={() => nav.openBlog(featured)} className="cursor-pointer leading-[1.3] font-medium text-black! hover:text-primary! dark:text-white!">
+                        <p onClick={() => nav.openBlog(featured, category.type)} className="cursor-pointer leading-[1.3] font-medium text-black! hover:text-primary! dark:text-white!">
                           {featured.title}
                         </p>
                         <AuthorTimeRow item={featured} onProfile={nav.openProfile} className="mt-1.5" nameClassName="text-black dark:text-white" mutedClassName={muted} />
@@ -325,7 +325,7 @@ export function BusinessNewsPanels() {
                       <div>
                         {secondary.map((item, i) => (
                           <div key={item?.id ?? i} className="py-2">
-                            <p onClick={() => nav.openBlog(item)} className="cursor-pointer leading-[1.35] font-semibold text-black! hover:text-primary! dark:text-white!">
+                            <p onClick={() => nav.openBlog(item, category.type)} className="cursor-pointer leading-[1.35] font-semibold text-black! hover:text-primary! dark:text-white!">
                               {item.title}
                             </p>
                             <AuthorTimeRow item={item} onProfile={nav.openProfile} className="mt-1" nameClassName="text-black dark:text-white" mutedClassName={muted} />

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { RoutesName } from "@/_common/app.constants";
 import { TrendingNewsAtom } from "@/_state";
 import { Spinner } from "@/components/ui";
-import { getBlogSlug, rememberBlogId, stripHtml } from "@/lib/content";
+import { blogPath, getBlogSlug, rememberBlogId, stripHtml } from "@/lib/content";
 
 const pill = "rounded-lg bg-[#c5c5c5] p-1.5 text-xs font-medium text-[#0e0e0e] uppercase";
 
@@ -35,7 +35,7 @@ export default function HomePageCryptoNews() {
     sessionStorage.setItem("restore_scroll_on_home", "true");
     const slug = getBlogSlug(news);
     rememberBlogId(slug, news.id);
-    router.push(RoutesName.Blog_Detail.replace(":slug", slug));
+    router.push(blogPath(news, "trending-news"));
   };
 
   return (

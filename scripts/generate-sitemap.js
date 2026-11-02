@@ -51,6 +51,28 @@ const CONTENT_TYPES = [
   'tech',
 ];
 
+const TYPE_SLUG_MAP = {
+  latest_news: 'latest-news',
+  trending_news: 'trending-news',
+  press_release: 'press-release',
+  price_prediction: 'price-prediction',
+  research_report: 'research-report',
+  crypto_regulation: 'crypto-regulation',
+  stock_price_prediction: 'crypto-stock-price-prediction',
+  market: 'market-news',
+  finance: 'finance',
+  policy: 'policy',
+  tech: 'tech',
+  guest_post: 'guest-post',
+};
+
+function getBlogTypeSlug(item, fallbackType = '') {
+  const raw = item?.type || item?.category || fallbackType || '';
+  const clean = String(raw).toLowerCase().trim();
+  if (TYPE_SLUG_MAP[clean]) return TYPE_SLUG_MAP[clean];
+  return clean.replace(/[\s_]+/g, '-') || 'latest-news';
+}
+
 function slugify(text = '', isTitle = false) {
   if (!text) return '';
   const clean = text
@@ -109,8 +131,9 @@ async function fetchDynamicPosts() {
       for (const item of items) {
         const slug = getBlogSlug(item);
         if (slug && !postsMap.has(slug)) {
+          const typeSlug = getBlogTypeSlug(item, cType);
           postsMap.set(slug, {
-            loc: `${DOMAIN}/blog/${slug}/`,
+            loc: `${DOMAIN}/${typeSlug}/${slug}/`,
             lastmod: formatDate(item.updated_at || item.created_at),
             rawDate: item.updated_at || item.created_at,
             changefreq: 'weekly',

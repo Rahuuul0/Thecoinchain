@@ -60,7 +60,7 @@ function useRestoreNewsScroll(items) {
 export default function MuiCryptoNewsSection({ contentKey }) {
   const router = useRouter();
   const fetchWrapper = useFetchWrapper();
-  const openBlog = useOpenBlog();
+  const openBlog = useOpenBlog(config.type);
   const [openProfile, profileLoading] = useOpenProfile();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);

@@ -1,3 +1,6 @@
+import { RoutesName } from "@/_common/app.constants";
+import { NEWS_CATEGORIES } from "./newsCategories";
+
 // Content helpers shared by server routes and client views.
 
 export const IMAGE_URL = (process.env.NEXT_PUBLIC_IMAGE_URL || "").replace(/\/$/, "");
@@ -7,11 +10,21 @@ export const BLOG_CONTENT_TYPES = [
   "latest_news",
   "trending_news",
   "press_release",
+  "crypto_regulation",
   "price_prediction",
-  "research_report",
-  // "guest_post",
+  "stock_price_prediction",
   "market",
   "finance",
+  "bitcoin",
+  "ethereum",
+  "altcoin",
+  "global_news",
+  "memecoin_analysis",
+  "ethereum_analysis",
+  "bitcoin_analysis",
+  "explain",
+  "research_report",
+  // "guest_post",
   // "policy",
   // "tech",
 ];
@@ -32,8 +45,29 @@ export function getBlogSlug(item) {
   return slugify(item?.title || "", true);
 }
 
-export function blogPath(item) {
-  return `/blog/${getBlogSlug(item)}/`;
+export function getBlogTypeSlug(item, defaultType = "") {
+  const raw = item?.type || item?.category || defaultType || "";
+  if (!raw) return "latest-news";
+  const clean = String(raw).toLowerCase().trim();
+
+  // If already a recognized category slug (e.g. latest-news, market-news)
+  if (NEWS_CATEGORIES[clean]) return clean;
+
+  // If matches a category's backend type (e.g. latest_news -> latest-news, market -> market-news)
+  const entry = Object.entries(NEWS_CATEGORIES).find(
+    ([slug, conf]) => conf.type && conf.type.toLowerCase() === clean
+  );
+  if (entry) return entry[0];
+
+  return clean.replace(/[\s_]+/g, "-");
+}
+
+export function blogPath(item, defaultType = "") {
+  const type = getBlogTypeSlug(item, defaultType);
+  const slug = getBlogSlug(item);
+  return (RoutesName.Blog_Detail || "/:type/:slug/")
+    .replace(":type", type)
+    .replace(":slug", slug);
 }
 
 /** Remembers slug → id so the detail page can skip the slug lookup. */

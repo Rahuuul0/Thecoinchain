@@ -9,7 +9,7 @@ import YouTube from "react-youtube";
 import { allContentActions } from "@/_actions/allcontent.actions";
 import { RoutesName } from "@/_common/app.constants";
 import { cn, Tooltip } from "@/components/ui";
-import { getMediaUrl, getYouTubeVideoId, rememberBlogId, getBlogSlug, slugify } from "@/lib/content";
+import { blogPath, getMediaUrl, getYouTubeVideoId, rememberBlogId, getBlogSlug, slugify } from "@/lib/content";
 
 dayjs.extend(relativeTime);
 
@@ -48,15 +48,15 @@ export function getAuthorInfo(item, fallbackIndex = 0) {
 }
 
 /** Navigates to an article, remembering list scroll position for "Back". */
-export function useOpenBlog() {
+export function useOpenBlog(defaultType) {
   const router = useRouter();
-  return (item) => {
+  return (item, itemDefaultType = defaultType) => {
     if (!item) return;
     sessionStorage.setItem("crypto_news_scroll_y", String(window.scrollY));
     if (item.id !== undefined && item.id !== null) sessionStorage.setItem("crypto_news_card_id", String(item.id));
     const slug = getBlogSlug(item);
     rememberBlogId(slug, item.id);
-    router.push(RoutesName.Blog_Detail.replace(":slug", slug));
+    router.push(blogPath(item, itemDefaultType));
   };
 }
 

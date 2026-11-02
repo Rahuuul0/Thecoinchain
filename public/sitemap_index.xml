@@ -6,6 +6,10 @@
   </sitemap>
   <sitemap>
     <loc>https://www.thecoinchain.com/sitemap-posts.xml</loc>
+<<<<<<< HEAD
     <lastmod>2026-10-30</lastmod>
+=======
+    <lastmod>2026-10-28</lastmod>
+>>>>>>> 5869d6d67a765f96738f1fbb9673210ce274136e
   </sitemap>
 </sitemapindex>

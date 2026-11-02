@@ -13,11 +13,13 @@
   </sitemap>
   <sitemap>
     <loc>https://www.thecoinchain.com/sitemap-posts.xml</loc>
-<<<<<<< HEAD
     <lastmod>2026-10-30</lastmod>
+<<<<<<< HEAD
 =======
     <lastmod>2026-10-28</lastmod>
 >>>>>>> 5869d6d67a765f96738f1fbb9673210ce274136e
 >>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
+=======
+>>>>>>> cbccf8523057540a462c95e42f00122e5a9cbecb
   </sitemap>
 </sitemapindex>

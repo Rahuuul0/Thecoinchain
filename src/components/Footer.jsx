@@ -71,7 +71,7 @@ export default function SiteFooter() {
 
   return (
     <footer className="w-full border-t border-gray-100 bg-white transition-colors duration-300 dark:border-white/5 dark:bg-[#141416]">
-      <div className="mx-auto max-w-[1440px] px-4 pt-10 pb-10 sm:px-6 sm:pt-14 sm:pb-12 md:px-8 lg:px-10 lg:pt-16 lg:pb-14">
+      <div className="mx-auto container px-2 pt-10 pb-10 sm:px-2 sm:pt-14 sm:pb-12 md:px-0 lg:px-0 lg:pt-16 lg:pb-14">
         {/* Main responsive grid / flex container */}
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-8 xl:gap-14">
           {/* Brand & contact info */}

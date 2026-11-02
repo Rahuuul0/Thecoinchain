@@ -60,12 +60,12 @@ function useRestoreNewsScroll(items) {
 export default function MuiCryptoNewsSection({ contentKey }) {
   const router = useRouter();
   const fetchWrapper = useFetchWrapper();
+  const config = contentConfigFor(contentKey);
   const openBlog = useOpenBlog(config.type);
   const [openProfile, profileLoading] = useOpenProfile();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const config = contentConfigFor(contentKey);
   const isTrendingNews = contentKey === "trending-news";
 
   const typeLabel = (item) => (isTrendingNews && labelForType(item?.type)) || item?.category || config.label;

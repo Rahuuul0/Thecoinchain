@@ -50,7 +50,7 @@ const highlight = (text) => {
   if (!text || typeof text !== "string") return text || "";
   return text.split(/(\$\d+(?:[.,]\d+)?)/g).map((part, i) =>
     /^\$\d/.test(part) ? (
-      <span key={i} className="text-[#C59400]">
+      <span key={i} className="text-[#854D0E]">
         {part}
       </span>
     ) : (
@@ -263,7 +263,16 @@ export default function BreakingNewsHero({ news }) {
                 }}
                 className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               />
-              <div className="relative flex h-full min-h-[360px] flex-col justify-end gap-3 p-4 sm:min-h-[380px] sm:p-6 lg:min-h-[400px]">
+              <div className="relative flex h-full min-h-[360px] flex-col justify-end gap-3 p-4 sm:min-h-[380px] sm:p-6 lg:min-h-[400px] bg-[linear-gradient(90deg,#ffffff_0%,#ffffff_20%,rgba(255,255,255,0.85)_25%,transparent_68%)]">
+                
+                <div className="absolute top-4 left-4 z-10 sm:top-6 sm:left-6">
+                  <img
+                    src="https://api.thecoinchain.com/uploads/TCC%20final%20logo%20light%20theme.svg"
+                    alt="The Coin Chain Logo"
+                    className="h-[22px] w-auto object-contain sm:h-[26px]"
+                  />
+                </div>
+                
                 <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[#E5484D] px-2 py-1 font-[Manrope] text-[14px] font-medium text-white leading-[1.49]">
                   <img src={PowerIcon} alt="The Coin Chain Logo" className="relative object-contain w-[8px] h-[18px]" />
                   {active.badge || "Breaking News"}

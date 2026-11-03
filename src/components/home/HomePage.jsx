@@ -145,13 +145,13 @@ function GlobalCommunitySection() {
   const toCard = (item) =>
     item
       ? {
-          id: item.id,
-          type: item.type?.replace(/_/g, " ").toUpperCase(),
-          title: item.title,
-          host: item.profile?.profile_name,
-          time: formatNewsDate(item.created_at),
-          avatar: item.profile?.profile_image ? `${IMAGE_URL}/${item.profile.profile_image}` : "",
-        }
+        id: item.id,
+        type: item.type?.replace(/_/g, " ").toUpperCase(),
+        title: item.title,
+        host: item.profile?.profile_name,
+        time: formatNewsDate(item.created_at),
+        avatar: item.profile?.profile_image ? `${IMAGE_URL}/${item.profile.profile_image}` : "",
+      }
       : {};
 
   const currentItem = guestPosts[activeIndex];
@@ -356,8 +356,9 @@ export default function HomePage() {
         </Container>
       </section> */}
       <TopBannerSection />
-      <BreakingNewsStepsSection/>
-      <AnalysisSection/>
+      <CryptoMarketOverview />
+      <BreakingNewsStepsSection />
+      <AnalysisSection />
       <MarketNewsSection />
       <LearncryptoSection />
       <CryptoTableSection />
@@ -400,7 +401,7 @@ export default function HomePage() {
           />
         </Container>
       </div> */}
-{/* 
+      {/* 
       <Container>
         <BusinessNewsPanels />
         <GlobalCommunitySection />

@@ -153,15 +153,15 @@ export default function SiteFooter() {
             Copyright © {year} | thecoinchain. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 text-[12px] text-[#667085] sm:text-[13px] dark:text-white/50">
-            <Link href={RoutesName.Privacy_Policy} className="transition-colors hover:text-[#B8860B] dark:hover:text-[#F0D667]">
+            <Link href={RoutesName.Privacy_Policy} className="transition-colors text-[#667085] hover:text-[#B8860B] dark:hover:text-[#F0D667]">
               Privacy Policy
             </Link>
             <span className="opacity-40">•</span>
-            <Link href={RoutesName.Terms_of_Use} className="transition-colors hover:text-[#B8860B] dark:hover:text-[#F0D667]">
+            <Link href={RoutesName.Terms_of_Use} className="transition-colors text-[#667085] hover:text-[#B8860B] dark:hover:text-[#F0D667]">
               Terms of Use
             </Link>
             <span className="opacity-40">•</span>
-            <Link href={RoutesName.Disclaimer} className="transition-colors hover:text-[#B8860B] dark:hover:text-[#F0D667]">
+            <Link href={RoutesName.Disclaimer} className="transition-colors text-[#667085] hover:text-[#B8860B] dark:hover:text-[#F0D667]">
               Disclaimers
             </Link>
           </div>

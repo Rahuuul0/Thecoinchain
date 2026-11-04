@@ -184,7 +184,7 @@ export default function AnalysisSection({ items = DEFAULT_ANALYSIS, viewAllHref 
         </div>
 
         {/* ---------- Filters ---------- */}
-        <div className="-mx-4 mt-9 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 flex-wrap sm:flex-wrap sm:overflow-visible sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mx-0 md:-mx-4 mt-9 flex gap-3 overflow-x-auto px-3 md:px-4 pb-1 sm:mx-0 flex-wrap sm:flex-wrap sm:overflow-visible sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {FILTERS.map((name) => {
             const isActive = filter === name;
             return (

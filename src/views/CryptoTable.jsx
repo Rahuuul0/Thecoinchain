@@ -1,7 +1,7 @@
 "use client";
 
 import { useAtom, useAtomValue } from "jotai";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -11,9 +11,10 @@ import CryptoChartModal from "@/components/CryptoChartModal";
 import CryptoMarketStatsModal from "@/components/CryptoMarketStatsModal";
 import LiveSparkline from "@/components/LiveSparkline";
 import { cn, LoadingOverlay, Pagination, Spinner } from "@/components/ui";
+import { RoutesName } from "@/_common/app.constants";
 
 const PREDICTION_PATH = "/prediction-dashboard";
-const MARKET_PATH = "/market";
+const MARKET_PATH = RoutesName.Prediction_Dashboard;
 
 const formatPercentage = (value) => (Number.isFinite(value) ? `${value.toFixed(2)}%` : "—");
 
@@ -69,6 +70,11 @@ export default function CryptoTable({ isIt, search }) {
   const [page, setPage] = useState(1);
   const [chartCoin, setChartCoin] = useState(null);
   const [statsCoin, setStatsCoin] = useState(null);
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  useEffect(() => {
+    setIsNavigating(false);
+  }, [pathname]);
 
   // Search: local match plus a debounced API search across all coins.
   const searchTerm = (search || "").trim().toLowerCase();
@@ -333,10 +339,15 @@ export default function CryptoTable({ isIt, search }) {
 
               <Link
                 href={MARKET_PATH}
+                onClick={() => setIsNavigating(true)}
                 className="inline-flex shrink-0 items-center gap-2 rounded-md bg-[linear-gradient(270deg,#D7AE42_0%,#F0D667_33%,#F0D667_65.7%,#D7AE42_100%)] px-4 py-2.5 font-[Manrope] text-[14px] font-semibold text-[#111318] no-underline transition-opacity hover:opacity-90 border border-transparent hover:border-[#010101] dark:hover:border-white"
               >
                 View All
-                <ArrowRight className="size-4" />
+                {isNavigating ? (
+                  <Loader2 className="size-4 animate-spin text-[#111318]" />
+                ) : (
+                  <ArrowRight className="size-4" />
+                )}
               </Link>
             </div>
 

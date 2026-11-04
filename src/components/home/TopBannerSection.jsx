@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useAtom, useAtomValue } from "jotai";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Apis, RoutesName } from "@/_common/app.constants";
 import { useFetchWrapper } from "@/_helpers";
 import { TrendingNewsAtom, switchDarkModeAtom } from "@/_state";
@@ -152,12 +153,18 @@ const mapNewsItem = (item, index) => {
 };
 
 export default function BreakingNewsHero({ news }) {
+  const pathname = usePathname();
   const fetchWrapper = useFetchWrapper();
   const isDarkMode = useAtomValue(switchDarkModeAtom);
   const bannerBackground = isDarkMode ? BANNER_BACKGROUND_DARK : BANNER_BACKGROUND_LIGHT;
   const [trendingNewsAtom, setTrendingNewsAtom] = useAtom(TrendingNewsAtom);
   const [apiNews, setApiNews] = useState([]);
   const [loading, setLoading] = useState(!trendingNewsAtom || trendingNewsAtom.length === 0);
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  useEffect(() => {
+    setIsNavigating(false);
+  }, [pathname]);
 
   useEffect(() => {
     let cancelled = false;
@@ -315,10 +322,15 @@ export default function BreakingNewsHero({ news }) {
               </div>
               <Link
                 href={RoutesName.Trending_News || "/trending-news"}
+                onClick={() => setIsNavigating(true)}
                 className="inline-flex shrink-0 items-center gap-2 rounded-md bg-[linear-gradient(270deg,#D7AE42_0%,#F0D667_33%,#F0D667_65.7%,#D7AE42_100%)] px-4 py-2.5 font-[Manrope] text-[14px] font-semibold text-[#111318] no-underline transition-opacity hover:opacity-90 border border-transparent hover:border-[#010101] dark:hover:border-white"
               >
                 View All
-                <ArrowRight className="size-4" />
+                {isNavigating ? (
+                  <Loader2 className="size-4 animate-spin text-[#111318]" />
+                ) : (
+                  <ArrowRight className="size-4" />
+                )}
               </Link>
             </div>
 

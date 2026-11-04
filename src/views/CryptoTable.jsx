@@ -13,8 +13,9 @@ import LiveSparkline from "@/components/LiveSparkline";
 import { cn, LoadingOverlay, Pagination, Spinner } from "@/components/ui";
 import { RoutesName } from "@/_common/app.constants";
 
-const PREDICTION_PATH = "/prediction-dashboard";
-const MARKET_PATH = RoutesName.Prediction_Dashboard;
+const PREDICTION_PATH = RoutesName.Prediction_Dashboard || "/prediction-dashboard";
+const MARKET_PATH = RoutesName.Market || "/market";
+const VIEW_ALL_PATH = RoutesName.Prediction_Dashboard;
 
 const formatPercentage = (value) => (Number.isFinite(value) ? `${value.toFixed(2)}%` : "—");
 
@@ -171,7 +172,7 @@ export default function CryptoTable({ isIt, search }) {
             <table className="w-full min-w-[680px] border-collapse">
               <thead>
                 <tr>
-                  <th className={cn(th, "w-[90px] text-center")}>Sr. No.</th>
+                  <th className={cn(th, "w-[60px] sm:w-[80px] text-center")}>{isPrediction ? "#" : "Sr. No."}</th>
                   <th className={cn(th, "text-left")}>Name</th>
                   <th className={cn(th, num)}>Price</th>
                   {isPrediction ? (
@@ -217,17 +218,29 @@ export default function CryptoTable({ isIt, search }) {
                       className="transition-colors even:bg-[#F8F9FB] hover:bg-[#FFFBF0] last:[&>td]:border-b-0 dark:even:bg-white/[0.03] dark:hover:bg-white/5"
                     >
                       <td className={cn(td, "text-center")}>
-                        {item.cmc_rank || (searchTerm ? index + 1 : (page - 1) * 100 + index + 1)}.
+                        {item.cmc_rank || (searchTerm ? index + 1 : (page - 1) * 100 + index + 1)}{isPrediction ? "" : "."}
                       </td>
                       <td
                         className={cn(td, !isHomePage && "group cursor-pointer")}
                         onClick={!isHomePage ? () => setStatsCoin(item) : undefined}
                       >
-                        <div className="flex items-center gap-3">
-                          <img src={item.image} alt={item.symbol} className="size-6 shrink-0 rounded-full object-contain" />
-                          <span className="group-hover:text-primary group-hover:underline">{item.name}</span>
-                        </div>
-                        {!isHomePage && <span className="mt-0.5 block pl-9 text-xs uppercase text-[#667085]">{item.symbol}</span>}
+                        {isPrediction ? (
+                          <div className="flex items-center justify-between gap-3 max-w-[220px]">
+                            <div className="flex items-center gap-3">
+                              <img src={item.image} alt={item.symbol} className="size-6 shrink-0 rounded-full object-contain" />
+                              <span className="font-semibold text-fg group-hover:text-primary group-hover:underline">{item.name}</span>
+                            </div>
+                            <span className="text-xs font-medium uppercase text-[#667085] dark:text-[#a0a5b5]">{item.symbol}</span>
+                          </div>
+                        ) : (
+                          <>
+                            <div className="flex items-center gap-3">
+                              <img src={item.image} alt={item.symbol} className="size-6 shrink-0 rounded-full object-contain" />
+                              <span className="group-hover:text-primary group-hover:underline">{item.name}</span>
+                            </div>
+                            {!isHomePage && <span className="mt-0.5 block pl-9 text-xs uppercase text-[#667085]">{item.symbol}</span>}
+                          </>
+                        )}
                       </td>
                       <td className={cn(td, num)}>${displayPrice(item?.price)?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
 
@@ -245,20 +258,21 @@ export default function CryptoTable({ isIt, search }) {
                           <td className={cn(td, num)}>{item.volume_24h?.toLocaleString() || "—"}</td>
                           <td className={cn(td, num)}>{item.market_cap?.toLocaleString() || "—"}</td>
                         </>
-                      ) : (
-                        <td className={cn(td, mid)}>
-                          <ChangeBadge value={item.percent_change_24h} />
-                        </td>
-                      )}
-
-                      {isMarket && (
+                      ) : isMarket ? (
                         <>
                           <td className={cn(td, num)}>
-                            <Change value={item.percent_change_7d}>{item.percent_change_7d?.toFixed(2)}</Change>
+                            <Change value={item.percent_change_24h}>{formatPercentage(item.percent_change_24h)}</Change>
+                          </td>
+                          <td className={cn(td, num)}>
+                            <Change value={item.percent_change_7d}>{item.percent_change_7d?.toFixed(2)}%</Change>
                           </td>
                           <td className={cn(td, num)}>${Math.round((item.market_cap * 100) / 100)?.toLocaleString()}</td>
                           <td className={cn(td, num)}>{Math.round((item.volume_24h * 100) / 100)?.toLocaleString()}</td>
                         </>
+                      ) : (
+                        <td className={cn(td, mid)}>
+                          <ChangeBadge value={item.percent_change_24h} />
+                        </td>
                       )}
 
                       <td className={cn(td, mid, "cursor-pointer")} onClick={() => setChartCoin(item)}>
@@ -287,7 +301,10 @@ export default function CryptoTable({ isIt, search }) {
           </div>
 
           {isPrediction && (
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-4 border-t border-[rgba(119,126,144,0.15)] px-2 py-5 sm:justify-between sm:px-4">
+            <div
+              id="prediction-pagination"
+              className="mt-6 flex flex-wrap items-center justify-center gap-4 border-t border-[rgba(119,126,144,0.15)] px-2 py-5 sm:justify-between sm:px-4"
+            >
               <p className="flex items-center gap-2 text-[0.88rem]! font-medium text-n4!">
                 {searchTerm ? (
                   <>
@@ -338,7 +355,7 @@ export default function CryptoTable({ isIt, search }) {
               </div>
 
               <Link
-                href={MARKET_PATH}
+                href={VIEW_ALL_PATH}
                 onClick={() => setIsNavigating(true)}
                 className="inline-flex shrink-0 items-center gap-2 rounded-md bg-[linear-gradient(270deg,#D7AE42_0%,#F0D667_33%,#F0D667_65.7%,#D7AE42_100%)] px-4 py-2.5 font-[Manrope] text-[14px] font-semibold text-[#111318] no-underline transition-opacity hover:opacity-90 border border-transparent hover:border-[#010101] dark:hover:border-white"
               >

@@ -60,7 +60,14 @@ export default function PredictionDashboard() {
             <Tooltip title="Scroll to pagination" placement="left">
               <button
                 type="button"
-                onClick={() => document.getElementById("prediction-pagination")?.scrollIntoView({ behavior: "smooth", block: "center" })}
+                onClick={() => {
+                  const el = document.getElementById("prediction-pagination");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth", block: "center" });
+                  } else {
+                    document.getElementById("crypto-list-table")?.scrollIntoView({ behavior: "smooth", block: "end" });
+                  }
+                }}
                 aria-label="scroll to table pagination"
                 className="flex size-11 items-center justify-center rounded-full border-2 border-[#8e95a5] bg-white/92 text-[#6e7687] shadow-[0_4px_14px_rgba(0,0,0,0.12)] backdrop-blur-[6px] transition-all duration-200 hover:translate-y-[3px] hover:border-primary hover:bg-[#f0f5ff] hover:text-primary hover:shadow-[0_6px_18px_rgba(55,114,255,0.25)] dark:bg-[rgba(29,31,43,0.92)] dark:text-[#a0a5b5] dark:hover:bg-primary/15"
               >

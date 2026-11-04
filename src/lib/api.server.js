@@ -4,7 +4,11 @@
 import { cache } from "react";
 import { BLOG_CONTENT_TYPES, listFrom, slugify } from "./content";
 
-const API_URL = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
+const API_URL = (
+  process.env.NEXT_PUBLIC_API_URL ||
+  process.env.REACT_APP_API_URL ||
+  "https://api.thecoinchain.com"
+).replace(/\/$/, "");
 const SLUG_INDEX_TTL = 5 * 60 * 1000;
 
 async function apiGet(path, { revalidate = 300 } = {}) {
@@ -62,13 +66,59 @@ async function resolveBlogId(param) {
   const targetTitle = slugify(clean, true);
   const prefixMatch = (a, b) => !!a && !!b && (a === b || a.startsWith(b) || b.startsWith(a));
 
-  const entries = await getSlugIndex();
-  const match = entries.find(
+  let entries = await getSlugIndex();
+  let match = entries.find(
     ({ customSlug, titleSlug }) =>
       prefixMatch(customSlug, target) || prefixMatch(titleSlug, targetTitle) || prefixMatch(titleSlug, target)
   );
+
+  // If not matched, rebuild index once to capture newly published articles
+  if (!match) {
+    entries = await buildSlugIndex().catch(() => []);
+    match = entries.find(
+      ({ customSlug, titleSlug }) =>
+        prefixMatch(customSlug, target) || prefixMatch(titleSlug, targetTitle) || prefixMatch(titleSlug, target)
+    );
+  }
+
   return match?.id ?? null;
 }
+
+export const getCategoryNews = cache(async (type) => {
+  const res = await apiGet(`all-content-list/${type}`, { revalidate: 300 });
+  return listFrom(res);
+});
+
+export const getBreakingNewsCategoriesParallel = cache(async () => {
+  const categories = ["bitcoin", "ethereum", "altcoin", "global_news"];
+  const results = await Promise.allSettled(
+    categories.map(async (cat) => {
+      const items = await getCategoryNews(cat);
+      return { category: cat, items };
+    })
+  );
+
+  const data = {
+    bitcoin: [],
+    ethereum: [],
+    altcoin: [],
+    global_news: [],
+  };
+
+  results.forEach((res, index) => {
+    const cat = categories[index];
+    if (res.status === "fulfilled" && Array.isArray(res.value?.items)) {
+      data[cat] = res.value.items;
+    }
+  });
+
+  return data;
+});
+
+export const getTrendingNewsServer = cache(async () => {
+  const res = await apiGet("all-content-list/trending_news", { revalidate: 300 });
+  return listFrom(res);
+});
 
 export const getBlogById = cache(async (id) => {
   const res = await apiGet(`content-detail/${id}`);

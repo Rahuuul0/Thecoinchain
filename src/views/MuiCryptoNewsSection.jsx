@@ -1,9 +1,11 @@
 "use client";
 
+import { useAtom } from "jotai";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Apis } from "@/_common/app.constants";
 import { useFetchWrapper } from "@/_helpers";
+import { TrendingNewsAtom } from "@/_state";
 import CryptoTickerMarquee from "@/components/CryptoTickerMarquee";
 import {
   BackButton,
@@ -23,6 +25,22 @@ const clearScrollRestore = () => {
   sessionStorage.removeItem("crypto_news_scroll_y");
   sessionStorage.removeItem("restore_scroll_on_news");
 };
+
+const ALLOWED_TYPES = new Set(["bitcoin", "ethereum", "altcoin", "global_news"]);
+
+function filterAndSortAllNews(rawList) {
+  if (!Array.isArray(rawList)) return [];
+  const filtered = rawList.filter((item) => {
+    const t = (item?.type || "").toLowerCase().trim();
+    const normalized = t === "global-news" ? "global_news" : t;
+    return ALLOWED_TYPES.has(normalized);
+  });
+  return filtered.sort((a, b) => {
+    const timeA = a?.created_at ? new Date(String(a.created_at).replace(/Z$/i, "")).getTime() : 0;
+    const timeB = b?.created_at ? new Date(String(b.created_at).replace(/Z$/i, "")).getTime() : 0;
+    return timeB - timeA;
+  });
+}
 
 /** Puts the reader back where they were after returning from an article. */
 function useRestoreNewsScroll(items) {
@@ -57,32 +75,98 @@ function useRestoreNewsScroll(items) {
   }, [items]);
 }
 
-export default function MuiCryptoNewsSection({ contentKey }) {
+export default function MuiCryptoNewsSection({
+  contentKey,
+  initialItems = [],
+  customHeading,
+  isAllNews: forceAllNews = false,
+}) {
   const router = useRouter();
   const fetchWrapper = useFetchWrapper();
+  const [trendingNewsAtom, setTrendingNewsAtom] = useAtom(TrendingNewsAtom);
+  const isAllNews = forceAllNews || contentKey === "news";
   const config = contentConfigFor(contentKey);
-  const openBlog = useOpenBlog(config.type);
+  const openBlog = useOpenBlog(isAllNews ? "latest-news" : config.type);
   const [openProfile, profileLoading] = useOpenProfile();
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
+
+  const [items, setItems] = useState(() => {
+    if (isAllNews && Array.isArray(initialItems) && initialItems.length > 0) {
+      return filterAndSortAllNews(initialItems);
+    }
+    return Array.isArray(initialItems) ? initialItems : [];
+  });
+  const [loading, setLoading] = useState(() => !items.length);
 
   const isTrendingNews = contentKey === "trending-news";
 
-  const typeLabel = (item) => (isTrendingNews && labelForType(item?.type)) || item?.category || config.label;
+  const typeLabel = (item) => {
+    if (isAllNews || isTrendingNews) {
+      return (
+        labelForType(item?.type) ||
+        (item?.type ? String(item.type).replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : null) ||
+        item?.category ||
+        config.label
+      );
+    }
+    return item?.category || config.label;
+  };
 
   useEffect(() => {
     let cancelled = false;
+
+    if (isAllNews) {
+      // If we already have items from SSR, sync with trending atom if needed
+      if (items.length > 0) {
+        if (!trendingNewsAtom || trendingNewsAtom.length === 0) {
+          setTrendingNewsAtom(items);
+        }
+        setLoading(false);
+        return;
+      }
+
+      // Check atom first
+      if (Array.isArray(trendingNewsAtom) && trendingNewsAtom.length > 0) {
+        const filtered = filterAndSortAllNews(trendingNewsAtom);
+        setItems(filtered);
+        setLoading(false);
+        return;
+      }
+
+      // Fetch trending news from API and filter
+      setLoading(true);
+      fetchWrapper
+        .get(Apis.All_Content("trending_news"))
+        .then((res) => {
+          if (cancelled) return;
+          const raw = Array.isArray(res?.data) ? res.data : [];
+          setTrendingNewsAtom(raw);
+          setItems(filterAndSortAllNews(raw));
+        })
+        .catch((err) => console.warn("Error fetching news:", err))
+        .finally(() => !cancelled && setLoading(false));
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    // Category routes
+    if (items.length > 0) {
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     fetchWrapper
       .get(Apis.All_Content(config.type))
       .then((res) => !cancelled && setItems(Array.isArray(res?.data) ? res.data : []))
       .catch((err) => console.warn("Error fetching data:", err))
       .finally(() => !cancelled && setLoading(false));
+
     return () => {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config.type]);
+  }, [config.type, isAllNews]);
 
   useRestoreNewsScroll(items);
 
@@ -96,6 +180,7 @@ export default function MuiCryptoNewsSection({ contentKey }) {
   const featuredAuthor = getAuthorInfo(featured, 0);
   const topItems = items.slice(1, 5);
   const remainingItems = items.slice(5);
+  const headingText = customHeading || (isAllNews ? "All News" : config.heading);
 
   return (
     <div>
@@ -110,7 +195,7 @@ export default function MuiCryptoNewsSection({ contentKey }) {
         <div className="flex flex-col gap-8 md:flex-row md:gap-0">
           {/* Featured item (sticky on desktop) */}
           <div className="relative flex flex-1 flex-col self-start md:sticky md:top-0 md:pr-8">
-            <h4 className="mb-[0.35em] font-bold text-black dark:text-white">{config.heading}</h4>
+            <h4 className="mb-[0.35em] font-bold text-black dark:text-white">{headingText}</h4>
 
             <div id={featured?.id ? `news-card-${featured.id}` : undefined} className="mb-6 overflow-hidden rounded-[18px]">
               <div className="flex cursor-pointer items-center justify-center" onClick={() => openBlog(featured)}>

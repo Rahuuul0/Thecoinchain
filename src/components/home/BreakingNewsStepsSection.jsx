@@ -47,6 +47,11 @@ const TAG_STYLES = {
 const DEFAULT_TAG = { bg: "#F3F4F6", color: "#353942", border: "#E5E7EB" };
 
 function getTag(item, defaultCategory) {
+  // If a specific tab is selected (not "All"), strictly show that tab's type!
+  if (defaultCategory && defaultCategory !== "All") {
+    return defaultCategory;
+  }
+
   if (item?.tag && typeof item.tag === "string") return item.tag;
   if (item?.coin && typeof item.coin === "string") return item.coin;
 

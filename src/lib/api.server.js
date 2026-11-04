@@ -14,7 +14,10 @@ const SLUG_INDEX_TTL = 5 * 60 * 1000;
 async function apiGet(path, { revalidate = 300 } = {}) {
   if (!API_URL) return null;
   try {
-    const res = await fetch(`${API_URL}/${path}`, { next: { revalidate } });
+    const res = await fetch(`${API_URL}/${path}`, {
+      next: { revalidate },
+      signal: AbortSignal.timeout(8000),
+    });
     if (!res.ok) return null;
     return await res.json();
   } catch (err) {
@@ -109,6 +112,37 @@ export const getBreakingNewsCategoriesParallel = cache(async () => {
     const cat = categories[index];
     if (res.status === "fulfilled" && Array.isArray(res.value?.items)) {
       data[cat] = res.value.items;
+    }
+  });
+
+  return data;
+});
+
+export const getAnalysisCategoriesParallel = cache(async () => {
+  const endpoints = [
+    { key: "price_prediction", type: "price_prediction" },
+    { key: "stock_price_prediction", type: "stock_price_prediction" },
+    { key: "bitcoin_analysis", type: "bitcoin_analysis" },
+    { key: "ethereum_analysis", type: "ethereum_analysis" },
+    { key: "memecoin_analysis", type: "memecoin_analysis" },
+  ];
+
+  const results = await Promise.allSettled(
+    endpoints.map((ep) => getCategoryNews(ep.type))
+  );
+
+  const data = {
+    price_prediction: [],
+    stock_price_prediction: [],
+    bitcoin_analysis: [],
+    ethereum_analysis: [],
+    memecoin_analysis: [],
+  };
+
+  results.forEach((res, index) => {
+    const key = endpoints[index].key;
+    if (res.status === "fulfilled" && Array.isArray(res.value)) {
+      data[key] = res.value;
     }
   });
 

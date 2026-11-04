@@ -8,7 +8,7 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return Object.keys(NEWS_CATEGORIES)
-    .filter((category) => category !== "news")
+    .filter((category) => category !== "news" && category !== "analysis")
     .map((category) => ({ category }));
 }
 

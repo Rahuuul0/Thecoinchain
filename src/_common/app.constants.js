@@ -76,6 +76,7 @@ export const RoutesName = {
   Altcoin: "/altcoin",
   Global_News: "/global_news",
   News: "/news",
+  Analysis: "/analysis",
   Memecoin_Analysis: "/memecoin-analysis",
   Ethereum_Analysis: "/ethereum-analysis",
   Bitcoin_Analysis: "/bitcoin-analysis",

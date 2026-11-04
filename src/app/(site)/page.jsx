@@ -1,5 +1,8 @@
 import HomePage from "@/components/home/HomePage";
-import { getBreakingNewsCategoriesParallel } from "@/lib/api.server";
+import {
+  getAnalysisCategoriesParallel,
+  getBreakingNewsCategoriesParallel,
+} from "@/lib/api.server";
 
 export const metadata = {
   title: { absolute: "TheCoinChain | Latest Crypto News, Market Analysis & Price Predictions" },
@@ -16,6 +19,14 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const initialNewsData = await getBreakingNewsCategoriesParallel();
-  return <HomePage initialBreakingNews={initialNewsData} />;
+  const [initialBreakingNews, initialAnalysisData] = await Promise.all([
+    getBreakingNewsCategoriesParallel(),
+    getAnalysisCategoriesParallel(),
+  ]);
+  return (
+    <HomePage
+      initialBreakingNews={initialBreakingNews}
+      initialAnalysisData={initialAnalysisData}
+    />
+  );
 }

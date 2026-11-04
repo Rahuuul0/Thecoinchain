@@ -298,7 +298,7 @@ function LearnCryptoTutorials() {
 /* Page                                                                */
 /* ------------------------------------------------------------------ */
 
-export default function HomePage({ initialBreakingNews }) {
+export default function HomePage({ initialBreakingNews, initialAnalysisData }) {
   const homeActions = useHomeActions();
   const bannerActions = bannerListActions();
   const tutorialAction = useTutorialActions();
@@ -358,7 +358,7 @@ export default function HomePage({ initialBreakingNews }) {
       <TopBannerSection />
       <CryptoMarketOverview />
       <BreakingNewsStepsSection initialCategoriesData={initialBreakingNews} />
-      <AnalysisSection />
+      <AnalysisSection initialCategoriesData={initialAnalysisData} />
       <MarketNewsSection />
       <LearncryptoSection />
       <CryptoTableSection />

@@ -26,14 +26,21 @@ const clearScrollRestore = () => {
   sessionStorage.removeItem("restore_scroll_on_news");
 };
 
-const ALLOWED_TYPES = new Set(["bitcoin", "ethereum", "altcoin", "global_news"]);
+const ALLOWED_NEWS_TYPES = new Set(["bitcoin", "ethereum", "altcoin", "global_news"]);
+const ALLOWED_ANALYSIS_TYPES = new Set([
+  "price_prediction",
+  "stock_price_prediction",
+  "bitcoin_analysis",
+  "ethereum_analysis",
+  "memecoin_analysis",
+]);
 
-function filterAndSortAllNews(rawList) {
+function filterAndSortArticles(rawList, allowedTypes) {
   if (!Array.isArray(rawList)) return [];
   const filtered = rawList.filter((item) => {
     const t = (item?.type || "").toLowerCase().trim();
     const normalized = t === "global-news" ? "global_news" : t;
-    return ALLOWED_TYPES.has(normalized);
+    return allowedTypes.has(normalized);
   });
   return filtered.sort((a, b) => {
     const timeA = a?.created_at ? new Date(String(a.created_at).replace(/Z$/i, "")).getTime() : 0;
@@ -80,18 +87,22 @@ export default function MuiCryptoNewsSection({
   initialItems = [],
   customHeading,
   isAllNews: forceAllNews = false,
+  isAllAnalysis: forceAllAnalysis = false,
 }) {
   const router = useRouter();
   const fetchWrapper = useFetchWrapper();
   const [trendingNewsAtom, setTrendingNewsAtom] = useAtom(TrendingNewsAtom);
   const isAllNews = forceAllNews || contentKey === "news";
+  const isAllAnalysis = forceAllAnalysis || contentKey === "analysis";
+  const isCombinedFeed = isAllNews || isAllAnalysis;
+  const allowedTypes = isAllAnalysis ? ALLOWED_ANALYSIS_TYPES : ALLOWED_NEWS_TYPES;
   const config = contentConfigFor(contentKey);
-  const openBlog = useOpenBlog(isAllNews ? "latest-news" : config.type);
+  const openBlog = useOpenBlog(isCombinedFeed ? "latest-news" : config.type);
   const [openProfile, profileLoading] = useOpenProfile();
 
   const [items, setItems] = useState(() => {
-    if (isAllNews && Array.isArray(initialItems) && initialItems.length > 0) {
-      return filterAndSortAllNews(initialItems);
+    if (isCombinedFeed && Array.isArray(initialItems) && initialItems.length > 0) {
+      return filterAndSortArticles(initialItems, allowedTypes);
     }
     return Array.isArray(initialItems) ? initialItems : [];
   });
@@ -100,7 +111,7 @@ export default function MuiCryptoNewsSection({
   const isTrendingNews = contentKey === "trending-news";
 
   const typeLabel = (item) => {
-    if (isAllNews || isTrendingNews) {
+    if (isCombinedFeed || isTrendingNews) {
       return (
         labelForType(item?.type) ||
         (item?.type ? String(item.type).replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : null) ||
@@ -114,7 +125,7 @@ export default function MuiCryptoNewsSection({
   useEffect(() => {
     let cancelled = false;
 
-    if (isAllNews) {
+    if (isCombinedFeed) {
       // If we already have items from SSR, sync with trending atom if needed
       if (items.length > 0) {
         if (!trendingNewsAtom || trendingNewsAtom.length === 0) {
@@ -126,7 +137,7 @@ export default function MuiCryptoNewsSection({
 
       // Check atom first
       if (Array.isArray(trendingNewsAtom) && trendingNewsAtom.length > 0) {
-        const filtered = filterAndSortAllNews(trendingNewsAtom);
+        const filtered = filterAndSortArticles(trendingNewsAtom, allowedTypes);
         setItems(filtered);
         setLoading(false);
         return;
@@ -140,9 +151,9 @@ export default function MuiCryptoNewsSection({
           if (cancelled) return;
           const raw = Array.isArray(res?.data) ? res.data : [];
           setTrendingNewsAtom(raw);
-          setItems(filterAndSortAllNews(raw));
+          setItems(filterAndSortArticles(raw, allowedTypes));
         })
-        .catch((err) => console.warn("Error fetching news:", err))
+        .catch((err) => console.warn("Error fetching data:", err))
         .finally(() => !cancelled && setLoading(false));
       return () => {
         cancelled = true;
@@ -166,7 +177,7 @@ export default function MuiCryptoNewsSection({
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config.type, isAllNews]);
+  }, [config.type, isCombinedFeed]);
 
   useRestoreNewsScroll(items);
 
@@ -180,7 +191,7 @@ export default function MuiCryptoNewsSection({
   const featuredAuthor = getAuthorInfo(featured, 0);
   const topItems = items.slice(1, 5);
   const remainingItems = items.slice(5);
-  const headingText = customHeading || (isAllNews ? "All News" : config.heading);
+  const headingText = customHeading || (isAllAnalysis ? "All Analysis" : isAllNews ? "All News" : config.heading);
 
   return (
     <div>

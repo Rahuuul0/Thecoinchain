@@ -17,6 +17,7 @@ export const NEWS_CATEGORIES = {
   "global-news": { type: "global_news", heading: "Global News" },
   "global_news": { type: "global_news", heading: "Global News" },
   news: { type: "trending_news", heading: "All News" },
+  analysis: { type: "trending_news", heading: "All Analysis" },
   "memecoin-analysis": { type: "memecoin_analysis", heading: "Memecoin Analysis" },
   "ethereum-analysis": { type: "ethereum_analysis", heading: "Ethereum Analysis" },
   "bitcoin-analysis": { type: "bitcoin_analysis", heading: "Bitcoin Analysis" },

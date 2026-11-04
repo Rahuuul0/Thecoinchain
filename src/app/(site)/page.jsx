@@ -2,6 +2,7 @@ import HomePage from "@/components/home/HomePage";
 import {
   getAnalysisCategoriesParallel,
   getBreakingNewsCategoriesParallel,
+  getCategoryNews,
 } from "@/lib/api.server";
 
 export const metadata = {
@@ -19,14 +20,16 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const [initialBreakingNews, initialAnalysisData] = await Promise.all([
+  const [initialBreakingNews, initialAnalysisData, initialMarketNews] = await Promise.all([
     getBreakingNewsCategoriesParallel(),
     getAnalysisCategoriesParallel(),
+    getCategoryNews("market").catch(() => []),
   ]);
   return (
     <HomePage
       initialBreakingNews={initialBreakingNews}
       initialAnalysisData={initialAnalysisData}
+      initialMarketNews={initialMarketNews}
     />
   );
 }

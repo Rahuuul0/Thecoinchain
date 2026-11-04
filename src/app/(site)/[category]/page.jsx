@@ -8,7 +8,12 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return Object.keys(NEWS_CATEGORIES)
-    .filter((category) => category !== "news" && category !== "analysis")
+    .filter(
+      (category) =>
+        category !== "news" &&
+        category !== "analysis" &&
+        category !== "market-news"
+    )
     .map((category) => ({ category }));
 }
 
@@ -37,6 +42,11 @@ const CATEGORY_SEO = {
     title: "Global Crypto News – Worldwide Regulations & Market Events",
     description:
       "Read global cryptocurrency news, regulatory policies, financial developments, and worldwide blockchain updates on The Coin Chain.",
+  },
+  "market-news": {
+    title: "Market News – Crypto Market Trends, Insights & Analysis",
+    description:
+      "Explore the latest crypto market news, market movements, trading volumes, and blockchain market developments on The Coin Chain.",
   },
 };
 

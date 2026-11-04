@@ -1,34 +1,45 @@
 "use client";
 
 import { useState } from "react";
+import { useFooterActions } from "@/_actions";
+import { useAlertActions } from "@/_actions/alert.actions";
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_REGEX =
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 function FirstToKnow() {
+  const footerActions = useFooterActions();
+  const alertActions = useAlertActions();
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState({ type: "", message: "" });
+  const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const value = email.trim();
 
+    if (!value) {
+      setErrorMsg("Email Address is required");
+      alertActions.error("Email Address is required");
+      return;
+    }
+
     if (!EMAIL_REGEX.test(value)) {
-      setStatus({ type: "error", message: "Please enter a valid email address." });
+      setErrorMsg("Email is invalid");
+      alertActions.error("Email is invalid");
       return;
     }
 
     try {
       setLoading(true);
-      setStatus({ type: "", message: "" });
+      setErrorMsg("");
 
-      // TODO: yahan apni subscribe API call lagao, e.g.
-      // await subscribeActions.subscribe({ email: value });
-
-      setStatus({ type: "success", message: "Thanks for subscribing!" });
-      setEmail("");
+      const res = await footerActions.add({ email: value });
+      if (res && (res.statusCode === 200 || res.result_code === 1)) {
+        setEmail("");
+      }
     } catch (err) {
-      setStatus({ type: "error", message: "Something went wrong. Please try again." });
+      console.warn("FirstToKnow subscription error:", err);
     } finally {
       setLoading(false);
     }
@@ -44,7 +55,7 @@ function FirstToKnow() {
             Be the first to know
           </h2>
           <p className="text-center mb-0 mt-3 font-[Inter] font-normal leading-normal text-[#667085] text-[16px]">
-            Subscribe for the latest crypto news and insights
+            Crypto currency forecast and analysis straight to your inbox! No b.s.!
           </p>
 
           {/* ---------- Form ---------- */}
@@ -56,9 +67,13 @@ function FirstToKnow() {
             <input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value.replace(/\s+/g, e.target.value.length > 1 ? " " : ""));
+                if (errorMsg) setErrorMsg("");
+              }}
               placeholder="Enter your email address"
               aria-label="Email address"
+              disabled={loading}
               className="h-10 min-w-0 flex-1 rounded-full border-0 bg-transparent px-4 font-[Inter] text-[14px] font-normal text-[#111318] outline-none placeholder:text-[#667085] sm:text-[14px] md:text-[16px]"
             />
             <button
@@ -71,14 +86,12 @@ function FirstToKnow() {
             </button>
           </form>
 
-          {status.message && (
+          {errorMsg && (
             <p
-              role="status"
-              className={`mb-0 mt-3 font-[Inter] text-[14px] font-medium ${
-                status.type === "success" ? "text-[#16A66A]" : "text-[#E5484D]"
-              }`}
+              role="alert"
+              className="mb-0 mt-3 font-[Inter] text-[14px] font-medium text-[#E5484D]"
             >
-              {status.message}
+              {errorMsg}
             </p>
           )}
         </div>

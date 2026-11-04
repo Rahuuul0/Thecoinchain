@@ -15,19 +15,24 @@ const useFooterActions = () => {
   const setPrivacyList = useSetAtom(PrivacyListAtom);
 
   const add = (data) => {
-    loader(true)
-    return fetchWrapper.post(`${Apis.Footer}`, data)
-      .then(res => {
-        loader(false)
-        if (res.statusCode === 200) {
-          alertActions.success(Labels.Footer_Email);
-          setFooterError(true)
+    loader(true);
+    return fetchWrapper
+      .post(`${Apis.Footer}`, data)
+      .then((res) => {
+        loader(false);
+        if (res && (res.statusCode === 200 || res.result_code === 1)) {
+          alertActions.success(Labels.Footer_Email || "please check your email");
+          setFooterError(true);
         } else {
-          alertActions.error(res.msg);
+          alertActions.error(res?.message || res?.msg || "Something went wrong.");
         }
-      }).catch((err)=>{console.warn(err)
-        loader(false)
+        return res;
       })
+      .catch((err) => {
+        console.warn(err);
+        loader(false);
+        alertActions.error("Network error. Please try again.");
+      });
   };
 
   const TermsList =  () => {

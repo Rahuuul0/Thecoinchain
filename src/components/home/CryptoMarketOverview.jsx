@@ -100,7 +100,7 @@ export default function CryptoMarketOverview() {
 
   return (
     <section className="relative w-full py-8 sm:py-10 md:py-12">
-      <Container>
+      <div className="container mx-auto px-3 md:px-0">
         <div className="mb-7 flex items-center">
           <div>
             <h5 className="font-display leading-[1.2] font-extrabold tracking-[0.5px] text-n1 uppercase dark:text-white">
@@ -153,7 +153,7 @@ export default function CryptoMarketOverview() {
             })}
           </div>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

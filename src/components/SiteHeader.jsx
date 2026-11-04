@@ -142,7 +142,7 @@ const ACCOUNT_LINKS = [
 
 // Font color #353942, medium weight, no uppercase/capitalize (matches the design).
 const navButton =
-  "inline-flex items-center gap-1 whitespace-nowrap rounded-md px-2.5 py-2 font-nav font-medium leading-none text-[#353942] no-underline transition-colors hover:text-primary xl:px-3.5 xl:text-[14px] dark:text-white dark:hover:text-primary focus:outline-none";
+  "inline-flex items-center gap-1 whitespace-nowrap rounded-md px-2.5 py-2 font-nav font-medium leading-none text-[#353942] no-underline  hover:text-[#000000] xl:px-3.5 xl:text-[14px] dark:text-white dark:hover:text-primary focus:outline-none";
 
 function NavDropdown({ group }) {
   return (

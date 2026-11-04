@@ -92,6 +92,11 @@ export const getCategoryNews = cache(async (type) => {
   return listFrom(res);
 });
 
+export const getTutorialList = cache(async () => {
+  const res = await apiGet("tutorial-list", { revalidate: 300 });
+  return listFrom(res);
+});
+
 export const getBreakingNewsCategoriesParallel = cache(async () => {
   const categories = ["bitcoin", "ethereum", "altcoin", "global_news"];
   const results = await Promise.allSettled(

@@ -3,19 +3,20 @@
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Apis, RoutesName } from "@/_common/app.constants";
 import { useFetchWrapper } from "@/_helpers";
-import { TrendingNewsAtom } from "@/_state";
+import { TrendingNewsAtom, switchDarkModeAtom } from "@/_state";
 import CryptoTickerMarquee from "@/components/CryptoTickerMarquee";
 import { blogPath, getBlogSlug, rememberBlogId, slugify } from "@/lib/content";
 
 dayjs.extend(relativeTime);
 
 const IMG = "/assets/images/coinchain-img";
-const BANNER_BACKGROUND = `${IMG}/Main.png`;
+const BANNER_BACKGROUND_LIGHT = `${IMG}/Main.png`;
+const BANNER_BACKGROUND_DARK = `${IMG}/Black_Background.png`;
 const FEATURED_IMAGE = `${IMG}/near-price-analysis.png`;
 const PowerIcon = `${IMG}/power-icon.svg`;
 
@@ -152,6 +153,8 @@ const mapNewsItem = (item, index) => {
 
 export default function BreakingNewsHero({ news }) {
   const fetchWrapper = useFetchWrapper();
+  const isDarkMode = useAtomValue(switchDarkModeAtom);
+  const bannerBackground = isDarkMode ? BANNER_BACKGROUND_DARK : BANNER_BACKGROUND_LIGHT;
   const [trendingNewsAtom, setTrendingNewsAtom] = useAtom(TrendingNewsAtom);
   const [apiNews, setApiNews] = useState([]);
   const [loading, setLoading] = useState(!trendingNewsAtom || trendingNewsAtom.length === 0);
@@ -225,7 +228,7 @@ export default function BreakingNewsHero({ news }) {
     <section
       id="trending-news-section"
       className="bg-cover bg-center bg-no-repeat pb-6 pt-[78px] transition-colors sm:pb-8 lg:pb-10 sm:pt-[78px] lg:pt-[78px]"
-      style={{ backgroundImage: `url("${BANNER_BACKGROUND}")` }}
+      style={{ backgroundImage: `url("${bannerBackground}")` }}
     >
       <CryptoTickerMarquee />
 
@@ -264,7 +267,7 @@ export default function BreakingNewsHero({ news }) {
                 className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               />
               <div className="relative flex h-full min-h-[360px] flex-col justify-end gap-3 p-4 sm:min-h-[380px] sm:p-6 lg:min-h-[400px] bg-[linear-gradient(90deg,#ffffff_0%,#ffffff_20%,rgba(255,255,255,0.85)_25%,transparent_68%)]">
-                
+
                 <div className="absolute top-4 left-4 z-10 sm:top-6 sm:left-6">
                   <img
                     src="https://api.thecoinchain.com/uploads/TCC%20final%20logo%20light%20theme.svg"
@@ -272,7 +275,7 @@ export default function BreakingNewsHero({ news }) {
                     className="h-[22px] w-auto object-contain sm:h-[26px]"
                   />
                 </div>
-                
+
                 <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[#E5484D] px-2 py-1 font-[Manrope] text-[14px] font-medium text-white leading-[1.49]">
                   <img src={PowerIcon} alt="The Coin Chain Logo" className="relative object-contain w-[8px] h-[18px]" />
                   {active.badge || "Breaking News"}
@@ -282,7 +285,7 @@ export default function BreakingNewsHero({ news }) {
                   {highlight(active.title)}
                 </h2>
 
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-[Manrope] text-[14px] font-semibold text-[#323232] dark:text-white/80 mt-1">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-[Manrope] text-[14px] font-semibold text-[#323232] dark:text-[#00000]/80 mt-1">
                   <Tag label={active.tag} />
                   <span className="hidden h-4 w-px bg-[#353942]/30 sm:block" />
                   <span>By {active.author}</span>
@@ -354,15 +357,15 @@ export default function BreakingNewsHero({ news }) {
                             className="h-[58px] w-[88px] shrink-0 rounded-md object-cover sm:h-[68px] sm:w-[120px]"
                           />
                           <div className="min-w-0 flex-1">
-                            <div className="mb-1.5 flex items-center justify-between gap-2">
-                              <Tag label={item.tag} />
-                              <span className="shrink-0 font-[Manrope] text-[12px] font-medium text-[#667085] dark:text-white/60">
-                                {item.time}
-                              </span>
-                            </div>
                             <p className="line-clamp-2 font-[Manrope] text-[14px] font-medium leading-snug text-[#111318] dark:text-white">
                               {item.title}
                             </p>
+                            <div className="mb-1.5 flex items-center justify-end gap-2 relative bottom-[-20px]">
+                              {/* <Tag label={item.tag} /> */}
+                              <span className="shrink-0 font-[Manrope] text-[12px] font-medium text-[#667085] dark:text-white/60">
+                                {item.tag} | {item.time}
+                              </span>
+                            </div>
                           </div>
                         </Link>
                       </li>

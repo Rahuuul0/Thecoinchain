@@ -3,6 +3,7 @@ import {
   getAnalysisCategoriesParallel,
   getBreakingNewsCategoriesParallel,
   getCategoryNews,
+  getTrendingNewsServer,
   getTutorialList,
 } from "@/lib/api.server";
 
@@ -21,19 +22,26 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const [initialBreakingNews, initialAnalysisData, initialMarketNews, initialTutorials] =
-    await Promise.all([
-      getBreakingNewsCategoriesParallel(),
-      getAnalysisCategoriesParallel(),
-      getCategoryNews("market").catch(() => []),
-      getTutorialList().catch(() => []),
-    ]);
+  const [
+    initialBreakingNews,
+    initialAnalysisData,
+    initialMarketNews,
+    initialTutorials,
+    initialTrendingNews,
+  ] = await Promise.all([
+    getBreakingNewsCategoriesParallel(),
+    getAnalysisCategoriesParallel(),
+    getCategoryNews("market").catch(() => []),
+    getTutorialList().catch(() => []),
+    getTrendingNewsServer().catch(() => []),
+  ]);
   return (
     <HomePage
       initialBreakingNews={initialBreakingNews}
       initialAnalysisData={initialAnalysisData}
       initialMarketNews={initialMarketNews}
       initialTutorials={initialTutorials}
+      initialTrendingNews={initialTrendingNews}
     />
   );
 }

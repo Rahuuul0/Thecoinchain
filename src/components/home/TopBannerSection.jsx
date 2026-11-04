@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useAtom, useAtomValue } from "jotai";
@@ -152,14 +152,22 @@ const mapNewsItem = (item, index) => {
   };
 };
 
-export default function BreakingNewsHero({ news }) {
+export default function BreakingNewsHero({ news, initialNews = [] }) {
   const pathname = usePathname();
   const fetchWrapper = useFetchWrapper();
   const isDarkMode = useAtomValue(switchDarkModeAtom);
   const bannerBackground = isDarkMode ? BANNER_BACKGROUND_DARK : BANNER_BACKGROUND_LIGHT;
   const [trendingNewsAtom, setTrendingNewsAtom] = useAtom(TrendingNewsAtom);
-  const [apiNews, setApiNews] = useState([]);
-  const [loading, setLoading] = useState(!trendingNewsAtom || trendingNewsAtom.length === 0);
+
+  const initialList = useMemo(() => {
+    if (Array.isArray(initialNews) && initialNews.length > 0) return initialNews;
+    if (Array.isArray(news) && news.length > 0) return news;
+    if (Array.isArray(trendingNewsAtom) && trendingNewsAtom.length > 0) return trendingNewsAtom;
+    return [];
+  }, [initialNews, news, trendingNewsAtom]);
+
+  const [apiNews, setApiNews] = useState(() => initialList);
+  const [loading, setLoading] = useState(() => initialList.length === 0);
   const [isNavigating, setIsNavigating] = useState(false);
 
   useEffect(() => {
@@ -167,6 +175,21 @@ export default function BreakingNewsHero({ news }) {
   }, [pathname]);
 
   useEffect(() => {
+    if (Array.isArray(initialNews) && initialNews.length > 0) {
+      setApiNews(initialNews);
+      setLoading(false);
+      if (!trendingNewsAtom || trendingNewsAtom.length === 0) {
+        setTrendingNewsAtom(initialNews);
+      }
+      return;
+    }
+
+    if (Array.isArray(news) && news.length > 0) {
+      setApiNews(news);
+      setLoading(false);
+      return;
+    }
+
     let cancelled = false;
 
     const fetchTrendingNews = async () => {
@@ -193,7 +216,7 @@ export default function BreakingNewsHero({ news }) {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [initialNews, news]);
 
   const openDetail = (item) => {
     if (!item?.id) return;
@@ -211,13 +234,15 @@ export default function BreakingNewsHero({ news }) {
   };
 
   const rawStories =
-    Array.isArray(news) && news.length > 0
-      ? news
-      : apiNews && apiNews.length > 0
-        ? apiNews
-        : trendingNewsAtom && trendingNewsAtom.length > 0
-          ? trendingNewsAtom
-          : [];
+    apiNews && apiNews.length > 0
+      ? apiNews
+      : Array.isArray(initialNews) && initialNews.length > 0
+        ? initialNews
+        : Array.isArray(news) && news.length > 0
+          ? news
+          : trendingNewsAtom && trendingNewsAtom.length > 0
+            ? trendingNewsAtom
+            : [];
 
   const formattedStories = rawStories.map(mapNewsItem).filter(Boolean);
   const active = formattedStories[0];
@@ -297,7 +322,7 @@ export default function BreakingNewsHero({ news }) {
                   <span className="hidden h-4 w-px bg-[#353942]/30 sm:block" />
                   <span>By {active.author}</span>
                   <span className="hidden h-4 w-px bg-[#353942]/30 sm:block" />
-                  <span>{active.time}</span>
+                  <span suppressHydrationWarning>{active.time}</span>
                 </div>
 
                 <span className="mt-[12px] inline-flex w-fit items-center gap-2 rounded-md bg-[linear-gradient(270deg,#D7AE42_0%,#F0D667_33%,#F0D667_65.7%,#D7AE42_100%)] px-4 py-2 font-[Manrope] text-[14px] font-semibold text-[#111318] transition-opacity group-hover:opacity-90">
@@ -374,7 +399,7 @@ export default function BreakingNewsHero({ news }) {
                             </p>
                             <div className="mb-1.5 flex items-center justify-end gap-2 relative bottom-[-20px]">
                               {/* <Tag label={item.tag} /> */}
-                              <span className="shrink-0 font-[Manrope] text-[12px] font-medium text-[#667085] dark:text-white/60">
+                              <span suppressHydrationWarning className="shrink-0 font-[Manrope] text-[12px] font-medium text-[#667085] dark:text-white/60">
                                 {item.tag} | {item.time}
                               </span>
                             </div>

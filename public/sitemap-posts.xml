@@ -1,30 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/latest-news/binance-hacker-1-4-billion-bitcoin-19-wallets/</loc>
-=======
-<<<<<<< HEAD
-=======
->>>>>>> cbccf8523057540a462c95e42f00122e5a9cbecb
-    <loc>https://www.thecoinchain.com/blog/binance-hacker-1-4-billion-bitcoin-19-wallets/</loc>
->>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/latest-news/amplitude-security-incident-coinbase-customer-data/</loc>
-=======
-=======
->>>>>>> 5869d6d67a765f96738f1fbb9673210ce274136e
-=======
->>>>>>> cbccf8523057540a462c95e42f00122e5a9cbecb
-    <loc>https://www.thecoinchain.com/blog/amplitude-security-incident-coinbase-customer-data/</loc>
->>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -228,7 +211,102 @@
     <priority>0.8</priority>
   </url>
   <url>
-<<<<<<< HEAD
+    <loc>https://www.thecoinchain.com/market-news/block-profit-growth-doj-settlement-lending-losses-2026/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/market-news/oracle-20-billion-ai-funding-cramer-tech-stocks/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/ethereum/ethereum-post-quantum-security-2028-justin-drake/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/global-news/democrats-win-congress-crypto-clarity-act-2026/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/global-news/moscow-exchange-usdt-trading-sanctions-questions/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/market-news/south-korea-crypto-tax-delay-2029/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/bitcoin/ben-cowen-q4-correction-bitcoin-below-77k/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/global-news/australia-rba-rate-hike-ai-inflation-energy-costs/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/global-news/north-korea-denies-binance-hack-fbi-tradertraitor/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/market-news/cramer-apple-palantir-marvell-tech-stock-negativit/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/crypto-stock-price-prediction/palantir-stock-q3-earnings-pltr-price-analysis/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/market-news/apple-q4-2026-earnings-iphone-revenue-record/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/global-news/oil-rises-us-strikes-iran-qeshm-island-hormuz/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/altcoin/arbitrum-moves-30m-binance-hack-funds-without-private-key/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/global-news/sam-altman-pc-ram-ai-data-centers-memory-shortage/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thecoinchain.com/market-news/binance-3-64-billion-outflows-withdrawals-6-3-billion-hack/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.thecoinchain.com/ethereum/ethereum-etfs-record-1-61-billion-october-outflows/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -302,82 +380,48 @@
   </url>
   <url>
     <loc>https://www.thecoinchain.com/altcoin/ripple-ceo-rejects-shifting-focus-away-from-xrp/</loc>
-=======
-<<<<<<< HEAD
-    <loc>https://www.thecoinchain.com/blog/ripple-ceo-rejects-shifting-focus-away-from-xrp/</loc>
->>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/bitcoin/bitcoin-falls-below-80k-hawkish-fed-liquidations/</loc>
-=======
-    <loc>https://www.thecoinchain.com/blog/bitcoin-falls-below-80k-hawkish-fed-liquidations/</loc>
->>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/global-news/cftc-know-your-agent-ai-crypto-trading/</loc>
-=======
-    <loc>https://www.thecoinchain.com/blog/cftc-know-your-agent-ai-crypto-trading/</loc>
->>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/global-news/volt-typhoon-silent-train-four-zero-day-campaigns/</loc>
-=======
-    <loc>https://www.thecoinchain.com/blog/volt-typhoon-silent-train-four-zero-day-campaigns/</loc>
->>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/market-news/galaxy-digital-shares-rise-q3-2026-earnings/</loc>
-=======
-    <loc>https://www.thecoinchain.com/blog/galaxy-digital-shares-rise-q3-2026-earnings/</loc>
->>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/altcoin/cancore-raises-7-2m-canton-tokenized-asset-liquidity/</loc>
-=======
-    <loc>https://www.thecoinchain.com/blog/cancore-raises-7-2m-canton-tokenized-asset-liquidity/</loc>
->>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/global-news/raoul-pal-ai-spending-hyperscaler-capex/</loc>
-=======
-    <loc>https://www.thecoinchain.com/blog/raoul-pal-ai-spending-hyperscaler-capex/</loc>
->>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-<<<<<<< HEAD
     <loc>https://www.thecoinchain.com/market-news/cramer-ai-financing-risk-coreweave-bond-yields/</loc>
-=======
-=======
->>>>>>> 5869d6d67a765f96738f1fbb9673210ce274136e
-    <loc>https://www.thecoinchain.com/blog/cramer-ai-financing-risk-coreweave-bond-yields/</loc>
->>>>>>> 3c2e847f2c1b1c0a834541693d9114202ea6b965
     <lastmod>2026-10-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

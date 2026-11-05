@@ -212,7 +212,7 @@ function AnalysisCard({ item, onCardClick }) {
         <span className="whitespace-nowrap">{item.time}</span>
       </div>
 
-      <h3 className="m-0 line-clamp-2 px-0.5 font-[Manrope] text-[16px] font-medium leading-[1.5] text-[#111318] dark:text-white">
+      <h3 className="m-0 line-clamp-2 px-0.5 font-[Manrope] text-[16px] font-medium leading-[1.5] text-[#111318] dark:text-white group-hover:text-[#B8860B]">
         {item.title}
       </h3>
 

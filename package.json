@@ -7,10 +7,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/generate-sitemap.js",
     "build": "next build",
-    "start": "next start",
-    "generate-sitemap": "node scripts/generate-sitemap.js"
+    "start": "next start"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.10",

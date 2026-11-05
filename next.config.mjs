@@ -28,12 +28,6 @@ const nextConfig = {
   // Blog URLs are indexed with a trailing slash (/blog/:slug/) while other
   // pages aren't; serve both forms as-is instead of redirecting.
   skipTrailingSlashRedirect: true,
-  async rewrites() {
-    return [
-      // Blog sitemap is generated live by the backend.
-      { source: "/sitemap-posts.xml", destination: "https://api.thecoinchain.com/sitemap.xml" },
-    ];
-  },
   async headers() {
     return [
       {

@@ -85,7 +85,7 @@ function SideCard({ item, onCardClick }) {
       href={item.href}
       onClick={() => onCardClick?.(item)}
       id={item.id !== undefined && item.id !== null ? `market-card-${item.id}` : undefined}
-      className="group flex h-full flex-col-reverse overflow-hidden rounded-lg bg-[#F7F8FA] no-underline transition-shadow hover:shadow-[0px_4px_14px_0px_#0000001A] min-[480px]:min-h-[212px] min-[480px]:flex-row dark:bg-[#1c1c1f]"
+      className="group flex h-full flex-col-reverse overflow-hidden rounded-lg bg-[#F7F8FA] no-underline transition-shadow hover:shadow-[0px_4px_14px_0px_#0000001A] min-[480px]:h-[212px] min-[480px]:flex-row dark:bg-[#1c1c1f]"
     >
       <div className="flex min-w-0 flex-1 flex-col justify-center gap-3 p-4">
         <Meta item={item} />

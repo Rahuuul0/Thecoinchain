@@ -304,6 +304,7 @@ export default function HomePage({
   initialMarketNews,
   initialTutorials,
   initialTrendingNews = [],
+  initialBusinessNews = {},
 }) {
   const homeActions = useHomeActions();
   const bannerActions = bannerListActions();
@@ -366,6 +367,7 @@ export default function HomePage({
       <BreakingNewsStepsSection initialCategoriesData={initialBreakingNews} />
       <AnalysisSection initialCategoriesData={initialAnalysisData} />
       <MarketNewsSection initialItems={initialMarketNews} />
+      <BusinessNewsPanels initialCategoriesData={initialBusinessNews} />
       <LearncryptoSection initialItems={initialTutorials} />
       <CryptoTableSection />
       <FirstToKnow />

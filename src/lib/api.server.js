@@ -154,6 +154,30 @@ export const getAnalysisCategoriesParallel = cache(async () => {
   return data;
 });
 
+export const getBusinessCategoriesParallel = cache(async () => {
+  const categories = ["latest_news", "finance"];
+  const results = await Promise.allSettled(
+    categories.map(async (cat) => {
+      const items = await getCategoryNews(cat);
+      return { category: cat, items };
+    })
+  );
+
+  const data = {
+    latest_news: [],
+    finance: [],
+  };
+
+  results.forEach((res, index) => {
+    const cat = categories[index];
+    if (res.status === "fulfilled" && Array.isArray(res.value?.items)) {
+      data[cat] = res.value.items;
+    }
+  });
+
+  return data;
+});
+
 export const getTrendingNewsServer = cache(async () => {
   const res = await apiGet("all-content-list/trending_news", { revalidate: 300 });
   return listFrom(res);

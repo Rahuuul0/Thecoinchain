@@ -54,11 +54,7 @@ function LessonCard({ item, onPlay, onOpenDetail }) {
         </span>
       </div>
 
-      {/* Title */}
-      <h3
-        onClick={() => onPlay(item)}
-        className="m-0 cursor-pointer line-clamp-2 font-[Manrope] text-[18px] font-medium leading-snug text-[#111318] transition-colors group-hover:text-[#B8860B] sm:text-[20px] dark:text-white"
-      >
+      <h3 className="m-0 line-clamp-2 font-[Manrope] text-[16px] md:text-[18px] font-medium leading-snug text-[#111318] transition-colors group-hover:text-[#B8860B] sm:text-[20px] dark:text-white">
         {item.title}
       </h3>
     </div>

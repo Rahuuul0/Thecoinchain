@@ -133,9 +133,9 @@ function FeaturedCard({ item, onCardClick }) {
         />
       </div>
 
-      <div className="flex flex-col gap-3 p-6">
+      <div className="flex flex-col gap-3 p-4 md:p-6">
         <Meta item={item} />
-        <h3 className="m-0 font-[Manrope] text-[18px] font-semibold leading-snug text-[#111318] transition-colors group-hover:text-[#B8860B] sm:text-[20px] dark:text-white">
+        <h3 className="m-0 font-[Manrope] text-[16px] md:text-[18px] font-semibold leading-snug text-[#111318] transition-colors group-hover:text-[#B8860B] sm:text-[20px] dark:text-white">
           {item.title}
         </h3>
       </div>

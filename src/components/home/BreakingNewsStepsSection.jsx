@@ -87,7 +87,7 @@ function Tag({ label }) {
 
 function Meta({ item }) {
   return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 font-[Manrope] text-[14px] font-medium text-[#667085] dark:text-white/70">
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 font-[Manrope] text-[12px] xl:text-[14px] font-medium text-[#667085] dark:text-white/70">
       <Tag label={item.tag} />
       <span className="h-4 w-px bg-[#353942]/25 dark:bg-white/20" />
       <span className="inline-block max-w-[10ch] truncate whitespace-nowrap" title={item.author}>By {item.author}</span>
@@ -358,7 +358,7 @@ export default function BreakingNewsStepsSection({
         </div>
 
         {/* ---------- Tabing Filters ---------- */}
-        <div className="-mx-4 mt-6 flex gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 flex-wrap sm:flex-wrap sm:overflow-visible sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mx-0 md:-mx-4 mt-6 flex gap-3 overflow-x-auto px-3 md:px-4 pb-1 sm:mx-0 flex-wrap sm:flex-wrap sm:overflow-visible sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {FILTERS.map((name) => {
             const isActive = filter === name;
             return (
@@ -400,7 +400,7 @@ export default function BreakingNewsStepsSection({
                 />
               </div>
               <Meta item={featured} />
-              <h3 className="m-0 font-[Manrope] text-[18px] font-semibold leading-snug text-[#111318] transition-colors group-hover:text-[#B8860B] sm:text-[20px] dark:text-white">
+              <h3 className="m-0 font-[Manrope] text-[16px] md:text-[18px] font-semibold leading-snug text-[#111318] transition-colors group-hover:text-[#B8860B] sm:text-[20px] dark:text-white">
                 {featured.title}
               </h3>
               <p className="m-0 font-[Inter] text-[16px] font-normal leading-relaxed text-[#667085] dark:text-white/60">

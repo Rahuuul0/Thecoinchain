@@ -2,6 +2,7 @@
 
 import dayjs from "dayjs";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
@@ -133,7 +134,7 @@ function AuthorTimeRow({ item, onProfile, wrapOnMobile, className, nameClassName
           {time && <span className={cn("shrink-0 opacity-60", wrapOnMobile && "hidden sm:block")}>|</span>}
         </>
       )}
-      {time && <span className="shrink-0 whitespace-nowrap">{time}</span>}
+      {time && <span suppressHydrationWarning className="shrink-0 whitespace-nowrap">{time}</span>}
     </div>
   );
 }
@@ -254,19 +255,47 @@ export function NewsCardGrid({ id, title, type, limit, viewAllHref, viewAllAfter
 /* ------------------------------------------------------------------ */
 
 const BUSINESS_CATEGORIES = [
-  { type: "market", label: "Markets", href: RoutesName.Market_News },
+  { type: "latest_news", label: "Latest News", href: RoutesName.Latest_News },
   { type: "finance", label: "Finance", href: RoutesName.Finance },
   // { type: "policy", label: "Policy", href: RoutesName.policy },
   // { type: "tech", label: "Tech", href: RoutesName.tech },
 ];
 
-export function BusinessNewsPanels() {
+export function BusinessNewsPanels({ initialCategoriesData = {} }) {
   const fetchWrapper = useFetchWrapper();
   const nav = useHomeNavigation("business-news-section");
-  const [byType, setByType] = useState({});
-  const [loading, setLoading] = useState(true);
+
+  const [byType, setByType] = useState(() => {
+    if (
+      initialCategoriesData &&
+      typeof initialCategoriesData === "object" &&
+      Object.keys(initialCategoriesData).length > 0
+    ) {
+      return initialCategoriesData;
+    }
+    return {};
+  });
+
+  const [loading, setLoading] = useState(() => {
+    if (initialCategoriesData && typeof initialCategoriesData === "object") {
+      const hasAny = Object.values(initialCategoriesData).some(
+        (list) => Array.isArray(list) && list.length > 0
+      );
+      if (hasAny) return false;
+    }
+    return true;
+  });
 
   useEffect(() => {
+    const hasInitial = Object.values(initialCategoriesData || {}).some(
+      (list) => Array.isArray(list) && list.length > 0
+    );
+    if (hasInitial) {
+      setByType(initialCategoriesData);
+      setLoading(false);
+      return;
+    }
+
     Promise.all(
       BUSINESS_CATEGORIES.map(({ type }) =>
         fetchWrapper
@@ -278,7 +307,7 @@ export function BusinessNewsPanels() {
       .then((entries) => setByType(Object.fromEntries(entries)))
       .finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [initialCategoriesData]);
 
   const hasAny = Object.values(byType).some((list) => list.length > 0);
   const muted = "text-[#808080] dark:text-[#b0b0b0]";
@@ -301,23 +330,37 @@ export function BusinessNewsPanels() {
                   index >= BUSINESS_CATEGORIES.length - 2 && "md:border-b-0"
                 )}
               >
-                <button type="button" onClick={() => nav.openList(category.href)} className="group mb-5 flex w-fit items-center gap-1 text-black dark:text-white">
+                <Link
+                  href={category.href}
+                  onClick={() => nav.openList(category.href)}
+                  className="group mb-5 flex w-fit items-center gap-1 text-black no-underline dark:text-white"
+                >
                   <p className="leading-[1.2] font-bold text-inherit!">{category.label}</p>
                   <ArrowRight className="size-4 transition-transform group-hover:translate-x-[3px]" />
-                </button>
+                </Link>
 
                 {!featured ? (
                   <p className={muted}>No {category.label.toLowerCase()} news right now.</p>
                 ) : (
                   <div className="grid grid-cols-[5fr_7fr] gap-5">
                     <div>
-                      <div onClick={() => nav.openBlog(featured, category.type)} className="h-[95px] w-full cursor-pointer overflow-hidden rounded-2xl sm:h-[150px] md:h-[175px]">
+                      <Link
+                        href={blogPath(featured, category.type)}
+                        onClick={() => nav.openBlog(featured, category.type)}
+                        className="block h-[95px] w-full cursor-pointer overflow-hidden rounded-2xl no-underline sm:h-[150px] md:h-[175px]"
+                      >
                         <CardMedia item={featured} placeholder="https://via.placeholder.com/400x300?text=News" className="size-full bg-[#f0f0f0]" />
-                      </div>
+                      </Link>
                       <div className="mt-3">
-                        <p onClick={() => nav.openBlog(featured, category.type)} className="cursor-pointer leading-[1.3] font-medium text-black! hover:text-primary! dark:text-white!">
-                          {featured.title}
-                        </p>
+                        <Link
+                          href={blogPath(featured, category.type)}
+                          onClick={() => nav.openBlog(featured, category.type)}
+                          className="block no-underline"
+                        >
+                          <p className="cursor-pointer leading-[1.3] font-medium text-black! hover:text-primary! dark:text-white!">
+                            {featured.title}
+                          </p>
+                        </Link>
                         <AuthorTimeRow item={featured} onProfile={nav.openProfile} className="mt-1.5" nameClassName="text-black dark:text-white" mutedClassName={muted} />
                       </div>
                     </div>
@@ -325,9 +368,15 @@ export function BusinessNewsPanels() {
                       <div>
                         {secondary.map((item, i) => (
                           <div key={item?.id ?? i} className="py-2">
-                            <p onClick={() => nav.openBlog(item, category.type)} className="cursor-pointer leading-[1.35] font-semibold text-black! hover:text-primary! dark:text-white!">
-                              {item.title}
-                            </p>
+                            <Link
+                              href={blogPath(item, category.type)}
+                              onClick={() => nav.openBlog(item, category.type)}
+                              className="block no-underline"
+                            >
+                              <p className="cursor-pointer leading-[1.35] font-semibold text-black! hover:text-primary! dark:text-white!">
+                                {item.title}
+                              </p>
+                            </Link>
                             <AuthorTimeRow item={item} onProfile={nav.openProfile} className="mt-1" nameClassName="text-black dark:text-white" mutedClassName={muted} />
                             {i < secondary.length - 1 && <hr className="mt-2.5 border-[#e6e6e6] dark:border-[#333]" />}
                           </div>

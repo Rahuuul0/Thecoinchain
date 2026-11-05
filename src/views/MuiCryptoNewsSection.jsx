@@ -49,7 +49,6 @@ function filterAndSortArticles(rawList, allowedTypes) {
   });
 }
 
-/** Puts the reader back where they were after returning from an article. */
 function useRestoreNewsScroll(items) {
   useEffect(() => {
     const savedCardId = sessionStorage.getItem("crypto_news_card_id");

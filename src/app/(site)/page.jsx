@@ -2,6 +2,7 @@ import HomePage from "@/components/home/HomePage";
 import {
   getAnalysisCategoriesParallel,
   getBreakingNewsCategoriesParallel,
+  getBusinessCategoriesParallel,
   getCategoryNews,
   getTrendingNewsServer,
   getTutorialList,
@@ -28,12 +29,14 @@ export default async function Page() {
     initialMarketNews,
     initialTutorials,
     initialTrendingNews,
+    initialBusinessNews,
   ] = await Promise.all([
     getBreakingNewsCategoriesParallel(),
     getAnalysisCategoriesParallel(),
     getCategoryNews("market").catch(() => []),
     getTutorialList().catch(() => []),
     getTrendingNewsServer().catch(() => []),
+    getBusinessCategoriesParallel().catch(() => ({ latest_news: [], finance: [] })),
   ]);
   return (
     <HomePage
@@ -42,6 +45,7 @@ export default async function Page() {
       initialMarketNews={initialMarketNews}
       initialTutorials={initialTutorials}
       initialTrendingNews={initialTrendingNews}
+      initialBusinessNews={initialBusinessNews}
     />
   );
 }

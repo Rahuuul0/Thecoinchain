@@ -8,7 +8,7 @@ import ReactPlayer from "react-player";
 import { analyticsActions, faqActions, guidesAnalysisActions, newsListActions, promotionsActions, useContactActions, useTutorialActions } from "@/_actions";
 import { blogimgAtom, blogListAtom, blogVideoAtom, breadCrumbAtom, loaderAtom, tutorialAtom } from "@/_state";
 import CryptoTickerMarquee from "@/components/CryptoTickerMarquee";
-import { Breadcrumbs, cn, Container, LoadingOverlay } from "@/components/ui";
+import { Breadcrumbs, cn, LoadingOverlay } from "@/components/ui";
 import { itemImage } from "@/lib/content";
 
 /**
@@ -88,15 +88,15 @@ export default function ContentDetail({ parent, current, fullWidth = false, with
         </div>
       )}
 
-      <Container className="pt-[60px] max-md:pt-[88px]">
+      <div className="container pt-[60px] max-md:pt-[88px] mx-auto">
         <LoadingOverlay open={loader} />
         <h1 className="pb-6 text-center font-display font-bold">{hasItem ? item.title : "A beginner’s guide to trading view"}</h1>
         <div className="flex justify-center">
           <Breadcrumbs items={crumbs} className="[&>span:last-of-type]:text-xs [&>span:last-of-type]:font-semibold [&>span:last-of-type]:text-n3" />
         </div>
-      </Container>
+      </div>
 
-      <Container>
+      <div className="container mx-auto">
         <div className={compact ? "pb-8 sm:pb-10" : "pb-8 sm:pb-20"}>
           {hasItem && !isVideo ? (
             <div className={cn("flex max-w-full justify-center pt-8 pb-8 sm:pt-20", compact ? "md:pb-10" : "md:pb-20 lg:pb-[136px]")}>
@@ -105,9 +105,22 @@ export default function ContentDetail({ parent, current, fullWidth = false, with
           ) : (
             <div className={cn("pt-8 pb-8 sm:pt-20 md:pb-20", fullWidth ? "lg:pb-14" : "lg:pb-[136px]")}>
               {hasItem ? (
-                <ReactPlayer src={item?.video_link} controls light={item?.image_link} playing width="100%" height="550px" />
+                <div className="relative aspect-video w-full overflow-hidden h-[250px] sm:h-[350px] md:h-[350px] lg:h-[600px] rounded-lg">
+                  <ReactPlayer src={item?.video_link} controls light={item?.image_link} playing width="100%" height="100%" />
+                </div>
               ) : (
-                fallbackVideo && <ReactPlayer src={fallbackVideo.video_link} controls light={fallbackVideo.image_link} playing={false} width="100%" height="550px" />
+                fallbackVideo && (
+                  <div className="relative aspect-video w-full overflow-hidden h-[250px] sm:h-[350px] md:h-[350px] lg:h-[600px] rounded-lg">
+                    <ReactPlayer
+                      src={fallbackVideo.video_link}
+                      controls
+                      light={fallbackVideo.image_link}
+                      playing={false}
+                      width="100%"
+                      height="100%"
+                    />
+                  </div>
+                )
               )}
             </div>
           )}
@@ -127,7 +140,7 @@ export default function ContentDetail({ parent, current, fullWidth = false, with
             )}
           </div>
         </div>
-      </Container>
+      </div>
     </>
   );
 }

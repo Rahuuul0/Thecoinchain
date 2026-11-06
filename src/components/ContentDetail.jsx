@@ -88,7 +88,7 @@ export default function ContentDetail({ parent, current, fullWidth = false, with
         </div>
       )}
 
-      <div className="container pt-[60px] max-md:pt-[88px] mx-auto">
+      <div className="container pt-[85px] max-md:pt-[90px] mx-auto px-3 lg:px-0">
         <LoadingOverlay open={loader} />
         <h1 className="pb-6 text-center font-display font-bold">{hasItem ? item.title : "A beginner’s guide to trading view"}</h1>
         <div className="flex justify-center">
@@ -96,14 +96,14 @@ export default function ContentDetail({ parent, current, fullWidth = false, with
         </div>
       </div>
 
-      <div className="container mx-auto">
-        <div className={compact ? "pb-8 sm:pb-10" : "pb-8 sm:pb-20"}>
+      <div className="container mx-auto px-3 lg:px-0">
+        <div className={compact ? "pb-5 sm:pb-8" : "pb-5 sm:pb-8"}>
           {hasItem && !isVideo ? (
-            <div className={cn("flex max-w-full justify-center pt-8 pb-8 sm:pt-20", compact ? "md:pb-10" : "md:pb-20 lg:pb-[136px]")}>
+            <div className={cn("flex max-w-full justify-center pt-4 pb-8 md:pt-5", compact ? "md:pb-8" : "md:pb-8 lg:pb-[136px]")}>
               <img src={itemImage(item)} alt={item.title || ""} className="max-w-full" />
             </div>
           ) : (
-            <div className={cn("pt-8 pb-8 sm:pt-20 md:pb-20", fullWidth ? "lg:pb-14" : "lg:pb-[136px]")}>
+            <div className={cn("pt-4 pb-4 sm:pt-8 md:pb-8", fullWidth ? "lg:pb-10" : "lg:pb-[136px]")}>
               {hasItem ? (
                 <div className="relative aspect-video w-full overflow-hidden h-[250px] sm:h-[350px] md:h-[350px] lg:h-[600px] rounded-lg">
                   <ReactPlayer src={item?.video_link} controls light={item?.image_link} playing width="100%" height="100%" />

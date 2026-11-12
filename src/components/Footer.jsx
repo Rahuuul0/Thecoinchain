@@ -11,6 +11,7 @@ const LocationIcon = `${IMG}/Locationicon.svg`;
 const TwitterIcon = `${IMG}/Twittericon.svg`;
 const InstagramIcon = `${IMG}/Instagramicon.svg`;
 const LinkedinIcon = `${IMG}/Linkedinicon.svg`;
+const facebookIcon = `${IMG}/facebookicon.svg`;
 
 const CONTACT_EMAIL = "contact@thecoinchain.com";
 const ADDRESS = "Dubai Digital Park - Nadd Hessa - Dubai Silicon Oasis - Dubai - United Arab Emirates";
@@ -56,9 +57,9 @@ const FOOTER_COLUMNS = [
 ];
 
 const SOCIALS = [
-  { label: "Twitter", href: "https://x.com/", icon: TwitterIcon },
-  { label: "Instagram", href: "https://instagram.com/", icon: InstagramIcon },
-  { label: "Linkedin", href: "https://linkedin.com/", icon: LinkedinIcon },
+  { label: "Twitter", href: "https://x.com/thecoinchain01", icon: TwitterIcon },
+  { label: "Instagram", href: "https://www.instagram.com/thecoinchain01/", icon: InstagramIcon },
+  { label: "Facebook", href: "https://www.facebook.com/thecoinchain", icon: facebookIcon },
 ];
 
 const headingClass =

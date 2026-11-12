@@ -1,4 +1,3 @@
-
 export const Labels = {
   Success: "Success..!",
   Error: "error",
@@ -80,7 +79,8 @@ export const RoutesName = {
   Memecoin_Analysis: "/memecoin-analysis",
   Ethereum_Analysis: "/ethereum-analysis",
   Bitcoin_Analysis: "/bitcoin-analysis",
-  Explain: "/explain"
+  Explain: "/explain",
+  Search: "/search"
 
 };
 

@@ -205,7 +205,7 @@ export function NewsCardGrid({ id, title, type, limit, viewAllHref, viewAllAfter
   const v = GRID_VARIANTS[variant];
 
   return (
-    <Container id={id} maxWidth="xl" className="px-4 py-12 md:px-8">
+    <div id={id} maxWidth="xl" className="py-12 container mx-auto px-4 lg:px-0">
       <SectionHeading
         title={title}
         action={
@@ -246,7 +246,7 @@ export function NewsCardGrid({ id, title, type, limit, viewAllHref, viewAllAfter
           ))}
         </div>
       )}
-    </Container>
+    </div>
   );
 }
 
@@ -313,11 +313,11 @@ export function BusinessNewsPanels({ initialCategoriesData = {} }) {
   const muted = "text-[#808080] dark:text-[#b0b0b0]";
 
   return (
-    <Container id="business-news-section" maxWidth="xl" className="px-4 py-12 md:px-8">
+    <div id="business-news-section" maxWidth="xl" className="px-4 py-12 md:px-8 container mx-auto px-4 lg:px-0">
       {loading || !hasAny ? (
         <p className="text-primary!">{loading ? "Loading latest news..." : "No latest news is available right now."}</p>
       ) : (
-        <div className="grid grid-cols-1 border border-[#e6e6e6] md:grid-cols-2 dark:border-[#333]">
+        <div className="grid grid-cols-1 border border-[#f4f5f6] md:grid-cols-2 dark:border-[#333] rounded-lg overflow-hidden">
           {BUSINESS_CATEGORIES.map((category, index) => {
             const [featured, ...rest] = byType[category.type] || [];
             const secondary = rest.slice(0, 3);
@@ -390,7 +390,7 @@ export function BusinessNewsPanels({ initialCategoriesData = {} }) {
           })}
         </div>
       )}
-    </Container>
+    </div>
   );
 }
 

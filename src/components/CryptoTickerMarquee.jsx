@@ -184,7 +184,7 @@ export default function CryptoTickerMarquee({ data: propData } = {}) {
 
               {/* Symbol */}
               <span
-                className={`font-[Manrope] text-[12px] font-extrabold ${isDarkMode ? "text-white" : "text-[#111827]"
+                className={`font-[Manrope] text-[14px] font-extrabold ${isDarkMode ? "text-white" : "text-[#111827]"
                   } dark:text-white`}
               >
                 {item.symbol}
@@ -192,7 +192,7 @@ export default function CryptoTickerMarquee({ data: propData } = {}) {
 
               {/* Price */}
               <span
-                className={`font-[Manrope] text-[12px] font-bold ${isDarkMode ? "text-[#E6E8EC]" : "text-[#111827]"
+                className={`font-[Manrope] text-[14px] font-bold ${isDarkMode ? "text-[#E6E8EC]" : "text-[#111827]"
                   } dark:text-[#E6E8EC]`}
               >
                 {item.price}
@@ -200,7 +200,7 @@ export default function CryptoTickerMarquee({ data: propData } = {}) {
 
               {/* 24h Change */}
               <span
-                className="inline-flex items-center gap-1 font-[Manrope] text-[12px] font-medium leading-[150%] align-middle"
+                className="inline-flex items-center gap-1 font-[Manrope] text-[14px] font-medium leading-[150%] align-middle"
                 style={{ color: changeColor }}
               >
                 <Arrow direction={item.direction} />

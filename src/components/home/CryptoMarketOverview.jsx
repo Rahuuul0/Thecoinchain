@@ -107,11 +107,11 @@ export default function CryptoMarketOverview() {
               <span className="mr-2 text-[#F5AC00]">CRYPTO</span>
               MARKET
             </h5>
-            <p className="mt-1 font-medium tracking-[0.2px] text-n4!">Live prices • Market movement</p>
+            <p className="mb-0 mt-3 max-w-[640px] font-[Inter] text-[14px] font-normal leading-normal text-[#667085] sm:text-[16px] dark:text-white/60 ">Live prices • Market movement</p>
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[20px] border border-[rgb(86_98_255/14%)] bg-n7 p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] sm:rounded-[32px] sm:p-6 md:p-7 dark:border-white/8 dark:bg-n2 dark:shadow-[0_8px_32px_rgba(15,15,15,0.3)]">
+        <div className="relative overflow-hidden rounded-xl border border-[rgb(86_98_255/14%)] bg-n7 p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] sm:p-6 md:p-7 dark:border-white/8 dark:bg-n2 dark:shadow-[0_8px_32px_rgba(15,15,15,0.3)]">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:grid-cols-4">
             {displayCoins.map((item, index) => {
               const isPositive = (item?.percent_change_24h ?? 0) >= 0;
@@ -121,7 +121,7 @@ export default function CryptoMarketOverview() {
               return (
                 <div
                   key={item.id || item.symbol || index}
-                  className="flex h-full flex-col justify-between rounded-3xl border border-n6 bg-white p-4 shadow-[0_8px_20px_rgba(15,15,15,0.05)] transition-all duration-300 hover:-translate-y-[5px] hover:border-[#D1D5DB] hover:shadow-[0_18px_30px_rgba(15,15,15,0.12)] sm:p-5 dark:border-white/6 dark:bg-n3 dark:shadow-[0_8px_20px_rgba(15,15,15,0.2)] dark:hover:border-white/18 dark:hover:bg-[#3D4250] dark:hover:shadow-[0_18px_30px_rgba(15,15,15,0.4)]"
+                  className="flex h-full flex-col justify-between rounded-lg border border-n6 bg-white p-4 shadow-[0_8px_20px_rgba(15,15,15,0.05)] transition-all duration-300 hover:-translate-y-[5px] hover:border-[#D1D5DB] hover:shadow-[0_18px_30px_rgba(15,15,15,0.12)] sm:p-5 dark:border-white/6 dark:bg-n3 dark:shadow-[0_8px_20px_rgba(15,15,15,0.2)] dark:hover:border-white/18 dark:hover:bg-[#3D4250] dark:hover:shadow-[0_18px_30px_rgba(15,15,15,0.4)]"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2.5">

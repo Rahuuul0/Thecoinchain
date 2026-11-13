@@ -16,7 +16,7 @@ export function Dropdown({ button, buttonClassName, anchor = "bottom end", class
         transition
         anchor={anchor}
         className={cn(
-          "z-[1250] min-w-48 rounded-2xl border border-line bg-surface p-2 text-[#353942] shadow-[0_16px_64px_-16px_rgba(31,47,70,0.25)] [--anchor-gap:8px] transition duration-150 outline-none data-closed:scale-95 data-closed:opacity-0",
+          "z-[1250] min-w-48 rounded-2xl border border-line bg-surface p-2 text-[#353942] dark:text-white shadow-[0_16px_64px_-16px_rgba(31,47,70,0.25)] [--anchor-gap:8px] transition duration-150 outline-none data-closed:scale-95 data-closed:opacity-0",
           className
         )}
       >
@@ -28,7 +28,7 @@ export function Dropdown({ button, buttonClassName, anchor = "bottom end", class
 
 export function DropdownItem({ href, onClick, className, children }) {
   const classes = cn(
-    "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm font-nav font-medium text-[#353942] no-underline data-focus:bg-subtle",
+    "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm font-nav font-medium text-[#353942] dark:text-white no-underline data-focus:bg-subtle",
     className
   );
   return (

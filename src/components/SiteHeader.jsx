@@ -40,7 +40,7 @@ import { authAtom, notificationAtom, notificationCountAtom } from "@/_state";
 import { Accordion, Badge, Button, cn, Drawer, Dropdown, DropdownItem, IconButton, Tooltip } from "@/components/ui";
 import SiteLogo, { useSiteLogo } from "./SiteLogo";
 import { useRouter } from "next/navigation";
-const icon = (Icon) => <Icon className="size-[18px] shrink-0 text-n4" />;
+const icon = (Icon) => <Icon className="size-[18px] shrink-0 text-n4 text-[#353942] dark:text-white" />;
 
 // Navigation for visitors.
 const PUBLIC_NAV = {

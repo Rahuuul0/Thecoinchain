@@ -166,7 +166,7 @@ function GlobalCommunitySection() {
 
   return (
     <div id="global-community-section" className="relative overflow-hidden rounded-3xl bg-[#0f1117] md:rounded-[32px] dark:border dark:border-[rgba(189,189,189,0.16)]">
-      <Container>
+      <div className="container mx-auto px-4 lg:px-0">
         <div className="flex flex-col items-center justify-center py-6 md:flex-row md:gap-8">
           <div className="z-[2] flex-1 text-center text-white md:text-left">
             <p className="mb-4 text-[13px]! tracking-[1.5px] text-[#8a8f9c]! uppercase">CRYPTO NEWS</p>
@@ -195,7 +195,7 @@ function GlobalCommunitySection() {
             />
           </div>
         </div>
-      </Container>
+      </div>
     </div>
   );
 }

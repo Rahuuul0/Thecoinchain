@@ -487,7 +487,7 @@ export default function HomePage({
         </Marquee>
       </div> */}
 
-      {/* <ScrollToTopButton /> */}
+      <ScrollToTopButton />
     </>
   );
 }

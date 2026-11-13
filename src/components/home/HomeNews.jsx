@@ -205,7 +205,7 @@ export function NewsCardGrid({ id, title, type, limit, viewAllHref, viewAllAfter
   const v = GRID_VARIANTS[variant];
 
   return (
-    <div id={id} maxWidth="xl" className="py-12 container mx-auto px-4 lg:px-0">
+    <div id={id} className="py-12 container mx-auto px-4 lg:px-0">
       <SectionHeading
         title={title}
         action={

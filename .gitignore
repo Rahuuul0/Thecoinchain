@@ -28,5 +28,5 @@ next-env.d.ts
 *.swo
 coverage/
 
-# Netlify generated files
-.netlify/
+# Local Netlify folder
+.netlify

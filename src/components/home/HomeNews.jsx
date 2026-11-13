@@ -127,7 +127,7 @@ function AuthorTimeRow({ item, onProfile, wrapOnMobile, className, nameClassName
               e.stopPropagation();
               onProfile(name, profileId);
             }}
-            className={cn("inline-block min-w-0 shrink truncate font-semibold", nameClassName, profileId && "cursor-pointer hover:text-primary")}
+            className={cn("inline-block min-w-0 shrink truncate font-semibold", nameClassName, profileId && "cursor-pointer hover:text-[#b8860b]")}
           >
             {name}
           </span>
@@ -358,7 +358,7 @@ export function BusinessNewsPanels({ initialCategoriesData = {} }) {
                           onClick={() => nav.openBlog(featured, category.type)}
                           className="block no-underline"
                         >
-                          <p className="cursor-pointer leading-[1.3] font-medium text-black! hover:text-primary! dark:text-white!">
+                          <p className="cursor-pointer leading-[1.3] font-medium text-black! hover:text-[#b8860b]! dark:text-white!">
                             {featured.title}
                           </p>
                         </Link>
@@ -374,7 +374,7 @@ export function BusinessNewsPanels({ initialCategoriesData = {} }) {
                               onClick={() => nav.openBlog(item, category.type)}
                               className="block no-underline"
                             >
-                              <p className="cursor-pointer leading-[1.35] font-semibold text-black! hover:text-primary! dark:text-white!">
+                              <p className="cursor-pointer leading-[1.35] font-semibold text-black! hover:text-[#b8860b]! dark:text-white!">
                                 {item.title}
                               </p>
                             </Link>

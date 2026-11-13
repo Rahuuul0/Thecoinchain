@@ -153,14 +153,14 @@ export function NewsMedia({ item, height, className, rounded = "rounded-lg", con
   );
 }
 
-/** Fixed round "back" button with the blue side tooltip used on news pages. */
+/** Fixed round "back" button with the gold side tooltip used on news pages. */
 export function BackButton({ title = "Back", onClick, className }) {
   return (
     <div className={cn("fixed left-4 z-10 sm:top-[124px] sm:left-6", className)}>
       <Tooltip
         title={title}
         placement="right"
-        tooltipClassName="ml-4 min-w-[100px] rounded-lg bg-[#2084EA] px-4 py-2.5 text-center font-semibold text-white dark:bg-[#2084EA] dark:text-white"
+        tooltipClassName="ml-4 min-w-[100px] rounded-lg bg-[#f5ac00] px-4 py-2.5 text-center font-semibold text-white dark:bg-[#f5ac00] dark:text-white"
       >
         <button
           type="button"

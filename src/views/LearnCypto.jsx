@@ -103,7 +103,7 @@ function VideoCard({ item, index, onOpen }) {
   return (
     <div
       onClick={() => onOpen(item)}
-      className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-[18px] border border-n6 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-1.5 hover:border-primary hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] dark:border-white/8 dark:bg-[#1A1D24] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] dark:hover:border-[rgba(55,114,255,0.5)] dark:hover:shadow-[0_16px_36px_rgba(0,0,0,0.5)]"
+      className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-[18px] border border-n6 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-1.5 hover:border-[#F5AC00] hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] dark:border-white/8 dark:bg-[#1A1D24] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] dark:hover:border-[#F5AC00] dark:hover:shadow-[0_16px_36px_rgba(0,0,0,0.5)]"
     >
       <div className="relative aspect-video w-full overflow-hidden bg-[#11141B]">
         <img src={item.image_link} alt={item.title || "Video thumbnail"} className="block size-full object-cover transition-transform duration-300 group-hover:scale-105" />
@@ -184,7 +184,7 @@ export default function LearnCypto() {
     <div className="min-h-screen bg-n8 pt-[120px] pb-20 text-n2 transition-colors sm:pt-[136px] md:pt-[152px] md:pb-28 dark:bg-n1 dark:text-n8">
       <LoadingOverlay open={loader} />
 
-      <Container>
+      <div className="container mx-auto px-4 lg:px-0">
         {/* Featured video hero */}
         <div className="relative mb-12 overflow-hidden rounded-3xl border border-white/8 bg-[linear-gradient(135deg,#090D16_0%,#101726_50%,#161F33_100%)] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.25)] sm:p-8 md:mb-16 md:p-10">
           <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-10">
@@ -227,7 +227,7 @@ export default function LearnCypto() {
         {/* Tutorials */}
         <div className="mb-8">
           <h2 className="mb-2 tracking-[-0.5px] text-n1 dark:text-white">
-            Video <span className="text-primary">Tutorials</span>
+            Video <span className="text-[#F5AC00]">Tutorials</span>
           </h2>
           <p className="mb-8 text-n4! dark:text-n5!">Learn about blockchain, Bitcoin, Ethereum, altcoins and more with easy-to-follow video guides.</p>
 
@@ -244,9 +244,9 @@ export default function LearnCypto() {
                       setVisibleCount(6);
                     }}
                     className={cn(
-                      "rounded-[30px] px-[18px] py-2 text-sm whitespace-nowrap transition-colors sm:px-[22px]",
+                      "rounded-[30px] px-[18px] py-2 text-sm whitespace-nowrap transition-colors sm:px-[22px] ",
                       active
-                        ? "bg-primary font-semibold text-white hover:bg-[#255CE0]"
+                        ? "bg-[#F5AC00] font-semibold text-white hover:bg-[#E59B00] dark:bg-[#F5AC00] dark:text-black dark:hover:bg-[#E59B00]"
                         : "bg-n7 font-medium text-n4 hover:bg-n6 hover:text-n1 dark:bg-n2 dark:text-n5 dark:hover:bg-n3 dark:hover:text-white"
                     )}
                   >
@@ -286,7 +286,7 @@ export default function LearnCypto() {
                   setCategory("All");
                   setQuery("");
                 }}
-                className="rounded-[30px] border border-primary px-4 py-1.5 text-sm text-primary capitalize hover:border-[#255CE0] hover:bg-primary/8"
+                className="rounded-[30px] border border-[#F5AC00] px-4 py-1.5 text-sm text-[#F5AC00] capitalize hover:border-[#E59B00] hover:bg-[#F5AC00]/8 dark:border-[#F5AC00] dark:text-[#F5AC00] dark:hover:border-[#E59B00] dark:hover:bg-[#F5AC00]/8"
               >
                 Reset Filters
               </button>
@@ -298,7 +298,7 @@ export default function LearnCypto() {
               <button
                 type="button"
                 onClick={() => setVisibleCount((n) => n + 6)}
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-9 py-2.5 text-[15px] font-semibold text-white shadow-[0_8px_20px_rgba(55,114,255,0.3)] transition-all hover:-translate-y-0.5 hover:bg-[#255CE0] hover:shadow-[0_12px_24px_rgba(55,114,255,0.4)]"
+                className="inline-flex items-center gap-2 rounded-full bg-[#F5AC00] px-9 py-2.5 text-[15px] font-semibold text-white shadow-[0_8px_20px_rgba(55,114,255,0.3)] transition-all hover:-translate-y-0.5 hover:bg-[#E59B00] hover:shadow-[0_12px_24px_rgba(55,114,255,0.4)]"
               >
                 More Videos
                 <ChevronRight className="size-5" />
@@ -306,7 +306,7 @@ export default function LearnCypto() {
             </div>
           )}
         </div>
-      </Container>
+      </div>
     </div>
   );
 }

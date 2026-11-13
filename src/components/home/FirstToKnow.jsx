@@ -49,7 +49,7 @@ function FirstToKnow() {
     <section className="bg-white pb-[35px] transition-colors sm:pb-[40px] lg:pb-[50px] dark:bg-[#141416]">
       <div className="mx-auto container px-3 md:px-0">
         <div
-          className="relative overflow-hidden rounded-2xl bg-[url('/assets/images/coinchain-img/Be-the-first-to.png')] bg-cover bg-center bg-no-repeat px-4 py-12 text-center sm:px-8 sm:py-14 lg:py-[80px]"
+          className="relative overflow-hidden rounded-2xl bg-[url(/assets/images/coinchain-img/Be-the-first-to.png)] bg-cover bg-center bg-no-repeat px-4 py-12 text-center sm:px-8 sm:py-14 lg:py-[80px]"
         >
           <h2 className="m-0 font-[Manrope] text-[24px] font-extrabold leading-tight text-[#111318] md:text-[28px] lg:text-[32px]">
             Be the first to know

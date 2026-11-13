@@ -1,6 +1,6 @@
 "use client";
 
-import { Provider as JotaiProvider, useSetAtom } from "jotai";
+import { Provider as JotaiProvider, useAtom, useSetAtom } from "jotai";
 import { SnackbarProvider } from "notistack";
 import { useEffect } from "react";
 import { authAtom, storeHydratedAtom, switchDarkModeAtom } from "@/_state";
@@ -11,8 +11,8 @@ import { authAtom, storeHydratedAtom, switchDarkModeAtom } from "@/_state";
  */
 function StoreHydrator() {
   const setAuth = useSetAtom(authAtom);
-  const setDarkMode = useSetAtom(switchDarkModeAtom);
-  const setHydrated = useSetAtom(storeHydratedAtom);
+  const [isDarkMode, setDarkMode] = useAtom(switchDarkModeAtom);
+  const [hydrated, setHydrated] = useAtom(storeHydratedAtom);
 
   useEffect(() => {
     try {
@@ -20,9 +20,17 @@ function StoreHydrator() {
     } catch {
       localStorage.removeItem("user");
     }
-    setDarkMode(localStorage.getItem("theme") === "dark");
+    const isDark = localStorage.getItem("theme") === "dark";
+    setDarkMode(isDark);
+    document.documentElement.classList.toggle("dark", isDark);
     setHydrated(true);
   }, [setAuth, setDarkMode, setHydrated]);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    document.documentElement.classList.toggle("dark", isDarkMode);
+    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+  }, [isDarkMode, hydrated]);
 
   return null;
 }

@@ -42,7 +42,7 @@ export const viewport = {
 };
 
 // Applies the saved theme before first paint so dark mode doesn't flash.
-const themeScript = `try{if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}`;
+const themeScript = `try{if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}}catch(e){}`;
 
 export default function RootLayout({ children }) {
   return (

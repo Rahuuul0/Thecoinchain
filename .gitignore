@@ -27,3 +27,6 @@ next-env.d.ts
 *.swp
 *.swo
 coverage/
+
+# Local Netlify folder
+.netlify

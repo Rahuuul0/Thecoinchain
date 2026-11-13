@@ -265,6 +265,21 @@ export default function BreakingNewsHero({ news, initialNews = [] }) {
         .trend-scroll { animation: trendScroll var(--trend-duration, 30s) linear infinite; will-change: transform; }
         .trend-viewport:hover .trend-scroll,
         .trend-viewport:focus-within .trend-scroll { animation-play-state: paused; }
+        .trend-viewport:hover,
+        .trend-viewport:focus-within {
+          overflow-y: auto;
+          overscroll-behavior: contain;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+
+        /* Chrome, Safari, Edge */
+        .trend-viewport::-webkit-scrollbar {
+          display: none;
+          width: 0;
+          height: 0;
+        }
+
         .hero-fade { animation: heroFade .4s ease; }
         @media (prefers-reduced-motion: reduce) {
           .trend-scroll { animation: none; }
@@ -354,7 +369,17 @@ export default function BreakingNewsHero({ news, initialNews = [] }) {
               </Link>
             </div>
 
-            <div className="trend-viewport relative min-h-0 flex-1 overflow-hidden">
+            <div
+              className="trend-viewport relative min-h-0 flex-1 overflow-hidden"
+              onMouseLeave={(event) => {
+                event.currentTarget.scrollTop = 0;
+              }}
+              onBlurCapture={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) {
+                  event.currentTarget.scrollTop = 0;
+                }
+              }}
+            >
               {loading && loopItems.length === 0 ? (
                 <div className="flex flex-col gap-3 py-2">
                   {[1, 2, 3, 4].map((i) => (

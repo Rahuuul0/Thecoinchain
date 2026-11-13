@@ -9,15 +9,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Apis, RoutesName } from "@/_common/app.constants";
 import { useFetchWrapper } from "@/_helpers";
-import { TrendingNewsAtom, switchDarkModeAtom } from "@/_state";
+import { TrendingNewsAtom } from "@/_state";
 import CryptoTickerMarquee from "@/components/CryptoTickerMarquee";
 import { blogPath, getBlogSlug, rememberBlogId, slugify } from "@/lib/content";
 
 dayjs.extend(relativeTime);
 
 const IMG = "/assets/images/coinchain-img";
-const BANNER_BACKGROUND_LIGHT = `${IMG}/Main.png`;
-const BANNER_BACKGROUND_DARK = `${IMG}/Black_Background.png`;
 const FEATURED_IMAGE = `${IMG}/near-price-analysis.png`;
 const PowerIcon = `${IMG}/power-icon.svg`;
 
@@ -155,8 +153,6 @@ const mapNewsItem = (item, index) => {
 export default function BreakingNewsHero({ news, initialNews = [] }) {
   const pathname = usePathname();
   const fetchWrapper = useFetchWrapper();
-  const isDarkMode = useAtomValue(switchDarkModeAtom);
-  const bannerBackground = isDarkMode ? BANNER_BACKGROUND_DARK : BANNER_BACKGROUND_LIGHT;
   const [trendingNewsAtom, setTrendingNewsAtom] = useAtom(TrendingNewsAtom);
 
   const initialList = useMemo(() => {
@@ -259,8 +255,7 @@ export default function BreakingNewsHero({ news, initialNews = [] }) {
   return (
     <section
       id="trending-news-section"
-      className="bg-cover bg-center bg-no-repeat pb-6 pt-[78px] transition-colors sm:pb-8 lg:pb-10 sm:pt-[78px] lg:pt-[78px]"
-      style={{ backgroundImage: `url("${bannerBackground}")` }}
+      className="bg-[url(/assets/images/coinchain-img/Main.png)] dark:bg-[url(/assets/images/coinchain-img/Black_Background.png)] bg-cover bg-center bg-no-repeat pb-6 pt-[78px] transition-colors sm:pb-8 lg:pb-10 sm:pt-[78px] lg:pt-[78px]"
     >
       <CryptoTickerMarquee />
 

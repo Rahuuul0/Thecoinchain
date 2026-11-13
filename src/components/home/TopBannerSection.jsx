@@ -9,13 +9,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Apis, RoutesName } from "@/_common/app.constants";
 import { useFetchWrapper } from "@/_helpers";
-import { TrendingNewsAtom } from "@/_state";
+import { TrendingNewsAtom, switchDarkModeAtom } from "@/_state";
 import CryptoTickerMarquee from "@/components/CryptoTickerMarquee";
 import { blogPath, getBlogSlug, rememberBlogId, slugify } from "@/lib/content";
 
 dayjs.extend(relativeTime);
 
 const IMG = "/assets/images/coinchain-img";
+const BANNER_BACKGROUND_LIGHT = `${IMG}/Main.png`;
+const BANNER_BACKGROUND_DARK = `${IMG}/Black_Background.png`;
 const FEATURED_IMAGE = `${IMG}/near-price-analysis.png`;
 const PowerIcon = `${IMG}/power-icon.svg`;
 
@@ -153,6 +155,8 @@ const mapNewsItem = (item, index) => {
 export default function BreakingNewsHero({ news, initialNews = [] }) {
   const pathname = usePathname();
   const fetchWrapper = useFetchWrapper();
+  const isDarkMode = useAtomValue(switchDarkModeAtom);
+  const bannerBackground = isDarkMode ? BANNER_BACKGROUND_DARK : BANNER_BACKGROUND_LIGHT;
   const [trendingNewsAtom, setTrendingNewsAtom] = useAtom(TrendingNewsAtom);
 
   const initialList = useMemo(() => {
@@ -255,7 +259,8 @@ export default function BreakingNewsHero({ news, initialNews = [] }) {
   return (
     <section
       id="trending-news-section"
-      className="bg-[url(/assets/images/coinchain-img/Main.png)] dark:bg-[url(/assets/images/coinchain-img/Black_Background.png)] bg-cover bg-center bg-no-repeat pb-6 pt-[78px] transition-colors sm:pb-8 lg:pb-10 sm:pt-[78px] lg:pt-[78px]"
+      className="bg-cover bg-center bg-no-repeat pb-6 pt-[78px] transition-colors sm:pb-8 lg:pb-10 sm:pt-[78px] lg:pt-[78px]"
+      style={{ backgroundImage: `url("${bannerBackground}")` }}
     >
       <CryptoTickerMarquee />
 
@@ -265,21 +270,6 @@ export default function BreakingNewsHero({ news, initialNews = [] }) {
         .trend-scroll { animation: trendScroll var(--trend-duration, 30s) linear infinite; will-change: transform; }
         .trend-viewport:hover .trend-scroll,
         .trend-viewport:focus-within .trend-scroll { animation-play-state: paused; }
-        .trend-viewport:hover,
-        .trend-viewport:focus-within {
-          overflow-y: auto;
-          overscroll-behavior: contain;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-
-        /* Chrome, Safari, Edge */
-        .trend-viewport::-webkit-scrollbar {
-          display: none;
-          width: 0;
-          height: 0;
-        }
-
         .hero-fade { animation: heroFade .4s ease; }
         @media (prefers-reduced-motion: reduce) {
           .trend-scroll { animation: none; }
@@ -369,17 +359,7 @@ export default function BreakingNewsHero({ news, initialNews = [] }) {
               </Link>
             </div>
 
-            <div
-              className="trend-viewport relative min-h-0 flex-1 overflow-hidden"
-              onMouseLeave={(event) => {
-                event.currentTarget.scrollTop = 0;
-              }}
-              onBlurCapture={(event) => {
-                if (!event.currentTarget.contains(event.relatedTarget)) {
-                  event.currentTarget.scrollTop = 0;
-                }
-              }}
-            >
+            <div className="trend-viewport relative min-h-0 flex-1 overflow-hidden">
               {loading && loopItems.length === 0 ? (
                 <div className="flex flex-col gap-3 py-2">
                   {[1, 2, 3, 4].map((i) => (

@@ -264,7 +264,7 @@ export default function MuiCryptoNewsSection({
         <CryptoTickerMarquee />
       </div>
 
-      <Container className="mt-10">
+      <div className="container mx-auto px-4 lg:px-0 mt-10">
         <div className="flex flex-col gap-8 md:flex-row md:gap-0">
           {/* Featured item (sticky on desktop) */}
           <div className="relative flex flex-1 flex-col self-start md:sticky md:top-0 md:pr-8">
@@ -351,7 +351,7 @@ export default function MuiCryptoNewsSection({
         {/* Everything else */}
         {remainingItems.length > 0 && (
           <div id="news-bottom-cards-section" className="mt-6 bg-white pb-4 dark:bg-n1">
-            <Container>
+            <div className="container mx-auto px-4 lg:px-0"> 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                 {remainingItems.map((item, index) => {
                   const author = getAuthorInfo(item, index + 5);
@@ -360,7 +360,7 @@ export default function MuiCryptoNewsSection({
                       key={item.id || index}
                       id={`news-card-${item.id}`}
                       onClick={() => openBlog(item)}
-                      className="relative h-[370px] cursor-pointer overflow-hidden rounded-2xl bg-[linear-gradient(180deg,#ffffff00_49%,#ffffff_0%)] shadow-[0_2px_1px_-1px_rgba(0,0,0,0.2),0_1px_1px_0_rgba(0,0,0,0.14),0_1px_3px_0_rgba(0,0,0,0.12)] transition-[transform,box-shadow] duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+                      className="relative h-[370px] cursor-pointer overflow-hidden rounded-2xl bg-[linear-gradient(180deg,#ffffff00_49%,#ffffff_0%)] shadow-[0_2px_1px_-1px_rgba(0,0,0,0.2),0_1px_1px_0_rgba(0,0,0,0.14),0_1px_3px_0_rgba(0,0,0,0.12)] transition-[transform,box-shadow] duration-300 hover:-translate-y-2 hover:shadow-[0_10px_14px_rgba(0,0,0,0.4)]"
                     >
                       <NewsMedia item={item} height={200} rounded="rounded-xl" />
                       {author.hasProfile && <ProfileBadge author={author} size={48} onProfileClick={openProfile} />}
@@ -376,10 +376,10 @@ export default function MuiCryptoNewsSection({
                   );
                 })}
               </div>
-            </Container>
+            </div>
           </div>
         )}
-      </Container>
+      </div>
 
       <ScrollToTopButton />
     </div>

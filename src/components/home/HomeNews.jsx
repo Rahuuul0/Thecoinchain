@@ -205,7 +205,7 @@ export function NewsCardGrid({ id, title, type, limit, viewAllHref, viewAllAfter
   const v = GRID_VARIANTS[variant];
 
   return (
-    <div id={id} maxWidth="xl" className="py-12 container mx-auto px-4 lg:px-0">
+    <div id={id} className="py-12 container mx-auto px-4 lg:px-0">
       <SectionHeading
         title={title}
         action={
@@ -314,7 +314,7 @@ export function BusinessNewsPanels({ initialCategoriesData = {} }) {
   const muted = "text-[#808080] dark:text-[#b0b0b0]";
 
   return (
-    <div id="business-news-section" maxWidth="xl" className="px-4 py-12 md:px-8 container mx-auto px-4 lg:px-0">
+    <div id="business-news-section" className="px-4 py-12 md:px-8 container mx-auto px-4 lg:px-0">
       {loading || !hasAny ? (
         <p className="text-primary!">{loading ? "Loading latest news..." : "No latest news is available right now."}</p>
       ) : (

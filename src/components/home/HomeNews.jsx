@@ -276,6 +276,7 @@ export function BusinessNewsPanels({ initialCategoriesData = {} }) {
     return {};
   });
 
+
   const [loading, setLoading] = useState(() => {
     if (initialCategoriesData && typeof initialCategoriesData === "object") {
       const hasAny = Object.values(initialCategoriesData).some(

@@ -86,7 +86,7 @@ export default async function CategoryPage({ params, searchParams }) {
   const { category } = await params;
   // Reading searchParams makes this route dynamic, so guard unknown slugs here too.
   if (!NEWS_CATEGORIES[category]) notFound();
-  const { type } = await searchParams;
+  const { type, q } = await searchParams;
   // Old links use /latest-news?type=<category>; direct category routes ignore ?type.
   const contentKey =
     category === "latest-news" && typeof type === "string" && type.trim()
@@ -96,5 +96,11 @@ export default async function CategoryPage({ params, searchParams }) {
   const config = contentConfigFor(contentKey);
   const initialItems = await getCategoryNews(config.type);
 
-  return <MuiCryptoNewsSection contentKey={contentKey} initialItems={initialItems} />;
+  return (
+    <MuiCryptoNewsSection
+      contentKey={contentKey}
+      initialItems={initialItems}
+      initialSearchQuery={typeof q === "string" ? q : ""}
+    />
+  );
 }

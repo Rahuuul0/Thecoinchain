@@ -176,57 +176,17 @@ function ThemeToggle({ className }) {
 }
 
 function SearchButton({ className }) {
-  const router = useRouter();
-  const [query, setQuery] = useState("");
-
-  const handleSubmit = (e, close) => {
-    e.preventDefault();
-    const q = query.trim();
-    if (!q) return;
-    router.push(`/search?q=${encodeURIComponent(q)}`); // apna search route yahan lagao
-    setQuery("");
-    close(); // search ke baad input band
-  };
-
   return (
-    <Popover className="relative">
-      <PopoverButton
-        aria-label="Search"
-        className={cn(
-          "inline-flex size-10 items-center justify-center rounded-full text-black transition-colors hover:bg-black/5 focus:outline-none data-open:bg-black/5 dark:text-white dark:hover:bg-white/10 dark:data-open:bg-white/10",
-          className
-        )}
-      >
-        <Search className="size-5" strokeWidth={2} />
-      </PopoverButton>
-
-      <PopoverPanel
-        anchor="bottom end"
-        transition
-        className="z-[1250] w-[250] max-w-80 rounded-xl bg-white p-2 shadow-[0px_0px_10px_0px_#0000001A] [--anchor-gap:10px] transition duration-150 data-closed:-translate-y-1 data-closed:opacity-0 dark:bg-[#1c1c1f]"
-      >
-        {({ close }) => (
-          <form onSubmit={(e) => handleSubmit(e, close)} className="flex items-center gap-2">
-            {/* <Search className="ml-2 size-4 shrink-0 text-[#353942] dark:text-white/70" /> */}
-            <input
-              autoFocus
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search..."
-              aria-label="Search"
-              className="h-9 w-full bg-transparent text-sm text-[#353942] outline-none placeholder:text-[#353942]/50 dark:text-white dark:placeholder:text-white/40"
-            />
-            <button
-              type="submit"
-              className="shrink-0 rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
-            >
-              Search
-            </button>
-          </form>
-        )}
-      </PopoverPanel>
-    </Popover>
+    <Link
+      href="/search"
+      aria-label="Search"
+      className={cn(
+        "inline-flex size-10 items-center justify-center rounded-full text-black transition-colors hover:bg-black/5 focus:outline-none dark:text-white dark:hover:bg-white/10",
+        className
+      )}
+    >
+      <Search className="size-5" strokeWidth={2} />
+    </Link>
   );
 }
 

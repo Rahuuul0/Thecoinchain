@@ -23,8 +23,6 @@ const env = Object.fromEntries(
 const nextConfig = {
   reactStrictMode: false,
   env,
-  // Self-contained server bundle in .next/standalone (see deploy workflow).
-  output: "standalone",
   // Blog URLs are indexed with a trailing slash (/blog/:slug/) while other
   // pages aren't; serve both forms as-is instead of redirecting.
   skipTrailingSlashRedirect: true,

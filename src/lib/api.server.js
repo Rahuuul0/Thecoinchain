@@ -11,13 +11,14 @@ const API_URL = (
 ).replace(/\/$/, "");
 const SLUG_INDEX_TTL = 5 * 60 * 1000;
 
-async function apiGet(path, { revalidate = 300 } = {}) {
+async function apiGet(path, { revalidate = 0 } = {}) {
   if (!API_URL) return null;
   try {
-    const res = await fetch(`${API_URL}/${path}`, {
-      next: { revalidate },
-      signal: AbortSignal.timeout(8000),
-    });
+    const fetchOptions =
+      revalidate === 0
+        ? { cache: "no-store", signal: AbortSignal.timeout(8000) }
+        : { next: { revalidate }, signal: AbortSignal.timeout(8000) };
+    const res = await fetch(`${API_URL}/${path}`, fetchOptions);
     if (!res.ok) return null;
     return await res.json();
   } catch (err) {
@@ -88,17 +89,17 @@ async function resolveBlogId(param) {
 }
 
 export const getCategoryNews = cache(async (type) => {
-  const res = await apiGet(`all-content-list/${type}`, { revalidate: 300 });
+  const res = await apiGet(`all-content-list/${type}`, { revalidate: 0 });
   return listFrom(res);
 });
 
 export const getTutorialList = cache(async () => {
-  const res = await apiGet("tutorial-list", { revalidate: 300 });
+  const res = await apiGet("tutorial-list", { revalidate: 60 });
   return listFrom(res);
 });
 
 export const getBreakingNewsCategoriesParallel = cache(async () => {
-  const categories = ["bitcoin", "ethereum", "altcoin", "global_news"];
+  const categories = ["bitcoin", "ethereum", "altcoin", "global_news", "latest_news"];
   const results = await Promise.allSettled(
     categories.map(async (cat) => {
       const items = await getCategoryNews(cat);
@@ -111,6 +112,7 @@ export const getBreakingNewsCategoriesParallel = cache(async () => {
     ethereum: [],
     altcoin: [],
     global_news: [],
+    latest_news: [],
   };
 
   results.forEach((res, index) => {
@@ -179,7 +181,7 @@ export const getBusinessCategoriesParallel = cache(async () => {
 });
 
 export const getTrendingNewsServer = cache(async () => {
-  const res = await apiGet("all-content-list/trending_news", { revalidate: 300 });
+  const res = await apiGet("all-content-list/trending_news", { revalidate: 0 });
   return listFrom(res);
 });
 

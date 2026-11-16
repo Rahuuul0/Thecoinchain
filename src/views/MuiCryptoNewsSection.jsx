@@ -27,7 +27,7 @@ const clearScrollRestore = () => {
   sessionStorage.removeItem("restore_scroll_on_news");
 };
 
-const ALLOWED_NEWS_TYPES = new Set(["bitcoin", "ethereum", "altcoin", "global_news"]);
+const ALLOWED_NEWS_TYPES = new Set(["bitcoin", "ethereum", "altcoin", "global_news", "latest_news"]);
 const ALLOWED_ANALYSIS_TYPES = new Set([
   "price_prediction",
   "stock_price_prediction",

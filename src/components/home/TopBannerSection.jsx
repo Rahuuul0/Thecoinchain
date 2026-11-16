@@ -21,19 +21,57 @@ const BANNER_BACKGROUND_DARK = `${IMG}/Black_Background.png`;
 const FEATURED_IMAGE = `${IMG}/near-price-analysis.png`;
 const PowerIcon = `${IMG}/power-icon.svg`;
 
+const TYPE_LABEL_MAP = {
+  bitcoin: "Bitcoin",
+  ethereum: "Ethereum",
+  altcoin: "Altcoin",
+  global_news: "Global",
+  "global-news": "Global",
+  latest_news: "Latest News",
+  "latest-news": "Latest News",
+  market: "Market",
+  finance: "Finance",
+  trending_news: "Trending",
+  "trending-news": "Trending",
+  price_prediction: "Price Analysis",
+  stock_price_prediction: "Stock Price Analysis",
+  bitcoin_analysis: "Bitcoin Analysis",
+  ethereum_analysis: "Ethereum Analysis",
+  memecoin_analysis: "Memecoin Analysis",
+  press_release: "Press Release",
+  crypto_regulation: "Regulation",
+};
+
 // Tag chip colors
 const TAG_STYLES = {
+  Bitcoin: { bg: "#FFF1DE", color: "#F7931A", border: "#FFDDAE" },
+  Ethereum: { bg: "#E6ECFF", color: "#4C6FFF", border: "#CCD8FF" },
+  Altcoin: { bg: "#F3E8FF", color: "#7E22CE", border: "#E9D5FF" },
+  "Global News": { bg: "#EBF3FE", color: "#2563EB", border: "#BFDBFE" },
+  Global: { bg: "#EBF3FE", color: "#2563EB", border: "#BFDBFE" },
+  "Market News": { bg: "#FEF3C7", color: "#D97706", border: "#FDE68A" },
+  Market: { bg: "#FEF3C7", color: "#D97706", border: "#FDE68A" },
+  "Trending News": { bg: "#FEE2E2", color: "#DC2626", border: "#FECACA" },
+  Trending: { bg: "#FEE2E2", color: "#DC2626", border: "#FECACA" },
+  "Price Analysis": { bg: "#F3E8FF", color: "#7C3AED", border: "#DDD6FE" },
+  "Latest News": { bg: "#FFF1DE", color: "#B45309", border: "#FDE68A" },
+  Finance: { bg: "#DFFFF2", color: "#16A66A", border: "#BFF4DE" },
   Tether: { bg: "#DFFFF2", color: "#16A66A", border: "#BFF4DE" },
   Solana: { bg: "#FFE3E6", color: "#E5484D", border: "#FFC9CE" },
   XRP: { bg: "#EEEEEE", color: "#353942", border: "#DDDDDD" },
-  Bitcoin: { bg: "#FFF1DE", color: "#F7931A", border: "#FFDDAE" },
-  Ethereum: { bg: "#E6ECFF", color: "#4C6FFF", border: "#CCD8FF" },
-  "Global News": { bg: "#EBF3FE", color: "#2563EB", border: "#BFDBFE" },
-  "Market News": { bg: "#FEF3C7", color: "#D97706", border: "#FDE68A" },
-  "Trending News": { bg: "#FEE2E2", color: "#DC2626", border: "#FECACA" },
-  "Price Analysis": { bg: "#F3E8FF", color: "#7C3AED", border: "#DDD6FE" },
 };
 const DEFAULT_TAG = { bg: "#F3F4F6", color: "#353942", border: "#E5E7EB" };
+
+function parseArticleTime(item) {
+  const d = item?.created_at || item?.published_at || item?.date;
+  if (!d) return 0;
+  const s = String(d).trim();
+  const normalized = s.replace(/Z$/i, "").replace(" ", "T");
+  const t = new Date(normalized).getTime();
+  if (!isNaN(t)) return t;
+  const raw = new Date(s).getTime();
+  return isNaN(raw) ? 0 : raw;
+}
 
 function Tag({ label, className = "" }) {
   const s = TAG_STYLES[label] || DEFAULT_TAG;
@@ -98,16 +136,13 @@ const formatTimeAgo = (item) => {
 };
 
 const getTag = (item) => {
+  const rawType = (item?.type || item?.category || "").toLowerCase().trim();
+  if (rawType && TYPE_LABEL_MAP[rawType]) {
+    return TYPE_LABEL_MAP[rawType];
+  }
   if (item?.tag) return item.tag;
   if (item?.category) return item.category;
   if (item?.coin) return item.coin;
-
-  const title = item?.title || "";
-  if (/bitcoin|btc/i.test(title)) return "Bitcoin";
-  if (/ethereum|eth/i.test(title)) return "Ethereum";
-  if (/solana|sol/i.test(title)) return "Solana";
-  if (/tether|usdt/i.test(title)) return "Tether";
-  if (/xrp|ripple/i.test(title)) return "XRP";
 
   if (item?.type) {
     return String(item.type)
@@ -179,13 +214,11 @@ export default function BreakingNewsHero({ news, initialNews = [] }) {
       if (!trendingNewsAtom || trendingNewsAtom.length === 0) {
         setTrendingNewsAtom(initialNews);
       }
-      return;
     }
 
     if (Array.isArray(news) && news.length > 0) {
       setApiNews(news);
       setLoading(false);
-      return;
     }
 
     let cancelled = false;
@@ -242,7 +275,8 @@ export default function BreakingNewsHero({ news, initialNews = [] }) {
             ? trendingNewsAtom
             : [];
 
-  const formattedStories = rawStories.map(mapNewsItem).filter(Boolean);
+  const sortedStories = [...rawStories].sort((a, b) => parseArticleTime(b) - parseArticleTime(a));
+  const formattedStories = sortedStories.map(mapNewsItem).filter(Boolean);
   const active = formattedStories[0];
 
   // Right side: take up to 8 stories for smooth marquee loop

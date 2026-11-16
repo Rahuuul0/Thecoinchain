@@ -13,10 +13,11 @@ import { blogPath, getBlogSlug, getMediaUrl, listFrom, rememberBlogId, stripHtml
 
 const IMG = "/assets/images/coinchain-img";
 
-const FILTERS = ["All", "Bitcoin", "Altcoin", "Ethereum", "Global"];
+const FILTERS = ["All", "Latest News", "Bitcoin", "Altcoin", "Ethereum", "Global"];
 
 const TAB_TO_KEY = {
   All: "all",
+  "Latest News": "latest_news",
   Bitcoin: "bitcoin",
   Altcoin: "altcoin",
   Ethereum: "ethereum",
@@ -25,26 +26,65 @@ const TAB_TO_KEY = {
 
 const VIEW_ALL_ROUTES = {
   All: RoutesName.News || "/news",
+  "Latest News": RoutesName.Latest_News || "/latest-news",
   Bitcoin: RoutesName.Bitcoin || "/bitcoin",
   Altcoin: RoutesName.Altcoin || "/altcoin",
   Ethereum: RoutesName.Ethereum || "/ethereum",
   Global: RoutesName.Global_News || "/global_news",
 };
 
+const ALLOWED_TYPES = new Set(["bitcoin", "ethereum", "altcoin", "global_news", "latest_news"]);
 
-const ALLOWED_TYPES = new Set(["bitcoin", "ethereum", "altcoin", "global_news"]);
+const TYPE_LABEL_MAP = {
+  bitcoin: "Bitcoin",
+  ethereum: "Ethereum",
+  altcoin: "Altcoin",
+  global_news: "Global",
+  "global-news": "Global",
+  latest_news: "Latest News",
+  "latest-news": "Latest News",
+  market: "Market",
+  finance: "Finance",
+  trending_news: "Trending",
+  "trending-news": "Trending",
+  price_prediction: "Price Analysis",
+  stock_price_prediction: "Stock Price Analysis",
+  bitcoin_analysis: "Bitcoin Analysis",
+  ethereum_analysis: "Ethereum Analysis",
+  memecoin_analysis: "Memecoin Analysis",
+  press_release: "Press Release",
+  crypto_regulation: "Regulation",
+};
 
-// Tag chip colors (same as hero)
+// Tag chip colors
 const TAG_STYLES = {
-  Tether: { bg: "#DFFFF2", color: "#16A66A", border: "#BFF4DE" },
-  Solana: { bg: "#FFDDDE", color: "#E5484D", border: "#FFC4C6" },
-  XRP: { bg: "#E9E9E9", color: "#353942", border: "#DADADA" },
   Bitcoin: { bg: "#FFF6D9", color: "#F7931A", border: "#FFE8A2" },
   Ethereum: { bg: "#D9E1FF", color: "#3A57C9", border: "#9FB3FF" },
   Altcoin: { bg: "#F3E8FF", color: "#7E22CE", border: "#E9D5FF" },
   Global: { bg: "#EBF3FE", color: "#2563EB", border: "#BFDBFE" },
+  "Global News": { bg: "#EBF3FE", color: "#2563EB", border: "#BFDBFE" },
+  "Latest News": { bg: "#FFF1DE", color: "#B45309", border: "#FDE68A" },
+  Market: { bg: "#FFF6D9", color: "#F7931A", border: "#FFE8A2" },
+  Finance: { bg: "#DFFFF2", color: "#16A66A", border: "#BFF4DE" },
+  Trending: { bg: "#FEE2E2", color: "#DC2626", border: "#FECACA" },
+  "Trending News": { bg: "#FEE2E2", color: "#DC2626", border: "#FECACA" },
+  News: { bg: "#F3F4F6", color: "#353942", border: "#E5E7EB" },
+  Tether: { bg: "#DFFFF2", color: "#16A66A", border: "#BFF4DE" },
+  Solana: { bg: "#FFDDDE", color: "#E5484D", border: "#FFC4C6" },
+  XRP: { bg: "#E9E9E9", color: "#353942", border: "#DADADA" },
 };
 const DEFAULT_TAG = { bg: "#F3F4F6", color: "#353942", border: "#E5E7EB" };
+
+function parseArticleTime(item) {
+  const d = item?.created_at || item?.published_at || item?.date;
+  if (!d) return 0;
+  const s = String(d).trim();
+  const normalized = s.replace(/Z$/i, "").replace(" ", "T");
+  const t = new Date(normalized).getTime();
+  if (!isNaN(t)) return t;
+  const raw = new Date(s).getTime();
+  return isNaN(raw) ? 0 : raw;
+}
 
 function getTag(item, defaultCategory) {
   // If a specific tab is selected (not "All"), strictly show that tab's type!
@@ -52,15 +92,15 @@ function getTag(item, defaultCategory) {
     return defaultCategory;
   }
 
+  // 1. Strictly determine by the blog's actual type/category first!
+  const rawType = (item?.type || item?._normalizedType || item?._defaultCat || "").toLowerCase().trim();
+  if (rawType && TYPE_LABEL_MAP[rawType]) {
+    return TYPE_LABEL_MAP[rawType];
+  }
+
+  if (item?.category && typeof item.category === "string") return item.category;
   if (item?.tag && typeof item.tag === "string") return item.tag;
   if (item?.coin && typeof item.coin === "string") return item.coin;
-
-  const title = item?.title || "";
-  if (/tether|usdt/i.test(title)) return "Tether";
-  if (/\bsolana\b|\bsol\b/i.test(title)) return "Solana";
-  if (/\bxrp\b|\bripple\b/i.test(title)) return "XRP";
-  if (/\bbitcoin\b|\bbtc\b/i.test(title)) return "Bitcoin";
-  if (/\bethereum\b|\beth\b/i.test(title)) return "Ethereum";
 
   if (item?.type) {
     const t = String(item.type).toLowerCase();
@@ -187,6 +227,7 @@ function combineAndSortNews(categoriesMap) {
     { key: "ethereum", label: "Ethereum" },
     { key: "altcoin", label: "Altcoin" },
     { key: "global_news", label: "Global" },
+    { key: "latest_news", label: "Latest News" },
   ];
 
   cats.forEach(({ key, label }) => {
@@ -196,11 +237,7 @@ function combineAndSortNews(categoriesMap) {
     }
   });
 
-  allArticles.sort((a, b) => {
-    const timeA = a.created_at ? new Date(String(a.created_at).replace(/Z$/i, "")).getTime() : 0;
-    const timeB = b.created_at ? new Date(String(b.created_at).replace(/Z$/i, "")).getTime() : 0;
-    return timeB - timeA;
-  });
+  allArticles.sort((a, b) => parseArticleTime(b) - parseArticleTime(a));
 
   return allArticles;
 }
@@ -212,7 +249,7 @@ export default function BreakingNewsStepsSection({
 }) {
   const [filter, setFilter] = useState("All");
   const [categoriesData, setCategoriesData] = useState(
-    initialCategoriesData || { bitcoin: [], ethereum: [], altcoin: [], global_news: [] }
+    initialCategoriesData || { bitcoin: [], ethereum: [], altcoin: [], global_news: [], latest_news: [] }
   );
   const [isNavigating, setIsNavigating] = useState(false);
   const pathname = usePathname();
@@ -223,17 +260,14 @@ export default function BreakingNewsStepsSection({
     setIsNavigating(false);
   }, [pathname, filter]);
 
-  // If initial server data is not provided or empty, fetch all 4 category APIs in parallel once
   useEffect(() => {
-    const hasInitialData =
-      categoriesData &&
-      (categoriesData.bitcoin?.length > 0 ||
-        categoriesData.ethereum?.length > 0 ||
-        categoriesData.altcoin?.length > 0 ||
-        categoriesData.global_news?.length > 0);
+    if (initialCategoriesData) {
+      setCategoriesData(initialCategoriesData);
+    }
+  }, [initialCategoriesData]);
 
-    if (hasInitialData) return;
-
+  // Background fetch to ensure fresh articles published right now are retrieved
+  useEffect(() => {
     let cancelled = false;
 
     const endpoints = [
@@ -241,21 +275,25 @@ export default function BreakingNewsStepsSection({
       { key: "ethereum", path: Apis.All_Content("ethereum") },
       { key: "altcoin", path: Apis.All_Content("altcoin") },
       { key: "global_news", path: Apis.All_Content("global_news") },
+      { key: "latest_news", path: Apis.All_Content("latest_news") },
     ];
 
     Promise.allSettled(endpoints.map((ep) => fetchWrapper.get(ep.path)))
       .then((results) => {
         if (cancelled) return;
-        const nextData = { bitcoin: [], ethereum: [], altcoin: [], global_news: [] };
+        const nextData = { bitcoin: [], ethereum: [], altcoin: [], global_news: [], latest_news: [] };
+        let hasAny = false;
         results.forEach((res, index) => {
           const key = endpoints[index].key;
           if (res.status === "fulfilled") {
-            nextData[key] = listFrom(res.value);
-          } else {
-            console.warn(`Failed to fetch ${key} news:`, res.reason);
+            const list = listFrom(res.value);
+            if (list.length > 0) hasAny = true;
+            nextData[key] = list;
           }
         });
-        setCategoriesData(nextData);
+        if (hasAny) {
+          setCategoriesData(nextData);
+        }
       })
       .catch((err) => {
         console.warn("Parallel news fetch error:", err);
@@ -282,7 +320,8 @@ export default function BreakingNewsStepsSection({
       (categoriesData.bitcoin?.length > 0 ||
         categoriesData.ethereum?.length > 0 ||
         categoriesData.altcoin?.length > 0 ||
-        categoriesData.global_news?.length > 0);
+        categoriesData.global_news?.length > 0 ||
+        categoriesData.latest_news?.length > 0);
 
     // If explicit news prop was passed and no API data, use news prop
     if (!hasCategoryData && Array.isArray(news) && news.length > 0) {
@@ -297,11 +336,7 @@ export default function BreakingNewsStepsSection({
           return ALLOWED_TYPES.has(t);
         });
         if (atomList.length > 0) {
-          const sorted = [...atomList].sort((a, b) => {
-            const timeA = a.created_at ? new Date(String(a.created_at).replace(/Z$/i, "")).getTime() : 0;
-            const timeB = b.created_at ? new Date(String(b.created_at).replace(/Z$/i, "")).getTime() : 0;
-            return timeB - timeA;
-          });
+          const sorted = [...atomList].sort((a, b) => parseArticleTime(b) - parseArticleTime(a));
           return sorted.map((art, idx) => formatArticleForCard(art, filter, idx));
         }
       }
@@ -316,11 +351,7 @@ export default function BreakingNewsStepsSection({
 
     const key = TAB_TO_KEY[filter];
     const list = categoriesData[key] || [];
-    const sorted = [...list].sort((a, b) => {
-      const timeA = a.created_at ? new Date(String(a.created_at).replace(/Z$/i, "")).getTime() : 0;
-      const timeB = b.created_at ? new Date(String(b.created_at).replace(/Z$/i, "")).getTime() : 0;
-      return timeB - timeA;
-    });
+    const sorted = [...list].sort((a, b) => parseArticleTime(b) - parseArticleTime(a));
 
     return sorted.map((art, idx) => formatArticleForCard(art, filter, idx));
   }, [categoriesData, filter, news, trendingNewsAtom]);

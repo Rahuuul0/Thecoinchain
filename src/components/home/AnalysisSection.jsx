@@ -59,6 +59,17 @@ const TYPE_TO_LABEL = {
   memecoin_analysis: "Memecoin Analysis",
 };
 
+function parseArticleTime(item) {
+  const d = item?.created_at || item?.published_at || item?.date;
+  if (!d) return 0;
+  const s = String(d).trim();
+  const normalized = s.replace(/Z$/i, "").replace(" ", "T");
+  const t = new Date(normalized).getTime();
+  if (!isNaN(t)) return t;
+  const raw = new Date(s).getTime();
+  return isNaN(raw) ? 0 : raw;
+}
+
 function getTag(item, defaultCategory) {
   // 1. If inside a specific category tab (not "All"), strictly show that tab's type!
   if (defaultCategory && defaultCategory !== "All") {
@@ -171,11 +182,7 @@ function combineAndSortAnalysis(categoriesMap, trendingList) {
     });
   }
 
-  allArticles.sort((a, b) => {
-    const timeA = a.created_at ? new Date(String(a.created_at).replace(/Z$/i, "")).getTime() : 0;
-    const timeB = b.created_at ? new Date(String(b.created_at).replace(/Z$/i, "")).getTime() : 0;
-    return timeB - timeA;
-  });
+  allArticles.sort((a, b) => parseArticleTime(b) - parseArticleTime(a));
 
   return allArticles;
 }
@@ -248,18 +255,14 @@ export default function AnalysisSection({
     setIsNavigating(false);
   }, [pathname, filter]);
 
-  // Fetch all 5 endpoints in parallel on client if not provided via SSR
   useEffect(() => {
-    const hasInitialData =
-      categoriesData &&
-      (categoriesData.price_prediction?.length > 0 ||
-        categoriesData.stock_price_prediction?.length > 0 ||
-        categoriesData.bitcoin_analysis?.length > 0 ||
-        categoriesData.ethereum_analysis?.length > 0 ||
-        categoriesData.memecoin_analysis?.length > 0);
+    if (initialCategoriesData) {
+      setCategoriesData(initialCategoriesData);
+    }
+  }, [initialCategoriesData]);
 
-    if (hasInitialData) return;
-
+  // Fetch all 5 endpoints in parallel on client
+  useEffect(() => {
     let cancelled = false;
 
     const endpoints = [
@@ -280,15 +283,20 @@ export default function AnalysisSection({
           ethereum_analysis: [],
           memecoin_analysis: [],
         };
+        let hasAny = false;
         results.forEach((res, index) => {
           const key = endpoints[index].key;
           if (res.status === "fulfilled") {
-            nextData[key] = listFrom(res.value);
+            const list = listFrom(res.value);
+            if (list.length > 0) hasAny = true;
+            nextData[key] = list;
           } else {
             console.warn(`Failed to fetch ${key}:`, res.reason);
           }
         });
-        setCategoriesData(nextData);
+        if (hasAny) {
+          setCategoriesData(nextData);
+        }
       })
       .catch((err) => {
         console.warn("Parallel analysis fetch error:", err);
@@ -337,11 +345,7 @@ export default function AnalysisSection({
       list = trendingNewsAtom.filter((item) => (item?.type || "").toLowerCase().trim() === key);
     }
 
-    const sorted = [...list].sort((a, b) => {
-      const timeA = a.created_at ? new Date(String(a.created_at).replace(/Z$/i, "")).getTime() : 0;
-      const timeB = b.created_at ? new Date(String(b.created_at).replace(/Z$/i, "")).getTime() : 0;
-      return timeB - timeA;
-    });
+    const sorted = [...list].sort((a, b) => parseArticleTime(b) - parseArticleTime(a));
 
     return sorted.map((art, idx) => formatArticleForCard(art, filter, idx));
   }, [categoriesData, filter, items, trendingNewsAtom]);

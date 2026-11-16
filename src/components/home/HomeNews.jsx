@@ -288,15 +288,13 @@ export function BusinessNewsPanels({ initialCategoriesData = {} }) {
   });
 
   useEffect(() => {
-    const hasInitial = Object.values(initialCategoriesData || {}).some(
-      (list) => Array.isArray(list) && list.length > 0
-    );
-    if (hasInitial) {
+    if (initialCategoriesData && Object.keys(initialCategoriesData).length > 0) {
       setByType(initialCategoriesData);
       setLoading(false);
-      return;
     }
+  }, [initialCategoriesData]);
 
+  useEffect(() => {
     Promise.all(
       BUSINESS_CATEGORIES.map(({ type }) =>
         fetchWrapper
@@ -305,10 +303,16 @@ export function BusinessNewsPanels({ initialCategoriesData = {} }) {
           .catch(() => [type, []])
       )
     )
-      .then((entries) => setByType(Object.fromEntries(entries)))
+      .then((entries) => {
+        const next = Object.fromEntries(entries);
+        const has = Object.values(next).some((list) => Array.isArray(list) && list.length > 0);
+        if (has) {
+          setByType(next);
+        }
+      })
       .finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialCategoriesData]);
+  }, []);
 
   const hasAny = Object.values(byType).some((list) => list.length > 0);
   const muted = "text-[#808080] dark:text-[#b0b0b0]";
@@ -320,7 +324,12 @@ export function BusinessNewsPanels({ initialCategoriesData = {} }) {
       ) : (
         <div className="grid grid-cols-1 border border-[#f4f5f6] md:grid-cols-2 dark:border-[#333] rounded-lg overflow-hidden">
           {BUSINESS_CATEGORIES.map((category, index) => {
-            const [featured, ...rest] = byType[category.type] || [];
+            const sortedList = [...(byType[category.type] || [])].sort((a, b) => {
+              const timeA = a?.created_at || a?.published_at || a?.date ? new Date(a.created_at || a.published_at || a.date).getTime() : 0;
+              const timeB = b?.created_at || b?.published_at || b?.date ? new Date(b.created_at || b.published_at || b.date).getTime() : 0;
+              return timeB - timeA;
+            });
+            const [featured, ...rest] = sortedList;
             const secondary = rest.slice(0, 3);
             return (
               <div

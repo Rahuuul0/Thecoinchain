@@ -22,6 +22,17 @@ const TAG_STYLES = {
 };
 const DEFAULT_TAG = { bg: "#F3F4F6", color: "#353942", border: "#E5E7EB" };
 
+function parseArticleTime(item) {
+  const d = item?.created_at || item?.published_at || item?.date;
+  if (!d) return 0;
+  const s = String(d).trim();
+  const normalized = s.replace(/Z$/i, "").replace(" ", "T");
+  const t = new Date(normalized).getTime();
+  if (!isNaN(t)) return t;
+  const raw = new Date(s).getTime();
+  return isNaN(raw) ? 0 : raw;
+}
+
 function Tag({ label }) {
   const s = TAG_STYLES[label] || DEFAULT_TAG;
   return (
@@ -166,15 +177,21 @@ export default function MarketNewsSection({
   }, [pathname]);
 
   useEffect(() => {
-    if (Array.isArray(initialItems) && initialItems.length > 0) return;
+    if (Array.isArray(initialItems) && initialItems.length > 0) {
+      setMarketItems(initialItems);
+    }
+  }, [initialItems]);
 
+  useEffect(() => {
     let cancelled = false;
     fetchWrapper
       .get(Apis.All_Content("market"))
       .then((res) => {
         if (cancelled) return;
         const list = listFrom(res);
-        setMarketItems(list);
+        if (Array.isArray(list) && list.length > 0) {
+          setMarketItems(list);
+        }
       })
       .catch((err) => {
         console.warn("Failed to fetch market news:", err);
@@ -183,7 +200,7 @@ export default function MarketNewsSection({
     return () => {
       cancelled = true;
     };
-  }, [fetchWrapper, initialItems]);
+  }, [fetchWrapper]);
 
   const handleCardClick = (item) => {
     if (!item) return;
@@ -198,11 +215,7 @@ export default function MarketNewsSection({
   const sortedArticles = useMemo(() => {
     if (!Array.isArray(marketItems) || marketItems.length === 0) return [];
 
-    const sorted = [...marketItems].sort((a, b) => {
-      const timeA = a.created_at ? new Date(String(a.created_at).replace(/Z$/i, "")).getTime() : 0;
-      const timeB = b.created_at ? new Date(String(b.created_at).replace(/Z$/i, "")).getTime() : 0;
-      return timeB - timeA;
-    });
+    const sorted = [...marketItems].sort((a, b) => parseArticleTime(b) - parseArticleTime(a));
 
     return sorted.map((art, idx) => formatArticleForCard(art, idx));
   }, [marketItems]);

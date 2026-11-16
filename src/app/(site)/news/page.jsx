@@ -1,7 +1,10 @@
 import { getTrendingNewsServer } from "@/lib/api.server";
 import MuiCryptoNewsSection from "@/views/MuiCryptoNewsSection";
 
-const ALLOWED_TYPES = new Set(["bitcoin", "ethereum", "altcoin", "global_news"]);
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+const ALLOWED_TYPES = new Set(["bitcoin", "ethereum", "altcoin", "global_news", "latest_news"]);
 
 function filterAndSortAllNews(rawList) {
   if (!Array.isArray(rawList)) return [];
@@ -11,8 +14,8 @@ function filterAndSortAllNews(rawList) {
     return ALLOWED_TYPES.has(normalized);
   });
   return filtered.sort((a, b) => {
-    const timeA = a?.created_at ? new Date(String(a.created_at).replace(/Z$/i, "")).getTime() : 0;
-    const timeB = b?.created_at ? new Date(String(b.created_at).replace(/Z$/i, "")).getTime() : 0;
+    const timeA = a?.created_at || a?.published_at || a?.date ? new Date(a.created_at || a.published_at || a.date).getTime() : 0;
+    const timeB = b?.created_at || b?.published_at || b?.date ? new Date(b.created_at || b.published_at || b.date).getTime() : 0;
     return timeB - timeA;
   });
 }
